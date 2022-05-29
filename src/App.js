@@ -8,6 +8,7 @@ import {BrowserRouter, Route, Routes} from "react-router-dom";
 import News from "./components/News/News";
 import Music from "./components/Music/News";
 import Settings from "./components/Settings/News";
+import Draft from "./components/Draft/Draft";
 
 function App() {
     return (
@@ -22,6 +23,9 @@ function App() {
                         <Route path='/news/*' element={<News/>}/>
                         <Route path='/music/*' element={<Music/>}/>
                         <Route path='/settings/*' element={<Settings/>}/>
+{/*
+                        <Route path='/draft/*' element={<Draft/>}/>
+*/}
                     </Routes>
                 </div>
             </div>
