@@ -23,14 +23,14 @@ const Dialogs = (props) => {
         {id: 5, message: "Yo"}
     ];*/
     let dialogElements =
-        props.dialogsData.map((d) => {
+        props.state.dialogsData.map((d) => {
                 return (
                     <DialogItem name={d.name} id={d.id}/>
                 )
             }
         );
     let messagesElements=
-        props.messagesData.map((m) => {
+        props.state.messagesData.map((m) => {
             return <Message message={m.message} />
 
     });
