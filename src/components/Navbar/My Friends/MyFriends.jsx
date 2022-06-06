@@ -12,8 +12,9 @@ const MyFriends = (props) => {
             }
         );
     return (
-        <div className={classes.dialogs}>
-            <div className={classes.dialogItems}>
+        <div className={classes.myfriends}>
+            <div className={classes.myfrienditems}>
+                <b>My Friends:</b>
                 {MyFriendElements}
             </div>
         </div>

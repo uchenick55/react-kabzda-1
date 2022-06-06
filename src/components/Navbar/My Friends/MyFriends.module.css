@@ -1,29 +1,15 @@
-.dialogs {
+.myfriends {
     display: grid;
     grid-template-columns: 2fr 10fr;
-    padding: 10px;
 }
 
-.dialogItems {
-
-}
-.dialog {
-
-}
-.dialog.active {
-    color: white;
-}
-
-.dialog img {
+.myfriends img {
     border-radius: 30px;
     width: 50px;
 }
 
-.messages {
-
+.myfrienditems {
+    margin-top: 10px;
 }
 
-.message{
-
-}
 
