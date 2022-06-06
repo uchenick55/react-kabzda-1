@@ -6,20 +6,7 @@ const MyPosts = (props) => {
 
     let postElements =
         props.postsData.map((p) => <Post message={p.message} like={p.like} id={p.id}/>);
-/*
-    let postElements =
-        posts.map((p) => {
-            return (
-                <div>
-                    <Post message={p.message} like={p.like} id={p.id}/>
-                </div>
-            )
-        });
-    let postElement1 = [
-        <Post message={posts[0].message} like={posts[0].like} id={posts[0].id}/>,
-        <Post message={posts[1].message} like={posts[1].like} id={posts[1].id}/>
-    ];
-*/
+
 
     return (
         <div className={classes.postsBlock}>
