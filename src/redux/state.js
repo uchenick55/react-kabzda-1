@@ -1,3 +1,5 @@
+import {rerenderEntireTree} from "../rerender";
+
 let state = {
     profilePage: {
         postsData: [
@@ -39,6 +41,17 @@ export let addPost = (newPostProps) => {
             like: 2
     }
     state.profilePage.postsData.push(addPostLocal);
-    debugger;
+    rerenderEntireTree(state);
+
 };
+
+export let addMessage = (newMessageProps) => {
+    let addMessageLocal = {
+        id: 5,
+        message: newMessageProps
+    };
+    state.dialogsPage.messagesData.push(addMessageLocal);
+    rerenderEntireTree(state);
+};
+
 export default state

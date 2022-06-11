@@ -22,7 +22,7 @@ const Dialogs = (props) => {
 
     let addItemLocal = () => {
         let text1 = addNewItem.current.value;
-        alert (text1);
+        props.addMessage(text1);
     };
 
 
