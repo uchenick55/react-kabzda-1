@@ -32,4 +32,13 @@ let state = {
     }
 
 }
+export let addPost = (newPostProps) => {
+    let addPostLocal= {
+            id: 5,
+            message: newPostProps,
+            like: 2
+    }
+    state.profilePage.postsData.push(addPostLocal);
+    debugger;
+};
 export default state
