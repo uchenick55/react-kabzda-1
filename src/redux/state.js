@@ -1,4 +1,6 @@
-import {rerenderEntireTree} from "../rerender";
+let rerenderEntireTree = () => {
+    console.log("log updated");
+}
 
 let state = {
     profilePage: {
@@ -34,7 +36,7 @@ let state = {
     }
 
 }
-export let addPost = (newPostProps) => {
+export const addPost = (newPostProps) => {
     let addPostLocal= {
             id: 5,
             message: newPostProps,
@@ -45,13 +47,17 @@ export let addPost = (newPostProps) => {
 
 };
 
-export let addMessage = (newMessageProps) => {
+export const addMessage = (newMessageProps) => {
     let addMessageLocal = {
         id: 5,
         message: newMessageProps
     };
     state.dialogsPage.messagesData.push(addMessageLocal);
     rerenderEntireTree(state);
+};
+
+export const subscribe = (observer) => {
+    rerenderEntireTree = observer;
 };
 
 export default state
