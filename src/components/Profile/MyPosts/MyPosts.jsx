@@ -11,7 +11,7 @@ const MyPosts = (props) => {
 
     let addPostLocal= () => {
         let text1=addNewPost.current.value;
-        props.addPost(text1);
+        props.dispatch({type : "ADD-POST", newPostProps : text1});
         debugger
     };
 

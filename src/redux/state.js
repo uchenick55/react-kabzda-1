@@ -1,5 +1,5 @@
 export let store = {
-    callSubscriber(state) {
+    _callSubscriber(state) {
         debugger
         console.log("log updated");
     },
@@ -65,37 +65,47 @@ export let store = {
         }
 
     },
+
     getState() {
         return this._state2;
     },
-    addPost(newPostProps) {
-
-        let addPostLocal = {
-            id: 5,
-            message: newPostProps,
-            like: 2
-        }
-        debugger
-        this._state2.profilePage.postsData.push(addPostLocal);
-
-        debugger
-
-        this.callSubscriber(this._state2);
-        debugger
+    subscribe(observer) {
+        /*debugger*/
+        this._callSubscriber = observer;
+        /*debugger*/
     },
+
     addMessage(newMessageProps) {
         let addMessageLocal = {
             id: 5,
             message: newMessageProps
         };
         this._state2.dialogsPage.messagesData.push(addMessageLocal);
-        this.callSubscriber(this._state2);
+        this._callSubscriber(this._state2);
     },
-    subscribe(observer) {
-        /*debugger*/
-        this.callSubscriber = observer;
-        /*debugger*/
-    },
+
+    dispatch(action) {
+        debugger
+        if (action.type === "ADD-POST") { // {type : "ADD-POST", newPostProps : text1}
+            let addPostLocal = {
+                id: 5,
+                message: action.newPostProps,
+                like: 2
+            }
+            this._state2.profilePage.postsData.push(addPostLocal);
+            this._callSubscriber(this._state2);
+
+        } else if (action.type === "ADD-MESSAGE") { // {type: "ADD-MESSAGE", newMessageProps: text1}
+            debugger
+            let addMessageLocal = {
+                id: 5,
+                message: action.newMessageProps,
+            };
+            this._state2.dialogsPage.messagesData.push(addMessageLocal);
+            this._callSubscriber(this._state2);
+        }
+    }
+
 
 }
 

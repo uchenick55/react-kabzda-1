@@ -9,20 +9,22 @@ const Dialogs = (props) => {
     let dialogElements =
         props.state.dialogsData.map((d) => {
                 return (
-                    <DialogItem name={d.name} id={d.id} avaSrc={d.avaSrc} />
+                    <DialogItem name={d.name} id={d.id} avaSrc={d.avaSrc}/>
                 )
             }
         );
-    let messagesElements=
+    let messagesElements =
         props.state.messagesData.map((m) => {
-            return <Message message={m.message} />
+            return <Message message={m.message}/>
 
-    });
+        });
     let addNewItem = React.createRef();
 
     let addItemLocal = () => {
+
         let text1 = addNewItem.current.value;
-        props.addMessage(text1);
+        props.dispatch({type: "ADD-MESSAGE", newMessageProps: text1});
+
     };
 
 
@@ -35,7 +37,9 @@ const Dialogs = (props) => {
             <div className={classes.messages}>
                 <div>
                     <textarea ref={addNewItem}></textarea>
-                    <div><button onClick={addItemLocal}>Press here</button></div>
+                    <div>
+                        <button onClick={addItemLocal}>Press here</button>
+                    </div>
                     {messagesElements}
                 </div>
             </div>
