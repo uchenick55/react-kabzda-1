@@ -8,7 +8,8 @@ export let store = {
             postsData: [
                 {id: 1, message: "state 2 Hi, how are you?", like: "12"},
                 {id: 2, message: "state 2 it's, my first post", like: "15"},
-            ]
+            ],
+            newPostText : "type your text here"
         },
         dialogsPage: {
             messagesData: [
@@ -86,10 +87,10 @@ export let store = {
 
     dispatch(action) {
         debugger
-        if (action.type === "ADD-POST") { // {type : "ADD-POST", newPostProps : text1}
+        if (action.type === "ADD-POST") { // {type : "ADD-POST"}
             let addPostLocal = {
                 id: 5,
-                message: action.newPostProps,
+                message: this._state2.profilePage.newPostText,
                 like: 2
             }
             this._state2.profilePage.postsData.push(addPostLocal);
@@ -103,6 +104,11 @@ export let store = {
             };
             this._state2.dialogsPage.messagesData.push(addMessageLocal);
             this._callSubscriber(this._state2);
+        } else if (action.type === "UPDATE-NEW-POST-TEXT") { // {type : UPDATE-NEW-POST-TEXT, newText = text2}
+            this._state2.profilePage.newPostText=action.newText;
+/*
+            this._callSubscriber(this._state2);
+*/
         }
     }
 
