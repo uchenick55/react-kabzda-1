@@ -1,3 +1,17 @@
+const ADD_POST = "ADD-POST";
+const UPDATE_NEW_POST_TEXT = "UPDATE-NEW-POST-TEXT";
+const ADD_MESSAGE = "ADD-MESSAGE";
+
+export let addPostActionCreator = () => {
+    return {type: ADD_POST}
+};
+export let updateNewPostTextActionCreator = (text2) => {
+    return {type: UPDATE_NEW_POST_TEXT, newText: text2}
+};
+export let addMessageActionCreator = (text1) => {
+    return {type: "ADD-MESSAGE", newMessageProps: text1}
+};
+
 export let store = {
     _callSubscriber(state) {
         debugger
@@ -9,7 +23,7 @@ export let store = {
                 {id: 1, message: "state 2 Hi, how are you?", like: "12"},
                 {id: 2, message: "state 2 it's, my first post", like: "15"},
             ],
-            newPostText : "type your text here"
+            newPostText : ""
         },
         dialogsPage: {
             messagesData: [
@@ -87,7 +101,7 @@ export let store = {
 
     dispatch(action) {
         debugger
-        if (action.type === "ADD-POST") { // {type : "ADD-POST"}
+        if (action.type === ADD_POST) { // {type : "ADD-POST"}
             let addPostLocal = {
                 id: 5,
                 message: this._state2.profilePage.newPostText,
@@ -96,19 +110,16 @@ export let store = {
             this._state2.profilePage.postsData.push(addPostLocal);
             this._callSubscriber(this._state2);
 
-        } else if (action.type === "ADD-MESSAGE") { // {type: "ADD-MESSAGE", newMessageProps: text1}
-            debugger
+        } else if (action.type === ADD_MESSAGE) {
             let addMessageLocal = {
                 id: 5,
                 message: action.newMessageProps,
             };
             this._state2.dialogsPage.messagesData.push(addMessageLocal);
             this._callSubscriber(this._state2);
-        } else if (action.type === "UPDATE-NEW-POST-TEXT") { // {type : UPDATE-NEW-POST-TEXT, newText = text2}
+        } else if (action.type === UPDATE_NEW_POST_TEXT) {
             this._state2.profilePage.newPostText=action.newText;
-/*
             this._callSubscriber(this._state2);
-*/
         }
     }
 
@@ -116,4 +127,5 @@ export let store = {
 }
 
 window.store = store;
+
 export default store;

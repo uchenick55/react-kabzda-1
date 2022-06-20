@@ -3,6 +3,7 @@ import classes from './Dialogs.module.css';
 import {NavLink} from "react-router-dom";
 import DialogItem from "./DialogItem/DialogItem";
 import Message from "./Message/Message";
+import {addMessageActionCreator} from "../../redux/state";
 
 const Dialogs = (props) => {
 
@@ -16,17 +17,13 @@ const Dialogs = (props) => {
     let messagesElements =
         props.state.messagesData.map((m) => {
             return <Message message={m.message}/>
-
         });
     let addNewItem = React.createRef();
 
     let addItemLocal = () => {
-
         let text1 = addNewItem.current.value;
-        props.dispatch({type: "ADD-MESSAGE", newMessageProps: text1});
-
+        props.dispatch(addMessageActionCreator(text1));
     };
-
 
     return (
         <div className={classes.dialogs}>
