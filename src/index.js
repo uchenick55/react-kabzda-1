@@ -11,6 +11,7 @@ const rerenderEntireTree1 = (state) => {
     root.render(
     <React.StrictMode>
     <App
+        store={store}
         state={state}
         dispatch={store.dispatch.bind(store)}
         />
@@ -18,11 +19,8 @@ const rerenderEntireTree1 = (state) => {
 );
 
 }
-/*debugger*/
 rerenderEntireTree1(store.getState());
-/*debugger*/
 store.subscribe(rerenderEntireTree1);
-/*debugger*/
 
 
 // If you want to start measuring performance in your app, pass a function
