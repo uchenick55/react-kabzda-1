@@ -1,6 +1,8 @@
 const ADD_POST = "ADD-POST";
 const UPDATE_NEW_POST_TEXT = "UPDATE-NEW-POST-TEXT";
-const ADD_MESSAGE = "ADD-MESSAGE";
+const SEND_MESSAGE = "SEND-MESSAGE";
+const UPDATE_NEW_MESSAGE_BODY = "UPDATE-NEW-MESSAGE-_BODY";
+
 
 export let addPostActionCreator = () => {
     return {type: ADD_POST}
@@ -8,13 +10,17 @@ export let addPostActionCreator = () => {
 export let updateNewPostTextActionCreator = (text2) => {
     return {type: UPDATE_NEW_POST_TEXT, newText: text2}
 };
-export let addMessageActionCreator = (text1) => {
-    return {type: "ADD-MESSAGE", newMessageProps: text1}
+export let sendMessageCreator = (text1) => {
+    return {type: SEND_MESSAGE, newMessageProps: text1}
 };
+export let updateNewMessageBodyCreator = (body) => {
+    return {type: UPDATE_NEW_MESSAGE_BODY, body: body}
+};
+
 
 export let store = {
     _callSubscriber(state) {
-        debugger
+
         console.log("log updated");
     },
     _state2: {
@@ -26,14 +32,14 @@ export let store = {
             newPostText : ""
         },
         dialogsPage: {
-            messagesData: [
+            messages: [
                 {id: 1, message: "Hello, how are you?"},
                 {id: 2, message: "This is my first message!"},
                 {id: 3, message: "Did you tell me anything yesterday?"},
                 {id: 4, message: "Yo"},
                 {id: 5, message: "Yo"}
             ],
-            dialogsData: [
+            dialogs: [
                 {
                     id: 1,
                     name: "Artem",
@@ -56,7 +62,8 @@ export let store = {
                     avaSrc: "https://pixelbox.ru/wp-content/uploads/2021/10/dark-avatar-vk-pixelbox.ru-2.jpg"
                 },
                 {id: 6, name: "Zhenya", avaSrc: "https://cdn1.flamp.ru/a981cc28c84f99d8f480c8ea6b559671.jpg"}
-            ]
+            ],
+            newMessageBody: "",
         },
         sideBar: {
             myFriends: [
@@ -85,22 +92,9 @@ export let store = {
         return this._state2;
     },
     subscribe(observer) {
-        /*debugger*/
         this._callSubscriber = observer;
-        /*debugger*/
     },
-
-    addMessage(newMessageProps) {
-        let addMessageLocal = {
-            id: 5,
-            message: newMessageProps
-        };
-        this._state2.dialogsPage.messagesData.push(addMessageLocal);
-        this._callSubscriber(this._state2);
-    },
-
     dispatch(action) {
-        debugger
         if (action.type === ADD_POST) { // {type : "ADD-POST"}
             let addPostLocal = {
                 id: 5,
@@ -108,19 +102,27 @@ export let store = {
                 like: 2
             }
             this._state2.profilePage.postsData.push(addPostLocal);
+            this._state2.profilePage.newPostText="";
             this._callSubscriber(this._state2);
-
-        } else if (action.type === ADD_MESSAGE) {
+        }
+        else if (action.type === SEND_MESSAGE) {
             let addMessageLocal = {
                 id: 5,
-                message: action.newMessageProps,
+                message: this._state2.dialogsPage.newMessageBody,
             };
-            this._state2.dialogsPage.messagesData.push(addMessageLocal);
+            this._state2.dialogsPage.messages.push(addMessageLocal);
+            this._state2.dialogsPage.newMessageBody="";
             this._callSubscriber(this._state2);
-        } else if (action.type === UPDATE_NEW_POST_TEXT) {
+        }
+       else if (action.type === UPDATE_NEW_POST_TEXT) {
             this._state2.profilePage.newPostText=action.newText;
             this._callSubscriber(this._state2);
         }
+        else if (action.type === UPDATE_NEW_MESSAGE_BODY) {
+            this._state2.dialogsPage.newMessageBody=action.body;
+            this._callSubscriber(this._state2);
+        }
+
     }
 
 
