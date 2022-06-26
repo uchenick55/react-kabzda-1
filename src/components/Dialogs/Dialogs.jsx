@@ -1,9 +1,8 @@
 import React from 'react';
 import classes from './Dialogs.module.css';
-import {NavLink} from "react-router-dom";
 import DialogItem from "./DialogItem/DialogItem";
 import Message from "./Message/Message";
-import {sendMessageCreator, updateNewMessageBodyCreator} from "../../redux/state";
+import {sendMessageCreator, updateNewMessageBodyCreator} from "../../redux/dialogs-reducer";
 
 const Dialogs = (props) => {
     let state = props.store.getState().dialogsPage;
@@ -22,8 +21,11 @@ const Dialogs = (props) => {
     let newMessageBody = state.newMessageBody;
 
     let onNewMessageChange = (event) => {
+        debugger
         let body = event.target.value;
+        debugger
         props.store.dispatch(updateNewMessageBodyCreator(body));
+        debugger
 
     };
 
@@ -39,11 +41,11 @@ const Dialogs = (props) => {
 
             <div className={classes.messages}>
                 <div>
-                    <textarea onChange={onNewMessageChange} ></textarea>
-                    <div>
-                        <button onClick={onSendMessageClick} value={newMessageBody}>Press here</button>
-                    </div>
                     {messagesElements}
+                    <textarea onChange={onNewMessageChange} value={newMessageBody} placeholder={"type your text here"}/>
+                    <div>
+                        <button onClick={onSendMessageClick} >Press here</button>
+                    </div>
                 </div>
             </div>
         </div>

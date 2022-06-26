@@ -1,25 +1,8 @@
-const ADD_POST = "ADD-POST";
-const UPDATE_NEW_POST_TEXT = "UPDATE-NEW-POST-TEXT";
-const SEND_MESSAGE = "SEND-MESSAGE";
-const UPDATE_NEW_MESSAGE_BODY = "UPDATE-NEW-MESSAGE-_BODY";
-
-
-export let addPostActionCreator = () => {
-    return {type: ADD_POST}
-};
-export let updateNewPostTextActionCreator = (text2) => {
-    return {type: UPDATE_NEW_POST_TEXT, newText: text2}
-};
-export let sendMessageCreator = (text1) => {
-    return {type: SEND_MESSAGE, newMessageProps: text1}
-};
-export let updateNewMessageBodyCreator = (body) => {
-    return {type: UPDATE_NEW_MESSAGE_BODY, body: body}
-};
-
+import profileReducer from "./profile-reducer";
+import dialogsReducer from "./dialogs-reducer";
 
 export let store = {
-    _callSubscriber(state) {
+    _callSubscriber() {
 
         console.log("log updated");
     },
@@ -95,37 +78,10 @@ export let store = {
         this._callSubscriber = observer;
     },
     dispatch(action) {
-        if (action.type === ADD_POST) { // {type : "ADD-POST"}
-            let addPostLocal = {
-                id: 5,
-                message: this._state2.profilePage.newPostText,
-                like: 2
-            }
-            this._state2.profilePage.postsData.push(addPostLocal);
-            this._state2.profilePage.newPostText="";
-            this._callSubscriber(this._state2);
-        }
-        else if (action.type === SEND_MESSAGE) {
-            let addMessageLocal = {
-                id: 5,
-                message: this._state2.dialogsPage.newMessageBody,
-            };
-            this._state2.dialogsPage.messages.push(addMessageLocal);
-            this._state2.dialogsPage.newMessageBody="";
-            this._callSubscriber(this._state2);
-        }
-       else if (action.type === UPDATE_NEW_POST_TEXT) {
-            this._state2.profilePage.newPostText=action.newText;
-            this._callSubscriber(this._state2);
-        }
-        else if (action.type === UPDATE_NEW_MESSAGE_BODY) {
-            this._state2.dialogsPage.newMessageBody=action.body;
-            this._callSubscriber(this._state2);
-        }
-
+        profileReducer(this._state2.profilePage, action)
+        dialogsReducer(this._state2.dialogsPage, action)
+        this._callSubscriber(this._state2);
     }
-
-
 }
 
 window.store = store;

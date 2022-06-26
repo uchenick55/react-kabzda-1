@@ -8,7 +8,6 @@ import {BrowserRouter, Route, Routes} from "react-router-dom";
 import News from "./components/News/News";
 import Music from "./components/Music/News";
 import Settings from "./components/Settings/News";
-import store from "./redux/state";
 
 function App(props) {
     return (
