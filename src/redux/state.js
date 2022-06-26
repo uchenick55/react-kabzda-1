@@ -1,9 +1,9 @@
+
 import profileReducer from "./profile-reducer";
 import dialogsReducer from "./dialogs-reducer";
 
 export let store = {
     _callSubscriber() {
-
         console.log("log updated");
     },
     _state2: {
@@ -68,9 +68,7 @@ export let store = {
 
             ]
         }
-
     },
-
     getState() {
         return this._state2;
     },
