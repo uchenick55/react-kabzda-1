@@ -21,9 +21,7 @@ const Dialogs = (props) => {
     let newMessageBody = state.newMessageBody;
 
     let onNewMessageChange = (event) => {
-        debugger
         let body = event.target.value;
-        debugger
         props.store.dispatch(updateNewMessageBodyCreator(body));
         debugger
 

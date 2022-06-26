@@ -8,7 +8,16 @@ export let addPostActionCreator = () => {
 export let updateNewPostTextActionCreator = (text2) => {
     return {type: UPDATE_NEW_POST_TEXT, newText: text2}
 };
-let profileReducer = (state, action) => {
+
+let initialState = {
+    postsData: [
+        {id: 1, message: "state 2 Hi, how are you?", like: "12"},
+        {id: 2, message: "state 2 it's, my first post", like: "15"},
+    ],
+    newPostText : ""
+}
+
+let profileReducer = (state=initialState, action) => {
     switch (action.type) {
         case ADD_POST:
             let addPostLocal = {
