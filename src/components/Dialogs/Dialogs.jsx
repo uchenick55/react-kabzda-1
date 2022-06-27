@@ -2,7 +2,9 @@ import React from 'react';
 import classes from './Dialogs.module.css';
 import DialogItem from "./DialogItem/DialogItem";
 import Message from "./Message/Message";
+
 import {sendMessageCreator, updateNewMessageBodyCreator} from "../../redux/dialogs-reducer";
+
 
 const Dialogs = (props) => {
     let state = props.store.getState().dialogsPage;
@@ -23,8 +25,6 @@ const Dialogs = (props) => {
     let onNewMessageChange = (event) => {
         let body = event.target.value;
         props.store.dispatch(updateNewMessageBodyCreator(body));
-        debugger
-
     };
 
     let onSendMessageClick = () => {
