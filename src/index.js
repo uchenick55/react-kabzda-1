@@ -1,7 +1,4 @@
 import store from "./redux/store-redux"
-/*
-import store from "./redux/store"
-*/
 import React from 'react';
 import ReactDOM from 'react-dom/client';
 import './index.css';
@@ -10,18 +7,11 @@ import reportWebVitals from './reportWebVitals';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 const rerenderEntireTree1 = (state) => {
-    debugger
-
     root.render(
     <React.StrictMode>
-    <App
-        store={store}
-        state={state}
-        dispatch={store.dispatch.bind(store)}
-        />
+        <App store={store} />
     </React.StrictMode>
 );
-
 }
 rerenderEntireTree1(store.getState());
 
