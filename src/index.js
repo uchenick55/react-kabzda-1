@@ -4,28 +4,16 @@ import ReactDOM from 'react-dom/client';
 import './index.css';
 import App from './App.js';
 import reportWebVitals from './reportWebVitals';
-import StoreContext from "./StoreContext";
 import {Provider} from "react-redux";
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
-const rerenderEntireTree1 = (state) => {
     root.render(
     <React.StrictMode>
-        <StoreContext.Provider value={store}>
-            <Provider store={store}>
-                <App store={store} />
-            </Provider>
-        </StoreContext.Provider>
+        <Provider store={store}>
+            <App store={store} />
+        </Provider>
     </React.StrictMode>
 );
-}
-rerenderEntireTree1(store.getState());
-
-store.subscribe(() =>{
-    let state = store.getState();
-    rerenderEntireTree1(state)
-});
-
 
 // If you want to start measuring performance in your app, pass a function
 // to log results (for example: reportWebVitals(console.log))
