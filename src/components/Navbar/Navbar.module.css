@@ -6,6 +6,7 @@
 
 .item {
     color: white;
+
 }
 /* Добавляем 2 стиля, к одному элементу item */
 .active.item {
