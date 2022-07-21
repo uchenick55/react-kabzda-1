@@ -2,6 +2,7 @@
 
 # dependencies
 /node_modules
+/react-video
 /.pnp
 .pnp.js
 
