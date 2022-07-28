@@ -6,7 +6,6 @@ export let followAC = (userID) => {
     return {type: FOLLOW, userID}
 };
 export let unfollowAC = (userID) => {
-    debugger;
     return {type: UNFOLLOW, userID}
 };
 export let setUsersAC = (users) => {
