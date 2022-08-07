@@ -5,22 +5,22 @@ const SET_CURRENT_PAGE = "SET_CURRENT_PAGE";
 const SET_TOTAL_USERS_COUNT = "SET_TOTAL_USERS_COUNT";
 const TOGGLE_IS_FETCHING = "TOGGLE_IS_FETCHING";
 
-export let followAC = (userID) => {
+export let follow = (userID) => {
     return {type: FOLLOW, userID}
 };
-export let unfollowAC = (userID) => {
+export let unfollow = (userID) => {
     return {type: UNFOLLOW, userID}
 };
-export let setUsersAC = (users) => {
+export let setUsers = (users) => {
     return {type: SET_USERS, users}
 };
-export let setCurrentPageAC = (currentPage) => {
+export let setCurrentPage = (currentPage) => {
     return {type: SET_CURRENT_PAGE, currentPage}
 };
-export let setUsersTotalCountAC = (totalUsersCount) => {
+export let setUsersTotalCount = (totalUsersCount) => {
     return {type: SET_TOTAL_USERS_COUNT, totalUsersCount}
 };
-export let toggleIsFetchingAC = (isFetching) => {
+export let toggleIsFetching = (isFetching) => {
     return {type: TOGGLE_IS_FETCHING, isFetching}
 };
 
