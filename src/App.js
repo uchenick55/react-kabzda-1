@@ -9,6 +9,7 @@ import Music from "./components/Music/News";
 import Settings from "./components/Settings/News";
 import DialogsContainer from "./components/Dialogs/DialogsContainer";
 import UsersContainer from "./components/users/UsersContainer";
+import ProfileContainer from "./components/Profile/ProfileInfo/ProfileContainer";
 
 function App(props) {
     return (
@@ -18,7 +19,10 @@ function App(props) {
                 <Navbar state={props.store.getState().sideBar}/>
                 <div className='app-wrapper-content'>
                     <Routes>
-                        <Route path='/profile/*' element={<Profile/>}/>
+/*
+                        <Route path='/profile/!*' element={<Profile/>}/>
+*/
+                        <Route path='/profile/*' element={<ProfileContainer/>}/>
                         <Route path='/dialogs/*' element={<DialogsContainer/>}/>
                         <Route path='/users/*' element={<UsersContainer/>}/>
                         <Route path='/news/*' element={<News/>}/>
@@ -32,3 +36,11 @@ function App(props) {
 }
 
 export default App;
+
+
+
+
+
+
+
+
