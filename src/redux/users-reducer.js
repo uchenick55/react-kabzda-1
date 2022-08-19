@@ -37,7 +37,9 @@ let usersReducer = (state = initialState, action) => {
 
        switch (action.type) {
            case SET_USERS:
-               return {...state, users: action.users};
+               debugger
+               stateCopy = {...state, users: action.users};
+               return stateCopy;
            case FOLLOW:
                stateCopy = {
                    ...state,

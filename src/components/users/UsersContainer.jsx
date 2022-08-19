@@ -16,7 +16,8 @@ class UsersAPI extends React.Component {
 
     componentDidMount() {
         this.props.toggleIsFetching(true)
-        axios.get(`https://social-network.samuraijs.com/api/1.0/users?count=${this.props.pageSize}&page=${this.props.currentPage}`)
+        axios.get(`https://social-network.samuraijs.com/api/1.0/users?count=${this.props.pageSize}&page=${this.props.currentPage}`,
+            {withCredentials: true})
             .then((response) => {
                 this.props.toggleIsFetching(false)
                 this.props.setUsers(response.data.items)
@@ -27,7 +28,8 @@ class UsersAPI extends React.Component {
     onPageChanged = (setPage) => {
         this.props.toggleIsFetching(true)
         this.props.setCurrentPage(setPage)
-        axios.get(`https://social-network.samuraijs.com/api/1.0/users?count=${this.props.pageSize}&page=${this.props.currentPage}`)
+        axios.get(`https://social-network.samuraijs.com/api/1.0/users?count=${this.props.pageSize}&page=${this.props.currentPage}`,
+            {withCredentials: true})
             .then((response) => {
                 this.props.toggleIsFetching(false)
                 this.props.setUsers(response.data.items)
@@ -44,6 +46,8 @@ class UsersAPI extends React.Component {
                    users={this.props.users}
                    unfollow={this.props.unfollow}
                    follow={this.props.follow}
+                   setUsers={this.props.setUsers}
+
             />
         </>
     }
