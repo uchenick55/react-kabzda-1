@@ -1,16 +1,14 @@
 import React from 'react';
 import {connect} from "react-redux";
 import {
-    follow,
     setCurrentPage,
     setUsers,
     setUsersTotalCount,
     toggleIsFetching,
-    unfollow
 } from "../../redux/users-reducer";
 import Users from "./Users";
 import Preloader from "../common/Preloader/Preloader";
-import {getUsers} from "../api/api";
+import {deleteFollow, getUsers, postFollow} from "../api/api";
 
 class UsersAPI extends React.Component {
 
@@ -33,18 +31,39 @@ class UsersAPI extends React.Component {
                 this.props.setUsers(data.items)
             })
     }
+    unfollowAPI = (id) => {
+        deleteFollow(id)
+            .then((response) => {
+                if (response.resultCode === 0) {
+                    getUsers(this.props.currentPage,this.props.pageSize)
+                        .then((response) => {
+                            this.props.setUsers(response.items)
+                        })
+                }
+            })
+    }
+    followAPI = (id) => {
+        postFollow(id)
+            .then((response) => {
+                if (response.resultCode === 0) {
+                    getUsers(this.props.currentPage,this.props.pageSize)
+                        .then((response) => {
+                            this.props.setUsers(response.items)
+                        })
+                }
+            })
+    }
 
     render() {
         return <>
-            { this.props.isFetching ? <Preloader/> : null}
+            {this.props.isFetching ? <Preloader/> : null}
             <Users onPageChanged={this.onPageChanged}
                    totalUsersCount={this.props.totalUsersCount}
                    pageSize={this.props.pageSize}
                    currentPage={this.props.currentPage}
                    users={this.props.users}
-                   unfollow={this.props.unfollow}
-                   follow={this.props.follow}
-                   setUsers={this.props.setUsers}
+                   unfollowAPI={this.unfollowAPI}
+                   followAPI={this.followAPI}
 
             />
         </>
@@ -62,7 +81,7 @@ let mapStateToProps = (state) => {
 }
 
 let UsersContainer = connect(mapStateToProps,
-    {follow, unfollow, setUsers, setCurrentPage, setUsersTotalCount, toggleIsFetching })(UsersAPI);
+    { setUsers, setCurrentPage, setUsersTotalCount, toggleIsFetching})(UsersAPI);
 
 export default UsersContainer;
 
