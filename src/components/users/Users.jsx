@@ -45,11 +45,15 @@ let Users = (props) => {
                         </div>
                         <div>
                             {u.followed
-                                ? <button onClick={() => {
+                                ? <button
+                                    disabled={props.followingInProgress.some(id=>id===u.id)} // отключение возможности повторного нажатия пока не пришел ответ от сервера
+                                    onClick={() => {
                                     props.unfollowAPI(u.id) //send to server request unfollow from UsersContainer
                                 }}> Unfollow</button>
 
-                                : <button onClick={() => {
+                                : <button
+                                    disabled={props.followingInProgress.some(id=>id===u.id)} // отключение возможности повторного нажатия пока не пришел ответ от сервера
+                                    onClick={() => {
                                     props.followAPI(u.id) //send to server request follow from UsersContainer
                                 }}> Follow</button>}
                         </div>

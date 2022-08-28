@@ -1,6 +1,5 @@
 import React from "react";
 import Profile from "../Profile";
-import * as axios from "axios";
 import {connect} from "react-redux";
 import {setUserProfile} from "../../../redux/profile-reducer";
 import {useParams} from "react-router-dom"
@@ -13,9 +12,7 @@ class ProfileContainer extends React.Component {
             getAuthMe()
                 .then((response)=>{
                     userId = response.data.id;
-                    debugger
                 })
-//            userId=2;
         }
 
         getProfile(userId)
