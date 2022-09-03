@@ -1,3 +1,5 @@
+import {getAuthMe, getProfile} from "../components/api/api";
+
 const ADD_POST = "ADD-POST";
 const UPDATE_NEW_POST_TEXT = "UPDATE-NEW-POST-TEXT";
 const SET_USER_PROFILE = "SET_USER_PROFILE";
@@ -8,7 +10,7 @@ export let addPostActionCreator = () => {
 export let updateNewPostTextActionCreator = (text2) => {
     return {type: UPDATE_NEW_POST_TEXT, newText: text2}
 };
-export let setUserProfile = (profile) => {
+let setUserProfile = (profile) => {
     return {type: SET_USER_PROFILE, profile}
 };
 let initialState = {
@@ -23,10 +25,12 @@ let profileReducer = (state=initialState, action) => {
     let stateCopy;
     switch (action.type) {
         case SET_USER_PROFILE:
+            debugger
             stateCopy = {
                 ...state,
                 profile: action.profile
             }
+            debugger
             return stateCopy;
         case ADD_POST: {
             let newPost = {
@@ -51,4 +55,29 @@ let profileReducer = (state=initialState, action) => {
     }
 }
 
+export let getProfileThunkCreator = (userId) => {
+    return (dispatch) => {
+        if (!userId) {
+            getAuthMe()
+                .then((response)=>{
+                    userId = response.data.id;
+                })
+        }
+        getProfile(userId)
+            .then((response) => {
+                dispatch(setUserProfile(response))
+            })
+    }
+}
+
 export default profileReducer;
+
+
+
+
+
+
+
+
+
+

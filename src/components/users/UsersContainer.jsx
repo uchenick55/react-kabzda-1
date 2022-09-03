@@ -1,64 +1,28 @@
 import React from 'react';
 import {connect} from "react-redux";
 import {
-    setCurrentPage,
-    setUsers,
-    setUsersTotalCount,
-    toggleIsFetching, toggleIsFollowingProgerss,
+    followThunkCreator,
+    getUsersThunkCreator,
+    setCurrentPage, unfollowThunkCreator,
 } from "../../redux/users-reducer";
 import Users from "./Users";
 import Preloader from "../common/Preloader/Preloader";
-import {deleteFollow, getUsers, postFollow} from "../api/api";
 
 class UsersAPI extends React.Component {
 
     componentDidMount() {
-        this.props.toggleIsFetching(true)
-        getUsers(this.props.currentPage, this.props.pageSize)
-            .then((data) => {
-                this.props.toggleIsFetching(false)
-                this.props.setUsers(data.items)
-                this.props.setUsersTotalCount(data.totalCount)
-            })
+        this.props.getUsersThunkCreator(this.props.currentPage, this.props.pageSize);
     }
-
     onPageChanged = (setPage) => {
-        this.props.toggleIsFetching(true)
         this.props.setCurrentPage(setPage)
-        getUsers(setPage, this.props.pageSize)
-            .then((data) => {
-                this.props.toggleIsFetching(false)
-                this.props.setUsers(data.items)
-            })
+        this.props.getUsersThunkCreator(setPage, this.props.pageSize);
     }
     followAPI = (id) => {
-        this.props.toggleIsFollowingProgerss(true, id)
-        postFollow(id)
-            .then((response) => {
-                if (response.resultCode === 0) {
-                    getUsers(this.props.currentPage,this.props.pageSize)
-                        .then((response) => {
-                            this.props.setUsers(response.items)
-                            this.props.toggleIsFollowingProgerss(false, id)
-                        })
-                }
-            })
+        this.props.followThunkCreator(id, this.props.currentPage,this.props.pageSize)
     }
-
     unfollowAPI = (id) => {
-        this.props.toggleIsFollowingProgerss(true, id)
-        deleteFollow(id)
-            .then((response) => {
-                if (response.resultCode === 0) {
-                    getUsers(this.props.currentPage,this.props.pageSize)
-                        .then((response) => {
-                            this.props.setUsers(response.items)
-                            this.props.toggleIsFollowingProgerss(false, id)
-                        })
-                }
-            })
+        this.props.unfollowThunkCreator(id, this.props.currentPage,this.props.pageSize)
     }
-
     render() {
         return <>
             {this.props.isFetching ? <Preloader/> : null}
@@ -87,7 +51,8 @@ let mapStateToProps = (state) => {
 }
 
 let UsersContainer = connect(mapStateToProps,
-    { setUsers, setCurrentPage, setUsersTotalCount, toggleIsFetching, toggleIsFollowingProgerss})(UsersAPI);
+    { setCurrentPage,
+        getUsersThunkCreator, followThunkCreator, unfollowThunkCreator})(UsersAPI);
 
 export default UsersContainer;
 

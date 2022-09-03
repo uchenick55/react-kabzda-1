@@ -1,3 +1,5 @@
+import {getAuthMe, getProfile} from "../components/api/api";
+
 const SET_USER_DATA = "SET_USER_DATA";
 const SET_USER_PROFILE = "SET_USER_PROFILE";
 
@@ -29,14 +31,37 @@ let authReducer = (state = initialState, action) => {
             }
             return stateCopy;
         case SET_USER_PROFILE:
+            debugger
             stateCopy = {
                 ...state,
                 profile: action.profile
             }
+            debugger
             return stateCopy;
         default:
             return state;
     }
+}
+
+export let getAuthMeThunkCreator = () =>{//санкреатор я авторизован?. Данных для запроса нет
+    let getAuthMeThunk = (dispatch) => {
+        getAuthMe() // я авторизован?
+            .then((response) => {
+                if (response.resultCode === 0) { //успешный ответ?
+                    let id = response.data.id;
+                    let email = response.data.email;
+                    let login = response.data.login;
+                    dispatch(setAuthUserData(id, email, login))//задание в стейт текущего пользователя
+                    debugger
+                    getProfile(id)//получение данных текущего пользователя
+                        .then((response) => {
+                            dispatch(setUserProfile(response))//задание в стейт доп данных текущего пользователя
+                        })
+
+                }
+            })
+    }
+    return getAuthMeThunk;
 }
 export default authReducer;
 

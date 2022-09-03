@@ -1,24 +1,13 @@
 import React from "react";
 import Profile from "../Profile";
 import {connect} from "react-redux";
-import {setUserProfile} from "../../../redux/profile-reducer";
+import {getProfileThunkCreator} from "../../../redux/profile-reducer";
 import {useParams} from "react-router-dom"
-import {getAuthMe, getProfile} from "../../api/api";
 
 class ProfileContainer extends React.Component {
     componentDidMount() {
-        let userId = this.props.match.params["*"];
-        if (!userId) {
-            getAuthMe()
-                .then((response)=>{
-                    userId = response.data.id;
-                })
-        }
-
-        getProfile(userId)
-            .then((response) => {
-                this.props.setUserProfile(response)
-            })
+       let userId = this.props.match.params["*"];
+       this.props.getProfileThunkCreator(userId)
     }
     render () {
         return <>
@@ -38,7 +27,7 @@ function withRouter (Children) {
     }
 }
 
-export default connect(mapStateToProps, {setUserProfile})(withRouter(ProfileContainer))
+export default connect(mapStateToProps, {getProfileThunkCreator})(withRouter(ProfileContainer))
 
 
 
