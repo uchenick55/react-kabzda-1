@@ -48,13 +48,15 @@ let Users = (props) => {
                                 ? <button
                                     disabled={props.followingInProgress.some(id=>id===u.id)} // отключение возможности повторного нажатия пока не пришел ответ от сервера
                                     onClick={() => {
-                                    props.unfollowAPI(u.id) //send to server request unfollow from UsersContainer
-                                }}> Unfollow</button>
+                                        props.unfollowAPI(u.id) //send to server request unfollow from UsersContainer
+                                    }}> Unfollow</button>
 
                                 : <button
                                     disabled={props.followingInProgress.some(id=>id===u.id)} // отключение возможности повторного нажатия пока не пришел ответ от сервера
                                     onClick={() => {
-                                    props.followAPI(u.id) //send to server request follow from UsersContainer
+                                        props.isAuth // проверка авторизации. Если нет, то алерт. Если да, то API запрос на follow
+                                            ?props.followAPI(u.id) //send to server request follow from UsersContainer
+                                            : alert("You are not authorized, please Login")
                                 }}> Follow</button>}
                         </div>
                         <div>{u.name}</div>
@@ -71,3 +73,5 @@ let Users = (props) => {
 }
 
 export default Users
+
+//+++

@@ -25,12 +25,10 @@ let profileReducer = (state=initialState, action) => {
     let stateCopy;
     switch (action.type) {
         case SET_USER_PROFILE:
-            debugger
             stateCopy = {
                 ...state,
                 profile: action.profile
             }
-            debugger
             return stateCopy;
         case ADD_POST: {
             let newPost = {

@@ -17,7 +17,6 @@ let reducers = combineReducers({
 });
 
 let store = createStore(reducers, applyMiddleware(thunkMiddleWare));//ApplyMiddleWare позволяет сделать прослойку между UI и редьюсером, чтобы можно было диспатчить не только экшены, но и санки.
-
 window.store = store;
 
 export default store

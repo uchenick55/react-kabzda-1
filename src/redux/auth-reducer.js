@@ -31,12 +31,10 @@ let authReducer = (state = initialState, action) => {
             }
             return stateCopy;
         case SET_USER_PROFILE:
-            debugger
             stateCopy = {
                 ...state,
                 profile: action.profile
             }
-            debugger
             return stateCopy;
         default:
             return state;
@@ -52,7 +50,6 @@ export let getAuthMeThunkCreator = () =>{//санкреатор я автори�
                     let email = response.data.email;
                     let login = response.data.login;
                     dispatch(setAuthUserData(id, email, login))//задание в стейт текущего пользователя
-                    debugger
                     getProfile(id)//получение данных текущего пользователя
                         .then((response) => {
                             dispatch(setUserProfile(response))//задание в стейт доп данных текущего пользователя

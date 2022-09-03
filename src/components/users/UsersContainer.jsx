@@ -34,6 +34,7 @@ class UsersAPI extends React.Component {
                    unfollowAPI={this.unfollowAPI}
                    followAPI={this.followAPI}
                    followingInProgress={this.props.followingInProgress}
+                   isAuth={this.props.isAuth}
             />
         </>
     }
@@ -46,7 +47,8 @@ let mapStateToProps = (state) => {
         totalUsersCount: state.usersPage.totalUsersCount,
         currentPage: state.usersPage.currentPage,
         isFetching: state.usersPage.isFetching,
-        followingInProgress: state.usersPage.followingInProgress
+        followingInProgress: state.usersPage.followingInProgress,
+        isAuth: state.auth.isAuth
     }
 }
 
@@ -55,7 +57,7 @@ let UsersContainer = connect(mapStateToProps,
         getUsersThunkCreator, followThunkCreator, unfollowThunkCreator})(UsersAPI);
 
 export default UsersContainer;
-
+//+++
 
 
 

@@ -32,38 +32,38 @@ let initialState = {
 }
 let usersReducer = (state = initialState, action) => {
     let stateCopy;
-       switch (action.type) {
-           case TOGGLE_IS_FOLLOWING_PROGRESS: // disable кнопки от многократного нажатия (follow/unfollow)
-               stateCopy = {
-                   ...state,
-                   followingInProgress: action.isFetching
-                       ?[state.followingInProgress, action.id] // кнопка follow/unfollow нажата, добавление в массив followingInProgress id кнопки
-                       : state.followingInProgress.filter(id=>id!=action.id)// пришел ответ от сервера OK, удаляем id кнопки из массива followingInProgress
-               }
-               return stateCopy;
-           case SET_USERS:
-               stateCopy = {...state, users: action.users};
-               return stateCopy;
-           case SET_CURRENT_PAGE:
-               stateCopy = {
-                   ...state,
-                   currentPage: action.currentPage
-               }
-               return stateCopy;
-           case SET_TOTAL_USERS_COUNT:
-               stateCopy = {
-                   ...state,
-                   totalUsersCount: action.totalUsersCount
-               }
-               return stateCopy;
-           case TOGGLE_IS_FETCHING:
-               stateCopy = {
-                   ...state,
-                   isFetching: action.isFetching
-               }
-               return stateCopy;
-           default:
-               return state;
+    switch (action.type) {
+        case TOGGLE_IS_FOLLOWING_PROGRESS: // disable кнопки от многократного нажатия (follow/unfollow)
+            stateCopy = {
+                ...state,
+                followingInProgress: action.isFetching
+                    ? [state.followingInProgress, action.id] // кнопка follow/unfollow нажата, добавление в массив followingInProgress id кнопки
+                    : state.followingInProgress.filter(id => id != action.id)// пришел ответ от сервера OK, удаляем id кнопки из массива followingInProgress
+            }
+            return stateCopy;
+        case SET_USERS:
+            stateCopy = {...state, users: action.users};
+            return stateCopy;
+        case SET_CURRENT_PAGE:
+            stateCopy = {
+                ...state,
+                currentPage: action.currentPage
+            }
+            return stateCopy;
+        case SET_TOTAL_USERS_COUNT:
+            stateCopy = {
+                ...state,
+                totalUsersCount: action.totalUsersCount
+            }
+            return stateCopy;
+        case TOGGLE_IS_FETCHING:
+            stateCopy = {
+                ...state,
+                isFetching: action.isFetching
+            }
+            return stateCopy;
+        default:
+            return state;
     }
 }
 
@@ -79,7 +79,6 @@ export let getUsersThunkCreator = (currentPage, pageSize) => {//санкреат
 
     }
     return getUsersThunk
-
 }
 
 export let followThunkCreator = (userId, currentPage, pageSize) => {//санкреатор follow с данными
@@ -88,7 +87,7 @@ export let followThunkCreator = (userId, currentPage, pageSize) => {//санкр
         postFollow(userId)// подписаться на пользователя
             .then((response) => {
                 if (response.resultCode === 0) {
-                    getUsers(currentPage,pageSize) //получить пользователей по текущей странице и размере страницы
+                    getUsers(currentPage, pageSize) //получить пользователей по текущей странице и размере страницы
                         .then((response) => {
                             dispatch(setUsers(response.items))//записать в стейт закгруженный стек пользователей
                             dispatch(toggleIsFollowingProgerss(false, userId))//убрать ID кнопки пользователя из массива followingInProgress, кнопка раздизаблена
@@ -103,7 +102,7 @@ export let unfollowThunkCreator = (userId, currentPage, pageSize) => {//санк
         deleteFollow(userId)//отписаться от пользователя
             .then((response) => {
                 if (response.resultCode === 0) {
-                    getUsers(currentPage,pageSize) //получить пользователей по текущей странице и размере страницы
+                    getUsers(currentPage, pageSize) //получить пользователей по текущей странице и размере страницы
                         .then((response) => {
                             dispatch(setUsers(response.items))//записать в стейт закгруженный стек пользователей
                             dispatch(toggleIsFollowingProgerss(false, userId))//убрать ID кнопки пользователя из массива followingInProgress, кнопка раздизаблена
@@ -113,6 +112,8 @@ export let unfollowThunkCreator = (userId, currentPage, pageSize) => {//санк
     }
 }
 export default usersReducer;
+
+//+++
 
 
 
