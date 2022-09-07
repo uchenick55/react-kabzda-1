@@ -57,7 +57,6 @@ let UsersContainer = connect(mapStateToProps,
         getUsersThunkCreator, followThunkCreator, unfollowThunkCreator})(UsersAPI);
 
 export default UsersContainer;
-//+++
 
 
 

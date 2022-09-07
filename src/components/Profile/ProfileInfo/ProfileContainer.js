@@ -2,7 +2,8 @@ import React from "react";
 import Profile from "../Profile";
 import {connect} from "react-redux";
 import {getProfileThunkCreator} from "../../../redux/profile-reducer";
-import {useParams, Navigate} from "react-router-dom"
+import {useParams} from "react-router-dom"
+import IsAuthCheckToLogin from "../../api/isAuthCheckToLogin";
 
 class ProfileContainer extends React.Component {
     componentDidMount() {
@@ -10,11 +11,9 @@ class ProfileContainer extends React.Component {
         this.props.getProfileThunkCreator(userId)
     }
     render () {
-        if (!this.props.isAuth) {
-            return <Navigate to="/login" />
-        }
         return <>
-        <Profile {...this.props} profile = {this.props.profile}/>
+            <IsAuthCheckToLogin/>
+            <Profile {...this.props} profile = {this.props.profile}/>
         </>
 }}
 let mapStateToProps = (state) => {
@@ -34,7 +33,6 @@ function withRouter (Children) {
 export default connect(mapStateToProps, {getProfileThunkCreator})(withRouter(ProfileContainer))
 
 
-//+++
 
 
 

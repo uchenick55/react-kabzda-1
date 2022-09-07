@@ -2,14 +2,14 @@ import React from 'react';
 import Dialogs from "./Dialogs";
 import {sendMessageCreator, updateNewMessageBodyCreator} from "../../redux/dialogs-reducer";
 import {connect} from "react-redux";
-import {Navigate} from "react-router-dom";
+import IsAuthCheckToLogin from "../api/isAuthCheckToLogin";
 
 class DialogsContainer extends React.Component {
     render () {
-        if (!this.props.isAuth) {
-            return <Navigate to="/login" />
-        }
-        return <Dialogs {...this.props} />
+        return <div>
+            <IsAuthCheckToLogin/>
+            <Dialogs {...this.props} />
+        </div>
     }
 }
 
@@ -32,4 +32,3 @@ let mapStateToProps = (state) => {
 }
 export default connect(mapStateToProps, mapDispatchToProps)(DialogsContainer);
 
-//+++
