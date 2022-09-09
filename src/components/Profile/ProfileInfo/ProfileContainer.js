@@ -4,6 +4,7 @@ import {connect} from "react-redux";
 import {getProfileThunkCreator} from "../../../redux/profile-reducer";
 import {useParams} from "react-router-dom"
 import {NavigateToLoginHoc} from "../../hoc/NavigateToLoginHoc";
+import {compose} from "redux";
 
 class ProfileContainer extends React.Component {
     componentDidMount() {
@@ -29,7 +30,12 @@ function withRouter (Children) {
     }
 }
 
-export default connect(mapStateToProps, {getProfileThunkCreator})(withRouter(NavigateToLoginHoc(ProfileContainer)))
+export default compose(
+    connect(mapStateToProps, {getProfileThunkCreator}),
+    withRouter,
+    NavigateToLoginHoc
+)
+(ProfileContainer)
 
 
 
