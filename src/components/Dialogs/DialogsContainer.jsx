@@ -2,12 +2,11 @@ import React from 'react';
 import Dialogs from "./Dialogs";
 import {sendMessageCreator, updateNewMessageBodyCreator} from "../../redux/dialogs-reducer";
 import {connect} from "react-redux";
-import IsAuthCheckToLogin from "../api/isAuthCheckToLogin";
+import {NavigateToLoginHoc} from "../hoc/NavigateToLoginHoc";
 
 class DialogsContainer extends React.Component {
     render () {
         return <div>
-            <IsAuthCheckToLogin/>
             <Dialogs {...this.props} />
         </div>
     }
@@ -30,5 +29,5 @@ let mapStateToProps = (state) => {
         isAuth: state.auth.isAuth
     }
 }
-export default connect(mapStateToProps, mapDispatchToProps)(DialogsContainer);
+export default connect(mapStateToProps, mapDispatchToProps)(NavigateToLoginHoc(DialogsContainer));
 

@@ -1,13 +1,11 @@
 import React from 'react';
 import classes from './News.css';
-import {Navigate} from "react-router-dom";
 import {connect} from "react-redux";
-import IsAuthCheckToLogin from "../api/isAuthCheckToLogin";
+import {NavigateToLoginHoc} from "../hoc/NavigateToLoginHoc";
 
 const News = (props) => {
     return (
         <div className={classes.content}>
-            <IsAuthCheckToLogin/>
             News text
         </div>
     )
@@ -17,5 +15,5 @@ let mapStateToProps = (state) => {
         isAuth: state.auth.isAuth
     }
 }
-export default connect(mapStateToProps)(News);
+export default connect(mapStateToProps)(NavigateToLoginHoc(News));
 
