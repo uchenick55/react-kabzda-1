@@ -6,8 +6,14 @@ import MyPostsContainer from "./MyPosts/MyPostsContainer";
 const Profile = (props) => {
 
     return <div className={classes.content}>
-        <ProfileInfo profile = {props.profile} status={props.status} myId={props.myId}/>
-        <MyPostsContainer />
+        <ProfileInfo // Отображение данных выбранного пользователя
+            profile = {props.profile} // профиль выбранного пользователя
+            status={props.status} // статус из BLL
+            myId={props.myId} // мой id для модификации статуса
+            putStatusThunkCreator={props.putStatusThunkCreator} // санкреатор для обновления сатуса
+        />
+        <MyPostsContainer // контейнер отображения постов (пока заглушка из стейта BLL)
+        />
     </div>
 }
 export default Profile;

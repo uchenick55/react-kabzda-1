@@ -1,4 +1,4 @@
-import {getAuthMe, getProfile, getStatus} from "../components/api/api";
+import {getAuthMe, getProfile, getStatus, putStatus} from "../components/api/api";
 
 const ADD_POST = "ADD-POST";
 const UPDATE_NEW_POST_TEXT = "UPDATE-NEW-POST-TEXT";
@@ -15,7 +15,7 @@ export let updateNewPostTextActionCreator = (text2) => {
 let setUserProfile = (profile) => {
     return {type: SET_USER_PROFILE, profile}
 };
-let setStatus = (newStatus) => {
+export let setStatus = (newStatus) => {
     return {type: SET_STATUS, newStatus}
 };
 let initialState = {
@@ -25,7 +25,7 @@ let initialState = {
     ],
     newPostText : "",
     profile : null,
-    status: "Hello World"
+    status: null,
 }
 let profileReducer = (state=initialState, action) => {
     let stateCopy;
@@ -92,6 +92,16 @@ export let getStatusThunkCreator = (userId) => {
         getStatus(userId)
             .then((response) => {
                 dispatch(setStatus(response))
+            })
+    }
+}
+export let putStatusThunkCreator = (statusTmpInput, myId) => { // санкреатор обновления моего статуса
+    return (dispatch) => { // санка
+        putStatus(statusTmpInput) // отправка нового статуса на сервер
+            .then((response) => {// ответ 200 с сервера
+                if (response.resultCode ===0) { // если успешное обновление статуса с сервера
+                    dispatch(getStatusThunkCreator(myId))// получение нового статуса с сервера после обновления
+                }
             })
     }
 }

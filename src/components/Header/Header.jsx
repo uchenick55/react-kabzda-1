@@ -11,7 +11,7 @@ const Header = (props) => {
             <img src='http://tiger.eplug-ins.com/wp-content/themes/tiger/assets/img/banner-breadcrumb.jpg'></img>
             {
                 props.isAuth
-                    ? <span onClick={goToMyPage}> <NavLink to={`/profile/${props.myId}`}>
+                    ? <span onClick={goToMyPage}> <NavLink to={`/profile/`}>
                         {props.login}
                         {!props.profile
                             ? <img src={userPhoto}/>

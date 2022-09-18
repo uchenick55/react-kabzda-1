@@ -27,7 +27,12 @@ const ProfileInfo = (props) => {
             <div >
                 <img src={props.profile.photos.small}/>
             </div>
-            <ProfileStatus myId={props.myId} userId={props.profile.userId} status={props.status}/>
+            <ProfileStatus
+                myId={props.myId}
+                userId={props.profile.userId}
+                status={props.status}
+                putStatusThunkCreator={props.putStatusThunkCreator}
+            />
 
         </div>
 

@@ -62,9 +62,9 @@ export let getStatus = (userId) => {
     )
 }
 
-export let setStatus = (newStatus) => {
+export let putStatus = (statusTmpInput) => {
     return (
-        instance.put(`/profile/status/`, {newStatus})
+        instance.put(`/profile/status/`, {status: statusTmpInput})
             .then((response) => {
                 return (response.data)
             })
