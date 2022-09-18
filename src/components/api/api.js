@@ -53,7 +53,23 @@ export let getAuthMe = () => {
     )
 }
 
+export let getStatus = (userId) => {
+    return (
+        instance.get(`/profile/status/${userId}`)
+            .then((response) => {
+                return (response.data)
+            })
+    )
+}
 
+export let setStatus = (newStatus) => {
+    return (
+        instance.put(`/profile/status/`, {newStatus})
+            .then((response) => {
+                return (response.data)
+            })
+    )
+}
 
 
 

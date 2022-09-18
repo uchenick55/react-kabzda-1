@@ -1,8 +1,10 @@
-import {getAuthMe, getProfile} from "../components/api/api";
+import {getAuthMe, getProfile, getStatus} from "../components/api/api";
 
 const ADD_POST = "ADD-POST";
 const UPDATE_NEW_POST_TEXT = "UPDATE-NEW-POST-TEXT";
 const SET_USER_PROFILE = "SET_USER_PROFILE";
+const SET_STATUS = "SET_STATUS"
+
 
 export let addPostActionCreator = () => {
     return {type: ADD_POST}
@@ -13,13 +15,17 @@ export let updateNewPostTextActionCreator = (text2) => {
 let setUserProfile = (profile) => {
     return {type: SET_USER_PROFILE, profile}
 };
+let setStatus = (newStatus) => {
+    return {type: SET_STATUS, newStatus}
+};
 let initialState = {
     posts: [
         {id: 1, message: "state 2 Hi, how are you?", like: "12"},
         {id: 2, message: "state 2 it's, my first post", like: "15"},
     ],
     newPostText : "",
-    profile : null
+    profile : null,
+    status: "Hello World"
 }
 let profileReducer = (state=initialState, action) => {
     let stateCopy;
@@ -48,6 +54,13 @@ let profileReducer = (state=initialState, action) => {
                 newPostText: action.newText,
             }
         }
+        case SET_STATUS:
+            stateCopy = {
+                ...state,
+                status: action.newStatus
+            }
+            return stateCopy;
+
         default:
             return state;
     }
@@ -64,6 +77,15 @@ export let getProfileThunkCreator = (userId) => {
         getProfile(userId)
             .then((response) => {
                 dispatch(setUserProfile(response))
+            })
+    }
+}
+
+export let getStatusThunkCreator = (userId) => {
+    return (dispatch) => {
+        getStatus(userId)
+            .then((response) => {
+                dispatch(setStatus(response))
             })
     }
 }
