@@ -27,7 +27,7 @@ const ProfileInfo = (props) => {
             <div >
                 <img src={props.profile.photos.small}/>
             </div>
-            <ProfileStatus myId={25528} userId={props.profile.userId} status={props.status}/>
+            <ProfileStatus myId={props.myId} userId={props.profile.userId} status={props.status}/>
 
         </div>
 

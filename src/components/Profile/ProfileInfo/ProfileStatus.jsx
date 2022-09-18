@@ -20,8 +20,8 @@ class ProfileStatus extends React.Component {
         return (
             <div>
                 {!this.localStatus.modifyStatus
-                ?<span onDoubleClick={this.checkIfICanModifyStatus}>{this.props.status}</span>
-                :<span onDoubleClick={this.setMyStatus}><input value={this.props.status} autoFocus={true}/></span>
+                ?<span onDoubleClick={this.checkIfICanModifyStatus}>Статус: {!this.props.status? "нет" :this.props.status }</span>
+                :<span onDoubleClick={this.setMyStatus}><input value={this.props.status} autoFocus={true} placeholder={"задайте статус"}/></span>
                 }
             </div>
         )

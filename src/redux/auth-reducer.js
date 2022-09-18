@@ -56,7 +56,9 @@ export let getAuthMeThunkCreator = () =>{//санкреатор я автори�
                     dispatch(setAuthUserData(id, email, login, sentRequestIsAuth, isAuth))//задание в стейт текущего пользователя
                     getProfile(id)//получение данных текущего пользователя
                         .then((response) => {
+/*
                             dispatch(setUserProfile(response))//задание в стейт доп данных текущего пользователя
+*/
                         })
                 }
                 if (!response.resultCode == 0) { //пользователь не авторизован

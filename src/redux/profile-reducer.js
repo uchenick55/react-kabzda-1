@@ -72,12 +72,18 @@ export let getProfileThunkCreator = (userId) => {
             getAuthMe()
                 .then((response)=>{
                     userId = response.data.id;
+                    getProfile(userId)
+                        .then((response) => {
+                            dispatch(setUserProfile(response))
+                        })
                 })
         }
-        getProfile(userId)
-            .then((response) => {
-                dispatch(setUserProfile(response))
-            })
+        else {
+            getProfile(userId)
+                .then((response) => {
+                    dispatch(setUserProfile(response))
+                })
+        }
     }
 }
 
