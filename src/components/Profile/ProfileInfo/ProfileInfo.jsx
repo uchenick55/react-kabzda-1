@@ -28,10 +28,11 @@ const ProfileInfo = (props) => {
                 <img src={props.profile.photos.small}/>
             </div>
             <ProfileStatus
-                myId={props.myId}
-                userId={props.profile.userId}
-                status={props.status}
-                putStatusThunkCreator={props.putStatusThunkCreator}
+                myId={props.myId} // мой id для модификации статуса
+                userId={props.profile.userId} // id отображаемого пользователя
+                status={props.status} // статус из BLL
+                putStatusThunkCreator={props.putStatusThunkCreator} // санкреатор для обновления сатуса
+                getStatusThunkCreator={props.getStatusThunkCreator} // санкреатор для получения сатуса
             />
 
         </div>

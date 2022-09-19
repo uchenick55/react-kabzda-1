@@ -5,7 +5,8 @@ import userPhoto from "../../assets/images/no-image.jpg";
 
 const Header = (props) => {
     let goToMyPage = () => {
-        props.getProfileThunkCreator(props.myId)
+        props.getProfileThunkCreator(props.myId);
+        props.getStatusThunkCreator(props.myId)
     }
     return <header className={classes.header}>
             <img src='http://tiger.eplug-ins.com/wp-content/themes/tiger/assets/img/banner-breadcrumb.jpg'></img>

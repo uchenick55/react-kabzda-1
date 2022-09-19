@@ -3,12 +3,13 @@ import React from "react";
 class ProfileStatus extends React.Component {
     localStatus = { // локальный стейт для статуса
         modifyStatus: false, // можно ли модифицировать статус и переключить на поле ввода?
-        statusTmpInput: this.props.status // временное значение статуса на время ввода поля input. Изначально берем из статуса BLL
+        statusTmpInput: null // временное значение статуса на время ввода поля input. Изначально берем из статуса BLL
     }
     checkIfICanModifyStatus = () => { // проверка, что я могу менять статус (открыт мой профиль со статусом)
         if (this.props.userId===this.props.myId) { // если ID открытого пользователя равен моему
             this.localStatus.modifyStatus=true; // смена текстового отображения статуса на поле input
             this.setState({modifyStatus: true}) // принудительная переотрисовка после смены локального статуса
+            this.localStatus.statusTmpInput = this.props.status// временное значение статуса на время ввода поля input. Изначально берем из статуса BLL
         }
     }
     onChangeStatus = (event) => {
@@ -16,10 +17,19 @@ class ProfileStatus extends React.Component {
         this.localStatus.statusTmpInput = text;// присваиваем переменной временного статуса из локального стейта введенное значение в поле
         this.setState({statusTmpInput: text}) // принудительная переотрисовка после смены локального статуса
     }
-    setMyStatus = () => { // действия после двойного клика по полю input статуса
+    setMyStatus = () => { // действия после двойного клика по полю input статуса или вводу Enter
         this.localStatus.modifyStatus = false // переключение с поля ввода статуса на простой текст
         this.props.putStatusThunkCreator(this.localStatus.statusTmpInput, this.props.myId)
         this.setState({modifyStatus: false}) // принудительная переотрисовка после смены локального статуса
+    }
+    checkEnterPressed = (event) => {
+        if (event.charCode===13) {
+            this.setMyStatus();
+        }
+    }
+
+    componentDidMount () {
+        this.props.getStatusThunkCreator(this.props.userId)
     }
 
     render () {
@@ -32,10 +42,13 @@ class ProfileStatus extends React.Component {
                         :this.props.status // если статус есть из BLL, он отображается
                 }
                 </span>
-                :<span onDoubleClick={this.setMyStatus}><input onChange={this.onChangeStatus}
-                                                               value={this.localStatus.statusTmpInput} // жестко зафиксировали значение поля ввода на временное значение статуса в локальном стейте
-                                                               autoFocus={true} // фокусировка на поле ввода текста
-                                                               placeholder={"задайте статус"}// текст при пустом поле ввода
+                :<span onDoubleClick={this.setMyStatus}><input
+                        onChange={this.onChangeStatus}
+                        value={this.localStatus.statusTmpInput} // жестко зафиксировали значение поля ввода на временное значение статуса в локальном стейте
+                        autoFocus={true} // фокусировка на поле ввода текста
+                        placeholder={"задайте статус"}// текст при пустом поле ввода
+                        onKeyPress={this.checkEnterPressed}
+
                     />
                 </span>
                 }
