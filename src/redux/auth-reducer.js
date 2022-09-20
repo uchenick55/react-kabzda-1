@@ -1,41 +1,41 @@
 import {getAuthMe, getProfile} from "../components/api/api";
 
-const SET_USER_DATA = "SET_USER_DATA";
-const SET_USER_PROFILE = "SET_USER_PROFILE";
+const SET_MY_DATA = "SET_MY_DATA";
+const SET_MY_PROFILE = "SET_MY_PROFILE";
 
-export let setAuthUserData = (id, email, login, sentRequestIsAuth, isAuth) => {
-    return {type: SET_USER_DATA, id, email, login, sentRequestIsAuth, isAuth}
+export let setAuthData = (id, email, login, sentRequestIsAuth, isAuth) => {
+    return {type: SET_MY_DATA, id, email, login, sentRequestIsAuth, isAuth}
 };
-export let setUserProfile = (profile) => {
-    return {type: SET_USER_PROFILE, profile}
+export let setMyProfile = (myProfile) => {
+    return {type: SET_MY_PROFILE, myProfile}
 };
 
 let initialState = {
-    userID: null,
-    email: null,
-    login: null,
+    myID: null,
+    myEmail: null,
+    myLogin: null,
     isAuth: false, //
     sentRequestIsAuth: false, // проверка, что запрос авторизации на сервер проводился
-    profile: null
+    myProfile: null
 }
 
 let authReducer = (state = initialState, action) => {
     let stateCopy;
     switch (action.type) {
-        case SET_USER_DATA:
+        case SET_MY_DATA:
             stateCopy = {
                 ...state,
-                userID: action.id,
-                email: action.email,
-                login: action.login,
+                myID: action.id,
+                myEmail: action.email,
+                myLogin: action.login,
                 isAuth: action.isAuth,
                 sentRequestIsAuth: action.sentRequestIsAuth,
             }
             return stateCopy;
-        case SET_USER_PROFILE:
+        case SET_MY_PROFILE:
             stateCopy = {
                 ...state,
-                profile: action.profile
+                myProfile: action.myProfile
             }
             return stateCopy;
         default:
@@ -53,12 +53,10 @@ export let getAuthMeThunkCreator = () =>{//санкреатор я автори�
                     let login = response.data.login;
                     let sentRequestIsAuth = true;
                     let isAuth = true;
-                    dispatch(setAuthUserData(id, email, login, sentRequestIsAuth, isAuth))//задание в стейт текущего пользователя
+                    dispatch(setAuthData(id, email, login, sentRequestIsAuth, isAuth))//задание в стейт текущего пользователя
                     getProfile(id)//получение данных текущего пользователя
                         .then((response) => {
-/*
-                            dispatch(setUserProfile(response))//задание в стейт доп данных текущего пользователя
-*/
+                            dispatch(setMyProfile(response))//задание в стейт доп данных текущего пользователя
                         })
                 }
                 if (!response.resultCode == 0) { //пользователь не авторизован
@@ -67,7 +65,7 @@ export let getAuthMeThunkCreator = () =>{//санкреатор я автори�
                     let login = initialState.login;
                     let sentRequestIsAuth = true; // запрос авторизации был, но пользователь не авторизован
                     let isAuth = false;
-                    dispatch(setAuthUserData(id, email, login, sentRequestIsAuth, isAuth))//задание в стейт текущего пользователя
+                    dispatch(setAuthData(id, email, login, sentRequestIsAuth, isAuth))//задание в стейт текущего пользователя
                 }
             })
     }

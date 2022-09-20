@@ -14,10 +14,10 @@ class HeaderContainer extends React.Component {
 }
 let mapStateToProps = (state) => {
     return {
-        login: state.auth.login,
-        myId: state.auth.userID,
+        myLogin: state.auth.myLogin,
+        myId: state.auth.myID,
         isAuth: state.auth.isAuth,
-        profile: state.auth.profile
+        myProfile: state.auth.myProfile
     }
 }
 export default connect(mapStateToProps, {getAuthMeThunkCreator, getProfileThunkCreator, getStatusThunkCreator})(HeaderContainer);

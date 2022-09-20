@@ -13,13 +13,13 @@ const Header = (props) => {
             {
                 props.isAuth
                     ? <span onClick={goToMyPage}> <NavLink to={`/profile/`}>
-                        {props.login}
-                        {!props.profile
+                        {props.myLogin}
+                        {!props.myProfile
                             ? <img src={userPhoto}/>
                             : <>
-                                {!props.profile.photos.small
+                                {!props.myProfile.photos.small
                                     ? <img src={userPhoto}/>
-                                    : <img src={props.profile.photos.small}/>}
+                                    : <img src={props.myProfile.photos.small}/>}
                             </>
                         }
                         </NavLink>
