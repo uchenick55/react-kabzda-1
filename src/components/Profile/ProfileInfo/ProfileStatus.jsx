@@ -43,6 +43,7 @@ class ProfileStatus extends React.Component {
                 }
                 </span>
                 :<span onDoubleClick={this.setMyStatus}><input
+                        onBlur={this.setMyStatus}
                         onChange={this.onChangeStatus}
                         value={this.localStatus.statusTmpInput} // жестко зафиксировали значение поля ввода на временное значение статуса в локальном стейте
                         autoFocus={true} // фокусировка на поле ввода текста

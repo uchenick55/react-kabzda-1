@@ -1,4 +1,4 @@
-import {getAuthMe, getProfile} from "../components/api/api";
+import {apiProfile} from "../components/api/api";
 
 const SET_MY_DATA = "SET_MY_DATA";
 const SET_MY_PROFILE = "SET_MY_PROFILE";
@@ -45,7 +45,7 @@ let authReducer = (state = initialState, action) => {
 
 export let getAuthMeThunkCreator = () =>{//санкреатор я авторизован?. Данных для запроса нет
     let getAuthMeThunk = (dispatch) => {
-        getAuthMe() // я авторизован?
+        apiProfile.getAuthMe() // я авторизован?
             .then((response) => {
                 if (response.resultCode === 0) { //пользователь авторизован
                     let id = response.data.id;
@@ -54,7 +54,7 @@ export let getAuthMeThunkCreator = () =>{//санкреатор я автори�
                     let sentRequestIsAuth = true;
                     let isAuth = true;
                     dispatch(setAuthData(id, email, login, sentRequestIsAuth, isAuth))//задание в стейт текущего пользователя
-                    getProfile(id)//получение данных текущего пользователя
+                    apiProfile.getProfile(id)//получение данных текущего пользователя
                         .then((response) => {
                             dispatch(setMyProfile(response))//задание в стейт доп данных текущего пользователя
                         })

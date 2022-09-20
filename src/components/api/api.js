@@ -8,69 +8,67 @@ const instance = axios.create({
     }
 });
 
-export let getUsers = (currentPage, pageSize) => {
-    return (
-        instance.get(`users?count=${pageSize}&page=${currentPage}`)
-            .then((response) => {
-                return (response.data)
-            })
-    )
+export let apiUsers = {
+    getUsers: (currentPage, pageSize) => {
+        return (
+            instance.get(`users?count=${pageSize}&page=${currentPage}`)
+                .then((response) => {
+                    return (response.data)
+                })
+        )
+    },
+    postFollow: (userId) => {
+        return (
+            instance.post(`follow/${userId}`)
+                .then((response) => {
+                    return (response.data)
+                })
+        )
+    },
+    deleteFollow: (userId) => {
+        return (
+            instance.delete(`follow/${userId}`)
+                .then((response) => {
+                    return (response.data)
+                })
+        )
+    }
 }
 
-export let getProfile = (userId) => {
-    return (
-        instance.get(`profile/` + userId)
-            .then((response) => {
-                return (response.data)
-            })
-    )
+export let apiProfile = {
+    getProfile: (userId) => {
+        return (
+            instance.get(`profile/` + userId)
+                .then((response) => {
+                    return (response.data)
+                })
+        )
+    },
+    getAuthMe: () => {
+        return (
+            instance.get(`auth/me`)
+                .then((response) => {
+                    return (response.data)
+                })
+        )
+    },
+    getStatus: (userId) => {
+        return (
+            instance.get(`/profile/status/${userId}`)
+                .then((response) => {
+                    return (response.data)
+                })
+        )
+    },
+    putStatus: (statusTmpInput) => {
+        return (
+            instance.put(`/profile/status/`, {status: statusTmpInput})
+                .then((response) => {
+                    return (response.data)
+                })
+        )
+    }
 }
-
-export let postFollow = (userId) => {
-    return (
-        instance.post(`follow/${userId}`)
-            .then((response) => {
-                return (response.data)
-            })
-    )
-}
-
-export let deleteFollow = (userId) => {
-    return (
-        instance.delete(`follow/${userId}`)
-            .then((response) => {
-                return (response.data)
-            })
-    )
-}
-
-export let getAuthMe = () => {
-    return (
-        instance.get(`auth/me`)
-            .then((response) => {
-                return (response.data)
-            })
-    )
-}
-
-export let getStatus = (userId) => {
-    return (
-        instance.get(`/profile/status/${userId}`)
-            .then((response) => {
-                return (response.data)
-            })
-    )
-}
-
-export let putStatus = (statusTmpInput) => {
-    return (
-        instance.put(`/profile/status/`, {status: statusTmpInput})
-            .then((response) => {
-                return (response.data)
-            })
-    )
-}
-
 
 
 

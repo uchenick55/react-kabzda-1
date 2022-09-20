@@ -1,4 +1,4 @@
-import {getAuthMe, getProfile, getStatus, putStatus} from "../components/api/api";
+import {apiProfile} from "../components/api/api";
 
 const ADD_POST = "ADD-POST";
 const UPDATE_NEW_POST_TEXT = "UPDATE-NEW-POST-TEXT";
@@ -69,17 +69,17 @@ let profileReducer = (state=initialState, action) => {
 export let getProfileThunkCreator = (userId) => {
     return (dispatch) => {
         if (!userId) {
-            getAuthMe()
+            apiProfile.getAuthMe()
                 .then((response)=>{
                     userId = response.data.id;
-                    getProfile(userId)
+                    apiProfile.getProfile(userId)
                         .then((response) => {
                             dispatch(setUserProfile(response))
                         })
                 })
         }
         else {
-            getProfile(userId)
+            apiProfile.getProfile(userId)
                 .then((response) => {
                     dispatch(setUserProfile(response))
                 })
@@ -89,7 +89,7 @@ export let getProfileThunkCreator = (userId) => {
 
 export let getStatusThunkCreator = (userId) => {
     return (dispatch) => {
-        getStatus(userId)
+        apiProfile.getStatus(userId)
             .then((response) => {
                 dispatch(setStatus(response))
             })
@@ -97,7 +97,7 @@ export let getStatusThunkCreator = (userId) => {
 }
 export let putStatusThunkCreator = (statusTmpInput, myId) => { // санкреатор обновления моего статуса
     return (dispatch) => { // санка
-        putStatus(statusTmpInput) // отправка нового статуса на сервер
+        apiProfile.putStatus(statusTmpInput) // отправка нового статуса на сервер
             .then((response) => {// ответ 200 с сервера
                 if (response.resultCode ===0) { // если успешное обновление статуса с сервера
                     dispatch(getStatusThunkCreator(myId))// получение нового статуса с сервера после обновления

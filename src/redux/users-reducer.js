@@ -1,4 +1,4 @@
-import {deleteFollow, getUsers, postFollow} from "../components/api/api";
+import {apiUsers} from "../components/api/api";
 
 const SET_USERS = "SET_USERS";
 const SET_CURRENT_PAGE = "SET_CURRENT_PAGE";
@@ -24,7 +24,7 @@ let toggleIsFollowingProgerss = (isFetching, id) => {
 
 let initialState = {
     users: [],
-    pageSize: 100,
+    pageSize: 30,
     totalUsersCount: 0,
     currentPage: 1,
     isFetching: false,
@@ -70,7 +70,7 @@ let usersReducer = (state = initialState, action) => {
 export let getUsersThunkCreator = (currentPage, pageSize) => {//санкреатор получить пользователей с данными
     let getUsersThunk = (dispatch) => { // санка получить пользователей
         dispatch(toggleIsFetching(true)) //показать крутилку загрузки с сервера
-        getUsers(currentPage, pageSize) //получить пользователей по текущей странице и размере страницы
+        apiUsers.getUsers(currentPage, pageSize) //получить пользователей по текущей странице и размере страницы
             .then((data) => {
                 dispatch(toggleIsFetching(false))  //убрать крутилку загрузки с сервера
                 dispatch(setUsers(data.items))//записать в стейт закгруженный стек пользователей
@@ -84,10 +84,10 @@ export let getUsersThunkCreator = (currentPage, pageSize) => {//санкреат
 export let followThunkCreator = (userId, currentPage, pageSize) => {//санкреатор follow с данными
     return (dispatch) => {// санка follow
         dispatch(toggleIsFollowingProgerss(true, userId))
-        postFollow(userId)// подписаться на пользователя
+        apiUsers.postFollow(userId)// подписаться на пользователя
             .then((response) => {
                 if (response.resultCode === 0) {
-                    getUsers(currentPage, pageSize) //получить пользователей по текущей странице и размере страницы
+                    apiUsers.getUsers(currentPage, pageSize) //получить пользователей по текущей странице и размере страницы
                         .then((response) => {
                             dispatch(setUsers(response.items))//записать в стейт закгруженный стек пользователей
                             dispatch(toggleIsFollowingProgerss(false, userId))//убрать ID кнопки пользователя из массива followingInProgress, кнопка раздизаблена
@@ -99,10 +99,10 @@ export let followThunkCreator = (userId, currentPage, pageSize) => {//санкр
 export let unfollowThunkCreator = (userId, currentPage, pageSize) => {//санкреатор unfollow с данными
     return (dispatch) => {// санка unfollow
         dispatch(toggleIsFollowingProgerss(true, userId))//внести ID кнопки пользователя в массив followingInProgress от повторного нажатия
-        deleteFollow(userId)//отписаться от пользователя
+        apiUsers.deleteFollow(userId)//отписаться от пользователя
             .then((response) => {
                 if (response.resultCode === 0) {
-                    getUsers(currentPage, pageSize) //получить пользователей по текущей странице и размере страницы
+                    apiUsers.getUsers(currentPage, pageSize) //получить пользователей по текущей странице и размере страницы
                         .then((response) => {
                             dispatch(setUsers(response.items))//записать в стейт закгруженный стек пользователей
                             dispatch(toggleIsFollowingProgerss(false, userId))//убрать ID кнопки пользователя из массива followingInProgress, кнопка раздизаблена
