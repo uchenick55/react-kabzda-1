@@ -15,20 +15,28 @@ let Users = (props) => {
     let curPL = curP + 5;
     let slicedPages = pages.slice(curPF, curPL);
 
-    return <div>
-        <div>
+    let Slicer = () => {
+        return (
+            <div>
+                {slicedPages.map((p) => {
+                    return (
+                        p === props.currentPage
+                            ? <span className={classes.selected} onClick={() => {
+                                props.onPageChanged(p)
+                            }}>{p}</span>
+                            : <span onClick={() => {
+                                props.onPageChanged(p)
+                            }}>{p}</span>
+                    )
+                })}
+            </div>
+        )
 
-            {slicedPages.map((p) => {
-                return (
-                    p === props.currentPage
-                        ? <span className={classes.selected} onClick={() => {
-                            props.onPageChanged(p)
-                        }}>{p}</span>
-                        : <span onClick={() => {
-                            props.onPageChanged(p)
-                        }}>{p}</span>
-                )
-            })}
+    }
+
+    return <div className={classes.users}>
+        <div>
+            {<Slicer/>}{/*Вывод слайсера вверху страницы (пагинация)*/}
         </div>
         {
             props.users.map((u) => {
@@ -68,6 +76,9 @@ let Users = (props) => {
                 )
             })
         }
+        <div>
+            {<Slicer/>} {/*Вывод слайсера внизу страницы (пагинация)*/}
+        </div>
     </div>
 
 }
