@@ -75,6 +75,7 @@ export let getProfileThunkCreator = (userId) => {
                     apiProfile.getProfile(userId)
                         .then((response) => {
                             dispatch(setUserProfile(response))
+                            dispatch(getStatusThunkCreator(userId))
                         })
                 })
         }
@@ -82,6 +83,7 @@ export let getProfileThunkCreator = (userId) => {
             apiProfile.getProfile(userId)
                 .then((response) => {
                     dispatch(setUserProfile(response))
+                    dispatch(getStatusThunkCreator(userId))
                 })
         }
     }

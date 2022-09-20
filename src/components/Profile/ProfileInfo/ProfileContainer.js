@@ -1,7 +1,7 @@
 import React from "react";
 import Profile from "../Profile";
 import {connect} from "react-redux";
-import {getProfileThunkCreator, getStatusThunkCreator, putStatusThunkCreator} from "../../../redux/profile-reducer";
+import {getProfileThunkCreator, putStatusThunkCreator} from "../../../redux/profile-reducer";
 import {useParams} from "react-router-dom"
 import {NavigateToLoginHoc} from "../../hoc/NavigateToLoginHoc";
 import {compose} from "redux";
@@ -10,7 +10,6 @@ class ProfileContainer extends React.Component {
     componentDidMount() {
         let userId = this.props.match.params["*"];
         this.props.getProfileThunkCreator(userId);
-        this.props.getStatusThunkCreator(userId);
     }
     render () {
         return <>
@@ -34,7 +33,7 @@ function withRouter (Children) {
 }
 
 export default compose(
-    connect(mapStateToProps, {getProfileThunkCreator, getStatusThunkCreator, putStatusThunkCreator}),
+    connect(mapStateToProps, {getProfileThunkCreator, putStatusThunkCreator}),
     withRouter,
     NavigateToLoginHoc
 )

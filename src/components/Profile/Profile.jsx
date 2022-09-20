@@ -11,7 +11,6 @@ const Profile = (props) => {
             status={props.status} // статус из BLL
             myId={props.myId} // мой id для модификации статуса
             putStatusThunkCreator={props.putStatusThunkCreator} // санкреатор для обновления сатуса
-            getStatusThunkCreator={props.getStatusThunkCreator} // санкреатор для получения сатуса
         />
         <MyPostsContainer // контейнер отображения постов (пока заглушка из стейта BLL)
         />

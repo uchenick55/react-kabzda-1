@@ -32,7 +32,6 @@ const ProfileInfo = (props) => {
                 userId={props.profile.userId} // id отображаемого пользователя
                 status={props.status} // статус из BLL
                 putStatusThunkCreator={props.putStatusThunkCreator} // санкреатор для обновления сатуса
-                getStatusThunkCreator={props.getStatusThunkCreator} // санкреатор для получения сатуса
             />
 
         </div>

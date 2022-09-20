@@ -6,8 +6,8 @@ class ProfileStatus extends React.Component {
         statusTmpInput: null // временное значение статуса на время ввода поля input. Изначально берем из статуса BLL
     }
     checkIfICanModifyStatus = () => { // проверка, что я могу менять статус (открыт мой профиль со статусом)
-        if (this.props.userId===this.props.myId) { // если ID открытого пользователя равен моему
-            this.localStatus.modifyStatus=true; // смена текстового отображения статуса на поле input
+        if (this.props.userId === this.props.myId) { // если ID открытого пользователя равен моему
+            this.localStatus.modifyStatus = true; // смена текстового отображения статуса на поле input
             this.setState({modifyStatus: true}) // принудительная переотрисовка после смены локального статуса
             this.localStatus.statusTmpInput = this.props.status// временное значение статуса на время ввода поля input. Изначально берем из статуса BLL
         }
@@ -23,33 +23,29 @@ class ProfileStatus extends React.Component {
         this.setState({modifyStatus: false}) // принудительная переотрисовка после смены локального статуса
     }
     checkEnterPressed = (event) => {
-        if (event.charCode===13) {
+        if (event.charCode === 13) {
             this.setMyStatus();
         }
     }
 
-    componentDidMount () {
-        this.props.getStatusThunkCreator(this.props.userId)
-    }
-
-    render () {
+    render() {
         return (
             <div>
                 {!this.localStatus.modifyStatus
-                ?<span onDoubleClick={this.checkIfICanModifyStatus} /*при двойном клике на статусе проверка могу ли я ввобще менять статус*/>
+                    ? <span
+                        onDoubleClick={this.checkIfICanModifyStatus} /*при двойном клике на статусе проверка могу ли я ввобще менять статус*/>
                         Статус: {!this.props.status // если статуса из стейта нет или он нулевой
                         ? "нет статуса" // отображение "нет статуса"
-                        :this.props.status // если статус есть из BLL, он отображается
-                }
+                        : this.props.status // если статус есть из BLL, он отображается
+                    }
                 </span>
-                :<span onDoubleClick={this.setMyStatus}><input
+                    : <span onDoubleClick={this.setMyStatus}><input
                         onBlur={this.setMyStatus}
                         onChange={this.onChangeStatus}
                         value={this.localStatus.statusTmpInput} // жестко зафиксировали значение поля ввода на временное значение статуса в локальном стейте
                         autoFocus={true} // фокусировка на поле ввода текста
                         placeholder={"задайте статус"}// текст при пустом поле ввода
                         onKeyPress={this.checkEnterPressed}
-
                     />
                 </span>
                 }
