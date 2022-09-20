@@ -12,7 +12,7 @@ let Users = (props) => {
 
     let curP = props.currentPage;
     let curPF = ((curP - 5) < 0) ? 0 : curP - 5;
-    let curPL = curP + 5;
+    let curPL = ((curP + 5) > PagesCount) ? PagesCount : curP + 5;
     let slicedPages = pages.slice(curPF, curPL);
 
     let Slicer = () => {
@@ -22,7 +22,8 @@ let Users = (props) => {
                     return (
                         p === props.currentPage
                             ? <span className={classes.selected} onClick={() => {
-                                props.onPageChanged(p)
+                                <div>
+                                </div>
                             }}>{p}</span>
                             : <span onClick={() => {
                                 props.onPageChanged(p)
@@ -31,7 +32,6 @@ let Users = (props) => {
                 })}
             </div>
         )
-
     }
 
     return <div className={classes.users}>

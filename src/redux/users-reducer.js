@@ -24,7 +24,7 @@ let toggleIsFollowingProgerss = (isFetching, id) => {
 
 let initialState = {
     users: [],
-    pageSize: 10,
+    pageSize: 100,
     totalUsersCount: 0,
     currentPage: 1,
     isFetching: false,
