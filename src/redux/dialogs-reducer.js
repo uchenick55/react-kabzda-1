@@ -1,11 +1,8 @@
 const SEND_MESSAGE = "SEND-MESSAGE";
 const UPDATE_NEW_MESSAGE_BODY = "UPDATE-NEW-MESSAGE-BODY";
 
-export let sendMessageCreator = () => {
-    return {type: SEND_MESSAGE}
-};
-export let updateNewMessageBodyCreator = (body) => {
-    return {type: UPDATE_NEW_MESSAGE_BODY, body: body}
+export let sendMessageCreator = (formDataNewMessage) => {
+    return {type: SEND_MESSAGE, formDataNewMessage}
 };
 
 let initialState = {
@@ -40,21 +37,14 @@ let initialState = {
             },
             {id: 6, name: "Zhenya", avaSrc: "https://cdn1.flamp.ru/a981cc28c84f99d8f480c8ea6b559671.jpg"}
         ],
-        newMessageBody: "",
     }
 
 let dialogsReducer = (state = initialState, action) => {
        switch (action.type) {
-           case UPDATE_NEW_MESSAGE_BODY:
-               return {
-                   ...state,
-                   newMessageBody: action.body
-               }
            case SEND_MESSAGE:
-               let body = state.newMessageBody;
+               let body = action.formDataNewMessage;
                return {
                    ...state,
-                   newMessageBody: "",
                    messages: [...state.messages, {id: 6, message: body}],
                }
         default:

@@ -1,6 +1,6 @@
 import React from 'react';
 import Dialogs from "./Dialogs";
-import {sendMessageCreator, updateNewMessageBodyCreator} from "../../redux/dialogs-reducer";
+import {sendMessageCreator} from "../../redux/dialogs-reducer";
 import {connect} from "react-redux";
 import {NavigateToLoginHoc} from "../hoc/NavigateToLoginHoc";
 import {compose} from "redux";
@@ -15,11 +15,8 @@ class DialogsContainer extends React.Component {
 
 let mapDispatchToProps  = (dispatch) => {
     return {
-        sendMessage: () => {
-            dispatch(sendMessageCreator())
-        },
-        updateNewMessageBody: (body) => {
-            dispatch(updateNewMessageBodyCreator(body))
+        sendMessage: (formDataNewMessage) => {
+            dispatch(sendMessageCreator(formDataNewMessage))
         }
     }
 }

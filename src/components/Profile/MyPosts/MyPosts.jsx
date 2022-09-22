@@ -1,36 +1,48 @@
-import React from 'react';
-import classes from './MyPosts.module.css'
-import Post from "./Post/Post";
+import React from 'react'; // импорт реакта
+import classes from './MyPosts.module.css' // css обработка
+import Post from "./Post/Post"; // подкомпонента отрисовки постов через map
+import {Field, reduxForm} from "redux-form"; // reduxForm для ввода новых постов
 
-const MyPosts = (props) => {
-    let postElements =
-        props.state.posts.map((p) => <Post message={p.message} like={p.like} id={p.id}/>);
+const newPostForm = (props) => { // компонента формы
+    return (
+        <form onSubmit={props.handleSubmit} /*привязка сабмита формы к внутренней функции reduxForm - handleSubmit*/>
+            <div>
+                <div>
+                    <Field
+                        name={"newPostData"} // имя поля формы и возвращаемого свойства объекта после сабмита формы
+                        component={"input"} // компонент - ввод
+                        type={"textarea"} // тип - текстовое поле
+                        placeholder={"newPost"} // текст подсказка при пустом поле
+                    />
+                </div>
+                <div>
+                    <button>Submit</button> {/*кнопка*/}
+                </div>
+            </div>
+        </form>
+    )
+}
 
-    let newPostElement = React.createRef();
+// оберточная компонента формы, задает имя подстейта "newPostForm"
+const NewPostReduxForm = reduxForm({form: "newPostForm"})(newPostForm)
 
-    let addPost = () => {
-        props.addPost();
-    };
+const MyPosts = (props) => { // основная компонента отрисовки постов
 
-    let onPostChange = () => {
-        let text2 = newPostElement.current.value;
-        props.updateNewPostText(text2);
+    let postElements = props.state.posts.map((p) => // подкомпонента отрисовки всех постов через map
+            <Post message={p.message} like={p.like} id={p.id}/>);
+
+    let addPost = (formData) => { // функция отправления данных формы нового поста в стейт
+        props.addPost(formData.newPostData);
     };
 
     return (
-        <div className={classes.postsBlock}>
-            <h3>My posts</h3>
-            <div>
-                <textarea ref={newPostElement} onChange={onPostChange} value={props.state.newPostText}/>
-            </div>
-            <div>
-                <button onClick={addPost}>Press here</button>
-            </div>
+        <div className={classes.postsBlock} /*стиль*/ >
+            <h3>My posts</h3> {/*h3 заголовок*/}
+            <NewPostReduxForm onSubmit={addPost} /> {/*вызов формы постов с отсылкой на локальный обработчик сабмита*/}
             <div className={classes.posts}>
-                {postElements}
+                {postElements} {/*отрисовка постов*/}
             </div>
         </div>
     )
-
 }
 export default MyPosts;
