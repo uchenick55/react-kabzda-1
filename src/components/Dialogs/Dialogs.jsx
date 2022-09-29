@@ -2,7 +2,10 @@ import React from 'react'; // импорт реакта
 import classes from './Dialogs.module.css';// css обработка
 import DialogItem from "./DialogItem/DialogItem";// подкомпонента отрисовки диалогов через map
 import Message from "./Message/Message";// подкомпонента отрисовки сообщений через map
-import {Field, reduxForm} from "redux-form";// reduxForm для ввода новых сообщений
+import {Field, reduxForm} from "redux-form";
+import {Textarea} from "../common/Validation/customFields";
+import {maxLengthCreator, Required} from "../common/Validation/validationField";
+// reduxForm для ввода новых сообщений
 
 const newMessageForm = (props) => {// компонента формы
     return (
@@ -11,8 +14,8 @@ const newMessageForm = (props) => {// компонента формы
                 <div>
                     <Field
                         name={"newMessageData"}// имя поля формы и возвращаемого свойства объекта после сабмита формы
-                        component={"input"}// компонент - ввод
-                        type={"textarea"}// тип - текстовое поле
+                        component={Textarea}//настраиваемый компонент текстовое поле для вывода ошибок ввода
+                        validate={[Required, maxLengthCreator(25)]}
                         placeholder={"newMessage"}// текст подсказка при пустом поле
                     />
                 </div>

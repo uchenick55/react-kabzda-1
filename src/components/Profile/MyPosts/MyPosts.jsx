@@ -1,7 +1,9 @@
 import React from 'react'; // импорт реакта
 import classes from './MyPosts.module.css' // css обработка
 import Post from "./Post/Post"; // подкомпонента отрисовки постов через map
-import {Field, reduxForm} from "redux-form"; // reduxForm для ввода новых постов
+import {Field, reduxForm} from "redux-form";
+import {maxLengthCreator, Required} from "../../common/Validation/validationField";
+import {Textarea} from "../../common/Validation/customFields"; // reduxForm для ввода новых постов
 
 const newPostForm = (props) => { // компонента формы
     return (
@@ -10,9 +12,9 @@ const newPostForm = (props) => { // компонента формы
                 <div>
                     <Field
                         name={"newPostData"} // имя поля формы и возвращаемого свойства объекта после сабмита формы
-                        component={"input"} // компонент - ввод
-                        type={"textarea"} // тип - текстовое поле
+                        component={Textarea} //настраиваемый компонент текстовое поле для вывода ошибок ввода
                         placeholder={"newPost"} // текст подсказка при пустом поле
+                        validate = {[Required, maxLengthCreator(30)]} //  валидация требуемого поля и максимальной длины
                     />
                 </div>
                 <div>

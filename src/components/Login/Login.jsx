@@ -1,6 +1,8 @@
 import React from "react"; // импорт реакта
 import {Field, reduxForm} from "redux-form";// reduxForm для ввода новых постов
-import classes from './Login.module.css' // css обработка
+import classes from './Login.module.css'
+import {Input, Textarea} from "../common/Validation/customFields";
+import {email, Required} from "../common/Validation/validationField"; // css обработка
 
 const LoginForm = props => { // компонента формы
     return (
@@ -8,18 +10,18 @@ const LoginForm = props => { // компонента формы
             <div>
                 <div>
                     <Field
-                        name="login"// имя поля формы и возвращаемого свойства объекта после сабмита формы
-                        component = "input"// компонент - ввод
-                        type = "text"// тип - текст
-                        placeholder = "login" // текст подсказка при пустом поле
+                        name="email"// имя поля формы и возвращаемого свойства объекта после сабмита формы
+                        component ={Input}// компонент - ввод
+                        placeholder = "email" // текст подсказка при пустом поле
+                        validate={[Required, email]}
                     />
                 </div>
                 <div>
                     <Field
                         name="password"// имя поля формы и возвращаемого свойства объекта после сабмита формы
-                        component = "input"// компонент - ввод
-                        type = "text"// тип - текст
+                        component ={Input}// компонент - ввод
                         placeholder = "password"// текст подсказка при пустом поле
+                        validate={[Required]}
                     />
                 </div>
                 <div>
@@ -28,6 +30,7 @@ const LoginForm = props => { // компонента формы
                         component = "input"// компонент - ввод
                         type = "checkbox"// тип - чекбокс
                     />
+                    <label> запомнить меня</label>
                 </div>
                 <div>
                     <button type="submit">Submit</button> {/*кнопка*/}

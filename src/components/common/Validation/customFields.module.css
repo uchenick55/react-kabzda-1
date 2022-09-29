@@ -1,0 +1,7 @@
+.InputError,
+.textAreaError {
+    border: solid red 2px;
+}
+.textError {
+    color: red;
+}
