@@ -15,7 +15,7 @@ const newMessageForm = (props) => {// компонента формы
                     <Field
                         name={"newMessageData"}// имя поля формы и возвращаемого свойства объекта после сабмита формы
                         component={Textarea}//настраиваемый компонент текстовое поле для вывода ошибок ввода
-                        validate={[Required, maxLengthCreator(25)]}
+                        validate={[Required, maxLengthCreator(15)]}
                         placeholder={"newMessage"}// текст подсказка при пустом поле
                     />
                 </div>

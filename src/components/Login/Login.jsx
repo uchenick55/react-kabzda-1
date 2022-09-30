@@ -43,11 +43,11 @@ const LoginForm = props => { // компонента формы
 // оберточная компонента формы, задает имя подстейта "LoginForm"
 let LoginReduxForm=reduxForm({form: 'loginForm'})(LoginForm)
 
-let onSubmit = (formData) => { // функция реакции на сабмит формы
-    console.log(formData)
-}
-
-let Login = () => {
+let Login = (props) => {
+    let onSubmit = (formData) => { // функция реакции на сабмит формы с данными от формы formData
+        const rememberme= !formData.rememberme?false:formData.rememberme // если галочка rememberme не стоит, то false
+        props.postLogin(formData.email, formData.password, rememberme)//вызов postLoginThunkCreator выше из LoginContainer
+    }
     return(
         <div className={classes.loginCommon}/*стиль*/ >
             <h3>Войдите в аккаунт</h3>{/*h3 заголовок*/}

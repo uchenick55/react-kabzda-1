@@ -14,7 +14,7 @@ const newPostForm = (props) => { // компонента формы
                         name={"newPostData"} // имя поля формы и возвращаемого свойства объекта после сабмита формы
                         component={Textarea} //настраиваемый компонент текстовое поле для вывода ошибок ввода
                         placeholder={"newPost"} // текст подсказка при пустом поле
-                        validate = {[Required, maxLengthCreator(30)]} //  валидация требуемого поля и максимальной длины
+                        validate = {[Required, maxLengthCreator(10)]} //  валидация требуемого поля и максимальной длины
                     />
                 </div>
                 <div>
@@ -34,6 +34,7 @@ const MyPosts = (props) => { // основная компонента отрис
             <Post message={p.message} like={p.like} id={p.id}/>);
 
     let addPost = (formData) => { // функция отправления данных формы нового поста в стейт
+
         props.addPost(formData.newPostData);
     };
 

@@ -8,12 +8,12 @@ const instance = axios.create({
     }
 });
 
-export let apiUsers = {
+export let apiUsers = { // объект с методами api для USERS и follow/unfollow
     getUsers: (currentPage, pageSize) => {
         return (
             instance.get(`users?count=${pageSize}&page=${currentPage}`)
                 .then((response) => {
-                    return (response.data)
+                    return (response.data) //возврат данных из поля data
                 })
         )
     },
@@ -21,7 +21,7 @@ export let apiUsers = {
         return (
             instance.post(`follow/${userId}`)
                 .then((response) => {
-                    return (response.data)
+                    return (response.data) //возврат данных из поля data
                 })
         )
     },
@@ -29,42 +29,58 @@ export let apiUsers = {
         return (
             instance.delete(`follow/${userId}`)
                 .then((response) => {
-                    return (response.data)
+                    return (response.data) //возврат данных из поля data
                 })
         )
     }
 }
 
-export let apiProfile = {
-    getProfile: (userId) => {
+export let apiProfile = { // объект с методами api для профайла и авторизации
+    getProfile: (userId) => {// получить данные профиля выбранного пользователя по userId
         return (
             instance.get(`profile/` + userId)
                 .then((response) => {
-                    return (response.data)
+                    return (response.data) //возврат данных из поля data
                 })
         )
     },
-    getAuthMe: () => {
+    getAuthMe: () => {// запрос "я авторизован?"
         return (
             instance.get(`auth/me`)
                 .then((response) => {
-                    return (response.data)
+                    return (response.data) //возврат данных из поля data
                 })
         )
     },
-    getStatus: (userId) => {
+    getStatus: (userId) => { // получить статус выбранного пользователя по userId
         return (
             instance.get(`/profile/status/${userId}`)
                 .then((response) => {
-                    return (response.data)
+                    return (response.data) //возврат данных из поля data
                 })
         )
     },
-    putStatus: (statusTmpInput) => {
+    putStatus: (statusTmpInput) => { // отправка моего статуса
         return (
             instance.put(`/profile/status/`, {status: statusTmpInput})
                 .then((response) => {
-                    return (response.data)
+                    return (response.data) //возврат данных из поля data
+                })
+        )
+    },
+    postLogin: (email, password, rememberme) => { //авторизация на сервере по  данным из login формы
+        return (
+            instance.post(`/auth/login`, {email: email, password: password, rememberme: rememberme })
+                .then((response) => {
+                    return (response.data) //возврат данных из поля data
+                })
+        )
+    },
+    deleteLogin: () => { // логаут текущего пользователя
+        return (
+            instance.delete(`/auth/login`)
+                .then((response) => {
+                    return (response.data) //возврат данных из поля data
                 })
         )
     }

@@ -71,6 +71,30 @@ export let getAuthMeThunkCreator = () =>{//санкреатор я автори�
     }
     return getAuthMeThunk;
 }
+export let postLoginThunkCreator = (email, password, rememberme) =>{//санкреатор на логин
+    let postLoginThunk = (dispatch) => {
+        apiProfile.postLogin(email, password, rememberme) // отправка данных на авторизацию
+            .then((response) => {
+                if (response.resultCode ===0) { // если успешное обновление статуса с сервера
+                    dispatch(getAuthMeThunkCreator()) // проверка авторизации
+                } else {
+                }
+            })
+    }
+    return postLoginThunk;
+}
+export let deleteLoginThunkCreator = () =>{//санкреатор на логАут
+    let deleteLoginThunk = (dispatch) => {
+        apiProfile.deleteLogin() // отправка данных на авторизацию
+            .then((response) => {
+                if (response.resultCode ===0) { // если успешное обновление статуса с сервера (сессия закрыта)
+                    dispatch(getAuthMeThunkCreator()) // проверка авторизации и зануление стейта
+                } else {
+                }
+            })
+    }
+    return deleteLoginThunk;
+}
 export default authReducer;
 
 
