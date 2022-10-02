@@ -1,19 +1,18 @@
-const SEND_MESSAGE = "SEND-MESSAGE";
-const UPDATE_NEW_MESSAGE_BODY = "UPDATE-NEW-MESSAGE-BODY";
+const SEND_MESSAGE = "SEND-MESSAGE"; // Константа отправки сообщения
 
-export let sendMessageCreator = (formDataNewMessage) => {
+export let sendMessageCreator = (formDataNewMessage) => { // экшнкреатор отправки сообщений
     return {type: SEND_MESSAGE, formDataNewMessage}
 };
 
-let initialState = {
-        messages: [
+let initialState = { // стейт сообщений по умолчанию
+        messages: [ // сообщения по одному из диалогов по умолчанию (заглушка)
             {id: 1, message: "Hello, how are you?"},
             {id: 2, message: "This is my first message!"},
             {id: 3, message: "Did you tell me anything yesterday?"},
             {id: 4, message: "Yo"},
             {id: 5, message: "Yo"}
         ],
-        dialogs: [
+        dialogs: [ // список диалогов по умолчанию (заглушка)
             {
                 id: 1,
                 name: "Artem",
@@ -39,13 +38,13 @@ let initialState = {
         ],
     }
 
-let dialogsReducer = (state = initialState, action) => {
+let dialogsReducer = (state = initialState, action) => { // редьюсер диалогов
        switch (action.type) {
-           case SEND_MESSAGE:
+           case SEND_MESSAGE: // экшн отправки сообщений по данным из формы диалогов
                let body = action.formDataNewMessage;
                return {
                    ...state,
-                   messages: [...state.messages, {id: 6, message: body}],
+                   messages: [...state.messages, {id: 6, message: body}], // добавление сообщений (заглушка)
                }
         default:
             return state;

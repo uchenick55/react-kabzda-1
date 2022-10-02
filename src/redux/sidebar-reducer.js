@@ -1,5 +1,5 @@
 let initialState = {
-    myFriends: [
+    myFriends: [ // заглушка списка моих друзей в навбаре
         {
             id: 1,
             name: "Artem",
@@ -18,6 +18,6 @@ let initialState = {
     ]
 }
 const sidebarReducer = (state = initialState, action) => {
-    return state;
+    return state; // всегда возвращает входящий стейт
 }
 export default sidebarReducer;

@@ -31,7 +31,7 @@ let initialState = {
     followingInProgress: []
 }
 let usersReducer = (state = initialState, action) => {
-    let stateCopy;
+    let stateCopy; // объявлениечасти части стейта до изменения редьюсером
     switch (action.type) {
         case TOGGLE_IS_FOLLOWING_PROGRESS: // disable кнопки от многократного нажатия (follow/unfollow)
             stateCopy = {
