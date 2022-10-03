@@ -27,7 +27,7 @@ const Header = (props) => {
                         </NavLink>
                         {/*отрисовка моих логина и фото с профиля + ссылка на профиль*/}
                         <span>
-                          <span onClick={deleteLogin}><NavLink to='/login'>LogOut</NavLink></span> {
+                          <span onClick={deleteLogin}><NavLink to='/login'>Logout</NavLink></span> {
                           /*переход на логин страницу после логаута*/}
                       </span>
                     </span>

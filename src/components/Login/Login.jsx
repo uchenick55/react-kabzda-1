@@ -1,7 +1,8 @@
 import React from "react"; // импорт реакта
 import {Field, reduxForm} from "redux-form";// reduxForm для ввода новых постов
 import classes from './Login.module.css'
-import {Input, Textarea} from "../common/Validation/customFields";
+import styles from './../common/Validation/customFields.module.css'
+import {Input} from "../common/Validation/customFields";
 import {email, Required} from "../common/Validation/validationField"; // css обработка
 
 const LoginForm = props => { // компонента формы
@@ -34,6 +35,10 @@ const LoginForm = props => { // компонента формы
                 </div>
                 <div>
                     <button type="submit">Submit</button> {/*кнопка*/}
+                </div>
+                <div className={styles.commonError}>
+                    {/*стилизация красным сообщение об общей ошибке с сервера при неверном логине или пароле*/}
+                    {props.error} {/*вывод сообщения ошибки после диспатча stopSubmit из auth-reducer.js */}
                 </div>
             </div>
         </form>

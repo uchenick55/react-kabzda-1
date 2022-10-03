@@ -1,4 +1,5 @@
 import {apiProfile} from "../components/api/api";
+import {stopSubmit} from "redux-form";
 
 const SET_MY_DATA = "SET_MY_DATA"; // константа для задания базовых данных моего профиля (ID, Email, login, isAuth)
 const SET_MY_PROFILE = "SET_MY_PROFILE"; // константа задания расширенных данных моего профиля
@@ -77,7 +78,15 @@ export let postLoginThunkCreator = (email, password, rememberme) =>{//санкр
             .then((response) => {
                 if (response.resultCode ===0) { // если успешная авторизация на сервере
                     dispatch(getAuthMeThunkCreator()) // получить данные с сервера авторизованного пользователя
-                } else { // пока еще не придумал
+                } else { // если логин или пароль не подошли
+                    let message =  // определение локальной переменной message - ответ от сервера
+                        !response.messages[0] // если ответа от сервера нет
+                            ?"no responce from server" // вывести сообщение заглушку
+                            :response.messages[0] // иначе вывести ответ от сервера
+                    let action = stopSubmit("loginForm", {_error: message})
+                    // loginForm это наша форма логина.
+                    // объект _error является общей ошибкой для всей формы с сообщением message
+                    dispatch(action) // отправить данные в форму
                 }
             })
     }
