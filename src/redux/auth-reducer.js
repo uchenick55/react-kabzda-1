@@ -4,8 +4,8 @@ import {stopSubmit} from "redux-form";
 const SET_MY_DATA = "SET_MY_DATA"; // константа для задания базовых данных моего профиля (ID, Email, login, isAuth)
 const SET_MY_PROFILE = "SET_MY_PROFILE"; // константа задания расширенных данных моего профиля
 
-export let setAuthData = (id, email, login, sentRequestIsAuth, isAuth) => { // экшн креатор задания моих ID, Email, login
-    return {type: SET_MY_DATA, id, email, login, sentRequestIsAuth, isAuth}
+export let setAuthData = (id, email, login, isAuth) => { // экшн креатор задания моих ID, Email, login
+    return {type: SET_MY_DATA, id, email, login, isAuth}
 };
 export let setMyProfile = (myProfile) => { // экшн креатор задания расширенных данных моего профиля
     return {type: SET_MY_PROFILE, myProfile}
@@ -16,7 +16,6 @@ let initialState = { // стейт по умолчанию для моего п�
     myEmail: null,// мой Email по умолчанию
     myLogin: null,// мой логин по умолчанию
     isAuth: false, // Флаг авторизации
-    sentRequestIsAuth: false, // проверка, что запрос авторизации на сервер проводился, независимо от результата
     myProfile: null // мой расширенный профиль по умолчанию
 }
 
@@ -30,7 +29,6 @@ let authReducer = (state = initialState, action) => { // редьюсер авт
                 myEmail: action.email,
                 myLogin: action.login,
                 isAuth: action.isAuth,
-                sentRequestIsAuth: action.sentRequestIsAuth,
             }
             return stateCopy; // возврат копии стейта после изменения
         case SET_MY_PROFILE: // экшн задания моего расширенного профиля
@@ -52,9 +50,8 @@ export let getAuthMeThunkCreator = () =>{//санкреатор я автори�
                     let id = response.data.id; // записать с стейт мой ID
                     let email = response.data.email; // записать с стейт мой емейл
                     let login = response.data.login; // записать с стейт мой логин
-                    let sentRequestIsAuth = true;  // отметить что попытка авторизации была
                     let isAuth = true; // отметить что а авторизован
-                    dispatch(setAuthData(id, email, login, sentRequestIsAuth, isAuth))//задание в стейт текущего пользователя
+                    dispatch(setAuthData(id, email, login, isAuth))//задание в стейт текущего пользователя
                     apiProfile.getProfile(id)//получение моих дополнительных данных после авторизации
                         .then((response) => {
                             dispatch(setMyProfile(response))//задание в стейт моих доп данных
@@ -64,9 +61,8 @@ export let getAuthMeThunkCreator = () =>{//санкреатор я автори�
                     let id = initialState.userID; // занулить в стейте мой ID
                     let email = initialState.email;// занулить в стейте мой email
                     let login = initialState.login;// занулить в стейте мой логин
-                    let sentRequestIsAuth = true; // запрос авторизации был, но пользователь не авторизован
                     let isAuth = false; // занулить флаг авторизации
-                    dispatch(setAuthData(id, email, login, sentRequestIsAuth, isAuth))//задание в стейт зануленных значений если пользователь не авторизован
+                    dispatch(setAuthData(id, email, login, isAuth))//задание в стейт зануленных значений если пользователь не авторизован
                 }
             })
     }

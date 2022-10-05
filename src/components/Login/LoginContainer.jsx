@@ -24,7 +24,7 @@ class LoginContainer extends React.Component {
     }
 }
 
-let mapStateToProps = (state) => { // флаги isAuth - "я авторизован?" и sentRequestIsAuth - а запрос "я авторизован" вообще был?
+let mapStateToProps = (state) => { // флаги isAuth - "я авторизован?"
     return {
         isAuth: state.auth.isAuth,
     }
