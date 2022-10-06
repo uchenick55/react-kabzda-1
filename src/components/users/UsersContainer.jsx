@@ -7,6 +7,7 @@ import {
 } from "../../redux/users-reducer";
 import Users from "./Users";
 import Preloader from "../common/Preloader/Preloader";
+import {UsersSelectors} from "./users-selectors";
 
 class UsersAPI extends React.Component {
 
@@ -42,13 +43,13 @@ class UsersAPI extends React.Component {
 
 let mapStateToProps = (state) => {
     return {
-        users: state.usersPage.users,
-        pageSize: state.usersPage.pageSize,
-        totalUsersCount: state.usersPage.totalUsersCount,
-        currentPage: state.usersPage.currentPage,
-        isFetching: state.usersPage.isFetching,
-        followingInProgress: state.usersPage.followingInProgress,
-        isAuth: state.auth.isAuth
+        users: UsersSelectors.getUsersSL(state),
+        pageSize: UsersSelectors.getPageSize(state),
+        totalUsersCount: UsersSelectors.getTotalUsersCount(state),
+        currentPage: UsersSelectors.getCurrentPage(state),
+        isFetching: UsersSelectors.getIsFetching(state),
+        followingInProgress: UsersSelectors.getFollowingInProgress(state),
+        isAuth: UsersSelectors.getIsAuth(state)
     }
 }
 
