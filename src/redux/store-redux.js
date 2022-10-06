@@ -6,6 +6,7 @@ import sidebarReducer from "./sidebar-reducer";
 import usersReducer from "./users-reducer";
 import authReducer from "./auth-reducer";
 import { reducer as formReducer } from 'redux-form'
+import appReducer from "./app-reducer";
 
 let reducers = combineReducers({ // объединяем стейт редьюсеров в один объект store
     profilePage: profileReducer, // стейт профиля
@@ -13,7 +14,8 @@ let reducers = combineReducers({ // объединяем стейт редьюс
     sideBar: sidebarReducer, // стейт сайдбара
     usersPage: usersReducer, // стейт страницы пользователей
     auth: authReducer, // стейт текущего пользователя
-    form: formReducer // стейт от redux-form
+    form: formReducer, // стейт от redux-form
+    app: appReducer
 });
 
 let store = createStore(reducers, applyMiddleware(thunkMiddleWare));//ApplyMiddleWare позволяет сделать прослойку между UI и редьюсером, чтобы можно было диспатчить не только экшены, но и санки.

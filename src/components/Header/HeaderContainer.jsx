@@ -1,13 +1,10 @@
 import React from 'react';
 import Header from "./Header";
 import {connect} from "react-redux";
-import {deleteLoginThunkCreator, getAuthMeThunkCreator} from "../../redux/auth-reducer";
+import {deleteLoginThunkCreator} from "../../redux/auth-reducer";
 import {getProfileThunkCreator} from "../../redux/profile-reducer";
 
 class HeaderContainer extends React.Component {
-    componentDidMount() {
-        this.props.getAuthMeThunkCreator() // санки, я авторизован?
-    }
     deleteLogin = () => {
         this.props.deleteLoginThunkCreator()// логаут текущего пользователя
     }
@@ -23,7 +20,7 @@ let mapStateToProps = (state) => {
         myProfile: state.auth.myProfile
     }
 }
-export default connect(mapStateToProps, {getAuthMeThunkCreator, getProfileThunkCreator, deleteLoginThunkCreator})(HeaderContainer);
+export default connect(mapStateToProps, {getProfileThunkCreator, deleteLoginThunkCreator})(HeaderContainer);
 
 
 

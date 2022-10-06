@@ -44,7 +44,7 @@ let authReducer = (state = initialState, action) => { // редьюсер авт
 
 export let getAuthMeThunkCreator = () =>{//санкреатор я авторизован?. Данных для запроса нет
     let getAuthMeThunk = (dispatch) => {
-        apiProfile.getAuthMe() // я авторизован?
+        return apiProfile.getAuthMe() // я авторизован?
             .then((response) => {
                 if (response.resultCode === 0) { //если я авторизован
                     let id = response.data.id; // записать с стейт мой ID
