@@ -7,7 +7,7 @@ import {
 } from "../../redux/users-reducer";
 import Users from "./Users";
 import Preloader from "../common/Preloader/Preloader";
-import {UsersSelectors} from "./users-selectors";
+import {getUsersReselect, usersSelectorsSimple} from "./users-selectors";
 
 class UsersAPI extends React.Component {
 
@@ -43,13 +43,13 @@ class UsersAPI extends React.Component {
 
 let mapStateToProps = (state) => {
     return {
-        users: UsersSelectors.getUsersSL(state),
-        pageSize: UsersSelectors.getPageSize(state),
-        totalUsersCount: UsersSelectors.getTotalUsersCount(state),
-        currentPage: UsersSelectors.getCurrentPage(state),
-        isFetching: UsersSelectors.getIsFetching(state),
-        followingInProgress: UsersSelectors.getFollowingInProgress(state),
-        isAuth: UsersSelectors.getIsAuth(state)
+        users: getUsersReselect(state), // Реселектор users- список пользователей в пачке от сервера
+        pageSize: usersSelectorsSimple.getPageSize(state),// селектор pageSize - количество пользователей на странице
+        totalUsersCount: usersSelectorsSimple.getTotalUsersCount(state), // селектор totalUsersCount - общее число пользователей с сервера
+        currentPage: usersSelectorsSimple.getCurrentPage(state),// селектор currentPage - текущая страница пачки пользователей с сервера
+        isFetching: usersSelectorsSimple.getIsFetching(state), // селектор isFetching - показать крутилку при загрузке страницы
+        followingInProgress: usersSelectorsSimple.getFollowingInProgress(state), // селектор followingInProgress - массив на кого мы подписались, кнопка неактивна
+        isAuth: usersSelectorsSimple.getIsAuth(state) // селектор isAuth - флаг авторизации
     }
 }
 
