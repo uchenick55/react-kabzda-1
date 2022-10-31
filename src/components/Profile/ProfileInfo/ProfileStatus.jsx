@@ -22,9 +22,9 @@ class ProfileStatus extends React.Component {
         this.props.putStatusThunkCreator(this.localStatus.statusTmpInput, this.props.myId)
         this.setState({modifyStatus: false}) // принудительная переотрисовка после смены локального статуса
     }
-    checkEnterPressed = (event) => {
+    checkEnterPressed = (event) => { // проверка нажатия Enter
         if (event.charCode === 13) {
-            this.setMyStatus();
+            this.setMyStatus(); //задание статуса при нажатии Enter
         }
     }
 
@@ -40,12 +40,12 @@ class ProfileStatus extends React.Component {
                     }
                 </span>
                     : <span onDoubleClick={this.setMyStatus}><input
-                        onBlur={this.setMyStatus}
-                        onChange={this.onChangeStatus}
+                        onBlur={this.setMyStatus}// задание статуса при потере фокуса input
+                        onChange={this.onChangeStatus} // задание временного локального статуса
                         value={this.localStatus.statusTmpInput} // жестко зафиксировали значение поля ввода на временное значение статуса в локальном стейте
                         autoFocus={true} // фокусировка на поле ввода текста
                         placeholder={"задайте статус"}// текст при пустом поле ввода
-                        onKeyPress={this.checkEnterPressed}
+                        onKeyPress={this.checkEnterPressed} // проверка нажатия Enter
                     />
                 </span>
                 }
