@@ -1,7 +1,9 @@
 import React from 'react';
 import classes from './ProfileInfo.module.css'
 import Preloader from "../../common/Preloader/Preloader";
-import ProfileStatusWithHoocs from "./ProfileStatusWithHoocs";
+import ProfileStatusUseReducer from "./ProfileStatus/ProfileStatusUseReducer";
+import ProfileStatusUseState from "./ProfileStatus/ProfileStatusUseState";
+import ProfileStatusClass from "./ProfileStatus/ProfileStatusClass";
 
 const ProfileInfo = (props) => {
     if (!props.profile) {
@@ -27,7 +29,7 @@ const ProfileInfo = (props) => {
             <div >
                 <img src={props.profile.photos.small}/>
             </div>
-            <ProfileStatusWithHoocs
+            <ProfileStatusUseReducer
                 myId={props.myId} // мой id для модификации статуса
                 userId={props.profile.userId} // id отображаемого пользователя
                 status={props.status} // статус из BLL

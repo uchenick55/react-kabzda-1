@@ -1,6 +1,6 @@
 import React from "react";
 
-class ProfileStatus extends React.Component {
+class ProfileStatusClass extends React.Component {
     localStatus = { // локальный стейт для статуса
         modifyStatus: false, // можно ли модифицировать статус и переключить на поле ввода?
         statusTmpInput: null // временное значение статуса на время ввода поля input. Изначально берем из статуса BLL
@@ -19,7 +19,7 @@ class ProfileStatus extends React.Component {
     }
     setMyStatus = () => { // действия после двойного клика по полю input статуса или вводу Enter
         this.localStatus.modifyStatus = false // переключение с поля ввода статуса на простой текст
-        this.props.putStatusThunkCreator(this.localStatus.statusTmpInput, this.props.myId)
+        this.props.putStatusThunkCreator(this.localStatus.statusTmpInput, this.props.myId) // санкреатор на обновление статуса на сервере
         this.setState({modifyStatus: false}) // принудительная переотрисовка после смены локального статуса
     }
     checkEnterPressed = (event) => { // проверка нажатия Enter
@@ -54,4 +54,4 @@ class ProfileStatus extends React.Component {
     }
 }
 
-export default ProfileStatus
+export default ProfileStatusClass

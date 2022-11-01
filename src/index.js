@@ -6,11 +6,6 @@ import App from './App.jsx';
 import reportWebVitals from './reportWebVitals';
 import {Provider} from "react-redux";
 
-setInterval(()=>{ // ставим повторяющееся действие, которое
-  store.dispatch({type: "FAKE_ACTON"}) // дергает стейт раз в секунду
-  console.log(store.getState().usersPage.fake) // выводим в консоль значение счетчика дерганья стейта
-}, 1000)
-
 const root = ReactDOM.createRoot(document.getElementById('root'));
     root.render(
     <React.StrictMode>
