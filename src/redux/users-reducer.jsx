@@ -1,11 +1,10 @@
 import {apiUsers} from "../components/api/api";
 
-const SET_USERS = "SET_USERS";
-const SET_CURRENT_PAGE = "SET_CURRENT_PAGE";
-const SET_TOTAL_USERS_COUNT = "SET_TOTAL_USERS_COUNT";
-const TOGGLE_IS_FETCHING = "TOGGLE_IS_FETCHING";
-const TOGGLE_IS_FOLLOWING_PROGRESS = "TOGGLE_IS_FOLLOWING_PROGRESS";
-const FAKE_ACTON = "FAKE_ACTON"; // константа счетчика дерганья стейта (для реселект)
+const SET_USERS = "myApp/users-reducer/SET_USERS";
+const SET_CURRENT_PAGE = "myApp/users-reducer/SET_CURRENT_PAGE";
+const SET_TOTAL_USERS_COUNT = "myApp/users-reducer/SET_TOTAL_USERS_COUNT";
+const TOGGLE_IS_FETCHING = "myApp/users-reducer/TOGGLE_IS_FETCHING";
+const TOGGLE_IS_FOLLOWING_PROGRESS = "myApp/users-reducer/TOGGLE_IS_FOLLOWING_PROGRESS";
 
 let setUsers = (users) => {
     return {type: SET_USERS, users}
@@ -64,12 +63,6 @@ let usersReducer = (state = initialState, action) => {
                 isFetching: action.isFetching
             }
             return stateCopy;
-        case FAKE_ACTON: // обработчик дерганья стейта (для проверки реселекта)
-            stateCopy = {
-                ...state, // копия всего стейта
-                fake: state.fake + 1 // счетчик растет на 1
-            }
-            return stateCopy; // возврат копии стейта с обновленным счетчиком
         default:
             return state;
     }

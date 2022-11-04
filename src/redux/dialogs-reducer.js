@@ -1,4 +1,4 @@
-const SEND_MESSAGE = "SEND-MESSAGE"; // Константа отправки сообщения
+const SEND_MESSAGE = "myApp/dialogs-reducer/SEND-MESSAGE"; // Константа отправки сообщения
 
 export let sendMessageCreator = (formDataNewMessage) => { // экшнкреатор отправки сообщений
     return {type: SEND_MESSAGE, formDataNewMessage}

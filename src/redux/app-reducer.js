@@ -1,6 +1,6 @@
 import {getAuthMeThunkCreator} from "./auth-reducer";
 
-const SET_INITIALISED_APP = "SET_INITIALISED_APP"; //константа инициализации приложения
+const SET_INITIALISED_APP = "myApp/app-reducer/SET_INITIALISED_APP"; //константа инициализации приложения
 
 export let setInitialisedApp = () => { // экшн креатор  инициализации приложения
     return {type: SET_INITIALISED_APP}

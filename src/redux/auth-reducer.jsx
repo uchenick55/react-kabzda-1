@@ -1,8 +1,8 @@
 import {apiProfile} from "../components/api/api";
 import {stopSubmit} from "redux-form";
 
-const SET_MY_DATA = "SET_MY_DATA"; // константа для задания базовых данных моего профиля (ID, Email, login, isAuth)
-const SET_MY_PROFILE = "SET_MY_PROFILE"; // константа задания расширенных данных моего профиля
+const SET_MY_DATA = "myApp/auth-reducer/SET_MY_DATA"; // константа для задания базовых данных моего профиля (ID, Email, login, isAuth)
+const SET_MY_PROFILE = "myApp/auth-reducer/SET_MY_PROFILE"; // константа задания расширенных данных моего профиля
 
 export let setAuthData = (id, email, login, isAuth) => { // экшн креатор задания моих ID, Email, login
     return {type: SET_MY_DATA, id, email, login, isAuth}

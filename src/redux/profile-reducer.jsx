@@ -1,8 +1,8 @@
 import {apiProfile} from "../components/api/api";
 
-const ADD_POST = "ADD-POST";// константа отправки новых постов
-const SET_USER_PROFILE = "SET_USER_PROFILE"; // константа задания в локальный стейт профиля просматриваемого пользователя
-const SET_STATUS = "SET_STATUS" // константа задания моего статуса
+const ADD_POST = "myApp/profile-reducer/ADD-POST";// константа отправки новых постов
+const SET_USER_PROFILE = "myApp/profile-reducer/SET_USER_PROFILE"; // константа задания в локальный стейт профиля просматриваемого пользователя
+const SET_STATUS = "myApp/profile-reducer/SET_STATUS" // константа задания моего статуса
 
 
 export let addPostActionCreator = (newPostData) => { // экшнкреатор добавления поста
