@@ -38,7 +38,7 @@ const LoginForm = props => { // компонента формы
                 </div>
                 <div className={styles.commonError}>
                     {/*стилизация красным сообщение об общей ошибке с сервера при неверном логине или пароле*/}
-                    {props.error} {/*вывод сообщения ошибки после диспатча stopSubmit из auth-reducer.js */}
+                    {props.error} {/*вывод сообщения ошибки после диспатча stopSubmit из auth-reducer.jsx */}
                 </div>
             </div>
         </form>

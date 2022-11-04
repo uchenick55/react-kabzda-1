@@ -27,7 +27,8 @@ let appReducer = (state = initialState, action) => {//редьюсер иниц�
 export let initialisedAppThunkCreator = () =>{// санкреатор инициализации приложения
     let initialisedAppThunk = (dispatch) => { // санки  инициализации приложения
         const promise1 = dispatch(getAuthMeThunkCreator()) // диспатч инициализации
-        Promise.all([promise1]).then(()=>{
+        Promise.all([promise1])
+          .then(()=>{
             // если диспатч авторизации прошел успешно (и все остальные диспатчи в массиве)
             dispatch(setInitialisedApp()) // смена флага инициализации на true
         })
