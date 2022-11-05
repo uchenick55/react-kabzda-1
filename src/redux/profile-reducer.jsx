@@ -1,10 +1,14 @@
 import {apiProfile} from "../components/api/api";
 
+const DELETE_POST = "myApp/profile-reducer/DELETE_POST";// константа удаления новых постов
 const ADD_POST = "myApp/profile-reducer/ADD-POST";// константа отправки новых постов
 const SET_USER_PROFILE = "myApp/profile-reducer/SET_USER_PROFILE"; // константа задания в локальный стейт профиля просматриваемого пользователя
 const SET_STATUS = "myApp/profile-reducer/SET_STATUS" // константа задания моего статуса
 
 
+export let deletePostActionCreator = (postId) => { // экшнкреатор удаления поста по postId
+    return {type: DELETE_POST, postId}
+};
 export let addPostActionCreator = (newPostData) => { // экшнкреатор добавления поста
     return {type: ADD_POST, newPostData}
 };
@@ -22,7 +26,7 @@ let initialState = {
     profile: null, // нулевой профиль просматриваемого пользователя по умолчанию
     status: null, // нулевой статус просматриваемого пользователя по умолчанию
 }
-let profileReducer = (state = initialState, action) => { // редьюсер профиля
+export let profileReducer = (state = initialState, action) => { // редьюсер профиля
     let stateCopy; // объявлениечасти части стейта до изменения редьюсером
     switch (action.type) {
         case SET_USER_PROFILE: // задание в локальный стейт профиля просматриваемого пользователя
@@ -40,6 +44,12 @@ let profileReducer = (state = initialState, action) => { // редьюсер п�
             return {
                 ...state,
                 posts: [...state.posts, newPost], // добавление созданного локального объекта в посты
+            }
+        }
+        case DELETE_POST: {// удаления поста по postId
+            return {
+                ...state,
+                posts: [...state.posts.filter(f=>f.id!=action.postId)], // удаление локального объекта в постах
             }
         }
         case SET_STATUS: //задание моего статуса в локальный стейт (после API запроса)
