@@ -5,9 +5,9 @@ import {Field, reduxForm} from "redux-form";
 import {maxLengthCreator, Required} from "../../common/Validation/validationField";
 import {Textarea} from "../../common/Validation/customFields"; // reduxForm для ввода новых постов
 
-const newPostForm = (props) => { // компонента формы
+const newPostForm = ({handleSubmit}) => { // компонента формы
     return (
-        <form onSubmit={props.handleSubmit} /*привязка сабмита формы к внутренней функции reduxForm - handleSubmit*/>
+        <form onSubmit={handleSubmit} /*привязка сабмита формы к внутренней функции reduxForm - handleSubmit*/>
             <div>
                 <div>
                     <Field
@@ -28,20 +28,20 @@ const newPostForm = (props) => { // компонента формы
 // оберточная компонента формы, задает имя подстейта "newPostForm"
 const NewPostReduxForm = reduxForm({form: "newPostForm"})(newPostForm)
 
-const MyPosts = (props) => { // основная компонента отрисовки постов
+const MyPosts = ({state, addPost}) => { // основная компонента отрисовки постов
 
-    let postElements = props.state.posts.map((p) => // подкомпонента отрисовки всех постов через map
+    let postElements = state.posts.map((p) => // подкомпонента отрисовки всех постов через map
             <Post message={p.message} like={p.like} id={p.id}/>);
 
-    let addPost = (formData) => { // функция отправления данных формы нового поста в стейт
+    let AddPost = (formData) => { // функция отправления данных формы нового поста в стейт
 
-        props.addPost(formData.newPostData);
+        addPost(formData.newPostData);
     };
 
     return (
         <div className={classes.postsBlock} /*стиль*/ >
             <h3>My posts</h3> {/*h3 заголовок*/}
-            <NewPostReduxForm onSubmit={addPost} /> {/*вызов формы постов с отсылкой на локальный обработчик сабмита*/}
+            <NewPostReduxForm onSubmit={AddPost} /> {/*вызов формы постов с отсылкой на локальный обработчик сабмита*/}
             <div className={classes.posts}>
                 {postElements} {/*отрисовка постов*/}
             </div>

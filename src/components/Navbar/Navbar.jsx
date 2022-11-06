@@ -2,8 +2,9 @@ import React from 'react';
 import classes from './Navbar.module.css';
 import {NavLink} from "react-router-dom";
 import MyFriends from "./My Friends/MyFriends";
+import {connect} from "react-redux";
 
-const Navbar = (props) => {
+const Navbar = ({state}) => {
     return <nav className={classes.nav}>
         <div className={classes.item}>
             <NavLink to='/profile'>Profile</NavLink>
@@ -24,9 +25,14 @@ const Navbar = (props) => {
             <NavLink to='/settings'>Settings</NavLink>
         </div>
         <div>
-            <MyFriends state={props.state.myFriends}/>
+            <MyFriends state={state.myFriends}/>
         </div>
     </nav>;
 
 }
-export default Navbar;
+const mapStateToProps = (state) => {
+    return {
+        state: state.sideBar
+    }
+}
+export default connect(mapStateToProps, null)(Navbar)

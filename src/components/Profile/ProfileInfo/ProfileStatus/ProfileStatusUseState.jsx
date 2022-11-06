@@ -1,18 +1,18 @@
 import React, {useEffect, useState} from "react";
 
-let ProfileStatusWithHoocs = (props) => {
+let ProfileStatusWithHoocs = ({userId, myId, status, putStatusThunkCreator }) => {
     const [modifyStatus, setModifyStatus] = useState(false) // локальная переменная-флаг модификации статуса
     const [statusTmpInput, setStatusTmpInput] = useState(null) // локальный статус до отправки на сервер (поле input)
 
     const checkIfICanModifyStatus = () => {// проверка, что я могу менять статус (открыт мой профиль со статусом)
-        if (props.userId===props.myId) { // если ID открытого пользователя равен моему
+        if (userId===myId) { // если ID открытого пользователя равен моему
             setModifyStatus(true)// смена текстового отображения статуса на поле input
-            setStatusTmpInput(props.status)// временное значение статуса на время ввода поля input. Изначально берем из статуса BLL
+            setStatusTmpInput(status)// временное значение статуса на время ввода поля input. Изначально берем из статуса BLL
         }
     }
     const setMyStatus = () => { // действия после двойного клика по полю input статуса или вводу Enter
         setModifyStatus(false) // переключение с поля ввода статуса на простой текст
-        props.putStatusThunkCreator(statusTmpInput, props.myId)
+        putStatusThunkCreator(statusTmpInput, myId)
     }
     const onChangeStatus = (event) => {
         const text = event.currentTarget.value;// вынимаем значение введенное в поле ввода input
@@ -31,9 +31,9 @@ let ProfileStatusWithHoocs = (props) => {
         {!modifyStatus
             ?<div>
                 <span onDoubleClick={checkIfICanModifyStatus}> {/*при двойном клике на статусе проверка могу ли я ввобще менять статус*/}
-                    Статус: {!props.status // если статуса из стейта нет или он нулевой
+                    Статус: {!status // если статуса из стейта нет или он нулевой
                         ?"нет статуса" // отображение "нет статуса"
-                        : props.status // если статус есть из BLL, он отображается
+                        : status // если статус есть из BLL, он отображается
                     }
                 </span>
             </div>

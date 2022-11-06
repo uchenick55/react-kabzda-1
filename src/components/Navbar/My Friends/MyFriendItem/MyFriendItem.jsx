@@ -2,14 +2,14 @@ import React from 'react';
 import classes from './../MyFriends.module.css';
 import {NavLink} from "react-router-dom";
 
-const MyFriendItem = (props) => {
+const MyFriendItem = ({id, avaSrc, name}) => {
 
-    let path = '/dialogs/' + props.id;
+    let path = '/dialogs/' + id;
     return <div className={classes.myfriends}>
         <NavLink to={path}>
             <div>
-                <img src={props.avaSrc}/>
-                {props.name}
+                <img src={avaSrc}/>
+                {name}
             </div>
         </NavLink>
     </div>

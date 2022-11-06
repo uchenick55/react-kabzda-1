@@ -1,11 +1,10 @@
 import React from 'react';
 import classes from './MyFriends.module.css';
-import {NavLink} from "react-router-dom";
 import MyFriendItem from "./MyFriendItem/MyFriendItem";
 
-const MyFriends = (props) => {
+const MyFriends = ({state}) => {
     let MyFriendElements =
-        props.state.map((f) => {
+        state.map((f) => {
                 return (
                     <MyFriendItem name={f.name} id={f.id} avaSrc={f.avaSrc}/>
                 )

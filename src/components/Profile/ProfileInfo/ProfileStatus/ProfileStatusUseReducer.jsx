@@ -1,6 +1,6 @@
 import React, {useReducer} from "react";
 
-let ProfileStatusUseReducer = (props) => {
+let ProfileStatusUseReducer = ({status, userId, myId, putStatusThunkCreator}) => {
 
     const initialState = {
         modifyStatus2: false,// локальная переменная-флаг модификации статуса
@@ -18,7 +18,7 @@ let ProfileStatusUseReducer = (props) => {
                 stateCopy = {
                     ...localState,
                     modifyStatus2: true, // флаг модификации в true
-                    statusTmpInput2: props.status// локальный статус для input берем из стейта
+                    statusTmpInput2: status// локальный статус для input берем из стейта
                 };
                 return stateCopy; // проверяем что все вернулось как нужно
             case SET_MODIFY_STATUS_FALSE: // если мы закрываем модификацию стьатуса
@@ -41,13 +41,13 @@ let ProfileStatusUseReducer = (props) => {
     const [localState, dispatch] = useReducer(localReducer, initialState)// меняем отдельные useState на useReducer
 
     const checkIfICanModifyStatus = () => {// проверка, что я могу менять статус (открыт мой профиль со статусом)
-        if (props.userId === props.myId) { // если ID открытого пользователя равен моему
+        if (userId === myId) { // если ID открытого пользователя равен моему
             dispatch({type: SET_MODIFY_STATUS_TRUE})// смена текстового отображения статуса на поле input
         }
     }
     const setMyStatus = () => { // действия после двойного клика по полю input статуса или вводу Enter
         dispatch({type: SET_MODIFY_STATUS_FALSE})// смена текстового отображения статуса на поле input
-        props.putStatusThunkCreator(localState.statusTmpInput2, props.myId)// санкреатор на обновление статуса на сервере
+        putStatusThunkCreator(localState.statusTmpInput2, myId)// санкреатор на обновление статуса на сервере
     }
     const onChangeStatus = (event) => {
         const text = event.currentTarget.value;// вынимаем значение введенное в поле ввода input
@@ -64,9 +64,9 @@ let ProfileStatusUseReducer = (props) => {
             ? <div>
                 <span
                     onDoubleClick={checkIfICanModifyStatus}> {/*при двойном клике на статусе проверка могу ли я ввобще менять статус*/}
-                    Статус: {!props.status // если статуса из стейта нет или он нулевой
+                    Статус: {!status // если статуса из стейта нет или он нулевой
                         ? "нет статуса" // отображение "нет статуса"
-                        : props.status // если статус есть из BLL, он отображается
+                        : status // если статус есть из BLL, он отображается
                     }
                 </span>
             </div>

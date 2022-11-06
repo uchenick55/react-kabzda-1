@@ -3,7 +3,7 @@ import classes from './News.css';
 import {connect} from "react-redux";
 import {NavigateToLoginHoc} from "../hoc/NavigateToLoginHoc";
 
-const News = (props) => {
+const News = () => {
     return (
         <div className={classes.content}>
             News text

@@ -5,8 +5,8 @@ import ProfileStatusUseReducer from "./ProfileStatus/ProfileStatusUseReducer";
 import ProfileStatusUseState from "./ProfileStatus/ProfileStatusUseState";
 import ProfileStatusClass from "./ProfileStatus/ProfileStatusClass";
 
-const ProfileInfo = (props) => {
-    if (!props.profile) {
+const ProfileInfo = ({profile, myId, status, putStatusThunkCreator}) => {
+    if (!profile) {
         return <Preloader/>
     }
     return <div className={classes.content}>
@@ -15,25 +15,25 @@ const ProfileInfo = (props) => {
                  width="180px"/>
         </div>
         <div className={classes.descriptionBlock}>
-            <div>Обо мне: {props.profile.aboutMe}</div>
+            <div>Обо мне: {profile.aboutMe}</div>
             <div>Контакты:</div>
-            <div> facebook: {props.profile.contacts.facebook}</div>
-            <div>vk: {props.profile.contacts.vk}</div>
-            <div>twitter: {props.profile.contacts.twitter}</div>
-            <div>instagram: {props.profile.contacts.instagram}</div>
-            <div>github: {props.profile.contacts.github}</div>
-            <div>В поиске работы? {props.profile.lookingForAJob ? "Да" : "Нет"}</div>
-            <div>Описание: {props.profile.lookingForAJobDescription}</div>
-            <div>Полное имя: {props.profile.fullName}</div>
-            <div>userId: {props.profile.userId}</div>
+            <div> facebook: {profile.contacts.facebook}</div>
+            <div>vk: {profile.contacts.vk}</div>
+            <div>twitter: {profile.contacts.twitter}</div>
+            <div>instagram: {profile.contacts.instagram}</div>
+            <div>github: {profile.contacts.github}</div>
+            <div>В поиске работы? {profile.lookingForAJob ? "Да" : "Нет"}</div>
+            <div>Описание: {profile.lookingForAJobDescription}</div>
+            <div>Полное имя: {profile.fullName}</div>
+            <div>userId: {profile.userId}</div>
             <div >
-                <img src={props.profile.photos.small}/>
+                <img src={profile.photos.small}/>
             </div>
-            <ProfileStatusUseReducer
-                myId={props.myId} // мой id для модификации статуса
-                userId={props.profile.userId} // id отображаемого пользователя
-                status={props.status} // статус из BLL
-                putStatusThunkCreator={props.putStatusThunkCreator} // санкреатор для обновления сатуса
+            <ProfileStatusUseReducer // можно еще использовать ProfileStatusUseState и ProfileStatusClass
+                myId={myId} // мой id для модификации статуса
+                userId={profile.userId} // id отображаемого пользователя
+                status={status} // статус из BLL
+                putStatusThunkCreator={putStatusThunkCreator} // санкреатор для обновления сатуса
             />
 
         </div>

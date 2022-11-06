@@ -2,7 +2,6 @@ import {createSelector} from "reselect";
 
 export const usersSelectorsSimple = { // простой селектор получить из стейта users
     getUsersSL: (state) => {
-        console.log("getUsersSimple") // вывест  в консоль каждое дерганье getUsersSL
         return state.usersPage.users
     },
     getPageSize: (state) => {// простой селектор получить из стейта pageSize
@@ -26,6 +25,5 @@ export const usersSelectorsSimple = { // простой селектор пол�
 }
 
 export let getUsersReselect = createSelector(usersSelectorsSimple.getUsersSL, (users) => {
-    console.log("getUsersReselect") // вывести в консоль каждое дерганье getUsersReselect
     return users // имитация сложного селектора через реселект
 })

@@ -49,7 +49,7 @@ export let profileReducer = (state = initialState, action) => { // редьюс�
         case DELETE_POST: {// удаления поста по postId
             return {
                 ...state,
-                posts: [...state.posts.filter(f=>f.id!=action.postId)], // удаление локального объекта в постах
+                posts: [...state.posts.filter(f=>f.id!==action.postId)], // удаление локального объекта в постах
             }
         }
         case SET_STATUS: //задание моего статуса в локальный стейт (после API запроса)

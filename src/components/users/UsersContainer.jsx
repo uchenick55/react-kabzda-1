@@ -12,11 +12,13 @@ import {getUsersReselect, usersSelectorsSimple} from "./users-selectors";
 class UsersAPI extends React.Component {
 
     componentDidMount() {
-        this.props.getUsersThunkCreator(this.props.currentPage, this.props.pageSize);
+        const {getUsersThunkCreator, currentPage, pageSize } = this.props;
+        getUsersThunkCreator(currentPage, pageSize);
     }
     onPageChanged = (setPage) => {
-        this.props.setCurrentPage(setPage)
-        this.props.getUsersThunkCreator(setPage, this.props.pageSize);
+        const {setCurrentPage, getUsersThunkCreator, pageSize} = this.props;
+        setCurrentPage(setPage);
+        getUsersThunkCreator(setPage, pageSize);
     }
     followAPI = (id) => {
         this.props.followThunkCreator(id, this.props.currentPage,this.props.pageSize)
@@ -25,17 +27,18 @@ class UsersAPI extends React.Component {
         this.props.unfollowThunkCreator(id, this.props.currentPage,this.props.pageSize)
     }
     render() {
+        const {isFetching, totalUsersCount, pageSize, currentPage, users, followingInProgress, isAuth} = this.props;
         return <>
-            {this.props.isFetching ? <Preloader/> : null}
+            {isFetching ? <Preloader/> : null}
             <Users onPageChanged={this.onPageChanged}
-                   totalUsersCount={this.props.totalUsersCount}
-                   pageSize={this.props.pageSize}
-                   currentPage={this.props.currentPage}
-                   users={this.props.users}
+                   totalUsersCount={totalUsersCount}
+                   pageSize={pageSize}
+                   currentPage={currentPage}
+                   users={users}
                    unfollowAPI={this.unfollowAPI}
                    followAPI={this.followAPI}
-                   followingInProgress={this.props.followingInProgress}
-                   isAuth={this.props.isAuth}
+                   followingInProgress={followingInProgress}
+                   isAuth={isAuth}
             />
         </>
     }

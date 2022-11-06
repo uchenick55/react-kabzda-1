@@ -5,9 +5,9 @@ import styles from './../common/Validation/customFields.module.css'
 import {Input} from "../common/Validation/customFields";
 import {email, Required} from "../common/Validation/validationField"; // css обработка
 
-const LoginForm = props => { // компонента формы
+const LoginForm = ({handleSubmit, error}) => { // компонента формы
     return (
-        <form onSubmit={props.handleSubmit}/*привязка сабмита формы к внутренней функции reduxForm - handleSubmit*/>
+        <form onSubmit={handleSubmit}/*привязка сабмита формы к внутренней функции reduxForm - handleSubmit*/>
             <div>
                 <div>
                     <Field
@@ -38,7 +38,7 @@ const LoginForm = props => { // компонента формы
                 </div>
                 <div className={styles.commonError}>
                     {/*стилизация красным сообщение об общей ошибке с сервера при неверном логине или пароле*/}
-                    {props.error} {/*вывод сообщения ошибки после диспатча stopSubmit из auth-reducer.jsx */}
+                    {error} {/*вывод сообщения ошибки после диспатча stopSubmit из auth-reducer.jsx */}
                 </div>
             </div>
         </form>
@@ -48,10 +48,10 @@ const LoginForm = props => { // компонента формы
 // оберточная компонента формы, задает имя подстейта "LoginForm"
 let LoginReduxForm=reduxForm({form: 'loginForm'})(LoginForm)
 
-let Login = (props) => {
+let Login = ({postLogin}) => {
     let onSubmit = (formData) => { // функция реакции на сабмит формы с данными от формы formData
         const rememberme= !formData.rememberme?false:formData.rememberme // если галочка rememberme не стоит, то false
-        props.postLogin(formData.email, formData.password, rememberme)//вызов postLoginThunkCreator выше из LoginContainer
+        postLogin(formData.email, formData.password, rememberme)//вызов postLoginThunkCreator выше из LoginContainer
     }
     return(
         <div className={classes.loginCommon}/*стиль*/ >

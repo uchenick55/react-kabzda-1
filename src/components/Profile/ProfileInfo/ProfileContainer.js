@@ -8,12 +8,13 @@ import {compose} from "redux";
 
 class ProfileContainer extends React.Component {
     componentDidMount() {
-        let userId = this.props.match.params["*"];
-        this.props.getProfileThunkCreator(userId);
+      const {match, getProfileThunkCreator} = this.props;
+        let userId = match.params["*"];
+        getProfileThunkCreator(userId);
     }
     render () {
         return <>
-            <Profile {...this.props} profile = {this.props.profile}/>
+            <Profile {...this.props}/>
         </>
 }}
 let mapStateToProps = (state) => {

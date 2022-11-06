@@ -3,14 +3,14 @@ import classes from './Profile.module.css'
 import ProfileInfo from "./ProfileInfo/ProfileInfo";
 import MyPostsContainer from "./MyPosts/MyPostsContainer";
 
-const Profile = (props) => {
+const Profile = ({profile, status, myId, putStatusThunkCreator}) => {
 
     return <div className={classes.content}>
         <ProfileInfo // Отображение данных выбранного пользователя
-            profile = {props.profile} // профиль выбранного пользователя
-            status={props.status} // статус из BLL
-            myId={props.myId} // мой id для модификации статуса
-            putStatusThunkCreator={props.putStatusThunkCreator} // санкреатор для обновления сатуса
+            profile = {profile} // профиль выбранного пользователя
+            status={status} // статус из BLL
+            myId={myId} // мой id для модификации статуса
+            putStatusThunkCreator={putStatusThunkCreator} // санкреатор для обновления сатуса
         />
         <MyPostsContainer // контейнер отображения постов (пока заглушка из стейта BLL)
         />

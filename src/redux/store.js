@@ -5,7 +5,6 @@ import sidebarReducer from "./sidebar-reducer";
 
 export let store = {
     _callSubscriber() {
-        console.log("log updated");
     },
     _state2: {
         profilePage: {

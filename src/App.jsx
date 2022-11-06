@@ -27,7 +27,7 @@ class App extends Component { // конвертируем app в классов�
             <BrowserRouter>
                 <div className='app-wrapper'>
                     <HeaderContainer/>
-                    <Navbar state={this.props.store.getState().sideBar}/>
+                    <Navbar/>
                     <div className='app-wrapper-content'>
                         <Routes>
                             <Route path='/profile/*' element={<ProfileContainer/>}/>
