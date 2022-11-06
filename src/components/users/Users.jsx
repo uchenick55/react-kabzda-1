@@ -2,42 +2,16 @@ import React from "react";
 import classes from "./Users.module.css";
 import userPhoto from "../../assets/images/no-image.jpg";
 import {NavLink} from "react-router-dom";
+import Pagination from "../common/Pagination/Pagination";
 
 let Users = ({totalUsersCount, pageSize, currentPage, onPageChanged, users,
                  followingInProgress, unfollowAPI, isAuth, followAPI   }) => {
-    let PagesCount = Math.ceil(totalUsersCount / pageSize);
-    let pages = [];
-    for (let i = 1; i <= PagesCount; i++) {
-        pages.push(i)
-    }
-
-    let curP = currentPage;
-    let curPF = ((curP - 5) < 0) ? 0 : curP - 5;
-    let curPL = ((curP + 5) > PagesCount) ? PagesCount : curP + 5;
-    let slicedPages = pages.slice(curPF, curPL);
-
-    let Slicer = () => {
-        return (
-            <div>
-                {slicedPages.map((p) => {
-                    return (
-                        p === currentPage
-                            ? <span className={classes.selected} onClick={() => {
-                                <div>
-                                </div>
-                            }}>{p}</span>
-                            : <span onClick={() => {
-                                onPageChanged(p)
-                            }}>{p}</span>
-                    )
-                })}
-            </div>
-        )
-    }
 
     return <div className={classes.users}>
         <div>
-            {<Slicer/>}{/*Вывод слайсера вверху страницы (пагинация)*/}
+            {<Pagination
+                totalUsersCount={totalUsersCount} pageSize={pageSize}
+                currentPage={currentPage} onPageChanged={onPageChanged} />}{/*Вывод слайсера вверху страницы (пагинация)*/}
         </div>
         {
             users.map((u) => {
@@ -57,7 +31,9 @@ let Users = ({totalUsersCount, pageSize, currentPage, onPageChanged, users,
                                 ? <button
                                     disabled={followingInProgress.some(id=>id===u.id)} // отключение возможности повторного нажатия пока не пришел ответ от сервера
                                     onClick={() => {
-                                        unfollowAPI(u.id) //send to server request unfollow from UsersContainer
+                                        isAuth // проверка авторизации. Если нет, то алерт. Если да, то API запрос на unfollow
+                                            ?unfollowAPI(u.id) //send to server request unfollow from UsersContainer
+                                            : alert("You are not authorized, please Login")
                                     }}> Unfollow</button>
 
                                 : <button
@@ -78,7 +54,9 @@ let Users = ({totalUsersCount, pageSize, currentPage, onPageChanged, users,
             })
         }
         <div>
-            {<Slicer/>} {/*Вывод слайсера внизу страницы (пагинация)*/}
+            {<Pagination
+                totalUsersCount={totalUsersCount} pageSize={pageSize}
+                currentPage={currentPage} onPageChanged={onPageChanged} />}{/*Вывод слайсера вверху страницы (пагинация)*/}
         </div>
     </div>
 
