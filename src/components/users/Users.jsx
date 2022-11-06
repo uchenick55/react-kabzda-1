@@ -4,14 +4,32 @@ import userPhoto from "../../assets/images/no-image.jpg";
 import {NavLink} from "react-router-dom";
 import Pagination from "../common/Pagination/Pagination";
 
-let Users = ({totalUsersCount, pageSize, currentPage, onPageChanged, users,
-                 followingInProgress, unfollowAPI, isAuth, followAPI   }) => {
+let Users = ({
+                 totalUsersCount, pageSize, currentPage, onPageChanged, users,
+                 followingInProgress, unfollowAPI, isAuth, followAPI
+             }) => {
+
+    let FollowUnfollowButtons = ({u, followUnfollowAPICallback, buttonText}) => { // унификация нажатия кнопки Follow/Unfollow
+        return (<div>
+                <button
+                    disabled={followingInProgress.some(id => id === u.id)} // отключение возможности повторного нажатия пока не пришел ответ от сервера
+                    onClick={() => {
+                        isAuth // проверка авторизации. Если нет, то алерт. Если да, то API запрос на follow/unfollow
+                            ? followUnfollowAPICallback(u.id) //send to server request follow/unfollow from UsersContainer
+                            : alert("You are not authorized, please Login") // алерт
+                    }}> {buttonText}
+                </button>
+                {/* buttonText - текст кнопки Follow/Unfollow*/}
+            </div>
+        )
+    }
 
     return <div className={classes.users}>
         <div>
             {<Pagination
                 totalUsersCount={totalUsersCount} pageSize={pageSize}
-                currentPage={currentPage} onPageChanged={onPageChanged} />}{/*Вывод слайсера вверху страницы (пагинация)*/}
+                currentPage={currentPage}
+                onPageChanged={onPageChanged}/>}{/*Вывод слайсера вверху страницы (пагинация)*/}
         </div>
         {
             users.map((u) => {
@@ -28,21 +46,11 @@ let Users = ({totalUsersCount, pageSize, currentPage, onPageChanged, users,
                         </div>
                         <div>
                             {u.followed
-                                ? <button
-                                    disabled={followingInProgress.some(id=>id===u.id)} // отключение возможности повторного нажатия пока не пришел ответ от сервера
-                                    onClick={() => {
-                                        isAuth // проверка авторизации. Если нет, то алерт. Если да, то API запрос на unfollow
-                                            ?unfollowAPI(u.id) //send to server request unfollow from UsersContainer
-                                            : alert("You are not authorized, please Login")
-                                    }}> Unfollow</button>
-
-                                : <button
-                                    disabled={followingInProgress.some(id=>id===u.id)} // отключение возможности повторного нажатия пока не пришел ответ от сервера
-                                    onClick={() => {
-                                        isAuth // проверка авторизации. Если нет, то алерт. Если да, то API запрос на follow
-                                            ?followAPI(u.id) //send to server request follow from UsersContainer
-                                            : alert("You are not authorized, please Login")
-                                }}> Follow</button>}
+                                ? <FollowUnfollowButtons u={u} followUnfollowAPICallback={unfollowAPI}
+                                                         buttonText={"Unfollow"}/>
+                                : <FollowUnfollowButtons u={u} followUnfollowAPICallback={followAPI}
+                                                         buttonText={"Follow"}/>
+                            }
                         </div>
                         <div>{u.name}</div>
                         <div>{u.id}</div>
@@ -56,7 +64,8 @@ let Users = ({totalUsersCount, pageSize, currentPage, onPageChanged, users,
         <div>
             {<Pagination
                 totalUsersCount={totalUsersCount} pageSize={pageSize}
-                currentPage={currentPage} onPageChanged={onPageChanged} />}{/*Вывод слайсера вверху страницы (пагинация)*/}
+                currentPage={currentPage}
+                onPageChanged={onPageChanged}/>}{/*Вывод слайсера вверху страницы (пагинация)*/}
         </div>
     </div>
 
