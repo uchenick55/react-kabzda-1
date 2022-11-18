@@ -24,6 +24,10 @@ let Users = ({
             </div>
         )
     }
+    const handleClick = (e) => {
+        e.preventDefault();
+        SetTermFunction()
+    }
 
     return <div className={classes.users}>
         <div>
@@ -32,10 +36,17 @@ let Users = ({
                 currentPage={currentPage}
                 onPageChanged={onPageChanged}/>}{/*Вывод слайсера вверху страницы (пагинация)*/}
         </div>
-        <input
-            value={onChangeTerm}
-            onChange={(event)=>{onChangeTermFunction(event)}}
-            onBlur={SetTermFunction} />
+        <form>
+            <input
+                value={onChangeTerm}
+                onChange={(event)=>{onChangeTermFunction(event)}}
+                onBlur={SetTermFunction}
+                placeholder={"find users"}
+                autoFocus={true}
+            />
+            <button onClick={handleClick}>Find</button>
+        </form>
+
 
         {
             users.map((u) => {
