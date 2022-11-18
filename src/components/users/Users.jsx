@@ -6,7 +6,8 @@ import Pagination from "../common/Pagination/Pagination";
 
 let Users = ({
                  totalUsersCount, pageSize, currentPage, onPageChanged, users,
-                 followingInProgress, unfollowAPI, isAuth, followAPI
+                 followingInProgress, unfollowAPI, isAuth, followAPI,
+                 SetTermFunction, onChangeTerm, onChangeTermFunction
              }) => {
 
     let FollowUnfollowButtons = ({u, followUnfollowAPICallback, buttonText}) => { // унификация нажатия кнопки Follow/Unfollow
@@ -31,6 +32,11 @@ let Users = ({
                 currentPage={currentPage}
                 onPageChanged={onPageChanged}/>}{/*Вывод слайсера вверху страницы (пагинация)*/}
         </div>
+        <input
+            value={onChangeTerm}
+            onChange={(event)=>{onChangeTermFunction(event)}}
+            onBlur={SetTermFunction} />
+
         {
             users.map((u) => {
                 <div key={u.id}/>
