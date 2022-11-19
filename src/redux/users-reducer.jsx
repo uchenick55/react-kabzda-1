@@ -45,34 +45,34 @@ let usersReducer = (state = initialState, action) => {
                     ? [state.followingInProgress, action.id] // кнопка follow/unfollow нажата, добавление в массив followingInProgress id кнопки
                     : state.followingInProgress.filter(id => id !== action.id)// пришел ответ от сервера OK, удаляем id кнопки из массива followingInProgress
             }
-            return stateCopy;
+            return stateCopy; // вернуть копию стейта
         case SET_USERS:
             stateCopy = {...state, users: action.users};
-            return stateCopy;
+            return stateCopy; // вернуть копию стейта
         case SET_CURRENT_PAGE:
             stateCopy = {
                 ...state,
                 currentPage: action.currentPage
             }
-            return stateCopy;
+            return stateCopy; // вернуть копию стейта
         case SET_TERM:
             stateCopy = {
-                ...state,
-                term: action.term
+                ...state, // копия основного стейта
+                term: action.term // задать значение поиска
             }
-            return stateCopy;
+            return stateCopy; // вернуть копию стейта
         case SET_TOTAL_USERS_COUNT:
             stateCopy = {
                 ...state,
                 totalUsersCount: action.totalUsersCount
             }
-            return stateCopy;
+            return stateCopy; // вернуть копию стейта
         case TOGGLE_IS_FETCHING:
             stateCopy = {
                 ...state,
                 isFetching: action.isFetching
             }
-            return stateCopy;
+            return stateCopy; // вернуть копию стейта
         default:
             return state;
     }

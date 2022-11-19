@@ -13,30 +13,29 @@ class UsersAPI extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            onChangeTerm: ""
+            onChangeTerm: this.props.term // задание поискового запроса в локальный стейт обновления поля
         }
     }
 
     componentDidMount() {
-        const {getUsersThunkCreator, currentPage, pageSize, term } = this.props;
+        const {getUsersThunkCreator, currentPage, pageSize, term } = this.props; // данные из пропсов для получения пользователей по умолчанию
         getUsersThunkCreator(currentPage, pageSize, term);
     }
-
+    onChangeTermFunction = (event) => {
+        this.setState({onChangeTerm: event.currentTarget.value }) // задание значения поиска при изменении поля
+    }
     SetTermFunction = () => {
-        this.props.setTerm(this.state.onChangeTerm)
+        this.props.setTerm(this.state.onChangeTerm) // задание в стейт поискового запроса
     }
 
     componentDidUpdate(prevProps, prevState, snapshot) {
         if (prevProps.term != this.props.term) {
-            this.props.setCurrentPage(1)
-            const {getUsersThunkCreator, pageSize, term } = this.props;
-            getUsersThunkCreator(1, pageSize, term);
+            this.props.setCurrentPage(1)// задание в стейт текущей страницы
+            const {getUsersThunkCreator, pageSize, term } = this.props; // получение из проспсов данные для запроса
+            getUsersThunkCreator(1, pageSize, term);// получение списка пользователей с поисковым запросом (переключение на 1 страницу)
         }
     }
 
-    onChangeTermFunction = (event) => {
-        this.setState({onChangeTerm: event.currentTarget.value })
-    }
 
     onPageChanged = (setPage) => {
         const {setCurrentPage, getUsersThunkCreator, pageSize, term } = this.props;
