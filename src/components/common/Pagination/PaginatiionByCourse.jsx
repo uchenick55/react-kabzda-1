@@ -64,9 +64,9 @@ let PaginatiionByCourse = ({
                         }}
                     >
             {p === currentPage || p === mouseHovered ? (
-                <span className={classes.selected}>{p}</span>
+                <span className={classes.selected}>{p} </span>
             ) : (
-                <span>{p}</span>
+                <span>{p} </span>
             )}
           </span>
                 );
