@@ -13,7 +13,8 @@ class UsersAPI extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            onChangeTerm: this.props.term // задание поискового запроса в локальный стейт обновления поля
+            onChangeTerm: this.props.term, // задание поискового запроса в локальный стейт обновления поля
+            currentRangeLocal: 1 // текущий диапазон 
         }
     }
 
@@ -24,6 +25,10 @@ class UsersAPI extends React.Component {
     onChangeTermFunction = (event) => {
         this.setState({onChangeTerm: event.currentTarget.value }) // задание значения поиска при изменении поля
     }
+    onChangeRangeLocal = (rangeShift) => { // rangeShift - смещение диапазона страниц пагинации2
+        this.setState({currentRangeLocal: this.state.currentRangeLocal + rangeShift })
+
+    }
     SetTermFunction = () => {
         this.props.setTerm(this.state.onChangeTerm) // задание в стейт поискового запроса
     }
@@ -31,6 +36,7 @@ class UsersAPI extends React.Component {
     componentDidUpdate(prevProps, prevState, snapshot) {
         if (prevProps.term != this.props.term) {
             this.props.setCurrentPage(1)// задание в стейт текущей страницы
+            this.setState({currentRangeLocal: 1}) // перевод диапазона пагинации2 на 1 (сброс)
             const {getUsersThunkCreator, pageSize, term } = this.props; // получение из проспсов данные для запроса
             getUsersThunkCreator(1, pageSize, term);// получение списка пользователей с поисковым запросом (переключение на 1 страницу)
         }
@@ -49,6 +55,7 @@ class UsersAPI extends React.Component {
         this.props.unfollowThunkCreator(id, this.props.currentPage,this.props.pageSize, this.props.term)
     }
     render() {
+        console.log(this.state.currentRangeLocal)
         const {isFetching, totalUsersCount, pageSize, currentPage, users, followingInProgress, isAuth, setTerm} = this.props;
         return <>
             {isFetching ? <Preloader/> : null}
@@ -64,6 +71,8 @@ class UsersAPI extends React.Component {
                    SetTermFunction = {this.SetTermFunction}
                    onChangeTerm = {this.state.onChangeTerm}
                    onChangeTermFunction = {this.onChangeTermFunction}
+                   currentRangeLocal= {this.state.currentRangeLocal}
+                   onChangeRangeLocal = {this.onChangeRangeLocal}
             />
         </>
     }

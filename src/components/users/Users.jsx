@@ -3,11 +3,13 @@ import classes from "./Users.module.css";
 import userPhoto from "../../assets/images/no-image.jpg";
 import {NavLink} from "react-router-dom";
 import Pagination from "../common/Pagination/Pagination";
+import PaginatiionByCourse from "../common/Pagination/PaginatiionByCourse";
 
 let Users = ({
                  totalUsersCount, pageSize, currentPage, onPageChanged, users,
                  followingInProgress, unfollowAPI, isAuth, followAPI,
-                 SetTermFunction, onChangeTerm, onChangeTermFunction // раскукожили все пропсы
+                 SetTermFunction, onChangeTerm, onChangeTermFunction,
+                 onChangeRangeLocal, currentRangeLocal // раскукожили все пропсы
              }) => {
 
     let FollowUnfollowButtons = ({u, followUnfollowAPICallback, buttonText}) => { // унификация нажатия кнопки Follow/Unfollow
@@ -31,10 +33,14 @@ let Users = ({
 
     return <div className={classes.users}>
         <div>
-            {<Pagination
+            {<PaginatiionByCourse
                 totalUsersCount={totalUsersCount} pageSize={pageSize}
                 currentPage={currentPage}
-                onPageChanged={onPageChanged}/>}{/*Вывод слайсера вверху страницы (пагинация)*/}
+                onPageChanged={onPageChanged}
+                currentRangeLocal={currentRangeLocal}
+                onChangeRangeLocal = {onChangeRangeLocal}
+
+            />}{/*Вывод слайсера вверху страницы (пагинация)*/}
         </div>
         <form>  {/* объединение инпута и кнопки*/}
             <input
