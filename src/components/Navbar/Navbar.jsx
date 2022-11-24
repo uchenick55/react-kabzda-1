@@ -13,16 +13,7 @@ const Navbar = ({state}) => {
             <NavLink to='/dialogs'>Dialogs</NavLink>
         </div>
         <div className={classes.item}>
-            <NavLink to='/news'>News</NavLink>
-        </div>
-        <div className={classes.item}>
-            <NavLink to='/music'>Music</NavLink>
-        </div>
-        <div className={classes.item}>
             <NavLink to='/users'>Find Users</NavLink>
-        </div>
-        <div className={classes.item}>
-            <NavLink to='/settings'>Settings</NavLink>
         </div>
         <div>
             <MyFriends state={state.myFriends}/>

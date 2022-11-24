@@ -4,6 +4,7 @@ import {connect} from "react-redux";
 import {deleteLoginThunkCreator} from "../../redux/auth-reducer";
 import {getProfileThunkCreator} from "../../redux/profile-reducer";
 
+
 class HeaderContainer extends React.Component {
     deleteLogin = () => {
         this.props.deleteLoginThunkCreator()// логаут текущего пользователя

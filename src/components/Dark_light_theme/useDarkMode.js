@@ -1,10 +1,10 @@
 import { useEffect, useState } from "react";
 
 // пользовательский хук
-export const useDarkMode = () => {
+export const useDarkMode = (themeBLL) => {
   // 1) задаем локальный хук themeLocal с его функцией обновления setThemeLocal
   // изначально задана светлая тема
-  const [themeLocal, setThemeLocal] = useState("light");
+  const [themeLocal, setThemeLocal] = useState(themeBLL);
 
   // функция вызывается после вызова переключателя themeToggler извне
   const setMode = (mode) => {

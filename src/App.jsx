@@ -33,9 +33,6 @@ class App extends Component { // конвертируем app в классов�
                             <Route path='/profile/*' element={<ProfileContainer/>}/>
                             <Route path='/dialogs/*' element={<DialogsContainer/>}/>
                             <Route path='/users/*' element={<UsersContainer/>}/>
-                            <Route path='/news/*' element={<News/>}/>
-                            <Route path='/music/*' element={<Music/>}/>
-                            <Route path='/settings/*' element={<Settings/>}/>
                             <Route path='/login/*' element={<LoginContainer/>}/>
                         </Routes>
                     </div>
