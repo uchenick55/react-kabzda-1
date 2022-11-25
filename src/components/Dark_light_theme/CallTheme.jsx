@@ -8,7 +8,7 @@ const CallTheme = ({themeTogglerLocal}) => {
                 src="https://cdn-icons-png.flaticon.com/512/2490/2490365.png"
                 onClick={themeTogglerLocal}
                 alt="Switch Theme"
-                width="50"
+                width="80"
             />
         </span>
     );

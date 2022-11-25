@@ -11,6 +11,7 @@ export const GlobalStyles = createGlobalStyle`
   padding: 10px;
 }
 a {
+    color: #2828ff;
 }
 a:hover {
     color: #11dd77;
@@ -19,6 +20,6 @@ a:visited {
     color: #red;
 }
 `;
-export const PointerCursor = styled.p`
+export const PointerCursor = styled.span`
   cursor: pointer;
 `;

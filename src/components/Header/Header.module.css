@@ -1,7 +1,14 @@
 .header {
     grid-area: h;
-    background-color: rgb(50, 200, 221);
+    background-image: url("https://www.azoft.com/wp-content/uploads/2017/10/react-redux@3x.png");
+    background-size: 22% 150%;
+    background-repeat: no-repeat;
+
     text-align: right;
+}
+
+.stretch-content{
+    /* Will stretch to width/height of element */
 }
 
 .header img {

@@ -13,9 +13,11 @@ const Header = ({getProfileThunkCreator, deleteLogin, isAuth, myId, myLogin, myP
         deleteLogin(); // вызов deleteLoginThunkCreator из HeaderContainer
     }
     return <header className={classes.header}>
+{/*
+        коммент перед CallThemeRemote
+*/}
         <CallThemeRemote/>
-        <img width="50px"
-             src='http://tiger.eplug-ins.com/wp-content/themes/tiger/assets/img/banner-breadcrumb.jpg'></img>
+
         {
             isAuth
                 ? <span onClick={goToMyPage}> <NavLink to={`/profile/`}>
