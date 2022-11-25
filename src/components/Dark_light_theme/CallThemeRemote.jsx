@@ -1,5 +1,3 @@
-//CallThemeRemote
-
 import React, {useEffect} from "react";
 import {connect} from "react-redux";
 import {setTheme} from "../../redux/dark-light-reducer";
@@ -8,18 +6,18 @@ import {PointerCursor} from "./globalStyles";
 import CallTheme from "./CallTheme";
 
 const CallThemeRemote = ({themeBLL, setTheme}) => {
-    const [theme, themeToggler] = useDarkMode(themeBLL); // в LocalStorage записываю значение темы по
-    const themeTogglerLocal = () => {
-        themeToggler()
-        setTheme(theme) // записываю в BLL состояние темы, взятое из localStorage
-        // (после изменения через themeToggler в том числе)
-    }
+    const [theme, themeToggler] = useDarkMode(themeBLL); // в LocalStorage записывает значение темы из
+    // редакса после изменения, и читает оттуда же после повторной загрузки страницы
 
+    const themeTogglerLocal = () => {  // themeTogglerLocal - локальный обработчик
+        themeToggler() // 1) переключает localStorage на противоположную тему
+        setTheme(theme) // 2) меняет тему themeBLL в редаксе
+    }
     useEffect(()=>{
         if (theme!=themeBLL) {
-            setTheme(theme) // записываю в BLL состояние темы, взятое из localStorage
+            setTheme(theme) // записывает в BLL состояние темы, взятое из localStorage при ререндере
         }
-    })
+    },[theme, themeBLL]) // useEffect зависит от theme и themeBLL
     return (
         <span>
             <PointerCursor>
@@ -32,9 +30,18 @@ const CallThemeRemote = ({themeBLL, setTheme}) => {
 
 const mapStateToProps = (state) => {
     return {
-        themeBLL: state.theme.themeBLL
+        themeBLL: state.theme.themeBLL// берем из стейта значение темы и передаем в CallThemeRemote
+        // для отображения темы
     }
 }
 
 export default connect(mapStateToProps, {setTheme})(CallThemeRemote);
+
+
+
+
+
+
+
+
 

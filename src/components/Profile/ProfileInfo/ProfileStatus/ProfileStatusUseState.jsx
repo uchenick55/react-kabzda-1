@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from "react";
+import React, {useState} from "react";
 
 let ProfileStatusWithHoocs = ({userId, myId, status, putStatusThunkCreator }) => {
     const [modifyStatus, setModifyStatus] = useState(false) // локальная переменная-флаг модификации статуса
@@ -24,8 +24,6 @@ let ProfileStatusWithHoocs = ({userId, myId, status, putStatusThunkCreator }) =>
             setMyStatus()//задание статуса при нажатии Enter
         }
     }
-    useEffect(()=>{ // вроде ничего делать не нужно после отрисовки компоненты
-    })
 
     return (<div>
         {!modifyStatus

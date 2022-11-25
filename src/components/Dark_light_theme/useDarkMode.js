@@ -3,7 +3,7 @@ import { useEffect, useState } from "react";
 // пользовательский хук
 export const useDarkMode = (themeBLL) => {
   // 1) задаем локальный хук themeLocal с его функцией обновления setThemeLocal
-  // изначально задана светлая тема
+  // изначально задана светлая тема из редакса themeBLL по умолчанию
   const [themeLocal, setThemeLocal] = useState(themeBLL);
 
   // функция вызывается после вызова переключателя themeToggler извне
@@ -30,3 +30,18 @@ export const useDarkMode = (themeBLL) => {
   return [themeLocal, themeToggler]; // возвращаем themeLocal - тему из локального хранилища
   // а так же themeToggler - сереключатель на другую тему
 };
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

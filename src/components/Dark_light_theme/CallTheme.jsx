@@ -1,14 +1,13 @@
 import React from 'react'
 
-const CallTheme = ({themeTogglerLocal}) => {
+const CallTheme = ({themeTogglerLocal}) => { // отображение картинки смены темы
     return (
         <span>
             <img
-                className="day-night2"
-                src="https://cdn-icons-png.flaticon.com/512/2490/2490365.png"
-                onClick={themeTogglerLocal}
-                alt="Switch Theme"
-                width="80"
+                src="https://cdn-icons-png.flaticon.com/512/2490/2490365.png" // источник в инете
+                onClick={themeTogglerLocal} // по клику вызвать themeTogglerLocal
+                alt="Switch Theme" // альтернативный текст
+                width="80px" // ширина картинки
             />
         </span>
     );

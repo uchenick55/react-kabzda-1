@@ -1,13 +1,9 @@
-export const lightTheme = {
+export const lightTheme = { // стили для светлой темы
   body: "#FFF",
   text: "#363537",
-  toggleBorder: "#FFF",
-  background: "#363537",
 };
 
-export const darkTheme = {
+export const darkTheme = {// стили для темной темы
   body: "#363537",
   text: "#FAFAFA",
-  toggleBorder: "#6B8096",
-  background: "#999"
 };
