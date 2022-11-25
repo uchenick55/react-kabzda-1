@@ -2,7 +2,7 @@ import React from 'react';
 import classes from './Header.module.css';
 import {NavLink} from "react-router-dom";
 import userPhoto from "../../assets/images/no-image.jpg";
-import CallTheme from "./../Dark_light_theme/CallTheme";
+import CallThemeRemote from "../Dark_light_theme/CallThemeRemote";
 
 
 const Header = ({getProfileThunkCreator, deleteLogin, isAuth, myId, myLogin, myProfile}) => {
@@ -13,7 +13,7 @@ const Header = ({getProfileThunkCreator, deleteLogin, isAuth, myId, myLogin, myP
         deleteLogin(); // вызов deleteLoginThunkCreator из HeaderContainer
     }
     return <header className={classes.header}>
-        <CallTheme/>
+        <CallThemeRemote/>
         <img width="50px"
              src='http://tiger.eplug-ins.com/wp-content/themes/tiger/assets/img/banner-breadcrumb.jpg'></img>
         {

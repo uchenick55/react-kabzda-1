@@ -1,16 +1,16 @@
 import React from 'react'
 
-const CallTheme = ({themeToggler}) => {
+const CallTheme = ({themeTogglerLocal}) => {
     return (
-        <div>
+        <span>
             <img
                 className="day-night2"
                 src="https://cdn-icons-png.flaticon.com/512/2490/2490365.png"
-                onClick={themeToggler}
+                onClick={themeTogglerLocal}
                 alt="Switch Theme"
                 width="50"
             />
-        </div>
+        </span>
     );
 };
 export default CallTheme;

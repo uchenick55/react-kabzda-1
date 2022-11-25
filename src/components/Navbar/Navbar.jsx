@@ -18,6 +18,7 @@ const Navbar = ({state}) => {
         <div>
             <MyFriends state={state.myFriends}/>
         </div>
+
     </nav>;
 
 }
