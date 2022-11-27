@@ -55,7 +55,6 @@ class UsersAPI extends React.Component {
         this.props.unfollowThunkCreator(id, this.props.currentPage,this.props.pageSize, this.props.term)
     }
     render() {
-        console.log(this.state.currentRangeLocal)
         const {isFetching, totalUsersCount, pageSize, currentPage, users, followingInProgress, isAuth, setTerm} = this.props;
         return <>
             {isFetching ? <Preloader/> : null}

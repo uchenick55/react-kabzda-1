@@ -1,12 +1,11 @@
 .nav {
     grid-area: n;
-    background-color: rgba(117, 190, 218, 0.5);
+    background-color: rgba(117, 190, 218, 0.4);
     padding: 10px;
 }
 
 .item {
     color: white;
-
 }
 /* Добавляем 2 стиля, к одному элементу item */
 .active.item {

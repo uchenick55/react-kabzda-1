@@ -47,7 +47,10 @@ let PaginatiionByCourse = ({
     return (
         <div>
             {/*<div> Текущая страница {currentPage}</div>*/}
-            <button onClick={prevPortion}>Prev</button>
+            {(currentRangeLocal) > 1
+                ?<button onClick={prevPortion}>Prev</button>
+                : <button disabled={true}>Prev</button>
+            }
             {slicedPages2.map((p) => {
                 return (
                     <span
@@ -71,6 +74,7 @@ let PaginatiionByCourse = ({
           </span>
                 );
             })}
+
             <button onClick={nextPortion}>Next</button>
         </div>
     );

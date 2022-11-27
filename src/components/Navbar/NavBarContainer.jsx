@@ -6,8 +6,8 @@ import Navbar from "./Navbar";
 
 class NavBarContainer extends React.Component {
     componentDidMount() {
-      const {myFriends2, friendsCurrentPage, friendsPageSize, friendsTerm, friend } = this.props;
-        this.props.getFriendsThunkCreator(friendsCurrentPage, friendsPageSize, friendsTerm, friend)
+      const {myFriends2, friendsCurrentPage, friendsPageSize, friendsTerm, friend, getFriendsThunkCreator } = this.props;
+        getFriendsThunkCreator(friendsCurrentPage, friendsPageSize, friendsTerm, friend)
     }
 
     render() {

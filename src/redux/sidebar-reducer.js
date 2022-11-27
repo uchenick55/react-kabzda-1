@@ -1,5 +1,11 @@
 import {apiUsers} from "../components/api/api";
 
+const SET_FRIENDS = "myApp/users-reducer/SET_FRIENDS"; // редакс дакс
+
+let setFriends = (users) => {
+  return {type: SET_FRIENDS, users}
+};
+
 let initialState = {
   myFriends: [ // заглушка списка моих друзей в навбаре
     {
@@ -26,7 +32,15 @@ let initialState = {
 
 }
 const sidebarReducer = (state = initialState, action) => {
-  return state; // всегда возвращает входящий стейт
+  let stateCopy; // объявлениечасти части стейта до изменения редьюсером
+  switch (action.type) {
+    case SET_FRIENDS:
+      stateCopy = {...state, myFriends2: action.users};
+      return stateCopy; // вернуть копию стейта
+
+    default:
+      return state;
+  }
 }
 
 export let getFriendsThunkCreator = (currentPage, pageSize, term, friend) => {//санкреатор получить пользователей с данными
@@ -36,7 +50,7 @@ export let getFriendsThunkCreator = (currentPage, pageSize, term, friend) => {//
       .then((data) => {
         console.log(data)
 //        dispatch(toggleIsFetching(false))  //убрать крутилку загрузки с сервера
-//        dispatch(setUsers(data.items))//записать в стейт закгруженный стек пользователей
+        dispatch(setFriends(data.items))//записать в стейт закгруженный стек друзей
 //        dispatch(setUsersTotalCount(data.totalCount))//записать в сейт общее количество пользователей
       })
 

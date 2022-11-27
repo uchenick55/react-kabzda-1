@@ -32,6 +32,7 @@ let Users = ({
     }
 
     return <div className={classes.users}>
+        <div> Total users:  {totalUsersCount}        </div>
         <div>
             {<PaginatiionByCourse
                 totalUsersCount={totalUsersCount} pageSize={pageSize}
@@ -85,11 +86,21 @@ let Users = ({
             })
         }
         <div>
+            {<PaginatiionByCourse
+                totalUsersCount={totalUsersCount} pageSize={pageSize}
+                currentPage={currentPage}
+                onPageChanged={onPageChanged}
+                currentRangeLocal={currentRangeLocal}
+                onChangeRangeLocal = {onChangeRangeLocal}
+
+            />}{/*Вывод слайсера вверху страницы (пагинация)*/}
+        </div>
+{/*        <div>
             {<Pagination
                 totalUsersCount={totalUsersCount} pageSize={pageSize}
                 currentPage={currentPage}
-                onPageChanged={onPageChanged}/>}{/*Вывод слайсера вверху страницы (пагинация)*/}
-        </div>
+                onPageChanged={onPageChanged}/>}Вывод слайсера вверху страницы (пагинация)
+        </div>*/}
     </div>
 
 }
