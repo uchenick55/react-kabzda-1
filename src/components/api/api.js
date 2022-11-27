@@ -9,8 +9,8 @@ const instance = axios.create({
 });
 
 export let apiUsers = { // объект с методами api для USERS и follow/unfollow
-  getUsers: async (currentPage, pageSize, term) => {// получить стек пользователей
-    const response = await instance.get(`users?count=${pageSize}&page=${currentPage}&term=${term}`)
+  getUsers: async (currentPage, pageSize, term, friend = undefined) => {// получить стек пользователей
+    const response = await instance.get(`users?count=${pageSize}&page=${currentPage}&term=${term}&friend=${friend}`)
     return (response.data) //возврат данных из поля data
   },
   postFollow: async (userId) => {// подписаться на выбранного пользователя

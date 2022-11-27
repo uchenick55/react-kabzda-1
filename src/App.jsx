@@ -1,9 +1,5 @@
 import './App.css';
-import Navbar from "./components/Navbar/Navbar";
 import {BrowserRouter, Route, Routes} from "react-router-dom";
-import News from "./components/News/News";
-import Music from "./components/Music/Music";
-import Settings from "./components/Settings/Settings";
 import DialogsContainer from "./components/Dialogs/DialogsContainer";
 import UsersContainer from "./components/users/UsersContainer";
 import ProfileContainer from "./components/Profile/ProfileInfo/ProfileContainer";
@@ -13,6 +9,8 @@ import {connect} from "react-redux";
 import {Component} from "react";
 import {initialisedAppThunkCreator} from "./redux/app-reducer";
 import Preloader from "./components/common/Preloader/Preloader";
+import {getFriendsThunkCreator} from "./redux/sidebar-reducer";
+import NavBarContainer from "./components/Navbar/NavBarContainer";
 
 class App extends Component { // конвертируем app в классовую компоненту для жизненного цикла
     componentDidMount() {
@@ -27,7 +25,7 @@ class App extends Component { // конвертируем app в классов�
             <BrowserRouter>
                 <div className='app-wrapper'>
                     <HeaderContainer/>
-                    <Navbar/>
+                    <NavBarContainer/>
                     <div className='app-wrapper-content'>
                         <Routes>
                             <Route path='/profile/*' element={<ProfileContainer/>}/>
