@@ -11,14 +11,15 @@ export const GlobalStyles = createGlobalStyle`
   padding: 10px;
 }
 a {
-    color: #2828ff;
+    color: ${({ theme }) => theme.a_color};
+}
+a:visited {
+    color: ${({ theme }) => theme.a_visited};
 }
 a:hover {
     color: #11dd77;
 }
-a:visited {
-    color: #red;
-}
+
 `;
 export const PointerCursor = styled.span`
   cursor: pointer;

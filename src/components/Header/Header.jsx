@@ -1,7 +1,7 @@
 import React from 'react';
 import classes from './Header.module.css';
 import {NavLink} from "react-router-dom";
-import userPhoto from "../../assets/images/no-image.jpg";
+import userPhoto from "../../assets/images/no-image3.png";
 import CallThemeRemote from "../Dark_light_theme/CallThemeRemote";
 
 

@@ -1,9 +1,10 @@
 .header {
+    padding: 5px;
     grid-area: h;
     background-image: url("https://www.azoft.com/wp-content/uploads/2017/10/react-redux@3x.png");
     background-size: 22% 150%;
     background-repeat: no-repeat;
-
+    background-color: rgba(150, 50, 50, 0.4);
     text-align: right;
 }
 
