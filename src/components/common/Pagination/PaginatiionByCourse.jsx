@@ -1,5 +1,6 @@
-import {useState} from "react";
+import React, {useState} from "react";
 import classes from "./Pagination.module.css";
+import {PointerCursor} from "../../Dark_light_theme/globalStyles";
 
 let PaginatiionByCourse = ({
                                totalUsersCount, // общее число пользователей на сервере
@@ -48,32 +49,34 @@ let PaginatiionByCourse = ({
         <div>
             {/*<div> Текущая страница {currentPage}</div>*/}
             {(currentRangeLocal) > 1
-                ?<button onClick={prevPortion}>Prev</button>
+                ? <button onClick={prevPortion}>Prev</button>
                 : <button disabled={true}>Prev</button>
             }
-            {slicedPages2.map((p) => {
-                return (
-                    <span
-                        key={p}
-                        className={classes.rangeList}
-                        onMouseLeave={() => {
-                            setMouseHovered(0);
-                        }}
-                        onClick={() => {
-                            onPageChanged(p);
-                        }}
-                        onMouseOver={() => {
-                            setMouseHovered(p);
-                        }}
-                    >
+            <PointerCursor>
+                {slicedPages2.map((p) => {
+                    return (
+                        <span
+                            key={p}
+                            className={classes.rangeList}
+                            onMouseLeave={() => {
+                                setMouseHovered(0);
+                            }}
+                            onClick={() => {
+                                onPageChanged(p);
+                            }}
+                            onMouseOver={() => {
+                                setMouseHovered(p);
+                            }}
+                        >
             {p === currentPage || p === mouseHovered ? (
                 <span className={classes.selected}>{p} </span>
             ) : (
                 <span>{p} </span>
             )}
           </span>
-                );
-            })}
+                    );
+                })}
+            </PointerCursor>
 
             <button onClick={nextPortion}>Next</button>
         </div>

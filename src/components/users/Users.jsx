@@ -13,7 +13,7 @@ let Users = ({
              }) => {
 
     let FollowUnfollowButtons = ({u, followUnfollowAPICallback, buttonText}) => { // унификация нажатия кнопки Follow/Unfollow
-        return (<div>
+        return (<span>
                 <button
                     disabled={followingInProgress.some(id => id === u.id)} // отключение возможности повторного нажатия пока не пришел ответ от сервера
                     onClick={() => {
@@ -23,7 +23,7 @@ let Users = ({
                     }}> {buttonText}
                 </button>
                 {/* buttonText - текст кнопки Follow/Unfollow*/}
-            </div>
+            </span>
         )
     }
     const handleClick = (e) => { // обработка клика по кнопке
@@ -68,18 +68,15 @@ let Users = ({
                                          : userPhoto}/>
                             </NavLink>
                         </div>
-                        <div>
+                        <div> My FriendList:{" "}
                             {u.followed
                                 ? <FollowUnfollowButtons u={u} followUnfollowAPICallback={unfollowAPI}
-                                                         buttonText={"Unfollow"}/>
+                                                         buttonText={"Remove"}/>
                                 : <FollowUnfollowButtons u={u} followUnfollowAPICallback={followAPI}
-                                                         buttonText={"Follow"}/>
+                                                         buttonText={"Add"}/>
                             }
                         </div>
-                        <div>{u.name}</div>
-                        <div>{u.id}</div>
-                        <div>u.location.country</div>
-                        <div>u.location.city</div>
+                        <div>Name: {u.name}</div>
                         <div>{u.status}</div>
                     </div>
                 )
