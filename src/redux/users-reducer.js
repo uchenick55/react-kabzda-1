@@ -6,6 +6,8 @@ const SET_CURRENT_PAGE = "myApp/users-reducer/SET_CURRENT_PAGE";
 const SET_TOTAL_USERS_COUNT = "myApp/users-reducer/SET_TOTAL_USERS_COUNT";
 const TOGGLE_IS_FETCHING = "myApp/users-reducer/TOGGLE_IS_FETCHING";
 const TOGGLE_IS_FOLLOWING_PROGRESS = "myApp/users-reducer/TOGGLE_IS_FOLLOWING_PROGRESS";
+const NEED_UPDATE_FRIENDS = "myApp/users-reducer/NEED_UPDATE_FRIENDS";
+
 
 export let setTerm = (term) => {
     return {type: SET_TERM, term}
@@ -25,15 +27,21 @@ let toggleIsFetching = (isFetching) => {
 let toggleIsFollowingProgerss = (isFetching, id) => {
     return {type: TOGGLE_IS_FOLLOWING_PROGRESS, isFetching, id}
 };
+export let needUpdateFriendsAC = (needUpdateFriends) => {
+    return {type: NEED_UPDATE_FRIENDS, needUpdateFriends}
+};
+
+
 
 let initialState = {
-    users: [],
-    pageSize: 50,
-    totalUsersCount: 0,
-    currentPage: 1,
-    isFetching: false,
-    followingInProgress: [],
-    term: ""
+    users: [], // массив пользователей по умолчанию (пока пустой)
+    pageSize: 50, // размер пачки пользователей при загрузке с сервера
+    totalUsersCount: 0, // общее количество пользователей по умолчанию
+    currentPage: 1, // текущая страница загрузки пользователей по умолчанию
+    isFetching: false, // статус загрузки (крутилка)
+    followingInProgress: [], // массив тех пользователей, которые в процессе follow/unfollow для disable button
+    term: "", // поисковый запрос среди пользователей
+    needUpdateFriends: false // флаг, что список друзей изменился, нужно обновить
 }
 let usersReducer = (state = initialState, action) => {
     let stateCopy; // объявлениечасти части стейта до изменения редьюсером
@@ -73,6 +81,12 @@ let usersReducer = (state = initialState, action) => {
                 isFetching: action.isFetching
             }
             return stateCopy; // вернуть копию стейта
+        case NEED_UPDATE_FRIENDS:
+            stateCopy = {
+                ...state,
+              needUpdateFriends: action.needUpdateFriends
+            }
+            return stateCopy; // вернуть копию стейта
         default:
             return state;
     }
@@ -100,6 +114,7 @@ const followUnfollowFlow = (dispatch, userId, currentPage, pageSize, apiMethod, 
                 apiUsers.getUsers(currentPage, pageSize, term) //получить пользователей по текущей странице и размере страницы
                     .then((response) => {
                         dispatch(setUsers(response.items))//записать в стейт закгруженный стек пользователей
+                        dispatch(needUpdateFriendsAC(true))
                         dispatch(toggleIsFollowingProgerss(false, userId))//убрать ID кнопки пользователя из массива followingInProgress, кнопка раздизаблена
                     })
             }
