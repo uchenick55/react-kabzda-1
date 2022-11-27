@@ -6,7 +6,7 @@ const MyFriends = ({state}) => {
     let MyFriendElements =
         state.map((f) => {
                 return (
-                    <MyFriendItem name={f.name} id={f.id} avaSrc={f.avaSrc}/>
+                   <MyFriendItem name={f.name} id={f.id} avaSrc={f.photos.small}/>
                 )
             }
         );

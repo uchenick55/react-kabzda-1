@@ -8,7 +8,7 @@ export const lightTheme = { // стили для светлой темы
 export const darkTheme = {// стили для темной темы
   body: "#363537",
   text: "#FAFAFA",
-  a_color: "red",
+  a_color: "#9778dd",
   a_visited: "#33CCCC",
 
 };

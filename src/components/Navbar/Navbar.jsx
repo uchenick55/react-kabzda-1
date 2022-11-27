@@ -4,7 +4,7 @@ import {NavLink} from "react-router-dom";
 import MyFriends from "./My Friends/MyFriends";
 import {connect} from "react-redux";
 
-const Navbar = ({state}) => {
+const Navbar = ({myFriends2}) => {
     return <nav className={classes.nav}>
         <div className={classes.item}>
             <NavLink to='/profile'>Profile</NavLink>
@@ -16,7 +16,7 @@ const Navbar = ({state}) => {
             <NavLink to='/users'>Find Users</NavLink>
         </div>
         <div>
-            <MyFriends state={state.myFriends}/>
+            <MyFriends state={myFriends2}/>
         </div>
 
     </nav>;

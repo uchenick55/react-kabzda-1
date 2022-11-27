@@ -6,12 +6,14 @@ import Navbar from "./Navbar";
 
 class NavBarContainer extends React.Component {
     componentDidMount() {
-      const {myFriends2, friendsCurrentPage, friendsPageSize, friendsTerm, friend, getFriendsThunkCreator } = this.props;
-        getFriendsThunkCreator(friendsCurrentPage, friendsPageSize, friendsTerm, friend)
+      const {friendsCurrentPage, friendsPageSize,
+          friendsTerm, friend, getFriendsThunkCreator } = this.props; // получение из пропсов данных по друзьям
+        getFriendsThunkCreator(friendsCurrentPage, friendsPageSize, friendsTerm, friend); // получение друзей с сервера
     }
 
     render() {
-        return <Navbar /> // отрисовка целевой компоненты
+        const {myFriends2} = this.props; // получение из пропсов данных по друзьям
+        return <Navbar myFriends2={myFriends2} /> // отрисовка целевой компоненты
     }
 }
 const mapStateToProps = (state) => {
