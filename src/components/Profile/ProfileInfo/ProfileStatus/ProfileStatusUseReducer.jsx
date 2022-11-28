@@ -1,7 +1,7 @@
 import React, {useReducer} from "react";
+import {state_copy_for_debug} from "../../../../redux/store-redux";
 
 let ProfileStatusUseReducer = ({status, userId, myId, putStatusThunkCreator}) => {
-
     const initialState = {
         modifyStatus2: false,// локальная переменная-флаг модификации статуса
         statusTmpInput2: null // локальный статус до отправки на сервер (поле input)

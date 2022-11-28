@@ -23,4 +23,6 @@ let reducers = combineReducers({ // объединяем стейт редьюс
 let store = createStore(reducers, applyMiddleware(thunkMiddleWare));//ApplyMiddleWare позволяет сделать прослойку между UI и редьюсером, чтобы можно было диспатчить не только экшены, но и санки.
 window.store = store; // возможность смотреть стор через консоль
 
+export let state_copy_for_debug = store.getState().app.bedug_mode
+
 export default store

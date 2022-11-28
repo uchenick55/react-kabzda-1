@@ -4,6 +4,7 @@ import {sendMessageCreator} from "../../redux/dialogs-reducer";
 import {connect} from "react-redux";
 import {NavigateToLoginHoc} from "../hoc/NavigateToLoginHoc";
 import {compose} from "redux";
+import {state_copy_for_debug} from "../../redux/store-redux";
 
 class DialogsContainer extends React.Component {
     render () {

@@ -4,6 +4,7 @@ import userPhoto from "../../assets/images/no-image3.png";
 import {NavLink} from "react-router-dom";
 import Pagination from "../common/Pagination/Pagination";
 import PaginatiionByCourse from "../common/Pagination/PaginatiionByCourse";
+import {state_copy_for_debug} from "../../redux/store-redux";
 
 let Users = ({
                  totalUsersCount, pageSize, currentPage, onPageChanged, users,
@@ -11,6 +12,7 @@ let Users = ({
                  SetTermFunction, onChangeTerm, onChangeTermFunction,
                  onChangeRangeLocal, currentRangeLocal // раскукожили все пропсы
              }) => {
+//    if (state_copy_for_debug) {console.log("Users")}
 
     let FollowUnfollowButtons = ({u, followUnfollowAPICallback, buttonText}) => { // унификация нажатия кнопки Follow/Unfollow
         return (<span>

@@ -4,8 +4,10 @@ import Preloader from "../../common/Preloader/Preloader";
 import ProfileStatusUseReducer from "./ProfileStatus/ProfileStatusUseReducer";
 import ProfileStatusUseState from "./ProfileStatus/ProfileStatusUseState";
 import ProfileStatusClass from "./ProfileStatus/ProfileStatusClass";
+import {state_copy_for_debug} from "../../../redux/store-redux";
 
 const ProfileInfo = ({profile, myId, status, putStatusThunkCreator}) => {
+
     if (!profile) {
         return <Preloader/>
     }

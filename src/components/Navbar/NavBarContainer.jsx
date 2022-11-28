@@ -3,6 +3,7 @@ import {connect} from "react-redux";
 import {getFriendsThunkCreator} from "../../redux/sidebar-reducer";
 import Navbar from "./Navbar";
 import {needUpdateFriendsAC} from "../../redux/users-reducer";
+import {state_copy_for_debug} from "../../redux/store-redux";
 
 
 class NavBarContainer extends React.Component {

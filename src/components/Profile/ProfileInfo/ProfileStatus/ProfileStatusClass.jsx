@@ -1,6 +1,8 @@
 import React from "react";
+import {state_copy_for_debug} from "../../../../redux/store-redux";
 
 class ProfileStatusClass extends React.Component {
+
     localStatus = { // локальный стейт для статуса
         modifyStatus: false, // можно ли модифицировать статус и переключить на поле ввода?
         statusTmpInput: null // временное значение статуса на время ввода поля input. Изначально берем из статуса BLL

@@ -1,4 +1,5 @@
 import {apiUsers} from "../components/api/api";
+import {state_copy_for_debug} from "./store-redux";
 
 const SET_FRIENDS = "myApp/users-reducer/SET_FRIENDS"; // редакс дакс
 
@@ -48,7 +49,6 @@ export let getFriendsThunkCreator = (currentPage, pageSize, term, friend) => {//
 //    dispatch(toggleIsFetching(true)) //показать крутилку загрузки с сервера
     apiUsers.getUsers(currentPage, pageSize, term, friend) //получить пользователей по текущей странице и размере страницы
       .then((data) => {
-        console.log(data)
 //        dispatch(toggleIsFetching(false))  //убрать крутилку загрузки с сервера
         dispatch(setFriends(data.items))//записать в стейт закгруженный стек друзей
 //        dispatch(setUsersTotalCount(data.totalCount))//записать в сейт общее количество пользователей

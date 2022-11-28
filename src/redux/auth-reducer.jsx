@@ -1,5 +1,6 @@
 import {apiProfile} from "../components/api/api";
 import {stopSubmit} from "redux-form";
+import {state_copy_for_debug} from "./store-redux";
 
 const SET_MY_DATA = "myApp/auth-reducer/SET_MY_DATA"; // константа для задания базовых данных моего профиля (ID, Email, login, isAuth)
 const SET_MY_PROFILE = "myApp/auth-reducer/SET_MY_PROFILE"; // константа задания расширенных данных моего профиля

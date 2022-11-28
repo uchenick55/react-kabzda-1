@@ -1,4 +1,5 @@
 import {getAuthMeThunkCreator} from "./auth-reducer";
+import {state_copy_for_debug} from "./store-redux";
 
 const SET_INITIALISED_APP = "myApp/app-reducer/SET_INITIALISED_APP"; //константа инициализации приложения
 
@@ -8,10 +9,11 @@ export let setInitialisedApp = () => { // экшн креатор  инициа�
 
 let initialState = { //стейт по умолчанию для инициализации приложения
     initialisedApp: false, // флаг приложение инициализировано?
+    bedug_mode: false,
 }
 
 let appReducer = (state = initialState, action) => {//редьюсер инициализации приложения
-    let stateCopy; // объявлениечасти части стейта до изменения редьюсером
+  let stateCopy; // объявлениечасти части стейта до изменения редьюсером
     switch (action.type) {
         case SET_INITIALISED_APP: // экшн инициализации приложения
             stateCopy = {

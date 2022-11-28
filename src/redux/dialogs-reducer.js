@@ -1,3 +1,5 @@
+import {state_copy_for_debug} from "./store-redux";
+
 const SEND_MESSAGE = "myApp/dialogs-reducer/SEND-MESSAGE"; // Константа отправки сообщения
 
 export let sendMessageCreator = (formDataNewMessage) => { // экшнкреатор отправки сообщений

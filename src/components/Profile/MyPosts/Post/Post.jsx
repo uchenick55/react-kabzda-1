@@ -1,5 +1,6 @@
 import React from 'react';
 import classes from './Post.module.css'
+import {state_copy_for_debug} from "../../../../redux/store-redux";
 
 const Post = ({message, like}) => {
     return (

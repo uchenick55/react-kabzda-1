@@ -1,6 +1,7 @@
 import React from 'react';
 import classes from './../MyFriends.module.css';
 import {NavLink} from "react-router-dom";
+import {state_copy_for_debug} from "../../../../redux/store-redux";
 
 const MyFriendItem = ({id, avaSrc, name}) => {
 

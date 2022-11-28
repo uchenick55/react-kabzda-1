@@ -1,4 +1,5 @@
 import profileReducer, {addPostActionCreator, deletePostActionCreator} from "./profile-reducer";
+import {state_copy_for_debug} from "./store-redux";
 const ADD_POST = "myApp/profile-reducer/ADD-POST";// константа отправки новых постов
 
 let initialState = {

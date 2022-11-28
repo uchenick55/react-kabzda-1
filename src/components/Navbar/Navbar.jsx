@@ -3,6 +3,7 @@ import classes from './Navbar.module.css';
 import {NavLink} from "react-router-dom";
 import MyFriends from "./My Friends/MyFriends";
 import {connect} from "react-redux";
+import {state_copy_for_debug} from "../../redux/store-redux";
 
 const Navbar = ({myFriends2}) => {
     return <nav className={classes.nav}>
