@@ -11,7 +11,8 @@ import ErrorBoundary from "./components/common/ErrorBoundary/ErrorBoundary";
 
 const ProfileContainer = React.lazy(() => import("./components/Profile/ProfileInfo/ProfileContainer"))
 const DialogsContainer = React.lazy(() => import("./components/Dialogs/DialogsContainer"))
-const UsersContainer = React.lazy(() => import("./components/users/UsersContainer"))
+// В случае именного экспорта, оборачиваем компоненту в промежуточную с экспортом по умолчанию, чтобы работал lazy
+const ExportDefaultUsersContainer = React.lazy(() => import("./components/users/ExportDefaultUsersContainer"))
 const LoginContainer = React.lazy(() => import("./components/Login/LoginContainer"))
 
 class App extends React.Component { // конвертируем app в классовую компоненту для жизненного цикла
@@ -34,7 +35,7 @@ class App extends React.Component { // конвертируем app в клас�
                                 <Routes> {/*в зависимости от URL подгрузка разного контента*/}
                                     <Route path='/profile/*' element={<ProfileContainer/>}/> {/*Профиль*/}
                                     <Route path='/dialogs/*' element={<DialogsContainer/>}/> {/*Диалоги*/}
-                                    <Route path='/users/*' element={<UsersContainer/>}/> {/*Поиск по Users*/}
+                                    <Route path='/users/*' element={<ExportDefaultUsersContainer/>}/> {/*Поиск по Users*/}
                                     <Route path='/login/*' element={<LoginContainer/>}/> {/*Логин*/}
                                 </Routes>
                             </div>

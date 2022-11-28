@@ -91,11 +91,11 @@ let mapStateToProps = (state) => {
     }
 }
 
-let UsersContainer = connect(mapStateToProps,
+export let UsersContainer = connect(mapStateToProps,
     { setCurrentPage,
         getUsersThunkCreator, followThunkCreator, unfollowThunkCreator, setTerm})(UsersAPI);
 
-export default UsersContainer;
+//export default UsersContainer;
 
 
 
