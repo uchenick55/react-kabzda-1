@@ -7,12 +7,12 @@ import {connect} from "react-redux";
 import {Component} from "react";
 import {initialisedAppThunkCreator} from "./redux/app-reducer";
 import Preloader from "./components/common/Preloader/Preloader";
+import ErrorBoundary from "./components/common/ErrorBoundary/ErrorBoundary";
 
-const ProfileContainer = React.lazy(()=>import("./components/Profile/ProfileInfo/ProfileContainer"))
-const DialogsContainer = React.lazy(()=>import("./components/Dialogs/DialogsContainer"))
-const UsersContainer = React.lazy(()=>import("./components/users/UsersContainer"))
-const LoginContainer = React.lazy(()=>import("./components/Login/LoginContainer"))
-
+const ProfileContainer = React.lazy(() => import("./components/Profile/ProfileInfo/ProfileContainer"))
+const DialogsContainer = React.lazy(() => import("./components/Dialogs/DialogsContainer"))
+const UsersContainer = React.lazy(() => import("./components/users/UsersContainer"))
+const LoginContainer = React.lazy(() => import("./components/Login/LoginContainer"))
 
 class App extends React.Component { // конвертируем app в классовую компоненту для жизненного цикла
     componentDidMount() {
@@ -25,19 +25,21 @@ class App extends React.Component { // конвертируем app в клас�
         }
         return ( // иначе показать все приложение
             <BrowserRouter>
-                <div className='app-wrapper'>
-                    <HeaderContainer/>
-                    <NavBarContainer/>
-                    <Suspense fallback={<div>Загрузка...</div>}>
-                    <div className='app-wrapper-content'>
-                        <Routes>
-                            <Route path='/profile/*' element={<ProfileContainer/>}/>
-                            <Route path='/dialogs/*' element={<DialogsContainer/>}/>
-                            <Route path='/users/*' element={<UsersContainer/>}/>
-                            <Route path='/login/*' element={<LoginContainer/>}/>
-                        </Routes>
-                    </div>
-                    </Suspense>
+                <div className='app-wrapper'> {/*позиционирование по сетке гридов*/}
+                    <ErrorBoundary> {/*Общий обработчик ошибок во всем приложении*/}
+                        <HeaderContainer/> {/*Header с пользователем и day/night режимом*/}
+                        <NavBarContainer/> {/*Навигационная панель со ссылками и FriendList*/}
+                        <Suspense fallback={<div>Загрузка...</div>}> {/*Оборачивает компоненты, по которым идет Lazy import и выдает fallback на время загрузки*/}
+                            <div className='app-wrapper-content'> {/*позиционирование контента по сетке гридов*/}
+                                <Routes> {/*в зависимости от URL подгрузка разного контента*/}
+                                    <Route path='/profile/*' element={<ProfileContainer/>}/> {/*Профиль*/}
+                                    <Route path='/dialogs/*' element={<DialogsContainer/>}/> {/*Диалоги*/}
+                                    <Route path='/users/*' element={<UsersContainer/>}/> {/*Поиск по Users*/}
+                                    <Route path='/login/*' element={<LoginContainer/>}/> {/*Логин*/}
+                                </Routes>
+                            </div>
+                        </Suspense>
+                    </ErrorBoundary>
                 </div>
             </BrowserRouter>
         );
