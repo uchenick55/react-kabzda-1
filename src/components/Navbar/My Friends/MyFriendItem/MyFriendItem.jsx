@@ -5,13 +5,16 @@ import {state_copy_for_debug} from "../../../../redux/store-redux";
 
 const MyFriendItem = ({id, avaSrc, name}) => {
 
-    let path = '/dialogs/' + id;
+    let dialog = '/dialogs/' + id;
+    let profile =  '/profile/' + id;
     return <div className={classes.myfriends}>
-        <NavLink to={path}>
-            <div>
-                <img src={avaSrc}/>
-                {name}
-            </div>
+            <div><img src={avaSrc}/>{name} {id}</div>
+        <div></div>
+        <NavLink to={dialog}>
+            dialog
+        </NavLink>
+        <NavLink to={profile}>
+            profile
         </NavLink>
     </div>
 }

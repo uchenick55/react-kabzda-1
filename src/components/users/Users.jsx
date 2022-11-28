@@ -80,6 +80,7 @@ let Users = ({
                         </div>
                         <div>Name: {u.name}</div>
                         <div>{u.status}</div>
+                        <div>{u.id}</div>
                     </div>
                 )
             })
