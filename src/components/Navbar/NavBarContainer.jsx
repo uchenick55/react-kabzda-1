@@ -8,7 +8,7 @@ import {state_copy_for_debug} from "../../redux/store-redux";
 
 class NavBarContainer extends React.Component {
     componentDidMount() {
-//        this.unfollowFriendsAPI()
+     //  this.unfollowFriendsAPI(25665)
         const {
             friendsCurrentPage, friendsPageSize,
             friendsTerm, friend, getFriendsThunkCreator
@@ -28,13 +28,14 @@ class NavBarContainer extends React.Component {
     }
 
     unfollowFriendsAPI = (id) => { // эту функцию пробросим в Friends List и вызовем с id на удаление из списка
-        const [currentPage, pageSize, term] = this.props
-        this.props.unfollowThunkCreator(id, currentPage, pageSize, term)
+        this.props.unfollowThunkCreator(id, this.props.currentPage, this.props.pageSize, this.props.term)
     }
 
     render() {
+        if (state_copy_for_debug) {console.log("NavBarContainer render")}
+
         const {myFriends2} = this.props; // получение из пропсов данных по друзьям
-        return <Navbar myFriends2={myFriends2}/> // отрисовка целевой компоненты
+        return <Navbar myFriends2={myFriends2} unfollowFriendsAPI={this.unfollowFriendsAPI}/> // отрисовка целевой компоненты
     }
 }
 

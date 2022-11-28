@@ -12,7 +12,7 @@ let Users = ({
                  SetTermFunction, onChangeTerm, onChangeTermFunction,
                  onChangeRangeLocal, currentRangeLocal // раскукожили все пропсы
              }) => {
-//    if (state_copy_for_debug) {console.log("Users")}
+    if (state_copy_for_debug) {console.log("Users")}
 
     let FollowUnfollowButtons = ({u, followUnfollowAPICallback, buttonText}) => { // унификация нажатия кнопки Follow/Unfollow
         return (<span>

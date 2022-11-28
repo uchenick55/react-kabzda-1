@@ -5,7 +5,9 @@ import MyFriends from "./My Friends/MyFriends";
 import {connect} from "react-redux";
 import {state_copy_for_debug} from "../../redux/store-redux";
 
-const Navbar = ({myFriends2}) => {
+const Navbar = ({myFriends2, unfollowFriendsAPI}) => {
+
+    if (state_copy_for_debug) {console.log("Navbar")}
     return <nav className={classes.nav}>
         <div className={classes.item}>
             <NavLink to='/profile'>Profile</NavLink>
@@ -17,7 +19,7 @@ const Navbar = ({myFriends2}) => {
             <NavLink to='/users'>Find Users</NavLink>
         </div>
         <div>
-            <MyFriends state={myFriends2}/>
+            <MyFriends state={myFriends2} unfollowFriendsAPI={unfollowFriendsAPI}/>
         </div>
 
     </nav>;

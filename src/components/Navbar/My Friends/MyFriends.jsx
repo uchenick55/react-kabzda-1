@@ -5,12 +5,13 @@ import userPhoto from "../../../assets/images/no-image3.png";
 import {state_copy_for_debug} from "../../../redux/store-redux";
 
 
-const MyFriends = ({state}) => {
+const MyFriends = ({state, unfollowFriendsAPI}) => {
+    if (state_copy_for_debug) {console.log("MyFriends")}
     let MyFriendElements =
         state.map((f) => {
                 const avaSrc = f.photos.small?f.photos.small:userPhoto;
                 return (
-                    <MyFriendItem name={f.name} id={f.id} avaSrc={avaSrc}/>
+                    <MyFriendItem name={f.name} id={f.id} avaSrc={avaSrc} unfollowFriendsAPI={unfollowFriendsAPI} />
                 )
             }
         );

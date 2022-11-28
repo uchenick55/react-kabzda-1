@@ -45,7 +45,7 @@ let initialState = {
     needUpdateFriends: false // флаг, что список друзей изменился, нужно обновить
 }
 let usersReducer = (state = initialState, action) => {
-    let stateCopy; // объявлениечасти части стейта до изменения редьюсером
+  let stateCopy; // объявлениечасти части стейта до изменения редьюсером
     switch (action.type) {
         case TOGGLE_IS_FOLLOWING_PROGRESS: // disable кнопки от многократного нажатия (follow/unfollow)
             stateCopy = {
@@ -54,6 +54,7 @@ let usersReducer = (state = initialState, action) => {
                     ? [state.followingInProgress, action.id] // кнопка follow/unfollow нажата, добавление в массив followingInProgress id кнопки
                     : state.followingInProgress.filter(id => id !== action.id)// пришел ответ от сервера OK, удаляем id кнопки из массива followingInProgress
             }
+            console.log(stateCopy.followingInProgress)
             return stateCopy; // вернуть копию стейта
         case SET_USERS:
             stateCopy = {...state, users: action.users};
@@ -83,7 +84,9 @@ let usersReducer = (state = initialState, action) => {
             }
             return stateCopy; // вернуть копию стейта
         case NEED_UPDATE_FRIENDS:
-            stateCopy = {
+          if (state_copy_for_debug) {console.log("NEED_UPDATE_FRIENDS")}
+
+          stateCopy = {
                 ...state,
               needUpdateFriends: action.needUpdateFriends
             }
@@ -94,7 +97,10 @@ let usersReducer = (state = initialState, action) => {
 }
 
 export let getUsersThunkCreator = (currentPage, pageSize, term) => {//санкреатор получить пользователей с данными
-    let getUsersThunk = (dispatch) => { // санка получить пользователей
+  //state_copy_for_debug? console.log("usersReducer"): null
+  if (state_copy_for_debug) {console.log("getUsersThunkCreator")}
+
+  let getUsersThunk = (dispatch) => { // санка получить пользователей
         dispatch(toggleIsFetching(true)) //показать крутилку загрузки с сервера
         apiUsers.getUsers(currentPage, pageSize, term) //получить пользователей по текущей странице и размере страницы
             .then((data) => {
@@ -108,7 +114,9 @@ export let getUsersThunkCreator = (currentPage, pageSize, term) => {//санкр
 }
 
 const followUnfollowFlow = (dispatch, userId, currentPage, pageSize, apiMethod, term) => {
-    dispatch(toggleIsFollowingProgerss(true, userId))//внести ID кнопки пользователя в массив followingInProgress от повторного нажатия
+  if (state_copy_for_debug) {console.log("followUnfollowFlow")}
+
+  dispatch(toggleIsFollowingProgerss(true, userId))//внести ID кнопки пользователя в массив followingInProgress от повторного нажатия
     apiMethod(userId)// подписаться на пользователя // diff apiMethod = postFollow
         .then((response) => {
             if (response.resultCode === 0) {
@@ -123,12 +131,14 @@ const followUnfollowFlow = (dispatch, userId, currentPage, pageSize, apiMethod, 
 }
 
 export let followThunkCreator = (userId, currentPage, pageSize, term) => {//санкреатор follow с данными
-    return (dispatch) => {// санка follow
+  if (state_copy_for_debug) {console.log("followThunkCreator")}
+  return (dispatch) => {// санка follow
         followUnfollowFlow(dispatch, userId, currentPage, pageSize, apiUsers.postFollow.bind(apiUsers), term);
     }
 }
 export let unfollowThunkCreator = (userId, currentPage, pageSize, term) => {//санкреатор unfollow с данными
-    return (dispatch) => {// санка unfollow
+  if (state_copy_for_debug) {console.log("unfollowThunkCreator")}
+  return (dispatch) => {// санка unfollow
         followUnfollowFlow(dispatch, userId, currentPage, pageSize, apiUsers.deleteFollow.bind(apiUsers), term);
     }
 }

@@ -3,7 +3,9 @@ import classes from './../MyFriends.module.css';
 import {NavLink} from "react-router-dom";
 import {state_copy_for_debug} from "../../../../redux/store-redux";
 
-const MyFriendItem = ({id, avaSrc, name}) => {
+const MyFriendItem = ({id, avaSrc, name, unfollowFriendsAPI}) => {
+    if (state_copy_for_debug) {console.log("MyFriendItem")}
+
 
     let dialog = '/dialogs/' + id;
     let profile =  '/profile/' + id;
@@ -16,6 +18,9 @@ const MyFriendItem = ({id, avaSrc, name}) => {
         <NavLink to={profile}>
             profile
         </NavLink>
+        <div>
+            <button onClick={()=>{unfollowFriendsAPI(id)}}> Remove </button>
+        </div>
     </div>
 }
 
