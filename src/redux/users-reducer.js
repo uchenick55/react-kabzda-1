@@ -51,7 +51,7 @@ let usersReducer = (state = initialState, action) => {
             stateCopy = {
                 ...state,
                 followingInProgress: action.isFetching
-                    ? [state.followingInProgress, action.id] // кнопка follow/unfollow нажата, добавление в массив followingInProgress id кнопки
+                    ? [...state.followingInProgress, action.id] // кнопка follow/unfollow нажата, добавление в массив followingInProgress id кнопки
                     : state.followingInProgress.filter(id => id !== action.id)// пришел ответ от сервера OK, удаляем id кнопки из массива followingInProgress
             }
             console.log(stateCopy.followingInProgress)

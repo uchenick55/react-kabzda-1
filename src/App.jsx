@@ -9,7 +9,6 @@ import {connect} from "react-redux";
 import {Component} from "react";
 import {initialisedAppThunkCreator} from "./redux/app-reducer";
 import Preloader from "./components/common/Preloader/Preloader";
-import {getFriendsThunkCreator} from "./redux/sidebar-reducer";
 import NavBarContainer from "./components/Navbar/NavBarContainer";
 
 class App extends Component { // конвертируем app в классовую компоненту для жизненного цикла
