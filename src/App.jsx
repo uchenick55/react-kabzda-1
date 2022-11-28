@@ -1,17 +1,20 @@
+import React, {Suspense} from "react";
 import './App.css';
 import {BrowserRouter, Route, Routes} from "react-router-dom";
-import DialogsContainer from "./components/Dialogs/DialogsContainer";
-import UsersContainer from "./components/users/UsersContainer";
-import ProfileContainer from "./components/Profile/ProfileInfo/ProfileContainer";
 import HeaderContainer from "./components/Header/HeaderContainer";
-import LoginContainer from "./components/Login/LoginContainer";
+import NavBarContainer from "./components/Navbar/NavBarContainer";
 import {connect} from "react-redux";
 import {Component} from "react";
 import {initialisedAppThunkCreator} from "./redux/app-reducer";
 import Preloader from "./components/common/Preloader/Preloader";
-import NavBarContainer from "./components/Navbar/NavBarContainer";
 
-class App extends Component { // конвертируем app в классовую компоненту для жизненного цикла
+const ProfileContainer = React.lazy(()=>import("./components/Profile/ProfileInfo/ProfileContainer"))
+const DialogsContainer = React.lazy(()=>import("./components/Dialogs/DialogsContainer"))
+const UsersContainer = React.lazy(()=>import("./components/users/UsersContainer"))
+const LoginContainer = React.lazy(()=>import("./components/Login/LoginContainer"))
+
+
+class App extends React.Component { // конвертируем app в классовую компоненту для жизненного цикла
     componentDidMount() {
         this.props.initialisedAppThunkCreator() // запускаем инициализацию приложения
     }
@@ -25,6 +28,7 @@ class App extends Component { // конвертируем app в классов�
                 <div className='app-wrapper'>
                     <HeaderContainer/>
                     <NavBarContainer/>
+                    <Suspense fallback={<div>Загрузка...</div>}>
                     <div className='app-wrapper-content'>
                         <Routes>
                             <Route path='/profile/*' element={<ProfileContainer/>}/>
@@ -33,6 +37,7 @@ class App extends Component { // конвертируем app в классов�
                             <Route path='/login/*' element={<LoginContainer/>}/>
                         </Routes>
                     </div>
+                    </Suspense>
                 </div>
             </BrowserRouter>
         );

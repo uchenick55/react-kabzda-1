@@ -8,23 +8,6 @@ let setFriends = (users) => {
 };
 
 let initialState = {
-  myFriends: [ // заглушка списка моих друзей в навбаре
-    {
-      id: 1,
-      name: "Artem",
-      avaSrc: "https://i.pinimg.com/originals/03/b6/fe/03b6fe528accfd011629f5271e90e9ac.jpg"
-    },
-    {
-      id: 3,
-      name: "Danil",
-      avaSrc: "https://pixelbox.ru/wp-content/uploads/2020/11/ava-maincraft-youtube-76.jpg"
-    },
-    {
-      id: 4,
-      name: "Natasha",
-      avaSrc: "https://ulibky.ru/wp-content/uploads/2019/10/avatarki_dlya_vatsap_dlya_devushek_42_28061027.jpg"
-    },
-  ],
   myFriends2: [], // массив списка друзей
   friendsCurrentPage: 1, // текущая страница выгрузки друзей
   friendsPageSize: 20, // количество друзей в одной выгрузке с сервера
@@ -51,7 +34,7 @@ export let getFriendsThunkCreator = (currentPage, pageSize, term, friend) => {//
       .then((data) => {
 //        dispatch(toggleIsFetching(false))  //убрать крутилку загрузки с сервера
         dispatch(setFriends(data.items))//записать в стейт закгруженный стек друзей
-//        dispatch(setUsersTotalCount(data.totalCount))//записать в сейт общее количество пользователей
+//        dispatch(setUsersTotalCount(data.totalCount))//записать в стейт общее количество пользователей
       })
 
   }
