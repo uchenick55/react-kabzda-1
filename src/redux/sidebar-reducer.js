@@ -32,11 +32,14 @@ export let getFriendsThunkCreator = (currentPage, pageSize, term, friend) => {//
 //    dispatch(toggleIsFetching(true)) //показать крутилку загрузки с сервера
     apiUsers.getUsers(currentPage, pageSize, term, friend) //получить пользователей по текущей странице и размере страницы
       .then((data) => {
+//        throw new Error ("проверка ошибки then/catch ")
 //        dispatch(toggleIsFetching(false))  //убрать крутилку загрузки с сервера
-        dispatch(setFriends(data.items))//записать в стейт закгруженный стек друзей
+        dispatch(setFriends(data.items))//записать в стейт загруженный стек друзей
 //        dispatch(setUsersTotalCount(data.totalCount))//записать в стейт общее количество пользователей
       })
-
+      .catch((error)=>{
+        console.log("=======================>", error) // отображение ошибки в случае, если then ее выдаст
+      })
   }
   return getUsersThunk
 }
