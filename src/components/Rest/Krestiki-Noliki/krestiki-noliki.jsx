@@ -32,14 +32,15 @@ class Board extends React.Component {
     render() {
         let status; // существует переменная status
         const Winner = calculateWinner(this.props.squares); // проверка, появился ли победитель
-
-        if (!Winner) {
-            // если победитель не существует
-            status = this.props.xIsNext ? "Следующий ход: X " : "Следующий ход: O ";
+        if (this.props.history.length < 10) {
+            status = this.props.xIsNext ? "Сейчас ходит: X " : "Сейчас ходит: O ";
             // задать статусу кто ходит следующим X или O
-        } else {
-            // иначе
+        }
+        if (Winner) {// определен победитель
             status = "Победитель: " + Winner; // вывести победителя
+        }
+        if (this.props.history.length >= 10 && !Winner) {
+            status = "Ничья"; // заполнены все клетки и нет победителя
         }
         return (
             <div>
@@ -122,18 +123,30 @@ class Game extends React.Component {
         this.setState({history: historyNew2}); // внести в history обновленный  historyNew2
     };
 
+    newGame = () => {
+        this.setState({
+            xIsNext: true,
+            history: [{squaresNew: Array(9).fill(null)}]
+        });
+
+    }
+
     render() {
         let currentStep = this.state.history.length - 1; // текущий ход в массиве ходов (-1 поскольку счет идет с 0)
         let squaresNew = this.state.history[currentStep].squaresNew.slice(); // делаем копию текущего массива
         return (
-            <div >
+            <div>
                 <div><h3>Крестики нолики</h3></div>
                 <div>
                     <Board
                         squares={squaresNew} // пропсами передаем вглубь текущий массив клеток
                         xIsNext={this.state.xIsNext} // статус кто ходит
                         handleSquare={this.handleSquare} // обработчик кликов
+                        history={this.state.history}
                     />
+                </div>
+                <div>
+                    <button className="new-game-button" onClick={this.newGame}>Начать заново</button>
                 </div>
             </div>
         );
