@@ -8,7 +8,6 @@ import {state_copy_for_debug} from "../../redux/store-redux";
 
 class NavBarContainer extends React.Component {
     componentDidMount() {
-     //  this.unfollowFriendsAPI(25665)
         const {
             friendsCurrentPage, friendsPageSize,
             friendsTerm, friend, getFriendsThunkCreator

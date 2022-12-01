@@ -1,6 +1,7 @@
 import {apiProfile} from "../components/api/api";
 import {stopSubmit} from "redux-form";
 import {state_copy_for_debug} from "./store-redux";
+import {setFriends} from "./sidebar-reducer";
 
 const SET_MY_DATA = "myApp/auth-reducer/SET_MY_DATA"; // константа для задания базовых данных моего профиля (ID, Email, login, isAuth)
 const SET_MY_PROFILE = "myApp/auth-reducer/SET_MY_PROFILE"; // константа задания расширенных данных моего профиля
@@ -88,6 +89,14 @@ export let deleteLoginThunkCreator = () => {//санкреатор на логА
         const response = await apiProfile.deleteLogin() // отправка запроса на логаут
         if (response.resultCode === 0) { // если сессия успешно закрыта
             dispatch(getAuthMeThunkCreator()) // проверка авторизации и зануление стейта
+             // зануление списка друзей при логауте
+            setTimeout(()=>{
+                dispatch(setFriends([]))
+            },100)
+           // sdfsadfsaf
+
+
+
         } else {// пока еще не придумал
         }
     }
