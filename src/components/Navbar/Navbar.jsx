@@ -21,6 +21,9 @@ const Navbar = ({myFriends2, unfollowFriendsAPI}) => {
         <div className={classes.item}>
             <NavLink to='/news'>News</NavLink>
         </div>
+        <div className={classes.item}>
+            <NavLink to='/rest'>Rest</NavLink>
+        </div>
         <div>
             <MyFriends state={myFriends2} unfollowFriendsAPI={unfollowFriendsAPI}/>
         </div>

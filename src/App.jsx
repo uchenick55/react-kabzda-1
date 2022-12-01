@@ -9,6 +9,8 @@ import {initialisedAppThunkCreator} from "./redux/app-reducer";
 import Preloader from "./components/common/Preloader/Preloader";
 import ErrorBoundary from "./components/common/ErrorBoundary/ErrorBoundary";
 import News from "./components/News/News";
+import Rest from "./components/Rest/Rest";
+import KrestikiNoliki from "./components/Rest/Krestiki-Noliki/krestiki-noliki";
 
 const ProfileContainer = React.lazy(() => import("./components/Profile/ProfileInfo/ProfileContainer"))
 const DialogsContainer = React.lazy(() => import("./components/Dialogs/DialogsContainer"))
@@ -39,6 +41,8 @@ class App extends React.Component { // конвертируем app в клас�
                                     <Route path='/users/*' element={<ExportDefaultUsersContainer/>}/> {/*Поиск по Users*/}
                                     <Route path='/login/*' element={<LoginContainer/>}/> {/*Логин*/}
                                     <Route path='/news/*' element={<News/>}/> {/*Логин*/}
+                                    <Route path='/rest/*' element={<Rest/>}/> {/*Логин*/}
+                                    <Route path='/krestiki-noliki/*' element={<KrestikiNoliki/>}/> {/*Логин*/}
                                 </Routes>
                             </div>
                         </Suspense>
