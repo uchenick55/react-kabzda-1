@@ -10,7 +10,7 @@ let setFriends = (users) => {
 let initialState = {
   myFriends2: [], // массив списка друзей
   friendsCurrentPage: 1, // текущая страница выгрузки друзей
-  friendsPageSize: 20, // количество друзей в одной выгрузке с сервера
+  friendsPageSize: 30, // количество друзей в одной выгрузке с сервера
   friendsTerm: "", // поиск по друзьям
   friend: true // поиск по друзьям (только те, что follow = true)
 

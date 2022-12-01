@@ -1,6 +1,6 @@
 import React from 'react';
 import Dialogs from "./Dialogs";
-import {sendMessageCreator} from "../../redux/dialogs-reducer";
+import {sendMessageCreator, sendDialogsThunkCreator} from "../../redux/dialogs-reducer";
 import {connect} from "react-redux";
 import {NavigateToLoginHoc} from "../hoc/NavigateToLoginHoc";
 import {compose} from "redux";
@@ -18,6 +18,9 @@ let mapDispatchToProps  = (dispatch) => {
     return {
         sendMessage: (formDataNewMessage) => {
             dispatch(sendMessageCreator(formDataNewMessage))
+        },
+        sendDialogsThunkCreator: (formDataNewMessage) => {
+            dispatch(sendDialogsThunkCreator(formDataNewMessage))
         }
     }
 }
