@@ -1,5 +1,6 @@
 import {state_copy_for_debug} from "./store-redux";
 import {apiUsers} from "../components/api/api";
+import {apiDialogs} from "../components/api/apiLocalStorage";
 
 const SEND_MESSAGE = "myApp/dialogs-reducer/SEND-MESSAGE"; // Константа отправки сообщения
 
@@ -59,6 +60,9 @@ export let sendDialogsThunkCreator = (formDataNewMessage) => {//санкреат
   if (state_copy_for_debug) {console.log("getDialogsThunkCreator")}
   return (dispatch) => {// санка отправки диалогов
     dispatch(sendMessageCreator(formDataNewMessage))
+    apiDialogs.postDialogs()
+    let aaa = apiDialogs.getDialogs()
+    console.log(aaa)
   }
 }
 
