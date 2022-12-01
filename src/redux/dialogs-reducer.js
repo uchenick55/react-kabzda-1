@@ -57,12 +57,12 @@ let dialogsReducer = (state = initialState, action) => { // редьюсер д�
 
 
 export let sendDialogsThunkCreator = (formDataNewMessage) => {//санкреатор получения диалогов с данными
-  if (state_copy_for_debug) {console.log("getDialogsThunkCreator")}
+  if (state_copy_for_debug) {console.log("sendDialogsThunkCreator")}
   return (dispatch) => {// санка отправки диалогов
     dispatch(sendMessageCreator(formDataNewMessage))
     apiDialogs.postDialogs()
-    let aaa = apiDialogs.getDialogs()
-    console.log(aaa)
+  //  let aaa = apiDialogs.getDialogs()
+  //  console.log(aaa)
   }
 }
 
