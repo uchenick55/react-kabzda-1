@@ -25,20 +25,45 @@ export let apiDialogs = { // объект с методами api для Dialogs
     LocalStorageDialogs = JSON.parse(localStorage.getItem("Dialog_25528_1079"));
     return LocalStorageDialogs
   },
-  postDialogs: (formDataNewMessage) => { //formDataNewMessage
-    localStorage.setItem("Dialog_25528_1079", JSON.stringify(Dialog_25528_1079));
+  postDialogs: (formDataNewMessage, myId) => { //formDataNewMessage
+    // localStorage.removeItem('Dialog_25528_1079_fromServer'); DELETE
+    let Dialog_25528_1079_1 = apiDialogs.getDialogs();
 
-    //   localStorage.removeItem('LocalStorageDialogs');
-    let Dialog_25528_1079_fromServer = apiDialogs.getDialogs();
-    console.log(Dialog_25528_1079_fromServer)
+    Dialog_25528_1079_1.map(d => {
+      return console.log(d)
+    })
 
-    let ModifiedLocalStorageDialogs = Dialog_25528_1079_fromServer.map(d => {
-    return console.log(d)
-  })
+    let Dialog_25528_1079_2 = [...Dialog_25528_1079_1, {
+      id: Dialog_25528_1079_1.length + 1,
+      userId: 25528,
+      message: formDataNewMessage
+    }]
 
-//    localStorage.setItem("Dialog_25528_1079", JSON.stringify(Dialog_25528_1079));
+    Dialog_25528_1079_2.map(d => {
+      return console.log(d)
+    })
+
+    localStorage.setItem("Dialog_25528_1079", JSON.stringify(Dialog_25528_1079_2));
+
+    let Dialog_25528_1079_3 = apiDialogs.getDialogs();
+
+    return Dialog_25528_1079_3
+
+
+    /*
+        localStorage.setItem("Dialog_25528_1079", JSON.stringify(ModifiedLocalStorageDialogs));
+
+        Dialog_25528_1079_fromServer = apiDialogs.getDialogs();
+
+        ModifiedLocalStorageDialogs = Dialog_25528_1079_fromServer.map(d => {
+          return console.log(d)
+        })
+
+
+        return Dialog_25528_1079_fromServer*/
+
 //    console.log(Dialog_25528_1079_fromServer)
-    return Dialog_25528_1079_fromServer
+    return Dialog_25528_1079_2
 
 
     /*      stateCopy = {
