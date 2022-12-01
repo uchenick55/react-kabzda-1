@@ -1,4 +1,9 @@
-let Dialog_25528_1079, Dialog_25000_1000;
+let Dialog_25528_1079 = [
+  {id: 1, userId: 25528, message: "Привет, как дела?"},
+  {id: 2, userId: 1079, message: "Нормально, только погода на улице не очень"},
+  {id: 3, userId: 25528, message: "Чем думаешь заняться сегодня?"},
+  {id: 4, userId: 1079, message: "Нужно картошки в магазине купить"},
+]
 
 let LocalStorageDialogs = {
   "Dialog_25528_1079": {
@@ -7,7 +12,7 @@ let LocalStorageDialogs = {
     3: {userId: 25528, message: "Чем думаешь заняться сегодня?"},
     4: {userId: 1079, message: "Нужно картошки в магазине купить"},
   }
-  , "Dialog_25000_1000" : {
+  , "Dialog_25000_1000": {
     1: {userId: 25528, message: "Привет, как дела?"},
     2: {userId: 1079, message: "Нормально, только погода на улице не очень"},
     3: {userId: 25528, message: "Чем думаешь заняться сегодня?"},
@@ -17,24 +22,30 @@ let LocalStorageDialogs = {
 
 export let apiDialogs = { // объект с методами api для Dialogs
   getDialogs: () => {
-//    LocalStorageDialogs = JSON.parse(localStorage.getItem("LocalStorageDialogs"));
-//    return LocalStorageDialogs
+    LocalStorageDialogs = JSON.parse(localStorage.getItem("Dialog_25528_1079"));
+    return LocalStorageDialogs
   },
   postDialogs: (formDataNewMessage) => { //formDataNewMessage
-    console.log(LocalStorageDialogs)
-//    localStorage.setItem("LocalStorageDialogs", JSON.stringify(LocalStorageDialogs));
-//    let LocalStorageDialogs1= apiDialogs.getDialogs();
-//    let LocalStorageDialogs2 = [...LocalStorageDialogs1]
-//    console.log(LocalStorageDialogs)
-//    console.log(LocalStorageDialogs1)
-//    console.log(LocalStorageDialogs2)
+    localStorage.setItem("Dialog_25528_1079", JSON.stringify(Dialog_25528_1079));
+
+    //   localStorage.removeItem('LocalStorageDialogs');
+    let Dialog_25528_1079_fromServer = apiDialogs.getDialogs();
+    console.log(Dialog_25528_1079_fromServer)
+
+    let ModifiedLocalStorageDialogs = Dialog_25528_1079_fromServer.map(d => {
+    return console.log(d)
+  })
+
+//    localStorage.setItem("Dialog_25528_1079", JSON.stringify(Dialog_25528_1079));
+//    console.log(Dialog_25528_1079_fromServer)
+    return Dialog_25528_1079_fromServer
 
 
-/*      stateCopy = {
-        ...state,
-        needUpdateFriends: action.needUpdateFriends
-      }
-    return stateCopy; // вернуть копию стейта*/
+    /*      stateCopy = {
+            ...state,
+            needUpdateFriends: action.needUpdateFriends
+          }
+        return stateCopy; // вернуть копию стейта*/
 
 //    localStorage.setItem("LocalStorageDialogs", JSON.stringify(LocalStorageDialogs));
   }

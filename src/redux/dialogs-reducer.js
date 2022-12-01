@@ -16,6 +16,7 @@ let initialState = { // стейт сообщений по умолчанию
             {id: 4, message: "Yo"},
             {id: 5, message: "Yo"}
         ],
+        messages2: [],
         dialogs: [ // список диалогов по умолчанию (заглушка)
             {
                 id: 1,
@@ -60,9 +61,8 @@ export let sendDialogsThunkCreator = (formDataNewMessage) => {//санкреат
   if (state_copy_for_debug) {console.log("sendDialogsThunkCreator")}
   return (dispatch) => {// санка отправки диалогов
     dispatch(sendMessageCreator(formDataNewMessage))
-    apiDialogs.postDialogs()
-  //  let aaa = apiDialogs.getDialogs()
-  //  console.log(aaa)
+    let aaa =  apiDialogs.postDialogs(formDataNewMessage)
+    console.log(aaa)
   }
 }
 
