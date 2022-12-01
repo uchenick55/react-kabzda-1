@@ -3,7 +3,7 @@ import {state_copy_for_debug} from "./store-redux";
 
 const SET_FRIENDS = "myApp/users-reducer/SET_FRIENDS"; // редакс дакс
 
-let setFriends = (users) => {
+export let setFriends = (users) => {
   return {type: SET_FRIENDS, users}
 };
 
@@ -29,6 +29,8 @@ const sidebarReducer = (state = initialState, action) => {
 
 export let getFriendsThunkCreator = (currentPage, pageSize, term, friend) => {//санкреатор получить пользователей с данными
   let getUsersThunk = (dispatch) => { // санка получить пользователей
+    if (state_copy_for_debug) {console.log("getFriendsThunkCreator")}
+
 //    dispatch(toggleIsFetching(true)) //показать крутилку загрузки с сервера
     apiUsers.getUsers(currentPage, pageSize, term, friend) //получить пользователей по текущей странице и размере страницы
       .then((data) => {
