@@ -5,6 +5,7 @@ const DELETE_POST = "myApp/profile-reducer/DELETE_POST";// константа у
 const ADD_POST = "myApp/profile-reducer/ADD-POST";// константа отправки новых постов
 const SET_USER_PROFILE = "myApp/profile-reducer/SET_USER_PROFILE"; // константа задания в локальный стейт профиля просматриваемого пользователя
 const SET_STATUS = "myApp/profile-reducer/SET_STATUS" // константа задания моего статуса
+const PROFILE_INITIAL_STATE = "myApp/profile-reducer/PROFILE_INITIAL_STATE" // константа зануления при логауте
 
 
 export let deletePostActionCreator = (postId) => { // экшнкреатор удаления поста по postId
@@ -19,6 +20,10 @@ let setUserProfile = (profile) => { // экшнкреатор задания в 
 export let setStatus = (newStatus) => { //экшнкреатор задания моего статуса (после API запроса)
     return {type: SET_STATUS, newStatus}
 };
+export let profileInitialState = () => { //экшнкреатор зануления при логауте
+    return {type: PROFILE_INITIAL_STATE}
+};
+
 let initialState = {
     posts: [// заглушка постов на странице профиля
         {id: 1, message: "state 2 Hi, how are you?", like: "12"},
@@ -64,6 +69,10 @@ export let profileReducer = (state = initialState, action) => { // редьюс�
                 status: action.newStatus
             }
             if (bedug_mode) {console.log("profile-reducer.jsx, SET_STATUS: ", state, stateCopy)} // дебаг
+            return stateCopy;
+        case PROFILE_INITIAL_STATE: //зануления при логауте
+            stateCopy = initialState
+            if (bedug_mode) {console.log("profile-reducer.jsx, PROFILE_INITIAL_STATE: ", state, stateCopy)} // дебаг
             return stateCopy;
         default:
             return state;

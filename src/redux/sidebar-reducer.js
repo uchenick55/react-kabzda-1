@@ -2,9 +2,13 @@ import {apiUsers} from "../components/api/api";
 import {bedug_mode} from "./store-redux";
 
 const SET_FRIENDS = "myApp/users-reducer/SET_FRIENDS"; // редакс дакс
+const FRIENDS_INITIAL_STATE = "myApp/users-reducer/FRIENDS_INITIAL_STATE"; //константа зануления при логауте
 
-export let setFriends = (users) => {
+export let setFriends = (users) => {//экшн креатор задания списка друзей
   return {type: SET_FRIENDS, users}
+};
+export let friendsInitialState = (users) => {//экшн креатор зануления при логауте
+  return {type: FRIENDS_INITIAL_STATE, users}
 };
 
 let initialState = {
@@ -21,6 +25,10 @@ const sidebarReducer = (state = initialState, action) => {
     case SET_FRIENDS:
       stateCopy = {...state, myFriends2: action.users};
       if (bedug_mode) {console.log("sidebar-reducer.js, SET_FRIENDS: ", state, stateCopy)} // дебаг
+      return stateCopy; // вернуть копию стейта
+    case FRIENDS_INITIAL_STATE:
+      stateCopy = initialState;
+      if (bedug_mode) {console.log("sidebar-reducer.js, FRIENDS_INITIAL_STATE: ", state, stateCopy)} // дебаг
       return stateCopy; // вернуть копию стейта
     default:
       return state;

@@ -8,6 +8,7 @@ const SET_TOTAL_USERS_COUNT = "myApp/users-reducer/SET_TOTAL_USERS_COUNT";
 const TOGGLE_IS_FETCHING = "myApp/users-reducer/TOGGLE_IS_FETCHING";
 const TOGGLE_IS_FOLLOWING_PROGRESS = "myApp/users-reducer/TOGGLE_IS_FOLLOWING_PROGRESS";
 const NEED_UPDATE_FRIENDS = "myApp/users-reducer/NEED_UPDATE_FRIENDS";
+const USERS_INITIAL_STATE = "myApp/users-reducer/USERS_INITIAL_STATE";
 
 
 export let setTerm = (term) => {
@@ -30,6 +31,9 @@ let toggleIsFollowingProgerss = (isFetching, id) => {
 };
 export let needUpdateFriendsAC = (needUpdateFriends) => {
     return {type: NEED_UPDATE_FRIENDS, needUpdateFriends}
+};
+export let usersInitialState = () => {
+    return {type: USERS_INITIAL_STATE}
 };
 
 
@@ -94,6 +98,10 @@ let usersReducer = (state = initialState, action) => {
               needUpdateFriends: action.needUpdateFriends
             }
           if (bedug_mode) {console.log("users-reducer.js, NEED_UPDATE_FRIENDS: ", state, stateCopy)} // дебаг
+          return stateCopy; // вернуть копию стейта
+        case USERS_INITIAL_STATE:
+          stateCopy = initialState
+          if (bedug_mode) {console.log("users-reducer.js, USERS_INITIAL_STATE: ", state, stateCopy)} // дебаг
           return stateCopy; // вернуть копию стейта
         default:
             return state;

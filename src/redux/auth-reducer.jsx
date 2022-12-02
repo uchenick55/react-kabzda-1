@@ -1,16 +1,24 @@
 import {apiProfile} from "../components/api/api";
 import {stopSubmit} from "redux-form";
 import {bedug_mode} from "./store-redux";
-import {setFriends} from "./sidebar-reducer";
+import {friendsInitialState, setFriends} from "./sidebar-reducer";
+import {appInitialState} from "./app-reducer";
+import {dialogsInitialState} from "./dialogs-reducer";
+import {profileInitialState} from "./profile-reducer";
+import {usersInitialState} from "./users-reducer";
 
 const SET_MY_DATA = "myApp/auth-reducer/SET_MY_DATA"; // константа для задания базовых данных моего профиля (ID, Email, login, isAuth)
 const SET_MY_PROFILE = "myApp/auth-reducer/SET_MY_PROFILE"; // константа задания расширенных данных моего профиля
+const AUTH_INITIAL_STATE = "myApp/auth-reducer/AUTH_INITIAL_STATE"; //константа зануления при логауте
 
 export let setAuthData = (id, email, login, isAuth) => { // экшн креатор задания моих ID, Email, login
     return {type: SET_MY_DATA, id, email, login, isAuth}
 };
 export let setMyProfile = (myProfile) => { // экшн креатор задания расширенных данных моего профиля
     return {type: SET_MY_PROFILE, myProfile}
+};
+export let authInitialState = () => { // экшн креатор зануления при логауте
+    return {type: AUTH_INITIAL_STATE}
 };
 
 let initialState = { // стейт по умолчанию для моего профиля
@@ -41,6 +49,10 @@ let authReducer = (state = initialState, action) => { // редьюсер авт
                 myProfile: action.myProfile
             }
             if (bedug_mode) {console.log("auth-reducer.jsx, SET_MY_PROFILE: ", state, stateCopy)} // дебаг
+            return stateCopy; // возврат копии стейта после изменения
+        case AUTH_INITIAL_STATE: // экшн зануления при логауте
+            stateCopy = initialState
+            if (bedug_mode) {console.log("auth-reducer.jsx, AUTH_INITIAL_STATE: ", state, stateCopy)} // дебаг
             return stateCopy; // возврат копии стейта после изменения
         default:
             return state; // по умолчанию стейт возврашается неизмененным
@@ -96,12 +108,24 @@ export let deleteLoginThunkCreator = () => {//санкреатор на логА
     let deleteLoginThunk = async (dispatch) => { // объявление санки на логаут
         const response = await apiProfile.deleteLogin() // отправка запроса на логаут
         if (response.resultCode === 0) { // если сессия успешно закрыта
-            if (bedug_mode) {console.log("auth-reducer.jsx, deleteLoginThunkCreator.await .deleteLogin(): dispatch(getAuthMeThunkCreator())" )} // дебаг
-            dispatch(getAuthMeThunkCreator()) // проверка авторизации и зануление стейта профиля
-             // зануление списка друзей при логауте
             setTimeout(()=>{
-                if (bedug_mode) {console.log("auth-reducer.jsx, deleteLoginThunkCreator.await .deleteLogin():dispatch(setFriends([]))->SET_FRIENDS" )} // дебаг
-                dispatch(setFriends([]))
+
+                if (bedug_mode) {console.log("auth-reducer.jsx, deleteLoginThunkCreator.await .deleteLogin():dispatch(dialogsInitialState())->DIALOGS_INITIAL_STATE" )} // дебаг
+                dispatch(dialogsInitialState())// зануление диалогов при логауте
+
+                if (bedug_mode) {console.log("auth-reducer.jsx, deleteLoginThunkCreator.await .deleteLogin():dispatch(authInitialState())->AUTH_INITIAL_STATE" )} // дебаг
+                dispatch(authInitialState())// зануление авторизации при логауте
+
+                if (bedug_mode) {console.log("auth-reducer.jsx, deleteLoginThunkCreator.await .deleteLogin():dispatch(profileInitialState())->PROFILE_INITIAL_STATE" )} // дебаг
+                dispatch(profileInitialState())// зануление профиля при логауте
+
+
+                if (bedug_mode) {console.log("auth-reducer.jsx, deleteLoginThunkCreator.await .deleteLogin():dispatch(friendsInitialState())->FRIENDS_INITIAL_STATE" )} // дебаг
+                dispatch(friendsInitialState())// зануление FriendList при логауте
+
+                if (bedug_mode) {console.log("auth-reducer.jsx, deleteLoginThunkCreator.await .deleteLogin():dispatch(usersInitialState())->USERS_INITIAL_STATE" )} // дебаг
+                dispatch(usersInitialState())// зануление Users при логауте
+
             },300)
            // sdfsadfsaf
 

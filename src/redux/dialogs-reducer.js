@@ -2,9 +2,13 @@ import {bedug_mode} from "./store-redux";
 import {apiDialogs} from "../components/api/apiLocalStorage";
 
 const SEND_MESSAGE = "myApp/dialogs-reducer/SEND-MESSAGE"; // Константа отправки сообщения
+const DIALOGS_INITIAL_STATE = "myApp/dialogs-reducer/DIALOGS_INITIAL_STATE";  //константа зануления при логауте
 
 export let sendMessageCreator = (formDataNewMessage) => { // экшнкреатор отправки сообщений
     return {type: SEND_MESSAGE, formDataNewMessage}
+};
+export let dialogsInitialState = () => { // экшнкреатор зануления при логауте
+    return {type: DIALOGS_INITIAL_STATE, }
 };
 
 let initialState = { // стейт сообщений по умолчанию
@@ -53,6 +57,10 @@ let dialogsReducer = (state = initialState, action) => { // редьюсер д�
              }
              if (bedug_mode) {console.log("dialogs-reducer.js, SEND_MESSAGE: ", state, stateCopy)} // дебаг
          return stateCopy
+       case DIALOGS_INITIAL_STATE: // экшн отправки сообщений по данным из формы диалогов
+          stateCopy = initialState;
+          if (bedug_mode) {console.log("dialogs-reducer.js, DIALOGS_INITIAL_STATE: ", state, stateCopy)} // дебаг
+          return stateCopy
         default:
             return state;
     }
