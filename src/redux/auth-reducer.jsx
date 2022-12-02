@@ -1,6 +1,6 @@
 import {apiProfile} from "../components/api/api";
 import {stopSubmit} from "redux-form";
-import {bedug_mode, debugItem} from "./store-redux";
+import {bedug_mode} from "./store-redux";
 import {setFriends} from "./sidebar-reducer";
 
 const SET_MY_DATA = "myApp/auth-reducer/SET_MY_DATA"; // константа для задания базовых данных моего профиля (ID, Email, login, isAuth)

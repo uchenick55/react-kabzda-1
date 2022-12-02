@@ -1,4 +1,4 @@
-import {bedug_mode, debugItem} from "./store-redux";
+import {bedug_mode} from "./store-redux";
 
 const SET_THEME = "myApp/dark-light-reducer/SET_THEME"; //константа задания темы
 

@@ -1,5 +1,5 @@
 import React from "react";
-import {bedug_mode, debugItem} from "../../../redux/store-redux";
+import {bedug_mode} from "../../../redux/store-redux";
 
 export const Required = (value) => {
     if (value) {

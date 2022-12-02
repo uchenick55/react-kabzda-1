@@ -4,7 +4,7 @@ import {sendMessageCreator, sendDialogsThunkCreator} from "../../redux/dialogs-r
 import {connect} from "react-redux";
 import {NavigateToLoginHoc} from "../hoc/NavigateToLoginHoc";
 import {compose} from "redux";
-import {bedug_mode, debugItem} from "../../redux/store-redux";
+import {bedug_mode} from "../../redux/store-redux";
 
 class DialogsContainer extends React.Component {
     render () {

@@ -1,5 +1,5 @@
 import * as axios from "axios";
-import {bedug_mode, debugItem} from "../../redux/store-redux";
+import {bedug_mode} from "../../redux/store-redux";
 
 const instance = axios.create({
   baseURL: 'https://social-network.samuraijs.com/api/1.0/',

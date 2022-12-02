@@ -5,7 +5,7 @@ import {getProfileThunkCreator, putStatusThunkCreator} from "../../../redux/prof
 import {useParams} from "react-router-dom"
 import {NavigateToLoginHoc} from "../../hoc/NavigateToLoginHoc";
 import {compose} from "redux";
-import {bedug_mode, debugItem} from "../../../redux/store-redux";
+import {bedug_mode} from "../../../redux/store-redux";
 
 class ProfileContainer extends React.Component {
     componentDidMount() {

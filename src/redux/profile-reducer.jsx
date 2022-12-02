@@ -1,5 +1,5 @@
 import {apiProfile} from "../components/api/api";
-import {bedug_mode, debugItem} from "./store-redux";
+import {bedug_mode} from "./store-redux";
 
 const DELETE_POST = "myApp/profile-reducer/DELETE_POST";// константа удаления новых постов
 const ADD_POST = "myApp/profile-reducer/ADD-POST";// константа отправки новых постов

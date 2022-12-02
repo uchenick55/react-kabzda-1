@@ -3,7 +3,7 @@ import classes from './Header.module.css';
 import {NavLink} from "react-router-dom";
 import userPhoto from "../../assets/images/no-image3.png";
 import CallThemeRemote from "../Dark_light_theme/CallThemeRemote";
-import {bedug_mode, debugItem} from "../../redux/store-redux";
+import {bedug_mode} from "../../redux/store-redux";
 
 
 const Header = ({getProfileThunkCreator, deleteLogin, isAuth, myId, myLogin, myProfile}) => {

@@ -1,6 +1,6 @@
 import React from 'react';
 import classes from './Post.module.css'
-import {bedug_mode, debugItem} from "../../../../redux/store-redux";
+import {bedug_mode} from "../../../../redux/store-redux";
 
 const Post = ({message, like}) => {
     return (

@@ -4,7 +4,7 @@ import Preloader from "../../common/Preloader/Preloader";
 import ProfileStatusUseReducer from "./ProfileStatus/ProfileStatusUseReducer";
 import ProfileStatusUseState from "./ProfileStatus/ProfileStatusUseState";
 import ProfileStatusClass from "./ProfileStatus/ProfileStatusClass";
-import {bedug_mode, debugItem} from "../../../redux/store-redux";
+import {bedug_mode} from "../../../redux/store-redux";
 
 const ProfileInfo = ({profile, myId, status, putStatusThunkCreator}) => {
     if (bedug_mode) {console.log("ProfileInfo.jsx")} // дебаг

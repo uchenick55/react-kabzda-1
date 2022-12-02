@@ -4,7 +4,7 @@ import userPhoto from "../../assets/images/no-image3.png";
 import {NavLink} from "react-router-dom";
 import Pagination from "../common/Pagination/Pagination";
 import PaginatiionByCourse from "../common/Pagination/PaginatiionByCourse";
-import {bedug_mode, debugItem} from "../../redux/store-redux";
+import {bedug_mode} from "../../redux/store-redux";
 
 let Users = ({
                  totalUsersCount, pageSize, currentPage, onPageChanged, users,

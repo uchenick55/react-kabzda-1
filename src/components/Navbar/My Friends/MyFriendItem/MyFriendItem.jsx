@@ -1,7 +1,7 @@
 import React from 'react';
 import classes from './../MyFriends.module.css';
 import {NavLink} from "react-router-dom";
-import {bedug_mode, debugItem} from "../../../../redux/store-redux";
+import {bedug_mode} from "../../../../redux/store-redux";
 
 const MyFriendItem = ({id, avaSrc, name, unfollowFriendsAPI}) => {
     if (bedug_mode) {console.log("MyFriendItem")}

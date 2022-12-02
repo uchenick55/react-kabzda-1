@@ -2,7 +2,7 @@ import React from 'react';
 import classes from './Profile.module.css'
 import ProfileInfo from "./ProfileInfo/ProfileInfo";
 import MyPostsContainer from "./MyPosts/MyPostsContainer";
-import {bedug_mode, debugItem} from "../../redux/store-redux";
+import {bedug_mode} from "../../redux/store-redux";
 
 const Profile = ({profile, status, myId, putStatusThunkCreator}) => {
     if (bedug_mode) {console.log("Profile.jsx")} // дебаг

@@ -2,7 +2,7 @@
 
 import classes from "./Pagination.module.css";
 import React from "react";
-import {bedug_mode, debugItem} from "../../../redux/store-redux";
+import {bedug_mode} from "../../../redux/store-redux";
 
 let Pagination = ({totalUsersCount, pageSize, currentPage, onPageChanged}) => {
     let PagesCount = Math.ceil(totalUsersCount / pageSize);

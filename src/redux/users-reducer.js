@@ -1,5 +1,5 @@
 import {apiUsers} from "../components/api/api";
-import {bedug_mode, debugItem} from "./store-redux";
+import {bedug_mode} from "./store-redux";
 
 const SET_TERM = "myApp/users-reducer/SET_TERM";
 const SET_USERS = "myApp/users-reducer/SET_USERS";

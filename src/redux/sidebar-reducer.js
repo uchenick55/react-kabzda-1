@@ -1,5 +1,5 @@
 import {apiUsers} from "../components/api/api";
-import {bedug_mode, debugItem} from "./store-redux";
+import {bedug_mode} from "./store-redux";
 
 const SET_FRIENDS = "myApp/users-reducer/SET_FRIENDS"; // редакс дакс
 

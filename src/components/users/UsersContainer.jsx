@@ -8,7 +8,7 @@ import {
 import Users from "./Users";
 import Preloader from "../common/Preloader/Preloader";
 import {getUsersReselect, usersSelectorsSimple} from "./users-selectors";
-import {bedug_mode, debugItem} from "../../redux/store-redux";
+import {bedug_mode} from "../../redux/store-redux";
 
 class UsersAPI extends React.Component {
     constructor(props) {
