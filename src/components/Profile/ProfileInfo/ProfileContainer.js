@@ -10,17 +10,17 @@ import {bedug_mode} from "../../../redux/store-redux";
 class ProfileContainer extends React.Component {
     componentDidMount() {
       if (bedug_mode) {console.log("ProfileContainer.js componentDidMount()")} // дебаг
-
-      const {match, getProfileThunkCreator} = this.props;
-        let userId = match.params["*"];
-        getProfileThunkCreator(userId);
+      const {match, getProfileThunkCreator} = this.props;// пропсы
+        let userId = match.params["*"];// получить локальный userId из URL браузера
+        getProfileThunkCreator(userId);// обновить профиль в зависомости от ID
     }
     componentDidUpdate(prevProps, prevState, snapshot) {
-      const {match, getProfileThunkCreator} = this.props;
-      let userId = Number(match.params["*"]);
-      if (userId!==this.props.profile.userId) {
-        console.log ("смена пользователя")
-        getProfileThunkCreator(userId);
+      const {match, getProfileThunkCreator} = this.props; // пропсы
+      let userId = Number(match.params["*"]); // получить локальный userId из URL браузера
+      if (userId === 0) {userId=this.props.myId}// если кликнули на мой профиль (без ID в URL браузера)
+      if (userId!==this.props.profile.userId) { // присвоить ID обновления профиля - мой ID
+        console.log ("смена пользователя") // уведомление для дебага
+        getProfileThunkCreator(userId); // обновить профиль в зависомости от ID
       }
     }
 
