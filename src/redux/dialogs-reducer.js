@@ -1,4 +1,4 @@
-import {state_copy_for_debug} from "./store-redux";
+import {bedug_mode, debugItem} from "./store-redux";
 import {apiUsers} from "../components/api/api";
 import {apiDialogs} from "../components/api/apiLocalStorage";
 
@@ -44,13 +44,16 @@ let initialState = { // стейт сообщений по умолчанию
     }
 
 let dialogsReducer = (state = initialState, action) => { // редьюсер диалогов
-       switch (action.type) {
-           case SEND_MESSAGE: // экшн отправки сообщений по данным из формы диалогов
+  let stateCopy; // объявлениечасти части стейта до изменения редьюсером
+  switch (action.type) {
+       case SEND_MESSAGE: // экшн отправки сообщений по данным из формы диалогов
                let body = action.formDataNewMessage;
-               return {
+             stateCopy = {
                    ...state,
                    messages: [...state.messages, {id: 6, message: body}], // добавление сообщений (заглушка)
-               }
+             }
+             if (bedug_mode) {console.log("dialogs-reducer.js, SEND_MESSAGE: ", state, stateCopy)} // дебаг
+         return stateCopy
         default:
             return state;
     }
@@ -58,7 +61,8 @@ let dialogsReducer = (state = initialState, action) => { // редьюсер д�
 
 
 export let sendDialogsThunkCreator = (formDataNewMessage, myId) => {//санкреатор получения диалогов с данными
-  if (state_copy_for_debug) {console.log("sendDialogsThunkCreator")}
+  if (bedug_mode) {console.log("sendDialogsThunkCreator", debugItem)}
+
   return (dispatch) => {// санка отправки диалогов
     dispatch(sendMessageCreator(formDataNewMessage))
     let aaa =  apiDialogs.postDialogs(formDataNewMessage, myId)

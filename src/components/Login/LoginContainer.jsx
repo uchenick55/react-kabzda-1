@@ -4,7 +4,7 @@ import {connect} from "react-redux";
 import {postLoginThunkCreator} from "../../redux/auth-reducer";
 import {Navigate} from "react-router-dom";
 import {getFriendsThunkCreator} from "../../redux/sidebar-reducer";
-import {state_copy_for_debug} from "../../redux/store-redux";
+import {bedug_mode, debugItem} from "../../redux/store-redux";
 
 class LoginContainer extends React.Component {
 

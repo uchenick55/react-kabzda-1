@@ -3,7 +3,7 @@ import {connect} from "react-redux";
 import {getFriendsThunkCreator} from "../../redux/sidebar-reducer";
 import Navbar from "./Navbar";
 import {needUpdateFriendsAC, unfollowThunkCreator} from "../../redux/users-reducer";
-import {state_copy_for_debug} from "../../redux/store-redux";
+import {bedug_mode, debugItem} from "../../redux/store-redux";
 
 
 class NavBarContainer extends React.Component {
@@ -31,7 +31,7 @@ class NavBarContainer extends React.Component {
     }
 
     render() {
-        if (state_copy_for_debug) {console.log("NavBarContainer render")}
+        if (bedug_mode) {console.log("NavBarContainer render", debugItem)}
 
         const {myFriends2} = this.props; // получение из пропсов данных по друзьям
         return <Navbar myFriends2={myFriends2} unfollowFriendsAPI={this.unfollowFriendsAPI}/> // отрисовка целевой компоненты

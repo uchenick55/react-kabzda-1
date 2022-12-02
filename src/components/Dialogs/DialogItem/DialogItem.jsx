@@ -1,7 +1,7 @@
 import React from 'react';
 import classes from './../Dialogs.module.css';
 import {NavLink} from "react-router-dom";
-import {state_copy_for_debug} from "../../../redux/store-redux";
+import {bedug_mode, debugItem} from "../../../redux/store-redux";
 
 const DialogItem = ({avaSrc, name, id}) => {
     let path = '/dialogs/' + id;

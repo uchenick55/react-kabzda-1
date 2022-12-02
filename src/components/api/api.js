@@ -1,5 +1,5 @@
 import * as axios from "axios";
-import {state_copy_for_debug} from "../../redux/store-redux";
+import {bedug_mode, debugItem} from "../../redux/store-redux";
 
 const instance = axios.create({
   baseURL: 'https://social-network.samuraijs.com/api/1.0/',
@@ -12,7 +12,7 @@ const instance = axios.create({
 
 export let apiUsers = { // объект с методами api для USERS и follow/unfollow
   getUsers: async (currentPage, pageSize, term, friend = undefined) => {// получить стек пользователей
-    if (state_copy_for_debug) {console.log("getUsers")}
+    if (bedug_mode) {console.log("getUsers", debugItem)}
     const response = await instance.get(`users?count=${pageSize}&page=${currentPage}&term=${term}&friend=${friend}`)
     return (response.data) //возврат данных из поля data
   },

@@ -1,5 +1,5 @@
 import {apiProfile} from "../components/api/api";
-import {state_copy_for_debug} from "./store-redux";
+import {bedug_mode, debugItem} from "./store-redux";
 
 const DELETE_POST = "myApp/profile-reducer/DELETE_POST";// константа удаления новых постов
 const ADD_POST = "myApp/profile-reducer/ADD-POST";// константа отправки новых постов
@@ -35,6 +35,7 @@ export let profileReducer = (state = initialState, action) => { // редьюс�
                 ...state,
                 profile: action.profile // профиль выбранного пользователя с сервера
             }
+            if (bedug_mode) {console.log("profile-reducer.jsx, SET_USER_PROFILE: ", state, stateCopy)} // дебаг
             return stateCopy;
         case ADD_POST: {// добавление поста
             let newPost = { // задание локального объекта с постом
@@ -42,24 +43,28 @@ export let profileReducer = (state = initialState, action) => { // редьюс�
                 message: action.newPostData, // сообщение введенное в форме диалогов
                 like: 2 // лайки сообщений (заглушка)
             };
-            return {
+            stateCopy = {
                 ...state,
                 posts: [...state.posts, newPost], // добавление созданного локального объекта в посты
             }
+            if (bedug_mode) {console.log("profile-reducer.jsx, ADD_POST: ", state, stateCopy)} // дебаг
+            return stateCopy;
         }
         case DELETE_POST: {// удаления поста по postId
-            return {
+            stateCopy = {
                 ...state,
                 posts: [...state.posts.filter(f=>f.id!==action.postId)], // удаление локального объекта в постах
             }
+            if (bedug_mode) {console.log("profile-reducer.jsx, DELETE_POST: ", state, stateCopy)} // дебаг
+            return stateCopy;
         }
         case SET_STATUS: //задание моего статуса в локальный стейт (после API запроса)
             stateCopy = {
                 ...state,
                 status: action.newStatus
             }
+            if (bedug_mode) {console.log("profile-reducer.jsx, SET_STATUS: ", state, stateCopy)} // дебаг
             return stateCopy;
-
         default:
             return state;
     }

@@ -2,7 +2,7 @@ import React from 'react';
 import classes from './Profile.module.css'
 import ProfileInfo from "./ProfileInfo/ProfileInfo";
 import MyPostsContainer from "./MyPosts/MyPostsContainer";
-import {state_copy_for_debug} from "../../redux/store-redux";
+import {bedug_mode, debugItem} from "../../redux/store-redux";
 
 const Profile = ({profile, status, myId, putStatusThunkCreator}) => {
     return <div className={classes.content}>

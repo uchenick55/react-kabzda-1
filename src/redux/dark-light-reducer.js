@@ -1,4 +1,4 @@
-import {state_copy_for_debug} from "./store-redux";
+import {bedug_mode, debugItem} from "./store-redux";
 
 const SET_THEME = "myApp/dark-light-reducer/SET_THEME"; //константа задания темы
 
@@ -18,6 +18,7 @@ let darkLightReducer = (state = initialState, action) => {//редьюсер з�
         ...state, // копия всего стейта
         themeBLL: action.themeUpdate, // задание темы в BLL
       }
+      if (bedug_mode) {console.log("dark-light-reducer.js, SET_THEME: ", state, stateCopy)} // дебаг
       return stateCopy; // возврат копии стейта после изменения
     default:
       return state; // по умолчанию стейт возврашается неизмененным

@@ -1,7 +1,7 @@
 import React, {useState} from "react";
 import classes from "./Pagination.module.css";
 import {PointerCursor} from "../../Dark_light_theme/globalStyles";
-import {state_copy_for_debug} from "../../../redux/store-redux";
+import {bedug_mode, debugItem} from "../../../redux/store-redux";
 
 let PaginatiionByCourse = ({
                                totalUsersCount, // общее число пользователей на сервере

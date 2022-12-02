@@ -1,6 +1,6 @@
 import {apiProfile} from "../components/api/api";
 import {stopSubmit} from "redux-form";
-import {state_copy_for_debug} from "./store-redux";
+import {bedug_mode, debugItem} from "./store-redux";
 import {setFriends} from "./sidebar-reducer";
 
 const SET_MY_DATA = "myApp/auth-reducer/SET_MY_DATA"; // константа для задания базовых данных моего профиля (ID, Email, login, isAuth)
@@ -32,12 +32,15 @@ let authReducer = (state = initialState, action) => { // редьюсер авт
                 myLogin: action.login,
                 isAuth: action.isAuth,
             }
+            if (bedug_mode) {console.log("auth-reducer.jsx, SET_MY_DATA: ", state, stateCopy)} // дебаг
+
             return stateCopy; // возврат копии стейта после изменения
         case SET_MY_PROFILE: // экшн задания моего расширенного профиля
             stateCopy = {
                 ...state,
                 myProfile: action.myProfile
             }
+            if (bedug_mode) {console.log("auth-reducer.jsx, SET_MY_PROFILE: ", state, stateCopy)} // дебаг
             return stateCopy; // возврат копии стейта после изменения
         default:
             return state; // по умолчанию стейт возврашается неизмененным

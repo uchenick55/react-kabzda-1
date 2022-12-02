@@ -1,5 +1,5 @@
 import {apiUsers} from "../components/api/api";
-import {state_copy_for_debug} from "./store-redux";
+import {bedug_mode, debugItem} from "./store-redux";
 
 const SET_TERM = "myApp/users-reducer/SET_TERM";
 const SET_USERS = "myApp/users-reducer/SET_USERS";
@@ -54,51 +54,56 @@ let usersReducer = (state = initialState, action) => {
                     ? [...state.followingInProgress, action.id] // кнопка follow/unfollow нажата, добавление в массив followingInProgress id кнопки
                     : state.followingInProgress.filter(id => id !== action.id)// пришел ответ от сервера OK, удаляем id кнопки из массива followingInProgress
             }
-            console.log(stateCopy.followingInProgress)
+            if (bedug_mode) {console.log("users-reducer.js, TOGGLE_IS_FOLLOWING_PROGRESS: ", state, stateCopy)} // дебаг
             return stateCopy; // вернуть копию стейта
         case SET_USERS:
             stateCopy = {...state, users: action.users};
-            return stateCopy; // вернуть копию стейта
+          if (bedug_mode) {console.log("users-reducer.js, SET_USERS: ", state, stateCopy)} // дебаг
+          return stateCopy; // вернуть копию стейта
         case SET_CURRENT_PAGE:
             stateCopy = {
                 ...state,
                 currentPage: action.currentPage
             }
-            return stateCopy; // вернуть копию стейта
+          if (bedug_mode) {console.log("users-reducer.js, SET_CURRENT_PAGE: ", state, stateCopy)} // дебаг
+          return stateCopy; // вернуть копию стейта
         case SET_TERM:
             stateCopy = {
                 ...state, // копия основного стейта
                 term: action.term // задать значение поиска
             }
-            return stateCopy; // вернуть копию стейта
+          if (bedug_mode) {console.log("users-reducer.js, SET_TERM: ", state, stateCopy)} // дебаг
+          return stateCopy; // вернуть копию стейта
         case SET_TOTAL_USERS_COUNT:
             stateCopy = {
                 ...state,
                 totalUsersCount: action.totalUsersCount
             }
-            return stateCopy; // вернуть копию стейта
+          if (bedug_mode) {console.log("users-reducer.js, SET_TOTAL_USERS_COUNT: ", state, stateCopy)} // дебаг
+          return stateCopy; // вернуть копию стейта
         case TOGGLE_IS_FETCHING:
             stateCopy = {
                 ...state,
                 isFetching: action.isFetching
             }
-            return stateCopy; // вернуть копию стейта
+          if (bedug_mode) {console.log("users-reducer.js, TOGGLE_IS_FETCHING: ", state, stateCopy)} // дебаг
+          return stateCopy; // вернуть копию стейта
         case NEED_UPDATE_FRIENDS:
-          if (state_copy_for_debug) {console.log("NEED_UPDATE_FRIENDS")}
+          if (bedug_mode) {console.log("NEED_UPDATE_FRIENDS", debugItem)}
 
           stateCopy = {
                 ...state,
               needUpdateFriends: action.needUpdateFriends
             }
-            return stateCopy; // вернуть копию стейта
+          if (bedug_mode) {console.log("users-reducer.js, NEED_UPDATE_FRIENDS: ", state, stateCopy)} // дебаг
+          return stateCopy; // вернуть копию стейта
         default:
             return state;
     }
 }
 
 export let getUsersThunkCreator = (currentPage, pageSize, term) => {//санкреатор получить пользователей с данными
-  //state_copy_for_debug? console.log("usersReducer"): null
-  if (state_copy_for_debug) {console.log("getUsersThunkCreator")}
+  if (bedug_mode) {console.log("getUsersThunkCreator", debugItem)}
 
   let getUsersThunk = (dispatch) => { // санка получить пользователей
         dispatch(toggleIsFetching(true)) //показать крутилку загрузки с сервера
@@ -114,7 +119,7 @@ export let getUsersThunkCreator = (currentPage, pageSize, term) => {//санкр
 }
 
 const followUnfollowFlow = (dispatch, userId, currentPage, pageSize, apiMethod, term) => {
-  if (state_copy_for_debug) {console.log("followUnfollowFlow")}
+  if (bedug_mode) {console.log("followUnfollowFlow", debugItem)}
 
   dispatch(toggleIsFollowingProgerss(true, userId))//внести ID кнопки пользователя в массив followingInProgress от повторного нажатия
     apiMethod(userId)// подписаться на пользователя // diff apiMethod = postFollow
@@ -131,13 +136,15 @@ const followUnfollowFlow = (dispatch, userId, currentPage, pageSize, apiMethod, 
 }
 
 export let followThunkCreator = (userId, currentPage, pageSize, term) => {//санкреатор follow с данными
-  if (state_copy_for_debug) {console.log("followThunkCreator")}
+  if (bedug_mode) {console.log("followThunkCreator", debugItem)}
+
   return (dispatch) => {// санка follow
         followUnfollowFlow(dispatch, userId, currentPage, pageSize, apiUsers.postFollow.bind(apiUsers), term);
     }
 }
 export let unfollowThunkCreator = (userId, currentPage, pageSize, term) => {//санкреатор unfollow с данными
-  if (state_copy_for_debug) {console.log("unfollowThunkCreator")}
+  if (bedug_mode) {console.log("unfollowThunkCreator", debugItem)}
+
   return (dispatch) => {// санка unfollow
         followUnfollowFlow(dispatch, userId, currentPage, pageSize, apiUsers.deleteFollow.bind(apiUsers), term);
     }

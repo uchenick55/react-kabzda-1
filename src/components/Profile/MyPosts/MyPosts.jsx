@@ -4,7 +4,7 @@ import Post from "./Post/Post"; // подкомпонента отрисовки
 import {Field, reduxForm} from "redux-form";
 import {maxLengthCreator, Required} from "../../common/Validation/validationField";
 import {Textarea} from "../../common/Validation/customFields";
-import {state_copy_for_debug} from "../../../redux/store-redux"; // reduxForm для ввода новых постов
+import {bedug_mode, debugItem} from "../../../redux/store-redux"; // reduxForm для ввода новых постов
 
 const newPostForm = ({handleSubmit}) => { // компонента формы
     return (

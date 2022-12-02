@@ -2,7 +2,7 @@ import React from 'react';
 import MyPosts from "./MyPosts";
 import {addPostActionCreator} from "../../../redux/profile-reducer";
 import {connect} from "react-redux";
-import {state_copy_for_debug} from "../../../redux/store-redux";
+import {bedug_mode, debugItem} from "../../../redux/store-redux";
 
 let mapStateToProps = (state) => {
     return {

@@ -73,7 +73,6 @@ class News extends React.Component {
                 <ul>
                     {this.state.data.hits ? ( // если массив hits не пустой
                         <div>
-                            {console.log(this.state.data.hits)}
                             {this.state.data.hits.map((
                                 //мапим
                                 d

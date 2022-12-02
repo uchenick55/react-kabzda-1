@@ -5,7 +5,7 @@ import Message from "./Message/Message";// подкомпонента отрис
 import {Field, reduxForm} from "redux-form";
 import {Textarea} from "../common/Validation/customFields";
 import {maxLengthCreator, Required} from "../common/Validation/validationField";
-import {state_copy_for_debug} from "../../redux/store-redux";
+import {bedug_mode, debugItem} from "../../redux/store-redux";
 // reduxForm для ввода новых сообщений
 
 const newMessageForm = ({handleSubmit, }) => {// компонента формы

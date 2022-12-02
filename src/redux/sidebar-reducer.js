@@ -1,5 +1,5 @@
 import {apiUsers} from "../components/api/api";
-import {state_copy_for_debug} from "./store-redux";
+import {bedug_mode, debugItem} from "./store-redux";
 
 const SET_FRIENDS = "myApp/users-reducer/SET_FRIENDS"; // редакс дакс
 
@@ -20,8 +20,8 @@ const sidebarReducer = (state = initialState, action) => {
   switch (action.type) {
     case SET_FRIENDS:
       stateCopy = {...state, myFriends2: action.users};
+      if (bedug_mode) {console.log("sidebar-reducer.js, SET_FRIENDS: ", state, stateCopy)} // дебаг
       return stateCopy; // вернуть копию стейта
-
     default:
       return state;
   }
@@ -29,7 +29,7 @@ const sidebarReducer = (state = initialState, action) => {
 
 export let getFriendsThunkCreator = (currentPage, pageSize, term, friend) => {//санкреатор получить друзей с данными
   let getUsersThunk = (dispatch) => { // санка получить друзей
-    if (state_copy_for_debug) {console.log("getFriendsThunkCreator")}
+    if (bedug_mode) {console.log("getFriendsThunkCreator", debugItem)}
 
     apiUsers.getUsers(currentPage, pageSize, term, friend) //получить друзей по текущей странице и размере страницы
       .then((data) => {

@@ -1,7 +1,8 @@
 import React from "react";
 import {connect} from "react-redux";
 import {Navigate} from "react-router-dom";
-import {state_copy_for_debug} from "../../redux/store-redux";
+import {bedug_mode, debugItem} from "../../redux/store-redux";
+
 let mapStateToProps = (state) => { // флаги isAuth - "я авторизован?"
     return {
         isAuth: state.auth.isAuth,

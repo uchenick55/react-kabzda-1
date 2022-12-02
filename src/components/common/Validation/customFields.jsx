@@ -1,6 +1,6 @@
 import React from "react";
 import classes from "./customFields.module.css"
-import {state_copy_for_debug} from "../../../redux/store-redux"; // стили красная граница для textarea и красный цвет текста если ошибка
+import {bedug_mode, debugItem} from "../../../redux/store-redux"; // стили красная граница для textarea и красный цвет текста если ошибка
 
 export const Textarea = ({input, meta, ...restProps}) => {
     const isError = meta.touched && meta.error; // объединение наличия ошибки в meta и поле уже трогали

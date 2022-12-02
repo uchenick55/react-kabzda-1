@@ -4,7 +4,7 @@ import classes from './Login.module.css'
 import styles from './../common/Validation/customFields.module.css'
 import {Input} from "../common/Validation/customFields";
 import {email, Required} from "../common/Validation/validationField";
-import {state_copy_for_debug} from "../../redux/store-redux"; // css обработка
+import {bedug_mode, debugItem} from "../../redux/store-redux"; // css обработка
 
 const LoginForm = ({handleSubmit, error}) => { // компонента формы
     return (

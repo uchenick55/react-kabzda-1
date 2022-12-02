@@ -1,5 +1,5 @@
 import React, {useReducer} from "react";
-import {state_copy_for_debug} from "../../../../redux/store-redux";
+import {bedug_mode, debugItem} from "../../../../redux/store-redux";
 
 let ProfileStatusUseReducer = ({status, userId, myId, putStatusThunkCreator}) => {
     const initialState = {

@@ -2,11 +2,11 @@ import React from 'react';
 import classes from './MyFriends.module.css';
 import MyFriendItem from "./MyFriendItem/MyFriendItem";
 import userPhoto from "../../../assets/images/no-image3.png";
-import {state_copy_for_debug} from "../../../redux/store-redux";
+import {bedug_mode, debugItem} from "../../../redux/store-redux";
 
 
 const MyFriends = ({state, unfollowFriendsAPI}) => {
-    if (state_copy_for_debug) {console.log("MyFriends")}
+    if (bedug_mode) {console.log("MyFriends", debugItem)}
     let MyFriendElements =
         state.map((f) => {
                 const avaSrc = f.photos.small?f.photos.small:userPhoto;
