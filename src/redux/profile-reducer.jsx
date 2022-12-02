@@ -72,22 +72,24 @@ export let profileReducer = (state = initialState, action) => { // редьюс�
 
 export let getProfileThunkCreator = (userId) => { // санкреатор на получение профиля выбранного пользователя
     return async (dispatch) => { // нонейм санка на получение профиля выбранного пользователя
+
+        let CommonPart = (response, userId) => { // общая часть для задания статуса профиля и получения статуса
+            if (bedug_mode) {console.log("profile-reducer.jsx, getProfileThunkCreator.await getAuthMe()->await .getProfile() :   dispatch(setUserProfile()) ->SET_USER_PROFILE" )} // дебаг
+            dispatch(setUserProfile(response)) // задание полных данных в профиль
+            if (bedug_mode) {console.log("profile-reducer.jsx, getProfileThunkCreator.await getAuthMe()->await .getProfile() :   dispatch(getStatusThunkCreator())" )} // дебаг
+            dispatch(getStatusThunkCreator(userId)) // запрос моего статуса
+        }
+
         if (!userId) { // если userId не задан в URL (переход на страницу моего профиля не подставляет ID в браузере)
             const response = await apiProfile.getAuthMe() // запрос на сервер "я авторизован?" чтобы получить мой ID (авторизованного пользователя)
             if (response.resultCode === 0) { // успешное получение с сервера данных о моем ID
                 userId = response.data.id; // задание моего ID в userId
                 const response2 = await apiProfile.getProfile(userId) // получение полных данных о моем профиле
-                if (bedug_mode) {console.log("profile-reducer.jsx, getProfileThunkCreator.await getAuthMe()->await .getProfile() :   dispatch(setUserProfile()) ->SET_USER_PROFILE" )} // дебаг
-                dispatch(setUserProfile(response2)) // задание полных этих данных в профиль
-                if (bedug_mode) {console.log("profile-reducer.jsx, getProfileThunkCreator.await getAuthMe()->await .getProfile() :   dispatch(getStatusThunkCreator())" )} // дебаг
-                dispatch(getStatusThunkCreator(userId)) // запрос моего статуса
+                CommonPart(response2, userId)  // общая часть для задания статуса профиля и получения статуса
             }
         } else { // если userId задан в URL
             const response = await apiProfile.getProfile(userId) //
-            if (bedug_mode) {console.log("profile-reducer.jsx, getProfileThunkCreator.await .getProfile() :   dispatch(setUserProfile()) ->SET_USER_PROFILE" )} // дебаг
-            dispatch(setUserProfile(response)) // получение полных данных о профиле выбранного пользователе
-            if (bedug_mode) {console.log("profile-reducer.jsx, getProfileThunkCreator.await .getProfile() :   dispatch(getStatusThunkCreator())" )} // дебаг
-            dispatch(getStatusThunkCreator(userId))  // запрос статуса выбранного пользователя
+            CommonPart(response, userId) // общая часть для задания статуса профиля и получения статуса
         }
     }
 }

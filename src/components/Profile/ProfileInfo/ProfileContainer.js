@@ -9,11 +9,22 @@ import {bedug_mode, debugItem} from "../../../redux/store-redux";
 
 class ProfileContainer extends React.Component {
     componentDidMount() {
+      if (bedug_mode) {console.log("ProfileContainer.js componentDidMount()")} // дебаг
+
       const {match, getProfileThunkCreator} = this.props;
         let userId = match.params["*"];
         getProfileThunkCreator(userId);
     }
-    render () {
+    componentDidUpdate(prevProps, prevState, snapshot) {
+      const {match, getProfileThunkCreator} = this.props;
+      let userId = Number(match.params["*"]);
+      if (userId!==this.props.profile.userId) {
+        console.log ("смена пользователя")
+        getProfileThunkCreator(userId);
+      }
+    }
+
+  render () {
         return <>
             <Profile {...this.props}/>
         </>

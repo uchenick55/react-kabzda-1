@@ -6,7 +6,7 @@ import {bedug_mode, debugItem} from "../../redux/store-redux";
 
 const Profile = ({profile, status, myId, putStatusThunkCreator}) => {
     if (bedug_mode) {console.log("Profile.jsx")} // дебаг
-    return <div className={classes.content}>
+    return <div>
         <ProfileInfo // Отображение данных выбранного пользователя
             profile = {profile} // профиль выбранного пользователя
             status={status} // статус из BLL
