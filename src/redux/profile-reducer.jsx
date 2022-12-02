@@ -97,6 +97,7 @@ export let getProfileThunkCreator = (userId) => { // санкреатор на �
 export let getStatusThunkCreator = (userId) => {  // санкреатор запроса статуса выбранного пользователя
     return async (dispatch) => { // нонейм санка запроса статуса выбранного пользователя
         const response = await apiProfile.getStatus(userId) // api запрос получение статуса по userId
+        if (bedug_mode) {console.log("profile-reducer.jsx, getStatusThunkCreator.await getStatus(): dispatch(setStatus()) -> SET_STATUS" )} // дебаг
         dispatch(setStatus(response)) // задание статуса в локальный стейт с последующей переотрисовкой
     }
 }
@@ -104,6 +105,7 @@ export let putStatusThunkCreator = (statusTmpInput, myId) => { // санкреа
     return async (dispatch) => { // нонеййм санка обновления моего статуса
         const response = await apiProfile.putStatus(statusTmpInput) // отправка нового статуса на сервер
         if (response.resultCode === 0) { // если успешное обновление статуса с сервера
+            if (bedug_mode) {console.log("profile-reducer.jsx, putStatusThunkCreator.await putStatus(): dispatch(getStatusThunkCreator())" )} // дебаг
             dispatch(getStatusThunkCreator(myId))// получение нового статуса с сервера после обновления
         }
     }

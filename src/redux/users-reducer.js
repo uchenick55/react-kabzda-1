@@ -89,8 +89,6 @@ let usersReducer = (state = initialState, action) => {
           if (bedug_mode) {console.log("users-reducer.js, TOGGLE_IS_FETCHING: ", state, stateCopy)} // дебаг
           return stateCopy; // вернуть копию стейта
         case NEED_UPDATE_FRIENDS:
-          if (bedug_mode) {console.log("NEED_UPDATE_FRIENDS")}
-
           stateCopy = {
                 ...state,
               needUpdateFriends: action.needUpdateFriends
@@ -103,14 +101,16 @@ let usersReducer = (state = initialState, action) => {
 }
 
 export let getUsersThunkCreator = (currentPage, pageSize, term) => {//санкреатор получить пользователей с данными
-  if (bedug_mode) {console.log("getUsersThunkCreator")}
-
   let getUsersThunk = (dispatch) => { // санка получить пользователей
-        dispatch(toggleIsFetching(true)) //показать крутилку загрузки с сервера
+      if (bedug_mode) {console.log("users-reducer.js, getUsersThunkCreator dispatch(toggleIsFetching()) ->TOGGLE_IS_FETCHING (показать крутилку)" )} // дебаг
+      dispatch(toggleIsFetching(true)) //показать крутилку загрузки с сервера
         apiUsers.getUsers(currentPage, pageSize, term) //получить пользователей по текущей странице и размере страницы
             .then((data) => {
+                if (bedug_mode) {console.log("users-reducer.js, getUsersThunkCreator .getUsers.then dispatch(toggleIsFetching()) ->TOGGLE_IS_FETCHING (убрать крутилку)" )} // дебаг
                 dispatch(toggleIsFetching(false))  //убрать крутилку загрузки с сервера
+                if (bedug_mode) {console.log("users-reducer.js, getUsersThunkCreator .getUsers.then dispatch(setUsers()) ->SET_USERS" )} // дебаг
                 dispatch(setUsers(data.items))//записать в стейт закгруженный стек пользователей
+                if (bedug_mode) {console.log("users-reducer.js, getUsersThunkCreator .getUsers.then dispatch(setUsersTotalCount()) ->SET_TOTAL_USERS_COUNT" )} // дебаг
                 dispatch(setUsersTotalCount(data.totalCount))//записать в сейт общее количество пользователей
             })
 
@@ -119,34 +119,35 @@ export let getUsersThunkCreator = (currentPage, pageSize, term) => {//санкр
 }
 
 const followUnfollowFlow = (dispatch, userId, currentPage, pageSize, apiMethod, term) => {
-  if (bedug_mode) {console.log("followUnfollowFlow")}
-
+  if (bedug_mode) {console.log("users-reducer.js, followUnfollowFlow dispatch(toggleIsFollowingProgerss ->TOGGLE_IS_FOLLOWING_PROGRESS(добавить ID button disable)" )} // дебаг
   dispatch(toggleIsFollowingProgerss(true, userId))//внести ID кнопки пользователя в массив followingInProgress от повторного нажатия
     apiMethod(userId)// подписаться на пользователя // diff apiMethod = postFollow
         .then((response) => {
             if (response.resultCode === 0) {
                 apiUsers.getUsers(currentPage, pageSize, term) //получить пользователей по текущей странице и размере страницы
                     .then((response) => {
-                        dispatch(setUsers(response.items))//записать в стейт закгруженный стек пользователей
-                        dispatch(needUpdateFriendsAC(true))
-                        dispatch(toggleIsFollowingProgerss(false, userId))//убрать ID кнопки пользователя из массива followingInProgress, кнопка раздизаблена
+                      if (bedug_mode) {console.log("users-reducer.js, followUnfollowFlow postFollow()/deleteFollow().then -> .getUsers.then dispatch(setUsers) ->SET_USERS" )} // дебаг
+                      dispatch(setUsers(response.items))//записать в стейт закгруженный стек пользователей
+                      if (bedug_mode) {console.log("users-reducer.js, followUnfollowFlow postFollow()/deleteFollow().then -> .getUsers.then dispatch(needUpdateFriendsAC) ->NEED_UPDATE_FRIENDS" )} // дебаг
+                      dispatch(needUpdateFriendsAC(true))
+                      if (bedug_mode) {console.log("users-reducer.js, followUnfollowFlow postFollow()/deleteFollow().then -> .getUsers.then toggleIsFollowingProgerss ->TOGGLE_IS_FOLLOWING_PROGRESS(убрать ID button disable)" )} // дебаг
+                      dispatch(toggleIsFollowingProgerss(false, userId))//убрать ID кнопки пользователя из массива followingInProgress, кнопка раздизаблена
                     })
             }
         })
 }
 
 export let followThunkCreator = (userId, currentPage, pageSize, term) => {//санкреатор follow с данными
-  if (bedug_mode) {console.log("followThunkCreator")}
 
   return (dispatch) => {// санка follow
-        followUnfollowFlow(dispatch, userId, currentPage, pageSize, apiUsers.postFollow.bind(apiUsers), term);
+    if (bedug_mode) {console.log("users-reducer.js, followThunkCreator postFollow() -> followUnfollowFlow" )} // дебаг
+    followUnfollowFlow(dispatch, userId, currentPage, pageSize, apiUsers.postFollow.bind(apiUsers), term);
     }
 }
 export let unfollowThunkCreator = (userId, currentPage, pageSize, term) => {//санкреатор unfollow с данными
-  if (bedug_mode) {console.log("unfollowThunkCreator")}
-
   return (dispatch) => {// санка unfollow
-        followUnfollowFlow(dispatch, userId, currentPage, pageSize, apiUsers.deleteFollow.bind(apiUsers), term);
+    if (bedug_mode) {console.log("users-reducer.js, unfollowThunkCreator deleteFollow()-> followUnfollowFlow" )} // дебаг
+    followUnfollowFlow(dispatch, userId, currentPage, pageSize, apiUsers.deleteFollow.bind(apiUsers), term);
     }
 }
 export default usersReducer;
