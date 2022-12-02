@@ -55,8 +55,10 @@ export let getAuthMeThunkCreator = () => {//санкреатор я автори
             let email = response1.data.email; // записать с стейт мой емейл
             let login = response1.data.login; // записать с стейт мой логин
             let isAuth = true; // отметить что а авторизован
+            if (bedug_mode) {console.log("auth-reducer.jsx, getAuthMeThunkCreator.await getAuthMe() : dispatch(setAuthData)->SET_MY_DATA  (пользователь авторизован)" )} // дебаг
             dispatch(setAuthData(id, email, login, isAuth))//задание в стейт текущего пользователя
             const response2 = await apiProfile.getProfile(id)//получение моих дополнительных данных после авторизации
+            if (bedug_mode) {console.log("auth-reducer.jsx, getAuthMeThunkCreator.await(getAuthMe)->await .getProfile() : dispatch(setMyProfile()->SET_MY_PROFILE" )} // дебаг
             dispatch(setMyProfile(response2))//задание в стейт моих доп данных
         }
         if (!response1.resultCode == 0) { //пользователь не авторизован
@@ -64,6 +66,7 @@ export let getAuthMeThunkCreator = () => {//санкреатор я автори
             let email = initialState.email;// занулить в стейте мой email
             let login = initialState.login;// занулить в стейте мой логин
             let isAuth = false; // занулить флаг авторизации
+            if (bedug_mode) {console.log("auth-reducer.jsx, getAuthMeThunkCreator.await getAuthMe() : dispatch(setAuthData)->SET_MY_DATA (пользователь не авторизован)" )} // дебаг
             dispatch(setAuthData(id, email, login, isAuth))//задание в стейт зануленных значений если пользователь не авторизован
         }
     }
@@ -73,6 +76,7 @@ export let postLoginThunkCreator = (email, password, rememberme) => {//санк�
     let postLoginThunk = async (dispatch) => { // объявление санки на логин
         const response = await apiProfile.postLogin(email, password, rememberme) // отправка данных на авторизацию из формы логина
         if (response.resultCode === 0) { // если успешная авторизация на сервере
+            if (bedug_mode) {console.log("auth-reducer.jsx, postLoginThunkCreator.await .postLogin(): dispatch(getAuthMeThunkCreator())" )} // дебаг
             dispatch(getAuthMeThunkCreator()) // получить данные с сервера авторизованного пользователя
         } else { // если логин или пароль не подошли
             let message =  // определение локальной переменной message - ответ от сервера
@@ -82,6 +86,7 @@ export let postLoginThunkCreator = (email, password, rememberme) => {//санк�
             let action = stopSubmit("loginForm", {_error: message})
             // loginForm это наша форма логина.
             // объект _error является общей ошибкой для всей формы с сообщением message
+            if (bedug_mode) {console.log("auth-reducer.jsx, postLoginThunkCreator.await / если логин или пароль не подошли: dispatch(action) // отправить данные в форму" )} // дебаг
             dispatch(action) // отправить данные в форму
         }
     }
@@ -91,11 +96,13 @@ export let deleteLoginThunkCreator = () => {//санкреатор на логА
     let deleteLoginThunk = async (dispatch) => { // объявление санки на логаут
         const response = await apiProfile.deleteLogin() // отправка запроса на логаут
         if (response.resultCode === 0) { // если сессия успешно закрыта
-            dispatch(getAuthMeThunkCreator()) // проверка авторизации и зануление стейта
+            if (bedug_mode) {console.log("auth-reducer.jsx, deleteLoginThunkCreator.await .deleteLogin(): dispatch(getAuthMeThunkCreator())" )} // дебаг
+            dispatch(getAuthMeThunkCreator()) // проверка авторизации и зануление стейта профиля
              // зануление списка друзей при логауте
             setTimeout(()=>{
+                if (bedug_mode) {console.log("auth-reducer.jsx, deleteLoginThunkCreator.await .deleteLogin():dispatch(setFriends([]))->SET_FRIENDS" )} // дебаг
                 dispatch(setFriends([]))
-            },100)
+            },300)
            // sdfsadfsaf
 
 

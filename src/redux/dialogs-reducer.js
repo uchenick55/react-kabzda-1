@@ -61,13 +61,15 @@ let dialogsReducer = (state = initialState, action) => { // редьюсер д�
 
 
 export let sendDialogsThunkCreator = (formDataNewMessage, myId) => {//санкреатор получения диалогов с данными
-  if (bedug_mode) {console.log("sendDialogsThunkCreator", debugItem)}
+  if (bedug_mode) {console.log("sendDialogsThunkCreator")}
 
-  return (dispatch) => {// санка отправки диалогов
+  let sendDialogsThunk = async (dispatch) => {// санка отправки диалогов
+    if (bedug_mode) {console.log("dialogs-reducer.js, sendDialogsThunkCreator->: dispatch(sendMessageCreator())->SEND_MESSAGE")} // дебаг
     dispatch(sendMessageCreator(formDataNewMessage))
-    let aaa =  apiDialogs.postDialogs(formDataNewMessage, myId)
+    let aaa = await apiDialogs.postDialogs(formDataNewMessage, myId)
     //console.log(aaa)
   }
+  return sendDialogsThunk
 }
 
 

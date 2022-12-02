@@ -4,7 +4,7 @@ import {NavLink} from "react-router-dom";
 import {bedug_mode, debugItem} from "../../../../redux/store-redux";
 
 const MyFriendItem = ({id, avaSrc, name, unfollowFriendsAPI}) => {
-    if (bedug_mode) {console.log("MyFriendItem", debugItem)}
+    if (bedug_mode) {console.log("MyFriendItem")}
 
 
     let dialog = '/dialogs/' + id;

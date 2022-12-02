@@ -32,8 +32,11 @@ export let initialisedAppThunkCreator = () => {// санкреатор иниц�
     const promise1 = dispatch(getAuthMeThunkCreator()) // диспатч инициализации
     Promise.all([promise1])
       .then(() => {
+
         // если диспатч авторизации прошел успешно (и все остальные диспатчи в массиве)
+        if (bedug_mode) {console.log("app-reducer.js, initialisedAppThunkCreator.then: ", "setInitialisedApp()->SET_INITIALISED_APP")} // дебаг
         dispatch(setInitialisedApp()) // смена флага инициализации на true
+
       })
   }
   return initialisedAppThunk;

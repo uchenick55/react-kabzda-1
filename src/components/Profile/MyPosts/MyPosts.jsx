@@ -30,6 +30,7 @@ const newPostForm = ({handleSubmit}) => { // компонента формы
 const NewPostReduxForm = reduxForm({form: "newPostForm"})(newPostForm)
 
 const MyPosts = ({state, addPost}) => { // основная компонента отрисовки постов
+    if (bedug_mode) {console.log("MyPosts.jsx")} // дебаг
 
     let postElements = state.posts.map((p) => // подкомпонента отрисовки всех постов через map
             <Post message={p.message} like={p.like} id={p.id}/>);

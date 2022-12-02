@@ -47,6 +47,11 @@ let ProfileStatusUseReducer = ({status, userId, myId, putStatusThunkCreator}) =>
     }
     const setMyStatus = () => { // действия после двойного клика по полю input статуса или вводу Enter
         dispatch({type: SET_MODIFY_STATUS_FALSE})// смена текстового отображения статуса на поле input
+
+        if (bedug_mode) {console.log("ProfileStatusUseReducer.jsx, setMyStatus putStatusThunkCreator() ->SET_USER_PROFILE" )} // дебаг
+
+        /////////  ProfileInfo.jsx
+
         putStatusThunkCreator(localState.statusTmpInput2, myId)// санкреатор на обновление статуса на сервере
     }
     const onChangeStatus = (event) => {

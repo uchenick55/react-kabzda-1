@@ -29,7 +29,7 @@ const sidebarReducer = (state = initialState, action) => {
 
 export let getFriendsThunkCreator = (currentPage, pageSize, term, friend) => {//санкреатор получить друзей с данными
   let getUsersThunk = (dispatch) => { // санка получить друзей
-    if (bedug_mode) {console.log("getFriendsThunkCreator", debugItem)}
+    if (bedug_mode) {console.log("getFriendsThunkCreator")}
 
     apiUsers.getUsers(currentPage, pageSize, term, friend) //получить друзей по текущей странице и размере страницы
       .then((data) => {

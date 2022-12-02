@@ -13,7 +13,7 @@ let Users = ({
                  onChangeRangeLocal, currentRangeLocal // раскукожили все пропсы
              }) => {
 
-    if (bedug_mode) {console.log("Users", debugItem)}
+    if (bedug_mode) {console.log("Users")}
 
     try { // выполнить код с возможностью отлова ошибок
 //        throw new Error("Я есть ошибка")

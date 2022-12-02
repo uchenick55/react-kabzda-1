@@ -31,7 +31,7 @@ class NavBarContainer extends React.Component {
     }
 
     render() {
-        if (bedug_mode) {console.log("NavBarContainer render", debugItem)}
+        if (bedug_mode) {console.log("NavBarContainer render")}
 
         const {myFriends2} = this.props; // получение из пропсов данных по друзьям
         return <Navbar myFriends2={myFriends2} unfollowFriendsAPI={this.unfollowFriendsAPI}/> // отрисовка целевой компоненты

@@ -6,7 +6,7 @@ import {bedug_mode, debugItem} from "../../../redux/store-redux";
 
 
 const MyFriends = ({state, unfollowFriendsAPI}) => {
-    if (bedug_mode) {console.log("MyFriends", debugItem)}
+    if (bedug_mode) {console.log("MyFriends")}
     let MyFriendElements =
         state.map((f) => {
                 const avaSrc = f.photos.small?f.photos.small:userPhoto;

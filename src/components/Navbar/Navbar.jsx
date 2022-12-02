@@ -7,7 +7,7 @@ import {bedug_mode, debugItem} from "../../redux/store-redux";
 
 const Navbar = ({myFriends2, unfollowFriendsAPI}) => {
 
-    if (bedug_mode) {console.log("Navbar", debugItem)}
+    if (bedug_mode) {console.log("Navbar")}
     return <nav className={classes.nav}>
         <div className={classes.item}>
             <NavLink to='/profile'>Profile</NavLink>

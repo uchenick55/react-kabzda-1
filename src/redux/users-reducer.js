@@ -89,7 +89,7 @@ let usersReducer = (state = initialState, action) => {
           if (bedug_mode) {console.log("users-reducer.js, TOGGLE_IS_FETCHING: ", state, stateCopy)} // дебаг
           return stateCopy; // вернуть копию стейта
         case NEED_UPDATE_FRIENDS:
-          if (bedug_mode) {console.log("NEED_UPDATE_FRIENDS", debugItem)}
+          if (bedug_mode) {console.log("NEED_UPDATE_FRIENDS")}
 
           stateCopy = {
                 ...state,
@@ -103,7 +103,7 @@ let usersReducer = (state = initialState, action) => {
 }
 
 export let getUsersThunkCreator = (currentPage, pageSize, term) => {//санкреатор получить пользователей с данными
-  if (bedug_mode) {console.log("getUsersThunkCreator", debugItem)}
+  if (bedug_mode) {console.log("getUsersThunkCreator")}
 
   let getUsersThunk = (dispatch) => { // санка получить пользователей
         dispatch(toggleIsFetching(true)) //показать крутилку загрузки с сервера
@@ -119,7 +119,7 @@ export let getUsersThunkCreator = (currentPage, pageSize, term) => {//санкр
 }
 
 const followUnfollowFlow = (dispatch, userId, currentPage, pageSize, apiMethod, term) => {
-  if (bedug_mode) {console.log("followUnfollowFlow", debugItem)}
+  if (bedug_mode) {console.log("followUnfollowFlow")}
 
   dispatch(toggleIsFollowingProgerss(true, userId))//внести ID кнопки пользователя в массив followingInProgress от повторного нажатия
     apiMethod(userId)// подписаться на пользователя // diff apiMethod = postFollow
@@ -136,14 +136,14 @@ const followUnfollowFlow = (dispatch, userId, currentPage, pageSize, apiMethod, 
 }
 
 export let followThunkCreator = (userId, currentPage, pageSize, term) => {//санкреатор follow с данными
-  if (bedug_mode) {console.log("followThunkCreator", debugItem)}
+  if (bedug_mode) {console.log("followThunkCreator")}
 
   return (dispatch) => {// санка follow
         followUnfollowFlow(dispatch, userId, currentPage, pageSize, apiUsers.postFollow.bind(apiUsers), term);
     }
 }
 export let unfollowThunkCreator = (userId, currentPage, pageSize, term) => {//санкреатор unfollow с данными
-  if (bedug_mode) {console.log("unfollowThunkCreator", debugItem)}
+  if (bedug_mode) {console.log("unfollowThunkCreator")}
 
   return (dispatch) => {// санка unfollow
         followUnfollowFlow(dispatch, userId, currentPage, pageSize, apiUsers.deleteFollow.bind(apiUsers), term);
