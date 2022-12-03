@@ -1,4 +1,5 @@
 import {bedug_mode} from "../../redux/store-redux";
+import GetDate from "./GetDate";
 
 let Dialog_25528_1079 = [
   {id: 1, userId: 25528, message: "Привет, как дела?"},
@@ -33,8 +34,13 @@ export let apiDialogs = { // объект с методами api для Dialogs
 
     if (bedug_mode) {console.log("apiLocalStorage Dialog_25528_1079_2(getItem): ", Dialog_25528_1079_1 )} // дебаг
 
+   // <GetDate/>
+
+
+
     let Dialog_25528_1079_2 = [...Dialog_25528_1079_1, {// запушить введенный текст в Dialog_25528_1079
       id: Dialog_25528_1079_1.length + 1,
+      Date: GetDate(),
       userId: myID,
       message: formDataNewMessage
     }]

@@ -15,7 +15,7 @@ const newPostForm = ({handleSubmit}) => { // компонента формы
                         name={"newPostData"} // имя поля формы и возвращаемого свойства объекта после сабмита формы
                         component={Textarea} //настраиваемый компонент текстовое поле для вывода ошибок ввода
                         placeholder={"newPost"} // текст подсказка при пустом поле
-                        validate = {[Required, maxLengthCreator(10)]} //  валидация требуемого поля и максимальной длины
+                        validate = {[Required, maxLengthCreator(60)]} //  валидация требуемого поля и максимальной длины
                     />
                 </div>
                 <div>
