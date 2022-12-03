@@ -1,6 +1,6 @@
 .textAreaError {
     border: solid red 2px;
-    width: 99%;
+    width: 98%;
 }
 
 .InputError {
@@ -17,7 +17,7 @@
 
 .Input,
 .textArea {
-    width: 99%;
+    width: 98%;
 }
 
 

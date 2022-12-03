@@ -23,7 +23,7 @@ const MyFriends = ({state, unfollowFriendsAPI}) => {
 
                 <ScrollContainer
                     child={MyFriendElements}
-                    height={"330px"}
+                    height={"348px"}
                     firstInsideContainer={"friendsUp"}
                     secondInsideContainer={"friendsDown"}
                     containerElement={"friendsContainer"}

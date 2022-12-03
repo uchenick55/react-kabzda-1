@@ -93,7 +93,7 @@ let Users = ({
 
             <ScrollContainer
                 child={UserItems}
-                height={"391px"}
+                height={"409px"}
                 firstInsideContainer={"UsersUp"}
                 secondInsideContainer={"UsersDown"}
                 containerElement={"UserContainer"}

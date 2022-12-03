@@ -5,6 +5,8 @@ import ProfileStatusUseReducer from "./ProfileStatus/ProfileStatusUseReducer";
 import ProfileStatusUseState from "./ProfileStatus/ProfileStatusUseState";
 import ProfileStatusClass from "./ProfileStatus/ProfileStatusClass";
 import {bedug_mode} from "../../../redux/store-redux";
+import userPhoto from "../../../assets/images/no-image3.png";
+
 
 const ProfileInfo = ({profile, myId, status, putStatusThunkCreator}) => {
     if (bedug_mode) {console.log("ProfileInfo.jsx")} // дебаг
@@ -12,9 +14,9 @@ const ProfileInfo = ({profile, myId, status, putStatusThunkCreator}) => {
         return <Preloader/>
     }
     return <div className={classes.content}>
-        <div>
-            <img src="https://w-dog.ru/wallpapers/11/5/450299462616902/priroda-derevya-trava-nebo-leto.jpg" alt="img1"
-                 width="180px"/>
+
+        <div className={classes.ProfilePhoto} >
+            <img src={profile.photos.small?profile.photos.small:userPhoto}/>
         </div>
         <div className={classes.descriptionBlock}>
             <div>Обо мне: {profile.aboutMe}</div>
@@ -28,9 +30,7 @@ const ProfileInfo = ({profile, myId, status, putStatusThunkCreator}) => {
             <div>Описание: {profile.lookingForAJobDescription}</div>
             <div>Полное имя: {profile.fullName}</div>
             <div>userId: {profile.userId}</div>
-            <div >
-                <img src={profile.photos.small}/>
-            </div>
+
             <ProfileStatusUseReducer // можно еще использовать ProfileStatusUseState и ProfileStatusClass
                 myId={myId} // мой id для модификации статуса
                 userId={profile.userId} // id отображаемого пользователя

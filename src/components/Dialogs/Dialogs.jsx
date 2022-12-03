@@ -55,7 +55,7 @@ const Dialogs = ({state, myID, sendDialogsThunkCreator, dispatch}) => { // ос�
             <div className={classes.dialogItems} /*стиль элементов диалога*/ >
                 <ScrollContainer
                     child={dialogElements}
-                    height={"380px"}
+                    height={"470px"}
                     firstInsideContainer={"DialogsUp"}
                     secondInsideContainer={"DialogsDown"}
                     containerElement={"DialogsContainer"}
@@ -65,7 +65,7 @@ const Dialogs = ({state, myID, sendDialogsThunkCreator, dispatch}) => { // ос�
                 <div>
                     <ScrollContainer
                         child={messagesElements}
-                        height={"380px"}
+                        height={"360px"}
                         firstInsideContainer={"MessagesUp"}
                         secondInsideContainer={"MessagesDown"}
                         containerElement={"MessagesContainer"}

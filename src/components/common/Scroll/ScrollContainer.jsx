@@ -1,12 +1,14 @@
 import React from 'react';
 import Scroll, {animateScroll as scroll} from "react-scroll";
 import {PointerCursor} from "../../Dark_light_theme/globalStyles";
+import classes from './scroll.module.css' // css обработка
+
 
 let ScrollContainer = ({child, height, firstInsideContainer, secondInsideContainer, containerElement}) => {
     let Link = Scroll.Link;
     let Element = Scroll.Element;
 
-    return (<div>
+    return (<div className={classes.scrollCommon}>
         <div>
             <Element
                 id={containerElement} // ID контейнера с прокруткой
