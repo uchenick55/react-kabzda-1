@@ -18,7 +18,8 @@ let mapDispatchToProps  = (dispatch) => {
     return {
         sendDialogsThunkCreator: (formDataNewMessage, myID) => {
             dispatch(sendDialogsThunkCreator(formDataNewMessage, myID))
-        }
+        },
+        dispatch: dispatch
     }
 }
 

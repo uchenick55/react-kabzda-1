@@ -1,7 +1,7 @@
 import React from 'react'; // импорт реакта
 import classes from './MyPosts.module.css' // css обработка
 import Post from "./Post/Post"; // подкомпонента отрисовки постов через map
-import {Field, reduxForm} from "redux-form";
+import {Field, reduxForm, reset} from "redux-form";
 import {maxLengthCreator, Required} from "../../common/Validation/validationField";
 import {Textarea} from "../../common/Validation/customFields";
 import {bedug_mode} from "../../../redux/store-redux"; // reduxForm для ввода новых постов
@@ -29,14 +29,15 @@ const newPostForm = ({handleSubmit}) => { // компонента формы
 // оберточная компонента формы, задает имя подстейта "newPostForm"
 const NewPostReduxForm = reduxForm({form: "newPostForm"})(newPostForm)
 
-const MyPosts = ({state, addPost}) => { // основная компонента отрисовки постов
+const MyPosts = ({state, addPost, dispatch}) => { // основная компонента отрисовки постов
     if (bedug_mode) {console.log("MyPosts.jsx")} // дебаг
 
     let postElements = state.posts.map((p) => // подкомпонента отрисовки всех постов через map
             <Post message={p.message} like={p.like} id={p.id}/>);
 
     let AddPost = (formData) => { // функция отправления данных формы нового поста в стейт
-
+// здесь зарезетить форму
+        dispatch(reset('newPostForm'))
         addPost(formData.newPostData);
     };
 

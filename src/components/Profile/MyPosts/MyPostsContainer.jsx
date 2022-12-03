@@ -13,7 +13,8 @@ let mapDispatchToProps = (dispatch) => {
     return {
         addPost: (newPostData) => {
             dispatch(addPostActionCreator(newPostData))
-        }
+        },
+        dispatch: dispatch
     }
 }
 
