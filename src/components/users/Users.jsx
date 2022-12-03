@@ -5,6 +5,7 @@ import {NavLink} from "react-router-dom";
 import Pagination from "../common/Pagination/Pagination";
 import PaginatiionByCourse from "../common/Pagination/PaginatiionByCourse";
 import {bedug_mode} from "../../redux/store-redux";
+import ScrollContainer from "../common/Scroll/ScrollContainer";
 
 let Users = ({
                  totalUsersCount, pageSize, currentPage, onPageChanged, users,
@@ -13,7 +14,9 @@ let Users = ({
                  onChangeRangeLocal, currentRangeLocal // раскукожили все пропсы
              }) => {
 
-    if (bedug_mode) {console.log("Users")}
+    if (bedug_mode) {
+        console.log("Users")
+    }
 
     try { // выполнить код с возможностью отлова ошибок
 //        throw new Error("Я есть ошибка")
@@ -36,10 +39,40 @@ let Users = ({
             SetTermFunction() // задать в стейт значения поиска после сабмита
         }
 
+        let UserItems =
+            users.map((u) => {
+                <div key={u.id}/>
+                return (
+                    <div>
+                        <div>
+                            <NavLink to={'/profile/' + u.id}>
+                                <img className={classes.userPhoto}
+                                     src={u.photos.small != null
+                                         ? u.photos.small
+                                         : userPhoto}/>
+                            </NavLink>
+                        </div>
+                        <div> My FriendList:{" "}
+                            {u.followed
+                                ? <FollowUnfollowButtons u={u} followUnfollowAPICallback={unfollowAPI}
+                                                         buttonText={"Remove"}/>
+                                : <FollowUnfollowButtons u={u} followUnfollowAPICallback={followAPI}
+                                                         buttonText={"Add"}/>
+                            }
+                        </div>
+                        <div>Name: {u.name}</div>
+                        <div>{u.status}</div>
+                        <div>{u.id}</div>
+                    </div>
+                )
+            })
+
         return <div className={classes.users}>
-{/*
-            <button onClick={throw new Error("Я есть ошибка")}>Error me</button>
-*/}
+
+
+            <div>
+
+            </div>
             <div> Total users: {totalUsersCount}        </div>
             <div>
                 {<PaginatiionByCourse
@@ -65,34 +98,8 @@ let Users = ({
                 {/* кнопка с обработчиком клика*/}
             </form>
 
-            {
-                users.map((u) => {
-                    <div key={u.id}/>
-                    return (
-                        <div>
-                            <div>
-                                <NavLink to={'/profile/' + u.id}>
-                                    <img className={classes.userPhoto}
-                                         src={u.photos.small != null
-                                             ? u.photos.small
-                                             : userPhoto}/>
-                                </NavLink>
-                            </div>
-                            <div> My FriendList:{" "}
-                                {u.followed
-                                    ? <FollowUnfollowButtons u={u} followUnfollowAPICallback={unfollowAPI}
-                                                             buttonText={"Remove"}/>
-                                    : <FollowUnfollowButtons u={u} followUnfollowAPICallback={followAPI}
-                                                             buttonText={"Add"}/>
-                                }
-                            </div>
-                            <div>Name: {u.name}</div>
-                            <div>{u.status}</div>
-                            <div>{u.id}</div>
-                        </div>
-                    )
-                })
-            }
+            <ScrollContainer  child={UserItems} height={"380px"} /> {/*отрисовка Users в скрол контейнере*/}
+
             <div>
                 {<PaginatiionByCourse
                     totalUsersCount={totalUsersCount} pageSize={pageSize}

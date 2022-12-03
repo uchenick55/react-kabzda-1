@@ -3,6 +3,7 @@ import classes from './MyFriends.module.css';
 import MyFriendItem from "./MyFriendItem/MyFriendItem";
 import userPhoto from "../../../assets/images/no-image3.png";
 import {bedug_mode} from "../../../redux/store-redux";
+import ScrollContainer from "../../common/Scroll/ScrollContainer";
 
 
 const MyFriends = ({state, unfollowFriendsAPI}) => {
@@ -19,7 +20,7 @@ const MyFriends = ({state, unfollowFriendsAPI}) => {
         <div className={classes.myfriends}>
             <div className={classes.myfrienditems}>
                 <b>My Friendlist:</b>
-                {MyFriendElements}
+                <ScrollContainer  child={MyFriendElements} height={"280px"} /> {/*отрисовка FriendList в скрол контейнере*/}
             </div>
         </div>
     )
