@@ -20,7 +20,14 @@ const MyFriends = ({state, unfollowFriendsAPI}) => {
         <div className={classes.myfriends}>
             <div className={classes.myfrienditems}>
                 <b>My Friendlist:</b>
-                <ScrollContainer  child={MyFriendElements} height={"280px"} /> {/*отрисовка FriendList в скрол контейнере*/}
+
+                <ScrollContainer
+                    child={MyFriendElements}
+                    height={"280px"}
+                    firstInsideContainer={"friendsUp"}
+                    secondInsideContainer={"friendsDown"}
+                    containerElement={"friendsContainer"}
+                /> {/*отрисовка FriendList в скрол контейнере*/}
             </div>
         </div>
     )

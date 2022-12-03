@@ -98,18 +98,15 @@ let Users = ({
                 {/* кнопка с обработчиком клика*/}
             </form>
 
-            <ScrollContainer  child={UserItems} height={"380px"} /> {/*отрисовка Users в скрол контейнере*/}
+            <ScrollContainer
+                child={UserItems}
+                height={"380px"}
+                firstInsideContainer={"UsersUp"}
+                secondInsideContainer={"UsersDown"}
+                containerElement={"UserContainer"}
 
-            <div>
-                {<PaginatiionByCourse
-                    totalUsersCount={totalUsersCount} pageSize={pageSize}
-                    currentPage={currentPage}
-                    onPageChanged={onPageChanged}
-                    currentRangeLocal={currentRangeLocal}
-                    onChangeRangeLocal={onChangeRangeLocal}
+            /> {/*отрисовка Users в скрол контейнере*/}
 
-                />}{/*Вывод слайсера вверху страницы (пагинация)*/}
-            </div>
             {/*        <div>
             {<Pagination
                 totalUsersCount={totalUsersCount} pageSize={pageSize}

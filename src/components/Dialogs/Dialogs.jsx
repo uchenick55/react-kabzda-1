@@ -53,7 +53,14 @@ const Dialogs = ({state, myID, sendDialogsThunkCreator, dispatch}) => { // ос�
     return (
         <div className={classes.dialogs} /*стиль всех диалогов*/>
             <div className={classes.dialogItems} /*стиль элементов диалога*/ >
-                <ScrollContainer  child={dialogElements} height={"380px"} /> {/*отрисовка диалогов в скрол контейнере*/}
+                <ScrollContainer
+                    child={dialogElements}
+                    height={"380px"}
+                    firstInsideContainer={"DialogsUp"}
+                    secondInsideContainer={"DialogsDown"}
+                    containerElement={"DialogsContainer"}
+
+                /> {/*отрисовка диалогов в скрол контейнере*/}
 
 
             </div>
@@ -63,7 +70,13 @@ const Dialogs = ({state, myID, sendDialogsThunkCreator, dispatch}) => { // ос�
                     <div>
 
                     </div>
-                    <ScrollContainer  child={messagesElements} height={"380px"} /> {/*отрисовка сообщений в скрол контейнере*/}
+                    <ScrollContainer
+                        child={messagesElements}
+                        height={"380px"}
+                        firstInsideContainer={"MessagesUp"}
+                        secondInsideContainer={"MessagesDown"}
+                        containerElement={"MessagesContainer"}
+                    /> {/*отрисовка сообщений в скрол контейнере*/}
 
                     <NewMessageReduxForm
                         onSubmit={onSendMessageClick}/> {/*вызов формы сообщений с отсылкой на локальный обработчик сабмита*/}
