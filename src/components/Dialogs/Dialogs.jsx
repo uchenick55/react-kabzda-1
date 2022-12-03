@@ -35,7 +35,7 @@ const Dialogs = ({state, myID, sendDialogsThunkCreator, dispatch}) => { // ос�
     let dialogElements = state.dialogs.map((d) => // подкомпонента отрисовки всех диалогов через map
         <DialogItem name={d.name} id={d.id} avaSrc={d.avaSrc}/>);
 
-    let messagesElements = state.messages.map((m) => // подкомпонента отрисовки всех сообщений через map
+    let messagesElements = state.messages2.map((m) => // подкомпонента отрисовки всех сообщений через map
         <Message message={m.message}/> );
 
     let onSendMessageClick = (formDataNewMessage) => {// функция отправления данных формы нового сообщения в стейт
@@ -51,8 +51,8 @@ const Dialogs = ({state, myID, sendDialogsThunkCreator, dispatch}) => { // ос�
 
             <div className={classes.messages}/*стиль всех сообщений*/>
                 <div>
-                    {messagesElements} {/*отрисовка сообщений*/}
                     <NewMessageReduxForm onSubmit={onSendMessageClick} /> {/*вызов формы сообщений с отсылкой на локальный обработчик сабмита*/}
+                    {messagesElements} {/*отрисовка сообщений*/}
                 </div>
             </div>
         </div>

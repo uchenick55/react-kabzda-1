@@ -24,13 +24,13 @@ let LocalStorageDialogs = {
 }
 
 export let apiDialogs = { // объект с методами api для Dialogs
-  getDialogs: () => {
+  getDialog: () => {
     LocalStorageDialogs = JSON.parse(localStorage.getItem("Dialog_25528_1079"));
     return LocalStorageDialogs
   },
-  postDialogs: (formDataNewMessage, myID) => { //formDataNewMessage
+  postDialog: (formDataNewMessage, myID) => { //formDataNewMessage
     // localStorage.removeItem('Dialog_25528_1079_fromServer'); DELETE
-    let Dialog_25528_1079_1 = apiDialogs.getDialogs(); // получить данные Dialog_25528_1079 с LocalStorage
+    let Dialog_25528_1079_1 = apiDialogs.getDialog(); // получить данные Dialog_25528_1079 с LocalStorage
 
     if (bedug_mode) {console.log("apiLocalStorage Dialog_25528_1079_2(getItem): ", Dialog_25528_1079_1 )} // дебаг
 
@@ -47,9 +47,9 @@ export let apiDialogs = { // объект с методами api для Dialogs
 
     localStorage.setItem("Dialog_25528_1079", JSON.stringify(Dialog_25528_1079_2)); // отправить измененый массив в LocalStorage
 
-    let Dialog_25528_1079_3 = apiDialogs.getDialogs(); // считать измененный массив с LocalStorage
+    let Dialog_25528_1079_3 = apiDialogs.getDialog(); // считать измененный массив с LocalStorage
 
-    if (bedug_mode) {console.log("apiLocalStorage Dialog_25528_1079_3(setItem/getItem): ", Dialog_25528_1079_2 )} // дебаг
+ //   if (bedug_mode) {console.log("apiLocalStorage Dialog_25528_1079_3(setItem/getItem): ", Dialog_25528_1079_2 )} // дебаг
 
 
     return Dialog_25528_1079_3 // вернуть обновленный массив из DAL в BLL

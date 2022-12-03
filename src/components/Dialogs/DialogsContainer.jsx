@@ -7,6 +7,9 @@ import {compose} from "redux";
 import {bedug_mode} from "../../redux/store-redux";
 
 class DialogsContainer extends React.Component {
+    componentDidMount() {
+    }
+
     render () {
         return <div>
             <Dialogs {...this.props} />

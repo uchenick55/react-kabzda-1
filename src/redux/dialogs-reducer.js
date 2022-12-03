@@ -3,12 +3,16 @@ import {apiDialogs} from "../components/api/apiLocalStorage";
 
 const SEND_MESSAGE = "myApp/dialogs-reducer/SEND-MESSAGE"; // Константа отправки сообщения
 const DIALOGS_INITIAL_STATE = "myApp/dialogs-reducer/DIALOGS_INITIAL_STATE";  //константа зануления при логауте
+const SET_MESSAGES =  "myApp/dialogs-reducer/SET_MESSAGES";  //константа задания списка сообщений в стейт
 
 export let sendMessageCreator = (formDataNewMessage) => { // экшнкреатор отправки сообщений
     return {type: SEND_MESSAGE, formDataNewMessage}
 };
 export let dialogsInitialState = () => { // экшнкреатор зануления при логауте
     return {type: DIALOGS_INITIAL_STATE, }
+};
+export let setMessages = (updatedMessages) => { // экшнкреатор задания списка сообщений в стейт messages2
+  return {type: SET_MESSAGES, updatedMessages}
 };
 
 let initialState = { // стейт сообщений по умолчанию
@@ -61,6 +65,13 @@ let dialogsReducer = (state = initialState, action) => { // редьюсер д�
           stateCopy = initialState;
           if (bedug_mode) {console.log("dialogs-reducer.js, DIALOGS_INITIAL_STATE: ", state, stateCopy)} // дебаг
           return stateCopy
+       case SET_MESSAGES: // экшн отправки сообщений по данным из формы диалогов
+         stateCopy = {
+           ...state,
+           messages2: action.updatedMessages, // добавление сообщений
+         }
+          if (bedug_mode) {console.log("dialogs-reducer.js, SET_MESSAGES(LocalStorage): ", state, stateCopy)} // дебаг
+          return stateCopy
         default:
             return state;
     }
@@ -73,8 +84,9 @@ export let sendDialogsThunkCreator = (formDataNewMessage, myID) => {//санкр
   let sendDialogsThunk = async (dispatch) => {// санка отправки диалогов
     if (bedug_mode) {console.log("dialogs-reducer.js, sendDialogsThunkCreator->: dispatch(sendMessageCreator())->SEND_MESSAGE")} // дебаг
     dispatch(sendMessageCreator(formDataNewMessage))
-    let aaa = await apiDialogs.postDialogs(formDataNewMessage, myID)
-    //console.log(aaa)
+    let updatedMessages = await apiDialogs.postDialog(formDataNewMessage, myID)
+    console.log("updatedMessages: ", updatedMessages)
+    dispatch(setMessages(updatedMessages))
   }
   return sendDialogsThunk
 }
