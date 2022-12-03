@@ -14,12 +14,9 @@ let Users = ({
                  onChangeRangeLocal, currentRangeLocal // раскукожили все пропсы
              }) => {
 
-    if (bedug_mode) {
-        console.log("Users")
-    }
+    if (bedug_mode) {console.log("Users")}
 
     try { // выполнить код с возможностью отлова ошибок
-//        throw new Error("Я есть ошибка")
         let FollowUnfollowButtons = ({u, followUnfollowAPICallback, buttonText}) => { // унификация нажатия кнопки Follow/Unfollow
             return (<span>
                 <button
@@ -69,10 +66,6 @@ let Users = ({
 
         return <div className={classes.users}>
 
-
-            <div>
-
-            </div>
             <div> Total users: {totalUsersCount}        </div>
             <div>
                 {<PaginatiionByCourse
@@ -100,19 +93,13 @@ let Users = ({
 
             <ScrollContainer
                 child={UserItems}
-                height={"380px"}
+                height={"391px"}
                 firstInsideContainer={"UsersUp"}
                 secondInsideContainer={"UsersDown"}
                 containerElement={"UserContainer"}
 
             /> {/*отрисовка Users в скрол контейнере*/}
 
-            {/*        <div>
-            {<Pagination
-                totalUsersCount={totalUsersCount} pageSize={pageSize}
-                currentPage={currentPage}
-                onPageChanged={onPageChanged}/>}Вывод слайсера вверху страницы (пагинация)
-        </div>*/}
         </div>
 
     } catch (error) { // поймать ошибку в выводе пользователей

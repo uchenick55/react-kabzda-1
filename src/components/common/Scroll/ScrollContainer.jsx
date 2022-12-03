@@ -24,11 +24,11 @@ let ScrollContainer = ({child, height, firstInsideContainer, secondInsideContain
             </Element>
         </div>
         <PointerCursor> {/*придание курсору над ссылками вида руки*/}
-            <Link activeClass="active" to={firstInsideContainer} smooth={true} duration={250}
+            <Link to={firstInsideContainer} smooth={true} duration={250}
                   containerId={containerElement}>
                 Scroll UP {/*ссылка для прокрутки вверх*/}
             </Link>
-            <Link activeClass="active" to={secondInsideContainer} smooth={true} duration={250}
+            <Link to={secondInsideContainer} smooth={true} duration={250}
                   containerId={containerElement}>
                 Scroll Down {/*ссылка для прокрутки вниз*/}
             </Link>

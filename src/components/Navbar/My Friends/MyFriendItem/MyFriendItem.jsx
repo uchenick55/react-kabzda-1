@@ -13,7 +13,7 @@ const MyFriendItem = ({id, avaSrc, name, unfollowFriendsAPI}) => {
             <div><img src={avaSrc}/>{name} {id}</div>
         <div></div>
         <NavLink to={dialog}>
-            dialog
+            dialog {" "}
         </NavLink>
         <NavLink to={profile}>
             profile

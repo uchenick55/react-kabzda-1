@@ -9,7 +9,25 @@
 }
 .app-wrapper-content {
     grid-area: c;
+
+    position: relative;
+    z-index:1;
 }
+
+.app-wrapper-content::before {
+    content:"";
+    opacity: 0.2;
+    position: absolute;
+    z-index:-1;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    right: 0;
+    background:url("https://kartinkin.net/uploads/posts/2021-01/1610838011_38-p-belii-fon-dlya-shapki-v-yutub-58.jpg");
+    background-size:cover;
+}
+
+
 
 .app-wrapper-info {
     grid-area: i;

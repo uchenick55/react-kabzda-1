@@ -1,6 +1,6 @@
 .myfriends {
-    display: grid;
-    grid-template-columns: 2fr 10fr;
+    padding-top: 10px;
+
 }
 
 .myfriends img {

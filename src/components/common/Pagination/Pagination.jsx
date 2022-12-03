@@ -34,4 +34,12 @@ let Pagination = ({totalUsersCount, pageSize, currentPage, onPageChanged}) => {
     )
 }
 
+
+{/*        <div>
+            {<Pagination
+                totalUsersCount={totalUsersCount} pageSize={pageSize}
+                currentPage={currentPage}
+                onPageChanged={onPageChanged}/>}Вывод слайсера вверху страницы (пагинация)
+        </div>*/}
+
 export default Pagination
