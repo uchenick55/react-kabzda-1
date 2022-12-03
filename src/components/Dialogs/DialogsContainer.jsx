@@ -16,11 +16,8 @@ class DialogsContainer extends React.Component {
 
 let mapDispatchToProps  = (dispatch) => {
     return {
-        sendMessage: (formDataNewMessage) => {
-            dispatch(sendMessageCreator(formDataNewMessage))
-        },
-        sendDialogsThunkCreator: (formDataNewMessage) => {
-            dispatch(sendDialogsThunkCreator(formDataNewMessage))
+        sendDialogsThunkCreator: (formDataNewMessage, myID) => {
+            dispatch(sendDialogsThunkCreator(formDataNewMessage, myID))
         }
     }
 }
@@ -28,7 +25,8 @@ let mapDispatchToProps  = (dispatch) => {
 let mapStateToProps = (state) => {
     return {
         state: state.dialogsPage,
-        isAuth: state.auth.isAuth
+        isAuth: state.auth.isAuth,
+        myID: state.auth.myID,
     }
 }
 

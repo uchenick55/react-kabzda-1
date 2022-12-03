@@ -8,7 +8,7 @@ import {maxLengthCreator, Required} from "../common/Validation/validationField";
 import {bedug_mode} from "../../redux/store-redux";
 // reduxForm для ввода новых сообщений
 
-const newMessageForm = ({handleSubmit, }) => {// компонента формы
+const newMessageForm = ({handleSubmit }) => {// компонента формы
     return (
         <form onSubmit={handleSubmit} /*привязка сабмита формы к внутренней функции reduxForm - handleSubmit*/>
             <div>
@@ -31,7 +31,7 @@ const newMessageForm = ({handleSubmit, }) => {// компонента формы
 // оберточная компонента формы, задает имя подстейта "newMessageForm"
 const NewMessageReduxForm = reduxForm({form: "newMessageForm"})(newMessageForm)
 
-const Dialogs = ({state, sendMessage, sendDialogsThunkCreator}) => { // основная компонента отрисовки диалогов
+const Dialogs = ({state, myID, sendDialogsThunkCreator}) => { // основная компонента отрисовки диалогов
 
     let dialogElements = state.dialogs.map((d) => // подкомпонента отрисовки всех диалогов через map
         <DialogItem name={d.name} id={d.id} avaSrc={d.avaSrc}/>);
@@ -41,7 +41,7 @@ const Dialogs = ({state, sendMessage, sendDialogsThunkCreator}) => { // осно
 
     let onSendMessageClick = (formDataNewMessage) => {// функция отправления данных формы нового сообщения в стейт
        // sendMessage(formDataNewMessage.newMessageData);
-        sendDialogsThunkCreator(formDataNewMessage.newMessageData);
+        sendDialogsThunkCreator(formDataNewMessage.newMessageData, myID);
     };
 
     return (
