@@ -9,7 +9,7 @@ export const Textarea = ({input, meta, ...restProps}) => {
             <div >
                 <textarea {...input} // формат задан в redux field validation
                           placeholder={restProps.placeholder} // проброс пропсов с плейсхолдером
-                          className={isError?classes.textAreaError:null}
+                          className={isError?classes.textAreaError:classes.textArea}
                     //границу textarea подсветить красным если ошибка в meta
                 />
             </div>

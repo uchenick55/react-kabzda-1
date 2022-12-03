@@ -6,6 +6,8 @@ import {Field, reduxForm, reset} from "redux-form";
 import {Textarea} from "../common/Validation/customFields";
 import {maxLengthCreator, Required} from "../common/Validation/validationField";
 import {bedug_mode} from "../../redux/store-redux";
+import Scroll from "react-scroll";
+
 
 const newMessageForm = ({handleSubmit }) => {// компонента формы
     return (
@@ -43,6 +45,8 @@ const Dialogs = ({state, myID, sendDialogsThunkCreator, dispatch}) => { // ос�
         sendDialogsThunkCreator(formDataNewMessage.newMessageData, myID);
     };
 
+    let Element = Scroll.Element;
+
     return (
         <div className={classes.dialogs} /*стиль всех диалогов*/>
             <div className={classes.dialogItems} /*стиль элементов диалога*/ >
@@ -51,10 +55,36 @@ const Dialogs = ({state, myID, sendDialogsThunkCreator, dispatch}) => { // ос�
 
             <div className={classes.messages}/*стиль всех сообщений*/>
                 <div>
+
+
+                    <div>
+                        <Element
+                            name="test7"
+                            className="element"
+                            id="containerElement"
+                            style={{
+                                //position: "relative",
+                                height: "400px",
+                                overflow: "scroll",
+                                marginBottom: "0px"
+                            }}
+                        >
+
+                            {messagesElements} {/*отрисовка сообщений*/}
+
+
+
+                        </Element>
+                    </div>
+
+
                     <NewMessageReduxForm onSubmit={onSendMessageClick} /> {/*вызов формы сообщений с отсылкой на локальный обработчик сабмита*/}
-                    {messagesElements} {/*отрисовка сообщений*/}
+
                 </div>
             </div>
+
+
+
         </div>
     )
 }
