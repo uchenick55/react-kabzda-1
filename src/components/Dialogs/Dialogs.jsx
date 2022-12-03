@@ -8,6 +8,7 @@ import {maxLengthCreator, Required} from "../common/Validation/validationField";
 import {bedug_mode} from "../../redux/store-redux";
 import Scroll, {animateScroll as scroll} from "react-scroll";
 import {PointerCursor} from "../Dark_light_theme/globalStyles";
+import ScrollContainer from "../common/Scroll/ScrollContainer";
 
 
 const newMessageForm = ({handleSubmit}) => {// компонента формы
@@ -48,9 +49,6 @@ const Dialogs = ({state, myID, sendDialogsThunkCreator, dispatch}) => { // ос�
     };
     let Link = Scroll.Link;
     let Element = Scroll.Element;
-    let scrollToBottom = function () {
-        scroll.scrollToBottom();
-    };
 
     return (
         <div className={classes.dialogs} /*стиль всех диалогов*/>
@@ -60,35 +58,11 @@ const Dialogs = ({state, myID, sendDialogsThunkCreator, dispatch}) => { // ос�
 
             <div className={classes.messages}/*стиль всех сообщений*/>
                 <div>
-
-
                     <div>
-                        <Element
-                            id="containerElement"
-                            style={{
-                                height: "400px", // высота контейнера с прокруткой
-                                overflow: "scroll", // прокрутка внутри контейнера
-                                marginBottom: "0px" // нижний оступ
-                            }}
-                        >
-                            <Element name="firstInsideContainer"
-                                     style={{}}></Element> {/*якорь для прокрутки вверх внутри скрола*/}
-                            {messagesElements} {/*отрисовка сообщений*/}
-                            <Element name="secondInsideContainer"
-                                     style={{}}></Element>{/*якорь для прокрутки вниз внутри скрола*/}
-                        </Element>
-                    </div>
-                    <PointerCursor>
-                        <Link activeClass="active" to="firstInsideContainer" smooth={true} duration={250}
-                              containerId="containerElement">
-                            Scroll UP {/*ссылка для прокрутки вверх*/}
-                        </Link>
-                        <Link activeClass="active" to="secondInsideContainer" smooth={true} duration={250}
-                              containerId="containerElement">
-                            Scroll Down {/*ссылка для прокрутки вниз*/}
-                        </Link>
-                    </PointerCursor>
 
+                    </div>
+                    <ScrollContainer  child={messagesElements} height={"380px"} /> {/*заключение контента с скролл*/}
+                    
                     <NewMessageReduxForm
                         onSubmit={onSendMessageClick}/> {/*вызов формы сообщений с отсылкой на локальный обработчик сабмита*/}
 

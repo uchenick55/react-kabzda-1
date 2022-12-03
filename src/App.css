@@ -2,12 +2,15 @@
     display: grid;
     margin: 0 auto;
     grid-template-areas:
-        'h h'
-        'c n';
-    grid-template-rows: 95px 1fr;
-    grid-template-columns: 10fr 2fr;
+        'h h h'
+        'i c n';
+    grid-template-rows: 95px 480px;
+    grid-template-columns: 4fr 6fr 2fr;
 }
 .app-wrapper-content {
     grid-area: c;
 }
 
+.app-wrapper-info {
+    grid-area: i;
+}
