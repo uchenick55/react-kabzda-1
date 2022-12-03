@@ -6,10 +6,11 @@ import {Field, reduxForm, reset} from "redux-form";
 import {Textarea} from "../common/Validation/customFields";
 import {maxLengthCreator, Required} from "../common/Validation/validationField";
 import {bedug_mode} from "../../redux/store-redux";
-import Scroll from "react-scroll";
+import Scroll, {animateScroll as scroll} from "react-scroll";
+import {PointerCursor} from "../Dark_light_theme/globalStyles";
 
 
-const newMessageForm = ({handleSubmit }) => {// компонента формы
+const newMessageForm = ({handleSubmit}) => {// компонента формы
     return (
         <form onSubmit={handleSubmit} /*привязка сабмита формы к внутренней функции reduxForm - handleSubmit*/>
             <div>
@@ -22,7 +23,8 @@ const newMessageForm = ({handleSubmit }) => {// компонента формы
                     />
                 </div>
                 <div>
-                    <button>Submit</button> {/*кнопка*/}
+                    <button>Submit</button>
+                    {/*кнопка*/}
                 </div>
             </div>
         </form>
@@ -38,14 +40,17 @@ const Dialogs = ({state, myID, sendDialogsThunkCreator, dispatch}) => { // ос�
         <DialogItem name={d.name} id={d.id} avaSrc={d.avaSrc}/>);
 
     let messagesElements = state.messages2.map((m) => // подкомпонента отрисовки всех сообщений через map
-        <Message message={m.message}/> );
+        <Message message={m.message}/>);
 
     let onSendMessageClick = (formDataNewMessage) => {// функция отправления данных формы нового сообщения в стейт
         dispatch(reset('newMessageForm'))
         sendDialogsThunkCreator(formDataNewMessage.newMessageData, myID);
     };
-
+    let Link = Scroll.Link;
     let Element = Scroll.Element;
+    let scrollToBottom = function () {
+        scroll.scrollToBottom();
+    };
 
     return (
         <div className={classes.dialogs} /*стиль всех диалогов*/>
@@ -59,30 +64,36 @@ const Dialogs = ({state, myID, sendDialogsThunkCreator, dispatch}) => { // ос�
 
                     <div>
                         <Element
-                            name="test7"
-                            className="element"
                             id="containerElement"
                             style={{
-                                //position: "relative",
-                                height: "400px",
-                                overflow: "scroll",
-                                marginBottom: "0px"
+                                height: "400px", // высота контейнера с прокруткой
+                                overflow: "scroll", // прокрутка внутри контейнера
+                                marginBottom: "0px" // нижний оступ
                             }}
                         >
-
+                            <Element name="firstInsideContainer"
+                                     style={{}}></Element> {/*якорь для прокрутки вверх внутри скрола*/}
                             {messagesElements} {/*отрисовка сообщений*/}
-
-
-
+                            <Element name="secondInsideContainer"
+                                     style={{}}></Element>{/*якорь для прокрутки вниз внутри скрола*/}
                         </Element>
                     </div>
+                    <PointerCursor>
+                        <Link activeClass="active" to="firstInsideContainer" smooth={true} duration={250}
+                              containerId="containerElement">
+                            Scroll UP {/*ссылка для прокрутки вверх*/}
+                        </Link>
+                        <Link activeClass="active" to="secondInsideContainer" smooth={true} duration={250}
+                              containerId="containerElement">
+                            Scroll Down {/*ссылка для прокрутки вниз*/}
+                        </Link>
+                    </PointerCursor>
 
-
-                    <NewMessageReduxForm onSubmit={onSendMessageClick} /> {/*вызов формы сообщений с отсылкой на локальный обработчик сабмита*/}
+                    <NewMessageReduxForm
+                        onSubmit={onSendMessageClick}/> {/*вызов формы сообщений с отсылкой на локальный обработчик сабмита*/}
 
                 </div>
             </div>
-
 
 
         </div>
