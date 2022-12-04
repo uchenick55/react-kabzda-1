@@ -1,6 +1,6 @@
 import React from 'react';
 import Dialogs from "./Dialogs";
-import {sendDialogsThunkCreator} from "../../redux/dialogs-reducer";
+import {getDialogsThunkCreator, sendDialogsThunkCreator} from "../../redux/dialogs-reducer";
 import {connect} from "react-redux";
 import {NavigateToLoginHoc} from "../hoc/NavigateToLoginHoc";
 import {compose} from "redux";
@@ -9,6 +9,13 @@ import {useParams} from "react-router";
 
 class DialogsContainer extends React.Component {
     componentDidMount() {
+        const {match, getDialogsThunkCreator} = this.props;// пропсы
+        let userID = match.params["*"];// получить локальный userId из URL браузера
+        getDialogsThunkCreator(this.props.myID, userID);
+    }
+
+    componentDidUpdate(prevProps, prevState, snapshot) {
+        console.log("DialogsContaine -> componentDidUpdate")
     }
 
     sendMessage = (NewMessage) => {
@@ -29,6 +36,9 @@ let mapDispatchToProps  = (dispatch) => {
 
         sendDialogsThunkCreator: (formDataNewMessage, myID, userID) => {
             dispatch(sendDialogsThunkCreator(formDataNewMessage, myID, userID))
+        },
+        getDialogsThunkCreator: (myID, userID) => {
+            dispatch(getDialogsThunkCreator(myID, userID))
         },
         dispatch: dispatch
     }

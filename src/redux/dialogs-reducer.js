@@ -16,13 +16,6 @@ export let setMessages = (updatedMessages) => { // экшнкреатор зад
 };
 
 let initialState = { // стейт сообщений по умолчанию
-        messages: [ // сообщения по одному из диалогов по умолчанию (заглушка)
-            {id: 1, message: "Hello, how are you?"},
-            {id: 2, message: "This is my first message!"},
-            {id: 3, message: "Did you tell me anything yesterday?"},
-            {id: 4, message: "Yo"},
-            {id: 5, message: "Yo"}
-        ],
         messages2: [],
         dialogs: [ // список диалогов по умолчанию (заглушка)
             {
@@ -79,13 +72,22 @@ let dialogsReducer = (state = initialState, action) => { // редьюсер д�
 
 
 
-export let sendDialogsThunkCreator = (formDataNewMessage, myID, userID) => {//санкреатор получения диалогов с данными
+export let getDialogsThunkCreator = (myID, userID) => {//санкреатор получения диалогов с данными
+  if (bedug_mode) {console.log("getDialogsThunkCreator")}
+
+  let getDialogsThunk = async (dispatch) => {// санка получения сообщений диалога
+    let updatedMessages = await apiDialogs.getDialog(myID, userID)
+    if (bedug_mode) {console.log("dialogs-reducer.js, sendDialogsThunkCreator->: dispatch(setMessages)->SET_MESSAGES")} // дебаг
+    dispatch(setMessages(updatedMessages))
+  }
+  return getDialogsThunk
+}
+export let sendDialogsThunkCreator = (formDataNewMessage, myID, userID) => {//санкреатор отправки нового сообщения в диалог
   if (bedug_mode) {console.log("sendDialogsThunkCreator")}
 
-  let sendDialogsThunk = async (dispatch) => {// санка отправки диалогов
-    if (bedug_mode) {console.log("dialogs-reducer.js, sendDialogsThunkCreator->: dispatch(sendMessageCreator())->SEND_MESSAGE")} // дебаг
+  let sendDialogsThunk = async (dispatch) => {// санка отправки нового сообщения в диалог
     let updatedMessages = await apiDialogs.postDialog(formDataNewMessage, myID, userID)
-    console.log("updatedMessages: ", updatedMessages)
+    if (bedug_mode) {console.log("dialogs-reducer.js, sendDialogsThunkCreator->: dispatch(setMessages)->SET_MESSAGES")} // дебаг
     dispatch(setMessages(updatedMessages))
   }
   return sendDialogsThunk
