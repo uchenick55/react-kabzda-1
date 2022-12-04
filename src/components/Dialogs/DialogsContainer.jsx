@@ -1,18 +1,25 @@
 import React from 'react';
 import Dialogs from "./Dialogs";
-import {sendMessageCreator, sendDialogsThunkCreator} from "../../redux/dialogs-reducer";
+import {sendDialogsThunkCreator} from "../../redux/dialogs-reducer";
 import {connect} from "react-redux";
 import {NavigateToLoginHoc} from "../hoc/NavigateToLoginHoc";
 import {compose} from "redux";
 import {bedug_mode} from "../../redux/store-redux";
+import {useParams} from "react-router";
 
 class DialogsContainer extends React.Component {
     componentDidMount() {
     }
 
+    sendMessage = (NewMessage) => {
+        const {match, sendDialogsThunkCreator} = this.props;// пропсы
+        let userID = match.params["*"];// получить локальный userId из URL браузера
+        sendDialogsThunkCreator(NewMessage, this.props.myID, userID);
+    }
+
     render () {
         return <div>
-            <Dialogs {...this.props} />
+            <Dialogs {...this.props} sendMessage={this.sendMessage}/>
         </div>
     }
 }
@@ -35,13 +42,34 @@ let mapStateToProps = (state) => {
     }
 }
 
+function withRouter (Children) {
+    return (props) => {
+        let match = {params: useParams()}
+        return <Children {...props} match = {match}/>
+    }
+}
 export default compose(
     connect(mapStateToProps, mapDispatchToProps),
+    withRouter,
     NavigateToLoginHoc
 )
 (DialogsContainer);
 /*
 export default connect(mapStateToProps, mapDispatchToProps)(NavigateToLoginHoc(DialogsContainer));
+
+function withRouter (Children) {
+    return (props) => {
+        let match = {params: useParams()}
+        return <Children {...props} match = {match}/>
+    }
+}
+
+export default compose(
+    connect(mapStateToProps, {getProfileThunkCreator, putStatusThunkCreator}),
+    withRouter,
+    NavigateToLoginHoc
+)
+(ProfileContainer)
 */
 
 

@@ -7,7 +7,6 @@ import {Textarea} from "../common/Validation/customFields";
 import {maxLengthCreator, Required} from "../common/Validation/validationField";
 import {bedug_mode} from "../../redux/store-redux";
 import ScrollContainer from "../common/Scroll/ScrollContainer";
-import {useParams} from "react-router-dom";
 
 
 const newMessageForm = ({handleSubmit}) => {// компонента формы
@@ -34,7 +33,7 @@ const newMessageForm = ({handleSubmit}) => {// компонента формы
 // оберточная компонента формы, задает имя подстейта "newMessageForm"
 const NewMessageReduxForm = reduxForm({form: "newMessageForm"})(newMessageForm)
 
-const Dialogs = ({state, myID, sendDialogsThunkCreator, dispatch}) => { // основная компонента отрисовки диалогов
+const Dialogs = ({state, myID, sendDialogsThunkCreator, dispatch, sendMessage}) => { // основная компонента отрисовки диалогов
 
     let dialogElements = state.dialogs.map((d) => // подкомпонента отрисовки всех диалогов через map
         <DialogItem name={d.name} id={d.id} avaSrc={d.avaSrc}/>);
@@ -44,12 +43,7 @@ const Dialogs = ({state, myID, sendDialogsThunkCreator, dispatch}) => { // ос�
 
     let onSendMessageClick = (formDataNewMessage) => {// функция отправления данных формы нового сообщения в стейт
         dispatch(reset('newMessageForm'))
-/*
-        let match = {params: useParams()}
-        let userID = match.params["*"];// получить локальный userId из URL браузера
-*/
-        let userID = 1079;
-        sendDialogsThunkCreator(formDataNewMessage.newMessageData, myID, userID);
+        sendMessage(formDataNewMessage.newMessageData);
     };
 
     return (
