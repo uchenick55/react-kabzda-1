@@ -1,4 +1,4 @@
-import React from 'react'; // импорт реакта
+import React, {useEffect} from 'react'; // импорт реакта
 import classes from './Dialogs.module.css';// css обработка
 import DialogItem from "./DialogItem/DialogItem";// подкомпонента отрисовки диалогов через map
 import Message from "./Message/Message";// подкомпонента отрисовки сообщений через map
@@ -33,7 +33,7 @@ const newMessageForm = ({handleSubmit}) => {// компонента формы
 // оберточная компонента формы, задает имя подстейта "newMessageForm"
 const NewMessageReduxForm = reduxForm({form: "newMessageForm"})(newMessageForm)
 
-const Dialogs = ({state, myID, sendDialogsThunkCreator, dispatch, sendMessage}) => { // основная компонента отрисовки диалогов
+const Dialogs = ({state, dispatch, sendMessage, getDialogs}) => { // основная компонента отрисовки диалогов
 
     let dialogElements = state.dialogs.map((d) => // подкомпонента отрисовки всех диалогов через map
         <DialogItem name={d.name} id={d.id} avaSrc={d.avaSrc}/>);
@@ -45,6 +45,13 @@ const Dialogs = ({state, myID, sendDialogsThunkCreator, dispatch, sendMessage}) 
         dispatch(reset('newMessageForm'))
         sendMessage(formDataNewMessage.newMessageData);
     };
+
+    useEffect(()=>{
+        const id = setInterval(()=>{
+            getDialogs()
+        }, 1000)
+        return (()=>{clearInterval(id)})
+    }, [])
 
     return (
         <div className={classes.dialogs} /*стиль всех диалогов*/>

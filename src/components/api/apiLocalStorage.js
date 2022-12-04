@@ -5,6 +5,9 @@ export let apiDialogs = { // объект с методами api для Dialogs
   getDialog: (myID, userID) => {
     let dialogNameLocal = myID>userID?"Dialog_"+myID+"_"+userID:"Dialog_"+userID+"_"+myID;
     let LocalStorageDialogs1 = JSON.parse(localStorage.getItem(dialogNameLocal));
+    if (!LocalStorageDialogs1) {
+      LocalStorageDialogs1 = [];
+    }
     return LocalStorageDialogs1
   },
   postDialog: (formDataNewMessage, myID, userID) => { //formDataNewMessage
@@ -12,9 +15,7 @@ export let apiDialogs = { // объект с методами api для Dialogs
    // let dialogNameLocal = myID>userID?"Dialog_"+myID+"_"+userID:"Dialog_"+userID+"_"+myID;
     let Dialog_1 = apiDialogs.getDialog(myID, userID); // получить данные Dialog_25528_1079 с LocalStorage
 
-    if (!Dialog_1) {
-      Dialog_1 = [];
-    }
+
 
     if (bedug_mode) {console.log("apiLocalStorage Dialog_1(getItem): ", Dialog_1 )} // дебаг
 
