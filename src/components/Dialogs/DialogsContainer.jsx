@@ -19,8 +19,9 @@ class DialogsContainer extends React.Component {
 
 let mapDispatchToProps  = (dispatch) => {
     return {
-        sendDialogsThunkCreator: (formDataNewMessage, myID) => {
-            dispatch(sendDialogsThunkCreator(formDataNewMessage, myID))
+
+        sendDialogsThunkCreator: (formDataNewMessage, myID, userID) => {
+            dispatch(sendDialogsThunkCreator(formDataNewMessage, myID, userID))
         },
         dispatch: dispatch
     }

@@ -6,9 +6,8 @@ import {Field, reduxForm, reset} from "redux-form";
 import {Textarea} from "../common/Validation/customFields";
 import {maxLengthCreator, Required} from "../common/Validation/validationField";
 import {bedug_mode} from "../../redux/store-redux";
-import Scroll, {animateScroll as scroll} from "react-scroll";
-import {PointerCursor} from "../Dark_light_theme/globalStyles";
 import ScrollContainer from "../common/Scroll/ScrollContainer";
+import {useParams} from "react-router-dom";
 
 
 const newMessageForm = ({handleSubmit}) => {// компонента формы
@@ -45,10 +44,13 @@ const Dialogs = ({state, myID, sendDialogsThunkCreator, dispatch}) => { // ос�
 
     let onSendMessageClick = (formDataNewMessage) => {// функция отправления данных формы нового сообщения в стейт
         dispatch(reset('newMessageForm'))
-        sendDialogsThunkCreator(formDataNewMessage.newMessageData, myID);
+/*
+        let match = {params: useParams()}
+        let userID = match.params["*"];// получить локальный userId из URL браузера
+*/
+        let userID = 1079;
+        sendDialogsThunkCreator(formDataNewMessage.newMessageData, myID, userID);
     };
-    let Link = Scroll.Link;
-    let Element = Scroll.Element;
 
     return (
         <div className={classes.dialogs} /*стиль всех диалогов*/>
