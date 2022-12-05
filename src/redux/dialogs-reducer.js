@@ -4,6 +4,7 @@ import {apiDialogs} from "../components/api/apiLocalStorage";
 const SEND_MESSAGE = "myApp/dialogs-reducer/SEND-MESSAGE"; // Константа отправки сообщения
 const DIALOGS_INITIAL_STATE = "myApp/dialogs-reducer/DIALOGS_INITIAL_STATE";  //константа зануления при логауте
 const SET_MESSAGES =  "myApp/dialogs-reducer/SET_MESSAGES";  //константа задания списка сообщений в стейт
+const DIALOG_USER_ID =  "myApp/dialogs-reducer/DIALOG_USER_ID"; //константа задания ID пользователя, с кем диалог
 
 export let sendMessageCreator = (formDataNewMessage) => { // экшнкреатор отправки сообщений
     return {type: SEND_MESSAGE, formDataNewMessage}
@@ -14,9 +15,13 @@ export let dialogsInitialState = () => { // экшнкреатор зануле�
 export let setMessages = (updatedMessages) => { // экшнкреатор задания списка сообщений в стейт messages2
   return {type: SET_MESSAGES, updatedMessages}
 };
+export let setdialogUserID = (dialogUserID) => { // экшнкреатор задания списка сообщений в стейт messages2
+  return {type: DIALOG_USER_ID, dialogUserID}
+};
 
 let initialState = { // стейт сообщений по умолчанию
         messages2: [],
+        dialogUserID: null, // ID пользователя с кем диалог
         dialogs: [ // список диалогов по умолчанию (заглушка)
             {
                 id: 1,
@@ -65,12 +70,17 @@ let dialogsReducer = (state = initialState, action) => { // редьюсер д�
          }
           if (bedug_mode) {console.log("dialogs-reducer.js, SET_MESSAGES(LocalStorage): ", state, stateCopy)} // дебаг
           return stateCopy
+       case DIALOG_USER_ID: // экшн  задания ID пользователя, с кем диалог
+         stateCopy = {
+           ...state,
+           dialogUserID: action.dialogUserID, // задание ID пользователя, с кем диалог
+         }
+          if (bedug_mode) {console.log("dialogs-reducer.js, DIALOG_USER_ID: ", state, stateCopy)} // дебаг
+          return stateCopy
         default:
             return state;
     }
 }
-
-
 
 export let getDialogsThunkCreator = (myID, userID) => {//санкреатор получения диалогов с данными
   if (bedug_mode) {console.log("getDialogsThunkCreator")}

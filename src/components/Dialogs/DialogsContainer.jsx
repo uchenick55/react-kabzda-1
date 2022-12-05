@@ -1,6 +1,6 @@
 import React from 'react';
 import Dialogs from "./Dialogs";
-import {getDialogsThunkCreator, sendDialogsThunkCreator} from "../../redux/dialogs-reducer";
+import {getDialogsThunkCreator, sendDialogsThunkCreator, setdialogUserID} from "../../redux/dialogs-reducer";
 import {connect} from "react-redux";
 import {NavigateToLoginHoc} from "../hoc/NavigateToLoginHoc";
 import {compose} from "redux";
@@ -14,6 +14,14 @@ class DialogsContainer extends React.Component {
 
     componentDidUpdate(prevProps, prevState, snapshot) {
         console.log("DialogsContaine -> componentDidUpdate")
+        const {match, setdialogUserID, dialogUserID} = this.props;// пропсы
+        let userID = match.params["*"];// получить локальный userId из URL браузера
+        if (userID === "") {return}
+        if (dialogUserID!==userID) {
+     //       alert("новый диалог ")
+            setdialogUserID(userID)
+        }
+
     }
 
     getDialogs = () => {
@@ -50,6 +58,9 @@ let mapDispatchToProps  = (dispatch) => {
         getDialogsThunkCreator: (myID, userID) => {
             dispatch(getDialogsThunkCreator(myID, userID))
         },
+        setdialogUserID: (dialogUserID) => {
+            dispatch(setdialogUserID(dialogUserID))
+        },
         dispatch: dispatch
     }
 }
@@ -59,6 +70,7 @@ let mapStateToProps = (state) => {
         state: state.dialogsPage,
         isAuth: state.auth.isAuth,
         myID: state.auth.myID,
+        dialogUserID: state.dialogsPage.dialogUserID,
     }
 }
 
