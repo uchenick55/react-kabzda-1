@@ -6,6 +6,7 @@ import {NavigateToLoginHoc} from "../hoc/NavigateToLoginHoc";
 import {compose} from "redux";
 import {bedug_mode} from "../../redux/store-redux";
 import {useParams} from "react-router";
+import CheckNewDialogData from "../api/checkNewDialogData";
 
 class DialogsContainer extends React.Component {
     componentDidMount() {
@@ -14,12 +15,13 @@ class DialogsContainer extends React.Component {
 
     componentDidUpdate(prevProps, prevState, snapshot) {
         console.log("DialogsContaine -> componentDidUpdate")
-        const {match, setdialogUserID, dialogUserID} = this.props;// пропсы
+        const {match, setdialogUserID, dialogUserID, myID} = this.props;// пропсы
         let userID = match.params["*"];// получить локальный userId из URL браузера
         if (userID === "") {return}
         if (dialogUserID!==userID) {
      //       alert("новый диалог ")
             setdialogUserID(userID)
+            //return CheckNewDialogData(myID, userID)
         }
 
     }
@@ -86,23 +88,7 @@ export default compose(
     NavigateToLoginHoc
 )
 (DialogsContainer);
-/*
-export default connect(mapStateToProps, mapDispatchToProps)(NavigateToLoginHoc(DialogsContainer));
 
-function withRouter (Children) {
-    return (props) => {
-        let match = {params: useParams()}
-        return <Children {...props} match = {match}/>
-    }
-}
-
-export default compose(
-    connect(mapStateToProps, {getProfileThunkCreator, putStatusThunkCreator}),
-    withRouter,
-    NavigateToLoginHoc
-)
-(ProfileContainer)
-*/
 
 
 

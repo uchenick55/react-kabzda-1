@@ -7,6 +7,7 @@ import {Textarea} from "../common/Validation/customFields";
 import {maxLengthCreator, Required} from "../common/Validation/validationField";
 import {bedug_mode} from "../../redux/store-redux";
 import ScrollContainer from "../common/Scroll/ScrollContainer";
+import CheckNewDialogData from "../api/checkNewDialogData";
 
 
 const newMessageForm = ({handleSubmit}) => {// компонента формы
@@ -55,6 +56,9 @@ const Dialogs = ({state, dispatch, sendMessage, getDialogs}) => { // основ�
 
     return (
         <div className={classes.dialogs} /*стиль всех диалогов*/>
+{/*
+            <CheckNewDialogData/>
+*/}
             <div className={classes.dialogItems} /*стиль элементов диалога*/ >
                 <ScrollContainer
                     child={dialogElements}
