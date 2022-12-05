@@ -14,7 +14,7 @@ const MyFriendItem = ({id, avaSrc, name, unfollowFriendsAPI, dialogUserID}) => {
         <NavLink to={dialog}>
             {dialogUserID == id
                 ? <span className={classes.currentDialog} >dialog</span>
-                : <span>dialog{" "}</span>
+                : <span className={classes.otherDialogs} >dialog</span>
             }
         </NavLink>
         <NavLink to={profile}>

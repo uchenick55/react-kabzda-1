@@ -1,6 +1,11 @@
 import React from 'react';
 import Dialogs from "./Dialogs";
-import {getDialogsThunkCreator, sendDialogsThunkCreator, setdialogUserID} from "../../redux/dialogs-reducer";
+import {
+    getDialogsThunkCreator,
+    sendDialogsThunkCreator,
+    setdialogUserID,
+    setMessages
+} from "../../redux/dialogs-reducer";
 import {connect} from "react-redux";
 import {NavigateToLoginHoc} from "../hoc/NavigateToLoginHoc";
 import {compose} from "redux";
@@ -17,13 +22,17 @@ class DialogsContainer extends React.Component {
         console.log("DialogsContaine -> componentDidUpdate")
         const {match, setdialogUserID, dialogUserID, myID} = this.props;// пропсы
         let userID = match.params["*"];// получить локальный userId из URL браузера
-        if (userID === "") {return}
-        if (dialogUserID!==userID) {
-     //       alert("новый диалог ")
-            setdialogUserID(userID)
-            return CheckNewDialogData(myID, userID)
+        if (userID === "") { // если перешли на вкладку Dialogs с нулевым userID
+            if (this.props.messages2.length>0) { // если массив сообщений непустой
+                this.props.setMessages([]); // занулить массив сообщений (очистить список сообщений)
+                setdialogUserID(null) // занулить userID (убрать выделение диалога)
+            }
+            return
         }
-
+        if (dialogUserID!==userID) { // если считаный из URL userID не равен тому, что в BLL
+            setdialogUserID(userID) // задать в BLL считаный из URL ID
+            return CheckNewDialogData(myID, userID) // переход на проверку появления новых данных сообщений в LocalStorage
+        }
     }
 
     getDialogs = () => {
@@ -39,6 +48,9 @@ class DialogsContainer extends React.Component {
         let userID = match.params["*"];// получить локальный userId из URL браузера
         if (userID === "") {
             alert("Выберите диалог")
+            // занулить messages2[]
+            // занулить
+
             return
         }
         sendDialogsThunkCreator(NewMessage, this.props.myID, userID);
@@ -63,16 +75,19 @@ let mapDispatchToProps  = (dispatch) => {
         setdialogUserID: (dialogUserID) => {
             dispatch(setdialogUserID(dialogUserID))
         },
+        setMessages: (updatedMessages) => {
+            dispatch(setMessages(updatedMessages))
+        },
         dispatch: dispatch
     }
 }
-
 let mapStateToProps = (state) => {
     return {
         state: state.dialogsPage,
         isAuth: state.auth.isAuth,
         myID: state.auth.myID,
         dialogUserID: state.dialogsPage.dialogUserID,
+        messages2: state.dialogsPage.messages2,
     }
 }
 
