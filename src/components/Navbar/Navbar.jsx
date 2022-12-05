@@ -5,7 +5,7 @@ import MyFriends from "./My Friends/MyFriends";
 import {connect} from "react-redux";
 import {bedug_mode} from "../../redux/store-redux";
 
-const Navbar = ({myFriends2, unfollowFriendsAPI}) => {
+const Navbar = ({myFriends2, unfollowFriendsAPI, dialogUserID}) => {
 
     if (bedug_mode) {console.log("Navbar")}
     return <nav className={classes.nav}>
@@ -25,7 +25,12 @@ const Navbar = ({myFriends2, unfollowFriendsAPI}) => {
             <NavLink to='/rest'>Rest</NavLink>
         </div>
         <div>
-            <MyFriends state={myFriends2} unfollowFriendsAPI={unfollowFriendsAPI}/>
+            <MyFriends
+                state={myFriends2}
+                unfollowFriendsAPI={unfollowFriendsAPI}
+                dialogUserID={dialogUserID}
+
+            />
         </div>
 
     </nav>;

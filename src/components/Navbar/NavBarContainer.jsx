@@ -34,7 +34,11 @@ class NavBarContainer extends React.Component {
         if (bedug_mode) {console.log("NavBarContainer render")}
 
         const {myFriends2} = this.props; // получение из пропсов данных по друзьям
-        return <Navbar myFriends2={myFriends2} unfollowFriendsAPI={this.unfollowFriendsAPI}/> // отрисовка целевой компоненты
+        return <Navbar
+            myFriends2={myFriends2}
+            unfollowFriendsAPI={this.unfollowFriendsAPI}
+            dialogUserID={this.props.dialogUserID}
+        /> // отрисовка целевой компоненты
     }
 }
 
@@ -49,7 +53,10 @@ const mapStateToProps = (state) => {
 //  Данные для удаления пользователя из FriendList через функцию отписки users
         currentPage: state.usersPage.currentPage, // текущая страница users для обновления
         pageSize: state.usersPage.pageSize, // текущий размер страницы пользователей для обновления
-        term: state.usersPage.term // текущий поисковый запрос users для обновления
+        term: state.usersPage.term, // текущий поисковый запрос users для обновления
+//  Данные для выделения текущего диалога в списке FriendList
+        dialogUserID: state.dialogsPage.dialogUserID // ID текущего пользователя, с кем идет диалог
+
     }
 }
 export default connect(mapStateToProps, {getFriendsThunkCreator, needUpdateFriendsAC, unfollowThunkCreator})(NavBarContainer);

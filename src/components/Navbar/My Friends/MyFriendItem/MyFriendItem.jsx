@@ -3,7 +3,7 @@ import classes from './../MyFriends.module.css';
 import {NavLink} from "react-router-dom";
 import {bedug_mode} from "../../../../redux/store-redux";
 
-const MyFriendItem = ({id, avaSrc, name, unfollowFriendsAPI}) => {
+const MyFriendItem = ({id, avaSrc, name, unfollowFriendsAPI, dialogUserID}) => {
     if (bedug_mode) {console.log("MyFriendItem")}
 
 
@@ -11,9 +11,11 @@ const MyFriendItem = ({id, avaSrc, name, unfollowFriendsAPI}) => {
     let profile =  '/profile/' + id;
     return <div className={classes.myfriends}>
             <div><img src={avaSrc}/>{name} {id}</div>
-        <div></div>
         <NavLink to={dialog}>
-            dialog {" "}
+            {dialogUserID == id
+                ? <span className={classes.currentDialog} >dialog</span>
+                : <span>dialog{" "}</span>
+            }
         </NavLink>
         <NavLink to={profile}>
             profile

@@ -6,13 +6,19 @@ import {bedug_mode} from "../../../redux/store-redux";
 import ScrollContainer from "../../common/Scroll/ScrollContainer";
 
 
-const MyFriends = ({state, unfollowFriendsAPI}) => {
+const MyFriends = ({state, unfollowFriendsAPI, dialogUserID}) => {
     if (bedug_mode) {console.log("MyFriends")}
     let MyFriendElements =
         state.map((f) => {
                 const avaSrc = f.photos.small?f.photos.small:userPhoto;
                 return (
-                    <MyFriendItem name={f.name} id={f.id} avaSrc={avaSrc} unfollowFriendsAPI={unfollowFriendsAPI} />
+                    <MyFriendItem
+                        name={f.name}
+                        id={f.id}
+                        avaSrc={avaSrc}
+                        unfollowFriendsAPI={unfollowFriendsAPI}
+                        dialogUserID={dialogUserID}
+                    />
                 )
             }
         );

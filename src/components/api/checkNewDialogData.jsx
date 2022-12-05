@@ -1,7 +1,7 @@
 import React, {useEffect, useState} from "react";
 
 let CheckNewDialogData = (myID, dialogUserID) => {
-    const [dialogDataUpdate, setDialogDataUpdate] = useState(null)
+  //  const [dialogDataUpdate, setDialogDataUpdate] = useState(null)
 /*    useEffect(()=>{
         const id = setInterval(()=>{
             console.log("Тик")

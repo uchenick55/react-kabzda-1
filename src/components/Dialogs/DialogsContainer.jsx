@@ -21,7 +21,7 @@ class DialogsContainer extends React.Component {
         if (dialogUserID!==userID) {
      //       alert("новый диалог ")
             setdialogUserID(userID)
-            //return CheckNewDialogData(myID, userID)
+            return CheckNewDialogData(myID, userID)
         }
 
     }
