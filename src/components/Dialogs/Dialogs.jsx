@@ -46,21 +46,19 @@ const Dialogs = ({ dialogs, messages2, dispatch, sendMessage, getDialogs, getDia
         sendMessage(formDataNewMessage.newMessageData);
     };
 
-    useEffect(()=>{
-        const id = setInterval(()=>{
-            getDialogs()
-            getDialogLastUpdateTime()
-         //   getDialogLastUpdateTime()
+    useEffect(()=>{ // при очередном ререндере
+        const id = setInterval(()=>{ // задать цикл с интервалом в 1 сек
+            getDialogLastUpdateTime() // получить время обновления текущего диалога
         }, 1000)
-        return (()=>{clearInterval(id)})
-    }, [])
+        return (()=>{clearInterval(id)}) // для сброса цикла при очередном рендере
+    }, []) // useEffect без зависимостей
 
     return (
         <div className={classes.dialogs} /*стиль всех диалогов*/>
             <div className={classes.dialogItems} /*стиль элементов диалога*/ >
-                <ScrollContainer
+                <ScrollContainer // обернуть диалоги скролом
                     child={dialogElements}
-                    height={"470px"}
+                    height={"470px"} // высота поля скрола
                     firstInsideContainer={"DialogsUp"}
                     secondInsideContainer={"DialogsDown"}
                     containerElement={"DialogsContainer"}
@@ -68,9 +66,9 @@ const Dialogs = ({ dialogs, messages2, dispatch, sendMessage, getDialogs, getDia
             </div>
             <div className={classes.messages}/*стиль всех сообщений*/>
                 <div>
-                    <ScrollContainer
+                    <ScrollContainer // обернуть сообщения скролом
                         child={messagesElements}
-                        height={"360px"}
+                        height={"360px"} // высота поля скрола
                         firstInsideContainer={"MessagesUp"}
                         secondInsideContainer={"MessagesDown"}
                         containerElement={"MessagesContainer"}
@@ -79,7 +77,6 @@ const Dialogs = ({ dialogs, messages2, dispatch, sendMessage, getDialogs, getDia
                         onSubmit={onSendMessageClick}/> {/*вызов формы сообщений с отсылкой на локальный обработчик сабмита*/}
                 </div>
             </div>
-
 
         </div>
     )

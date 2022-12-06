@@ -83,12 +83,15 @@ let dialogsReducer = (state = initialState, action) => { // редьюсер д�
           if (bedug_mode) {console.log("dialogs-reducer.js, DIALOG_USER_ID: ", state, stateCopy)} // дебаг
           return stateCopy
        case DIALOG_LAST_UPDATE_TIME: // экшн  задания последнего времени обновления текущего диалога
-         stateCopy = {
-           ...state,
-           dialogLastUpdateTime: action.dialogLastUpdateTime, //  задание последнего времени обновления текущего диалога
+         if (state.dialogLastUpdateTime!==action.dialogLastUpdateTime) { // проверяем, есть ли смысл сетать время обновления диалога (если оно изменилось)
+           stateCopy = {
+             ...state,
+             dialogLastUpdateTime: action.dialogLastUpdateTime, //  задание последнего времени обновления текущего диалога
+           }
+           if (bedug_mode) {console.log("dialogs-reducer.js, DIALOG_LAST_UPDATE_TIME: ", state, stateCopy)} // дебаг
+           return stateCopy
          }
-          if (bedug_mode) {console.log("dialogs-reducer.js, DIALOG_LAST_UPDATE_TIME: ", state, stateCopy)} // дебаг
-          return stateCopy
+         return state // если время не поменялось,  вернуть текущий стейт
         default:
             return state;
     }
@@ -115,19 +118,12 @@ export let sendDialogsThunkCreator = (formDataNewMessage, myID, userID) => {//с
   return sendDialogsThunk
 }
 
-//getDialogLastUpdateTimeTnkCrt
 export let getDialogLastUpdateTimeTnkCrt = (myID, userID) => {//санкреатор получения диалогов с данными
-  if (bedug_mode) {console.log("getDialogLastUpdateTimeTnkCrt")}
-
   let getDialogLastUpdateTimeTnk = async (dispatch) => {// санка получения сообщений диалога
-    let dialogLastUpdateTime = await apiDialogs.getUpdateTime(myID, userID)
-    if (bedug_mode) {console.log("dialogs-reducer.js, getDialogLastUpdateTimeTnkCrt->: dispatch(setDialogLastUpdateTime()->DIALOG_LAST_UPDATE_TIME")} // дебаг
-    dispatch(setDialogLastUpdateTime(dialogLastUpdateTime))
+    let dialogLastUpdateTime = await apiDialogs.getUpdateTime(myID, userID) // запросить время обновления текущего диалога
+    dispatch(setDialogLastUpdateTime(dialogLastUpdateTime)) // отправить в BLL время последнего обновления текущего диалога
   }
   return getDialogLastUpdateTimeTnk
 }
-
-
-
 
 export default dialogsReducer;

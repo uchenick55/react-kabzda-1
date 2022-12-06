@@ -3,43 +3,43 @@ import GetDate from "./GetDate";
 
 export let apiDialogs = { // объект с методами api для Dialogs
   getDialog: (myID, userID) => {
-    let dialogNameLocal = myID>userID?"Dialog_"+myID+"_"+userID:"Dialog_"+userID+"_"+myID;
-    let LocalStorageDialogs1 = JSON.parse(localStorage.getItem(dialogNameLocal));
-    if (!LocalStorageDialogs1) {
-      LocalStorageDialogs1 = [];
+    let dialogNameLocal = myID>userID?"Dialog_"+myID+"_"+userID:"Dialog_"+userID+"_"+myID; // задать имя диалога для запроса
+    let LocalStorageDialogs1 = JSON.parse(localStorage.getItem(dialogNameLocal)); // запросить диалог из LocalStorage по текущему имени
+    if (!LocalStorageDialogs1) { // если диалога с таким именем нет (undefined)
+      LocalStorageDialogs1 = []; // то присвоить пустой массив
     }
-    return LocalStorageDialogs1
+    return LocalStorageDialogs1 // вернуть результат
   },
   getUpdateTime: (myID, userID) => {
-    let dialogUpdateTimeLocal = myID>userID?"Dialog_"+myID+"_"+userID+"_UpdateTime":"Dialog_"+userID+"_"+myID+"_UpdateTime";
-    let LocalStoragedialogUpdateTime1 = JSON.parse(localStorage.getItem(dialogUpdateTimeLocal));
-    if (!LocalStoragedialogUpdateTime1) {
-      LocalStoragedialogUpdateTime1 = null;
+    let dialogUpdateTimeLocal = myID>userID?"Dialog_"+myID+"_"+userID+"_UpdateTime":"Dialog_"+userID+"_"+myID+"_UpdateTime"; // задать имя времени обновления диалога для запроса
+    let LocalStoragedialogUpdateTime1 = JSON.parse(localStorage.getItem(dialogUpdateTimeLocal)); // запросить время обновления диалога по сформированному времени
+    if (!LocalStoragedialogUpdateTime1) { // если времени обновления с таким именем нет (undefined)
+      LocalStoragedialogUpdateTime1 = null; // то задать нулевое значение
     }
-    return LocalStoragedialogUpdateTime1
+    return LocalStoragedialogUpdateTime1 // вернуть результат
   },
-  postDialog: (formDataNewMessage, myID, userID) => { //formDataNewMessage
+  postDialog: (formDataNewMessage, myID, userID) => { //отправка сообщения в LocalStorage
 
     let Dialog_1 = apiDialogs.getDialog(myID, userID); // получить данные Dialog_25528_1079 с LocalStorage
 
     if (bedug_mode) {console.log("apiLocalStorage Dialog_1(getItem): ", Dialog_1 )} // дебаг
 
-    let Dialog_2 = [...Dialog_1, {// запушить введенный текст в Dialog_25528_1079
+    let Dialog_2 = [...Dialog_1, {// добавить новое сообщение в запрошенный диалог
       id: Dialog_1.length + 1,
       Date: GetDate(),
       userId: myID,
       message: formDataNewMessage
     }]
 
-    let  LocalStoragedialogUpdateTime1 = GetDate()
+    let  LocalStoragedialogUpdateTime1 = GetDate()// в случае обновления диалога запомнить время его обновления
 
-    let dialogNameLocal = myID>userID?"Dialog_"+myID+"_"+userID:"Dialog_"+userID+"_"+myID;
-    let dialogUpdateTimeLocal = myID>userID?"Dialog_"+myID+"_"+userID+"_UpdateTime":"Dialog_"+userID+"_"+myID+"_UpdateTime";
+    let dialogNameLocal = myID>userID?"Dialog_"+myID+"_"+userID:"Dialog_"+userID+"_"+myID;  // задать имя диалога для запроса
+    let dialogUpdateTimeLocal = myID>userID?"Dialog_"+myID+"_"+userID+"_UpdateTime":"Dialog_"+userID+"_"+myID+"_UpdateTime";// задать имя времени обновления диалога для запроса
 
     localStorage.setItem(dialogNameLocal, JSON.stringify(Dialog_2)); // отправить измененый массив в LocalStorage
-    localStorage.setItem(dialogUpdateTimeLocal, JSON.stringify(LocalStoragedialogUpdateTime1)); // отправить измененый массив в LocalStorage
+    localStorage.setItem(dialogUpdateTimeLocal, JSON.stringify(LocalStoragedialogUpdateTime1)); // отправить вреия изменения диалога в LocalStorage
 
-    let Dialog_3 = apiDialogs.getDialog(myID, userID); // считать измененный массив с LocalStorage
+    let Dialog_3 = apiDialogs.getDialog(myID, userID); // считать записанный массив с LocalStorage
 
     return Dialog_3 // вернуть обновленный массив из DAL в BLL
 

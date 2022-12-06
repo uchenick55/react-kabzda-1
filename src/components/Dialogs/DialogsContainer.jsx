@@ -14,9 +14,6 @@ import {bedug_mode} from "../../redux/store-redux";
 import {useParams} from "react-router";
 
 class DialogsContainer extends React.Component {
-    componentDidMount() {
-        this.getDialogs()
-    }
 
     componentDidUpdate(prevProps, prevState, snapshot) {
         console.log("DialogsContaine -> componentDidUpdate")
@@ -32,37 +29,33 @@ class DialogsContainer extends React.Component {
         if (dialogUserID!==userID) { // если считаный из URL userID не равен тому, что в BLL
             setdialogUserID(userID) // задать в BLL считаный из URL ID
         }
-        // ЗДЕСЬ ПРОВЕРИТЬ обновилось ли время диалога, если да, то getDialogs()
-        // убрать getDialogs из setInterval
+        if  (this.props.dialogLastUpdateTime!==prevProps.dialogLastUpdateTime) { // если время обновления диалога изменилось
+            this.getDialogs()// запросить новые сообщения по диалогу
+        }
     }
 
     getDialogs = () => {
         const {match, getDialogsThunkCreator} = this.props;// пропсы
         let userID = match.params["*"];// получить локальный userId из URL браузера
-        if (userID === "") {return}
-        getDialogsThunkCreator(this.props.myID, userID);
-
+        if (userID === "") {return}// при клике просто по вкладке Dialogs
+        getDialogsThunkCreator(this.props.myID, userID);// получить диалоги
     }
 
     getDialogLastUpdateTime = () => {
         const {match, getDialogLastUpdateTimeTnkCrt} = this.props;// пропсы
         let userID = match.params["*"];// получить локальный userId из URL браузера
-        if (userID === "") {return}
-        getDialogLastUpdateTimeTnkCrt(this.props.myID, userID);
+        if (userID === "") {return}// при клике просто по вкладке Dialogs
+        getDialogLastUpdateTimeTnkCrt(this.props.myID, userID); // получить время последенего обновления диалога
     }
-
 
     sendMessage = (NewMessage) => {
         const {match, sendDialogsThunkCreator} = this.props;// пропсы
         let userID = match.params["*"];// получить локальный userId из URL браузера
-        if (userID === "") {
-            alert("Выберите диалог")
-            // занулить messages2[]
-            // занулить
-
+        if (userID === "") { // при клике просто по вкладке Dialogs
+            alert("Выберите диалог") // предупреждение если диалог не выбран
             return
         }
-        sendDialogsThunkCreator(NewMessage, this.props.myID, userID);
+        sendDialogsThunkCreator(NewMessage, this.props.myID, userID); // отправить сообщение
     }
 
     render () {
@@ -82,22 +75,22 @@ class DialogsContainer extends React.Component {
 let mapDispatchToProps  = (dispatch) => {
     return {
 
-        sendDialogsThunkCreator: (formDataNewMessage, myID, userID) => {
+        sendDialogsThunkCreator: (formDataNewMessage, myID, userID) => { // отправить сообщение
             dispatch(sendDialogsThunkCreator(formDataNewMessage, myID, userID))
         },
-        getDialogsThunkCreator: (myID, userID) => {
+        getDialogsThunkCreator: (myID, userID) => { // получить данные по текущему диалогу
             dispatch(getDialogsThunkCreator(myID, userID))
         },
-        setdialogUserID: (dialogUserID) => {
+        setdialogUserID: (dialogUserID) => { // задать ID собеседника в BLL
             dispatch(setdialogUserID(dialogUserID))
         },
-        setMessages: (updatedMessages) => {
+        setMessages: (updatedMessages) => { // задать сообщения напрямую (для зануления)
             dispatch(setMessages(updatedMessages))
         },
-        getDialogLastUpdateTimeTnkCrt: (myID, userID) => {
+        getDialogLastUpdateTimeTnkCrt: (myID, userID) => { // получить время последнего обновления текущего диалога
             dispatch(getDialogLastUpdateTimeTnkCrt(myID, userID))
         },
-        dispatch: dispatch
+        dispatch: dispatch // для зануления redux-form
     }
 }
 let mapStateToProps = (state) => {
@@ -111,16 +104,16 @@ let mapStateToProps = (state) => {
     }
 }
 
-function withRouter (Children) {
+function withRouter (Children) { // функция получения данных из URL браузера
     return (props) => {
-        let match = {params: useParams()}
-        return <Children {...props} match = {match}/>
+        let match = {params: useParams()} // получить данные ID из URL браузера
+        return <Children {...props} match = {match}/>// добавить данные в оборачиваемую компоненту
     }
 }
 export default compose(
     connect(mapStateToProps, mapDispatchToProps),
-    withRouter,
-    NavigateToLoginHoc
+    withRouter, // получить данные ID из URL браузера и добавить в пропсы
+    NavigateToLoginHoc // проверка, залогинен ли я
 )
 (DialogsContainer);
 
