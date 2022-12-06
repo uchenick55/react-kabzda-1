@@ -1,6 +1,7 @@
 import React from 'react';
 import Dialogs from "./Dialogs";
 import {
+    getDialogLastUpdateTimeTnkCrt,
     getDialogsThunkCreator,
     sendDialogsThunkCreator,
     setdialogUserID,
@@ -11,7 +12,6 @@ import {NavigateToLoginHoc} from "../hoc/NavigateToLoginHoc";
 import {compose} from "redux";
 import {bedug_mode} from "../../redux/store-redux";
 import {useParams} from "react-router";
-import CheckNewDialogData from "../api/checkNewDialogData";
 
 class DialogsContainer extends React.Component {
     componentDidMount() {
@@ -31,7 +31,6 @@ class DialogsContainer extends React.Component {
         }
         if (dialogUserID!==userID) { // если считаный из URL userID не равен тому, что в BLL
             setdialogUserID(userID) // задать в BLL считаный из URL ID
-            return CheckNewDialogData(myID, userID) // переход на проверку появления новых данных сообщений в LocalStorage
         }
     }
 
@@ -42,6 +41,14 @@ class DialogsContainer extends React.Component {
         getDialogsThunkCreator(this.props.myID, userID);
 
     }
+
+    getDialogLastUpdateTime = () => {
+        const {match, getDialogLastUpdateTimeTnkCrt} = this.props;// пропсы
+        let userID = match.params["*"];// получить локальный userId из URL браузера
+        if (userID === "") {return}
+        getDialogLastUpdateTimeTnkCrt(this.props.myID, userID);
+    }
+
 
     sendMessage = (NewMessage) => {
         const {match, sendDialogsThunkCreator} = this.props;// пропсы
@@ -58,7 +65,12 @@ class DialogsContainer extends React.Component {
 
     render () {
         return <div>
-            <Dialogs {...this.props} sendMessage={this.sendMessage} getDialogs={this.getDialogs}/>
+            <Dialogs
+                {...this.props} // все входящие пропсы пробросили дальше
+                sendMessage={this.sendMessage} // проброс местного метода отправки сообщений
+                getDialogs={this.getDialogs}  // проброс местного метода получить диалоги
+                getDialogLastUpdateTime={this.getDialogLastUpdateTime} // проброс метода - получить время обновления текущего диалога
+            />
         </div>
     }
 }
@@ -77,6 +89,9 @@ let mapDispatchToProps  = (dispatch) => {
         },
         setMessages: (updatedMessages) => {
             dispatch(setMessages(updatedMessages))
+        },
+        getDialogLastUpdateTimeTnkCrt: (myID, userID) => {
+            dispatch(getDialogLastUpdateTimeTnkCrt(myID, userID))
         },
         dispatch: dispatch
     }

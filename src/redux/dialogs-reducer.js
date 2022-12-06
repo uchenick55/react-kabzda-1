@@ -87,7 +87,7 @@ export let getDialogsThunkCreator = (myID, userID) => {//санкреатор п
 
   let getDialogsThunk = async (dispatch) => {// санка получения сообщений диалога
     let updatedMessages = await apiDialogs.getDialog(myID, userID)
-    if (bedug_mode) {console.log("dialogs-reducer.js, sendDialogsThunkCreator->: dispatch(setMessages)->SET_MESSAGES")} // дебаг
+    if (bedug_mode) {console.log("dialogs-reducer.js, getDialogsThunkCreator->: dispatch(setMessages)->SET_MESSAGES")} // дебаг
     dispatch(setMessages(updatedMessages))
   }
   return getDialogsThunk
@@ -102,6 +102,20 @@ export let sendDialogsThunkCreator = (formDataNewMessage, myID, userID) => {//с
   }
   return sendDialogsThunk
 }
+
+//getDialogLastUpdateTimeTnkCrt
+export let getDialogLastUpdateTimeTnkCrt = (myID, userID) => {//санкреатор получения диалогов с данными
+  if (bedug_mode) {console.log("getDialogLastUpdateTimeTnkCrt")}
+
+  let getDialogLastUpdateTimeTnk = async (dispatch) => {// санка получения сообщений диалога
+    let lastUpdateDialogTime = await apiDialogs.getUpdateTime(myID, userID)
+    if (bedug_mode) {console.log("dialogs-reducer.js, getDialogLastUpdateTimeTnkCrt->: dispatch()->")} // дебаг
+    console.log(lastUpdateDialogTime)
+ //   dispatch(setMessages(updatedMessages))
+  }
+  return getDialogLastUpdateTimeTnk
+}
+
 
 
 

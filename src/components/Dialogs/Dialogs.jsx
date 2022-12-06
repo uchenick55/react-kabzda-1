@@ -7,7 +7,6 @@ import {Textarea} from "../common/Validation/customFields";
 import {maxLengthCreator, Required} from "../common/Validation/validationField";
 import {bedug_mode} from "../../redux/store-redux";
 import ScrollContainer from "../common/Scroll/ScrollContainer";
-import CheckNewDialogData from "../api/checkNewDialogData";
 
 
 const newMessageForm = ({handleSubmit}) => {// компонента формы
@@ -34,7 +33,7 @@ const newMessageForm = ({handleSubmit}) => {// компонента формы
 // оберточная компонента формы, задает имя подстейта "newMessageForm"
 const NewMessageReduxForm = reduxForm({form: "newMessageForm"})(newMessageForm)
 
-const Dialogs = ({state, dispatch, sendMessage, getDialogs}) => { // основная компонента отрисовки диалогов
+const Dialogs = ({state, dispatch, sendMessage, getDialogs, getDialogLastUpdateTime}) => { // основная компонента отрисовки диалогов
 
     let dialogElements = state.dialogs.map((d) => // подкомпонента отрисовки всех диалогов через map
         <DialogItem name={d.name} id={d.id} avaSrc={d.avaSrc}/>);
@@ -50,15 +49,14 @@ const Dialogs = ({state, dispatch, sendMessage, getDialogs}) => { // основ�
     useEffect(()=>{
         const id = setInterval(()=>{
             getDialogs()
+            getDialogLastUpdateTime()
+         //   getDialogLastUpdateTime()
         }, 1000)
         return (()=>{clearInterval(id)})
     }, [])
 
     return (
         <div className={classes.dialogs} /*стиль всех диалогов*/>
-{/*
-            <CheckNewDialogData/>
-*/}
             <div className={classes.dialogItems} /*стиль элементов диалога*/ >
                 <ScrollContainer
                     child={dialogElements}
