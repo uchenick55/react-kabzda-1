@@ -3,7 +3,7 @@ import classes from './Dialogs.module.css';// css обработка
 import DialogItem from "./DialogItem/DialogItem";// подкомпонента отрисовки диалогов через map
 import Message from "./Message/Message";// подкомпонента отрисовки сообщений через map
 import {Field, reduxForm, reset} from "redux-form";
-import {Textarea} from "../common/Validation/customFields";
+import {Input, Textarea} from "../common/Validation/customFields";
 import {maxLengthCreator, Required} from "../common/Validation/validationField";
 import {bedug_mode} from "../../redux/store-redux";
 import ScrollContainer from "../common/Scroll/ScrollContainer";
@@ -16,14 +16,11 @@ const newMessageForm = ({handleSubmit}) => {// компонента формы
                 <div>
                     <Field
                         name={"newMessageData"}// имя поля формы и возвращаемого свойства объекта после сабмита формы
-                        component={Textarea}//настраиваемый компонент текстовое поле для вывода ошибок ввода
-                        validate={[Required, maxLengthCreator(60)]}
+                        component={Input}//настраиваемый компонент текстовое поле для вывода ошибок ввода
+                        validate={[ maxLengthCreator(100)]}//Required убрал
                         placeholder={"newMessage"}// текст подсказка при пустом поле
                     />
-                </div>
-                <div>
-                    <button>Submit</button>
-                    {/*кнопка*/}
+                    {/*кнопка в customField*/}
                 </div>
             </div>
         </form>
@@ -33,7 +30,7 @@ const newMessageForm = ({handleSubmit}) => {// компонента формы
 // оберточная компонента формы, задает имя подстейта "newMessageForm"
 const NewMessageReduxForm = reduxForm({form: "newMessageForm"})(newMessageForm)
 
-const Dialogs = ({ dialogs, messages2, dispatch, sendMessage, getDialogs, getDialogLastUpdateTime}) => { // основная компонента отрисовки диалогов
+const Dialogs = ({ dialogs, messages2, dispatch, sendMessage, getDialogLastUpdateTime}) => { // основная компонента отрисовки диалогов
 
     let dialogElements = dialogs.map((d) => // подкомпонента отрисовки всех диалогов через map
         <DialogItem name={d.name} id={d.id} avaSrc={d.avaSrc}/>);
@@ -53,12 +50,13 @@ const Dialogs = ({ dialogs, messages2, dispatch, sendMessage, getDialogs, getDia
         return (()=>{clearInterval(id)}) // для сброса цикла при очередном рендере
     }, []) // useEffect без зависимостей
 
+    const availableScreenHeight = window.screen.availHeight
     return (
         <div className={classes.dialogs} /*стиль всех диалогов*/>
             <div className={classes.dialogItems} /*стиль элементов диалога*/ >
                 <ScrollContainer // обернуть диалоги скролом
                     child={dialogElements}
-                    height={"470px"} // высота поля скрола
+                    height={availableScreenHeight-280} // высота поля скрола
                     firstInsideContainer={"DialogsUp"}
                     secondInsideContainer={"DialogsDown"}
                     containerElement={"DialogsContainer"}
@@ -68,7 +66,7 @@ const Dialogs = ({ dialogs, messages2, dispatch, sendMessage, getDialogs, getDia
                 <div>
                     <ScrollContainer // обернуть сообщения скролом
                         child={messagesElements}
-                        height={"360px"} // высота поля скрола
+                        height={availableScreenHeight-290} // высота поля скрола
                         firstInsideContainer={"MessagesUp"}
                         secondInsideContainer={"MessagesDown"}
                         containerElement={"MessagesContainer"}

@@ -63,7 +63,7 @@ let Users = ({
                     </div>
                 )
             })
-
+        const availableScreenHeight = window.screen.availHeight
         return <div className={classes.users}>
 
             <div> Total users: {totalUsersCount}        </div>
@@ -93,7 +93,7 @@ let Users = ({
 
             <ScrollContainer
                 child={UserItems}
-                height={"409px"}
+                height={availableScreenHeight-340}
                 firstInsideContainer={"UsersUp"}
                 secondInsideContainer={"UsersDown"}
                 containerElement={"UserContainer"}

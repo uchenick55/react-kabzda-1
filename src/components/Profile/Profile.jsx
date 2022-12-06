@@ -20,11 +20,11 @@ const Profile = ({profile, status, myId, putStatusThunkCreator}) => {
         <MyPostsContainer // контейнер отображения постов (пока заглушка из стейта BLL)
         />
     </div>
-
+    const availableScreenHeight = window.screen.availHeight
     return <div>
         <ScrollContainer
             child={ProfileRender}
-            height={"480px"}
+            height={availableScreenHeight-270}
             firstInsideContainer={"ProfileUp"}
             secondInsideContainer={"ProfileDown"}
             containerElement={"ProfileContainer"}

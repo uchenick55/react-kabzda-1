@@ -22,6 +22,7 @@ const MyFriends = ({state, unfollowFriendsAPI, dialogUserID}) => {
                 )
             }
         );
+    const availableScreenHeight = window.screen.availHeight
     return (
         <div className={classes.myfriends}>
             <div className={classes.myfrienditems}>
@@ -29,7 +30,7 @@ const MyFriends = ({state, unfollowFriendsAPI, dialogUserID}) => {
 
                 <ScrollContainer
                     child={MyFriendElements}
-                    height={"348px"}
+                    height={availableScreenHeight-400}
                     firstInsideContainer={"friendsUp"}
                     secondInsideContainer={"friendsDown"}
                     containerElement={"friendsContainer"}
