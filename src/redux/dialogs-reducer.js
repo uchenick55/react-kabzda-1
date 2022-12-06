@@ -126,4 +126,13 @@ export let getDialogLastUpdateTimeTnkCrt = (myID, userID) => {//санкреат
   return getDialogLastUpdateTimeTnk
 }
 
+export let deleteMessageThunkCreator = (messageID, myID, userID) => {//санкреатор удаления сообщения из далога
+  let deleteMessageThunk = async (dispatch) => {// санка удаления сообщения из далога
+    let dialogAfterDeleteMessage = await apiDialogs.deleteMessage(messageID, myID, userID) // удалить сообщение на стороне сервера и запросить обновленные данные
+    if (bedug_mode) {console.log("dialogs-reducer.js, deleteMessageThunkCreator->: dispatch(setMessages)->SET_MESSAGES")} // дебаг
+    dispatch(setMessages(dialogAfterDeleteMessage))// записать в стейт обновленный список сообщений
+  }
+  return deleteMessageThunk
+}
+
 export default dialogsReducer;

@@ -1,6 +1,7 @@
 import React from 'react';
 import Dialogs from "./Dialogs";
 import {
+    deleteMessageThunkCreator,
     getDialogLastUpdateTimeTnkCrt,
     getDialogsThunkCreator,
     sendDialogsThunkCreator,
@@ -58,6 +59,17 @@ class DialogsContainer extends React.Component {
         sendDialogsThunkCreator(NewMessage, this.props.myID, userID); // отправить сообщение
     }
 
+    deleteMessage = (messageID) => {
+        const {match, deleteMessageThunkCreator} = this.props;// пропсы
+        let userID = match.params["*"];// получить локальный userId из URL браузера
+        if (userID === "") { // при клике просто по вкладке Dialogs
+            alert("Выберите диалог") // предупреждение если диалог не выбран
+            return
+        }
+        //alert(messageID)
+        deleteMessageThunkCreator(messageID, this.props.myID, userID);
+    }
+
     render () {
         return <div>
             <Dialogs
@@ -68,6 +80,7 @@ class DialogsContainer extends React.Component {
                 getDialogs={this.getDialogs}  // проброс местного метода получить диалоги
                 getDialogLastUpdateTime={this.getDialogLastUpdateTime} // проброс метода - получить время обновления текущего диалога
                 myID={this.props.myID}
+                deleteMessage = {this.deleteMessage}
             />
         </div>
     }
@@ -90,6 +103,9 @@ let mapDispatchToProps  = (dispatch) => {
         },
         getDialogLastUpdateTimeTnkCrt: (myID, userID) => { // получить время последнего обновления текущего диалога
             dispatch(getDialogLastUpdateTimeTnkCrt(myID, userID))
+        },
+        deleteMessageThunkCreator: (messageID, myID, userID) => { // удалить сообщение из диалога
+            dispatch(deleteMessageThunkCreator(messageID, myID, userID))
         },
         dispatch: dispatch // для зануления redux-form
     }
