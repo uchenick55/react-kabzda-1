@@ -23,8 +23,15 @@ const GetDate = () => {
         case 10: fMonth="ноя."; break;
         case 11: fMonth="дек."; break;
     }
-    let DataReturn = Day+" "+fMonth+" "+Year+", "+Hour+":"+Minutes+":"+Seconds;
+    let DataReturn2 = {
+        "Year": Year,
+        "Month": fMonth,
+        "Day": Day,
+        "Hour": Hour,
+        "Minutes": Minutes,
+        "Seconds": Seconds
+    };
 
-    return DataReturn
+    return DataReturn2
 }
 export default GetDate

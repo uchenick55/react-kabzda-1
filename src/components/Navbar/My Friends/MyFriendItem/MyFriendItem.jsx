@@ -18,11 +18,11 @@ const MyFriendItem = ({id, avaSrc, name, unfollowFriendsAPI, dialogUserID}) => {
             }
         </NavLink>
         <NavLink to={profile}>
-            profile
+            <span className={classes.otherProfile} >profile</span>
         </NavLink>
-        <div>
+        <span>
             <button onClick={()=>{unfollowFriendsAPI(id)}}> Remove </button>
-        </div>
+        </span>
     </div>
 }
 

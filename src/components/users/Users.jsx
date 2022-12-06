@@ -93,7 +93,7 @@ let Users = ({
 
             <ScrollContainer
                 child={UserItems}
-                height={availableScreenHeight-340}
+                height={availableScreenHeight-350}
                 firstInsideContainer={"UsersUp"}
                 secondInsideContainer={"UsersDown"}
                 containerElement={"UserContainer"}

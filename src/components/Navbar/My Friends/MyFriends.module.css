@@ -9,17 +9,17 @@
 }
 
 .myfrienditems {
-    margin-top: 10px;
 }
 
 .currentDialog {
-    padding: 10px;
     font-weight: bold;
     color: coral;
 }
 .otherDialogs {
     padding: 10px;
-
+}
+.otherProfile {
+    padding-right: 10px;
 }
 
 

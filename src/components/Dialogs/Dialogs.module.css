@@ -4,12 +4,6 @@
     padding-top: 10px;
 }
 
-.dialogItems {
-
-}
-.dialog {
-
-}
 .dialog.active {
     color: white;
 }
@@ -17,12 +11,5 @@
 .dialog img {
     border-radius: 30px;
     width: 50px;
-}
-
-.messages {
-    padding-top: 10px;
-}
-
-.messageItem {
 }
 

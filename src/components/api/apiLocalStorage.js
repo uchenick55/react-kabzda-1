@@ -31,7 +31,15 @@ export let apiDialogs = { // объект с методами api для Dialogs
       message: formDataNewMessage
     }]
 
-    let  LocalStoragedialogUpdateTime1 = GetDate()// в случае обновления диалога запомнить время его обновления
+    let  LocalStoragedialogUpdateTime1 =
+      GetDate().Day+"."+
+      GetDate().Month+""+
+      GetDate().Year+" "+
+      GetDate().Hour+":"+
+      GetDate().Minutes+":"+
+      GetDate().Seconds
+
+      // в случае обновления диалога запомнить время его обновления
 
     let dialogNameLocal = myID>userID?"Dialog_"+myID+"_"+userID:"Dialog_"+userID+"_"+myID;  // задать имя диалога для запроса
     let dialogUpdateTimeLocal = myID>userID?"Dialog_"+myID+"_"+userID+"_UpdateTime":"Dialog_"+userID+"_"+myID+"_UpdateTime";// задать имя времени обновления диалога для запроса

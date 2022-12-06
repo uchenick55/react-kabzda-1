@@ -1,0 +1,38 @@
+.dialogs {
+    display: grid;
+    grid-template-columns: 4fr 10fr;
+    padding-top: 10px;
+}
+
+
+.messageCommon {
+    padding: 8px;
+    width: max-content;
+}
+.messageMyId {
+    padding: 5px;
+    background-color: rgba(117, 190, 218, 0.5);
+    border-radius: 5px;
+
+
+}
+.messageNotMyId {
+    padding: 5px;
+    background-color: rgba(0, 100, 218, 0.5);
+    border: 1px solid blue;
+}
+
+.timeStyle {
+    font-size: 10px;
+}
+
+.dialog.active {
+    color: white;
+}
+
+.x {
+    width: 15px;
+    padding-left: 5px;
+}
+
+

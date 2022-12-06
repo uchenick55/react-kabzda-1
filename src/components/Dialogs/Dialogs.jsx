@@ -20,6 +20,7 @@ const newMessageForm = ({handleSubmit}) => {// компонента формы
                         validate={[ maxLengthCreator(100)]}//Required убрал
                         placeholder={"newMessage"}// текст подсказка при пустом поле
                     />
+                    <span>  <button type="submit">Submit</button></span>
                     {/*кнопка в customField*/}
                 </div>
             </div>
@@ -30,13 +31,13 @@ const newMessageForm = ({handleSubmit}) => {// компонента формы
 // оберточная компонента формы, задает имя подстейта "newMessageForm"
 const NewMessageReduxForm = reduxForm({form: "newMessageForm"})(newMessageForm)
 
-const Dialogs = ({ dialogs, messages2, dispatch, sendMessage, getDialogLastUpdateTime}) => { // основная компонента отрисовки диалогов
+const Dialogs = ({ dialogs, messages2, dispatch, sendMessage, getDialogLastUpdateTime, myID}) => { // основная компонента отрисовки диалогов
 
     let dialogElements = dialogs.map((d) => // подкомпонента отрисовки всех диалогов через map
         <DialogItem name={d.name} id={d.id} avaSrc={d.avaSrc}/>);
 
     let messagesElements = messages2.map((m) => // подкомпонента отрисовки всех сообщений через map
-        <Message message={m.message}/>);
+        <Message message={m.message} myID={myID} userId={m.userId} Date={m.Date} MessageId={m.id}/>);
 
     let onSendMessageClick = (formDataNewMessage) => {// функция отправления данных формы нового сообщения в стейт
         dispatch(reset('newMessageForm'))
@@ -56,7 +57,7 @@ const Dialogs = ({ dialogs, messages2, dispatch, sendMessage, getDialogLastUpdat
             <div className={classes.dialogItems} /*стиль элементов диалога*/ >
                 <ScrollContainer // обернуть диалоги скролом
                     child={dialogElements}
-                    height={availableScreenHeight-280} // высота поля скрола
+                    height={availableScreenHeight-290} // высота поля скрола
                     firstInsideContainer={"DialogsUp"}
                     secondInsideContainer={"DialogsDown"}
                     containerElement={"DialogsContainer"}
@@ -66,7 +67,7 @@ const Dialogs = ({ dialogs, messages2, dispatch, sendMessage, getDialogLastUpdat
                 <div>
                     <ScrollContainer // обернуть сообщения скролом
                         child={messagesElements}
-                        height={availableScreenHeight-290} // высота поля скрола
+                        height={availableScreenHeight-300} // высота поля скрола
                         firstInsideContainer={"MessagesUp"}
                         secondInsideContainer={"MessagesDown"}
                         containerElement={"MessagesContainer"}

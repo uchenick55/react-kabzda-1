@@ -31,7 +31,6 @@ export const Input = ({input, meta, ...restProps}) => {
                     //границу login подсветить красным если ошибка в meta
                 />
             </span>
-            <span>  <button type="submit">Submit</button></span>
             <div >
                 {isError?<span className={classes.textError}>{meta.error}</span>:null}
 {/*                если ошибка в meta и поле тронули, то отобразить текс ошибки*/}

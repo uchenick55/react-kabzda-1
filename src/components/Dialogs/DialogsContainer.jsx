@@ -67,6 +67,7 @@ class DialogsContainer extends React.Component {
                 sendMessage={this.sendMessage} // проброс местного метода отправки сообщений
                 getDialogs={this.getDialogs}  // проброс местного метода получить диалоги
                 getDialogLastUpdateTime={this.getDialogLastUpdateTime} // проброс метода - получить время обновления текущего диалога
+                myID={this.props.myID}
             />
         </div>
     }
