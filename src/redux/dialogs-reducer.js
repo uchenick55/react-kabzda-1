@@ -5,6 +5,7 @@ const SEND_MESSAGE = "myApp/dialogs-reducer/SEND-MESSAGE"; // Константа
 const DIALOGS_INITIAL_STATE = "myApp/dialogs-reducer/DIALOGS_INITIAL_STATE";  //константа зануления при логауте
 const SET_MESSAGES =  "myApp/dialogs-reducer/SET_MESSAGES";  //константа задания списка сообщений в стейт
 const DIALOG_USER_ID =  "myApp/dialogs-reducer/DIALOG_USER_ID"; //константа задания ID пользователя, с кем диалог
+const DIALOG_LAST_UPDATE_TIME =  "myApp/dialogs-reducer/DIALOG_LAST_UPDATE_TIME"; //константа задания ID пользователя, с кем диалог
 
 export let sendMessageCreator = (formDataNewMessage) => { // экшнкреатор отправки сообщений
     return {type: SEND_MESSAGE, formDataNewMessage}
@@ -18,10 +19,14 @@ export let setMessages = (updatedMessages) => { // экшнкреатор зад
 export let setdialogUserID = (dialogUserID) => { // экшнкреатор задания списка сообщений в стейт messages2
   return {type: DIALOG_USER_ID, dialogUserID}
 };
+export let setDialogLastUpdateTime = (dialogLastUpdateTime) => { // экшнкреатор задания последнего времени обновления текущего диалога
+  return {type: DIALOG_LAST_UPDATE_TIME, dialogLastUpdateTime}
+};
 
 let initialState = { // стейт сообщений по умолчанию
         messages2: [],
         dialogUserID: null, // ID пользователя с кем диалог
+        dialogLastUpdateTime: null, // последнее время обновления текущего диалога
         dialogs: [ // список диалогов по умолчанию (заглушка)
             {
                 id: 1,
@@ -77,6 +82,13 @@ let dialogsReducer = (state = initialState, action) => { // редьюсер д�
          }
           if (bedug_mode) {console.log("dialogs-reducer.js, DIALOG_USER_ID: ", state, stateCopy)} // дебаг
           return stateCopy
+       case DIALOG_LAST_UPDATE_TIME: // экшн  задания последнего времени обновления текущего диалога
+         stateCopy = {
+           ...state,
+           dialogLastUpdateTime: action.dialogLastUpdateTime, //  задание последнего времени обновления текущего диалога
+         }
+          if (bedug_mode) {console.log("dialogs-reducer.js, DIALOG_LAST_UPDATE_TIME: ", state, stateCopy)} // дебаг
+          return stateCopy
         default:
             return state;
     }
@@ -108,10 +120,9 @@ export let getDialogLastUpdateTimeTnkCrt = (myID, userID) => {//санкреат
   if (bedug_mode) {console.log("getDialogLastUpdateTimeTnkCrt")}
 
   let getDialogLastUpdateTimeTnk = async (dispatch) => {// санка получения сообщений диалога
-    let lastUpdateDialogTime = await apiDialogs.getUpdateTime(myID, userID)
-    if (bedug_mode) {console.log("dialogs-reducer.js, getDialogLastUpdateTimeTnkCrt->: dispatch()->")} // дебаг
-    console.log(lastUpdateDialogTime)
- //   dispatch(setMessages(updatedMessages))
+    let dialogLastUpdateTime = await apiDialogs.getUpdateTime(myID, userID)
+    if (bedug_mode) {console.log("dialogs-reducer.js, getDialogLastUpdateTimeTnkCrt->: dispatch(setDialogLastUpdateTime()->DIALOG_LAST_UPDATE_TIME")} // дебаг
+    dispatch(setDialogLastUpdateTime(dialogLastUpdateTime))
   }
   return getDialogLastUpdateTimeTnk
 }

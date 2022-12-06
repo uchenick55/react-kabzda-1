@@ -32,6 +32,8 @@ class DialogsContainer extends React.Component {
         if (dialogUserID!==userID) { // если считаный из URL userID не равен тому, что в BLL
             setdialogUserID(userID) // задать в BLL считаный из URL ID
         }
+        // ЗДЕСЬ ПРОВЕРИТЬ обновилось ли время диалога, если да, то getDialogs()
+        // убрать getDialogs из setInterval
     }
 
     getDialogs = () => {
@@ -66,6 +68,8 @@ class DialogsContainer extends React.Component {
     render () {
         return <div>
             <Dialogs
+                messages2 ={this.props.messages2}// массив сообщений текущего диалога
+                dialogs ={this.props.dialogs} // список диалогов
                 {...this.props} // все входящие пропсы пробросили дальше
                 sendMessage={this.sendMessage} // проброс местного метода отправки сообщений
                 getDialogs={this.getDialogs}  // проброс местного метода получить диалоги
@@ -98,11 +102,12 @@ let mapDispatchToProps  = (dispatch) => {
 }
 let mapStateToProps = (state) => {
     return {
-        state: state.dialogsPage,
-        isAuth: state.auth.isAuth,
-        myID: state.auth.myID,
-        dialogUserID: state.dialogsPage.dialogUserID,
-        messages2: state.dialogsPage.messages2,
+        isAuth: state.auth.isAuth, // флаг, авторизован ли я сейчас,
+        myID: state.auth.myID, // мой ID (авторизованного пользователя)
+        dialogUserID: state.dialogsPage.dialogUserID, // ID пользователя, с кем сейчас идет диалог
+        messages2: state.dialogsPage.messages2, // массив сообщений текущего диалога
+        dialogs: state.dialogsPage.dialogs, // список диалогов
+        dialogLastUpdateTime: state.dialogsPage.dialogLastUpdateTime,// время последнего времени обновления текущего диалога
     }
 }
 

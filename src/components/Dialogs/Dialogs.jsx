@@ -33,12 +33,12 @@ const newMessageForm = ({handleSubmit}) => {// компонента формы
 // оберточная компонента формы, задает имя подстейта "newMessageForm"
 const NewMessageReduxForm = reduxForm({form: "newMessageForm"})(newMessageForm)
 
-const Dialogs = ({state, dispatch, sendMessage, getDialogs, getDialogLastUpdateTime}) => { // основная компонента отрисовки диалогов
+const Dialogs = ({ dialogs, messages2, dispatch, sendMessage, getDialogs, getDialogLastUpdateTime}) => { // основная компонента отрисовки диалогов
 
-    let dialogElements = state.dialogs.map((d) => // подкомпонента отрисовки всех диалогов через map
+    let dialogElements = dialogs.map((d) => // подкомпонента отрисовки всех диалогов через map
         <DialogItem name={d.name} id={d.id} avaSrc={d.avaSrc}/>);
 
-    let messagesElements = state.messages2.map((m) => // подкомпонента отрисовки всех сообщений через map
+    let messagesElements = messages2.map((m) => // подкомпонента отрисовки всех сообщений через map
         <Message message={m.message}/>);
 
     let onSendMessageClick = (formDataNewMessage) => {// функция отправления данных формы нового сообщения в стейт
