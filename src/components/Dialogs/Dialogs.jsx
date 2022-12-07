@@ -12,16 +12,17 @@ import ScrollContainer from "../common/Scroll/ScrollContainer";
 const newMessageForm = ({handleSubmit}) => {// компонента формы
     return (
         <form onSubmit={handleSubmit} /*привязка сабмита формы к внутренней функции reduxForm - handleSubmit*/>
-            <div>
-                <div>
+            <div className={classes.FieldButtonGreed}>
+                <div className={classes.FieldLeft}>
                     <Field
                         name={"newMessageData"}// имя поля формы и возвращаемого свойства объекта после сабмита формы
                         component={Input}//настраиваемый компонент текстовое поле для вывода ошибок ввода
-                        validate={[ maxLengthCreator(100)]}//Required убрал
+                        validate={[maxLengthCreator(100)]}//Required убрал
                         placeholder={"newMessage"}// текст подсказка при пустом поле
                     />
-                    <span>  <button type="submit">Submit</button></span>
-                    {/*кнопка в customField*/}
+                </div>
+                <div className={classes.buttonRight}>
+                    <button type="submit">Submit</button>
                 </div>
             </div>
         </form>
@@ -31,24 +32,27 @@ const newMessageForm = ({handleSubmit}) => {// компонента формы
 // оберточная компонента формы, задает имя подстейта "newMessageForm"
 const NewMessageReduxForm = reduxForm({form: "newMessageForm"})(newMessageForm)
 
-const Dialogs = ({ dialogs, messages2, dispatch, sendMessage, getDialogLastUpdateTime, myID, deleteMessage}) => { // основная компонента отрисовки диалогов
+const Dialogs = ({dialogs, messages2, dispatch, sendMessage, getDialogLastUpdateTime, myID, deleteMessage}) => { // основная компонента отрисовки диалогов
 
     let dialogElements = dialogs.map((d) => // подкомпонента отрисовки всех диалогов через map
         <DialogItem name={d.name} id={d.id} avaSrc={d.avaSrc}/>);
 
     let messagesElements = messages2.map((m) => // подкомпонента отрисовки всех сообщений через map
-        <Message message={m.message} myID={myID} userId={m.userId} Date={m.Date} MessageId={m.id} deleteMessage={deleteMessage}/>);
+        <Message message={m.message} myID={myID} userId={m.userId} Date={m.Date} MessageId={m.id}
+                 deleteMessage={deleteMessage}/>);
 
     let onSendMessageClick = (formDataNewMessage) => {// функция отправления данных формы нового сообщения в стейт
         dispatch(reset('newMessageForm'))
         sendMessage(formDataNewMessage.newMessageData);
     };
 
-    useEffect(()=>{ // при очередном ререндере
-        const id = setInterval(()=>{ // задать цикл с интервалом в 1 сек
+    useEffect(() => { // при очередном ререндере
+        const id = setInterval(() => { // задать цикл с интервалом в 1 сек
             getDialogLastUpdateTime() // получить время обновления текущего диалога
         }, 1000)
-        return (()=>{clearInterval(id)}) // для сброса цикла при очередном рендере
+        return (() => {
+            clearInterval(id)
+        }) // для сброса цикла при очередном рендере
     }, []) // useEffect без зависимостей
 
     const availableScreenHeight = window.screen.availHeight
@@ -57,7 +61,7 @@ const Dialogs = ({ dialogs, messages2, dispatch, sendMessage, getDialogLastUpdat
             <div className={classes.dialogItems} /*стиль элементов диалога*/ >
                 <ScrollContainer // обернуть диалоги скролом
                     child={dialogElements}
-                    height={availableScreenHeight-290} // высота поля скрола
+                    height={availableScreenHeight - 280} // высота поля скрола
                     firstInsideContainer={"DialogsUp"}
                     secondInsideContainer={"DialogsDown"}
                     containerElement={"DialogsContainer"}
@@ -67,7 +71,7 @@ const Dialogs = ({ dialogs, messages2, dispatch, sendMessage, getDialogLastUpdat
                 <div>
                     <ScrollContainer // обернуть сообщения скролом
                         child={messagesElements}
-                        height={availableScreenHeight-290} // высота поля скрола
+                        height={availableScreenHeight - 280} // высота поля скрола
                         firstInsideContainer={"MessagesUp"}
                         secondInsideContainer={"MessagesDown"}
                         containerElement={"MessagesContainer"}

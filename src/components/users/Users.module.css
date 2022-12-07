@@ -4,8 +4,12 @@
 }
 
 .users {
-    padding-top: 10px;
 
+}
+
+.inputFindUsers {
+padding-top: 10px;
+padding-bottom: 10px;
 }
 
 .preloader {

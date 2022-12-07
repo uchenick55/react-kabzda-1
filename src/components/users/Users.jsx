@@ -77,7 +77,7 @@ let Users = ({
 
                 />}{/*Вывод слайсера вверху страницы (пагинация)*/}
             </div>
-            <form>  {/* объединение инпута и кнопки*/}
+            <form className={classes.inputFindUsers}>  {/* объединение инпута и кнопки*/}
                 <input
                     value={onChangeTerm} // значение поля поиска захардкодили
                     onChange={(event) => {
@@ -93,7 +93,7 @@ let Users = ({
 
             <ScrollContainer
                 child={UserItems}
-                height={availableScreenHeight-350}
+                height={availableScreenHeight-340}
                 firstInsideContainer={"UsersUp"}
                 secondInsideContainer={"UsersDown"}
                 containerElement={"UserContainer"}

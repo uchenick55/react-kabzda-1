@@ -1,7 +1,6 @@
 .dialogs {
     display: grid;
-    grid-template-columns: 4fr 10fr;
-    padding-top: 10px;
+    grid-template-columns: 130px 1fr;
 }
 
 .dialog.active {
@@ -13,3 +12,16 @@
     width: 50px;
 }
 
+.FieldLeft {
+
+}
+
+.buttonRight {
+padding-left: 10px;
+padding-right: 10px
+}
+
+.FieldButtonGreed {
+    display: grid;
+    grid-template-columns: 1fr 65px;
+}

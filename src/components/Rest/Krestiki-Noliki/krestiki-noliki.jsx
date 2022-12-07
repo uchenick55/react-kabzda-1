@@ -92,7 +92,7 @@ function calculateWinner(squares) {
     return null; // если комбинации победы не совпадают, победитель не определен
 }
 
-class Game extends React.Component {
+class KrestikiNoliki extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
@@ -153,6 +153,6 @@ class Game extends React.Component {
     }
 }
 
-export default Game;
+export default KrestikiNoliki;
 
 
