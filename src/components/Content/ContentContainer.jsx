@@ -2,11 +2,13 @@ import React, {Suspense} from "react";
 import {Route, Routes} from "react-router-dom";
 import News from "../News/News";
 import Rest from "../Rest/Krestiki-Noliki/krestiki-noliki";
-import ProfileContainer from "../Profile/ProfileInfo/ProfileContainer";
-import DialogsContainer from "../Dialogs/DialogsContainer";
-import ExportDefaultUsersContainer from "../users/ExportDefaultUsersContainer";
-import LoginContainer from "../Login/LoginContainer";
 import classes from './ContentContainer.module.css';
+
+const ProfileContainer = React.lazy(() => import("../Profile/ProfileInfo/ProfileContainer"))
+const DialogsContainer = React.lazy(() => import("../Dialogs/DialogsContainer"))
+// В случае именного экспорта, оборачиваем компоненту в промежуточную с экспортом по умолчанию, чтобы работал lazy
+const ExportDefaultUsersContainer = React.lazy(() => import("../users/ExportDefaultUsersContainer"))
+const LoginContainer = React.lazy(() => import("../Login/LoginContainer"))
 
 
 let ContentContainer = () => { // вынес роутинг контента в отдельную компоненту

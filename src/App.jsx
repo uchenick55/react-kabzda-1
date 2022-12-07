@@ -14,12 +14,6 @@ import KrestikiNoliki from "./components/Rest/Krestiki-Noliki/krestiki-noliki";
 import InfoContainer from "./components/Info/InfoContainer";
 import ContentContainer from "./components/Content/ContentContainer";
 
-const ProfileContainer = React.lazy(() => import("./components/Profile/ProfileInfo/ProfileContainer"))
-const DialogsContainer = React.lazy(() => import("./components/Dialogs/DialogsContainer"))
-// В случае именного экспорта, оборачиваем компоненту в промежуточную с экспортом по умолчанию, чтобы работал lazy
-const ExportDefaultUsersContainer = React.lazy(() => import("./components/users/ExportDefaultUsersContainer"))
-const LoginContainer = React.lazy(() => import("./components/Login/LoginContainer"))
-
 class App extends React.Component { // конвертируем app в классовую компоненту для жизненного цикла
     componentDidMount() {
         this.props.initialisedAppThunkCreator() // запускаем инициализацию приложения
@@ -41,8 +35,6 @@ class App extends React.Component { // конвертируем app в клас�
                     <div className='app-wrapper-content'>
                         <ContentContainer/> {/*страницы контента в зависмости от URL*/}
                     </div>
-
-
                     {/*
                     </ErrorBoundary>
 */}

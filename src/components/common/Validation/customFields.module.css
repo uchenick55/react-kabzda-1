@@ -1,12 +1,10 @@
 .textAreaError {
     border: solid red 2px;
-    width: 100%;
+    width: 95%;
 }
 
-.InputError {
-    border: solid red 2px;
-    width: 100%;
-
+.textArea {
+    width: 95%;
 }
 
 .textError {
@@ -17,11 +15,15 @@
     color: red;
 }
 
-.Input,
-.textArea {
+.Input {
     width: 100%;
 }
 
+.InputError {
+    border: solid red 2px;
+    width: 100%;
+
+}
 
 
 

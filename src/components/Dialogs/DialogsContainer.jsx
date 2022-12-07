@@ -45,7 +45,7 @@ class DialogsContainer extends React.Component {
     }
 
     sendMessage = (NewMessage) => {
-        if (this.props.userID === "") { // при клике просто по вкладке Dialogs
+        if (!this.props.userID) { // при клике просто по вкладке Dialogs
             alert("Выберите диалог") // предупреждение если диалог не выбран
             return
         }

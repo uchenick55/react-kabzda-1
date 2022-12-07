@@ -7,7 +7,7 @@ export let setTheme = (themeUpdate) => { // экшн задания темы
 };
 
 let initialState = { //стейт по умолчанию темы
-  themeBLL: "light", // тема в bll по умолчанию
+  themeBLL: "dark", // тема в bll по умолчанию
 }
 
 let darkLightReducer = (state = initialState, action) => {//редьюсер задания темы
