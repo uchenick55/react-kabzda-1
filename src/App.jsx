@@ -11,6 +11,7 @@ import ErrorBoundary from "./components/common/ErrorBoundary/ErrorBoundary";
 import News from "./components/News/News";
 import Rest from "./components/Rest/Rest";
 import KrestikiNoliki from "./components/Rest/Krestiki-Noliki/krestiki-noliki";
+import InfoContainer from "./components/Info/InfoContainer";
 import ContentContainer from "./components/Content/ContentContainer";
 
 const ProfileContainer = React.lazy(() => import("./components/Profile/ProfileInfo/ProfileContainer"))
@@ -32,26 +33,17 @@ class App extends React.Component { // конвертируем app в клас�
             <BrowserRouter>
                 <div className='app-wrapper'> {/*позиционирование по сетке гридов*/}
                     {/*    <ErrorBoundary> Общий обработчик ошибок во всем приложении*/}
-                        <HeaderContainer/> {/*Header с пользователем и day/night режимом*/}
-                        <NavBarContainer/> {/*Навигационная панель со ссылками и FriendList*/}
-                        <div className='app-wrapper-content'>
-                                                    <ContentContainer/>
+                    <HeaderContainer/> {/*Header с пользователем и day/night режимом*/}
+                    <NavBarContainer/> {/*Навигационная панель со ссылками и FriendList*/}
+                    <div className='app-wrapper-comments'>
+                        <InfoContainer/> {/*поле комментариев функциональности к страницам в зависмости от URL*/}
+                    </div>
+                    <div className='app-wrapper-content'>
+                        <ContentContainer/> {/*страницы контента в зависмости от URL*/}
+                    </div>
 
-                        </div>
-{/*                        <Suspense fallback={<div>Загрузка...</div>}> Оборачивает компоненты, по которым идет Lazy import и выдает fallback на время загрузки
-                            <div className='app-wrapper-content'> позиционирование контента по сетке гридов
-                                <Routes> в зависимости от URL подгрузка разного контента
-                                    <Route path='/profile/*' element={<ProfileContainer/>}/> Профиль
-                                    <Route path='/dialogs/*' element={<DialogsContainer/>}/> Диалоги
-                                    <Route path='/users/*' element={<ExportDefaultUsersContainer/>}/> Поиск по Users
-                                    <Route path='/login/*' element={<LoginContainer/>}/> Логин
-                                    <Route path='/news/*' element={<News/>}/> Логин
-                                    <Route path='/rest/*' element={<Rest/>}/> Логин
-                                    <Route path='/krestiki-noliki/*' element={<KrestikiNoliki/>}/> Логин
-                                </Routes>
-                            </div>
-                        </Suspense>*/}
-{/*
+
+                    {/*
                     </ErrorBoundary>
 */}
                 </div>
