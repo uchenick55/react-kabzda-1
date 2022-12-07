@@ -18,17 +18,15 @@ class DialogsContainer extends React.Component {
 
     componentDidUpdate(prevProps, prevState, snapshot) {
         console.log("DialogsContaine -> componentDidUpdate")
-        const {match, setdialogUserID, dialogUserID, myID} = this.props;// пропсы
-        let userID = match.params["*"];// получить локальный userId из URL браузера
-        if (userID === "") { // если перешли на вкладку Dialogs с нулевым userID
+        if (this.props.userID === "") { // если перешли на вкладку Dialogs с нулевым userID
             if (this.props.messages2.length>0) { // если массив сообщений непустой
                 this.props.setMessages([]); // занулить массив сообщений (очистить список сообщений)
-                setdialogUserID(null) // занулить userID (убрать выделение диалога)
+                this.props.setdialogUserID(null) // занулить userID (убрать выделение диалога)
             }
             return
         }
-        if (dialogUserID!==userID) { // если считаный из URL userID не равен тому, что в BLL
-            setdialogUserID(userID) // задать в BLL считаный из URL ID
+        if ( this.props.dialogUserID!==this.props.userID) { // если считаный из URL userID не равен тому, что в BLL
+            this.props.setdialogUserID(this.props.userID) // задать в BLL считаный из URL ID
         }
         if  (this.props.dialogLastUpdateTime!==prevProps.dialogLastUpdateTime) { // если время обновления диалога изменилось
             this.getDialogs()// запросить новые сообщения по диалогу
@@ -37,37 +35,25 @@ class DialogsContainer extends React.Component {
 
     getDialogs = () => {
         const {match, getDialogsThunkCreator} = this.props;// пропсы
-        let userID = match.params["*"];// получить локальный userId из URL браузера
-        if (userID === "") {return}// при клике просто по вкладке Dialogs
-        getDialogsThunkCreator(this.props.myID, userID);// получить диалоги
+        if (this.props.userID === "") {return}// при клике просто по вкладке Dialogs
+        this.props.getDialogsThunkCreator(this.props.myID, this.props.userID);// получить диалоги
     }
 
     getDialogLastUpdateTime = () => {
-        const {match, getDialogLastUpdateTimeTnkCrt} = this.props;// пропсы
-        let userID = match.params["*"];// получить локальный userId из URL браузера
-        if (userID === "") {return}// при клике просто по вкладке Dialogs
-        getDialogLastUpdateTimeTnkCrt(this.props.myID, userID); // получить время последенего обновления диалога
+        if (this.props.userID === "") {return}// при клике просто по вкладке Dialogs
+        this.props.getDialogLastUpdateTimeTnkCrt(this.props.myID, this.props.userID); // получить время последенего обновления диалога
     }
 
     sendMessage = (NewMessage) => {
-        const {match, sendDialogsThunkCreator} = this.props;// пропсы
-        let userID = match.params["*"];// получить локальный userId из URL браузера
-        if (userID === "") { // при клике просто по вкладке Dialogs
+        if (this.props.userID === "") { // при клике просто по вкладке Dialogs
             alert("Выберите диалог") // предупреждение если диалог не выбран
             return
         }
-        sendDialogsThunkCreator(NewMessage, this.props.myID, userID); // отправить сообщение
+        this.props.sendDialogsThunkCreator(NewMessage, this.props.myID, this.props.userID); // отправить сообщение
     }
 
     deleteMessage = (messageID) => {
-        const {match, deleteMessageThunkCreator} = this.props;// пропсы
-        let userID = match.params["*"];// получить локальный userId из URL браузера
-        if (userID === "") { // при клике просто по вкладке Dialogs
-            alert("Выберите диалог") // предупреждение если диалог не выбран
-            return
-        }
-        //alert(messageID)
-        deleteMessageThunkCreator(messageID, this.props.myID, userID);
+        this.props.deleteMessageThunkCreator(messageID, this.props.myID, this.props.userID);
     }
 
     render () {
@@ -124,7 +110,8 @@ let mapStateToProps = (state) => {
 function withRouter (Children) { // функция получения данных из URL браузера
     return (props) => {
         let match = {params: useParams()} // получить данные ID из URL браузера
-        return <Children {...props} match = {match}/>// добавить данные в оборачиваемую компоненту
+        let userID = match.params["*"];// получить локальный userId из URL браузера
+        return <Children {...props} match = {match} userID={userID}/>// добавить данные в оборачиваемую компоненту
     }
 }
 export default compose(

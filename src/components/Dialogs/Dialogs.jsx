@@ -67,7 +67,7 @@ const Dialogs = ({ dialogs, messages2, dispatch, sendMessage, getDialogLastUpdat
                 <div>
                     <ScrollContainer // обернуть сообщения скролом
                         child={messagesElements}
-                        height={availableScreenHeight-300} // высота поля скрола
+                        height={availableScreenHeight-290} // высота поля скрола
                         firstInsideContainer={"MessagesUp"}
                         secondInsideContainer={"MessagesDown"}
                         containerElement={"MessagesContainer"}
