@@ -110,7 +110,7 @@ let mapStateToProps = (state) => {
 function withRouter (Children) { // функция получения данных из URL браузера
     return (props) => {
         let match = {params: useParams()} // получить данные ID из URL браузера
-        let userID = match.params["*"];// получить локальный userId из URL браузера
+        let userID = Number(match.params["*"]); // получить локальный userId из URL браузера
         return <Children {...props} match = {match} userID={userID}/>// добавить данные в оборачиваемую компоненту
     }
 }

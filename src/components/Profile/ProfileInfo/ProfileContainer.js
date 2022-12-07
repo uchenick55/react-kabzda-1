@@ -9,18 +9,14 @@ import {bedug_mode} from "../../../redux/store-redux";
 
 class ProfileContainer extends React.Component {
     componentDidMount() {
-      if (bedug_mode) {console.log("ProfileContainer.js componentDidMount()")} // дебаг
-      const {match, getProfileThunkCreator} = this.props;// пропсы
-        let userId = match.params["*"];// получить локальный userId из URL браузера
-        getProfileThunkCreator(userId);// обновить профиль в зависомости от ID
+        if (bedug_mode) {console.log("ProfileContainer.js componentDidMount()")} // дебаг
+        this.props.getProfileThunkCreator(this.props.userId);// обновить профиль в зависомости от ID
     }
     componentDidUpdate(prevProps, prevState, snapshot) {
-      const {match, getProfileThunkCreator} = this.props; // пропсы
-      let userId = Number(match.params["*"]); // получить локальный userId из URL браузера
-      if (userId === 0) {userId=this.props.myId}// если кликнули на мой профиль (без ID в URL браузера)
-      if (userId!==this.props.profile.userId) { // присвоить ID обновления профиля - мой ID
-        console.log ("смена пользователя") // уведомление для дебага
-        getProfileThunkCreator(userId); // обновить профиль в зависомости от ID
+      let userId = this.props.userId; // получить локальный userId из URL браузера
+      if (userId === 0) {userId=this.props.myId}// если кликнули на мой профиль (без ID в URL браузера) то смотрим мой профиль
+      if (userId!==this.props.profile.userId) { // если считаный из URL ID не равен записаному в стейт (смена пользователя)
+        this.props.getProfileThunkCreator(userId); // обновить профиль в зависомости от ID
       }
     }
 
@@ -40,8 +36,9 @@ let mapStateToProps = (state) => {
 
 function withRouter (Children) {
     return (props) => {
-        let match = {params: useParams()}
-        return <Children {...props} match = {match}/>
+       let match = {params: useParams()}
+       let userId = Number(match.params["*"]); // получить локальный userId из URL браузера
+       return <Children {...props} match = {match} userId={userId}/>
     }
 }
 
