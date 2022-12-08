@@ -95,7 +95,7 @@ class News extends React.Component {
         return (    <div>
                 <ScrollContainer
                     child={hn}
-                    height={window.screen.availHeight-270}
+                    height={window.screen.availHeight-280}
                     firstInsideContainer={"UsersUp"}
                     secondInsideContainer={"UsersDown"}
                     containerElement={"UserContainer"}

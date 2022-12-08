@@ -3,7 +3,7 @@ import Dialogs from "./Dialogs";
 import {
     deleteMessageThunkCreator,
     getDialogLastUpdateTimeTnkCrt,
-    getDialogsThunkCreator,
+    getDialogsThunkCreator, getFollowThunkCreator,
     sendDialogsThunkCreator,
     setdialogUserID,
     setMessages
@@ -13,6 +13,7 @@ import {NavigateToLoginHoc} from "../hoc/NavigateToLoginHoc";
 import {compose} from "redux";
 import {bedug_mode} from "../../redux/store-redux";
 import {useParams} from "react-router";
+import {getProfileThunkCreator} from "../../redux/profile-reducer";
 
 class DialogsContainer extends React.Component {
 
@@ -27,6 +28,9 @@ class DialogsContainer extends React.Component {
         }
         if ( this.props.dialogUserID!==this.props.userID) { // если считаный из URL userID не равен тому, что в BLL
             this.props.setdialogUserID(this.props.userID) // задать в BLL считаный из URL ID
+            //здесь запросить профиль выбранного userId через getProfileThunkCreator
+            this.props.getProfileThunkCreator(this.props.userID)// при переходе в диалог любого пользователя считать его данные профиля с сервера
+            this.props.getFollowThunkCreator(this.props.userID)// узанть его статус follow/unfollow
         }
         if  (this.props.dialogLastUpdateTime!==prevProps.dialogLastUpdateTime) { // если время обновления диалога изменилось
             this.getDialogs()// запросить новые сообщения по диалогу
@@ -50,6 +54,8 @@ class DialogsContainer extends React.Component {
             return
         }
         this.props.sendDialogsThunkCreator(NewMessage, this.props.myID, this.props.userID); // отправить сообщение
+        // С profilePagе буду брать userName, userPhoto, followed для записи через санку в LocalStorage
+
     }
 
     deleteMessage = (messageID) => {
@@ -93,9 +99,16 @@ let mapDispatchToProps  = (dispatch) => {
         deleteMessageThunkCreator: (messageID, myID, userID) => { // удалить сообщение из диалога
             dispatch(deleteMessageThunkCreator(messageID, myID, userID))
         },
+        getProfileThunkCreator: (dialogUserID) => { // удалить сообщение из диалога
+            dispatch(getProfileThunkCreator(dialogUserID))
+        },
+        getFollowThunkCreator: (dialogUserID) => { // удалить сообщение из диалога
+            dispatch(getFollowThunkCreator(dialogUserID))
+        },
         dispatch: dispatch // для зануления redux-form
     }
 }
+
 let mapStateToProps = (state) => {
     return {
         isAuth: state.auth.isAuth, // флаг, авторизован ли я сейчас,

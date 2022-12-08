@@ -53,10 +53,12 @@ export let apiProfile = { // объект с методами api для про�
   }
 }
 
-
-
-
-
+export let apiDialogs2 = { // объект с методами api для Dialogs
+  getFollow: async (dialogUserID) => {// проверить follow/unfollow выбранного пользователя
+    const response = await instance.get(`follow/${dialogUserID}`)
+    return (response.data) //возврат данных из поля data
+  }
+}
 
 
 
