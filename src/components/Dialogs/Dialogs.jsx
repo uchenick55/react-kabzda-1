@@ -57,7 +57,7 @@ const Dialogs = ({dialogs, messages2, dispatch, sendMessage, getDialogLastUpdate
 
     return (
         <div className={classes.dialogs} /*стиль всех диалогов*/>
-            <div className={classes.dialogItems} /*стиль элементов диалога*/ >
+            <div>
                 <ScrollContainer // обернуть диалоги скролом
                     child={dialogElements}
                     height={window.screen.availHeight - 280} // высота поля скрола
@@ -66,20 +66,18 @@ const Dialogs = ({dialogs, messages2, dispatch, sendMessage, getDialogLastUpdate
                     containerElement={"DialogsContainer"}
                 /> {/*отрисовка диалогов в скрол контейнере*/}
             </div>
-            <div className={classes.messages}/*стиль всех сообщений*/>
-                <div>
-                    <ScrollContainer // обернуть сообщения скролом
-                        child={messagesElements}
-                        height={window.screen.availHeight - 280} // высота поля скрола
-                        firstInsideContainer={"MessagesUp"}
-                        secondInsideContainer={"MessagesDown"}
-                        containerElement={"MessagesContainer"}
-                    /> {/*отрисовка сообщений в скрол контейнере*/}
-                    <NewMessageReduxForm
-                        onSubmit={onSendMessageClick}/> {/*вызов формы сообщений с отсылкой на локальный обработчик сабмита*/}
+            <div>
+                <ScrollContainer // обернуть сообщения скролом
+                    child={messagesElements}
+                    height={window.screen.availHeight - 280} // высота поля скрола
+                    firstInsideContainer={"MessagesUp"}
+                    secondInsideContainer={"MessagesDown"}
+                    containerElement={"MessagesContainer"}
+                /> {/*отрисовка сообщений в скрол контейнере*/}
+                <div><NewMessageReduxForm
+                    onSubmit={onSendMessageClick}/> {/*вызов формы сообщений с отсылкой на локальный обработчик сабмита*/}
                 </div>
             </div>
-
         </div>
     )
 }

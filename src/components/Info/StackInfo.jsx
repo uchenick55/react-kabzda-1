@@ -1,7 +1,7 @@
 import ScrollContainer from "../common/Scroll/ScrollContainer";
 import React from "react";
 
-let IndexStack = () => {
+let StackInfo = () => {
     const usedStack = <div>
         <h3>Used Stack</h3>
         <p>UI (React):function component, props (spread), import/export, map, context,
@@ -32,4 +32,4 @@ let IndexStack = () => {
 
     </div>)
 }
-export default IndexStack
+export default StackInfo

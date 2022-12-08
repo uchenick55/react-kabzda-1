@@ -2,7 +2,7 @@ import React, {Suspense} from "react";
 import classes from "../Content/ContentContainer.module.css";
 import {Route, Routes} from "react-router-dom";
 import DialogsInfo from "./DialogsInfo";
-import LoginInfo from "../Login/LoginInfo";
+import LoginInfo from "./LoginInfo";
 import ProfileInfo2 from "../Profile/ProfileInfo/ProfileInfo2";
 import NewsInfo from "./NewsInfo";
 import RestInfo from "./RestInfo";

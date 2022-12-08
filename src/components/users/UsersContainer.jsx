@@ -73,6 +73,7 @@ class UsersAPI extends React.Component {
                    onChangeTermFunction = {this.onChangeTermFunction}
                    currentRangeLocal= {this.state.currentRangeLocal}
                    onChangeRangeLocal = {this.onChangeRangeLocal}
+                   myID ={this.props.myID}
             />
         </>
     }
@@ -87,7 +88,8 @@ let mapStateToProps = (state) => {
         isFetching: usersSelectorsSimple.getIsFetching(state), // селектор isFetching - показать крутилку при загрузке страницы
         followingInProgress: usersSelectorsSimple.getFollowingInProgress(state), // селектор followingInProgress - массив на кого мы подписались, кнопка неактивна
         isAuth: usersSelectorsSimple.getIsAuth(state), // селектор isAuth - флаг авторизации
-        term: state.usersPage.term
+        term: state.usersPage.term,
+        myID: state.auth.myID,
     }
 }
 

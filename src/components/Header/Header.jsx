@@ -5,7 +5,6 @@ import userPhoto from "../../assets/images/no-image3.png";
 import CallThemeRemote from "../Dark_light_theme/CallThemeRemote";
 import {bedug_mode} from "../../redux/store-redux";
 
-
 const Header = ({getProfileThunkCreator, deleteLogin, isAuth, myId, myLogin, myProfile}) => {
     let goToMyPage = () => {
         getProfileThunkCreator(myId);

@@ -3,7 +3,7 @@ import {Route, Routes} from "react-router-dom";
 import News from "../News/News";
 import Rest from "../Rest/Krestiki-Noliki/krestiki-noliki";
 import classes from './ContentContainer.module.css';
-import IndexStack from "../Info/IndexStack";
+import StackInfo from "../Info/StackInfo";
 
 const ProfileContainer = React.lazy(() => import("../Profile/ProfileInfo/ProfileContainer"))
 const DialogsContainer = React.lazy(() => import("../Dialogs/DialogsContainer"))
@@ -23,7 +23,7 @@ let ContentContainer = () => { // вынес роутинг контента в 
                     <Route path='/login/*' element={<LoginContainer/>}/> {/*Логин*/}
                     <Route path='/news/*' element={<News/>}/> {/*Поиск по новостям hn algonia*/}
                     <Route path='/rest/*' element={<Rest/>}/> {/*Страница отдыха*/}
-                    <Route path='' element={<IndexStack/>}/> {/*Общие Комментарии*/}
+                    <Route path='' element={<StackInfo/>}/> {/*Общие Комментарии*/}
 
                 </Routes>
             </div>

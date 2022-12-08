@@ -1,8 +1,8 @@
 .header {
     padding: 5px;
     grid-area: h;
-    background-image: url("https://www.azoft.com/wp-content/uploads/2017/10/react-redux@3x.png");
-    background-size: 22% 150%;
+    background-image: url("../../assets/images/react-redux.png");
+    background-size: 180px;
     background-repeat: no-repeat;
     background-color: rgba(139, 239, 0, 0.3);
     text-align: right;
