@@ -16,9 +16,8 @@ import {useParams} from "react-router";
 import {getProfileThunkCreator} from "../../redux/profile-reducer";
 
 class DialogsContainer extends React.Component {
-
-    componentDidUpdate(prevProps, prevState, snapshot) {
-        console.log("DialogsContaine -> componentDidUpdate")
+    commonPartMountUpdate = () => {// общая часть для componentDidMount и componentDidUpdate
+        console.log("DialogsContainer -> componentDidMount")
         if (this.props.userID === "") { // если перешли на вкладку Dialogs с нулевым userID
             if (this.props.messages2.length>0) { // если массив сообщений непустой
                 this.props.setMessages([]); // занулить массив сообщений (очистить список сообщений)
@@ -32,6 +31,16 @@ class DialogsContainer extends React.Component {
             this.props.getProfileThunkCreator(this.props.userID)// при переходе в диалог любого пользователя считать его данные профиля с сервера
             this.props.getFollowThunkCreator(this.props.userID)// узанть его статус follow/unfollow
         }
+
+    }
+    componentDidMount() {
+        console.log("DialogsContainer -> componentDidMount")
+        this.commonPartMountUpdate();// общая часть для componentDidMount и componentDidUpdate
+    }
+
+    componentDidUpdate(prevProps, prevState, snapshot) {
+        console.log("DialogsContainer -> componentDidUpdate")
+        this.commonPartMountUpdate(); // общая часть для componentDidMount и componentDidUpdate
         if  (this.props.dialogLastUpdateTime!==prevProps.dialogLastUpdateTime) { // если время обновления диалога изменилось
             this.getDialogs()// запросить новые сообщения по диалогу
         }
@@ -49,11 +58,19 @@ class DialogsContainer extends React.Component {
     }
 
     sendMessage = (NewMessage) => {
+        let profilePage = this.props.profilePage
+        let userName = 0
+        let userPhoto = 0
+        if (!profilePage==null) {
+            userName = this.props.profilePage.profile.fullName;
+            userPhoto = this.props.profilePage.profile.photos.small;
+        }
+
         if (!this.props.userID) { // при клике просто по вкладке Dialogs
             alert("Выберите диалог") // предупреждение если диалог не выбран
             return
         }
-        this.props.sendDialogsThunkCreator(NewMessage, this.props.myID, this.props.userID); // отправить сообщение
+        this.props.sendDialogsThunkCreator(NewMessage,this.props.myID, this.props.userID, userName, userPhoto, this.props.followed ); // отправить сообщение
         // С profilePagе буду брать userName, userPhoto, followed для записи через санку в LocalStorage
 
     }
@@ -117,6 +134,12 @@ let mapStateToProps = (state) => {
         messages2: state.dialogsPage.messages2, // массив сообщений текущего диалога
         dialogs: state.dialogsPage.dialogs, // список диалогов
         dialogLastUpdateTime: state.dialogsPage.dialogLastUpdateTime,// время последнего времени обновления текущего диалога
+
+        profilePage:state.profilePage,
+ //       userName: state.profilePage.profile.fullName?state.profilePage.profile.fullName:"null",
+ //       userPhoto:state.profilePage.profile.photos.small?state.profilePage.profile.photos.small:"null",
+        followed:state.dialogsPage.dialogUserFollowed,
+
     }
 }
 

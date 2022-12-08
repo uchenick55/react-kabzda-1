@@ -136,13 +136,13 @@ export let getDialogsThunkCreator = (myID, userID) => {//санкреатор п
   }
   return getDialogsThunk
 }
-export let sendDialogsThunkCreator = (formDataNewMessage, myID, userID) => {//санкреатор отправки нового сообщения в диалог
+export let sendDialogsThunkCreator = (formDataNewMessage, myID, userID, userName, userPhoto, followed) => {//санкреатор отправки нового сообщения в диалог
   if (bedug_mode) {
     console.log("sendDialogsThunkCreator")
   }
 
   let sendDialogsThunk = async (dispatch) => {// санка отправки нового сообщения в диалог
-    let updatedMessages = await apiDialogs.postDialog(formDataNewMessage, myID, userID)
+    let updatedMessages = await apiDialogs.postDialog(formDataNewMessage, myID, userID, userName, userPhoto, followed)
     if (bedug_mode) {
       console.log("dialogs-reducer.js, sendDialogsThunkCreator->: dispatch(setMessages)->SET_MESSAGES")
     } // дебаг
