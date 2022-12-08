@@ -7,10 +7,12 @@ import ScrollContainer from "../../common/Scroll/ScrollContainer";
 
 
 const MyFriends = ({state, unfollowFriendsAPI, dialogUserID}) => {
-    if (bedug_mode) {console.log("MyFriends")}
+    if (bedug_mode) {
+        console.log("MyFriends")
+    }
     let MyFriendElements =
         state.map((f) => {
-                const avaSrc = f.photos.small?f.photos.small:userPhoto;
+                const avaSrc = f.photos.small ? f.photos.small : userPhoto;
                 return (
                     <MyFriendItem
                         name={f.name}
@@ -22,19 +24,21 @@ const MyFriends = ({state, unfollowFriendsAPI, dialogUserID}) => {
                 )
             }
         );
-    const availableScreenHeight = window.screen.availHeight
+
     return (
         <div className={classes.myfriends}>
             <div className={classes.myfrienditems}>
-                <b>My Friendlist:</b>
+                {state.length > 0 ? <b>My Friendlist:
+                    <ScrollContainer
+                        child={MyFriendElements}
+                        height={window.screen.availHeight - 410}
+                        firstInsideContainer={"friendsUp"}
+                        secondInsideContainer={"friendsDown"}
+                        containerElement={"friendsContainer"}
+                    /> {/*отрисовка FriendList в скрол контейнере*/}
+                </b> : null
+                }
 
-                <ScrollContainer
-                    child={MyFriendElements}
-                    height={availableScreenHeight-392}
-                    firstInsideContainer={"friendsUp"}
-                    secondInsideContainer={"friendsDown"}
-                    containerElement={"friendsContainer"}
-                /> {/*отрисовка FriendList в скрол контейнере*/}
             </div>
         </div>
     )

@@ -55,13 +55,12 @@ const Dialogs = ({dialogs, messages2, dispatch, sendMessage, getDialogLastUpdate
         }) // для сброса цикла при очередном рендере
     }, []) // useEffect без зависимостей
 
-    const availableScreenHeight = window.screen.availHeight
     return (
         <div className={classes.dialogs} /*стиль всех диалогов*/>
             <div className={classes.dialogItems} /*стиль элементов диалога*/ >
                 <ScrollContainer // обернуть диалоги скролом
                     child={dialogElements}
-                    height={availableScreenHeight - 280} // высота поля скрола
+                    height={window.screen.availHeight - 280} // высота поля скрола
                     firstInsideContainer={"DialogsUp"}
                     secondInsideContainer={"DialogsDown"}
                     containerElement={"DialogsContainer"}
@@ -71,7 +70,7 @@ const Dialogs = ({dialogs, messages2, dispatch, sendMessage, getDialogLastUpdate
                 <div>
                     <ScrollContainer // обернуть сообщения скролом
                         child={messagesElements}
-                        height={availableScreenHeight - 280} // высота поля скрола
+                        height={window.screen.availHeight - 280} // высота поля скрола
                         firstInsideContainer={"MessagesUp"}
                         secondInsideContainer={"MessagesDown"}
                         containerElement={"MessagesContainer"}

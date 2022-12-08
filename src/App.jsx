@@ -28,12 +28,14 @@ class App extends React.Component { // конвертируем app в клас�
                 <div className='app-wrapper'> {/*позиционирование по сетке гридов*/}
                     {/*    <ErrorBoundary> Общий обработчик ошибок во всем приложении*/}
                     <HeaderContainer/> {/*Header с пользователем и day/night режимом*/}
-                    <NavBarContainer/> {/*Навигационная панель со ссылками и FriendList*/}
-                    <div className='app-wrapper-comments'>
+                    <div className='app-wrapper-navbar'>
+                        <NavBarContainer/> {/*Навигационная панель со ссылками и FriendList*/}
+                    </div>
+                    <div className='app-wrapper-info'>
                         <InfoContainer/> {/*поле комментариев функциональности к страницам в зависмости от URL*/}
                     </div>
                     <div className='app-wrapper-content'>
-                        <ContentContainer/> {/*страницы контента в зависмости от URL*/}
+                        <div><ContentContainer/> {/*страницы контента в зависмости от URL*/}</div>
                     </div>
                     {/*
                     </ErrorBoundary>

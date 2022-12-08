@@ -4,19 +4,33 @@
     grid-template-areas:
         'h h h'
         'i c n';
-    grid-template-rows: 95px 1fr;
+    grid-template-rows: 95px 5fr;
     grid-template-columns: 4fr 6fr 2fr;
 }
-.app-wrapper-content {
-    grid-area: c;
 
+.app-wrapper-info {
+    grid-area: i;
     position: relative;
     z-index:1;
 }
-.app-wrapper-comments {
-    grid-area: i;
+.app-wrapper-info::before {
+    content:"";
+    opacity: 0.3;
+    position: absolute;
+    z-index:-1;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    right: 0;
+    background:url("https://st-gdefon.gallery.world/wallpapers_original/80523_gallery.world.jpg");
+    background-size:cover;
 }
 
+.app-wrapper-content {
+    grid-area: c;
+    position: relative;
+    z-index:1;
+}
 .app-wrapper-content::before {
     content:"";
     opacity: 0.2;
@@ -32,6 +46,21 @@
 
 
 
-.app-wrapper-info {
-    grid-area: i;
+.app-wrapper-navbar {
+    grid-area: n;
+    position: relative;
+    z-index:1;
 }
+.app-wrapper-navbar::before {
+    content:"";
+    opacity: 0.4;
+    position: absolute;
+    z-index:-1;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    right: 0;
+    background:url("https://catherineasquithgallery.com/uploads/posts/2021-02/1612374658_141-p-svetlo-korichnevii-fon-gradient-166.png");
+    background-size:cover;
+}
+

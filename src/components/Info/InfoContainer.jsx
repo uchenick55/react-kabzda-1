@@ -1,13 +1,13 @@
 import React, {Suspense} from "react";
 import classes from "../Content/ContentContainer.module.css";
 import {Route, Routes} from "react-router-dom";
-import DialogsInfo from "../Dialogs/DialogsInfo";
+import DialogsInfo from "./DialogsInfo";
 import LoginInfo from "../Login/LoginInfo";
 import ProfileInfo2 from "../Profile/ProfileInfo/ProfileInfo2";
-import NewsInfo from "../News/NewsInfo";
-import RestInfo from "../Rest/RestInfo";
-import UsersInfo from "../users/UsersInfo";
-import IndexInfo from "../../IndexInfo";
+import NewsInfo from "./NewsInfo";
+import RestInfo from "./RestInfo";
+import UsersInfo from "./UsersInfo";
+import IndexInfo from "./IndexInfo";
 import ScrollContainer from "../common/Scroll/ScrollContainer";
 
 
@@ -26,14 +26,12 @@ let InfoContainer = () => {
         </Routes>
     </div>
 
-    const availableScreenHeight = window.screen.availHeight
-
     return (<div>
         <Suspense fallback={
             <div>Загрузка...</div>}> {/*Оборачивает компоненты, по которым идет Lazy import и выдает fallback на время загрузки*/}
         <ScrollContainer // обернуть диалоги скролом
             child={info}
-            height={availableScreenHeight - 270} // высота поля скрола
+            height={window.screen.availHeight - 270} // высота поля скрола
             firstInsideContainer={"DialogsUp"}
             secondInsideContainer={"DialogsDown"}
             containerElement={"DialogsContainer"}

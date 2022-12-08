@@ -6,6 +6,10 @@ let LoginInfo = () => {
             Использует reduxForm для отрисовки и обработки данных формы.
             Валидацию введения данных.
             Данные для тестового входа:
+            <p>Аккаунт 1:</p>
+            Email: evgeniysazonov1983@gmail.com
+            Password: 12Qweasdzxc!
+            <p>Аккаунт 2:</p>
             Email: free@samuraijs.com
             Password: free
         </p>

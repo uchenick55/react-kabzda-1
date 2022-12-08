@@ -10,6 +10,9 @@ const Navbar = ({myFriends2, unfollowFriendsAPI, dialogUserID}) => {
     if (bedug_mode) {console.log("Navbar")}
     return <nav className={classes.nav}>
         <div className={classes.item}>
+            <NavLink to=''>Info</NavLink>
+        </div>
+        <div className={classes.item}>
             <NavLink to='/profile'>Profile</NavLink>
         </div>
         <div className={classes.item}>

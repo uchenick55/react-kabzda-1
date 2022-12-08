@@ -1,6 +1,7 @@
 //Реализация async и await на классовых кмпонентах
 import axios from "axios"; // библиотека асинхронных запросов
-import React from "react"; // пишем в любой компоненте с JSX
+import React from "react";
+import ScrollContainer from "../common/Scroll/ScrollContainer"; // пишем в любой компоненте с JSX
 
 class News extends React.Component {
     state = {
@@ -46,51 +47,61 @@ class News extends React.Component {
     }
 
     render() {
-        return (
-            <div>
-                <h3>Search by HackerNews</h3>
-                <form>
-                    {/* объединяем input и button*/}
-                    <input // поле поиска
-                        value={this.state.onChangeQuery} // привязали value к значению из стейта
-                        onChange={(event) => {
-                            // при изменении
-                            this.inputOnChange(event); // задаем временное значение стейта по onChange input
-                        }}
-                    />
-                    <button // кнопка
-                        onClick={(e) => {
-                            // по клику
-                            e.preventDefault(); // отменяем действие по умолчанию (отправка формы)
-                            this.buttonOnClick();
-                            //задание в поле поиска query значение из временного onChangeQuery
-                        }}
-                    >
-                        Search
-                    </button>
-                </form>
+        let hn = <div>
+            <h3>Search by HackerNews</h3>
+            <form>
+                {/* объединяем input и button*/}
+                <input // поле поиска
+                    value={this.state.onChangeQuery} // привязали value к значению из стейта
+                    onChange={(event) => {
+                        // при изменении
+                        this.inputOnChange(event); // задаем временное значение стейта по onChange input
+                    }}
+                />
+                <button // кнопка
+                    onClick={(e) => {
+                        // по клику
+                        e.preventDefault(); // отменяем действие по умолчанию (отправка формы)
+                        this.buttonOnClick();
+                        //задание в поле поиска query значение из временного onChangeQuery
+                    }}
+                >
+                    Search
+                </button>
+            </form>
 
-                <ul>
-                    {this.state.data.hits ? ( // если массив hits не пустой
-                        <div>
-                            {this.state.data.hits.map((
-                                //мапим
-                                d
-                            ) => (
-                                <li key={d.objectID}>
-                                    {" "}
-                                    {/* key привязываем к map id*/}
-                                    <a href={d.url} >
-                                        {d.title}
-                                        {d.story_title}
-                                    </a>
-                                    {/* список ссылок с URL*/}
-                                </li>
-                            ))}
-                        </div>
-                    ) : null}{" "}
-                    {/* ничего не выводим, если массив hits пустой*/}
-                </ul>
+            <ul>
+                {this.state.data.hits ? ( // если массив hits не пустой
+                    <div>
+                        {this.state.data.hits.map((
+                            //мапим
+                            d
+                        ) => (
+                            <li key={d.objectID}>
+                                {" "}
+                                {/* key привязываем к map id*/}
+                                <a href={d.url} >
+                                    {d.title}
+                                    {d.story_title}
+                                </a>
+                                {/* список ссылок с URL*/}
+                            </li>
+                        ))}
+                    </div>
+                ) : null}{" "}
+                {/* ничего не выводим, если массив hits пустой*/}
+            </ul>
+        </div>
+        return (    <div>
+                <ScrollContainer
+                    child={hn}
+                    height={window.screen.availHeight-270}
+                    firstInsideContainer={"UsersUp"}
+                    secondInsideContainer={"UsersDown"}
+                    containerElement={"UserContainer"}
+                /> {/*отрисовка Users в скрол контейнере*/}
+
+
             </div>
         );
     }

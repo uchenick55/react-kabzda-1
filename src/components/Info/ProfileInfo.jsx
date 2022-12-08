@@ -1,11 +1,11 @@
 import React from 'react';
-import classes from './ProfileInfo.module.css'
-import Preloader from "../../common/Preloader/Preloader";
-import ProfileStatusUseReducer from "./ProfileStatus/ProfileStatusUseReducer";
-import ProfileStatusUseState from "./ProfileStatus/ProfileStatusUseState";
-import ProfileStatusClass from "./ProfileStatus/ProfileStatusClass";
-import {bedug_mode} from "../../../redux/store-redux";
-import userPhoto from "../../../assets/images/no-image3.png";
+import classes from '../Profile/ProfileInfo/ProfileInfo.module.css'
+import Preloader from "../common/Preloader/Preloader";
+import ProfileStatusUseReducer from "../Profile/ProfileInfo/ProfileStatus/ProfileStatusUseReducer";
+import ProfileStatusUseState from "../Profile/ProfileInfo/ProfileStatus/ProfileStatusUseState";
+import ProfileStatusClass from "../Profile/ProfileInfo/ProfileStatus/ProfileStatusClass";
+import {bedug_mode} from "../../redux/store-redux";
+import userPhoto from "../../assets/images/no-image3.png";
 
 
 const ProfileInfo = ({profile, myId, status, putStatusThunkCreator}) => {
