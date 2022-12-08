@@ -17,7 +17,6 @@ import {getProfileThunkCreator} from "../../redux/profile-reducer";
 
 class DialogsContainer extends React.Component {
     commonPartMountUpdate = () => {// общая часть для componentDidMount и componentDidUpdate
-        console.log("DialogsContainer -> componentDidMount")
         if (this.props.userID === "") { // если перешли на вкладку Dialogs с нулевым userID
             if (this.props.messages2.length>0) { // если массив сообщений непустой
                 this.props.setMessages([]); // занулить массив сообщений (очистить список сообщений)
@@ -34,12 +33,12 @@ class DialogsContainer extends React.Component {
 
     }
     componentDidMount() {
-        console.log("DialogsContainer -> componentDidMount")
+  //      console.log("DialogsContainer -> componentDidMount")
         this.commonPartMountUpdate();// общая часть для componentDidMount и componentDidUpdate
     }
 
     componentDidUpdate(prevProps, prevState, snapshot) {
-        console.log("DialogsContainer -> componentDidUpdate")
+ //       console.log("DialogsContainer -> componentDidUpdate")
         this.commonPartMountUpdate(); // общая часть для componentDidMount и componentDidUpdate
         if  (this.props.dialogLastUpdateTime!==prevProps.dialogLastUpdateTime) { // если время обновления диалога изменилось
             this.getDialogs()// запросить новые сообщения по диалогу
@@ -61,7 +60,7 @@ class DialogsContainer extends React.Component {
         let profilePage = this.props.profilePage
         let userName = 0
         let userPhoto = 0
-        if (!profilePage==null) {
+        if (profilePage!==null) {
             userName = this.props.profilePage.profile.fullName;
             userPhoto = this.props.profilePage.profile.photos.small;
         }
@@ -70,7 +69,13 @@ class DialogsContainer extends React.Component {
             alert("Выберите диалог") // предупреждение если диалог не выбран
             return
         }
-        this.props.sendDialogsThunkCreator(NewMessage,this.props.myID, this.props.userID, userName, userPhoto, this.props.followed ); // отправить сообщение
+        this.props.sendDialogsThunkCreator(
+            NewMessage,
+            this.props.myID,
+            this.props.userID,
+            userName,
+            userPhoto,
+            this.props.followed ); // отправить сообщение
         // С profilePagе буду брать userName, userPhoto, followed для записи через санку в LocalStorage
 
     }
@@ -98,8 +103,8 @@ class DialogsContainer extends React.Component {
 let mapDispatchToProps  = (dispatch) => {
     return {
 
-        sendDialogsThunkCreator: (formDataNewMessage, myID, userID) => { // отправить сообщение
-            dispatch(sendDialogsThunkCreator(formDataNewMessage, myID, userID))
+        sendDialogsThunkCreator: (formDataNewMessage, myID, userID, userName, userPhoto, followed) => { // отправить сообщение
+            dispatch(sendDialogsThunkCreator(formDataNewMessage, myID, userID, userName, userPhoto, followed))
         },
         getDialogsThunkCreator: (myID, userID) => { // получить данные по текущему диалогу
             dispatch(getDialogsThunkCreator(myID, userID))

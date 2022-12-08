@@ -54,15 +54,18 @@ export let apiDialogs = { // объект с методами api для Dialogs
     if (!Data1) {
       Data1=[] // если такого диалога на сервере нет, занулить его
     }
-    let Data2 = {
+    let Data2 = [
+      ...Data1, {
       dialogId: Data1.length + 1, // id диалога в dialogList
       userId: userID, // Id выбранного пользователя
-      unreadMessages: Data1.unreadMessages?Data1.unreadMessages+1:1, // количество непрочитанных сообщений от выбранного пользователя
+      unreadMessages: Data1.unreadMessages ? Data1.unreadMessages + 1 : 1, // количество непрочитанных сообщений от выбранного пользователя
       userName: userName, // имя выбранного пользователя
       userPhoto: userPhoto, // фото выбранного пользователя
-      followed: followed // является ли пользователь моим другом, или нет
-    }
+      followed: followed }// является ли пользователь моим другом, или нет
+    ]
     console.log(Data2)
+    localStorage.setItem(dialogListUserId1, JSON.stringify(Data2)); // отправить вреия изменения диалога в LocalStorage
+
   },
 
   getDialogListMyID: (myID, userID) => {
