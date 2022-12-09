@@ -1,5 +1,7 @@
+import React from "react";
 import {bedug_mode} from "../../redux/store-redux";
 import GetDate from "./GetDate";
+import {useState} from "react";
 
 export let apiDialogs = { // объект с методами api для Dialogs
   _setMessages2LS: (Dialog_2, myID, userID) => { // метод отправки измененного диалога в LocalStorage и считывания его же
@@ -45,14 +47,38 @@ export let apiDialogs = { // объект с методами api для Dialogs
     let Dialog_2 = Dialog_1.filter(message => message.id !== messageID) // отфильтровали массив, удалив сообщение с нужным ШВ
 
     let Dialog_3 = apiDialogs._setMessages2LS(Dialog_2, myID, userID)// отправить измененый массив на сервер (LocalStorage)
+
+
+    if (Dialog_3.length===0) {
+
+  // Убираем пользователя из диалогЛиста пользователя с LocalStorage
+      let dialogListUserId1 = "DialogList_" + userID // задать имя DialogList
+      let Data1 = JSON.parse(localStorage.getItem(dialogListUserId1)); // запросить диалоглист с сервера по заданному имени
+      console.log(Data1)
+      if (!Data1) {
+        Data1 = [] // если такого диалога на сервере нет, занулить его
+      }
+      let Data2 = Data1.filter(d=>d.userId!==myID)
+      localStorage.setItem(dialogListUserId1, JSON.stringify(Data2)); // отправить вреия изменения диалога в LocalStorage
+
+  // удаляем время последнего обновления диалога с LocalStorage
+      let dialogUpdateTimeLocal = myID > userID ? "Dialog_" + myID + "_" + userID + "_UpdateTime" : "Dialog_" + userID + "_" + myID + "_UpdateTime"; // задать имя времени обновления диалога для запроса
+      localStorage.removeItem(dialogUpdateTimeLocal); // удалить время обновления последнего сообщения, после удаления всех сообщений в диалоге
+
+  // удаляем диалог вида Dialog_25528_1079 с LocalStorage
+      let dialogNameLocal = myID > userID ? "Dialog_" + myID + "_" + userID : "Dialog_" + userID + "_" + myID;  // задать имя диалога для запроса
+      localStorage.removeItem(dialogNameLocal); // удалить время обновления последнего сообщения, после удаления всех сообщений в диалоге
+
+    }
+
     return Dialog_3 // вернуть результат
   },
 
   updateDialogListUserId: (userId1, userId2, Name2, Photo2) => { // запись в сервер данные о том, что у конкретного пользователя есть диалоги
-    let dialogListUserId1 = "DialogList_"+ userId1 // задать имя вида "DialogList_1079"
-    let  Data1 = JSON.parse(localStorage.getItem(dialogListUserId1)); // запросить диалоглист с сервера по заданному имени
+    let dialogListUserId1 = "DialogList_" + userId1 // задать имя DialogList
+    let Data1 = JSON.parse(localStorage.getItem(dialogListUserId1)); // запросить диалоглист с сервера по заданному имени
     if (!Data1) {
-      Data1=[] // если такого диалога на сервере нет, занулить его
+      Data1 = [] // если такого диалога на сервере нет, занулить его
     }
     let newDialogLocal = {
       dialogId: Data1.length + 1, // id диалога в dialogList
@@ -61,19 +87,26 @@ export let apiDialogs = { // объект с методами api для Dialogs
       userPhoto: Photo2 // фото пользователя кого добавляем в DialogList
     }
 
-    let Data2 = [
-      ...Data1, newDialogLocal
-    ]
-    console.log(Data2)
-    localStorage.setItem(dialogListUserId1, JSON.stringify(Data2)); // отправить вреия изменения диалога в LocalStorage
+    let shouldDataUpdate = true;
 
+    Data1.map((d1) => {
+      if (d1.userId === userId2) {
+        shouldDataUpdate = false;
+        return
+      }
+    })
+
+    if (shouldDataUpdate) {
+      let Data2 = [...Data1, newDialogLocal];
+      localStorage.setItem(dialogListUserId1, JSON.stringify(Data2)); // отправить вреия изменения диалога в LocalStorage
+    }
   },
 
   getDialogListMyID: (myID, userID) => {
     return
   },
 
-  postDialog: (formDataNewMessage, myID, MyName, MyPhoto, userID, userName, userPhoto ) => { //отправка сообщения в LocalStorage
+  postDialog: (formDataNewMessage, myID, MyName, MyPhoto, userID, userName, userPhoto) => { //отправка сообщения в LocalStorage
 
     let Dialog_1 = apiDialogs.getDialog(myID, userID); // получить данные Dialog_25528_1079 с LocalStorage
 
