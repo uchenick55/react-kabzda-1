@@ -3,7 +3,7 @@ import Dialogs from "./Dialogs";
 import {
     deleteMessageThunkCreator,
     getDialogLastUpdateTimeTnkCrt,
-    getDialogsThunkCreator, getFollowThunkCreator,
+    getDialogsThunkCreator, getFollowThunkCreator, getMyDialogListThunkCreator,
     sendDialogsThunkCreator,
     setdialogUserID,
     setMessages
@@ -32,6 +32,7 @@ class DialogsContainer extends React.Component {
 
     }
     componentDidMount() {
+        this.getDialogList()
   //      console.log("DialogsContainer -> componentDidMount")
         this.commonPartMountUpdate();// общая часть для componentDidMount и componentDidUpdate
     }
@@ -53,6 +54,11 @@ class DialogsContainer extends React.Component {
     getDialogLastUpdateTime = () => {
         if (this.props.userID === "") {return}// при клике просто по вкладке Dialogs
         this.props.getDialogLastUpdateTimeTnkCrt(this.props.myID, this.props.userID); // получить время последенего обновления диалога
+
+    }
+
+    getDialogList = () => {
+        this.props.getMyDialogListThunkCreator(this.props.myID)
     }
 
     sendMessage = (NewMessage) => {
@@ -91,6 +97,7 @@ class DialogsContainer extends React.Component {
             <Dialogs
                 messages2 ={this.props.messages2}// массив сообщений текущего диалога
                 dialogs ={this.props.dialogs} // список диалогов
+                dialogs2 ={this.props.dialogs2} // список диалогов с LocalStorage
                 {...this.props} // все входящие пропсы пробросили дальше
                 sendMessage={this.sendMessage} // проброс местного метода отправки сообщений
                 getDialogs={this.getDialogs}  // проброс местного метода получить диалоги
@@ -129,10 +136,13 @@ let mapDispatchToProps  = (dispatch) => {
         getFollowThunkCreator: (dialogUserID) => { // удалить сообщение из диалога
             dispatch(getFollowThunkCreator(dialogUserID))
         },
+        getMyDialogListThunkCreator: (myID) => { // удалить сообщение из диалога
+            dispatch(getMyDialogListThunkCreator(myID))
+        },
         dispatch: dispatch // для зануления redux-form
     }
 }
-
+//getMyDialogListThunkCreator
 let mapStateToProps = (state) => {
     return {
         isAuth: state.auth.isAuth, // флаг, авторизован ли я сейчас,
@@ -141,6 +151,7 @@ let mapStateToProps = (state) => {
         messages2: state.dialogsPage.messages2, // массив сообщений текущего диалога
         dialogs: state.dialogsPage.dialogs, // список диалогов
         dialogLastUpdateTime: state.dialogsPage.dialogLastUpdateTime,// время последнего времени обновления текущего диалога
+        dialogs2: state.dialogsPage.dialogs2, // список диалогов с LocalStorage
 
         profilePage:state.profilePage, // страница профиля пользователя для создания dialogList
         auth: state.auth,// страница моего профиля для создания dialogList

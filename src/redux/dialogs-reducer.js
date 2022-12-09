@@ -8,6 +8,7 @@ const SET_MESSAGES = "myApp/dialogs-reducer/SET_MESSAGES";  //константа
 const DIALOG_USER_ID = "myApp/dialogs-reducer/DIALOG_USER_ID"; //константа задания ID пользователя, с кем диалог
 const DIALOG_LAST_UPDATE_TIME = "myApp/dialogs-reducer/DIALOG_LAST_UPDATE_TIME"; //константа задания ID пользователя, с кем диалог
 const DIALOG_USER_FOLLOWED = "myApp/dialogs-reducer/DIALOG_USER_FOLLOWED"; //константа проверки follow/unfollow выбранный пользователь (для списка диалогов)
+const GET_MY_DIALOG_LIST = "myApp/dialogs-reducer/GET_MY_DIALOG_LIST"; //константа получения моего диалогЛиста
 
 export let sendMessageCreator = (formDataNewMessage) => { // экшнкреатор отправки сообщений
   return {type: SEND_MESSAGE, formDataNewMessage}
@@ -26,6 +27,9 @@ export let setDialogLastUpdateTime = (dialogLastUpdateTime) => { // экшнкр
 };
 export let setDialogUserFollowed = (dialogUserFollowed) => { // экшнкреатор задания последнего времени обновления текущего диалога
   return {type: DIALOG_USER_FOLLOWED, dialogUserFollowed}
+};
+export let getMyDialogList = (myDialogList) => { // экшнкреатор задания моего диалогЛиста для вывода
+  return {type: GET_MY_DIALOG_LIST, myDialogList}
 };
 
 let initialState = { // стейт сообщений по умолчанию
@@ -57,6 +61,7 @@ let initialState = { // стейт сообщений по умолчанию
     },
     {id: 6, name: "Zhenya", avaSrc: "https://cdn1.flamp.ru/a981cc28c84f99d8f480c8ea6b559671.jpg"}
   ],
+  dialogs2: [] // мой диалогЛист. Берет данные с LocalStorage по всем входящим диалогам
 }
 
 let dialogsReducer = (state = initialState, action) => { // редьюсер диалогов
@@ -115,6 +120,15 @@ let dialogsReducer = (state = initialState, action) => { // редьюсер д�
       }
       if (bedug_mode) {
         console.log("dialogs-reducer.js, DIALOG_USER_FOLLOWED: ", state, stateCopy)
+      } // дебаг
+      return stateCopy
+    case GET_MY_DIALOG_LIST: // экшн  задания моего диалоглиста
+      stateCopy = {
+        ...state,
+        dialogs2: action.myDialogList, //  задание моего диалоглиста
+      }
+      if (bedug_mode) {
+        console.log("dialogs-reducer.js, GET_MY_DIALOG_LIST: ", state, stateCopy)
       } // дебаг
       return stateCopy
     default:
@@ -177,6 +191,14 @@ export let getFollowThunkCreator = (dialogUserID) => {//санкреатор п�
     dispatch(setDialogUserFollowed(dialogUserFollowed))// записать в стейт follow/unfollow выбранного пользователя
   }
   return getFollowThunk
+}
+export let getMyDialogListThunkCreator = (myID) => {//санкреатор получения моего диалогЛиста
+  let getMyDialogListThunk = async (dispatch) => {// санка
+    let myDialogList = await apiDialogs.getDialogListMyID(myID) // получение моего диалогЛиста
+  //  if (bedug_mode) {console.log("dialogs-reducer.js, getMyDialogListThunkCreator->: dispatch(setDialogUserFollowed)->DIALOG_USER_FOLLOWED")} // дебаг
+    dispatch(getMyDialogList(myDialogList))// записать в стейт мой диалоглист
+  }
+  return getMyDialogListThunk
 }
 
 export default dialogsReducer;

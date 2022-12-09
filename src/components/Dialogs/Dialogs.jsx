@@ -32,10 +32,10 @@ const newMessageForm = ({handleSubmit}) => {// компонента формы
 // оберточная компонента формы, задает имя подстейта "newMessageForm"
 const NewMessageReduxForm = reduxForm({form: "newMessageForm"})(newMessageForm)
 
-const Dialogs = ({dialogs, messages2, dispatch, sendMessage, getDialogLastUpdateTime, myID, deleteMessage}) => { // основная компонента отрисовки диалогов
+const Dialogs = ({dialogs, dialogs2, messages2, dispatch, sendMessage, getDialogLastUpdateTime, myID, deleteMessage}) => { // основная компонента отрисовки диалогов
 
-    let dialogElements = dialogs.map((d) => // подкомпонента отрисовки всех диалогов через map
-        <DialogItem name={d.name} id={d.id} avaSrc={d.avaSrc}/>);
+    let dialogElements = dialogs2.map((d) => // подкомпонента отрисовки всех диалогов через map
+        <DialogItem userName={d.userName} userId={d.userId} userPhoto={d.userPhoto}/>);
 
     let messagesElements = messages2.map((m) => // подкомпонента отрисовки всех сообщений через map
         <Message message={m.message} myID={myID} userId={m.userId} Date={m.Date} MessageId={m.id}

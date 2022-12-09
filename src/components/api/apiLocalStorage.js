@@ -102,8 +102,10 @@ export let apiDialogs = { // объект с методами api для Dialogs
     }
   },
 
-  getDialogListMyID: (myID, userID) => {
-    return
+  getDialogListMyID: (myID) => {
+    let dialogListUserId1 = "DialogList_" + myID // задать имя моего DialogList
+    let Data1 = JSON.parse(localStorage.getItem(dialogListUserId1)); // запросить мой диалоглист с сервера
+    return Data1
   },
 
   postDialog: (formDataNewMessage, myID, MyName, MyPhoto, userID, userName, userPhoto) => { //отправка сообщения в LocalStorage
