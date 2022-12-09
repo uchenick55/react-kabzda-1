@@ -28,7 +28,6 @@ class DialogsContainer extends React.Component {
             this.props.setdialogUserID(this.props.userID) // задать в BLL считаный из URL ID
             //здесь запросить профиль выбранного userId через getProfileThunkCreator
             this.props.getProfileThunkCreator(this.props.userID)// при переходе в диалог любого пользователя считать его данные профиля с сервера
-            this.props.getFollowThunkCreator(this.props.userID)// узанть его статус follow/unfollow
         }
 
     }
@@ -69,15 +68,18 @@ class DialogsContainer extends React.Component {
             alert("Выберите диалог") // предупреждение если диалог не выбран
             return
         }
-        this.props.sendDialogsThunkCreator(
-            NewMessage,
-            this.props.myID,
-            this.props.userID,
-            userName,
-            userPhoto,
-            this.props.followed ); // отправить сообщение
-        // С profilePagе буду брать userName, userPhoto, followed для записи через санку в LocalStorage
 
+        this.props.sendDialogsThunkCreator(
+
+            NewMessage,
+            this.props.auth.myID, // мой ID для формирования DialogList собеседника
+            this.props.auth.myLogin, // мой логин  для формирования DialogList собеседника
+            this.props.auth.myProfile.photos.small, // мое фото  для формирования DialogList собеседника
+            this.props.userID, // ID собеседника для формирования моего DialogList
+            userName, // имя собеседника для формирования моего DialogList
+            userPhoto, // фотос обеседника для формирования моего DialogList
+        ); // отправить сообщение
+           // formDataNewMessage, myID, MyName, MyPhoto, userID, userName, userPhoto
     }
 
     deleteMessage = (messageID) => {
@@ -103,8 +105,8 @@ class DialogsContainer extends React.Component {
 let mapDispatchToProps  = (dispatch) => {
     return {
 
-        sendDialogsThunkCreator: (formDataNewMessage, myID, userID, userName, userPhoto, followed) => { // отправить сообщение
-            dispatch(sendDialogsThunkCreator(formDataNewMessage, myID, userID, userName, userPhoto, followed))
+        sendDialogsThunkCreator: (formDataNewMessage, myID, MyName, MyPhoto, userID, userName, userPhoto) => { // отправить сообщение
+            dispatch(sendDialogsThunkCreator(formDataNewMessage, myID, MyName, MyPhoto, userID, userName, userPhoto))
         },
         getDialogsThunkCreator: (myID, userID) => { // получить данные по текущему диалогу
             dispatch(getDialogsThunkCreator(myID, userID))
@@ -140,11 +142,8 @@ let mapStateToProps = (state) => {
         dialogs: state.dialogsPage.dialogs, // список диалогов
         dialogLastUpdateTime: state.dialogsPage.dialogLastUpdateTime,// время последнего времени обновления текущего диалога
 
-        profilePage:state.profilePage,
- //       userName: state.profilePage.profile.fullName?state.profilePage.profile.fullName:"null",
- //       userPhoto:state.profilePage.profile.photos.small?state.profilePage.profile.photos.small:"null",
-        followed:state.dialogsPage.dialogUserFollowed,
-
+        profilePage:state.profilePage, // страница профиля пользователя для создания dialogList
+        auth: state.auth,// страница моего профиля для создания dialogList
     }
 }
 

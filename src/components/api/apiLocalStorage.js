@@ -48,20 +48,21 @@ export let apiDialogs = { // объект с методами api для Dialogs
     return Dialog_3 // вернуть результат
   },
 
-  updateDialogListUserId: (userID, userName, userPhoto, followed) => { // запись в сервер данные о том, что у конкретного пользователя есть диалоги
-    let dialogListUserId1 = "DialogList_"+ userID // задать имя вида "DialogList_1079"
+  updateDialogListUserId: (userId1, userId2, Name2, Photo2) => { // запись в сервер данные о том, что у конкретного пользователя есть диалоги
+    let dialogListUserId1 = "DialogList_"+ userId1 // задать имя вида "DialogList_1079"
     let  Data1 = JSON.parse(localStorage.getItem(dialogListUserId1)); // запросить диалоглист с сервера по заданному имени
     if (!Data1) {
       Data1=[] // если такого диалога на сервере нет, занулить его
     }
-    let Data2 = [
-      ...Data1, {
+    let newDialogLocal = {
       dialogId: Data1.length + 1, // id диалога в dialogList
-      userId: userID, // Id выбранного пользователя
-      unreadMessages: Data1.unreadMessages ? Data1.unreadMessages + 1 : 1, // количество непрочитанных сообщений от выбранного пользователя
-      userName: userName, // имя выбранного пользователя
-      userPhoto: userPhoto, // фото выбранного пользователя
-      followed: followed }// является ли пользователь моим другом, или нет
+      userId: userId2, // Id пользователя кого добавляем в DialogList
+      userName: Name2, // имя пользователя кого добавляем в DialogList
+      userPhoto: Photo2 // фото пользователя кого добавляем в DialogList
+    }
+
+    let Data2 = [
+      ...Data1, newDialogLocal
     ]
     console.log(Data2)
     localStorage.setItem(dialogListUserId1, JSON.stringify(Data2)); // отправить вреия изменения диалога в LocalStorage
@@ -72,7 +73,7 @@ export let apiDialogs = { // объект с методами api для Dialogs
     return
   },
 
-  postDialog: (formDataNewMessage, myID, userID, userName, userPhoto, followed ) => { //отправка сообщения в LocalStorage
+  postDialog: (formDataNewMessage, myID, MyName, MyPhoto, userID, userName, userPhoto ) => { //отправка сообщения в LocalStorage
 
     let Dialog_1 = apiDialogs.getDialog(myID, userID); // получить данные Dialog_25528_1079 с LocalStorage
 
@@ -88,8 +89,10 @@ export let apiDialogs = { // объект с методами api для Dialogs
     }]
     let Dialog_3 = apiDialogs._setMessages2LS(Dialog_2, myID, userID)// отправить измененый массив на сервер (LocalStorage)
 
-    apiDialogs.updateDialogListUserId(userID, userName, userPhoto, followed)
-    // здесь буду обновлять updateDialogList при каждой отправке сообщений
+    apiDialogs.updateDialogListUserId(userID, myID, MyName, MyPhoto)
+    // формирую DialogList пользователя, кому пишу. У него появятся диалоги, как зайдет в сеть
+
+    // здесь сформирую свой DialogList, чтобы отображалось у меня срузу же после начала диалога.
 
     return Dialog_3 // вернуть обновленный массив из DAL в BLL
 
