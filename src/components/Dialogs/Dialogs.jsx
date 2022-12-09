@@ -65,12 +65,12 @@ const Dialogs = ({getDialogList, dialogs2, messages2, dispatch, sendMessage, get
     return (
         <div className={classes.dialogs} /*стиль всех диалогов*/>
             <div>
-                <ScrollContainer // обернуть диалоги скролом
+                <ScrollContainer // обернуть сообщения скролом
                     child={dialogElements}
                     height={window.screen.availHeight - 280} // высота поля скрола
                     firstInsideContainer={"DialogsUp"}
                     secondInsideContainer={"DialogsDown"}
-                    containerElement={"DialogsContainer"}
+                    containerElement={"DialogsContainer123"}
                 /> {/*отрисовка диалогов в скрол контейнере*/}
             </div>
             <div>
