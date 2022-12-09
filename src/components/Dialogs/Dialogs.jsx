@@ -7,6 +7,8 @@ import {Input, Textarea} from "../common/Validation/customFields";
 import {maxLengthCreator, Required} from "../common/Validation/validationField";
 import {bedug_mode} from "../../redux/store-redux";
 import ScrollContainer from "../common/Scroll/ScrollContainer";
+import userPhotoAva from "../../assets/images/no-image3.png";
+
 
 
 const newMessageForm = ({handleSubmit}) => {// компонента формы
@@ -35,7 +37,11 @@ const NewMessageReduxForm = reduxForm({form: "newMessageForm"})(newMessageForm)
 const Dialogs = ({getDialogList, dialogs2, messages2, dispatch, sendMessage, getDialogLastUpdateTime, myID, deleteMessage}) => { // основная компонента отрисовки диалогов
 
     let dialogElements = dialogs2.map((d) => // подкомпонента отрисовки всех диалогов через map
-        <DialogItem userName={d.userName} userId={d.userId} userPhoto={d.userPhoto}/>);
+        {
+            let userPhoto = d.userPhoto ? d.userPhoto : userPhotoAva; // если аватарки с сервера нет, подставить заглушку
+            return <DialogItem userName={d.userName} userId={d.userId} userPhoto={userPhoto}/>
+        }
+    );
 
     let messagesElements = messages2.map((m) => // подкомпонента отрисовки всех сообщений через map
         <Message message={m.message} myID={myID} userId={m.userId} Date={m.Date} MessageId={m.id}

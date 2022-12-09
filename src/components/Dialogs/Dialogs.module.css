@@ -1,8 +1,13 @@
 .dialogs {
     display: grid;
-    grid-template-columns: 190px 1fr;
+    grid-template-columns: 180px 1fr;
 }
+.dialogList {
+    display: grid;
+    grid-template-columns: 1fr 5fr;
 
+
+}
 .dialog.active {
     color: white;
 }

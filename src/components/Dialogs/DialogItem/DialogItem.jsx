@@ -4,14 +4,20 @@ import {NavLink} from "react-router-dom";
 import {bedug_mode} from "../../../redux/store-redux";
 
 const DialogItem = ({userPhoto, userName, userId}) => {
-    let path = '/dialogs/' + userId;
     return <div className={classes.dialog}>
-        <NavLink to={path}>
+        <div className={classes.dialogList}>
+            <div><img src={userPhoto}/></div>
+            {/*фото профиля*/}
             <div>
-                <img src={userPhoto}/>
-                {userName}
+                <NavLink to={'/dialogs/' + userId}> {/*навигация на диалог*/}
+                    dialog
+                </NavLink>
+                <NavLink to={'/profile/' + userId}> {/*навигация в профиль*/}
+                    profile
+                </NavLink>
+                <div>{userName}</div>
             </div>
-        </NavLink>
+        </div>
     </div>
 }
 
