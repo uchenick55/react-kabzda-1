@@ -23,7 +23,7 @@ export let apiDialogs = { // объект с методами api для Dialogs
 
     let Dialog_3 = apiDialogs.getDialog(myID, userID); // считать записанный массив с LocalStorage
 
-    return Dialog_3
+    return Dialog_3 // вернуть измененный диалог
   },
   getDialog: (myID, userID) => {
     let dialogNameLocal = myID > userID ? "Dialog_" + myID + "_" + userID : "Dialog_" + userID + "_" + myID; // задать имя диалога для запроса
@@ -31,7 +31,7 @@ export let apiDialogs = { // объект с методами api для Dialogs
     if (!LocalStorageDialogs1) { // если диалога с таким именем нет (undefined)
       LocalStorageDialogs1 = []; // то присвоить пустой массив
     }
-    return LocalStorageDialogs1 // вернуть результат
+    return LocalStorageDialogs1 // вернуть диалог вида  Dialog_25528_1079
   },
   getUpdateTime: (myID, userID) => {
     let dialogUpdateTimeLocal = myID > userID ? "Dialog_" + myID + "_" + userID + "_UpdateTime" : "Dialog_" + userID + "_" + myID + "_UpdateTime"; // задать имя времени обновления диалога для запроса
@@ -39,7 +39,7 @@ export let apiDialogs = { // объект с методами api для Dialogs
     if (!LocalStoragedialogUpdateTime1) { // если времени обновления с таким именем нет (undefined)
       LocalStoragedialogUpdateTime1 = null; // то задать нулевое значение
     }
-    return LocalStoragedialogUpdateTime1 // вернуть результат
+    return LocalStoragedialogUpdateTime1 // вернуть время обновления текущего диалога
   },
 
   deleteMessage: (messageID, myID, userID) => {
@@ -49,29 +49,27 @@ export let apiDialogs = { // объект с методами api для Dialogs
     let Dialog_3 = apiDialogs._setMessages2LS(Dialog_2, myID, userID)// отправить измененый массив на сервер (LocalStorage)
 
 
-    if (Dialog_3.length===0) {
+    if (Dialog_3.length===0) { // если после удаления сообщений их в диалоге не осталось
 
-  // Убираем пользователя из диалогЛиста пользователя с LocalStorage
+      // Убираем пользователя из диалогЛиста пользователя с LocalStorage
       let dialogListUserId1 = "DialogList_" + userID // задать имя DialogList
       let Data1 = JSON.parse(localStorage.getItem(dialogListUserId1)); // запросить диалоглист с сервера по заданному имени
-      console.log(Data1)
-      if (!Data1) {
+      if (!Data1) { // на всякий случай подстраховка проверка
         Data1 = [] // если такого диалога на сервере нет, занулить его
       }
-      let Data2 = Data1.filter(d=>d.userId!==myID)
-      localStorage.setItem(dialogListUserId1, JSON.stringify(Data2)); // отправить вреия изменения диалога в LocalStorage
+      let Data2 = Data1.filter(d=>d.userId!==myID) // оставить в диалогЛисте пользователя все диалоги, ктоме того,в котором 0 сообщений, кроме
+      localStorage.setItem(dialogListUserId1, JSON.stringify(Data2)); // записать в LocalStorage обновленный диалоглист
 
-  // удаляем время последнего обновления диалога с LocalStorage
+      // удаляем время последнего обновления диалога с LocalStorage
       let dialogUpdateTimeLocal = myID > userID ? "Dialog_" + myID + "_" + userID + "_UpdateTime" : "Dialog_" + userID + "_" + myID + "_UpdateTime"; // задать имя времени обновления диалога для запроса
       localStorage.removeItem(dialogUpdateTimeLocal); // удалить время обновления последнего сообщения, после удаления всех сообщений в диалоге
 
-  // удаляем диалог вида Dialog_25528_1079 с LocalStorage
+      // удаляем диалог вида Dialog_25528_1079 с LocalStorage
       let dialogNameLocal = myID > userID ? "Dialog_" + myID + "_" + userID : "Dialog_" + userID + "_" + myID;  // задать имя диалога для запроса
-      localStorage.removeItem(dialogNameLocal); // удалить время обновления последнего сообщения, после удаления всех сообщений в диалоге
-
+      localStorage.removeItem(dialogNameLocal); // удалить диалог вида Dialog_25528_1079 с LocalStorage, после удаления всех сообщений в диалоге
     }
 
-    return Dialog_3 // вернуть результат
+    return Dialog_3 // вернуть диалог с удаленным сообщением
   },
 
   updateDialogListUserId: (userId1, userId2, Name2, Photo2) => { // запись в сервер данные о том, что у конкретного пользователя есть диалоги
@@ -80,35 +78,38 @@ export let apiDialogs = { // объект с методами api для Dialogs
     if (!Data1) {
       Data1 = [] // если такого диалога на сервере нет, занулить его
     }
-    let newDialogLocal = {
+    let newDialogLocal = { // новый диалог в диалогЛисте
       dialogId: Data1.length + 1, // id диалога в dialogList
       userId: userId2, // Id пользователя кого добавляем в DialogList
       userName: Name2, // имя пользователя кого добавляем в DialogList
       userPhoto: Photo2 // фото пользователя кого добавляем в DialogList
     }
 
-    let shouldDataUpdate = true;
+    let shouldDataUpdate = true; //
 
-    Data1.map((d1) => {
+    Data1.map((d1) => { // просматриваем весь диалоглист и ставим флаг, если такой диалог в диалогЛисте уже есть, то заново не добавляем
       if (d1.userId === userId2) {
         shouldDataUpdate = false;
         return
       }
     })
 
-    if (shouldDataUpdate) {
+    if (shouldDataUpdate) { // если флаг обновления диалоглиста true, то добавляем диалог в диалогЛист
       let Data2 = [...Data1, newDialogLocal];
-      localStorage.setItem(dialogListUserId1, JSON.stringify(Data2)); // отправить вреия изменения диалога в LocalStorage
+      localStorage.setItem(dialogListUserId1, JSON.stringify(Data2)); // отправить обновленный диалогЛист LocalStorage
     }
   },
 
-  getDialogListMyID: (myID) => {
+  getDialogListMyID: (myID) => { // получить мой диалогЛист с сервера, сформированный другими пользователями
     let dialogListUserId1 = "DialogList_" + myID // задать имя моего DialogList
     let Data1 = JSON.parse(localStorage.getItem(dialogListUserId1)); // запросить мой диалоглист с сервера
-    return Data1
+    if (!Data1) {
+      Data1 = [] // если такого диалога на сервере нет, занулить его
+    }
+    return Data1 // вернуть мой диалоглист
   },
 
-  postDialog: (formDataNewMessage, myID, MyName, MyPhoto, userID, userName, userPhoto) => { //отправка сообщения в LocalStorage
+  postDialog: (formDataNewMessage, myID, MyName, MyPhoto, userID) => { //отправка сообщения в LocalStorage
 
     let Dialog_1 = apiDialogs.getDialog(myID, userID); // получить данные Dialog_25528_1079 с LocalStorage
 
@@ -117,10 +118,10 @@ export let apiDialogs = { // объект с методами api для Dialogs
     } // дебаг
 
     let Dialog_2 = [...Dialog_1, {// добавить новое сообщение в запрошенный диалог
-      id: Dialog_1.length + 1,
-      Date: GetDate(),
-      userId: myID,
-      message: formDataNewMessage
+      id: Dialog_1.length + 1, // задать id сообщения
+      Date: GetDate(), // задать время сообщения
+      userId: myID, // задать кто написал сообщение
+      message: formDataNewMessage // записать сам текст сообщения
     }]
     let Dialog_3 = apiDialogs._setMessages2LS(Dialog_2, myID, userID)// отправить измененый массив на сервер (LocalStorage)
 

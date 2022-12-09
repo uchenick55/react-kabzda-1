@@ -150,13 +150,13 @@ export let getDialogsThunkCreator = (myID, userID) => {//санкреатор п
   }
   return getDialogsThunk
 }
-export let sendDialogsThunkCreator = (formDataNewMessage, myID, MyName, MyPhoto, userID, userName, userPhoto ) => {//санкреатор отправки нового сообщения в диалог
+export let sendDialogsThunkCreator = (formDataNewMessage, myID, MyName, MyPhoto, userID) => {//санкреатор отправки нового сообщения в диалог
   if (bedug_mode) {
     console.log("sendDialogsThunkCreator")
   }
 
   let sendDialogsThunk = async (dispatch) => {// санка отправки нового сообщения в диалог
-    let updatedMessages = await apiDialogs.postDialog(formDataNewMessage, myID, MyName, MyPhoto, userID, userName, userPhoto )
+    let updatedMessages = await apiDialogs.postDialog(formDataNewMessage, myID, MyName, MyPhoto, userID)
     if (bedug_mode) {
       console.log("dialogs-reducer.js, sendDialogsThunkCreator->: dispatch(setMessages)->SET_MESSAGES")
     } // дебаг
@@ -195,10 +195,19 @@ export let getFollowThunkCreator = (dialogUserID) => {//санкреатор п�
 export let getMyDialogListThunkCreator = (myID) => {//санкреатор получения моего диалогЛиста
   let getMyDialogListThunk = async (dispatch) => {// санка
     let myDialogList = await apiDialogs.getDialogListMyID(myID) // получение моего диалогЛиста
-  //  if (bedug_mode) {console.log("dialogs-reducer.js, getMyDialogListThunkCreator->: dispatch(setDialogUserFollowed)->DIALOG_USER_FOLLOWED")} // дебаг
+    //  if (bedug_mode) {console.log("dialogs-reducer.js, getMyDialogListThunkCreator->: dispatch(setDialogUserFollowed)->DIALOG_USER_FOLLOWED")} // дебаг
     dispatch(getMyDialogList(myDialogList))// записать в стейт мой диалоглист
   }
   return getMyDialogListThunk
 }
+export let updateDialogListThunkCreator = (userId1, userId2, Name2, Photo2) => {
+  //санкреатор обновления диалогЛиста (моего когда я пишу кому то сообщение) - запись в localStorage.
+  let updateDialogListThunk = async (dispatch) => {// санка
+    let myDialogList = await apiDialogs.updateDialogListUserId(userId1, userId2, Name2, Photo2) // получение моего диалогЛиста
+ //   dispatch(getMyDialogList(myDialogList))// записать в стейт мой диалоглист
+  }
+  return updateDialogListThunk
+}
 
 export default dialogsReducer;
+

@@ -32,7 +32,7 @@ const newMessageForm = ({handleSubmit}) => {// компонента формы
 // оберточная компонента формы, задает имя подстейта "newMessageForm"
 const NewMessageReduxForm = reduxForm({form: "newMessageForm"})(newMessageForm)
 
-const Dialogs = ({dialogs, dialogs2, messages2, dispatch, sendMessage, getDialogLastUpdateTime, myID, deleteMessage}) => { // основная компонента отрисовки диалогов
+const Dialogs = ({getDialogList, dialogs2, messages2, dispatch, sendMessage, getDialogLastUpdateTime, myID, deleteMessage}) => { // основная компонента отрисовки диалогов
 
     let dialogElements = dialogs2.map((d) => // подкомпонента отрисовки всех диалогов через map
         <DialogItem userName={d.userName} userId={d.userId} userPhoto={d.userPhoto}/>);
@@ -49,6 +49,7 @@ const Dialogs = ({dialogs, dialogs2, messages2, dispatch, sendMessage, getDialog
     useEffect(() => { // при очередном ререндере
         const id = setInterval(() => { // задать цикл с интервалом в 1 сек
             getDialogLastUpdateTime() // получить время обновления текущего диалога
+            getDialogList()// получить диалогЛист (мне кто то написал, или я начал диалог)
         }, 1000)
         return (() => {
             clearInterval(id)

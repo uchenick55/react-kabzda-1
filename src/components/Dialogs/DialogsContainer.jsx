@@ -6,7 +6,7 @@ import {
     getDialogsThunkCreator, getFollowThunkCreator, getMyDialogListThunkCreator,
     sendDialogsThunkCreator,
     setdialogUserID,
-    setMessages
+    setMessages, updateDialogListThunkCreator
 } from "../../redux/dialogs-reducer";
 import {connect} from "react-redux";
 import {NavigateToLoginHoc} from "../hoc/NavigateToLoginHoc";
@@ -17,7 +17,7 @@ import {getProfileThunkCreator} from "../../redux/profile-reducer";
 
 class DialogsContainer extends React.Component {
     commonPartMountUpdate = () => {// общая часть для componentDidMount и componentDidUpdate
-        if (this.props.userID === "") { // если перешли на вкладку Dialogs с нулевым userID
+        if (!this.props.userID) { // если перешли на вкладку Dialogs с нулевым userID
             if (this.props.messages2.length>0) { // если массив сообщений непустой
                 this.props.setMessages([]); // занулить массив сообщений (очистить список сообщений)
                 this.props.setdialogUserID(null) // занулить userID (убрать выделение диалога)
@@ -33,12 +33,12 @@ class DialogsContainer extends React.Component {
     }
     componentDidMount() {
         this.getDialogList()
-  //      console.log("DialogsContainer -> componentDidMount")
+        //      console.log("DialogsContainer -> componentDidMount")
         this.commonPartMountUpdate();// общая часть для componentDidMount и componentDidUpdate
     }
 
     componentDidUpdate(prevProps, prevState, snapshot) {
- //       console.log("DialogsContainer -> componentDidUpdate")
+        //       console.log("DialogsContainer -> componentDidUpdate")
         this.commonPartMountUpdate(); // общая часть для componentDidMount и componentDidUpdate
         if  (this.props.dialogLastUpdateTime!==prevProps.dialogLastUpdateTime) { // если время обновления диалога изменилось
             this.getDialogs()// запросить новые сообщения по диалогу
@@ -54,20 +54,20 @@ class DialogsContainer extends React.Component {
     getDialogLastUpdateTime = () => {
         if (this.props.userID === "") {return}// при клике просто по вкладке Dialogs
         this.props.getDialogLastUpdateTimeTnkCrt(this.props.myID, this.props.userID); // получить время последенего обновления диалога
-
+      //  this.getDialogList()
     }
 
     getDialogList = () => {
         this.props.getMyDialogListThunkCreator(this.props.myID)
     }
 
-    sendMessage = (NewMessage) => {
-        let profilePage = this.props.profilePage
-        let userName = 0
-        let userPhoto = 0
-        if (profilePage!==null) {
-            userName = this.props.profilePage.profile.fullName;
-            userPhoto = this.props.profilePage.profile.photos.small;
+    sendMessage = (NewMessage) => { // отправка сообщения
+        let profilePage = this.props.profilePage // локальный стейт страницы пользователя
+        let userName = 0 // задаем переменную имени пользователя
+        let userPhoto = 0 // и его фото для отображения в диалоглисте
+        if (profilePage!==null) { // если профиль пользователя уже загружен
+            userName = this.props.profilePage.profile.fullName; // переопределить имя пользователя
+            userPhoto = this.props.profilePage.profile.photos.small; // и его фото и стейта
         }
 
         if (!this.props.userID) { // при клике просто по вкладке Dialogs
@@ -75,20 +75,24 @@ class DialogsContainer extends React.Component {
             return
         }
 
-        this.props.sendDialogsThunkCreator(
-
+        this.props.sendDialogsThunkCreator( // отправить сообщение
             NewMessage,
             this.props.auth.myID, // мой ID для формирования DialogList собеседника
             this.props.auth.myLogin, // мой логин  для формирования DialogList собеседника
             this.props.auth.myProfile.photos.small, // мое фото  для формирования DialogList собеседника
             this.props.userID, // ID собеседника для формирования моего DialogList
-            userName, // имя собеседника для формирования моего DialogList
-            userPhoto, // фотос обеседника для формирования моего DialogList
         ); // отправить сообщение
-           // formDataNewMessage, myID, MyName, MyPhoto, userID, userName, userPhoto
+
+        this.props.updateDialogListThunkCreator( // обновление диалогЛиста
+            this.props.auth.myID, // мой ID
+            this.props.userID, // ID с кем веду диалог
+            userName, // его имя
+            userPhoto // и фото
+        )
+        //userId1, userId2, Name2, Photo2
     }
 
-    deleteMessage = (messageID) => {
+    deleteMessage = (messageID) => { // удалить сообщение по его ID в списке
         this.props.deleteMessageThunkCreator(messageID, this.props.myID, this.props.userID);
     }
 
@@ -102,8 +106,9 @@ class DialogsContainer extends React.Component {
                 sendMessage={this.sendMessage} // проброс местного метода отправки сообщений
                 getDialogs={this.getDialogs}  // проброс местного метода получить диалоги
                 getDialogLastUpdateTime={this.getDialogLastUpdateTime} // проброс метода - получить время обновления текущего диалога
-                myID={this.props.myID}
-                deleteMessage = {this.deleteMessage}
+                myID={this.props.myID} // мой ID
+                deleteMessage = {this.deleteMessage} // удалить сообщение
+                getDialogList={this.getDialogList} // периодическая проверка написал ли кто мне, или я с кем диалог начал
             />
         </div>
     }
@@ -112,8 +117,8 @@ class DialogsContainer extends React.Component {
 let mapDispatchToProps  = (dispatch) => {
     return {
 
-        sendDialogsThunkCreator: (formDataNewMessage, myID, MyName, MyPhoto, userID, userName, userPhoto) => { // отправить сообщение
-            dispatch(sendDialogsThunkCreator(formDataNewMessage, myID, MyName, MyPhoto, userID, userName, userPhoto))
+        sendDialogsThunkCreator: (formDataNewMessage, myID, MyName, MyPhoto, userID) => { // отправить сообщение
+            dispatch(sendDialogsThunkCreator(formDataNewMessage, myID, MyName, MyPhoto, userID))
         },
         getDialogsThunkCreator: (myID, userID) => { // получить данные по текущему диалогу
             dispatch(getDialogsThunkCreator(myID, userID))
@@ -139,10 +144,13 @@ let mapDispatchToProps  = (dispatch) => {
         getMyDialogListThunkCreator: (myID) => { // удалить сообщение из диалога
             dispatch(getMyDialogListThunkCreator(myID))
         },
+        updateDialogListThunkCreator: (userId1, userId2, Name2, Photo2) => { // удалить сообщение из диалога
+            dispatch(updateDialogListThunkCreator(userId1, userId2, Name2, Photo2))
+        },
         dispatch: dispatch // для зануления redux-form
     }
 }
-//getMyDialogListThunkCreator
+//updateDialogListThunkCreator
 let mapStateToProps = (state) => {
     return {
         isAuth: state.auth.isAuth, // флаг, авторизован ли я сейчас,
