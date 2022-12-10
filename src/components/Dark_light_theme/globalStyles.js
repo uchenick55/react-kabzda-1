@@ -16,9 +16,7 @@ a {
 a:visited {
     color: ${({ theme }) => theme.a_visited};
 }
-a:hover {
-    color: #11dd77;
-}
+
 
 `;
 export const PointerCursor = styled.span`

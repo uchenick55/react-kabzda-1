@@ -2,18 +2,6 @@
     padding: 8px;
     width: max-content;
 }
-.messageMyId {
-    padding: 5px;
-    background-color: rgba(117, 190, 218, 0.5);
-    border-radius: 5px;
-
-}
-.messageNotMyId {
-    padding: 5px;
-    background-color: rgba(0, 100, 218, 0.5);
-    border-radius: 5px;
-
-}
 
 .timeStyle {
     font-size: 10px;
@@ -25,4 +13,31 @@
     padding-left: 5px;
 }
 
+.messageswrapper {
+    display: grid;
+    grid-template-areas:
+            'notmy my';
+    grid-template-columns: 1fr 1fr;
+    padding: 10px;
+    border-radius: 5px;
+
+}
+
+.messageMyId {
+    display: grid;
+    grid-template-columns: 1fr 15px;
+    grid-area: my;
+    padding: 5px;
+    background-color: rgba(117, 190, 218, 0.5);
+    border-radius: 5px;
+}
+.messageNotMyId {
+    display: grid;
+    grid-template-columns: 1fr 15px;
+    grid-area: notmy;
+    padding: 5px;
+    background-color: rgba(0, 100, 218, 0.5);
+    border-radius: 5px;
+
+}
 

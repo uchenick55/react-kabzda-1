@@ -1,6 +1,6 @@
 .dialogs {
     display: grid;
-    grid-template-columns: 180px 1fr;
+    grid-template-columns: 230px 1fr;
 }
 .dialogList {
     display: grid;
@@ -8,11 +8,23 @@
 
 
 }
-.dialog.active {
-    color: white;
+
+div.knopka {
+    text-decoration: none; /* убирать подчёркивание у ссылок */
+
+    user-select: none; /* убирать выделение текста */
+    padding: .7em 1.5em; /* отступ от текста */
+    outline: none; /* убирать контур в Mozilla */
+}
+div.knopka:hover { background: rgb(100,100,255,0.2); } /* при наведении курсора мышки */
+
+.dialog {
+}
+.dialogCurrent {
+    background: rgb(100,100,255,0.5)
 }
 
-.dialog img {
+.dialogImg {
     border-radius: 30px;
     width: 50px;
 }
@@ -30,4 +42,5 @@ padding-right: 10px
     display: grid;
     grid-template-columns: 1fr 65px;
 }
+
 

@@ -109,6 +109,7 @@ class DialogsContainer extends React.Component {
                 myID={this.props.myID} // мой ID
                 deleteMessage = {this.deleteMessage} // удалить сообщение
                 getDialogList={this.getDialogList} // периодическая проверка написал ли кто мне, или я с кем диалог начал
+                dialogUserID = {this.props.dialogUserID}
             />
         </div>
     }

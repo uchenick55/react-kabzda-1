@@ -9,11 +9,11 @@ const Message = ({message, myID, userId, Date, MessageId, deleteMessage}) => {
     let onMouseOverAction = () => {
 
     }
-    return <div className={classes.messageCommon}>
-        <div className={myID === userId ? classes.messageMyId : classes.messageNotMyId}>
+    return <div className={classes.messageswrapper}> {/*разделить сообщения на мои и собеседника поровну (право-лево)*/}
+        <div className={myID === userId ? classes.messageMyId : classes.messageNotMyId}> {/*в зависимости от того кто пишет, доп стили к тексту*/}
             <span>{message}</span>
             <img src={x} className={classes.x} onMouseOver={onMouseOverAction} onClick={()=>{deleteMessage(MessageId)}}/>
-            <div className={classes.timeStyle}>{Date.Hour}{":"}{Date.Minutes}</div>
+            <span className={classes.timeStyle}>{Date.Hour}{":"}{Date.Minutes}</span>
         </div>
     </div>
 }
