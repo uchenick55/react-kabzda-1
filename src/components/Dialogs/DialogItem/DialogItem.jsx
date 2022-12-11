@@ -19,7 +19,7 @@ const DialogItem = ({deleteDialog, dialogId, userPhoto, userName, userId, dialog
                     {/*фото профиля*/}
                     <div>
                         <div>{userName}</div>
-                        <img src={x} className={classes.x} onMouseOver={onMouseOverAction} onClick={()=>{deleteDialog(dialogId, userId )}}/>
+                        <img src={x} className={classes.x} onMouseOver={onMouseOverAction} onClick={()=>{deleteDialog(dialogId, userId )}} title ={"Удалить из своего диалогЛиста"}/>
                         <div>{userId}</div>
                     </div>
                 </div>

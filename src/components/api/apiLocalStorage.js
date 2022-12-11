@@ -135,7 +135,12 @@ export let apiDialogs = { // объект с методами api для Dialogs
   },
 
   deleteDialog: (dialogId, userId1, userId2) => { // удаления диалога из диалоглиста по его ID
-    apiDialogs.getDialogListMyID(userId1)
+    let Data1 = apiDialogs.getDialogListMyID(userId1)
+    console.log(Data1)
+    let Data2 = Data1.filter(d=>d.dialogId!==dialogId)
+    console.log(Data2)
+    localStorage.setItem("DialogList_" + userId1, JSON.stringify(Data2)); // отправить обновленный диалогЛист LocalStorage
+
   },
 
   /*
