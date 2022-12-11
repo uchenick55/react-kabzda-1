@@ -43,4 +43,11 @@ padding-right: 10px
     grid-template-columns: 1fr 65px;
 }
 
+.dialogContainer {
+    background: rgb(255,50,50,0.2);
+}
 
+.x {
+    width: 15px;
+    padding-left: 5px;
+}

@@ -34,12 +34,15 @@ const newMessageForm = ({handleSubmit}) => {// компонента формы
 // оберточная компонента формы, задает имя подстейта "newMessageForm"
 const NewMessageReduxForm = reduxForm({form: "newMessageForm"})(newMessageForm)
 
-const Dialogs = ({dialogUserID, getDialogList, dialogs2, messages2, dispatch, sendMessage, getDialogLastUpdateTime, myID, deleteMessage}) => { // основная компонента отрисовки диалогов
+const Dialogs = ({deleteDialog, dialogUserID, getDialogList, dialogs2, messages2, dispatch, sendMessage, getDialogLastUpdateTime, myID, deleteMessage}) => { // основная компонента отрисовки диалогов
 
     let dialogElements = dialogs2.map((d) => // подкомпонента отрисовки всех диалогов через map
         {
             let userPhoto = d.userPhoto ? d.userPhoto : userPhotoAva; // если аватарки с сервера нет, подставить заглушку
-            return <DialogItem userName={d.userName} userId={d.userId} userPhoto={userPhoto} dialogUserID={dialogUserID}/>
+            return <DialogItem userName={d.userName} userId={d.userId}
+                               userPhoto={userPhoto} dialogUserID={dialogUserID}
+                               deleteDialog={deleteDialog} dialogId={d.dialogId}
+            />
         }
     );
 
@@ -64,7 +67,7 @@ const Dialogs = ({dialogUserID, getDialogList, dialogs2, messages2, dispatch, se
 
     return (
         <div className={classes.dialogs} /*стиль всех диалогов*/>
-            <div>
+            <div className={classes.dialogContainer}>
                 <ScrollContainer // обернуть сообщения скролом
                     child={dialogElements}
                     height={window.screen.availHeight - 280} // высота поля скрола

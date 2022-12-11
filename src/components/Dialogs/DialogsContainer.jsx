@@ -1,6 +1,7 @@
 import React from 'react';
 import Dialogs from "./Dialogs";
 import {
+    deleteDialogThunkCreator,
     deleteMessageThunkCreator,
     getDialogLastUpdateTimeTnkCrt,
     getDialogsThunkCreator, getFollowThunkCreator, getMyDialogListThunkCreator,
@@ -96,6 +97,11 @@ class DialogsContainer extends React.Component {
         this.props.deleteMessageThunkCreator(messageID, this.props.myID, this.props.userID);
     }
 
+    deleteDialog = (dialogId, userId2) => {
+        this.props.deleteDialogThunkCreator(dialogId, this.props.myID, userId2)
+    }
+
+
     render () {
         return <div>
             <Dialogs
@@ -110,6 +116,7 @@ class DialogsContainer extends React.Component {
                 deleteMessage = {this.deleteMessage} // удалить сообщение
                 getDialogList={this.getDialogList} // периодическая проверка написал ли кто мне, или я с кем диалог начал
                 dialogUserID = {this.props.dialogUserID}
+                deleteDialog = {this.deleteDialog}
             />
         </div>
     }
@@ -147,6 +154,9 @@ let mapDispatchToProps  = (dispatch) => {
         },
         updateDialogListThunkCreator: (userId1, userId2, Name2, Photo2) => { // удалить сообщение из диалога
             dispatch(updateDialogListThunkCreator(userId1, userId2, Name2, Photo2))
+        },
+        deleteDialogThunkCreator: (dialogId, userId1, userId2) => { // удалить сообщение из диалога
+            dispatch(deleteDialogThunkCreator(dialogId, userId1, userId2))
         },
         dispatch: dispatch // для зануления redux-form
     }

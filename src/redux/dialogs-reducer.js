@@ -204,9 +204,17 @@ export let updateDialogListThunkCreator = (userId1, userId2, Name2, Photo2) => {
   //санкреатор обновления диалогЛиста (моего когда я пишу кому то сообщение) - запись в localStorage.
   let updateDialogListThunk = async (dispatch) => {// санка
     let myDialogList = await apiDialogs.updateDialogListUserId(userId1, userId2, Name2, Photo2) // получение моего диалогЛиста
- //   dispatch(getMyDialogList(myDialogList))// записать в стейт мой диалоглист
   }
   return updateDialogListThunk
+}
+
+export let deleteDialogThunkCreator = (dialogId, userId1, userId2) => {
+  //санкреатор удаления диалога из диалогЛиста
+  let deleteDialogThunk = async (dispatch) => {// санка
+    let myDialogList = await apiDialogs.deleteDialog(dialogId, userId1, userId2) // получение моего диалогЛиста после удаления диалога
+// записать в стейт не провожу - обновление раз в секунду
+  }
+  return deleteDialogThunk
 }
 
 export default dialogsReducer;

@@ -132,7 +132,32 @@ export let apiDialogs = { // объект с методами api для Dialogs
 
     return Dialog_3 // вернуть обновленный массив из DAL в BLL
 
-  }
+  },
+
+  deleteDialog: (dialogId, userId1, userId2) => { // удаления диалога из диалоглиста по его ID
+    apiDialogs.getDialogListMyID(userId1)
+  },
+
+  /*
+        // Убираем пользователя из диалогЛиста пользователя с LocalStorage
+      let dialogListUserId1 = "DialogList_" + userID // задать имя DialogList
+      let Data1 = JSON.parse(localStorage.getItem(dialogListUserId1)); // запросить диалоглист с сервера по заданному имени
+      if (!Data1) { // на всякий случай подстраховка проверка
+        Data1 = [] // если такого диалога на сервере нет, занулить его
+      }
+      let Data2 = Data1.filter(d=>d.userId!==myID) // оставить в диалогЛисте пользователя все диалоги, ктоме того,в котором 0 сообщений, кроме
+      localStorage.setItem(dialogListUserId1, JSON.stringify(Data2)); // записать в LocalStorage обновленный диалоглист
+
+      // удаляем время последнего обновления диалога с LocalStorage
+      let dialogUpdateTimeLocal = myID > userID ? "Dialog_" + myID + "_" + userID + "_UpdateTime" : "Dialog_" + userID + "_" + myID + "_UpdateTime"; // задать имя времени обновления диалога для запроса
+      localStorage.removeItem(dialogUpdateTimeLocal); // удалить время обновления последнего сообщения, после удаления всех сообщений в диалоге
+
+      // удаляем диалог вида Dialog_25528_1079 с LocalStorage
+      let dialogNameLocal = myID > userID ? "Dialog_" + myID + "_" + userID : "Dialog_" + userID + "_" + myID;  // задать имя диалога для запроса
+      localStorage.removeItem(dialogNameLocal); // удалить диалог вида Dialog_25528_1079 с LocalStorage, после удаления всех сообщений в диалоге
+
+  */
+
 
 }
 

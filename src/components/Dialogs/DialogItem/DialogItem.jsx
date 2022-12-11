@@ -2,8 +2,13 @@ import React from 'react';
 import classes from './../Dialogs.module.css';
 import {NavLink} from "react-router-dom";
 import {bedug_mode} from "../../../redux/store-redux";
+import x from "../../../assets/images/x.png";
 
-const DialogItem = ({userPhoto, userName, userId, dialogUserID}) => {
+
+const DialogItem = ({deleteDialog, dialogId, userPhoto, userName, userId, dialogUserID}) => {
+    let onMouseOverAction = () => {
+
+    }
     return <div className={userId===dialogUserID?classes.dialogCurrent:classes.dialog} >
         <NavLink to={'/dialogs/' + userId}> {/*навигация на диалог*/}
             <div className={classes.knopka}>
@@ -14,6 +19,8 @@ const DialogItem = ({userPhoto, userName, userId, dialogUserID}) => {
                     {/*фото профиля*/}
                     <div>
                         <div>{userName}</div>
+                        <img src={x} className={classes.x} onMouseOver={onMouseOverAction} onClick={()=>{deleteDialog(dialogId, userId )}}/>
+                        <div>{userId}</div>
                     </div>
                 </div>
     </div>
