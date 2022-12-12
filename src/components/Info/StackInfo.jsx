@@ -6,7 +6,7 @@ let StackInfo = () => {
         <h3>Used Stack</h3>
         <p>UI (React):function component, props (spread), import/export, map, context,
             connect (mstp, mdtp), class component (lifecycle methods), pagination, presentation/wrapped components,
-            compose, preloader, ref/value, login/logout, isAuth redirect, async. buttons disabled, initial App,
+            compose, preloader, ref/value, isAuth redirect, async. buttons disabled, initial App,
             debugger/ breakpoint/console/network/window.store, useState/useEffect/useReducer/
             useRef/useCallback/useParams, lazy/Suspense/ErrorBoundary/namedExport        </p>
         <p>BLL (Redux): store, state, reducer, callback, dispatch, action (type), action creator, case/switch,

@@ -9,7 +9,10 @@ let LoginInfo = () => {
             Данные для тестового входа:
             <p>Аккаунт 1 (начните с него):</p>
             Email: evgeniysazonov1983@gmail.com
-            Password: 12Qweasdzxc!
+            Password: 12qwaszx
+            <p>Аккаунт 2 :</p>
+            Email: evgeniysazonov1983@googlemail.com
+            Password: 12qwaszx
             <p>Аккаунт 2:</p>
             Email: free@samuraijs.com
             Password: free
