@@ -4,13 +4,8 @@ import {BrowserRouter, Route, Routes} from "react-router-dom";
 import HeaderContainer from "./components/Header/HeaderContainer";
 import NavBarContainer from "./components/Navbar/NavBarContainer";
 import {connect} from "react-redux";
-import {Component} from "react";
 import {initialisedAppThunkCreator} from "./redux/app-reducer";
 import Preloader from "./components/common/Preloader/Preloader";
-import ErrorBoundary from "./components/common/ErrorBoundary/ErrorBoundary";
-import News from "./components/News/News";
-import Rest from "./components/Rest/Rest";
-import KrestikiNoliki from "./components/Rest/Krestiki-Noliki/krestiki-noliki";
 import InfoContainer from "./components/Info/InfoContainer";
 import ContentContainer from "./components/Content/ContentContainer";
 
