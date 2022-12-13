@@ -3,7 +3,6 @@ import classes from './Header.module.css';
 import {NavLink} from "react-router-dom";
 import userPhoto from "../../assets/images/no-image3.png";
 import CallThemeRemote from "../Dark_light_theme/CallThemeRemote";
-import {bedug_mode} from "../../redux/store-redux";
 
 const Header = ({getProfileThunkCreator, deleteLogin, isAuth, myId, myLogin, myProfile}) => {
     let goToMyPage = () => {
@@ -23,11 +22,11 @@ const Header = ({getProfileThunkCreator, deleteLogin, isAuth, myId, myLogin, myP
                 ? <span onClick={goToMyPage}> <NavLink to={`/profile/`}>
                         {myLogin}
                     {!myProfile
-                        ? <img src={userPhoto}/>
+                        ? <img src={userPhoto} alt={"userPhoto"}/>
                         : <>
                             {!myProfile.photos.small
-                                ? <img src={userPhoto}/>
-                                : <img src={myProfile.photos.small}/>}
+                                ? <img src={userPhoto} alt={"userPhoto"}/>
+                                : <img src={myProfile.photos.small} alt={"userPhoto"}/>}
                         </>
                     }
                         </NavLink>

@@ -1,4 +1,3 @@
-import {sbedug_mode, debugItem} from "../../redux/store-redux";
 
 export const lightTheme = { // стили для светлой темы
   body: "#FFF",

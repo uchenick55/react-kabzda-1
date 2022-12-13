@@ -1,6 +1,3 @@
-import React from "react";
-import {bedug_mode} from "../../../redux/store-redux";
-
 export const Required = (value) => {
     if (value) {
         return undefined // возврет нет ошибки, если поле не пустое

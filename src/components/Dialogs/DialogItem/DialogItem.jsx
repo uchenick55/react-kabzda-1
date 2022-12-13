@@ -1,7 +1,6 @@
 import React from 'react';
 import classes from './../Dialogs.module.css';
 import {NavLink} from "react-router-dom";
-import {bedug_mode} from "../../../redux/store-redux";
 import x from "../../../assets/images/x.png";
 
 
@@ -14,12 +13,12 @@ const DialogItem = ({deleteDialog, dialogId, userPhoto, userName, userId, dialog
             <div className={classes.knopka}>
                 <div className={classes.dialogList}>
                     <div>
-                        <img src={userPhoto} className={classes.dialogImg}/>
+                        <img src={userPhoto} alt={"userPhoto"} className={classes.dialogImg}/>
                     </div>
                     {/*фото профиля*/}
                     <div>
                         <div>{userName}</div>
-                        <img src={x} className={classes.x} onMouseOver={onMouseOverAction} onClick={()=>{deleteDialog(dialogId, userId )}} title ={"Удалить из своего диалогЛиста"}/>
+                        <img src={x} alt={"Удалить из своего диалогЛиста"} className={classes.x} onMouseOver={onMouseOverAction} onClick={()=>{deleteDialog(dialogId, userId )}} title ={"Удалить из своего диалогЛиста"}/>
                         <div>{userId}</div>
                     </div>
                 </div>

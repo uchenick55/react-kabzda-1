@@ -1,7 +1,5 @@
-import React from "react";
 import {bedug_mode} from "../../redux/store-redux";
 import GetDate from "./GetDate";
-import {useState} from "react";
 
 export let apiDialogs = { // объект с методами api для Dialogs
   _setMessages2LS: (Dialog_2, myID, userID) => { // метод отправки измененного диалога в LocalStorage и считывания его же
@@ -92,6 +90,7 @@ export let apiDialogs = { // объект с методами api для Dialogs
         shouldDataUpdate = false;
         return
       }
+      return shouldDataUpdate
     })
 
     if (shouldDataUpdate) { // если флаг обновления диалоглиста true, то добавляем диалог в диалогЛист

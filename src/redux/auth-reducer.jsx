@@ -1,8 +1,7 @@
 import {apiProfile} from "../components/api/api";
 import {stopSubmit} from "redux-form";
 import {bedug_mode} from "./store-redux";
-import {friendsInitialState, setFriends} from "./sidebar-reducer";
-import {appInitialState} from "./app-reducer";
+import {friendsInitialState} from "./sidebar-reducer";
 import {dialogsInitialState} from "./dialogs-reducer";
 import {profileInitialState} from "./profile-reducer";
 import {usersInitialState} from "./users-reducer";
@@ -73,7 +72,7 @@ export let getAuthMeThunkCreator = () => {//санкреатор я автори
             if (bedug_mode) {console.log("auth-reducer.jsx, getAuthMeThunkCreator.await(getAuthMe)->await .getProfile() : dispatch(setMyProfile()->SET_MY_PROFILE" )} // дебаг
             dispatch(setMyProfile(response2))//задание в стейт моих доп данных
         }
-        if (!response1.resultCode == 0) { //пользователь не авторизован
+        if (!response1.resultCode === 0) { //пользователь не авторизован
             let id = initialState.userID; // занулить в стейте мой ID
             let email = initialState.email;// занулить в стейте мой email
             let login = initialState.login;// занулить в стейте мой логин

@@ -3,8 +3,8 @@ import classes from './Dialogs.module.css';// css обработка
 import DialogItem from "./DialogItem/DialogItem";// подкомпонента отрисовки диалогов через map
 import Message from "./Message/Message";// подкомпонента отрисовки сообщений через map
 import {Field, reduxForm, reset} from "redux-form";
-import {Input, Textarea} from "../common/Validation/customFields";
-import {maxLengthCreator, Required} from "../common/Validation/validationField";
+import {Input} from "../common/Validation/customFields";
+import {maxLengthCreator} from "../common/Validation/validationField";
 import {bedug_mode} from "../../redux/store-redux";
 import ScrollContainer from "../common/Scroll/ScrollContainer";
 import userPhotoAva from "../../assets/images/no-image3.png";

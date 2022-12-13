@@ -8,7 +8,6 @@ import {
 import Users from "./Users";
 import Preloader from "../common/Preloader/Preloader";
 import {getUsersReselect, usersSelectorsSimple} from "./users-selectors";
-import {bedug_mode} from "../../redux/store-redux";
 
 class UsersAPI extends React.Component {
     constructor(props) {
@@ -35,7 +34,7 @@ class UsersAPI extends React.Component {
     }
 
     componentDidUpdate(prevProps, prevState, snapshot) {
-        if (prevProps.term != this.props.term) {
+        if (prevProps.term !== this.props.term) {
             this.props.setCurrentPage(1)// задание в стейт текущей страницы
             this.setState({currentRangeLocal: 1}) // перевод диапазона пагинации2 на 1 (сброс)
             const {getUsersThunkCreator, pageSize, term } = this.props; // получение из проспсов данные для запроса
@@ -56,7 +55,7 @@ class UsersAPI extends React.Component {
         this.props.unfollowThunkCreator(id, this.props.currentPage,this.props.pageSize, this.props.term)
     }
     render() {
-        const {isFetching, totalUsersCount, pageSize, currentPage, users, followingInProgress, isAuth, setTerm} = this.props;
+        const {isFetching, totalUsersCount, pageSize, currentPage, users, followingInProgress, isAuth} = this.props;
         return <>
             {isFetching ? <Preloader/> : null}
             <Users onPageChanged={this.onPageChanged}

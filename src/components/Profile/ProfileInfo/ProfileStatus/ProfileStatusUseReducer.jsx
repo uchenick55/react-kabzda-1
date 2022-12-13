@@ -59,7 +59,7 @@ let ProfileStatusUseReducer = ({status, userId, myId, putStatusThunkCreator}) =>
         dispatch({type: SET_STATUS_TMP_INPUT, text: text})// присваиваем переменной временного статуса из локального стейта введенное значение в поле
     }
     const checkEnterPressed = (event) => { // проверка нажатия Enter
-        if (event.charCode == 13) {
+        if (event.charCode === 13) {
             setMyStatus()//задание статуса при нажатии Enter
         }
     }

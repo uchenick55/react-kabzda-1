@@ -1,5 +1,4 @@
 import React from 'react'
-import {bedug_mode} from "../../redux/store-redux";
 
 const CallTheme = ({themeTogglerLocal}) => { // отображение картинки смены темы
     return (

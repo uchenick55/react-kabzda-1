@@ -1,7 +1,6 @@
 import React, {useState} from "react";
 import classes from "./Pagination.module.css";
 import {PointerCursor} from "../../Dark_light_theme/globalStyles";
-import {bedug_mode} from "../../../redux/store-redux";
 
 let PaginatiionByCourse = ({
                                totalUsersCount, // общее число пользователей на сервере

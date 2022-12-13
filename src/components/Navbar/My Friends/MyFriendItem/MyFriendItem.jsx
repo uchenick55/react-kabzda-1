@@ -10,9 +10,9 @@ const MyFriendItem = ({id, avaSrc, name, unfollowFriendsAPI, dialogUserID}) => {
     let dialog = '/dialogs/' + id;
     let profile =  '/profile/' + id;
     return <div className={classes.myfriends}>
-            <div><img src={avaSrc} className={classes.myFriendImg}/>{name} {id}</div>
+            <div><img src={avaSrc} alt={"myFriendImg"} className={classes.myFriendImg}/>{name} {id}</div>
         <NavLink to={dialog}>
-            {dialogUserID == id
+            {dialogUserID === id
                 ? <span className={classes.currentDialog} >dialog</span>
                 : <span className={classes.otherDialogs} >dialog</span>
             }

@@ -22,6 +22,7 @@ const GetDate = () => {
         case 9: fMonth="окт."; break;
         case 10: fMonth="ноя."; break;
         case 11: fMonth="дек."; break;
+        default: fMonth=""; break;
     }
     let DataReturn2 = {
         "Year": Year,

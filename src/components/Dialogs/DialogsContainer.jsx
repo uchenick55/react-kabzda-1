@@ -12,7 +12,6 @@ import {
 import {connect} from "react-redux";
 import {NavigateToLoginHoc} from "../hoc/NavigateToLoginHoc";
 import {compose} from "redux";
-import {bedug_mode} from "../../redux/store-redux";
 import {useParams} from "react-router";
 import {getProfileThunkCreator} from "../../redux/profile-reducer";
 
@@ -47,7 +46,6 @@ class DialogsContainer extends React.Component {
     }
 
     getDialogs = () => {
-        const {match, getDialogsThunkCreator} = this.props;// пропсы
         if (this.props.userID === "") {return}// при клике просто по вкладке Dialogs
         this.props.getDialogsThunkCreator(this.props.myID, this.props.userID);// получить диалоги
     }
@@ -55,7 +53,6 @@ class DialogsContainer extends React.Component {
     getDialogLastUpdateTime = () => {
         if (this.props.userID === "") {return}// при клике просто по вкладке Dialogs
         this.props.getDialogLastUpdateTimeTnkCrt(this.props.myID, this.props.userID); // получить время последенего обновления диалога
-      //  this.getDialogList()
     }
 
     getDialogList = () => {

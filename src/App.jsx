@@ -1,6 +1,6 @@
-import React, {Suspense} from "react";
+import React from "react";
 import './App.css';
-import {BrowserRouter, Route, Routes} from "react-router-dom";
+import {BrowserRouter, HashRouter} from "react-router-dom";
 import HeaderContainer from "./components/Header/HeaderContainer";
 import NavBarContainer from "./components/Navbar/NavBarContainer";
 import {connect} from "react-redux";
@@ -19,7 +19,7 @@ class App extends React.Component { // конвертируем app в клас�
             return <Preloader/> // показать статус загрузки
         }
         return ( // иначе показать все приложение
-            <BrowserRouter>
+            <HashRouter> {/*BrowserRouter для продакшн, HashRouter для gh-pages*/}
                 <div className='app-wrapper'> {/*позиционирование по сетке гридов*/}
                     {/*    <ErrorBoundary> Общий обработчик ошибок во всем приложении*/}
                     <HeaderContainer/> {/*Header с пользователем и day/night режимом*/}
@@ -36,7 +36,7 @@ class App extends React.Component { // конвертируем app в клас�
                     </ErrorBoundary>
 */}
                 </div>
-            </BrowserRouter>
+            </HashRouter>
         );
     }
 }

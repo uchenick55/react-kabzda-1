@@ -15,10 +15,10 @@ const CallThemeRemote = ({themeBLL, setTheme}) => {
         setTheme(theme) // 2) меняет тему themeBLL в редаксе
     }
     useEffect(()=>{
-        if (theme!=themeBLL) {
+        if (theme!==themeBLL) {
             setTheme(theme) // записывает в BLL состояние темы, взятое из localStorage при ререндере
         }
-    },[theme, themeBLL]) // useEffect зависит от theme и themeBLL
+    },[theme, themeBLL, setTheme]) // useEffect зависит от theme, themeBLL и setTheme
     return (
         <span>
             <PointerCursor>

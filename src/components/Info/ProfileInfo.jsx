@@ -2,8 +2,6 @@ import React from 'react';
 import classes from '../Profile/ProfileInfo/ProfileInfo.module.css'
 import Preloader from "../common/Preloader/Preloader";
 import ProfileStatusUseReducer from "../Profile/ProfileInfo/ProfileStatus/ProfileStatusUseReducer";
-import ProfileStatusUseState from "../Profile/ProfileInfo/ProfileStatus/ProfileStatusUseState";
-import ProfileStatusClass from "../Profile/ProfileInfo/ProfileStatus/ProfileStatusClass";
 import {bedug_mode} from "../../redux/store-redux";
 import userPhoto from "../../assets/images/no-image3.png";
 
@@ -16,7 +14,7 @@ const ProfileInfo = ({profile, myId, status, putStatusThunkCreator}) => {
     return <div className={classes.content}>
 
         <div className={classes.ProfilePhoto} >
-            <img src={profile.photos.small?profile.photos.small:userPhoto}/>
+            <img alt={"userPhoto"} src={profile.photos.small?profile.photos.small:userPhoto}/>
         </div>
         <div className={classes.descriptionBlock}>
             <div>Обо мне: {profile.aboutMe}</div>

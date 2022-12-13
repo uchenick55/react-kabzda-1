@@ -2,7 +2,6 @@
 
 import classes from "./Pagination.module.css";
 import React from "react";
-import {bedug_mode} from "../../../redux/store-redux";
 
 let Pagination = ({totalUsersCount, pageSize, currentPage, onPageChanged}) => {
     let PagesCount = Math.ceil(totalUsersCount / pageSize);
@@ -33,13 +32,5 @@ let Pagination = ({totalUsersCount, pageSize, currentPage, onPageChanged}) => {
         </div>
     )
 }
-
-
-{/*        <div>
-            {<Pagination
-                totalUsersCount={totalUsersCount} pageSize={pageSize}
-                currentPage={currentPage}
-                onPageChanged={onPageChanged}/>}Вывод слайсера вверху страницы (пагинация)
-        </div>*/}
 
 export default Pagination

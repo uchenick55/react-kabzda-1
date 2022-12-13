@@ -2,7 +2,6 @@ import React from "react";
 import classes from "./Users.module.css";
 import userPhoto from "../../assets/images/no-image3.png";
 import {NavLink} from "react-router-dom";
-import Pagination from "../common/Pagination/Pagination";
 import PaginatiionByCourse from "../common/Pagination/PaginatiionByCourse";
 import {bedug_mode} from "../../redux/store-redux";
 import ScrollContainer from "../common/Scroll/ScrollContainer";
@@ -44,7 +43,7 @@ let Users = ({
                     <div>
                         <div>
                             <NavLink to={'/profile/' + u.id}>
-                                <img className={classes.userPhoto}
+                                <img alt = {"userPhoto"} className={classes.userPhoto}
                                      src={u.photos.small != null
                                          ? u.photos.small
                                          : userPhoto}/>

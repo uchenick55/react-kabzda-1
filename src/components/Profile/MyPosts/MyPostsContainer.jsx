@@ -1,8 +1,6 @@
-import React from 'react';
 import MyPosts from "./MyPosts";
 import {addPostActionCreator} from "../../../redux/profile-reducer";
 import {connect} from "react-redux";
-import {bedug_mode} from "../../../redux/store-redux";
 
 let mapStateToProps = (state) => {
     return {
