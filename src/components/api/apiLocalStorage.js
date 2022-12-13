@@ -88,7 +88,7 @@ export let apiDialogs = { // объект с методами api для Dialogs
     Data1.map((d1) => { // просматриваем весь диалоглист и ставим флаг, если такой диалог в диалогЛисте уже есть, то заново не добавляем
       if (d1.userId === userId2) {
         shouldDataUpdate = false;
-        return
+        return null
       }
       return shouldDataUpdate
     })

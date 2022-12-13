@@ -5,7 +5,6 @@ import Message from "./Message/Message";// подкомпонента отрис
 import {Field, reduxForm, reset} from "redux-form";
 import {Input} from "../common/Validation/customFields";
 import {maxLengthCreator} from "../common/Validation/validationField";
-import {bedug_mode} from "../../redux/store-redux";
 import ScrollContainer from "../common/Scroll/ScrollContainer";
 import userPhotoAva from "../../assets/images/no-image3.png";
 
@@ -63,7 +62,7 @@ const Dialogs = ({deleteDialog, dialogUserID, getDialogList, dialogs2, messages2
         return (() => {
             clearInterval(id)
         }) // для сброса цикла при очередном рендере
-    }, []) // useEffect без зависимостей
+    }, [getDialogLastUpdateTime, getDialogList]) // useEffect без зависимостей
 
     return (
         <div className={classes.dialogs} /*стиль всех диалогов*/>

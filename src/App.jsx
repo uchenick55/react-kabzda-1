@@ -1,6 +1,6 @@
 import React from "react";
 import './App.css';
-import {BrowserRouter, HashRouter} from "react-router-dom";
+import {HashRouter} from "react-router-dom";
 import HeaderContainer from "./components/Header/HeaderContainer";
 import NavBarContainer from "./components/Navbar/NavBarContainer";
 import {connect} from "react-redux";
