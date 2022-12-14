@@ -145,6 +145,16 @@ export let apiDialogs = { // объект с методами api для Dialogs
 }
 
 export let apiCommon = { // объект с методами api для общих нужд
-  putInfoMode: (dialogId, userId1, userId2) => { // удаления диалога из диалоглиста по его ID
+  putInfoMode: (info_mode) => { // задание info_mode в localStorage
+    localStorage.setItem("putInfoMode", JSON.stringify(info_mode)); // отправить info_mode в LocalStorage
+    let Data1 = JSON.parse(localStorage.getItem("putInfoMode")); // запросить info_mode с LocalStorage
+    return Data1
+  },
+  getInfoMode: () => { // задание info_mode в localStorage
+    let Data1 = JSON.parse(localStorage.getItem("putInfoMode")); // запросить info_mode с LocalStorage
+    if (Data1===undefined) {
+      Data1=true
+    }
+    return Data1
   }
 }

@@ -3,16 +3,20 @@ import Header from "./Header";
 import {connect} from "react-redux";
 import {deleteLoginThunkCreator} from "../../redux/auth-reducer";
 import {getProfileThunkCreator} from "../../redux/profile-reducer";
-import {setInfoMode} from "../../redux/app-reducer";
+import {getInfoModeThunkCreator, setInfoMode, setInfoModeThunkCreator} from "../../redux/app-reducer";
 
 
 class HeaderContainer extends React.Component {
+    componentDidMount() {
+        this.props.getInfoModeThunkCreator() // считыаем с localStorage флаг комментариев по сайту
+    }
+
     deleteLogin = () => {
         this.props.deleteLoginThunkCreator()// логаут текущего пользователя
     }
     switchInfo = () => {
-        let info_modeLocal = !this.props.info_mode
-        this.props.setInfoMode(info_modeLocal)
+        let info_modeLocal = !this.props.info_mode // меняем infoMode на противоположный и отправляем в localStorage
+        this.props.setInfoModeThunkCreator(info_modeLocal) // задать infoMode в localStorage
 
     }
     render() {
@@ -28,7 +32,13 @@ let mapStateToProps = (state) => {
         info_mode: state.app.info_mode,
     }
 }
-export default connect(mapStateToProps, {getProfileThunkCreator, deleteLoginThunkCreator, setInfoMode})(HeaderContainer);
+export default connect(mapStateToProps, {
+    getProfileThunkCreator,
+    deleteLoginThunkCreator,
+    setInfoMode,
+    setInfoModeThunkCreator,
+    getInfoModeThunkCreator
+})(HeaderContainer);
 
 
 
