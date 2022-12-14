@@ -3,13 +3,13 @@
 
 .profilePhotoIMG {
     border-radius: 30px;
-    width: 300px;
+    width: 250px;
 
 }
 
 .profileInfoGreed {
     display: grid;
-    grid-template-columns: 1fr 1fr;
+    grid-template-columns: 270px 1fr;
 }
 .buttonsPhotoUpload {
     display: grid;

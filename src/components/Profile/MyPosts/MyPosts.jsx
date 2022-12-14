@@ -29,7 +29,7 @@ const newPostForm = ({handleSubmit}) => { // компонента формы
 // оберточная компонента формы, задает имя подстейта "newPostForm"
 const NewPostReduxForm = reduxForm({form: "newPostForm"})(newPostForm)
 
-const MyPosts = ({state, addPost, dispatch}) => { // основная компонента отрисовки постов
+const MyPosts = ({userId, state, addPost, dispatch}) => { // основная компонента отрисовки постов
     if (bedug_mode) {console.log("MyPosts.jsx")} // дебаг
 
     let postElements = state.posts.map((p) => // подкомпонента отрисовки всех постов через map
@@ -44,7 +44,10 @@ const MyPosts = ({state, addPost, dispatch}) => { // основная компо
     return (
         <div className={classes.postsBlock} /*стиль*/ >
             <h3>My posts</h3> {/*h3 заголовок*/}
-            <NewPostReduxForm onSubmit={AddPost} /> {/*вызов формы постов с отсылкой на локальный обработчик сабмита*/}
+            <div>
+                {/*скрыть данное поле если это не мой аккаунт*/}
+                <NewPostReduxForm onSubmit={AddPost} /> {/*вызов формы постов с отсылкой на локальный обработчик сабмита*/}
+            </div>
             <div className={classes.posts}>
                 {postElements} {/*отрисовка постов*/}
             </div>

@@ -8,6 +8,16 @@
     grid-template-columns: 4fr 6fr 2fr;
 }
 
+.app-wrapper-no-info {
+    display: grid;
+    margin: 0 auto;
+    grid-template-areas:
+            'h h'
+            'c n';
+    grid-template-rows: 95px 5fr;
+    grid-template-columns: 1fr 180px;
+}
+
 .app-wrapper-info {
     grid-area: i;
     position: relative;

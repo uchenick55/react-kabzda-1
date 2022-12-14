@@ -20,6 +20,7 @@ const Profile = ({profile, status, myId, putStatusThunkCreator, uploadImage, use
             userId={userId} // id выбранного пользователя, берется из URL
         />
         <MyPostsContainer // контейнер отображения постов (пока заглушка из стейта BLL)
+            userId={userId} // id выбранного пользователя, берется из URL
         />
     </div>
     return <div>

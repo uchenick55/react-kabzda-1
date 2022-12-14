@@ -20,15 +20,18 @@ class App extends React.Component { // конвертируем app в клас�
         }
         return ( // иначе показать все приложение
             <HashRouter> {/*BrowserRouter для продакшн, HashRouter для gh-pages*/}
-                <div className='app-wrapper'> {/*позиционирование по сетке гридов*/}
+                <div className={this.props.info_mode?'app-wrapper':'app-wrapper-no-info'}> {/*позиционирование по сетке гридов*/}
                     {/*    <ErrorBoundary> Общий обработчик ошибок во всем приложении*/}
                     <HeaderContainer/> {/*Header с пользователем и day/night режимом*/}
                     <div className='app-wrapper-navbar'>
                         <NavBarContainer/> {/*Навигационная панель со ссылками и FriendList*/}
                     </div>
-                    <div className='app-wrapper-info'>
-                        <InfoContainer/> {/*поле комментариев функциональности к страницам в зависмости от URL*/}
-                    </div>
+                    {this.props.info_mode
+                        ?<div className='app-wrapper-info'>
+                            <InfoContainer/> {/*поле комментариев функциональности к страницам в зависмости от URL*/}
+                        </div>
+                        : null
+                    }
                     <div className='app-wrapper-content'>
                         <div><ContentContainer/> {/*страницы контента в зависмости от URL*/}</div>
                     </div>
@@ -43,7 +46,8 @@ class App extends React.Component { // конвертируем app в клас�
 
 const mapStateToProps = (state) => {
     return {
-        initialisedApp: state.app.initialisedApp
+        initialisedApp: state.app.initialisedApp, // флаг инициализации приложения
+        info_mode: state.app.info_mode, // флаг включения комментариев по телу сайта
     }
 }
 

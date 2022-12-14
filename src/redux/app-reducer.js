@@ -3,6 +3,7 @@ import {bedug_mode} from "./store-redux";
 
 const SET_INITIALISED_APP = "myApp/app-reducer/SET_INITIALISED_APP"; //константа инициализации приложения
 const APP_INITIAL_STATE = "myApp/app-reducer/APP_INITIAL_STATE"; //константа зануления при логауте
+const SET_INFO_MODE = "myApp/app-reducer/SET_INFO_MODE"; //константа задания режима вывода информации по приложению
 
 export let setInitialisedApp = () => { // экшн креатор  инициализации приложения
   return {type: SET_INITIALISED_APP}
@@ -10,10 +11,14 @@ export let setInitialisedApp = () => { // экшн креатор  инициа�
 export let appInitialState = () => { // экшн зануления при логауте
   return {type: APP_INITIAL_STATE}
 };
+export let setInfoMode = (info_mode) => { // экшн задания режима вывода информации
+  return {type: SET_INFO_MODE, info_mode}
+};
 
 let initialState = { //стейт по умолчанию для инициализации приложения
   initialisedApp: false, // флаг приложение инициализировано?
-  bedug_mode: false,
+  bedug_mode: false, // флаг вывода всех операций в консоли
+  info_mode: true, // флаг вывода информации по страницам приложения
 }
 
 let appReducer = (state = initialState, action) => {//редьюсер инициализации приложения
@@ -28,6 +33,13 @@ let appReducer = (state = initialState, action) => {//редьюсер иниц�
       return stateCopy; // возврат копии стейта после изменения
     case APP_INITIAL_STATE: // экшн зануления при логауте
       stateCopy = initialState
+      if (bedug_mode) {console.log("app-reducer.js, APP_INITIAL_STATE: ", state, stateCopy)} // дебаг
+      return stateCopy; // возврат копии стейта после изменения
+    case SET_INFO_MODE: // экшн переключения режима отображения комментариев (информации) по сайту
+      stateCopy = {
+        ...state, // копия всего стейта
+        info_mode: action.info_mode, // смена флага инициализации приложения
+      }
       if (bedug_mode) {console.log("app-reducer.js, APP_INITIAL_STATE: ", state, stateCopy)} // дебаг
       return stateCopy; // возврат копии стейта после изменения
     default:
@@ -48,6 +60,13 @@ export let initialisedAppThunkCreator = () => {// санкреатор иниц�
       })
   }
   return initialisedAppThunk;
+}
+export let setInfoModeThunkCreator = (info_mode) => {// санкреатор переключения режима комментариев
+  let setInfoModeThunk = (dispatch) => { // санки  переключения режима комментариев
+/*      let updatedInfoMode =   putInfoMode (info_mode) => {*/
+
+    }
+  return setInfoModeThunk;
 }
 
 export default appReducer;
