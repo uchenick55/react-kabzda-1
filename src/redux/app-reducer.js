@@ -1,6 +1,6 @@
 import {getAuthMeThunkCreator} from "./auth-reducer";
 import {bedug_mode} from "./store-redux";
-import {apiCommon, apiDialogs} from "../components/api/apiLocalStorage";
+import {apiCommon} from "../components/api/apiLocalStorage";
 
 const SET_INITIALISED_APP = "myApp/app-reducer/SET_INITIALISED_APP"; //константа инициализации приложения
 const APP_INITIAL_STATE = "myApp/app-reducer/APP_INITIAL_STATE"; //константа зануления при логауте

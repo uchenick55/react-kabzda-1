@@ -152,9 +152,10 @@ export let apiCommon = { // объект с методами api для общи
   },
   getInfoMode: () => { // задание info_mode в localStorage
     let Data1 = JSON.parse(localStorage.getItem("putInfoMode")); // запросить info_mode с LocalStorage
-    if (Data1===undefined) {
+    if (Data1===undefined|| Data1===0 || Data1===null) {
       Data1=true
     }
+    apiCommon.putInfoMode(Data1)
     return Data1
   }
 }
