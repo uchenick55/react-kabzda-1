@@ -1,11 +1,13 @@
 import {apiProfile} from "../components/api/api";
 import {bedug_mode} from "./store-redux";
+import {getAuthMeThunkCreator} from "./auth-reducer";
 
 const DELETE_POST = "myApp/profile-reducer/DELETE_POST";// константа удаления новых постов
 const ADD_POST = "myApp/profile-reducer/ADD-POST";// константа отправки новых постов
 const SET_USER_PROFILE = "myApp/profile-reducer/SET_USER_PROFILE"; // константа задания в локальный стейт профиля просматриваемого пользователя
 const SET_STATUS = "myApp/profile-reducer/SET_STATUS" // константа задания моего статуса
 const PROFILE_INITIAL_STATE = "myApp/profile-reducer/PROFILE_INITIAL_STATE" // константа зануления при логауте
+const SET_PROFILE_PHOTO = "myApp/profile-reducer/SET_PROFILE_PHOTO" // константа задания фото профиля
 
 
 export let deletePostActionCreator = (postId) => { // экшнкреатор удаления поста по postId
@@ -22,6 +24,9 @@ export let setStatus = (newStatus) => { //экшнкреатор задания 
 };
 export let profileInitialState = () => { //экшнкреатор зануления при логауте
     return {type: PROFILE_INITIAL_STATE}
+};
+export let setProfilePhoto = () => { //экшнкреатор задания фото профиля
+    return {type: SET_PROFILE_PHOTO}
 };
 
 let initialState = {
@@ -116,6 +121,16 @@ export let putStatusThunkCreator = (statusTmpInput, myId) => { // санкреа
         if (response.resultCode === 0) { // если успешное обновление статуса с сервера
             if (bedug_mode) {console.log("profile-reducer.jsx, putStatusThunkCreator.await putStatus(): dispatch(getStatusThunkCreator())" )} // дебаг
             dispatch(getStatusThunkCreator(myId))// получение нового статуса с сервера после обновления
+        }
+    }
+}
+export let setprofilePhotoThunkCreator = (profilePhoto, myId) => { // санкреатор установки фотографии моего профиля
+    return async (dispatch) => { // нонеййм санка установки фотографии моего профиля
+        const response = await apiProfile.putPhoto(profilePhoto) // отправка нового статуса на сервер
+        if (response.resultCode === 0) { // если успешное обновление статуса с сервера
+            if (bedug_mode) {console.log("profile-reducer.jsx, setprofilePhotoThunkCreator.await putPhoto(): dispatch(getProfileThunkCreator())" )} // дебаг
+            dispatch(getProfileThunkCreator(myId));// перезапрашиваем данные профиля после обновления фото
+            dispatch(getAuthMeThunkCreator()) // обновить данные моего профиля (header photo) при обновлении фото
         }
     }
 }

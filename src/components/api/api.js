@@ -50,6 +50,18 @@ export let apiProfile = { // объект с методами api для про�
   deleteLogin: async () => { // логаут текущего пользователя
     const response = await instance.delete(`/auth/login`)
     return (response.data) //возврат данных из поля data
+  },
+  putPhoto: async (profilePhoto) => { // отправка фото пользователя
+
+    const data = new FormData() // создаем новый объект
+    data.append('image', profilePhoto) // добавляем в созданный объект загруженое фото
+    const config = {
+      headers: {
+        'content-type': 'multipart/form-data' // задаем тип отправляемых данных
+      }
+    }
+    const response = await instance.put(`/profile/photo`, data, config) // отправка фото на сервер
+    return (response.data) //возврат данных из поля data
   }
 }
 

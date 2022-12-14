@@ -1,11 +1,17 @@
 .descriptionBlock {
 }
 
-.content {
-}
-
-.ProfilePhoto img {
+.profilePhotoIMG {
     border-radius: 30px;
-    height: 80px;
+    width: 300px;
+
 }
 
+.profileInfoGreed {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+}
+.buttonsPhotoUpload {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+}

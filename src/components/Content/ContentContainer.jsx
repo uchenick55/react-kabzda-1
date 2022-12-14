@@ -5,7 +5,7 @@ import Rest from "../Rest/Krestiki-Noliki/krestiki-noliki";
 import classes from './ContentContainer.module.css';
 import StackInfo from "../Info/StackInfo";
 
-const ProfileContainer = React.lazy(() => import("../Profile/ProfileInfo/ProfileContainer"))
+const ProfileContainer = React.lazy(() => import("../Profile/ProfileContainer"))
 const DialogsContainer = React.lazy(() => import("../Dialogs/DialogsContainer"))
 // В случае именного экспорта, оборачиваем компоненту в промежуточную с экспортом по умолчанию, чтобы работал lazy
 const ExportDefaultUsersContainer = React.lazy(() => import("../users/ExportDefaultUsersContainer"))

@@ -3,7 +3,7 @@ import classes from "../Content/ContentContainer.module.css";
 import {Route, Routes} from "react-router-dom";
 import DialogsInfo from "./DialogsInfo";
 import LoginInfo from "./LoginInfo";
-import ProfileInfo2 from "../Profile/ProfileInfo/ProfileInfo2";
+import ProfileInfo2 from "./ProfileInfo2";
 import NewsInfo from "./NewsInfo";
 import RestInfo from "./RestInfo";
 import UsersInfo from "./UsersInfo";
