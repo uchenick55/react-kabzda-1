@@ -15,11 +15,12 @@ const newPostForm = ({handleSubmit}) => { // компонента формы
                         name={"newPostData"} // имя поля формы и возвращаемого свойства объекта после сабмита формы
                         component={Textarea} //настраиваемый компонент текстовое поле для вывода ошибок ввода
                         placeholder={"newPost"} // текст подсказка при пустом поле
-                        validate = {[Required, maxLengthCreator(60)]} //  валидация требуемого поля и максимальной длины
+                        validate={[Required, maxLengthCreator(60)]} //  валидация требуемого поля и максимальной длины
                     />
                 </div>
                 <div>
-                    <button>Submit</button> {/*кнопка*/}
+                    <button>Submit</button>
+                    {/*кнопка*/}
                 </div>
             </div>
         </form>
@@ -30,10 +31,12 @@ const newPostForm = ({handleSubmit}) => { // компонента формы
 const NewPostReduxForm = reduxForm({form: "newPostForm"})(newPostForm)
 
 const MyPosts = ({userId, state, addPost, dispatch}) => { // основная компонента отрисовки постов
-    if (bedug_mode) {console.log("MyPosts.jsx")} // дебаг
+    if (bedug_mode) {
+        console.log("MyPosts.jsx")
+    } // дебаг
 
     let postElements = state.posts.map((p) => // подкомпонента отрисовки всех постов через map
-            <Post message={p.message} like={p.like} id={p.id}/>);
+        <Post message={p.message} like={p.like} id={p.id}/>);
 
     let AddPost = (formData) => { // функция отправления данных формы нового поста в стейт
 // здесь зарезетить форму
@@ -43,15 +46,19 @@ const MyPosts = ({userId, state, addPost, dispatch}) => { // основная к
 
     return (
         <div className={classes.postsBlock} /*стиль*/ >
-            <h3>My posts</h3> {/*h3 заголовок*/}
-            <div>
-                {/*скрыть данное поле если это не мой аккаунт*/}
-                <NewPostReduxForm onSubmit={AddPost} /> {/*вызов формы постов с отсылкой на локальный обработчик сабмита*/}
-            </div>
-            <div className={classes.posts}>
-                {postElements} {/*отрисовка постов*/}
-            </div>
+            {userId === 0 // если мы перешли на свой профиль (в браузере нет ID возле profile)
+                ? <div>
+                    <h3>My posts</h3> {/*h3 заголовок*/}
+                    <NewPostReduxForm
+                        onSubmit={AddPost}/> {/*вызов формы постов с отсылкой на локальный обработчик сабмита*/}
+                    <div className={classes.posts}>
+                        {postElements} {/*отрисовка постов*/}
+                    </div>
+                </div>
+                : null
+            }
         </div>
     )
 }
 export default MyPosts;
+//скрыть поле ввода постов, если это не мой аккаунт

@@ -1,22 +1,25 @@
 .header {
     padding: 5px;
     grid-area: h;
-    /*
-    background-image: url("../../assets/images/react-redux.png");
-    */
     background-size: 180px;
     background-repeat: no-repeat;
     background-color: rgba(139, 239, 0, 0.3);
-    text-align: left;
 }
 
 .headerGreed {  /*размещение элементтов в header */
     display: grid;
-    grid-template-columns: 80px 1fr 160px;
+    grid-template-columns: 80px 1fr 360px;
+}
+
+.myProfilePart {
+    text-align: right;
+    padding-right: 5px;
+
 }
 
 .header img {
     height: 80px;
+    border-radius: 20px;
 }
 
 
@@ -28,6 +31,8 @@
 
 .callThemeRemoteTheme {
     padding-left: 20px;
+    text-align: left;
+
 }
 
 /*далее стили для переключателя режима отображения комментариев на сайте*/
