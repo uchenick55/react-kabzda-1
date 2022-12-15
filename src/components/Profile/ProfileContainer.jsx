@@ -6,6 +6,7 @@ import {useParams} from "react-router-dom"
 import {NavigateToLoginHoc} from "../hoc/NavigateToLoginHoc";
 import {compose} from "redux";
 import {bedug_mode} from "../../redux/store-redux";
+import {putMyProfileThunkCreator} from "../../redux/auth-reducer";
 
 class ProfileContainer extends React.Component {
     componentDidMount() {
@@ -13,6 +14,7 @@ class ProfileContainer extends React.Component {
             console.log("ProfileContainer.js componentDidMount()")
         } // дебаг
         this.props.getProfileThunkCreator(this.props.userId);// обновить профиль в зависомости от ID
+        this.putProfile()
     }
 
     componentDidUpdate(prevProps, prevState, snapshot) {
@@ -28,6 +30,10 @@ class ProfileContainer extends React.Component {
     uploadImage = (profilePhoto) => {
         console.log(profilePhoto)
         this.props.setprofilePhotoThunkCreator(profilePhoto, this.props.myId)
+    }
+
+    putProfile = () => {
+        this.props.putMyProfileThunkCreator()
     }
 
     render() {
@@ -53,7 +59,12 @@ function withRouter(Children) {
 }
 
 export default compose(
-    connect(mapStateToProps, {getProfileThunkCreator, putStatusThunkCreator, setprofilePhotoThunkCreator}),
+    connect(mapStateToProps, {
+        getProfileThunkCreator,
+        putStatusThunkCreator,
+        setprofilePhotoThunkCreator,
+        putMyProfileThunkCreator
+    }),
     withRouter,
     NavigateToLoginHoc
 )

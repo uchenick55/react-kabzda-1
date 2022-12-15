@@ -62,8 +62,31 @@ export let apiProfile = { // объект с методами api для про�
     }
     const response = await instance.put(`/profile/photo`, data, config) // отправка фото на сервер
     return (response.data) //возврат данных из поля data
-  }
+  },
 
+  putMyProfileData: async (/*userId, LookingForAJob, LookingForAJobDescription, FullName, contacts, AboutMe*/) => { // отправка данных профиля пользователя
+
+    let MyProfile = {
+      userId: 40000, //userId: required(integer)
+      LookingForAJob: false, //lookingForAJob: required(boolean)
+      AboutMe: "Обо Мне AboutMe",
+      LookingForAJobDescription: "myLookingForAJobDescription", //  lookingForAJobDescription: required(string)
+      FullName: "myFullName1",//required(string)
+      contacts: {
+        github: "https://github.com/Alexrus-cyber", //  required(string)
+        vk: "https://vk.com/arassadin2014", // required(string)
+        facebook: "https://ru.wikipedia.org/wiki/Facebook", // required(string)
+        instagram: "https://github.com/Alexrus-cyber", //required(string),
+        twitter: "https://vk.com/arassadin2014", //required(string),
+        website: "https://ru.wikipedia.org", //required(string),
+        youtube: "https://github.com/Alexrus-cyber", //required(string),
+        mainLink: "https://github.com/Alexrus-cyber" //required(string)
+
+      }
+    }
+    const response = await instance.put(`/profile`, MyProfile ) // отправка фото на сервер
+    return (response.data) //ответ от сервера
+  }
 
 }
 

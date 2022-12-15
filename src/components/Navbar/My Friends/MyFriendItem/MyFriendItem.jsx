@@ -2,7 +2,7 @@ import React from 'react';
 import classes from './../MyFriends.module.css';
 import {NavLink} from "react-router-dom";
 import {bedug_mode} from "../../../../redux/store-redux";
-import DialogPic from "../../../../assets/images/dialogue.png"
+import DialogPic from "../../../../assets/images/dialog3.png"
 import UnfollowPic from "../../../../assets/images/unfollow.png"
 import {PointerCursor} from "../../../Dark_light_theme/globalStyles";
 

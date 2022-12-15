@@ -3,7 +3,7 @@ import {stopSubmit} from "redux-form";
 import {bedug_mode} from "./store-redux";
 import {friendsInitialState} from "./sidebar-reducer";
 import {dialogsInitialState} from "./dialogs-reducer";
-import {profileInitialState} from "./profile-reducer";
+import {getProfileThunkCreator, profileInitialState} from "./profile-reducer";
 import {usersInitialState} from "./users-reducer";
 
 const SET_MY_DATA = "myApp/auth-reducer/SET_MY_DATA"; // константа для задания базовых данных моего профиля (ID, Email, login, isAuth)
@@ -126,15 +126,24 @@ export let deleteLoginThunkCreator = () => {//санкреатор на логА
                 dispatch(usersInitialState())// зануление Users при логауте
 
             },300)
-           // sdfsadfsaf
-
-
-
-        } else {// пока еще не придумал
-        }
+        }   else {// пока еще не придумал
+            }
     }
     return deleteLoginThunk;
 }
+
+export let putMyProfileThunkCreator = (userId, LookingForAJob, LookingForAJobDescription, FullName, contacts) => { // санкреатор установки моего профиля myProfile
+    return async (dispatch) => { // нонеййм санка установки моего профиля myProfile
+        const response = await apiProfile.putMyProfileData(userId, LookingForAJob, LookingForAJobDescription, FullName, contacts) // отправка нового статуса на сервер
+        console.log(response)
+/*        if (response.resultCode === 0) { // если успешное обновление статуса с сервера
+            if (bedug_mode) {console.log("profile-reducer.jsx, setprofilePhotoThunkCreator.await putPhoto(): dispatch(getProfileThunkCreator())" )} // дебаг
+            dispatch(getProfileThunkCreator(myId));// перезапрашиваем данные профиля после обновления фото
+            dispatch(getAuthMeThunkCreator()) // обновить данные моего профиля (header photo) при обновлении фото
+        }*/
+    }
+}
+
 
 export default authReducer;
 
