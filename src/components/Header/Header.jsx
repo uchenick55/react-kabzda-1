@@ -31,7 +31,9 @@ const Header = ({getProfileThunkCreator, deleteLogin, isAuth, myId, myLogin, myP
                 {
                     isAuth
                         ? <span onClick={goToMyPage}> <NavLink to={`/profile/`}>
+{/*
                         {myLogin}
+*/}
                             {!myProfile
                                 ? <img src={userPhoto} alt={"userPhoto"}/>
                                 : <span>

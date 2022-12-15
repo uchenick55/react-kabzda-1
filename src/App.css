@@ -4,7 +4,7 @@
     grid-template-areas:
         'h h h'
         'i c n';
-    grid-template-rows: 95px 5fr;
+    grid-template-rows: 60px 5fr;
     grid-template-columns: 4fr 6fr 2fr;
 }
 
@@ -14,7 +14,7 @@
     grid-template-areas:
             'h h'
             'c n';
-    grid-template-rows: 95px 5fr;
+    grid-template-rows: 60px 5fr;
     grid-template-columns: 1fr 180px;
 }
 
