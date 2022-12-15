@@ -6,10 +6,24 @@
 .myfriends img {
 }
 
+.myFriendImgNameId {
+    display: grid;
+    grid-template-columns: 60px 1fr;
+
+}
+
 .myFriendImg {
     width: 50px;
     border-radius: 30px;
 
+}
+
+.DialogProfileUnfollow img {
+    width: 30px;
+}
+
+.myFriendName {
+    font-size: 11px;
 }
 
 .currentDialog {

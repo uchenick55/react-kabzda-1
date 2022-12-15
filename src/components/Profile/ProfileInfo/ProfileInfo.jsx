@@ -8,7 +8,7 @@ import EditProfile from "./EditProfile/EditProfile"; // заглушка фот�
 
 const ShowProfile = ({profile}) => { // вынес отдельно отображение профиля
     return ( <div>
-            <h3>{profile.fullName}</h3>
+            <div className={classes.profilefullName}>{profile.fullName}</div>
             <div>Обо мне: {profile.aboutMe}</div>
             <div>В поиске работы? {profile.lookingForAJob ? "Да" : "Нет"}</div>
             <div>Описание: {profile.lookingForAJobDescription}</div>
