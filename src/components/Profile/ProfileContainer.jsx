@@ -33,7 +33,25 @@ class ProfileContainer extends React.Component {
     }
 
     putProfile = () => {
-        this.props.putMyProfileThunkCreator()
+        let MyProfile = {
+            userId: this.props.myID, //userId: required(integer) мой ID
+            LookingForAJob: false, //lookingForAJob: required(boolean)
+            AboutMe: "Обо Мне AboutMe222нннннннннннннннннн",
+            LookingForAJobDescription: "myLookingForAJobDescription", //  lookingForAJobDescription: required(string)
+            FullName: "myFullName1",//required(string)
+            contacts: {
+                github: "https://github.com/uchenick55/react-kabzda-1", //  required(string)
+                vk: "https://vk.com/vk", // required(string)
+                facebook: "https://ru.wikipedia.org/wiki/Facebook", // required(string)
+                instagram: "https://github.com/instagram", //required(string),
+                twitter: "https://vk.com/twitter", //required(string),
+                website: "https://ru.wikipedia.org", //required(string),
+                youtube: "https://github.com/Alexrus-cyber", //required(string),
+                mainLink: "https://github.com/Alexrus-cyber" //required(string)
+            }
+        }
+
+        this.props.putMyProfileThunkCreator(MyProfile, this.props.myID)
     }
 
     render() {
