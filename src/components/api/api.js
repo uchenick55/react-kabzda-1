@@ -63,6 +63,8 @@ export let apiProfile = { // объект с методами api для про�
     const response = await instance.put(`/profile/photo`, data, config) // отправка фото на сервер
     return (response.data) //возврат данных из поля data
   }
+
+
 }
 
 export let apiDialogs2 = { // объект с методами api для Dialogs
