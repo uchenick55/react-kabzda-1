@@ -67,15 +67,15 @@ let ProfileStatusUseReducer = ({status, userId, myId, putStatusThunkCreator}) =>
     return (<div>
         {!localState.modifyStatus2
             ? <div>
-                <span
+                <h3
                     onDoubleClick={checkIfICanModifyStatus}> {/*при двойном клике на статусе проверка могу ли я ввобще менять статус*/}
                     Статус: {!status // если статуса из стейта нет или он нулевой
                         ? "нет статуса" // отображение "нет статуса"
                         : status // если статус есть из BLL, он отображается
                     }
-                </span>
+                </h3>
             </div>
-            : <div>
+            : <h3>
                 <span onDoubleClick={setMyStatus}>
                     <input
                         value={localState.statusTmpInput2} // жестко зафиксировали значение поля ввода на временное значение статуса в локальном стейте
@@ -86,7 +86,7 @@ let ProfileStatusUseReducer = ({status, userId, myId, putStatusThunkCreator}) =>
                         onKeyPress={checkEnterPressed} // проверка нажатия Enter
                     />
                 </span>
-            </div>
+            </h3>
         }
     </div>)
 }

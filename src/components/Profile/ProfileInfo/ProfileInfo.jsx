@@ -6,8 +6,8 @@ import {bedug_mode} from "../../../redux/store-redux";
 import userPhoto1 from "../../../assets/images/no-image3.png";
 import EditProfile from "./EditProfile/EditProfile"; // заглушка фото пользователя
 
-const ShowProfile = ({profile}) => { // вынес отдельно отображение профиля
-    return ( <div>
+const ShowProfile = ({profile, setEditMode, userId}) => { // вынес отдельно отображение профиля
+    return (<div>
             <div className={classes.profilefullName}>{profile.fullName}</div>
             <div>Обо мне: {profile.aboutMe}</div>
             <div>В поиске работы? {profile.lookingForAJob ? "Да" : "Нет"}</div>
@@ -22,13 +22,17 @@ const ShowProfile = ({profile}) => { // вынес отдельно отобра
             <div>website: {profile.contacts.website}</div>
             <div>youtube: {profile.contacts.youtube}</div>
             <div>mainLink: {profile.contacts.mainLink}</div>
+            {userId === 0 && <button onClick={() => {
+                setEditMode(true)
+            }}>Edit profile </button>}
+
         </div>
     )
 }
 
 const ProfileInfo = ({profile, myId, status, putStatusThunkCreator, uploadImage, userId, putProfile, dispatch}) => {
     const [profilePhoto, setprofilePhoto] = useState(userPhoto1) // useState для временного хранения фото пользователя
-    const [editMode, setEditMode] = useState(false  ) // флаг режима редактирования профиля
+    const [editMode, setEditMode] = useState(false) // флаг режима редактирования профиля
     if (bedug_mode) {
         console.log("ProfileInfo.jsx")
     } // дебаг
@@ -40,20 +44,26 @@ const ProfileInfo = ({profile, myId, status, putStatusThunkCreator, uploadImage,
     }
     return <div>
         <div className={classes.profileInfoGreed}>
-
             <div>
                 <img alt={"userPhoto"} className={classes.profilePhotoIMG}
                      src={profile.photos.large ? profile.photos.large : userPhoto1}/>
+                <div>
+                    {userId === 0 // если мы перешли на свой профиль (в браузере нет ID возле profile)
+                        ? <div>
+                            <form> {/*форма отправки фото профиля на сервер*/}
+                                <span><button onClick={() => {
+                                    uploadImage(profilePhoto)
+                                }}>Загрузить</button></span> {/*По клику отправить файл на сервер*/}
+                                <span><input type="file" onChange={onChangeProfilePhoto}/></span> {/*загрузить файл*/}
+                            </form>
+                        </div>
+                        : null}
+                </div>
             </div>
 
             <div>
-
-{/*
-                {!editMode && <ShowProfile profile={profile}/>}
-                {editMode && userId === 0 && <EditProfile putProfile={putProfile}/>}
-*/}
-                <ShowProfile profile={profile}/>
-                <EditProfile putProfile={putProfile} dispatch={dispatch}/>
+                {!editMode && <ShowProfile profile={profile} setEditMode={setEditMode} userId={userId}/>}
+                {editMode && <EditProfile putProfile={putProfile} dispatch={dispatch} setEditMode={setEditMode}/>}
                 <div>
                     {/*Компонента отображения моего статуса*/}
                     <ProfileStatusUseReducer // можно еще использовать ProfileStatusUseState и ProfileStatusClass
@@ -64,18 +74,6 @@ const ProfileInfo = ({profile, myId, status, putStatusThunkCreator, uploadImage,
                     />
                 </div>
             </div>
-        </div>
-        <div>
-            {userId === 0 // если мы перешли на свой профиль (в браузере нет ID возле profile)
-                ? <div>
-                    <form> {/*форма отправки фото профиля на сервер*/}
-                        <span><button onClick={() => {
-                            uploadImage(profilePhoto)
-                        }}>Загрузить</button></span> {/*По клику отправить файл на сервер*/}
-                        <span><input type="file" onChange={onChangeProfilePhoto}/></span> {/*загрузить файл*/}
-                    </form>
-                </div>
-                : null}
         </div>
 
     </div>

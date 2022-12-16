@@ -122,7 +122,7 @@ const ProfileForm = ({handleSubmit, error}) => { // компонента фор�
 // оберточная компонента формы, задает имя подстейта "EditProfileForm"
 let EditProfileReduxForm = reduxForm({form: 'EditProfileForm'})(ProfileForm)
 
-let EditProfile = ({putProfile, dispatch}) => {
+let EditProfile = ({putProfile, dispatch, setEditMode}) => {
     let onSubmit = (formData) => { // функция реакции на сабмит формы с данными от формы formData
   //      dispatch(reset('EditProfileForm')) // сброс полей формы после ввода
         const LookingForAJob = !formData.LookingForAJob ? false : formData.LookingForAJob // если галочка LookingForAJob не стоит, то false
@@ -140,13 +140,15 @@ let EditProfile = ({putProfile, dispatch}) => {
             formData.youtube,
             formData.mainLink,
         )//вызов putMyProfileThunkCreator выше из ProfileContainer
+        setEditMode(false)
     }
     let resetFormFields = () => {
         dispatch(reset('EditProfileForm')) // сброс полей формы после ввода
     }
     return (
-        <div className={classes.EditProfileCommon}/*стиль*/ >
-            <h3>Отредактируйте профиль</h3>{/*h3 заголовок*/}
+        <div >
+            <div className={classes.HeaderEditProfileForm}>Отредактируйте профиль</div>{/*h3 заголовок*/}
+            <div>(можно отдельные поля)</div>
             <div className={classes.EditProfile}>
                 <div>
                     <EditProfileReduxForm

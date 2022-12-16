@@ -1,9 +1,10 @@
-.EditProfileCommon {
-    padding: 10px;
+.HeaderEditProfileForm {
+    font-size: 20px;
+    font-weight: bold;
 }
 
 .EditProfile {
     display: grid;
-    grid-template-columns: 1fr 30px;
+    grid-template-columns: 1fr 1fr;
 }
 
