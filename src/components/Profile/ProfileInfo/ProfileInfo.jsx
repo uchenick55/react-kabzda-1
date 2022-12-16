@@ -11,17 +11,17 @@ const ShowProfile = ({profile}) => { // вынес отдельно отобра
             <div className={classes.profilefullName}>{profile.fullName}</div>
             <div>Обо мне: {profile.aboutMe}</div>
             <div>В поиске работы? {profile.lookingForAJob ? "Да" : "Нет"}</div>
-            <div>Описание: {profile.lookingForAJobDescription}</div>
+            <div>Описание поиска работы: {profile.lookingForAJobDescription}</div>
             <div>userId: {profile.userId}</div>
             <div>Контакты:</div>
-            <div>facebook: {profile.contacts.facebook}</div>
             <div>github: {profile.contacts.github}</div>
-            <div>instagram: {profile.contacts.instagram}</div>
-            <div>mainLink: {profile.contacts.mainLink}</div>
-            <div>twitter: {profile.contacts.twitter}</div>
             <div>vk: {profile.contacts.vk}</div>
+            <div>facebook: {profile.contacts.facebook}</div>
+            <div>instagram: {profile.contacts.instagram}</div>
+            <div>twitter: {profile.contacts.twitter}</div>
             <div>website: {profile.contacts.website}</div>
             <div>youtube: {profile.contacts.youtube}</div>
+            <div>mainLink: {profile.contacts.mainLink}</div>
         </div>
     )
 }

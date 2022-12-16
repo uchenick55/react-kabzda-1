@@ -1,10 +1,10 @@
 .textAreaError {
     border: solid red 2px;
-    width: 95%;
+    width: 100%;
 }
 
 .textArea {
-    width: 95%;
+    width: 100%;
 }
 
 .textError {

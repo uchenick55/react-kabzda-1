@@ -10,7 +10,7 @@ const newPostForm = ({handleSubmit}) => { // компонента формы
     return (
         <form onSubmit={handleSubmit} /*привязка сабмита формы к внутренней функции reduxForm - handleSubmit*/>
             <div>
-                <div>
+                <div className={classes.newPostFormTextArea}>
                     <Field
                         name={"newPostData"} // имя поля формы и возвращаемого свойства объекта после сабмита формы
                         component={Textarea} //настраиваемый компонент текстовое поле для вывода ошибок ввода

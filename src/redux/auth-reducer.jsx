@@ -142,6 +142,18 @@ export let putMyProfileThunkCreator = (MyProfile, myId) => { // санкреат
             if (bedug_mode) {console.log("auth-reducer.jsx, putMyProfileThunkCreator.await(putMyProfileData)->await .getProfile() : dispatch(setMyProfile()->SET_MY_PROFILE" )} // дебаг
             dispatch(setMyProfile(response2))//задание в стейт моих доп данных
             dispatch(getProfileThunkCreator(myId))
+        } else { // если пришла ошибка с сервера ввода формы правки профиля
+            let message =  // определение локальной переменной message - ответ от сервера
+                !response.messages[1] // если ответа от сервера нет
+                    ? "no responce from server" // вывести сообщение заглушку
+                    : response.messages[0] // иначе вывести ответ от сервера
+            let action = stopSubmit("EditProfileForm", {_error: message})
+            // loginForm это наша форма логина.
+            // объект _error является общей ошибкой для всей формы с сообщением message
+            if (bedug_mode) {
+                console.log("auth-reducer.jsx, putMyProfileThunkCreator.await / если пришла ошибка с сервера: dispatch(action) // отправить данные в форму")
+            } // дебаг
+            dispatch(action) // отправить данные в форму
         }
     }
 }

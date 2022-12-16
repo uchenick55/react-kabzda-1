@@ -8,29 +8,13 @@ import {email, Required} from "../../../common/Validation/validationField";
 const ProfileForm = ({handleSubmit, error}) => { // компонента формы
     return (
         <form onSubmit={handleSubmit}/*привязка сабмита формы к внутренней функции reduxForm - handleSubmit*/>
-{/*
-            FullName: "myFullName1",//required(string)
-            AboutMe: "Обо Мне AboutMe222нннннннннннннннннн",
-            LookingForAJob: false, //lookingForAJob: required(boolean)
-            LookingForAJobDescription: "myLookingForAJobDescription", //  lookingForAJobDescription: required(string)
-            contacts: {
-            github: "https://github.com/uchenick55/react-kabzda-1", //  required(string)
-            vk: "https://vk.com/vk", // required(string)
-            facebook: "https://ru.wikipedia.org/wiki/Facebook", // required(string)
-            instagram: "https://github.com/instagram", //required(string),
-            twitter: "https://vk.com/twitter", //required(string),
-            website: "https://ru.wikipedia.org", //required(string),
-            youtube: "https://github.com/Alexrus-cyber", //required(string),
-            mainLink: "https://github.com/Alexrus-cyber" //required(string)
-*/}
-
-            <div>
+            <span>
                 <div>
                     <Field
                         name="FullName"// имя поля формы и возвращаемого свойства объекта после сабмита формы
                         component={Input}// компонент - кастомная строка с валидацией
                         placeholder="FullName"// текст подсказка при пустом поле
-                        validate={[Required]}
+                        validate={[]}
                     />
                 </div>
                 <div>
@@ -38,7 +22,7 @@ const ProfileForm = ({handleSubmit, error}) => { // компонента фор�
                         name="AboutMe"// имя поля формы и возвращаемого свойства объекта после сабмита формы
                         component={Input}// компонент - кастомная строка с валидацией
                         placeholder="AboutMe"// текст подсказка при пустом поле
-                        validate={[Required]}
+                        validate={[]}
                     />
                 </div>
                 <div>
@@ -55,18 +39,82 @@ const ProfileForm = ({handleSubmit, error}) => { // компонента фор�
                         name="LookingForAJobDescription"// имя поля формы и возвращаемого свойства объекта после сабмита формы
                         component={Input}// компонент - строка
                         placeholder="LookingForAJobDescription"// текст подсказка при пустом поле
-                        validate={[Required]}
+                        validate={[]}
                     />
                 </div>
                 <div>
+                    <Field
+                        name="github"// имя поля формы и возвращаемого свойства объекта после сабмита формы
+                        component={Input}// компонент - строка
+                        placeholder="github"// текст подсказка при пустом поле
+                        validate={[]}
+                    />
+                </div>
+                <div>
+                    <Field
+                        name="vk"// имя поля формы и возвращаемого свойства объекта после сабмита формы
+                        component={Input}// компонент - строка
+                        placeholder="vk"// текст подсказка при пустом поле
+                        validate={[]}
+                    />
+                </div>
+                <div>
+                    <Field
+                        name="facebook"// имя поля формы и возвращаемого свойства объекта после сабмита формы
+                        component={Input}// компонент - строка
+                        placeholder="facebook"// текст подсказка при пустом поле
+                        validate={[]}
+                    />
+                </div>
+                <div>
+                    <Field
+                        name="instagram"// имя поля формы и возвращаемого свойства объекта после сабмита формы
+                        component={Input}// компонент - строка
+                        placeholder="instagram"// текст подсказка при пустом поле
+                        validate={[]}
+                    />
+                </div>
+                <div>
+                    <Field
+                        name="twitter"// имя поля формы и возвращаемого свойства объекта после сабмита формы
+                        component={Input}// компонент - строка
+                        placeholder="twitter"// текст подсказка при пустом поле
+                        validate={[]}
+                    />
+                </div>
+                <div>
+                    <Field
+                        name="website"// имя поля формы и возвращаемого свойства объекта после сабмита формы
+                        component={Input}// компонент - строка
+                        placeholder="website"// текст подсказка при пустом поле
+                        validate={[]}
+                    />
+                </div>
+                <div>
+                    <Field
+                        name="youtube"// имя поля формы и возвращаемого свойства объекта после сабмита формы
+                        component={Input}// компонент - строка
+                        placeholder="youtube"// текст подсказка при пустом поле
+                        validate={[]}
+                    />
+                </div>
+                <div>
+                    <Field
+                        name="mainLink"// имя поля формы и возвращаемого свойства объекта после сабмита формы
+                        component={Input}// компонент - строка
+                        placeholder="mainLink"// текст подсказка при пустом поле
+                        validate={[]}
+                    />
+                </div>
+                <span>
                     <button type="submit">Submit</button>
                     {/*кнопка*/}
-                </div>
-                <div className={styles.commonError}>
+                </span>
+                <span className={styles.commonError}>
                     {/*стилизация красным сообщение об общей ошибке с сервера при ошибках ввода*/}
                     {error} {/*вывод сообщения ошибки после диспатча stopSubmit из auth-reducer.jsx */}
-                </div>
-            </div>
+                </span>
+            </span>
         </form>
     )
 }
@@ -76,21 +124,34 @@ let EditProfileReduxForm = reduxForm({form: 'EditProfileForm'})(ProfileForm)
 
 let EditProfile = ({putProfile, dispatch}) => {
     let onSubmit = (formData) => { // функция реакции на сабмит формы с данными от формы formData
-        dispatch(reset('EditProfileForm'))
+  //      dispatch(reset('EditProfileForm')) // сброс полей формы после ввода
         const LookingForAJob = !formData.LookingForAJob ? false : formData.LookingForAJob // если галочка LookingForAJob не стоит, то false
         putProfile(
             formData.FullName,
             formData.AboutMe,
             LookingForAJob,
-            formData.LookingForAJobDescription
+            formData.LookingForAJobDescription,
+            formData.github,
+            formData.vk,
+            formData.facebook,
+            formData.instagram,
+            formData.twitter,
+            formData.website,
+            formData.youtube,
+            formData.mainLink,
         )//вызов putMyProfileThunkCreator выше из ProfileContainer
+    }
+    let resetFormFields = () => {
+        dispatch(reset('EditProfileForm')) // сброс полей формы после ввода
     }
     return (
         <div className={classes.EditProfileCommon}/*стиль*/ >
             <h3>Отредактируйте профиль</h3>{/*h3 заголовок*/}
             <div className={classes.EditProfile}>
-                <div><EditProfileReduxForm
+                <div>
+                    <EditProfileReduxForm
                     onSubmit={onSubmit}/>{/*вызов формы логина с отсылкой на локальный обработчик сабмита*/}
+                    <button onClick={resetFormFields}>Сброс полей формы</button>
                 </div>
             </div>
 

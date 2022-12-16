@@ -4,3 +4,9 @@
 
 .postsBlock {
 }
+
+.newPostFormTextArea { /*ограничение по ширине поля ввода постов в TextArea*/
+    display: grid;
+    grid-template-columns: 1fr 40px;
+
+}

@@ -21,7 +21,6 @@ class ProfileContainer extends React.Component {
     }
 
     componentDidUpdate(prevProps, prevState, snapshot) {
-        console.log("ProfileContainer => componentDidUpdate")
         let userId = this.props.userId; // получить локальный userId из URL браузера
         if (userId === 0) {
             userId = this.props.myId
@@ -36,7 +35,20 @@ class ProfileContainer extends React.Component {
         this.props.setprofilePhotoThunkCreator(profilePhoto, this.props.myId)
     }
 
-    putProfile = (FullName, AboutMe, LookingForAJob, LookingForAJobDescription) => {
+    putProfile = (
+        FullName=this.props.profile.fullName,
+        AboutMe=this.props.profile.aboutMe,
+        LookingForAJob=this.props.profile.lookingForAJob,
+        LookingForAJobDescription = this.props.profile.lookingForAJobDescription,
+        github=this.props.profile.contacts.github,
+        vk=this.props.profile.contacts.vk,
+        facebook=this.props.profile.contacts.facebook,
+        instagram=this.props.profile.contacts.instagram,
+        twitter=this.props.profile.contacts.twitter,
+        website=this.props.profile.contacts.website,
+        youtube=this.props.profile.contacts.youtube,
+        mainLink=this.props.profile.contacts.mainLink
+        ) => {
         let MyProfile = {
             userId: this.props.myId, //userId: required(integer) мой ID
             LookingForAJob: LookingForAJob, //lookingForAJob: required(boolean)
@@ -44,17 +56,16 @@ class ProfileContainer extends React.Component {
             LookingForAJobDescription: LookingForAJobDescription, //  lookingForAJobDescription: required(string)
             FullName: FullName,//required(string)
             contacts: {
-                github: "https://github.com/uchenick55/react-kabzda-1", //  required(string)
-                vk: "https://vk.com/vk", // required(string)
-                facebook: "https://ru.wikipedia.org/wiki/Facebook", // required(string)
-                instagram: "https://github.com/instagram", //required(string),
-                twitter: "https://vk.com/twitter", //required(string),
-                website: "https://ru.wikipedia.org", //required(string),
-                youtube: "https://github.com/Alexrus-cyber", //required(string),
-                mainLink: "https://github.com/Alexrus-cyber" //required(string)
+                github: github, //  required(string)
+                vk: vk, // required(string)
+                facebook: facebook, // required(string)
+                instagram: instagram, //required(string),
+                twitter: twitter, //required(string),
+                website: website, //required(string),
+                youtube: youtube, //required(string),
+                mainLink: mainLink //required(string)
             }
         }
-
         this.props.putMyProfileThunkCreator(MyProfile, this.props.myId)
     }
 
