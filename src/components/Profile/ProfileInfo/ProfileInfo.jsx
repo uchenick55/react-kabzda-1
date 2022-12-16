@@ -26,7 +26,7 @@ const ShowProfile = ({profile}) => { // вынес отдельно отобра
     )
 }
 
-const ProfileInfo = ({profile, myId, status, putStatusThunkCreator, uploadImage, userId}) => {
+const ProfileInfo = ({profile, myId, status, putStatusThunkCreator, uploadImage, userId, putProfile, dispatch}) => {
     const [profilePhoto, setprofilePhoto] = useState(userPhoto1) // useState для временного хранения фото пользователя
     const [editMode, setEditMode] = useState(false  ) // флаг режима редактирования профиля
     if (bedug_mode) {
@@ -48,8 +48,12 @@ const ProfileInfo = ({profile, myId, status, putStatusThunkCreator, uploadImage,
 
             <div>
 
+{/*
                 {!editMode && <ShowProfile profile={profile}/>}
-                {editMode && userId === 0 && <EditProfile/>}
+                {editMode && userId === 0 && <EditProfile putProfile={putProfile}/>}
+*/}
+                <ShowProfile profile={profile}/>
+                <EditProfile putProfile={putProfile} dispatch={dispatch}/>
                 <div>
                     {/*Компонента отображения моего статуса*/}
                     <ProfileStatusUseReducer // можно еще использовать ProfileStatusUseState и ProfileStatusClass

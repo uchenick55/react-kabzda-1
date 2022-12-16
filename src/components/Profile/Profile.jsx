@@ -5,7 +5,7 @@ import MyPostsContainer from "./MyPosts/MyPostsContainer";
 import {bedug_mode} from "../../redux/store-redux";
 import ScrollContainer from "../common/Scroll/ScrollContainer";
 
-const Profile = ({profile, status, myId, putStatusThunkCreator, uploadImage, userId}) => {
+const Profile = ({profile, status, myId, putStatusThunkCreator, uploadImage, userId, putProfile, dispatch}) => {
     if (bedug_mode) {
         console.log("Profile.jsx")
     } // дебаг
@@ -18,6 +18,8 @@ const Profile = ({profile, status, myId, putStatusThunkCreator, uploadImage, use
             putStatusThunkCreator={putStatusThunkCreator} // санкреатор для обновления сатуса
             uploadImage={uploadImage} // колбек загрузки фото профиля на сервер
             userId={userId} // id выбранного пользователя, берется из URL
+            putProfile={putProfile}
+            dispatch={dispatch}
         />
         <MyPostsContainer // контейнер отображения постов (пока заглушка из стейта BLL)
             userId={userId} // id выбранного пользователя, берется из URL
