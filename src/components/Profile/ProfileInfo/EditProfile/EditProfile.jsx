@@ -2,28 +2,18 @@ import React from "react"; // импорт реакта
 import {Field, reduxForm, reset} from "redux-form";// reduxForm для ввода новых постов
 import classes from './EditProfile.module.css'
 import styles from './../../../common/Validation/customFields.module.css'
-import {Input} from "../../../common/Validation/customFields";
+import {Input, CreateField} from "../../../common/Validation/customFields";
 import {email, Required} from "../../../common/Validation/validationField";
 
-const ProfileForm = ({handleSubmit, error}) => { // компонента формы
+const ProfileForm = ({error, handleSubmit, load, pristine, reset, submitting}) => { // компонента формы
     return (
         <form onSubmit={handleSubmit}/*привязка сабмита формы к внутренней функции reduxForm - handleSubmit*/>
             <span>
                 <div>
-                    <Field
-                        name="FullName"// имя поля формы и возвращаемого свойства объекта после сабмита формы
-                        component={Input}// компонент - кастомная строка с валидацией
-                        placeholder="Полное имя"// текст подсказка при пустом поле
-                        validate={[]}
-                    />
+                    {CreateField("FullName", Input, "Полное имя1", [] )} {/*name, component, placeholder, validate*/}
                 </div>
                 <div>
-                    <Field
-                        name="AboutMe"// имя поля формы и возвращаемого свойства объекта после сабмита формы
-                        component={Input}// компонент - кастомная строка с валидацией
-                        placeholder="Обо мне"// текст подсказка при пустом поле
-                        validate={[]}
-                    />
+                    {CreateField("AboutMe", Input, "Обо мне1", [] )} {/*name, component, placeholder, validate*/}
                 </div>
                 <div>
                     <label>В поисках работы:</label>
@@ -35,80 +25,37 @@ const ProfileForm = ({handleSubmit, error}) => { // компонента фор�
                     />
                 </div>
                 <div>
-                    <Field
-                        name="LookingForAJobDescription"// имя поля формы и возвращаемого свойства объекта после сабмита формы
-                        component={Input}// компонент - строка
-                        placeholder="Описание поиска работы"// текст подсказка при пустом поле
-                        validate={[]}
-                    />
+                    {CreateField("LookingForAJobDescription", Input, "Описание поиска работы1", [] )} {/*name, component, placeholder, validate*/}
                 </div>
                 <label>Контакты</label>
                 <div className={classes.EditProfileContactsFields}>
                     <div>
-                        <Field
-                            name="github"// имя поля формы и возвращаемого свойства объекта после сабмита формы
-                            component={Input}// компонент - строка
-                            placeholder="github"// текст подсказка при пустом поле
-                            validate={[]}
-                        />
+                        {CreateField("github", Input, "github1", [] )} {/*name, component, placeholder, validate*/}
                     </div>
                     <div>
-                        <Field
-                            name="vk"// имя поля формы и возвращаемого свойства объекта после сабмита формы
-                            component={Input}// компонент - строка
-                            placeholder="vk"// текст подсказка при пустом поле
-                            validate={[]}
-                        />
+                        {CreateField("vk", Input, "vk1", [] )} {/*name, component, placeholder, validate*/}
                     </div>
                     <div>
-                        <Field
-                            name="facebook"// имя поля формы и возвращаемого свойства объекта после сабмита формы
-                            component={Input}// компонент - строка
-                            placeholder="facebook"// текст подсказка при пустом поле
-                            validate={[]}
-                        />
+                        {CreateField("facebook", Input, "facebook1", [] )} {/*name, component, placeholder, validate*/}
                     </div>
                     <div>
-                        <Field
-                            name="instagram"// имя поля формы и возвращаемого свойства объекта после сабмита формы
-                            component={Input}// компонент - строка
-                            placeholder="instagram"// текст подсказка при пустом поле
-                            validate={[]}
-                        />
+                        {CreateField("instagram", Input, "instagram1", [] )} {/*name, component, placeholder, validate*/}
                     </div>
                     <div>
-                        <Field
-                            name="twitter"// имя поля формы и возвращаемого свойства объекта после сабмита формы
-                            component={Input}// компонент - строка
-                            placeholder="twitter"// текст подсказка при пустом поле
-                            validate={[]}
-                        />
+                        {CreateField("twitter", Input, "twitter1", [] )} {/*name, component, placeholder, validate*/}
                     </div>
                     <div>
-                        <Field
-                            name="website"// имя поля формы и возвращаемого свойства объекта после сабмита формы
-                            component={Input}// компонент - строка
-                            placeholder="website"// текст подсказка при пустом поле
-                            validate={[]}
-                        />
+                        {CreateField("website", Input, "website1", [] )} {/*name, component, placeholder, validate*/}
                     </div>
                     <div>
-                        <Field
-                            name="youtube"// имя поля формы и возвращаемого свойства объекта после сабмита формы
-                            component={Input}// компонент - строка
-                            placeholder="youtube"// текст подсказка при пустом поле
-                            validate={[]}
-                        />
+                        {CreateField("youtube", Input, "youtube1", [] )} {/*name, component, placeholder, validate*/}
                     </div>
                     <div>
-                        <Field
-                            name="mainLink"// имя поля формы и возвращаемого свойства объекта после сабмита формы
-                            component={Input}// компонент - строка
-                            placeholder="mainLink"// текст подсказка при пустом поле
-                            validate={[]}
-                        />
+                        {CreateField("mainLink", Input, "mainLink1", [] )} {/*name, component, placeholder, validate*/}
                     </div>
                 </div>
+                <button type="button" onClick={reset}> Сброс полей формы </button>
+
                 <span>
                     <button type="submit">Применить и закрыть</button>
                     {/*кнопка*/}
@@ -127,7 +74,7 @@ let EditProfileReduxForm = reduxForm({form: 'EditProfileForm'})(ProfileForm)
 
 let EditProfile = ({putProfile, dispatch, setEditMode}) => {
     let onSubmit = (formData) => { // функция реакции на сабмит формы с данными от формы formData
-                                   //      dispatch(reset('EditProfileForm')) // сброс полей формы после ввода
+        //      dispatch(reset('EditProfileForm')) // сброс полей формы после ввода
         const LookingForAJob = !formData.LookingForAJob ? false : formData.LookingForAJob // если галочка LookingForAJob не стоит, то false
         putProfile(
             formData.FullName,
@@ -145,7 +92,7 @@ let EditProfile = ({putProfile, dispatch, setEditMode}) => {
         )//вызов putMyProfileThunkCreator выше из ProfileContainer
         setEditMode(false)
     }
-    let resetFormFields = () => {
+    let resetFormFields = () => { // альтернативный вариант сброса формы, можно подключить к сабмиту
         dispatch(reset('EditProfileForm')) // сброс полей формы после ввода
     }
     return (
@@ -157,7 +104,6 @@ let EditProfile = ({putProfile, dispatch, setEditMode}) => {
                 <div>
                     <EditProfileReduxForm
                         onSubmit={onSubmit}/>{/*вызов формы логина с отсылкой на локальный обработчик сабмита*/}
-                    <button onClick={resetFormFields}>Сброс полей формы</button>
                 </div>
             </div>
 

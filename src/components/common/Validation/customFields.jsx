@@ -1,5 +1,6 @@
 import React from "react";
 import classes from "./customFields.module.css"
+import {Field} from "redux-form";
 
 export const Textarea = ({input, meta, ...restProps}) => {
     const isError = meta.touched && meta.error; // объединение наличия ошибки в meta и поле уже трогали
@@ -38,8 +39,24 @@ export const Input = ({input, meta, ...restProps}) => {
     )
 }
 
+export const CreateField = (name, component, placeholder, validate ) => {
+    return (<div>
+        <Field
+            name={name}// имя поля формы и возвращаемого свойства объекта после сабмита формы
+            component={component}// компонент - кастомная строка с валидацией
+            placeholder={placeholder}// текст подсказка при пустом поле
+            validate={validate}
+        />
+    </div>)
+
+}
+/*
+                        name="FullName"// имя поля формы и возвращаемого свойства объекта после сабмита формы
+                        component={Input}// компонент - кастомная строка с валидацией
+                        placeholder="Полное имя"// текст подсказка при пустом поле
+                        validate={[]}
 
 
-
+*/
 
 

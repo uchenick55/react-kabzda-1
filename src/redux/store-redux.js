@@ -24,6 +24,5 @@ let store = createStore(reducers, applyMiddleware(thunkMiddleWare));//ApplyMiddl
 window.store = store; // возможность смотреть стор через консоль
 
 export let bedug_mode = store.getState().app.bedug_mode
-export let debugItem = "=>"
 
 export default store
