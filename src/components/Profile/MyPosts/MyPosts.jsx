@@ -46,7 +46,7 @@ const MyPosts = ({userId, state, addPost, dispatch}) => { // основная к
 
     return (
         <div className={classes.postsBlock} /*стиль*/ >
-            {userId === 0 // если мы перешли на свой профиль (в браузере нет ID возле profile)
+            {(userId === 0) // если мы перешли на свой профиль (в браузере нет ID возле profile)
                 ? <div>
                     <h3>My posts</h3> {/*h3 заголовок*/}
                     <NewPostReduxForm
