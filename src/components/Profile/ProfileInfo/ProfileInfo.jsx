@@ -94,7 +94,7 @@ const ProfileInfo = ({profile, myId, status, putStatusThunkCreator, uploadImage,
 
             <div>
                 {!editMode && <ShowProfile profile={profile} setEditMode={setEditMode} userId={userId} myId={myId}/>}
-                {editMode && <EditProfile putProfile={putProfile} dispatch={dispatch} setEditMode={setEditMode}/>}
+                {editMode && <EditProfile profile={profile} putProfile={putProfile} dispatch={dispatch} setEditMode={setEditMode}/>}
                 <div>
                     {/*Компонента отображения моего статуса*/}
                     <ProfileStatusUseReducer // можно еще использовать ProfileStatusUseState и ProfileStatusClass

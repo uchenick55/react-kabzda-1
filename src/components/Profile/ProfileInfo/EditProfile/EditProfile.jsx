@@ -1,11 +1,11 @@
-import React from "react"; // импорт реакта
-import {Field, reduxForm, reset} from "redux-form";// reduxForm для ввода новых постов
+import React, {useEffect} from "react"; // импорт реакта
+import {Field, initialize, reduxForm, reset} from "redux-form";// reduxForm для ввода новых постов
 import classes from './EditProfile.module.css'
 import styles from './../../../common/Validation/customFields.module.css'
 import {Input, CreateField} from "../../../common/Validation/customFields";
 import {email, Required} from "../../../common/Validation/validationField";
 
-const ProfileForm = ({error, handleSubmit, load, pristine, reset, submitting}) => { // компонента формы
+const ProfileForm = ({setEditMode, error, handleSubmit, load, pristine, reset, submitting}) => { // компонента формы
     return (
         <form onSubmit={handleSubmit}/*привязка сабмита формы к внутренней функции reduxForm - handleSubmit*/>
             <span>
@@ -54,10 +54,14 @@ const ProfileForm = ({error, handleSubmit, load, pristine, reset, submitting}) =
                         {CreateField("mainLink", Input, "mainLink1", [] )} {/*name, component, placeholder, validate*/}
                     </div>
                 </div>
-                <button type="button" onClick={reset}> Сброс полей формы </button>
+                <button type="button" onClick={reset}> Сброс </button>
 
                 <span>
-                    <button type="submit">Применить и закрыть</button>
+                    <button type="submit">Применить</button>
+                    {/*кнопка*/}
+                </span>
+                <span>
+                    <button type="button" onClick={()=>{setEditMode(false)}}>Отмена</button>
                     {/*кнопка*/}
                 </span>
                 <span className={styles.commonError}>
@@ -72,7 +76,7 @@ const ProfileForm = ({error, handleSubmit, load, pristine, reset, submitting}) =
 // оберточная компонента формы, задает имя подстейта "EditProfileForm"
 let EditProfileReduxForm = reduxForm({form: 'EditProfileForm'})(ProfileForm)
 
-let EditProfile = ({putProfile, dispatch, setEditMode}) => {
+let EditProfile = ({putProfile, dispatch, setEditMode, profile}) => {
     let onSubmit = (formData) => { // функция реакции на сабмит формы с данными от формы formData
         //      dispatch(reset('EditProfileForm')) // сброс полей формы после ввода
         const LookingForAJob = !formData.LookingForAJob ? false : formData.LookingForAJob // если галочка LookingForAJob не стоит, то false
@@ -94,7 +98,28 @@ let EditProfile = ({putProfile, dispatch, setEditMode}) => {
     }
     let resetFormFields = () => { // альтернативный вариант сброса формы, можно подключить к сабмиту
         dispatch(reset('EditProfileForm')) // сброс полей формы после ввода
+
     }
+
+
+    let initialProfile = {
+        FullName: profile.fullName,
+        AboutMe: profile.aboutMe,
+        LookingForAJob: profile.lookingForAJob,
+        LookingForAJobDescription: profile.lookingForAJobDescription,
+        github: profile.contacts.github,
+        vk: profile.contacts.vk,
+        facebook: profile.contacts.facebook,
+        instagram: profile.contacts.instagram,
+        twitter: profile.contacts.twitter,
+        website: profile.contacts.website,
+        youtube: profile.contacts.youtube,
+        mainLink: profile.contacts.mainLink,
+    }
+
+    useEffect(()=>{
+        dispatch(initialize("EditProfileForm", initialProfile))
+    })
     return (
         <div>
             <div className={classes.HeaderEditProfileForm}>Отредактируйте профиль</div>
@@ -103,7 +128,9 @@ let EditProfile = ({putProfile, dispatch, setEditMode}) => {
             <div className={classes.EditProfile}>
                 <div>
                     <EditProfileReduxForm
-                        onSubmit={onSubmit}/>{/*вызов формы логина с отсылкой на локальный обработчик сабмита*/}
+                        onSubmit={onSubmit}
+                        setEditMode = {setEditMode}
+                    />{/*вызов формы логина с отсылкой на локальный обработчик сабмита*/}
                 </div>
             </div>
 

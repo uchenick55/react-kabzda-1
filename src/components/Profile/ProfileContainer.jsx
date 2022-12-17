@@ -23,10 +23,11 @@ class ProfileContainer extends React.Component {
     componentDidUpdate(prevProps, prevState, snapshot) {
         let userId = this.props.userId; // получить локальный userId из URL браузера
         if (userId === 0) {
-            userId = this.props.myId
+            userId = this.props.myId // подставить мой ID если URL профиля пустой
         }// если кликнули на мой профиль (без ID в URL браузера) то смотрим мой профиль
         if (userId !== this.props.profile.userId) { // если считаный из URL ID не равен записаному в стейт (смена пользователя)
             this.props.getProfileThunkCreator(userId); // обновить профиль в зависомости от ID
+            // здесь сменить setEditMode на false
         }
     }
 
