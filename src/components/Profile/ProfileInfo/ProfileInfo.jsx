@@ -46,7 +46,7 @@ const ProfileInfo = ({profile, myId, status, putStatusThunkCreator, uploadImage,
     let onChangeProfilePhoto = (e) => {
         setprofilePhoto(e.target.files[0]) // записать в useState выбранный файл фото профиля(временный стейт)
     }
-    let displayClass = showUploadImageButton ? "" : commonClasses.displayNone
+    let displayClass = showUploadImageButton ? "" : commonClasses.displayNone // класс скрытия/отображения кнопок загрузки поверх картинки профиля
     return <div>
         {console.log(showUploadImageButton)}
         <div className={classes.profileInfoGreed}>
@@ -94,7 +94,7 @@ const ProfileInfo = ({profile, myId, status, putStatusThunkCreator, uploadImage,
 
             <div>
                 {!editMode && <ShowProfile profile={profile} setEditMode={setEditMode} userId={userId} myId={myId}/>}
-                {editMode && <EditProfile profile={profile} putProfile={putProfile} dispatch={dispatch} setEditMode={setEditMode}/>}
+                {editMode && <EditProfile profile={profile} putProfile={putProfile} dispatch={dispatch} setEditMode={setEditMode} userId={userId} myId={myId} />}
                 <div>
                     {/*Компонента отображения моего статуса*/}
                     <ProfileStatusUseReducer // можно еще использовать ProfileStatusUseState и ProfileStatusClass

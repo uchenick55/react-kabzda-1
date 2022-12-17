@@ -71,7 +71,12 @@ class ProfileContainer extends React.Component {
     }
 
     render() {
-        return <Profile {...this.props} uploadImage={this.uploadImage} putProfile={this.putProfile} dispatch={this.props.dispatch}/>
+        return <Profile
+            {...this.props}
+            uploadImage={this.uploadImage} // загрузка
+            putProfile={this.putProfile} // задание профиля на сервер после ввода данных
+            dispatch={this.props.dispatch} // для резета формы профиля
+        />
     }
 }
 

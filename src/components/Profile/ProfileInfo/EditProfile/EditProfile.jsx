@@ -76,7 +76,7 @@ const ProfileForm = ({setEditMode, error, handleSubmit, load, pristine, reset, s
 // оберточная компонента формы, задает имя подстейта "EditProfileForm"
 let EditProfileReduxForm = reduxForm({form: 'EditProfileForm'})(ProfileForm)
 
-let EditProfile = ({putProfile, dispatch, setEditMode, profile}) => {
+let EditProfile = ({putProfile, dispatch, setEditMode, profile, userId, myId}) => {
     let onSubmit = (formData) => { // функция реакции на сабмит формы с данными от формы formData
         //      dispatch(reset('EditProfileForm')) // сброс полей формы после ввода
         const LookingForAJob = !formData.LookingForAJob ? false : formData.LookingForAJob // если галочка LookingForAJob не стоит, то false
@@ -101,7 +101,6 @@ let EditProfile = ({putProfile, dispatch, setEditMode, profile}) => {
 
     }
 
-
     let initialProfile = {
         FullName: profile.fullName,
         AboutMe: profile.aboutMe,
@@ -118,7 +117,8 @@ let EditProfile = ({putProfile, dispatch, setEditMode, profile}) => {
     }
 
     useEffect(()=>{
-        dispatch(initialize("EditProfileForm", initialProfile))
+        dispatch(initialize("EditProfileForm", initialProfile)); // подгрузка значений формы по умолчанию
+        if (userId !== 0) {setEditMode(false)} // если при правке формы переключаемся на другого пользователя, отключаем editMode
     })
     return (
         <div>
@@ -133,7 +133,6 @@ let EditProfile = ({putProfile, dispatch, setEditMode, profile}) => {
                     />{/*вызов формы логина с отсылкой на локальный обработчик сабмита*/}
                 </div>
             </div>
-
         </div>
 
     )
