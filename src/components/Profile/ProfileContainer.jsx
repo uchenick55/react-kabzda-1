@@ -36,20 +36,8 @@ class ProfileContainer extends React.Component {
         this.props.setprofilePhotoThunkCreator(profilePhoto, this.props.myId)
     }
 
-    putProfile = (
-        FullName=this.props.profile.fullName,
-        AboutMe=this.props.profile.aboutMe,
-        LookingForAJob=this.props.profile.lookingForAJob,
-        LookingForAJobDescription = this.props.profile.lookingForAJobDescription,
-        github=this.props.profile.contacts.github,
-        vk=this.props.profile.contacts.vk,
-        facebook=this.props.profile.contacts.facebook,
-        instagram=this.props.profile.contacts.instagram,
-        twitter=this.props.profile.contacts.twitter,
-        website=this.props.profile.contacts.website,
-        youtube=this.props.profile.contacts.youtube,
-        mainLink=this.props.profile.contacts.mainLink
-        ) => {
+    putProfile = ( FullName, AboutMe, LookingForAJob, LookingForAJobDescription,
+        github, vk, facebook, instagram, twitter, website, youtube, mainLink ) => {
         let MyProfile = {
             userId: this.props.myId, //userId: required(integer) мой ID
             LookingForAJob: LookingForAJob, //lookingForAJob: required(boolean)

@@ -135,7 +135,6 @@ export let deleteLoginThunkCreator = () => {//санкреатор на логА
 export let putMyProfileThunkCreator = (MyProfile, myId) => { // санкреатор установки моего профиля myProfile
     return async (dispatch) => { // нонеййм санка установки моего профиля myProfile
         const response = await apiProfile.putMyProfileData(MyProfile) // отправка нового статуса на сервер
-        console.log(response)
         if (response.resultCode === 0) { // если успешное обновление профиля на сервере
             if (bedug_mode) {console.log("auth-reducer.jsx, putMyProfileThunkCreator.await putMyProfileData(): dispatch(getProfileThunkCreator())" )} // дебаг
             const response2 = await apiProfile.getProfile(myId)//получение моих дополнительных данных после записи на сервер

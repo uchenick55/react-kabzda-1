@@ -5,7 +5,12 @@ import styles from './../../../common/Validation/customFields.module.css'
 import {Input, CreateField} from "../../../common/Validation/customFields";
 import {email, Required} from "../../../common/Validation/validationField";
 
-const ProfileForm = ({setEditMode, error, handleSubmit, load, pristine, reset, submitting}) => { // компонента формы
+const ProfileForm = ({setEditMode, error, handleSubmit, load, pristine, reset, submitting, profile}) => { // компонента формы
+    let ContactCreateField = (key) => {
+        return <div>
+            {CreateField(key, Input, key, [] )} {/*name, component, placeholder, validate*/}
+        </div>
+    }
     return (
         <form onSubmit={handleSubmit}/*привязка сабмита формы к внутренней функции reduxForm - handleSubmit*/>
             <span>
@@ -30,28 +35,9 @@ const ProfileForm = ({setEditMode, error, handleSubmit, load, pristine, reset, s
                 <label>Контакты</label>
                 <div className={classes.EditProfileContactsFields}>
                     <div>
-                        {CreateField("github", Input, "github1", [] )} {/*name, component, placeholder, validate*/}
-                    </div>
-                    <div>
-                        {CreateField("vk", Input, "vk1", [] )} {/*name, component, placeholder, validate*/}
-                    </div>
-                    <div>
-                        {CreateField("facebook", Input, "facebook1", [] )} {/*name, component, placeholder, validate*/}
-                    </div>
-                    <div>
-                        {CreateField("instagram", Input, "instagram1", [] )} {/*name, component, placeholder, validate*/}
-                    </div>
-                    <div>
-                        {CreateField("twitter", Input, "twitter1", [] )} {/*name, component, placeholder, validate*/}
-                    </div>
-                    <div>
-                        {CreateField("website", Input, "website1", [] )} {/*name, component, placeholder, validate*/}
-                    </div>
-                    <div>
-                        {CreateField("youtube", Input, "youtube1", [] )} {/*name, component, placeholder, validate*/}
-                    </div>
-                    <div>
-                        {CreateField("mainLink", Input, "mainLink1", [] )} {/*name, component, placeholder, validate*/}
+                        {Object.keys(profile.contacts).map(key=>{
+                            return ContactCreateField (key)
+                        })}
                     </div>
                 </div>
                 <button type="button" onClick={reset}> Сброс </button>
@@ -130,6 +116,7 @@ let EditProfile = ({putProfile, dispatch, setEditMode, profile, userId, myId}) =
                     <EditProfileReduxForm
                         onSubmit={onSubmit}
                         setEditMode = {setEditMode}
+                        profile = {profile}
                     />{/*вызов формы логина с отсылкой на локальный обработчик сабмита*/}
                 </div>
             </div>

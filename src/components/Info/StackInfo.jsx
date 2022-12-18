@@ -18,7 +18,7 @@ let StackInfo = () => {
         <p>Node: npm        </p>
         <p>IDE: Webstorm/ codesandbox.io        </p>
         <p>Test: Jest</p>
-        <p>Extra: html, css, module.css, grid </p>
+        <p>Extra: html, css, module.css, grid, Object.keys/values </p>
     </div>
 
     return (<div>

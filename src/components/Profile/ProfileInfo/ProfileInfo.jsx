@@ -8,6 +8,11 @@ import userPhoto1 from "../../../assets/images/no-image3.png";
 import EditProfile from "./EditProfile/EditProfile"; // заглушка фото пользователя
 
 const ShowProfile = ({profile, setEditMode, userId, myId}) => { // вынес отдельно отображение профиля
+    let Contact = (key) => { /*простая функция вывода отдельного элемента contacts из profile*/
+        return <div>
+            <b>{key}: </b>{profile.contacts[key]}
+        </div>
+    }
     return (<div>
             <div className={classes.profilefullName}>{profile.fullName}</div>
             <div><b>Обо мне</b>: {profile.aboutMe}</div>
@@ -16,14 +21,9 @@ const ShowProfile = ({profile, setEditMode, userId, myId}) => { // вынес о
             <div><b>userId:</b> {profile.userId}</div>
             <div><b>Контакты:</b></div>
             <div className={classes.ProfileContacts}>
-                <div><b>github:</b> {profile.contacts.github}</div>
-                <div><b>vk:</b> {profile.contacts.vk}</div>
-                <div><b>facebook:</b> {profile.contacts.facebook}</div>
-                <div><b>instagram:</b> {profile.contacts.instagram}</div>
-                <div><b>twitter:</b> {profile.contacts.twitter}</div>
-                <div><b>website:</b> {profile.contacts.website}</div>
-                <div><b>youtube:</b> {profile.contacts.youtube}</div>
-                <div><b>mainLink:</b> {profile.contacts.mainLink}</div>
+                {Object.keys(profile.contacts).map(key=>{ //
+                   return Contact (key)
+                })}
             </div>
             {(userId === 0 || userId === myId) && <button onClick={() => {
                 setEditMode(true)
@@ -48,7 +48,6 @@ const ProfileInfo = ({profile, myId, status, putStatusThunkCreator, uploadImage,
     }
     let displayClass = showUploadImageButton ? "" : commonClasses.displayNone // класс скрытия/отображения кнопок загрузки поверх картинки профиля
     return <div>
-        {console.log(showUploadImageButton)}
         <div className={classes.profileInfoGreed}>
             <div className={commonClasses.container}>
                 <img
