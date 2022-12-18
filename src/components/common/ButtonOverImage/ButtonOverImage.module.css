@@ -22,7 +22,7 @@
 /* Style the button and place it in the middle of the container/image */
 .container .btn1 {
     position: absolute;
-    top: 60%;
+    top: 200px;
     left: 50%;
     transform: translate(-50%, -50%);
     -ms-transform: translate(-50%, -50%);
@@ -39,7 +39,7 @@
 }
 .container .btn2 {
     position: absolute;
-    top: 30%;
+    top: 100px;
     left: 50%;
     transform: translate(-50%, -50%);
     -ms-transform: translate(-50%, -50%);
