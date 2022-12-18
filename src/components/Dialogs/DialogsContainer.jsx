@@ -27,7 +27,7 @@ class DialogsContainer extends React.Component {
         if ( this.props.dialogUserID!==this.props.userID) { // если считаный из URL userID не равен тому, что в BLL
             this.props.setdialogUserID(this.props.userID) // задать в BLL считаный из URL ID
             //здесь запросить профиль выбранного userId через getProfileThunkCreator
-            this.props.getProfileThunkCreator(this.props.userID)// при переходе в диалог любого пользователя считать его данные профиля с сервера
+            this.props.getProfileThunkCreator(this.props.userID, true, this.props.myID)// при переходе в диалог любого пользователя считать его данные профиля с сервера
         }
 
     }
@@ -96,6 +96,13 @@ class DialogsContainer extends React.Component {
 
     deleteDialog = (dialogId, userId2) => {
         this.props.deleteDialogThunkCreator(dialogId, this.props.myID, userId2)
+        // здесь сменить URL без ID
+
+
+
+
+
+        
     }
 
 
@@ -140,8 +147,8 @@ let mapDispatchToProps  = (dispatch) => {
         deleteMessageThunkCreator: (messageID, myID, userID) => { // удалить сообщение из диалога
             dispatch(deleteMessageThunkCreator(messageID, myID, userID))
         },
-        getProfileThunkCreator: (dialogUserID) => { // удалить сообщение из диалога
-            dispatch(getProfileThunkCreator(dialogUserID))
+        getProfileThunkCreator: (dialogUserID, shouldUpdateDialogList, myID) => { // удалить сообщение из диалога
+            dispatch(getProfileThunkCreator(dialogUserID, shouldUpdateDialogList, myID))
         },
         getFollowThunkCreator: (dialogUserID) => { // удалить сообщение из диалога
             dispatch(getFollowThunkCreator(dialogUserID))

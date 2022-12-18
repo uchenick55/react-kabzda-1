@@ -1,6 +1,7 @@
 import {apiProfile} from "../components/api/api";
 import {bedug_mode} from "./store-redux";
 import {getAuthMeThunkCreator} from "./auth-reducer";
+import {updateDialogListThunkCreator} from "./dialogs-reducer";
 
 const DELETE_POST = "myApp/profile-reducer/DELETE_POST";// константа удаления новых постов
 const ADD_POST = "myApp/profile-reducer/ADD-POST";// константа отправки новых постов
@@ -84,7 +85,7 @@ export let profileReducer = (state = initialState, action) => { // редьюс�
     }
 }
 
-export let getProfileThunkCreator = (userId) => { // санкреатор на получение профиля выбранного пользователя
+export let getProfileThunkCreator = (userId, shouldUpdateDialogList, myID) => { // санкреатор на получение профиля выбранного пользователя
     return async (dispatch) => { // нонейм санка на получение профиля выбранного пользователя
 
         let CommonPart = (response, userId) => { // общая часть для задания статуса профиля и получения статуса
@@ -92,6 +93,10 @@ export let getProfileThunkCreator = (userId) => { // санкреатор на �
             dispatch(setUserProfile(response)) // задание полных данных в профиль
             if (bedug_mode) {console.log("profile-reducer.jsx, getProfileThunkCreator.await getAuthMe()->await .getProfile() :   dispatch(getStatusThunkCreator())" )} // дебаг
             dispatch(getStatusThunkCreator(userId)) // запрос моего статуса
+            if (shouldUpdateDialogList) {// проверка нужно ли обновить диалоглист
+                dispatch(updateDialogListThunkCreator(myID, response.userId, response.fullName, response.photos.small  )) // обновление длиалоглиста
+
+            }
         }
 
         if (!userId) { // если userId не задан в URL (переход на страницу моего профиля не подставляет ID в браузере)
