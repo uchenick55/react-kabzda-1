@@ -5,8 +5,14 @@
 .dialogList {
     display: grid;
     grid-template-columns: 60px 1fr;
+}
 
+.dialogListHeader {
+    text-align: center;
+}
 
+.messagesHeader {
+    text-align: center;
 }
 
 div.knopka {
@@ -17,9 +23,20 @@ div.knopka {
 }
 div.knopka:hover { background: rgb(100,100,255,0.2); } /* при наведении курсора мышки */
 
+
+.dialogItemGreed {
+    display: grid;
+    grid-template-columns: 160px 1fr;
+}
+
+
 .dialog {
+    font-size: 10px;
+    font-weight: bold;
+
 }
 .dialogCurrent {
+    font-weight: bold;
     background: rgb(100,100,255,0.5)
 }
 
@@ -49,5 +66,6 @@ padding-right: 10px
 
 .x {
     width: 15px;
-    padding-left: 5px;
+    padding-right: 5px;
+    padding-top: 5px;
 }

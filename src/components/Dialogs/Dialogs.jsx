@@ -9,7 +9,6 @@ import ScrollContainer from "../common/Scroll/ScrollContainer";
 import userPhotoAva from "../../assets/images/no-image3.png";
 
 
-
 const newMessageForm = ({handleSubmit}) => {// компонента формы
     return (
         <form onSubmit={handleSubmit} /*привязка сабмита формы к внутренней функции reduxForm - handleSubmit*/>
@@ -66,19 +65,24 @@ const Dialogs = ({deleteDialog, dialogUserID, getDialogList, dialogs2, messages2
 
     return (
         <div className={classes.dialogs} /*стиль всех диалогов*/>
-            <div className={classes.dialogContainer}>
-                <ScrollContainer // обернуть сообщения скролом
-                    child={dialogElements}
-                    height={window.screen.availHeight - 230} // высота поля скрола
-                    firstInsideContainer={"DialogsUp"}
-                    secondInsideContainer={"DialogsDown"}
-                    containerElement={"DialogsContainer123"}
-                /> {/*отрисовка диалогов в скрол контейнере*/}
+            <div>
+                <h3 className={classes.dialogListHeader}>dialogList</h3>
+                <div className={classes.dialogContainer}>
+                    <ScrollContainer // обернуть сообщения скролом
+                        child={dialogElements}
+                        height={window.screen.availHeight - 282} // высота поля скрола
+                        firstInsideContainer={"DialogsUp"}
+                        secondInsideContainer={"DialogsDown"}
+                        containerElement={"DialogsContainer123"}
+                    /> {/*отрисовка диалогов в скрол контейнере*/}</div>
+
             </div>
             <div>
+                <h3 className={classes.messagesHeader}>Messages</h3>
+
                 <ScrollContainer // обернуть сообщения скролом
                     child={messagesElements}
-                    height={window.screen.availHeight - 230} // высота поля скрола
+                    height={window.screen.availHeight - 282} // высота поля скрола
                     firstInsideContainer={"MessagesUp"}
                     secondInsideContainer={"MessagesDown"}
                     containerElement={"MessagesContainer"}
