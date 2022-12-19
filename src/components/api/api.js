@@ -43,8 +43,8 @@ export let apiProfile = { // объект с методами api для про�
     const response = await instance.put(`/profile/status/`, {status: statusTmpInput})
     return (response.data) //возврат данных из поля data
   },
-  postLogin: async (email, password, rememberme) => { //авторизация на сервере по  данным из login формы
-    const response = await instance.post(`/auth/login`, {email: email, password: password, rememberme: rememberme})
+  postLogin: async (email, password, rememberme, captchaURL) => { //авторизация на сервере по  данным из login формы
+    const response = await instance.post(`/auth/login`, {email: email, password: password, rememberme: rememberme, captcha: captchaURL})
     return (response.data) //возврат данных из поля data
   },
   deleteLogin: async () => { // логаут текущего пользователя
@@ -67,7 +67,12 @@ export let apiProfile = { // объект с методами api для про�
   putMyProfileData: async (MyProfile) => { // отправка новых данных профиля пользователя на сервер
     const response = await instance.put(`/profile`, MyProfile ) //
     return (response.data) //ответ от сервера
-  }
+  },
+
+  getCaptcha: async () => { // запрс картинки captcha при многократном неправильном вводе
+    const response = await instance.get(`/security/get-captcha-url` ) //
+    return (response.data) //ответ от сервера
+  },
 
 }
 

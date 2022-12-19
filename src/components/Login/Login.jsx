@@ -5,7 +5,7 @@ import styles from './../common/Validation/customFields.module.css'
 import {Input} from "../common/Validation/customFields";
 import {email, Required} from "../common/Validation/validationField";
 
-const LoginForm = ({handleSubmit, error}) => { // компонента формы
+const LoginForm = ({handleSubmit, error, captchaURL}) => { // компонента формы
     return (
         <form onSubmit={handleSubmit}/*привязка сабмита формы к внутренней функции reduxForm - handleSubmit*/>
             <div>
@@ -33,6 +33,18 @@ const LoginForm = ({handleSubmit, error}) => { // компонента форм�
                     />
                     <label> запомнить меня</label>
                 </div>
+                {captchaURL
+                    ? <div>
+                        <img src={captchaURL}></img>
+                        <Field
+                            name="captcha"// имя поля формы и возвращаемого свойства объекта после сабмита формы
+                            component={Input}// компонент - ввод
+                            placeholder="captcha" // текст подсказка при пустом поле
+                            validate={[Required]}
+                        />
+                    </div>
+                    : null
+                }
                 <div>
                     <button type="submit">Submit</button>
                     {/*кнопка*/}
@@ -41,6 +53,7 @@ const LoginForm = ({handleSubmit, error}) => { // компонента форм�
                     {/*стилизация красным сообщение об общей ошибке с сервера при неверном логине или пароле*/}
                     {error} {/*вывод сообщения ошибки после диспатча stopSubmit из auth-reducer.jsx */}
                 </div>
+
             </div>
         </form>
     )
@@ -49,17 +62,19 @@ const LoginForm = ({handleSubmit, error}) => { // компонента форм�
 // оберточная компонента формы, задает имя подстейта "LoginForm"
 let LoginReduxForm = reduxForm({form: 'loginForm'})(LoginForm)
 
-let Login = ({postLogin}) => {
+let Login = ({postLogin, captchaURL}) => {
     let onSubmit = (formData) => { // функция реакции на сабмит формы с данными от формы formData
         const rememberme = !formData.rememberme ? false : formData.rememberme // если галочка rememberme не стоит, то false
-        postLogin(formData.email, formData.password, rememberme)//вызов postLoginThunkCreator выше из LoginContainer
+        postLogin(formData.email, formData.password, rememberme, formData.captcha)//вызов postLoginThunkCreator выше из LoginContainer
     }
     return (
         <div className={classes.loginCommon}/*стиль*/ >
             <h3>Войдите в аккаунт</h3>{/*h3 заголовок*/}
             <div className={classes.loginForm}>
                 <div><LoginReduxForm
-                    onSubmit={onSubmit}/>{/*вызов формы логина с отсылкой на локальный обработчик сабмита*/}
+                    onSubmit={onSubmit}
+                    captchaURL={captchaURL}
+                />{/*вызов формы логина с отсылкой на локальный обработчик сабмита*/}
                 </div>
             </div>
 

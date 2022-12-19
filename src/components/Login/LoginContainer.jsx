@@ -7,9 +7,9 @@ import {getFriendsThunkCreator} from "../../redux/sidebar-reducer";
 
 class LoginContainer extends React.Component {
 
-    postLogin = (email, password, rememberme) => { // email, password, rememberme берем из формы login
+    postLogin = (email, password, rememberme, captcha) => { // email, password, rememberme берем из формы login
         //метод для проброса дальше целевой компоненты для вызова postLoginThunkCreator (авторизация на сервере)
-        this.props.postLoginThunkCreator(email, password, rememberme);
+        this.props.postLoginThunkCreator(email, password, rememberme, captcha);
     }
 
     render () {
@@ -24,7 +24,7 @@ class LoginContainer extends React.Component {
 
         return (
             <div>
-                <Login postLogin={this.postLogin}/> {/*Возврат целевой компоненты*/}
+                <Login postLogin={this.postLogin} captchaURL={this.props.captchaURL}/> {/*Возврат целевой компоненты*/}
             </div>
         )
     }
@@ -37,6 +37,7 @@ let mapStateToProps = (state) => { // флаги isAuth - "я авторизов
         friendsPageSize: state.sideBar.friendsPageSize,
         friendsTerm: state.sideBar.friendsTerm,
         friend: state.sideBar.friend,
+        captchaURL: state.auth.captchaURL, // URL каптчи при неправильном вводе 5 раз логина
     }
 }
 
