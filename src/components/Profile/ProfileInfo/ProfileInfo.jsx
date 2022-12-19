@@ -25,7 +25,7 @@ const ShowProfile = ({profile, setEditMode, userId, myId}) => { // вынес о
                    return Contact (key)
                 })}
             </div>
-            {(userId === 0 || userId === myId) && <button onClick={() => {
+            {(userId === 0) && <button onClick={() => {
                 setEditMode(true)
             }}>Редактировать профиль </button>}
 
@@ -61,7 +61,7 @@ const ProfileInfo = ({profile, myId, status, putStatusThunkCreator, uploadImage,
                     className={commonClasses.profilePhotoIMG}
                     src={profile.photos.large ? profile.photos.large : userPhoto1}/>
                 <div>
-                    {(userId === 0 || userId === myId)// если мы перешли на свой профиль (в браузере нет ID возле profile)
+                    {(userId === 0)// если мы перешли на свой профиль (в браузере нет ID возле profile)
                         ? <div>
                             <form> {/*форма отправки фото профиля на сервер*/}
                                 <span><button

@@ -6,7 +6,7 @@ import {
     putStatusThunkCreator,
     setprofilePhotoThunkCreator
 } from "../../redux/profile-reducer";
-import {useParams} from "react-router-dom"
+import {Navigate, NavLink, useParams} from "react-router-dom"
 import {NavigateToLoginHoc} from "../hoc/NavigateToLoginHoc";
 import {compose} from "redux";
 import {bedug_mode} from "../../redux/store-redux";
@@ -22,6 +22,7 @@ class ProfileContainer extends React.Component {
 
     componentDidUpdate(prevProps, prevState, snapshot) {
         let userId = this.props.userId; // получить локальный userId из URL браузера
+
         if (userId === 0) {
             userId = this.props.myId // подставить мой ID если URL профиля пустой
         }// если кликнули на мой профиль (без ID в URL браузера) то смотрим мой профиль
@@ -59,6 +60,10 @@ class ProfileContainer extends React.Component {
     }
 
     render() {
+        if (this.props.userId === this.props.myId) { /*при выборе своего профиля в списке пользователей*/
+            return <Navigate to='../profile'/> /*редирект на страницу без ID в URL*/
+        }
+
         return <Profile
             {...this.props}
             uploadImage={this.uploadImage} // загрузка

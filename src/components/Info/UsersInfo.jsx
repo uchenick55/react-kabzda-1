@@ -1,13 +1,25 @@
-let UsersInfo = () => {
+import {mapStateToPropsFactory} from "react-redux/es/connect/mapStateToProps";
+import {connect} from "react-redux";
+
+let UsersInfo = ({myID, myLogin}) => {
     return (<div>
         <p>Страница поиска пользователей</p>
         <p>При нажатии в списке пользователей Add мы добавляем его в список друзей.
             Пользователь автоматически добавляется в "My Friendlist" навбара справа  </p>
         <p>Реализована пагинация и scroll колонки пользователей</p>
         <p>Пользователя можно искать. Попробуйте вбить samurai, перейти на вторую страницы пагинации и добавить пользователя с ID 1079 (тестовый аккаунт для проверки общения) </p>
-        <p>Свой ID вы добавить в друзья не можете - вбейте в поиск evgeniysazonov1983 и попробуйте добавить его. Кнопка Add будет неактивной </p>
+        <p>Свой ID вы добавить в друзья не можете - Ваш ID: <b>{myID}</b> <br/>
+        Попробуйте найти его при помощи пагинации. Или вбейте в поиск <b>{myLogin}</b>. Кнопка Add будет неактивной.
+        </p>
 
     </div>)
 }
 
-export default UsersInfo
+let mapStateToProps = (state) => {
+    return {
+        myID: state.auth.myID,
+        myLogin: state.auth.myLogin
+    }
+}
+
+export default connect(mapStateToProps, null)(UsersInfo)
