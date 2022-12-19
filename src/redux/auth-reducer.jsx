@@ -132,7 +132,6 @@ export let postLoginThunkCreator = (email, password, rememberme, captchaURL) => 
                 console.log("auth-reducer.jsx, postLoginThunkCreator.await / если логин или пароль не подошли: dispatch(action) // отправить данные в форму")
             } // дебаг
             if (response.resultCode === 10) { // если ошибка в многократном неправильном вводе логина и пароля
-                console.log("здесь нужно запрашивать картинку каптча")
                 dispatch(getCaptchaThunkCreator())
             }
             dispatch(action) // отправить данные в форму

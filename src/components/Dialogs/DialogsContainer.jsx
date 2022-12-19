@@ -165,7 +165,7 @@ let mapDispatchToProps  = (dispatch) => {
         dispatch: dispatch // для зануления redux-form
     }
 }
-//updateDialogListThunkCreator
+
 let mapStateToProps = (state) => {
     return {
         isAuth: state.auth.isAuth, // флаг, авторизован ли я сейчас,

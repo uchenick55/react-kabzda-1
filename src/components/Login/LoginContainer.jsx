@@ -1,7 +1,7 @@
 import React from "react";
 import Login from "./Login";
 import {connect} from "react-redux";
-import {postLoginThunkCreator} from "../../redux/auth-reducer";
+import {getCaptchaThunkCreator, postLoginThunkCreator} from "../../redux/auth-reducer";
 import {Navigate} from "react-router-dom";
 import {getFriendsThunkCreator} from "../../redux/sidebar-reducer";
 
@@ -12,7 +12,11 @@ class LoginContainer extends React.Component {
         this.props.postLoginThunkCreator(email, password, rememberme, captcha);
     }
 
-    render () {
+    updateCaptcha = () => {
+        this.props.getCaptchaThunkCreator()
+    }
+
+    render() {
         if (this.props.isAuth) { // условие что я авторизован
             this.props.getFriendsThunkCreator( // получить список друзей
                 this.props.friendsCurrentPage,
@@ -24,7 +28,11 @@ class LoginContainer extends React.Component {
 
         return (
             <div>
-                <Login postLogin={this.postLogin} captchaURL={this.props.captchaURL}/> {/*Возврат целевой компоненты*/}
+                <Login postLogin={this.postLogin}
+                       captchaURL={this.props.captchaURL}
+                       updateCaptcha={this.updateCaptcha}
+                       dispatch = {this.props.dispatch}
+                /> {/*Возврат целевой компоненты*/}
             </div>
         )
     }
@@ -41,4 +49,22 @@ let mapStateToProps = (state) => { // флаги isAuth - "я авторизов
     }
 }
 
-export default connect(mapStateToProps, {postLoginThunkCreator, getFriendsThunkCreator})(LoginContainer)
+let mapDispatchToProps = (dispatch) => {
+    return {
+
+        postLoginThunkCreator: (email, password, rememberme, captchaURL) => { // отправить сообщение
+            dispatch(postLoginThunkCreator(email, password, rememberme, captchaURL))
+        },
+        getFriendsThunkCreator: (currentPage, pageSize, term, friend) => { // отправить сообщение
+            dispatch(getFriendsThunkCreator(currentPage, pageSize, term, friend))
+        },
+        getCaptchaThunkCreator: () => { // отправить сообщение
+            dispatch(getCaptchaThunkCreator())
+        },
+        dispatch: dispatch
+
+    }
+}
+
+
+export default connect(mapStateToProps, mapDispatchToProps)(LoginContainer)
