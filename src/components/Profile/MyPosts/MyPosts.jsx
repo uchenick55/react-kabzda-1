@@ -35,8 +35,8 @@ const MyPosts = ({userId, state, addPost, dispatch}) => { // основная к
         console.log("MyPosts.jsx")
     } // дебаг
 
-    let postElements = state.posts.map((p) => // подкомпонента отрисовки всех постов через map
-        <Post message={p.message} like={p.like} id={p.id}/>);
+    let postElements = state.posts.map((p, index) => // подкомпонента отрисовки всех постов через map
+        <Post key={index} message={p.message} like={p.like} id={p.id}/>);
 
     let AddPost = (formData) => { // функция отправления данных формы нового поста в стейт
 // здесь зарезетить форму

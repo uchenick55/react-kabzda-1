@@ -6,9 +6,9 @@ import {Input, CreateField} from "../../../common/Validation/customFields";
 import {email, Required} from "../../../common/Validation/validationField";
 
 const ProfileForm = ({setEditMode, error, handleSubmit, load, pristine, reset, submitting, profile}) => { // компонента формы
-    let ContactCreateField = (key) => {
+    let ContactCreateField = (key1) => {
         return <div>
-            {CreateField(key, Input, key, [] )} {/*name, component, placeholder, validate*/}
+            {CreateField(key1, Input, key1, [] )} {/*name, component, placeholder, validate*/}
         </div>
     }
     return (
@@ -35,8 +35,8 @@ const ProfileForm = ({setEditMode, error, handleSubmit, load, pristine, reset, s
                 <label>Контакты</label>
                 <div className={classes.EditProfileContactsFields}>
                     <div>
-                        {Object.keys(profile.contacts).map(key=>{
-                            return ContactCreateField (key)
+                        {Object.keys(profile.contacts).map((key1, index)=>{
+                            return <span key={index}>{ContactCreateField(key1)}</span>
                         })}
                     </div>
                 </div>

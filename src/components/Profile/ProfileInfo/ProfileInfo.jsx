@@ -8,9 +8,9 @@ import userPhoto1 from "../../../assets/images/no-image3.png";
 import EditProfile from "./EditProfile/EditProfile"; // заглушка фото пользователя
 
 const ShowProfile = ({profile, setEditMode, userId, myId}) => { // вынес отдельно отображение профиля
-    let Contact = (key) => { /*простая функция вывода отдельного элемента contacts из profile*/
+    let Contact = (key1) => { /*простая функция вывода отдельного элемента contacts из profile*/
         return <div>
-            <b>{key}: </b>{profile.contacts[key]}
+            <b>{key1}: </b>{profile.contacts[key1]}
         </div>
     }
     return (<div>
@@ -21,8 +21,11 @@ const ShowProfile = ({profile, setEditMode, userId, myId}) => { // вынес о
             <div><b>userId:</b> {profile.userId}</div>
             <div><b>Контакты:</b></div>
             <div className={classes.ProfileContacts}>
-                {Object.keys(profile.contacts).map(key=>{ //
-                   return Contact (key)
+                {Object.keys(profile.contacts).map((key1, index)=>{ //
+                   return ( <div key={index}>
+                           {Contact(key1)}
+                       </div>
+                       )
                 })}
             </div>
             {(userId === 0) && <button onClick={() => {

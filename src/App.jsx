@@ -12,6 +12,35 @@ import ContentContainer from "./components/Content/ContentContainer";
 class App extends React.Component { // конвертируем app в классовую компоненту для жизненного цикла
     componentDidMount() {
         this.props.initialisedAppThunkCreator() // запускаем инициализацию приложения
+
+/*        window.onerror = function(errorMsg, url, lineNumber){
+            // any action you want goes here
+            // errorMsg is the error message itself.
+            // url should be the file presenting the error, though i have
+            //    found that it only presents to me the address of the site.
+            // lineNumber is the line number the error occoured on.
+            // here is an example of what you could do with it:
+            alert("Error in " + url + " at " + lineNumber + ":\n" + errorMsg);
+        }*/
+
+
+        let originalConsoleWarn = console.warn;
+
+        function doSomethingWithWarn(message){
+            console.log("DOING SOMETHING WITH: " + message);
+        }
+
+        console.warn = function(message) {
+            originalConsoleWarn(message);
+            doSomethingWithWarn(message);
+        };
+
+
+
+/*
+        console.warn("hi");
+*/
+
     }
 
     render() {

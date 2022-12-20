@@ -53,10 +53,10 @@ let PaginatiionByCourse = ({
                 : <button disabled={true}>Prev</button>
             }
             <PointerCursor>
-                {slicedPages2.map((p) => {
+                {slicedPages2.map((p, index) => {
                     return (
                         <span
-                            key={p}
+                            key={index}
                             className={classes.rangeList}
                             onMouseLeave={() => {
                                 setMouseHovered(0);

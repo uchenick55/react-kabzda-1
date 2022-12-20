@@ -34,18 +34,18 @@ const NewMessageReduxForm = reduxForm({form: "newMessageForm"})(newMessageForm)
 
 const Dialogs = ({deleteDialog, dialogUserID, getDialogList, dialogs2, messages2, dispatch, sendMessage, getDialogLastUpdateTime, myID, deleteMessage}) => { // основная компонента отрисовки диалогов
 
-    let dialogElements = dialogs2.map((d) => // подкомпонента отрисовки всех диалогов через map
+    let dialogElements = dialogs2.map((d, index) => // подкомпонента отрисовки всех диалогов через map
         {
             let userPhoto = d.userPhoto ? d.userPhoto : userPhotoAva; // если аватарки с сервера нет, подставить заглушку
-            return <DialogItem userName={d.userName} userId={d.userId}
+            return <DialogItem key={index} userName={d.userName} userId={d.userId}
                                userPhoto={userPhoto} dialogUserID={dialogUserID}
                                deleteDialog={deleteDialog} dialogId={d.dialogId}
             />
         }
     );
 
-    let messagesElements = messages2.map((m) => // подкомпонента отрисовки всех сообщений через map
-        <Message message={m.message} myID={myID} userId={m.userId} Date={m.Date} MessageId={m.id}
+    let messagesElements = messages2.map((m, index) => // подкомпонента отрисовки всех сообщений через map
+        <Message key={index} message={m.message} myID={myID} userId={m.userId} Date={m.Date} MessageId={m.id}
                  deleteMessage={deleteMessage}/>);
 
     let onSendMessageClick = (formDataNewMessage) => {// функция отправления данных формы нового сообщения в стейт

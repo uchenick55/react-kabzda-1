@@ -38,9 +38,8 @@ let Users = ({
 
         let UserItems =
             users.map((u) => {
-                <div key={u.id}/>
                 return (
-                    <div>
+                    <div key={u.id}>
                         <div>
                             <NavLink to={'/profile/' + u.id}>
                                 <img alt = {"userPhoto"} className={classes.userPhoto}

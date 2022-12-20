@@ -17,16 +17,18 @@ let Pagination = ({totalUsersCount, pageSize, currentPage, onPageChanged}) => {
 
     return (
         <div>
-            {slicedPages.map((p) => {
+            {slicedPages.map((p, index) => {
                 return (
-                    p === currentPage
-                        ? <span className={classes.selected} onClick={() => {
+                    <span key={index}>
+                        p === currentPage
+                            ? <span className={classes.selected} onClick={() => {
                             <div>
                             </div>
                         }}>{p}</span>
-                        : <span onClick={() => {
+                            : <span onClick={() => {
                             onPageChanged(p)
                         }}>{p}</span>
+                    </span>
                 )
             })}
         </div>
