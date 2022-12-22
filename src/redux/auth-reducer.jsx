@@ -83,29 +83,24 @@ export let getAuthMeThunkCreator = () => {//санкреатор я автори
     let getAuthMeThunk = async (dispatch) => {
         const response1 = await apiProfile.getAuthMe() // я авторизован?
         if (response1.resultCode === 0) { //если я авторизован
-            let id = response1.data.id; // записать с стейт мой ID
-            let email = response1.data.email; // записать с стейт мой емейл
-            let login = response1.data.login; // записать с стейт мой логин
-            let isAuth = true; // отметить что а авторизован
             if (bedug_mode) {
                 console.log("auth-reducer.jsx, getAuthMeThunkCreator.await getAuthMe() : dispatch(setAuthData)->SET_MY_DATA  (пользователь авторизован)")
             } // дебаг
-            dispatch(setAuthData(id, email, login, isAuth))//задание в стейт текущего пользователя
-            const response2 = await apiProfile.getProfile(id)//получение моих дополнительных данных после авторизации
+            dispatch(setAuthData(
+                response1.data.id, // записать с стейт мой ID
+                response1.data.email, // записать с стейт мой емейл
+                response1.data.login, // записать с стейт мой логин
+                true // отметить что а авторизован
+            ))//задание в стейт текущего пользователя
+
+            const response2 = await apiProfile.getProfile(response1.data.id)//получение моих дополнительных данных после авторизации
             if (bedug_mode) {
                 console.log("auth-reducer.jsx, getAuthMeThunkCreator.await(getAuthMe)->await .getProfile() : dispatch(setMyProfile()->SET_MY_PROFILE")
             } // дебаг
             dispatch(setMyProfile(response2))//задание в стейт моих доп данных
         }
-        if (!response1.resultCode === 0) { //пользователь не авторизован
-            let id = initialState.userID; // занулить в стейте мой ID
-            let email = initialState.email;// занулить в стейте мой email
-            let login = initialState.login;// занулить в стейте мой логин
-            let isAuth = false; // занулить флаг авторизации
-            if (bedug_mode) {
-                console.log("auth-reducer.jsx, getAuthMeThunkCreator.await getAuthMe() : dispatch(setAuthData)->SET_MY_DATA (пользователь не авторизован)")
-            } // дебаг
-            dispatch(setAuthData(id, email, login, isAuth))//задание в стейт зануленных значений если пользователь не авторизован
+        if (response1.resultCode !== 0) { //пользователь не авторизован
+            dispatch(authInitialState()) // запустить зануление стейта
         }
     }
     return getAuthMeThunk;
@@ -172,7 +167,8 @@ export let deleteLoginThunkCreator = () => {//санкреатор на логА
                 dispatch(usersInitialState())// зануление Users при логауте
 
             }, 300)
-        } else {// пока еще не придумал
+        } else {
+            console.log(response.messages) // вывести в консоль сообщение ошибки логаута
         }
     }
     return deleteLoginThunk;
@@ -193,7 +189,7 @@ export let putMyProfileThunkCreator = (MyProfile, myId) => { // санкреат
             dispatch(getProfileThunkCreator(myId))
         } else { // если пришла ошибка с сервера ввода формы правки профиля
             let message =  // определение локальной переменной message - ответ от сервера
-                !response.messages[1] // если ответа от сервера нет
+                !response.messages[0] // если ответа от сервера нет
                     ? "no responce from server" // вывести сообщение заглушку
                     : response.messages[0] // иначе вывести ответ от сервера
             let action = stopSubmit("EditProfileForm", {_error: message})
@@ -213,12 +209,10 @@ export let getCaptchaThunkCreator = () => {//санкреатор на полу�
         if (bedug_mode) {
             console.log("auth-reducer.jsx, postLoginThunkCreator.await .getCaptcha(): dispatch()")
         } // дебаг
-        console.log(response2.url)
         dispatch(setCaptchaURL(response2.url)) // получить данные с сервера авторизованного пользователя
     }
     return getCaptchaThunk;
 }
-
 
 export default authReducer;
 
