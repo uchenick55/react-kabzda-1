@@ -11,11 +11,11 @@ const MyFriends = ({state, unfollowFriendsAPI, dialogUserID}) => {
         console.log("MyFriends")
     }
     let MyFriendElements =
-        state.map((f, index) => {
+        state.map((f) => {
                 const avaSrc = f.photos.small ? f.photos.small : userPhoto;
                 return (
                     <MyFriendItem
-                        key = {index}
+                        key = {f.id}
                         name={f.name}
                         id={f.id}
                         avaSrc={avaSrc}

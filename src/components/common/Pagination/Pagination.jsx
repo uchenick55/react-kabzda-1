@@ -17,9 +17,9 @@ let Pagination = ({totalUsersCount, pageSize, currentPage, onPageChanged}) => {
 
     return (
         <div>
-            {slicedPages.map((p, index) => {
+            {slicedPages.map((p) => {
                 return (
-                    <span key={index}>
+                    <span key={p}>
                         p === currentPage
                             ? <span className={classes.selected} onClick={() => {
                             <div>

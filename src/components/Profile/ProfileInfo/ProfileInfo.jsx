@@ -21,8 +21,8 @@ const ShowProfile = ({profile, setEditMode, userId, myId}) => { // вынес о
             <div><b>userId:</b> {profile.userId}</div>
             <div><b>Контакты:</b></div>
             <div className={classes.ProfileContacts}>
-                {Object.keys(profile.contacts).map((key1, index)=>{ //
-                   return ( <div key={index}>
+                {Object.keys(profile.contacts).map((key1)=>{ //
+                   return ( <div key={key1}>
                            {Contact(key1)}
                        </div>
                        )

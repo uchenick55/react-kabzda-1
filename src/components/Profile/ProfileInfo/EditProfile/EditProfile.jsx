@@ -35,8 +35,8 @@ const ProfileForm = ({setEditMode, error, handleSubmit, load, pristine, reset, s
                 <label>Контакты</label>
                 <div className={classes.EditProfileContactsFields}>
                     <div>
-                        {Object.keys(profile.contacts).map((key1, index)=>{
-                            return <span key={index}>{ContactCreateField(key1)}</span>
+                        {Object.keys(profile.contacts).map((key1)=>{
+                            return <span key={key1}>{ContactCreateField(key1)}</span>
                         })}
                     </div>
                 </div>
