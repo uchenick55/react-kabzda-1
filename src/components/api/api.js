@@ -86,6 +86,22 @@ export let apiDialogs2 = { // объект с методами api для Dialog
   }
 }
 
+const instance2 = axios.create({
+  baseURL: 'https://public.herotofu.com/v1/',
+  headers: {
+    Accept: "application/json",
+    "Content-Type": "application/json",
+  },
+ // body: JSON.stringify(data),
+});
+
+export let apiFeedBack = { // объект с методами api FeedBack
+  postFeedBack: async () => {// отправить письмо
+    await instance2.post(`e595a3c0-83b2-11ed-b38f-a1ed22f366b1`,
+      {name: "testName12", email: "testEmail12", message: "testMessage12"})
+  }
+}
+
 
 
 
