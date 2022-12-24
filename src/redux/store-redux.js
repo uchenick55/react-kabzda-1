@@ -8,6 +8,7 @@ import authReducer from "./auth-reducer";
 import { reducer as formReducer } from 'redux-form'
 import appReducer from "./app-reducer";
 import darkLightReducer from "./dark-light-reducer";
+import feedBackReducer from "./feedback-reducer"
 
 let reducers = combineReducers({ // объединяем стейт редьюсеров в один объект store
     profilePage: profileReducer, // стейт профиля
@@ -17,7 +18,8 @@ let reducers = combineReducers({ // объединяем стейт редьюс
     auth: authReducer, // стейт текущего пользователя
     form: formReducer, // стейт от redux-form
     app: appReducer, // стейт инициализации приложения
-    theme: darkLightReducer // стейт темы (dark-light)
+    theme: darkLightReducer, // стейт темы (dark-light)
+    feedback: feedBackReducer, // стейт фидбека
 });
 
 //let store = createStore(reducers, applyMiddleware(thunkMiddleWare));//ApplyMiddleWare позволяет сделать прослойку между UI и редьюсером, чтобы можно было диспатчить не только экшены, но и санки.

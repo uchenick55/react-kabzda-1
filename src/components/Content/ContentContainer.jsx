@@ -5,6 +5,7 @@ import Rest from "../Rest/Krestiki-Noliki/krestiki-noliki";
 import classes from './ContentContainer.module.css';
 import StackInfo from "../Info/StackInfo";
 import FeedBack from "../FeedBack/FeedBack";
+import FeedBackContainer from "../FeedBack/FeedBackContainer";
 
 const ProfileContainer = React.lazy(() => import("../Profile/ProfileContainer"))
 const DialogsContainer = React.lazy(() => import("../Dialogs/DialogsContainer"))
@@ -25,7 +26,7 @@ let ContentContainer = () => { // вынес роутинг контента в 
                     <Route path='/news/*' element={<News/>}/> {/*Поиск по новостям hn algonia*/}
                     <Route path='/rest/*' element={<Rest/>}/> {/*Страница отдыха*/}
                     <Route path='' element={<StackInfo/>}/> {/*Общие Комментарии*/}
-                    <Route path='feedback' element={<FeedBack/>}/> {/*Общие Комментарии*/}
+                    <Route path='feedback' element={<FeedBackContainer/>}/> {/*Общие Комментарии*/}
 
                 </Routes>
             </div>

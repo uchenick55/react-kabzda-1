@@ -76,7 +76,6 @@ export let apiProfile = { // объект с методами api для про�
     const response = await instance.get(`/security/get-captcha-url` ) //
     return (response.data) //ответ от сервера
   },
-
 }
 
 export let apiDialogs2 = { // объект с методами api для Dialogs
@@ -86,19 +85,21 @@ export let apiDialogs2 = { // объект с методами api для Dialog
   }
 }
 
-const instance2 = axios.create({
-  baseURL: 'https://public.herotofu.com/v1/',
-  headers: {
-    Accept: "application/json",
-    "Content-Type": "application/json",
-  },
- // body: JSON.stringify(data),
-});
+export let apiFeedBack2 = { // объект с методами api FeedBack2
+  postFeedBack2: async (data) => {// отправить письмо
 
-export let apiFeedBack = { // объект с методами api FeedBack
-  postFeedBack: async () => {// отправить письмо
-    await instance2.post(`e595a3c0-83b2-11ed-b38f-a1ed22f366b1`,
-      {name: "testName12", email: "testEmail12", message: "testMessage12"})
+    const FORM_ENDPOINT = "https://public.herotofu.com/v1/e595a3c0-83b2-11ed-b38f-a1ed22f366b1";// конечная точка
+
+    const response = await fetch(FORM_ENDPOINT, {
+      method: "POST", // метод отправить
+      headers: {
+        Accept: "application/json",
+        "Content-Type": "application/json", // тип отправления
+      },
+      body: JSON.stringify(data),
+    })
+    return (response) //возврат данных из поля data
+
   }
 }
 

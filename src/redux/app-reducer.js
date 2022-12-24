@@ -1,7 +1,6 @@
 import {getAuthMeThunkCreator} from "./auth-reducer";
 import {bedug_mode} from "./store-redux";
 import {apiCommon} from "../components/api/apiLocalStorage";
-import {apiFeedBack} from "../components/api/api";
 
 const SET_INITIALISED_APP = "myApp/app-reducer/SET_INITIALISED_APP"; //константа инициализации приложения
 const APP_INITIAL_STATE = "myApp/app-reducer/APP_INITIAL_STATE"; //константа зануления при логауте
@@ -76,13 +75,6 @@ export let getInfoModeThunkCreator = () => {// санкреатор получе
     dispatch(setInfoMode(info_modeFromLS)) // задать в BLL значение info_mode из LocalStorage
    }
   return getInfoModeThunk;
-}
-
-export let postFeedBackThunkCreator = () => {// санкреатор получение режима комментариев
-  let postFeedBackThunk = async (dispatch) => { // санки  получения режима комментариев
-    let feedBack = await apiFeedBack.postFeedBack() // задание info_mode в LocalStorage и считывание оттуда же
-   }
-  return postFeedBackThunk;
 }
 
 export default appReducer;
