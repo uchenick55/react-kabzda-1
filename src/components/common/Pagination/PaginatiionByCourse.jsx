@@ -68,12 +68,12 @@ let PaginatiionByCourse = ({
                                 setMouseHovered(p);
                             }}
                         >
-            {p === currentPage || p === mouseHovered ? (
-                <span className={classes.selected}>{p} </span>
-            ) : (
-                <span>{p} </span>
-            )}
-          </span>
+                            {p === currentPage || p === mouseHovered ? (
+                                <span className={classes.selected}>{p} </span>
+                            ) : (
+                                <span>{p} </span>
+                            )}
+                        </span>
                     );
                 })}
             </PointerCursor>
