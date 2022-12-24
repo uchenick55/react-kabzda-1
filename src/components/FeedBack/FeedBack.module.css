@@ -1,0 +1,8 @@
+.feedBackGreed {
+    display: grid;
+    grid-template-columns: 2fr 1fr;
+}
+.textArea,
+.inputClass {
+    width: 100%;
+}

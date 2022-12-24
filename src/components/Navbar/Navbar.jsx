@@ -27,6 +27,9 @@ const Navbar = ({myFriends2, unfollowFriendsAPI, dialogUserID}) => {
         <div className={classes.item}>
             <NavLink to='/rest'>Rest</NavLink>
         </div>
+        <div className={classes.item}>
+            <NavLink to='/feedback'>FeedBack</NavLink>
+        </div>
         <div>
             <MyFriends
                 state={myFriends2}

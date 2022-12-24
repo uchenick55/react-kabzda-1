@@ -9,6 +9,7 @@ import RestInfo from "./RestInfo";
 import UsersInfo from "./UsersInfo";
 import IndexInfo from "./IndexInfo";
 import ScrollContainer from "../common/Scroll/ScrollContainer";
+import FeedBackInfo from "./FeedBackInfo";
 
 
 
@@ -23,6 +24,7 @@ let InfoContainer = () => {
             <Route path='/news/*' element={<NewsInfo/>}/>{/*Новости Комментарии*/}
             <Route path='/rest/*' element={<RestInfo/>}/> {/*Отдых Комментарии*/}
             <Route path='' element={<IndexInfo/>}/> {/*Общие Комментарии*/}
+            <Route path='feedback' element={<FeedBackInfo/>}/> {/*Общие Комментарии*/}
         </Routes>
     </div>
 

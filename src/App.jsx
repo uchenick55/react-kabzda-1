@@ -8,18 +8,11 @@ import {initialisedAppThunkCreator} from "./redux/app-reducer";
 import Preloader from "./components/common/Preloader/Preloader";
 import InfoContainer from "./components/Info/InfoContainer";
 import ContentContainer from "./components/Content/ContentContainer";
-import ContactForm from "./ContactForm";
+import FeedBack from "./components/FeedBack/FeedBack";
 
 class App extends React.Component { // конвертируем app в классовую компоненту для жизненного цикла
     componentDidMount() {
         this.props.initialisedAppThunkCreator() // запускаем инициализацию приложения
-        if (document) {
-            const stylesheet = document.createElement("link");
-            stylesheet.rel = "stylesheet";
-            stylesheet.href = "https://unpkg.com/tailwindcss@^2/dist/tailwind.min.css";
-
-            document.head.appendChild(stylesheet);
-        }
     }
 
     render() {
@@ -46,9 +39,6 @@ class App extends React.Component { // конвертируем app в клас�
                     {/*
                     </ErrorBoundary>
 */}
-                </div>
-                <div className="py-6">
-                    <ContactForm />
                 </div>
             </HashRouter>
 
