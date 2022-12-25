@@ -1,7 +1,6 @@
 import React from "react";
 import classes from "./FeedBack.module.css";
-
-const FORM_ENDPOINT = "https://public.herotofu.com/v1/e595a3c0-83b2-11ed-b38f-a1ed22f366b1"; // конечная точка - перенести в api.js
+import FeedBackForm from "./FeedBackForm";
 
 const FeedBack = ({sendFeedBack, feedBackStatus, setFeedBackStatus}) => {
 
@@ -34,43 +33,9 @@ const FeedBack = ({sendFeedBack, feedBackStatus, setFeedBackStatus}) => {
 
     return (
         <div className={classes.feedBackGreed}> {/*растягивание полей ввода не на весь экран*/}
-            <div>
-                <h3>Обратная связь</h3>
-                <form onSubmit={handleSubmit}> {/*обработчик сабмита формы*/}
-                    <div>
-                        <input // поле ввода имени (не обязательно)
-                            type="text"
-                            placeholder="Ваше имя (не обязательно)"
-                            name="name"
-                            className={classes.inputClass}
-                            autoFocus={true}
-                        />
-                    </div>
-                    <div>
-                        <input // поле ввода email (не обязательно)
-                            type="email"
-                            placeholder="Ваш Email (не обязательно)"
-                            name="email"
-                            className={classes.inputClass}
-                        />
-                    </div>
-                    <div>
-                    <textarea // поле ввода сообщения
-                        placeholder="Введите сообщение"
-                        name="message"
-                        className={classes.textArea}
-                        required
-                    />
-                    </div>
-                    <div>
-                        <button
-                            type="submit"
-                        >
-                            Отправить сообщение
-                        </button>
-                    </div>
-                </form>
-            </div>
+            <div><FeedBackForm
+                sendFeedBack={sendFeedBack}
+            /></div>
         </div>
     );
 };

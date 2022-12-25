@@ -2,7 +2,12 @@
     display: grid;
     grid-template-columns: 2fr 1fr;
 }
-.textArea,
-.inputClass {
-    width: 100%;
+
+.FeedBackCommon {
 }
+
+.FeedBackForm2 {
+    display: grid;
+    grid-template-columns: 2frx 1fr;
+}
+
