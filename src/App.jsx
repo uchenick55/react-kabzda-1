@@ -4,7 +4,7 @@ import {HashRouter} from "react-router-dom";
 import HeaderContainer from "./components/Header/HeaderContainer";
 import NavBarContainer from "./components/Navbar/NavBarContainer";
 import {connect} from "react-redux";
-import {initialisedAppThunkCreator, postFeedBackThunkCreator} from "./redux/app-reducer";
+import {initialisedAppThunkCreator} from "./redux/app-reducer";
 import Preloader from "./components/common/Preloader/Preloader";
 import InfoContainer from "./components/Info/InfoContainer";
 import ContentContainer from "./components/Content/ContentContainer";
@@ -13,7 +13,6 @@ import FeedBack from "./components/FeedBack/FeedBack";
 class App extends React.Component { // конвертируем app в классовую компоненту для жизненного цикла
     componentDidMount() {
         this.props.initialisedAppThunkCreator() // запускаем инициализацию приложения
-     //   this.props.postFeedBackThunkCreator()
     }
 
     render() {
@@ -54,13 +53,5 @@ const mapStateToProps = (state) => {
     }
 }
 
-export default connect(mapStateToProps, {initialisedAppThunkCreator, postFeedBackThunkCreator})(App);
+export default connect(mapStateToProps, {initialisedAppThunkCreator})(App);
 // коннектим к app флаг и санки инициализации
-
-
-
-
-
-
-
-
