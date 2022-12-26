@@ -9,55 +9,58 @@ import {PointerCursor} from "../Dark_light_theme/globalStyles";
 const LoginForm = ({handleSubmit, error, captchaURL, updateCaptcha}) => { // компонента формы
     return (
         <form onSubmit={handleSubmit}/*привязка сабмита формы к внутренней функции reduxForm - handleSubmit*/>
-            <div>
-                <div>
-                    <Field
-                        name="email"// имя поля формы и возвращаемого свойства объекта после сабмита формы
-                        component={Input}// компонент - ввод
-                        placeholder="email" // текст подсказка при пустом поле
-                        validate={[Required, email]}
-                    />
-                </div>
-                <div>
-                    <Field
-                        name="password"// имя поля формы и возвращаемого свойства объекта после сабмита формы
-                        component={Input}// компонент - ввод
-                        placeholder="password"// текст подсказка при пустом поле
-                        validate={[Required]}
-                    />
-                </div>
-                <div>
-                    <Field
-                        name="rememberme"// имя поля формы и возвращаемого свойства объекта после сабмита формы
-                        component="input"// компонент - ввод
-                        type="checkbox"// тип - чекбокс
-                    />
-                    <label> запомнить меня</label>
-                </div>
-                {captchaURL
-                    ? <div>
-                        <PointerCursor>
-                            <img src={captchaURL} onClick={updateCaptcha}></img>
-                        </PointerCursor>
+            <fieldset >
+                <legend><div className={classes.legendStyle}>Войдите в аккаунт</div></legend>
+                <div className={classes.fieldSetStyle}>
+                    <div>
                         <Field
-                            name="captcha"// имя поля формы и возвращаемого свойства объекта после сабмита формы
+                            name="email"// имя поля формы и возвращаемого свойства объекта после сабмита формы
                             component={Input}// компонент - ввод
-                            placeholder="captcha" // текст подсказка при пустом поле
+                            placeholder="email" // текст подсказка при пустом поле
+                            validate={[Required, email]}
+                        />
+                    </div>
+                    <div>
+                        <Field
+                            name="password"// имя поля формы и возвращаемого свойства объекта после сабмита формы
+                            component={Input}// компонент - ввод
+                            placeholder="password"// текст подсказка при пустом поле
                             validate={[Required]}
                         />
                     </div>
-                    : null
-                }
-                <div>
-                    <button type="submit">Submit</button>
-                    {/*кнопка*/}
-                </div>
-                <div className={styles.commonError}>
-                    {/*стилизация красным сообщение об общей ошибке с сервера при неверном логине или пароле*/}
-                    {error} {/*вывод сообщения ошибки после диспатча stopSubmit из auth-reducer.jsx */}
-                </div>
+                    <div>
+                        <Field
+                            name="rememberme"// имя поля формы и возвращаемого свойства объекта после сабмита формы
+                            component="input"// компонент - ввод
+                            type="checkbox"// тип - чекбокс
+                        />
+                        <label> запомнить меня</label>
+                    </div>
+                    {captchaURL
+                        ? <div>
+                            <PointerCursor>
+                                <img src={captchaURL} onClick={updateCaptcha}></img>
+                            </PointerCursor>
+                            <Field
+                                name="captcha"// имя поля формы и возвращаемого свойства объекта после сабмита формы
+                                component={Input}// компонент - ввод
+                                placeholder="captcha" // текст подсказка при пустом поле
+                                validate={[Required]}
+                            />
+                        </div>
+                        : null
+                    }
+                    <div>
+                        <button type="submit">Submit</button>
+                        {/*кнопка*/}
+                    </div>
+                    <div className={styles.commonError}>
+                        {/*стилизация красным сообщение об общей ошибке с сервера при неверном логине или пароле*/}
+                        {error} {/*вывод сообщения ошибки после диспатча stopSubmit из auth-reducer.jsx */}
+                    </div>
 
-            </div>
+                </div>
+            </fieldset>
         </form>
     )
 }
@@ -78,7 +81,6 @@ let Login = ({postLogin, captchaURL, updateCaptcha, dispatch}) => {
     }
     return (
         <div className={classes.loginCommon}/*стиль*/ >
-            <h3>Войдите в аккаунт</h3>{/*h3 заголовок*/}
             <div className={classes.loginForm}>
                 <div><LoginReduxForm
                     onSubmit={onSubmit}

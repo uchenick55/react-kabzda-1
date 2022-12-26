@@ -7,36 +7,41 @@ import {email, Required} from "../common/Validation/validationField";
 const FeedBackForm2 = ({handleSubmit}) => { // компонента формы
     return (
         <form onSubmit={handleSubmit}/*привязка сабмита формы к внутренней функции reduxForm - handleSubmit*/>
-            <div>
-                <div>
-                    <Field
-                        name="name"// имя поля формы и возвращаемого свойства объекта после сабмита формы
-                        component={Input}// компонент - ввод
-                        placeholder="Ваше имя (не обязательно)" // текст подсказка при пустом поле
-                        validate={[]}
-                    />
+            <fieldset>
+                <legend>
+                    <div className={classes.legendStyle}>Обратная связь</div>
+                </legend>
+                <div className={classes.fieldSetStyle}>
+                    <div>
+                        <Field
+                            name="name"// имя поля формы и возвращаемого свойства объекта после сабмита формы
+                            component={Input}// компонент - ввод
+                            placeholder="Ваше имя (не обязательно)" // текст подсказка при пустом поле
+                            validate={[]}
+                        />
+                    </div>
+                    <div>
+                        <Field
+                            name="email"// имя поля формы и возвращаемого свойства объекта после сабмита формы
+                            component={Input}// компонент - ввод
+                            placeholder="Ваш Email (не обязательно)" // текст подсказка при пустом поле
+                            validate={[email]}
+                        />
+                    </div>
+                    <div>
+                        <Field
+                            name="message"// имя поля формы и возвращаемого свойства объекта после сабмита формы
+                            component={Textarea}// компонент - ввод
+                            placeholder="Введите сообщение" // текст подсказка при пустом поле
+                            validate={[Required]}
+                        />
+                    </div>
+                    <div>
+                        <button type="submit">Отправить сообщение</button>
+                        {/*кнопка*/}
+                    </div>
                 </div>
-                <div>
-                    <Field
-                        name="email"// имя поля формы и возвращаемого свойства объекта после сабмита формы
-                        component={Input}// компонент - ввод
-                        placeholder="Ваш Email (не обязательно)" // текст подсказка при пустом поле
-                        validate={[email]}
-                    />
-                </div>
-                <div>
-                    <Field
-                        name="message"// имя поля формы и возвращаемого свойства объекта после сабмита формы
-                        component={Textarea}// компонент - ввод
-                        placeholder="Введите сообщение" // текст подсказка при пустом поле
-                        validate={[Required]}
-                    />
-                </div>
-                <div>
-                    <button type="submit">Отправить сообщение</button>
-                    {/*кнопка*/}
-                </div>
-            </div>
+            </fieldset>
         </form>
     )
 }
@@ -52,7 +57,6 @@ let FeedBackForm = ({sendFeedBack}) => {
     }
     return (
         <div className={classes.FeedBackCommon}/*стиль*/ >
-            <h3>Обратная связь</h3>{/*h3 заголовок*/}
             <div className={classes.FeedBackForm2}>
                 <div><FeedBackReduxForm
                     onSubmit={onSubmit}

@@ -32,7 +32,7 @@ const MyFriends = ({state, unfollowFriendsAPI, dialogUserID}) => {
                 {state.length > 0 ? <b>My Friendlist:
                     <ScrollContainer
                         child={MyFriendElements}
-                        height={window.screen.availHeight - 360}
+                        height={window.screen.availHeight - 375}
                         firstInsideContainer={"friendsUp"}
                         secondInsideContainer={"friendsDown"}
                         containerElement={"friendsContainer"}

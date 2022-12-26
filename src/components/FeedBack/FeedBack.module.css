@@ -11,3 +11,11 @@
     grid-template-columns: 2frx 1fr;
 }
 
+.legendStyle {
+    font-size: 20px;
+    font-weight: bold;
+}
+
+.fieldSetStyle {
+    padding: 10px;
+}
