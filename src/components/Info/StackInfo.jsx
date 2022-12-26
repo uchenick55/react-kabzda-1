@@ -9,7 +9,7 @@ let StackInfo = () => {
             presentation/wrapped components, HOC, compose, preloader, ref/value, isAuth redirect,
             async. buttons disabled, initial App, useState/useEffect/useReducer/useParams,
             lazy/Suspense/ErrorBoundary/namedExport, selector, BrowserRouter/HashRouter
-            (NavLink/Navigate/Routes/Route), Lifting State Up, top-down (unidirectional) flow. </p>
+            (NavLink/Navigate/Routes/Route), Lifting State Up, top-down (unidirectional) flow, props.children </p>
         <p>BLL (Redux): store, state, reducer, callback, dispatch, action (type), action creator, case/switch,
             thunk/thunkCreator, thunkMiddleWare, redux-ducks. </p>
         <p>DAL (API): ajax, axios, get, post, put, delete, async/await, .then/.catch.        </p>

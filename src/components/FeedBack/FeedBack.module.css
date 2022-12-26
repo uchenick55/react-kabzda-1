@@ -10,6 +10,10 @@
     display: grid;
     grid-template-columns: 2frx 1fr;
 }
+.FeedBackSuccess {
+    display: grid;
+    grid-template-columns: 1frx 1fr;
+}
 
 .legendStyle {
     font-size: 20px;
@@ -18,4 +22,16 @@
 
 .fieldSetStyle {
     padding: 10px;
+}
+
+.sendMessageBoard {
+    background-color: rgba(0, 0, 218, 0.2);
+    border: 1px yellow dotted;
+    padding: 20px;
+    margin-right:10px;
+    border-width: 5px;
+}
+
+.buttonSuccess {
+    margin-top: 10px;
 }
