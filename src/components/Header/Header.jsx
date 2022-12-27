@@ -19,8 +19,8 @@ const Header = ({getProfileThunkCreator, deleteLogin, isAuth, myId, myLogin, myP
             <div>
                 <div className={classes.font1word}>comments</div>
                 <div className={classes.checkboxGroup}>
-                    <div><input type="checkbox" className={classes.checkbox} id="checkbox" onClick={switchInfo}
-                                checked={info_mode}/>
+                    <div><input type="checkbox" className={classes.checkbox} id="checkbox" 
+                                checked={info_mode} onChange={switchInfo}/>
                         <label htmlFor="checkbox" className={classes.checkboxLabel}></label></div>
                 </div>
             </div>
