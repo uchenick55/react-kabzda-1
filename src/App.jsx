@@ -27,11 +27,10 @@ class App extends React.Component { // конвертируем app в клас�
                     <div className='app-wrapper-navbar'>
                         <NavBarContainer/> {/*Навигационная панель со ссылками и FriendList*/}
                     </div>
-                    {this.props.info_mode
-                        ?<div className='app-wrapper-info'>
+                    {this.props.info_mode &&
+                        <div className='app-wrapper-info'>
                             <InfoContainer/> {/*поле комментариев функциональности к страницам в зависмости от URL*/}
                         </div>
-                        : null
                     }
                     <div className='app-wrapper-content'>
                         <div><ContentContainer/> {/*страницы контента в зависмости от URL*/}</div>

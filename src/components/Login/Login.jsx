@@ -36,8 +36,8 @@ const LoginForm = ({handleSubmit, error, captchaURL, updateCaptcha}) => { // к�
                         />
                         <label> запомнить меня</label>
                     </div>
-                    {captchaURL
-                        ? <div>
+                    {captchaURL &&
+                        <div>
                             <PointerCursor>
                                 <img src={captchaURL} onClick={updateCaptcha}></img>
                             </PointerCursor>
@@ -48,7 +48,6 @@ const LoginForm = ({handleSubmit, error, captchaURL, updateCaptcha}) => { // к�
                                 validate={[Required]}
                             />
                         </div>
-                        : null
                     }
                     <div>
                         <button type="submit">Submit</button>

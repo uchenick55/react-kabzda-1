@@ -21,11 +21,11 @@ const ShowProfile = ({profile, setEditMode, userId, myId}) => { // вынес о
             <div><b>userId:</b> {profile.userId}</div>
             <div><b>Контакты:</b></div>
             <div className={classes.ProfileContacts}>
-                {Object.keys(profile.contacts).map((key1)=>{ //
-                   return ( <div key={key1}>
-                           {Contact(key1)}
-                       </div>
-                       )
+                {Object.keys(profile.contacts).map((key1) => { //
+                    return (<div key={key1}>
+                            {Contact(key1)}
+                        </div>
+                    )
                 })}
             </div>
             {(userId === 0) && <button onClick={() => {
@@ -64,39 +64,41 @@ const ProfileInfo = ({profile, myId, status, putStatusThunkCreator, uploadImage,
                     className={commonClasses.profilePhotoIMG}
                     src={profile.photos.large ? profile.photos.large : userPhoto1}/>
                 <div>
-                    {(userId === 0)// если мы перешли на свой профиль (в браузере нет ID возле profile)
-                        ? <div>
-                            <form> {/*форма отправки фото профиля на сервер*/}
-                                <span><button
-                                    className={commonClasses.btn1 + " " + displayClass} // двойной класс - сама кнопка загрузки + класс скрыть/показать при наведении
-                                    onMouseOver={() => {
-                                        setshowUploadImageButton(true)
-                                    }} // при наведении сменить флаг  setshowUploadImageButton на true (показать кнопку)
-                                    onMouseOut={() => {
-                                        setshowUploadImageButton(false)
-                                    }}// при убирании мышки сменить флаг  setshowUploadImageButton на false (скрыть кнопку)
-                                    onClick={() => { //
-                                        uploadImage(profilePhoto)
-                                    }}>Загрузить</button></span> {/*По клику отправить файл на сервер*/}
-                                <span><input
-                                    className={commonClasses.btn2 + " " + displayClass} // двойной класс - сама кнопка загрузки + класс скрыть/показать при наведении
-                                    onMouseOver={() => {
-                                        setshowUploadImageButton(true)
-                                    }} // при наведении сменить флаг  setshowUploadImageButton на true (показать кнопку)
-                                    onMouseOut={() => {
-                                        setshowUploadImageButton(false)
-                                    }}// при убирании мышки сменить флаг  setshowUploadImageButton на false (скрыть кнопку)
-                                    type="file" onChange={onChangeProfilePhoto}/></span> {/*загрузить файл*/}
-                            </form>
-                        </div>
-                        : null}
+                    {(userId === 0) &&// если мы перешли на свой профиль (в браузере нет ID возле profile)
+                    <div>
+                        <form> {/*форма отправки фото профиля на сервер*/}
+                            <span><button
+                                className={commonClasses.btn1 + " " + displayClass} // двойной класс - сама кнопка загрузки + класс скрыть/показать при наведении
+                                onMouseOver={() => {
+                                    setshowUploadImageButton(true)
+                                }} // при наведении сменить флаг  setshowUploadImageButton на true (показать кнопку)
+                                onMouseOut={() => {
+                                    setshowUploadImageButton(false)
+                                }}// при убирании мышки сменить флаг  setshowUploadImageButton на false (скрыть кнопку)
+                                onClick={() => { //
+                                    uploadImage(profilePhoto)
+                                }}>Загрузить</button></span> {/*По клику отправить файл на сервер*/}
+                            <span><input
+                                className={commonClasses.btn2 + " " + displayClass} // двойной класс - сама кнопка загрузки + класс скрыть/показать при наведении
+                                onMouseOver={() => {
+                                    setshowUploadImageButton(true)
+                                }} // при наведении сменить флаг  setshowUploadImageButton на true (показать кнопку)
+                                onMouseOut={() => {
+                                    setshowUploadImageButton(false)
+                                }}// при убирании мышки сменить флаг  setshowUploadImageButton на false (скрыть кнопку)
+                                type="file" onChange={onChangeProfilePhoto}/></span> {/*загрузить файл*/}
+                        </form>
+                    </div>
+                    }
                 </div>
             </div>
 
 
             <div>
                 {!editMode && <ShowProfile profile={profile} setEditMode={setEditMode} userId={userId} myId={myId}/>}
-                {editMode && <EditProfile profile={profile} putProfile={putProfile} dispatch={dispatch} setEditMode={setEditMode} userId={userId} myId={myId} />}
+                {editMode &&
+                <EditProfile profile={profile} putProfile={putProfile} dispatch={dispatch} setEditMode={setEditMode}
+                             userId={userId} myId={myId}/>}
                 <div>
                     {/*Компонента отображения моего статуса*/}
                     <ProfileStatusUseReducer // можно еще использовать ProfileStatusUseState и ProfileStatusClass

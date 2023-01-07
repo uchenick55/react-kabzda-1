@@ -29,7 +29,8 @@ const MyFriends = ({state, unfollowFriendsAPI, dialogUserID}) => {
     return (
         <div className={classes.myfriends}>
             <div className={classes.myfrienditems}>
-                {state.length > 0 ? <b>My Friendlist:
+                {state.length > 0 &&
+                <b>My Friendlist:
                     <ScrollContainer
                         child={MyFriendElements}
                         height={window.screen.availHeight - 375}
@@ -37,7 +38,7 @@ const MyFriends = ({state, unfollowFriendsAPI, dialogUserID}) => {
                         secondInsideContainer={"friendsDown"}
                         containerElement={"friendsContainer"}
                     /> {/*отрисовка FriendList в скрол контейнере*/}
-                </b> : null
+                </b>
                 }
 
             </div>

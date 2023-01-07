@@ -71,7 +71,7 @@ class News extends React.Component {
             </form>
 
             <ul>
-                {this.state.data.hits ? ( // если массив hits не пустой
+                {this.state.data.hits &&
                     <div>
                         {this.state.data.hits.map((
                             //мапим
@@ -88,8 +88,7 @@ class News extends React.Component {
                             </li>
                         ))}
                     </div>
-                ) : null}{" "}
-                {/* ничего не выводим, если массив hits пустой*/}
+                }
             </ul>
         </div>
         return (    <div>
