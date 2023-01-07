@@ -4,6 +4,7 @@ import {connect} from "react-redux";
 import {deleteLoginThunkCreator} from "../../redux/auth-reducer";
 import {getProfileThunkCreator} from "../../redux/profile-reducer";
 import {getInfoModeThunkCreator, setInfoMode, setInfoModeThunkCreator} from "../../redux/app-reducer";
+import ErrorBoundary from "../common/ErrorBoundary/ErrorBoundary";
 
 
 class HeaderContainer extends React.Component {
@@ -20,7 +21,9 @@ class HeaderContainer extends React.Component {
 
     }
     render() {
-        return <Header {...this.props} deleteLogin={this.deleteLogin} switchInfo={this.switchInfo} /> // отрисовка целевой компоненты
+        return <ErrorBoundary> {/*Локальный обработчик ошибок Header*/}
+                <Header {...this.props} deleteLogin={this.deleteLogin} switchInfo={this.switchInfo} /> {/*отрисовка целевой компоненты*/}
+            </ErrorBoundary>
     }
 }
 let mapStateToProps = (state) => {

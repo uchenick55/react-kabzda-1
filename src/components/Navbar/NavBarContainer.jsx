@@ -4,6 +4,7 @@ import {getFriendsThunkCreator} from "../../redux/sidebar-reducer";
 import Navbar from "./Navbar";
 import {needUpdateFriendsAC, unfollowThunkCreator} from "../../redux/users-reducer";
 import {bedug_mode} from "../../redux/store-redux";
+import ErrorBoundary from "../common/ErrorBoundary/ErrorBoundary";
 
 
 class NavBarContainer extends React.Component {
@@ -31,14 +32,18 @@ class NavBarContainer extends React.Component {
     }
 
     render() {
-        if (bedug_mode) {console.log("NavBarContainer render")}
+        if (bedug_mode) {
+            console.log("NavBarContainer render")
+        }
 
         const {myFriends2} = this.props; // получение из пропсов данных по друзьям
-        return <Navbar
-            myFriends2={myFriends2}
-            unfollowFriendsAPI={this.unfollowFriendsAPI}
-            dialogUserID={this.props.dialogUserID}
-        /> // отрисовка целевой компоненты
+        return <ErrorBoundary> {/*Локальный обработчик ошибок Navbar*/}
+            <Navbar
+                myFriends2={myFriends2}
+                unfollowFriendsAPI={this.unfollowFriendsAPI}
+                dialogUserID={this.props.dialogUserID}
+            /> {/*отрисовка целевой компоненты*/}
+        </ErrorBoundary>
     }
 }
 
@@ -59,7 +64,11 @@ const mapStateToProps = (state) => {
 
     }
 }
-export default connect(mapStateToProps, {getFriendsThunkCreator, needUpdateFriendsAC, unfollowThunkCreator})(NavBarContainer);
+export default connect(mapStateToProps, {
+    getFriendsThunkCreator,
+    needUpdateFriendsAC,
+    unfollowThunkCreator
+})(NavBarContainer);
 
 
 

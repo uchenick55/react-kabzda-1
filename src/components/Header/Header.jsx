@@ -6,7 +6,7 @@ import logoutImg from "../../assets/images/power-off.png";
 import loginImg from "../../assets/images/login.png";
 import CallThemeRemote from "../Dark_light_theme/CallThemeRemote";
 
-const Header = ({getProfileThunkCreator, deleteLogin, isAuth, myId, myLogin, myProfile, switchInfo, info_mode}) => {
+const Header = ({getProfileThunkCreator, deleteLogin, isAuth, myId, myProfile, switchInfo, info_mode}) => {
     let goToMyPage = () => {
         getProfileThunkCreator(myId);
     }
