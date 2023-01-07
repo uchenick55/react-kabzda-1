@@ -28,13 +28,11 @@ const Profile = ({profile, status, myId, putStatusThunkCreator, uploadImage, use
     return <div>
         <ScrollContainer
             child={ProfileRender}
-            height={window.screen.availHeight-230}
+            height={window.screen.availHeight - 230}
             firstInsideContainer={"ProfileUp"}
             secondInsideContainer={"ProfileDown"}
             containerElement={"ProfileContainer"}
         /> {/*отрисовка FriendList в скрол контейнере*/}
-
-
     </div>
 }
 export default Profile;

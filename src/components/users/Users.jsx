@@ -83,7 +83,7 @@ let Users = ({
                     }} // по изменению поля получить значение
                     onBlur={SetTermFunction}// задать в локальный стейт значение поиска при потере фокуса
                     placeholder={"find users"} // пояснение поля ввода
-                    autoFocus={true} // сразу фокусировка на поле ввода
+                    autoFocus // сразу фокусировка на поле ввода
                 />
                 <button onClick={handleClick}>Find</button>
                 {/* кнопка с обработчиком клика*/}

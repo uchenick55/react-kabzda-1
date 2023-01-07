@@ -26,11 +26,11 @@ let ScrollContainer = ({child, height, firstInsideContainer, secondInsideContain
             </Element>
         </div>
         <PointerCursor> {/*придание курсору над ссылками вида руки*/}
-            <Link to={firstInsideContainer} smooth={true} duration={250}
+            <Link to={firstInsideContainer} smooth duration={250}
                   containerId={containerElement}>
                 <img src={"https://www.shareicon.net/data/2015/08/24/89993_f139_384x512.png"} className={classes.arrows} alt={"Scroll UP"}/>
             </Link>
-            <Link to={secondInsideContainer} smooth={true} duration={250}
+            <Link to={secondInsideContainer} smooth duration={250}
                   containerId={containerElement}>
                 <img src={"https://www.iconninja.com/files/495/296/59/f13a-icon.png"} className={classes.arrows} alt={"Scroll Down"}/>
             </Link>

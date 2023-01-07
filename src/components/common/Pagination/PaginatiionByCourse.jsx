@@ -50,7 +50,7 @@ let PaginatiionByCourse = ({
             {/*<div> Текущая страница {currentPage}</div>*/}
             {(currentRangeLocal) > 1
                 ? <button onClick={prevPortion}>Prev</button>
-                : <button disabled={true}>Prev</button>
+                : <button disabled>Prev</button>
             }
             <PointerCursor>
                 {slicedPages2.map((p) => {
