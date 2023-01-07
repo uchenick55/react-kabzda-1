@@ -14,7 +14,7 @@ export const Textarea = ({input, meta, ...restProps}) => {
                 />
             </div>
             <div >
-                {isError?<span className={classes.textError}>{meta.error}</span>:null}
+                {isError && <span className={classes.textError}>{meta.error}</span>}
 {/*                если ошибка в meta и поле тронули, то отобразить текс ошибки*/}
             </div>
         </div>
@@ -32,7 +32,7 @@ export const Input = ({input, meta, ...restProps}) => {
                 />
             </span>
             <div >
-                {isError?<span className={classes.textError}>{meta.error}</span>:null}
+                {isError && <span className={classes.textError}>{meta.error}</span>}
 {/*                если ошибка в meta и поле тронули, то отобразить текс ошибки*/}
             </div>
         </span>
@@ -50,13 +50,6 @@ export const CreateField = (name, component, placeholder, validate ) => {
     </div>)
 
 }
-/*
-                        name="FullName"// имя поля формы и возвращаемого свойства объекта после сабмита формы
-                        component={Input}// компонент - кастомная строка с валидацией
-                        placeholder="Полное имя"// текст подсказка при пустом поле
-                        validate={[]}
 
-
-*/
 
 

@@ -65,12 +65,12 @@ const LoginForm = ({handleSubmit, error, captchaURL, updateCaptcha}) => { // к�
 }
 
 // оберточная компонента формы, задает имя подстейта "LoginForm"
-let LoginReduxForm = reduxForm({form: 'loginForm'})(LoginForm)
+let LoginReduxForm = reduxForm({form: 'LoginForm'})(LoginForm)
 
 let Login = ({postLogin, captchaURL, updateCaptcha, dispatch}) => {
 
     let resetFormFields = () => { // альтернативный вариант сброса формы, можно подключить к сабмиту
-        dispatch(reset('loginForm')) // сброс полей формы после ввода
+        dispatch(reset('LoginForm')) // сброс полей формы после ввода
 
     }
     let onSubmit = (formData) => { // функция реакции на сабмит формы с данными от формы formData
@@ -80,7 +80,7 @@ let Login = ({postLogin, captchaURL, updateCaptcha, dispatch}) => {
     }
     return (
         <div className={classes.loginCommon}/*стиль*/ >
-            <div className={classes.loginForm}>
+            <div className={classes.LoginForm}>
                 <div><LoginReduxForm
                     onSubmit={onSubmit}
                     captchaURL={captchaURL} // отображение каптчи, если она не пустая

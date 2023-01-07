@@ -120,8 +120,8 @@ export let postLoginThunkCreator = (email, password, rememberme, captchaURL) => 
                 !response.messages[0] // если ответа от сервера нет
                     ? "no responce from server" // вывести сообщение заглушку
                     : response.messages[0] // иначе вывести ответ от сервера
-            let action = stopSubmit("loginForm", {_error: message})
-            // loginForm это наша форма логина.
+            let action = stopSubmit("LoginForm", {_error: message})
+            // LoginForm это наша форма логина.
             // объект _error является общей ошибкой для всей формы с сообщением message
             if (bedug_mode) {
                 console.log("auth-reducer.jsx, postLoginThunkCreator.await / если логин или пароль не подошли: dispatch(action) // отправить данные в форму")
@@ -193,7 +193,7 @@ export let putMyProfileThunkCreator = (MyProfile, myId) => { // санкреат
                     ? "no responce from server" // вывести сообщение заглушку
                     : response.messages[0] // иначе вывести ответ от сервера
             let action = stopSubmit("EditProfileForm", {_error: message})
-            // loginForm это наша форма логина.
+            // LoginForm это наша форма логина.
             // объект _error является общей ошибкой для всей формы с сообщением message
             if (bedug_mode) {
                 console.log("auth-reducer.jsx, putMyProfileThunkCreator.await / пришла ошибка с сервера:", response.messages[0]) // отправить данные в форму
