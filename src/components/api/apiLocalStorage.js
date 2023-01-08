@@ -90,7 +90,7 @@ export let apiDialogs = { // объект с методами api для Dialogs
         shouldDataUpdate = false;
         return null
       }
-      return
+      return null
     })
 
     if (shouldDataUpdate) { // если флаг обновления диалоглиста true, то добавляем диалог в диалогЛист

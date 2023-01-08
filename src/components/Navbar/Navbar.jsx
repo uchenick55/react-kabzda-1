@@ -33,7 +33,7 @@ const Navbar = ({myFriends2, unfollowFriendsAPI, dialogUserID}) => {
             <NavLink to='/feedback'>FeedBack</NavLink>
         </div>
         <div className={classes.item}>
-            <a href={filterSort} target="_blank">Filter&Sort page</a>
+            <a href={filterSort} target="_blank" rel="noreferrer">Filter&Sort page</a>
         </div>
         <div>
             <MyFriends

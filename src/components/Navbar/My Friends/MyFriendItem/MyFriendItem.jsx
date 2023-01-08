@@ -11,7 +11,6 @@ const MyFriendItem = ({id, avaSrc, name, unfollowFriendsAPI, dialogUserID}) => {
     if (bedug_mode) {
         console.log("MyFriendItem")
     }
-    let dialog = '/dialogs/' + id;
     return <div className={classes.myfriends}>
         <div className={classes.myFriendImgNameId}>
             <div>

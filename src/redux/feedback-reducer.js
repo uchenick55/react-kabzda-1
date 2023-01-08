@@ -1,5 +1,5 @@
 import {bedug_mode} from "./store-redux";
-import {apiFeedBack, apiFeedBack2} from "../components/api/api";
+import {apiFeedBack2} from "../components/api/api";
 
 const SET_FEED_BACK_STATUS = "myApp/feedback-reducer/SET_FEED_BACK_STATUS"; // константа для задания статуса feedback
 
@@ -31,9 +31,9 @@ let feedBackReducer = (state = initialState, action) => {//редьюсер от
 
 export let postFeedBackThunkCreator2 = (data) => {// санкреатор отправки фидбека
   let postFeedBackThunk2 = async (dispatch) => { // санка отправки фидбека
-    let response = await apiFeedBack2.postFeedBack2(data) //
-    .then(() => dispatch(setFeedBackStatus("Скоро мы получим ваше письмо")))// статсус задать в BLL "Скоро мы получим ваше письмо"
-    .catch((err) => dispatch(setFeedBackStatus((err.toString()))));// в статус записать ошибку с сервера и задать в BLL
+    await apiFeedBack2.postFeedBack2(data) //
+      .then(() => dispatch(setFeedBackStatus("Скоро мы получим ваше письмо")))// статсус задать в BLL "Скоро мы получим ваше письмо"
+      .catch((err) => dispatch(setFeedBackStatus((err.toString()))));// в статус записать ошибку с сервера и задать в BLL
   }
   return postFeedBackThunk2;
 }

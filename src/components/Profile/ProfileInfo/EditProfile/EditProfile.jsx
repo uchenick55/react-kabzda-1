@@ -3,9 +3,8 @@ import {Field, initialize, reduxForm, reset} from "redux-form";// reduxForm дл
 import classes from './EditProfile.module.css'
 import styles from './../../../common/Validation/customFields.module.css'
 import {Input, CreateField} from "../../../common/Validation/customFields";
-import {email, Required} from "../../../common/Validation/validationField";
 
-const ProfileForm = ({setEditMode, error, handleSubmit, load, pristine, reset, submitting, profile}) => { // компонента формы
+const ProfileForm = ({setEditMode, error, handleSubmit, reset, profile}) => { // компонента формы
     let ContactCreateField = (key1) => {
         return <div>
             {CreateField(key1, Input, key1, [] )} {/*name, component, placeholder, validate*/}
@@ -82,10 +81,11 @@ let EditProfile = ({putProfile, dispatch, setEditMode, profile, userId, myId}) =
         )//вызов putMyProfileThunkCreator выше из ProfileContainer
         setEditMode(false)
     }
+/*
     let resetFormFields = () => { // альтернативный вариант сброса формы, можно подключить к сабмиту
         dispatch(reset('EditProfileForm')) // сброс полей формы после ввода
-
     }
+*/
 
     let initialProfile = {
         FullName: profile.fullName,

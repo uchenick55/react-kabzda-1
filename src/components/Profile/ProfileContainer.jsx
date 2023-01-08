@@ -6,7 +6,7 @@ import {
     putStatusThunkCreator,
     setprofilePhotoThunkCreator
 } from "../../redux/profile-reducer";
-import {Navigate, NavLink, useParams} from "react-router-dom"
+import {Navigate, useParams} from "react-router-dom"
 import {NavigateToLoginHoc} from "../hoc/NavigateToLoginHoc";
 import {compose} from "redux";
 import {bedug_mode} from "../../redux/store-redux";

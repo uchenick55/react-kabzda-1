@@ -1,4 +1,3 @@
-import {mapStateToPropsFactory} from "react-redux/es/connect/mapStateToProps";
 import {connect} from "react-redux";
 
 let UsersInfo = ({myID, myLogin}) => {

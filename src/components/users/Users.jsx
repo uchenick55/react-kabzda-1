@@ -13,13 +13,14 @@ let Users = ({
                  onChangeRangeLocal, currentRangeLocal, myID // раскукожили все пропсы
              }) => {
 
-    if (bedug_mode) {console.log("Users")}
+    if (bedug_mode) {
+        console.log("Users")
+    }
 
-    try { // выполнить код с возможностью отлова ошибок
-        let FollowUnfollowButtons = ({u, followUnfollowAPICallback, buttonText}) => { // унификация нажатия кнопки Follow/Unfollow
-            return (<span>
+    let FollowUnfollowButtons = ({u, followUnfollowAPICallback, buttonText}) => { // унификация нажатия кнопки Follow/Unfollow
+        return (<span>
                 <button
-                    disabled={followingInProgress.some(id => id === u.id)||u.id===myID}
+                    disabled={followingInProgress.some(id => id === u.id) || u.id === myID}
                     // отключение возможности повторного нажатия пока не пришел ответ от сервера или если это ваш ID
                     onClick={() => {
                         isAuth // проверка авторизации. Если нет, то алерт. Если да, то API запрос на follow/unfollow
@@ -27,82 +28,77 @@ let Users = ({
                             : alert("You are not authorized, please Login") // алерт авторизуйтесь!
                     }}> {buttonText}
                 </button>
-                    {/* buttonText - текст кнопки Follow/Unfollow*/}
+                {/* buttonText - текст кнопки Follow/Unfollow*/}
             </span>
-            )
-        }
-        const handleClick = (e) => { // обработка клика по кнопке
-            e.preventDefault(); // отменить отправку формы по умолчанию с кнопки
-            SetTermFunction() // задать в стейт значения поиска после сабмита
-        }
-
-        let UserItems =
-            users.map((u) => {
-                return (
-                    <div key={u.id}>
-                        <div>
-                            <NavLink to={'/profile/' + u.id}>
-                                <img alt = {"userPhoto"} className={classes.userPhoto}
-                                     src={u.photos.small !== null
-                                         ? u.photos.small
-                                         : userPhoto}/>
-                            </NavLink>
-                        </div>
-                        <div> My FriendList:{" "}
-                            {u.followed
-                                ? <FollowUnfollowButtons u={u} followUnfollowAPICallback={unfollowAPI}
-                                                         buttonText={"Remove"}/>
-                                : <FollowUnfollowButtons u={u} followUnfollowAPICallback={followAPI}
-                                                         buttonText={"Add"}/>
-                            }
-                        </div>
-                        <div>Name: {u.name}</div>
-                        <div>{u.status}</div>
-                        <div>{u.id}</div>
-                    </div>
-                )
-            })
-        return <div className={classes.users}>
-
-            <div> Total users: {totalUsersCount}        </div>
-            <div>
-                {<PaginationByCourse
-                    totalUsersCount={totalUsersCount} pageSize={pageSize}
-                    currentPage={currentPage}
-                    onPageChanged={onPageChanged}
-                    currentRangeLocal={currentRangeLocal}
-                    onChangeRangeLocal={onChangeRangeLocal}
-
-                />}{/*Вывод слайсера вверху страницы (пагинация)*/}
-            </div>
-            <form className={classes.inputFindUsers}>  {/* объединение инпута и кнопки*/}
-                <input
-                    value={onChangeTerm} // значение поля поиска захардкодили
-                    onChange={(event) => {
-                        onChangeTermFunction(event)
-                    }} // по изменению поля получить значение
-                    onBlur={SetTermFunction}// задать в локальный стейт значение поиска при потере фокуса
-                    placeholder={"find users"} // пояснение поля ввода
-                    autoFocus // сразу фокусировка на поле ввода
-                />
-                <button onClick={handleClick}>Find</button>
-                {/* кнопка с обработчиком клика*/}
-            </form>
-
-            <ScrollContainer
-                child={UserItems}
-                height={window.screen.availHeight-312}
-                firstInsideContainer={"UsersUp"}
-                secondInsideContainer={"UsersDown"}
-                containerElement={"UserContainer"}
-            /> {/*отрисовка Users в скрол контейнере*/}
-
-        </div>
-
-    } catch (error) { // поймать ошибку в выводе пользователей
-        console.log(error) // вывести ее в консоль
+        )
+    }
+    const handleClick = (e) => { // обработка клика по кнопке
+        e.preventDefault(); // отменить отправку формы по умолчанию с кнопки
+        SetTermFunction() // задать в стейт значения поиска после сабмита
     }
 
+    let UserItems =
+        users.map((u) => {
+            return (
+                <div key={u.id}>
+                    <div>
+                        <NavLink to={'/profile/' + u.id}>
+                            <img alt={"userPhoto"} className={classes.userPhoto}
+                                 src={u.photos.small !== null
+                                     ? u.photos.small
+                                     : userPhoto}/>
+                        </NavLink>
+                    </div>
+                    <div> My FriendList:{" "}
+                        {u.followed
+                            ? <FollowUnfollowButtons u={u} followUnfollowAPICallback={unfollowAPI}
+                                                     buttonText={"Remove"}/>
+                            : <FollowUnfollowButtons u={u} followUnfollowAPICallback={followAPI}
+                                                     buttonText={"Add"}/>
+                        }
+                    </div>
+                    <div>Name: {u.name}</div>
+                    <div>{u.status}</div>
+                    <div>{u.id}</div>
+                </div>
+            )
+        })
+    return <div className={classes.users}>
+
+        <div> Total users: {totalUsersCount}        </div>
+        <div>
+            {<PaginationByCourse
+                totalUsersCount={totalUsersCount} pageSize={pageSize}
+                currentPage={currentPage}
+                onPageChanged={onPageChanged}
+                currentRangeLocal={currentRangeLocal}
+                onChangeRangeLocal={onChangeRangeLocal}
+
+            />}{/*Вывод слайсера вверху страницы (пагинация)*/}
+        </div>
+        <form className={classes.inputFindUsers}>  {/* объединение инпута и кнопки*/}
+            <input
+                value={onChangeTerm} // значение поля поиска захардкодили
+                onChange={(event) => {
+                    onChangeTermFunction(event)
+                }} // по изменению поля получить значение
+                onBlur={SetTermFunction}// задать в локальный стейт значение поиска при потере фокуса
+                placeholder={"find users"} // пояснение поля ввода
+                autoFocus // сразу фокусировка на поле ввода
+            />
+            <button onClick={handleClick}>Find</button>
+            {/* кнопка с обработчиком клика*/}
+        </form>
+
+        <ScrollContainer
+            child={UserItems}
+            height={window.screen.availHeight - 312}
+            firstInsideContainer={"UsersUp"}
+            secondInsideContainer={"UsersDown"}
+            containerElement={"UserContainer"}
+        /> {/*отрисовка Users в скрол контейнере*/}
+
+    </div>
 }
 
 export default Users

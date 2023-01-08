@@ -39,7 +39,7 @@ const LoginForm = ({handleSubmit, error, captchaURL, updateCaptcha}) => { // к�
                     {captchaURL &&
                         <div>
                             <PointerCursor>
-                                <img src={captchaURL} onClick={updateCaptcha}></img>
+                                <img src={captchaURL} onClick={updateCaptcha} alt="captcha"></img>
                             </PointerCursor>
                             <Field
                                 name="captcha"// имя поля формы и возвращаемого свойства объекта после сабмита формы
