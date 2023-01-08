@@ -5,7 +5,7 @@
         'h h h'
         'i c n';
     grid-template-rows: 60px 1fr; /*header и все остальное*/
-    grid-template-columns: 4fr 6fr 210px; /*распределение колокнок между полем информации, контентом и friendList*/
+    grid-template-columns: 4fr 6fr 220px; /*распределение колокнок между полем информации, контентом и friendList*/
 }
 
 .app-wrapper-no-info { /*переключение на стиль без информационного поля слева*/

@@ -1,4 +1,4 @@
-import React from "react";
+import React, {useState} from "react";
 import classes from "./Users.module.css";
 import userPhoto from "../../assets/images/no-image3.png";
 import {NavLink} from "react-router-dom";
@@ -12,13 +12,15 @@ let Users = ({
                  SetTermFunction, onChangeTerm, onChangeTermFunction,
                  onChangeRangeLocal, currentRangeLocal, myID // раскукожили все пропсы
              }) => {
+    const [error, setError] = useState("")
+    if  (error) {return error.message}
+    try {
+        if (bedug_mode) {
+            console.log("Users")
+        }
 
-    if (bedug_mode) {
-        console.log("Users")
-    }
-
-    let FollowUnfollowButtons = ({u, followUnfollowAPICallback, buttonText}) => { // унификация нажатия кнопки Follow/Unfollow
-        return (<span>
+        let FollowUnfollowButtons = ({u, followUnfollowAPICallback, buttonText}) => { // унификация нажатия кнопки Follow/Unfollow
+            return (<span>
                 <button
                     disabled={followingInProgress.some(id => id === u.id) || u.id === myID}
                     // отключение возможности повторного нажатия пока не пришел ответ от сервера или если это ваш ID
@@ -28,55 +30,51 @@ let Users = ({
                             : alert("You are not authorized, please Login") // алерт авторизуйтесь!
                     }}> {buttonText}
                 </button>
-                {/* buttonText - текст кнопки Follow/Unfollow*/}
+                    {/* buttonText - текст кнопки Follow/Unfollow*/}
             </span>
-        )
-    }
-    const handleClick = (e) => { // обработка клика по кнопке
-        e.preventDefault(); // отменить отправку формы по умолчанию с кнопки
-        SetTermFunction() // задать в стейт значения поиска после сабмита
-    }
-
-    let UserItems =
-        users.map((u) => {
-            return (
-                <div key={u.id}>
-                    <div>
-                        <NavLink to={'/profile/' + u.id}>
-                            <img alt={"userPhoto"} className={classes.userPhoto}
-                                 src={u.photos.small !== null
-                                     ? u.photos.small
-                                     : userPhoto}/>
-                        </NavLink>
-                    </div>
-                    <div> My FriendList:{" "}
-                        {u.followed
-                            ? <FollowUnfollowButtons u={u} followUnfollowAPICallback={unfollowAPI}
-                                                     buttonText={"Remove"}/>
-                            : <FollowUnfollowButtons u={u} followUnfollowAPICallback={followAPI}
-                                                     buttonText={"Add"}/>
-                        }
-                    </div>
-                    <div>Name: {u.name}</div>
-                    <div>{u.status}</div>
-                    <div>{u.id}</div>
-                </div>
             )
-        })
-    return <div className={classes.users}>
+        }
+        const handleClick = (e) => { // обработка клика по кнопке
+            e.preventDefault(); // отменить отправку формы по умолчанию с кнопки
+            SetTermFunction() // задать в стейт значения поиска после сабмита
+        }
 
-        <div> Total users: {totalUsersCount}        </div>
-        <div>
-            {<PaginationByCourse
-                totalUsersCount={totalUsersCount} pageSize={pageSize}
-                currentPage={currentPage}
-                onPageChanged={onPageChanged}
-                currentRangeLocal={currentRangeLocal}
-                onChangeRangeLocal={onChangeRangeLocal}
+        let UserItems =
+            users.map((u) => {
+             //   throw new Error("Я - сообщение об ошибке"); //проверка обработки ошибок
+                return (
+                    <div key={u.id}>
+                        <div>
+                            <NavLink to={'/profile/' + u.id}>
+                                <img alt={"userPhoto"} className={classes.userPhoto}
+                                     src={u.photos.small !== null
+                                         ? u.photos.small
+                                         : userPhoto}/>
+                            </NavLink>
+                        </div>
+                        <div> My FriendList:{" "}
+                            {u.followed
+                                ? <FollowUnfollowButtons u={u} followUnfollowAPICallback={unfollowAPI}
+                                                         buttonText={"Remove"}/>
+                                : <FollowUnfollowButtons u={u} followUnfollowAPICallback={followAPI}
+                                                         buttonText={"Add"}/>
+                            }
+                        </div>
+                        <div>Name: {u.name}</div>
+                        <div>{u.status}</div>
+                        <div>{u.id}</div>
+                    </div>
+                )
+            })
+        let paginationRender = <PaginationByCourse
+            totalUsersCount={totalUsersCount} pageSize={pageSize}
+            currentPage={currentPage}
+            onPageChanged={onPageChanged}
+            currentRangeLocal={currentRangeLocal}
+            onChangeRangeLocal={onChangeRangeLocal}
 
-            />}{/*Вывод слайсера вверху страницы (пагинация)*/}
-        </div>
-        <form className={classes.inputFindUsers}>  {/* объединение инпута и кнопки*/}
+        />
+        let inputButtonRender = <form className={classes.inputFindUsers}>  {/* объединение инпута и кнопки*/}
             <input
                 value={onChangeTerm} // значение поля поиска захардкодили
                 onChange={(event) => {
@@ -90,15 +88,33 @@ let Users = ({
             {/* кнопка с обработчиком клика*/}
         </form>
 
-        <ScrollContainer
-            child={UserItems}
-            height={window.screen.availHeight - 312}
-            firstInsideContainer={"UsersUp"}
-            secondInsideContainer={"UsersDown"}
-            containerElement={"UserContainer"}
-        /> {/*отрисовка Users в скрол контейнере*/}
+        return <div className={classes.users}>
 
-    </div>
+            <div> Total users: {totalUsersCount}        </div>
+            <div>
+                {paginationRender}{/*Вывод пагинации вверху страницы */}
+            </div>
+            <div>
+                {inputButtonRender} {/*вывод инпута и кнопки для поиска юзеров*/}
+            </div>
+
+            {/*отрисовка Users в скрол контейнере*/}
+            <ScrollContainer
+                child={UserItems}
+                height={window.screen.availHeight - 298}
+                firstInsideContainer={"UsersUp"}
+                secondInsideContainer={"UsersDown"}
+                containerElement={"UserContainer"}
+            />
+
+        </div>
+
+    } catch (error) {
+        setError(error); // задание в стейт ошибки
+    } finally {
+    // console.log("try/catch Users.jsx выполнен! ") действие после прохождения try/catch
+}
+
 }
 
 export default Users

@@ -16,6 +16,8 @@ const instance = axios.create({
 export let apiUsers = { // объект с методами api для USERS и follow/unfollow
   getUsers: async (currentPage, pageSize, term, friend = undefined) => {// получить стек пользователей
     try {
+      //throw new Error("Я - сообщение об ошибке"); //проверка обработки ошибок
+
       if (bedug_mode) {console.log("getUsers")}
       const response = await instance.get(`users?count=${pageSize}&page=${currentPage}&term=${term}&friend=${friend}`)
       return (response.data) //возврат данных из поля data

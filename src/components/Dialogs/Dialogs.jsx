@@ -70,7 +70,7 @@ const Dialogs = ({deleteDialog, dialogUserID, getDialogList, dialogs2, messages2
                 <div className={classes.dialogContainer}>
                     <ScrollContainer // обернуть сообщения скролом
                         child={dialogElements}
-                        height={window.screen.availHeight - 282} // высота поля скрола
+                        height={window.screen.availHeight - 277} // высота поля скрола
                         firstInsideContainer={"DialogsUp"}
                         secondInsideContainer={"DialogsDown"}
                         containerElement={"DialogsContainer123"}
@@ -82,7 +82,7 @@ const Dialogs = ({deleteDialog, dialogUserID, getDialogList, dialogs2, messages2
 
                 <ScrollContainer // обернуть сообщения скролом
                     child={messagesElements}
-                    height={window.screen.availHeight - 282} // высота поля скрола
+                    height={window.screen.availHeight - 277} // высота поля скрола
                     firstInsideContainer={"MessagesUp"}
                     secondInsideContainer={"MessagesDown"}
                     containerElement={"MessagesContainer"}

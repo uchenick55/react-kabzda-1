@@ -4,6 +4,7 @@ export const lightTheme = { // стили для светлой темы
   text: "#363537",
   a_color: "blue",
   a_visited: "purple",
+
 };
 
 export const darkTheme = {// стили для темной темы

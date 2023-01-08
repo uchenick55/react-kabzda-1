@@ -36,7 +36,7 @@ let InfoContainer = () => {
         <ErrorBoundary> {/*Локальный обработчик ошибок InfoContainer*/}
             <ScrollContainer // обернуть диалоги скролом
                 child={info}
-                height={window.screen.availHeight - 220} // высота поля скрола
+                height={window.screen.availHeight - 208} // высота поля скрола
                 firstInsideContainer={"DialogsUp"}
                 secondInsideContainer={"DialogsDown"}
                 containerElement={"DialogsContainer"}

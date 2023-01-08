@@ -56,7 +56,7 @@ class UsersAPI extends React.Component {
     }
     render() {
         const {isFetching, totalUsersCount, pageSize, currentPage, users, followingInProgress, isAuth} = this.props;
-        return <>
+        return <> {/*использование фрагмента вместо div/span*/}
             {isFetching && <Preloader/>}
             <Users onPageChanged={this.onPageChanged}
                    totalUsersCount={totalUsersCount}

@@ -1,5 +1,5 @@
 import React, {useEffect} from "react"; // импорт реакта
-import {Field, initialize, reduxForm, reset} from "redux-form";// reduxForm для ввода новых постов
+import {Field, initialize, reduxForm} from "redux-form";// reduxForm для ввода новых постов reset здесь же может быть
 import classes from './EditProfile.module.css'
 import styles from './../../../common/Validation/customFields.module.css'
 import {Input, CreateField} from "../../../common/Validation/customFields";

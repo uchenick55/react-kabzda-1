@@ -8,8 +8,8 @@ let ScrollContainer = ({child, height, firstInsideContainer, secondInsideContain
     let Link = Scroll.Link;
     let Element = Scroll.Element;
 
-    return (<div className={classes.scrollCommon}>
-        <div>
+    return (<div >
+        <div className={classes.scrollCommon}>
             <Element
                 id={containerElement} // ID контейнера с прокруткой
                 style={{

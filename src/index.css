@@ -5,7 +5,13 @@ body {
     sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  scrollbar-color: rgb(0,0,0,0.2) rgb(0,0,0,0);   /* плашка скролла и дорожка скрыть для firefox */
 }
+
+body ::-webkit-scrollbar {
+
+}
+
 
 code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',

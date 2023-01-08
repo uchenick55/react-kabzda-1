@@ -28,7 +28,7 @@ const Profile = ({profile, status, myId, putStatusThunkCreator, uploadImage, use
     return <div>
         <ScrollContainer
             child={ProfileRender}
-            height={window.screen.availHeight - 230}
+            height={window.screen.availHeight - 218}
             firstInsideContainer={"ProfileUp"}
             secondInsideContainer={"ProfileDown"}
             containerElement={"ProfileContainer"}

@@ -44,9 +44,11 @@ export let getFriendsThunkCreator = (currentPage, pageSize, term, friend) => {//
         if (bedug_mode) {console.log("sidebar-reducer.js, getFriendsThunkCreator getUsers().then: dispatch(setFriends( -> SET_FRIENDS" )} // дебаг
         dispatch(setFriends(data.items))//записать в стейт загруженный стек друзей
       })
+/*
       .catch((error)=>{
         console.log("=======================>", error) // отображение ошибки в случае, если then ее выдаст
       })
+*/
   }
   return getUsersThunk
 }

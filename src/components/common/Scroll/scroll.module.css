@@ -1,4 +1,5 @@
-.scrollCommon {
+.scrollCommon ::-webkit-scrollbar {
+    display: none;
 }
 
 .arrows {
@@ -6,7 +7,3 @@
     opacity: 0.4
 }
 
-/*
-stroke="blue" fill="purple"
-fill-opacity="0.5" stroke-opacity="0.8"
-*/
