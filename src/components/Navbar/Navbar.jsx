@@ -5,8 +5,6 @@ import MyFriends from "./My Friends/MyFriends";
 import {connect} from "react-redux";
 import {bedug_mode} from "../../redux/store-redux";
 
-const filterSort = "https://uchenick55.github.io/supplydirector-web-page-test/#/app/profile"
-
 const Navbar = ({myFriends2, unfollowFriendsAPI, dialogUserID}) => {
 
     if (bedug_mode) {console.log("Navbar")}
@@ -33,7 +31,7 @@ const Navbar = ({myFriends2, unfollowFriendsAPI, dialogUserID}) => {
             <NavLink to='/feedback'>FeedBack</NavLink>
         </div>
         <div className={classes.item}>
-            <a href={filterSort} target="_blank" rel="noreferrer">Filter&Sort page</a>
+            <NavLink to='/tasks'>Tasks</NavLink>
         </div>
         <div>
             <MyFriends

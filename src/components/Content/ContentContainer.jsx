@@ -2,8 +2,10 @@ import React, {Suspense} from "react";
 import {Route, Routes} from "react-router-dom";
 import classes from './ContentContainer.module.css';
 import ErrorBoundary from "../common/ErrorBoundary/ErrorBoundary";
+import Tasks from "../Tasks/Tasks";
+import ProfileContainer from "../Profile/ProfileContainer";
 
-const ProfileContainer = React.lazy(() => import("../Profile/ProfileContainer"))
+//const ProfileContainer = React.lazy(() => import("../Profile/ProfileContainer"))
 const DialogsContainer = React.lazy(() => import("../Dialogs/DialogsContainer"))
 // В случае именного экспорта, оборачиваем компоненту в промежуточную с экспортом по умолчанию, чтобы работал lazy
 const ExportDefaultUsersContainer = React.lazy(() => import("../users/ExportDefaultUsersContainer"))
@@ -28,6 +30,7 @@ let ContentContainer = () => { // вынес роутинг контента в 
                         <Route path='/rest/*' element={<Rest/>}/> {/*Страница отдыха*/}
                         <Route path='' element={<StackInfo/>}/> {/*Общие Комментарии*/}
                         <Route path='feedback' element={<FeedBackContainer/>}/> {/*Общие Комментарии*/}
+                        <Route path='tasks' element={<Tasks/>}/> {/*Общие Комментарии*/}
                     </Routes>
                 </div>
             </Suspense>

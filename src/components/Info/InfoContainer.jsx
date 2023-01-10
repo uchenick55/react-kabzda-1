@@ -3,6 +3,7 @@ import classes from "../Content/ContentContainer.module.css";
 import {Route, Routes} from "react-router-dom";
 import ScrollContainer from "../common/Scroll/ScrollContainer";
 import ErrorBoundary from "../common/ErrorBoundary/ErrorBoundary";
+import TasksInfo from "./TasksInfo";
 
 const ProfileInfo2 = React.lazy(() => import("../Info/ProfileInfo2"))
 const DialogsInfo = React.lazy(() => import("../Info/DialogsInfo"))
@@ -27,6 +28,7 @@ let InfoContainer = () => {
                 <Route path='/rest/*' element={<RestInfo/>}/> {/*Отдых Комментарии*/}
                 <Route path='' element={<IndexInfo/>}/> {/*Общие Комментарии*/}
                 <Route path='feedback' element={<FeedBackInfo/>}/> {/*Комментарии обратной связи*/}
+                <Route path='tasks' element={<TasksInfo/>}/> {/*Комментарии обратной связи*/}
             </Routes>
         </Suspense>
 

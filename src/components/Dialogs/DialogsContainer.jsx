@@ -10,10 +10,11 @@ import {
     setMessages, updateDialogListThunkCreator
 } from "../../redux/dialogs-reducer";
 import {connect} from "react-redux";
-import {NavigateToLoginHoc} from "../hoc/NavigateToLoginHoc";
 import {compose} from "redux";
 import {useParams} from "react-router";
 import {getProfileThunkCreator} from "../../redux/profile-reducer";
+import NavigateToLoginHoc2 from "../hoc/NavigateToLoginHoc2";
+import withRouter2 from "../hoc/withRouter2";
 
 class DialogsContainer extends React.Component {
     commonPartMountUpdate = () => {// общая часть для componentDidMount и componentDidUpdate
@@ -181,17 +182,10 @@ let mapStateToProps = (state) => {
     }
 }
 
-function withRouter (Children) { // функция получения данных из URL браузера
-    return (props) => {
-        let match = {params: useParams()} // получить данные ID из URL браузера
-        let userID = Number(match.params["*"]); // получить локальный userId из URL браузера
-        return <Children {...props} match = {match} userID={userID}/>// добавить данные в оборачиваемую компоненту
-    }
-}
 export default compose(
     connect(mapStateToProps, mapDispatchToProps),
-    withRouter, // получить данные ID из URL браузера и добавить в пропсы
-    NavigateToLoginHoc // проверка, залогинен ли я
+    withRouter2,// получить данные ID из URL браузера и добавить в пропсы
+    NavigateToLoginHoc2 // проверка, залогинен ли я
 )
 (DialogsContainer);
 

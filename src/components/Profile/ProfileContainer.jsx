@@ -7,10 +7,11 @@ import {
     setprofilePhotoThunkCreator
 } from "../../redux/profile-reducer";
 import {Navigate, useParams} from "react-router-dom"
-import {NavigateToLoginHoc} from "../hoc/NavigateToLoginHoc";
 import {compose} from "redux";
 import {bedug_mode} from "../../redux/store-redux";
 import {putMyProfileThunkCreator} from "../../redux/auth-reducer";
+import NavigateToLoginHoc2 from "../hoc/NavigateToLoginHoc2";
+import withRouter2 from "../hoc/withRouter2";
 
 class ProfileContainer extends React.Component {
     componentDidMount() {
@@ -100,19 +101,10 @@ let mapDispatchToProps = (dispatch) => {
     }
 }
 
-
-function withRouter(Children) {
-    return (props) => {
-        let match = {params: useParams()}
-        let userId = Number(match.params["*"]); // получить локальный userId из URL браузера
-        return <Children {...props} match={match} userId={userId}/>
-    }
-}
-
 export default compose(
     connect(mapStateToProps, mapDispatchToProps),
-    withRouter,
-    NavigateToLoginHoc
+    withRouter2,// получить данные ID из URL браузера и добавить в пропсы
+    NavigateToLoginHoc2// проверка, залогинен ли я
 )
 (ProfileContainer)
 

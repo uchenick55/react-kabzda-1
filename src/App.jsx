@@ -1,6 +1,6 @@
 import React from "react";
 import './App.css';
-import {HashRouter} from "react-router-dom";
+import {BrowserRouter, HashRouter} from "react-router-dom";
 import HeaderContainer from "./components/Header/HeaderContainer";
 import NavBarContainer from "./components/Navbar/NavBarContainer";
 import {connect} from "react-redux";
@@ -20,7 +20,7 @@ class App extends React.Component { // конвертируем app в клас�
             return <Preloader/> // показать статус загрузки
         }
         return ( // иначе показать все приложение
-            <HashRouter> {/*BrowserRouter для продакшн, HashRouter для gh-pages*/}
+            <BrowserRouter> {/*BrowserRouter для продакшн, HashRouter для gh-pages*/}
                 <div
                     className={this.props.info_mode ? 'app-wrapper' : 'app-wrapper-no-info'}> {/*позиционирование по сетке гридов*/}
                     <ErrorBoundary> {/*Общий обработчик ошибок во всем приложении*/}
@@ -39,7 +39,7 @@ class App extends React.Component { // конвертируем app в клас�
                     </ErrorBoundary>
 
                 </div>
-            </HashRouter>
+            </BrowserRouter>
 
         );
     }

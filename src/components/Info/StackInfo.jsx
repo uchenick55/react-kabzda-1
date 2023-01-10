@@ -13,7 +13,7 @@ let StackInfo = () => {
         <p>BLL (Redux): store, state, reducer, callback, dispatch, action (type), action creator, case/switch,
             thunk/thunkCreator, thunkMiddleWare, redux-ducks. </p>
         <p>DAL (API): ajax, axios, get, post, put, delete, async/await, .then/.catch.        </p>
-        <p>JS: try/catch/finally, setTimeout/setInterval, Object.keys/values, Math.ceil, new Date(), JSON.stringify, deep/shallow copy, closure, map, filter, some.</p>
+        <p>JS: try/catch/finally, setTimeout/setInterval, Object.keys/values, Math.ceil, new Date(), JSON.stringify, deep/shallow copy, closure, map, filter, some, find, sort.</p>
         <p>Git: checkout (-b), commit –a -m, merge, push, branch (–m), gitk –all&, reset –hard, pull.       </p>
         <p>Libs: react-router-dom, react-redux, redux-form (+ validation), reselect, styled-components.        </p>
         <p>Node: npm. </p>
