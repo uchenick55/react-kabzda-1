@@ -11,7 +11,6 @@ import {
 } from "../../redux/dialogs-reducer";
 import {connect} from "react-redux";
 import {compose} from "redux";
-import {useParams} from "react-router";
 import {getProfileThunkCreator} from "../../redux/profile-reducer";
 import NavigateToLoginHoc2 from "../hoc/NavigateToLoginHoc2";
 import withRouter2 from "../hoc/withRouter2";
