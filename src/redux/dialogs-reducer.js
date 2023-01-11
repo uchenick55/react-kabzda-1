@@ -112,13 +112,13 @@ let dialogsReducer = (state = initialState, action) => { // редьюсер д�
   }
 }
 
-export let getDialogsThunkCreator = (myID, userID) => {//санкреатор получения диалогов с данными
+export let getDialogsThunkCreator = (myID, userId) => {//санкреатор получения диалогов с данными
   if (bedug_mode) {
     console.log("getDialogsThunkCreator")
   }
 
   let getDialogsThunk = async (dispatch) => {// санка получения сообщений диалога
-    let updatedMessages = await apiDialogs.getDialog(myID, userID)
+    let updatedMessages = await apiDialogs.getDialog(myID, userId)
     if (bedug_mode) {
       console.log("dialogs-reducer.js, getDialogsThunkCreator->: dispatch(setMessages)->SET_MESSAGES")
     } // дебаг
@@ -126,13 +126,13 @@ export let getDialogsThunkCreator = (myID, userID) => {//санкреатор п
   }
   return getDialogsThunk
 }
-export let sendDialogsThunkCreator = (formDataNewMessage, myID, MyName, MyPhoto, userID) => {//санкреатор отправки нового сообщения в диалог
+export let sendDialogsThunkCreator = (formDataNewMessage, myID, MyName, MyPhoto, userId) => {//санкреатор отправки нового сообщения в диалог
   if (bedug_mode) {
     console.log("sendDialogsThunkCreator")
   }
 
   let sendDialogsThunk = async (dispatch) => {// санка отправки нового сообщения в диалог
-    let updatedMessages = await apiDialogs.postDialog(formDataNewMessage, myID, MyName, MyPhoto, userID)
+    let updatedMessages = await apiDialogs.postDialog(formDataNewMessage, myID, MyName, MyPhoto, userId)
     if (bedug_mode) {
       console.log("dialogs-reducer.js, sendDialogsThunkCreator->: dispatch(setMessages)->SET_MESSAGES")
     } // дебаг
@@ -141,17 +141,17 @@ export let sendDialogsThunkCreator = (formDataNewMessage, myID, MyName, MyPhoto,
   return sendDialogsThunk
 }
 
-export let getDialogLastUpdateTimeTnkCrt = (myID, userID) => {//санкреатор получения диалогов с данными
+export let getDialogLastUpdateTimeTnkCrt = (myID, userId) => {//санкреатор получения диалогов с данными
   let getDialogLastUpdateTimeTnk = async (dispatch) => {// санка получения сообщений диалога
-    let dialogLastUpdateTime = await apiDialogs.getUpdateTime(myID, userID) // запросить время обновления текущего диалога
+    let dialogLastUpdateTime = await apiDialogs.getUpdateTime(myID, userId) // запросить время обновления текущего диалога
     dispatch(setDialogLastUpdateTime(dialogLastUpdateTime)) // отправить в BLL время последнего обновления текущего диалога
   }
   return getDialogLastUpdateTimeTnk
 }
 
-export let deleteMessageThunkCreator = (messageID, myID, userID) => {//санкреатор удаления сообщения из далога
+export let deleteMessageThunkCreator = (messageID, myID, userId) => {//санкреатор удаления сообщения из далога
   let deleteMessageThunk = async (dispatch) => {// санка удаления сообщения из далога
-    let dialogAfterDeleteMessage = await apiDialogs.deleteMessage(messageID, myID, userID) // удалить сообщение на стороне сервера и запросить обновленные данные
+    let dialogAfterDeleteMessage = await apiDialogs.deleteMessage(messageID, myID, userId) // удалить сообщение на стороне сервера и запросить обновленные данные
     if (bedug_mode) {
       console.log("dialogs-reducer.js, deleteMessageThunkCreator->: dispatch(setMessages)->SET_MESSAGES")
     } // дебаг

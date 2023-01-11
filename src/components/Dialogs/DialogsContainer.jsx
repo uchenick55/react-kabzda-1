@@ -17,17 +17,17 @@ import withRouter2 from "../hoc/withRouter2";
 
 class DialogsContainer extends React.Component {
     commonPartMountUpdate = () => {// общая часть для componentDidMount и componentDidUpdate
-        if (!this.props.userID) { // если перешли на вкладку Dialogs с нулевым userID
+        if (!this.props.userId) { // если перешли на вкладку Dialogs с нулевым userId
             if (this.props.messages2.length>0) { // если массив сообщений непустой
                 this.props.setMessages([]); // занулить массив сообщений (очистить список сообщений)
-                this.props.setdialogUserID(null) // занулить userID (убрать выделение диалога)
+                this.props.setdialogUserID(null) // занулить userId (убрать выделение диалога)
             }
             return
         }
-        if ( this.props.dialogUserID!==this.props.userID) { // если считаный из URL userID не равен тому, что в BLL
-            this.props.setdialogUserID(this.props.userID) // задать в BLL считаный из URL ID
+        if ( this.props.dialogUserID!==this.props.userId) { // если считаный из URL userId не равен тому, что в BLL
+            this.props.setdialogUserID(this.props.userId) // задать в BLL считаный из URL ID
             //здесь запросить профиль выбранного userId через getProfileThunkCreator
-            this.props.getProfileThunkCreator(this.props.userID, true, this.props.myID)// при переходе в диалог любого пользователя считать его данные профиля с сервера
+            this.props.getProfileThunkCreator(this.props.userId, true, this.props.myID)// при переходе в диалог любого пользователя считать его данные профиля с сервера
         }
 
     }
@@ -46,13 +46,13 @@ class DialogsContainer extends React.Component {
     }
 
     getDialogs = () => {
-        if (this.props.userID === "") {return}// при клике просто по вкладке Dialogs
-        this.props.getDialogsThunkCreator(this.props.myID, this.props.userID);// получить диалоги
+        if (this.props.userId === "") {return}// при клике просто по вкладке Dialogs
+        this.props.getDialogsThunkCreator(this.props.myID, this.props.userId);// получить диалоги
     }
 
     getDialogLastUpdateTime = () => {
-        if (this.props.userID === "") {return}// при клике просто по вкладке Dialogs
-        this.props.getDialogLastUpdateTimeTnkCrt(this.props.myID, this.props.userID); // получить время последенего обновления диалога
+        if (this.props.userId === "") {return}// при клике просто по вкладке Dialogs
+        this.props.getDialogLastUpdateTimeTnkCrt(this.props.myID, this.props.userId); // получить время последенего обновления диалога
     }
 
     getDialogList = () => {
@@ -68,7 +68,7 @@ class DialogsContainer extends React.Component {
             userPhoto = this.props.profilePage.profile.photos.small; // и его фото и стейта
         }
 
-        if (!this.props.userID) { // при клике просто по вкладке Dialogs
+        if (!this.props.userId) { // при клике просто по вкладке Dialogs
             alert("Выберите диалог") // предупреждение если диалог не выбран
             return
         }
@@ -78,12 +78,12 @@ class DialogsContainer extends React.Component {
             this.props.auth.myID, // мой ID для формирования DialogList собеседника
             this.props.auth.myLogin, // мой логин  для формирования DialogList собеседника
             this.props.auth.myProfile.photos.small, // мое фото  для формирования DialogList собеседника
-            this.props.userID, // ID собеседника для формирования моего DialogList
+            this.props.userId, // ID собеседника для формирования моего DialogList
         ); // отправить сообщение
 
         this.props.updateDialogListThunkCreator( // обновление диалогЛиста
             this.props.auth.myID, // мой ID
-            this.props.userID, // ID с кем веду диалог
+            this.props.userId, // ID с кем веду диалог
             userName, // его имя
             userPhoto // и фото
         )
@@ -91,7 +91,7 @@ class DialogsContainer extends React.Component {
     }
 
     deleteMessage = (messageID) => { // удалить сообщение по его ID в списке
-        this.props.deleteMessageThunkCreator(messageID, this.props.myID, this.props.userID);
+        this.props.deleteMessageThunkCreator(messageID, this.props.myID, this.props.userId);
     }
 
     deleteDialog = (dialogId, userId2) => {
@@ -129,11 +129,11 @@ class DialogsContainer extends React.Component {
 let mapDispatchToProps  = (dispatch) => {
     return {
 
-        sendDialogsThunkCreator: (formDataNewMessage, myID, MyName, MyPhoto, userID) => { // отправить сообщение
-            dispatch(sendDialogsThunkCreator(formDataNewMessage, myID, MyName, MyPhoto, userID))
+        sendDialogsThunkCreator: (formDataNewMessage, myID, MyName, MyPhoto, userId) => { // отправить сообщение
+            dispatch(sendDialogsThunkCreator(formDataNewMessage, myID, MyName, MyPhoto, userId))
         },
-        getDialogsThunkCreator: (myID, userID) => { // получить данные по текущему диалогу
-            dispatch(getDialogsThunkCreator(myID, userID))
+        getDialogsThunkCreator: (myID, userId) => { // получить данные по текущему диалогу
+            dispatch(getDialogsThunkCreator(myID, userId))
         },
         setdialogUserID: (dialogUserID) => { // задать ID собеседника в BLL
             dispatch(setdialogUserID(dialogUserID))
@@ -141,11 +141,11 @@ let mapDispatchToProps  = (dispatch) => {
         setMessages: (updatedMessages) => { // задать сообщения напрямую (для зануления)
             dispatch(setMessages(updatedMessages))
         },
-        getDialogLastUpdateTimeTnkCrt: (myID, userID) => { // получить время последнего обновления текущего диалога
-            dispatch(getDialogLastUpdateTimeTnkCrt(myID, userID))
+        getDialogLastUpdateTimeTnkCrt: (myID, userId) => { // получить время последнего обновления текущего диалога
+            dispatch(getDialogLastUpdateTimeTnkCrt(myID, userId))
         },
-        deleteMessageThunkCreator: (messageID, myID, userID) => { // удалить сообщение из диалога
-            dispatch(deleteMessageThunkCreator(messageID, myID, userID))
+        deleteMessageThunkCreator: (messageID, myID, userId) => { // удалить сообщение из диалога
+            dispatch(deleteMessageThunkCreator(messageID, myID, userId))
         },
         getProfileThunkCreator: (dialogUserID, shouldUpdateDialogList, myID) => { // удалить сообщение из диалога
             dispatch(getProfileThunkCreator(dialogUserID, shouldUpdateDialogList, myID))
