@@ -5,6 +5,7 @@ import {NavLink} from "react-router-dom";
 import PaginationByCourse from "../common/Pagination/PaginationByCourse";
 import {bedug_mode} from "../../redux/store-redux";
 import ScrollContainer from "../common/Scroll/ScrollContainer";
+import FindUsers from "./FindUsers";
 
 let Users = ({
                  totalUsersCount, pageSize, currentPage, onPageChanged, users,
@@ -88,6 +89,7 @@ let Users = ({
             {/* кнопка с обработчиком клика*/}
         </form>
 
+
         return <div className={classes.users}>
 
             <div> Total users: {totalUsersCount}        </div>
@@ -96,6 +98,9 @@ let Users = ({
             </div>
             <div>
                 {inputButtonRender} {/*вывод инпута и кнопки для поиска юзеров*/}
+            </div>
+            <div>
+                <FindUsers/>
             </div>
 
             {/*отрисовка Users в скрол контейнере*/}
