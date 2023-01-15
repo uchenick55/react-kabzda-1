@@ -7,11 +7,9 @@ export const CommonInputTextArea = ({label, children, ...props}) => {
         <>
             <label
                 htmlFor={props.props.id || props.props.name}>{label}</label> {/*лейб либо с props.id (которого пока нет), либо с props.name*/}
-            <br/> {/*перенос стоки*/}
             {children} {/*input или textarea*/}
             {meta.touched && meta.error && // если поле тронутот и вышла ошибка поля
             <div className={classes.errorText}>{meta.error}</div>} {/*красным цветом текст*/}
-            <br/>{/*перенос стоки*/}
         </>
     )
 }
@@ -21,7 +19,7 @@ export const MyTextInput = ({label, ...props}) => {  // вынесенная о�
     return (
         <CommonInputTextArea label={label} props={props}> {/*композиция выод общей части InputTextArea*/}
             <input
-                className={meta.touched && meta.error ? classes.errorInputTextArea : null}  {...field} {...props}/> {/*то различие между input и textarea*/}
+                className={meta.touched && meta.error ? classes.errorInputTextArea : classes.inputTextArea}  {...field} {...props}/> {/*то различие между input и textarea*/}
         </CommonInputTextArea>
     )
 }
@@ -47,7 +45,6 @@ export const MyCheckbox = ({children, ...props}) => {
             </label>
             {meta.touched && meta.error && // поле тронуто и есть ошибка
             <div className={classes.errorText}>{meta.error}</div>}
-            <br/>
         </div>
     )
 }
@@ -60,7 +57,6 @@ export const MySelect = ({label, ...props}) => {
             <select {...field} {...props}/>{/* вывод select с option*/}
             {meta.touched && meta.error && // поле тронуто и есть ошибка
             <div className={classes.errorText}>{meta.error}</div>} {/*вывод текста ошибки*/}
-            <br/>
         </div>
     )
 }

@@ -7,7 +7,7 @@ import {getFriendsThunkCreator} from "../../redux/sidebar-reducer";
 
 class LoginContainer extends React.Component {
 
-    postLogin = (email, password, rememberme, captcha) => { // email, password, rememberme берем из формы login
+    postLogin = ({email, password, rememberme, captcha}) => { // email, password, rememberme берем из формы login
         //метод для проброса дальше целевой компоненты для вызова postLoginThunkCreator (авторизация на сервере)
         this.props.postLoginThunkCreator(email, password, rememberme, captcha);
     }
