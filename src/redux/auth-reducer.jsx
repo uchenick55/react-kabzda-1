@@ -10,6 +10,7 @@ const SET_MY_DATA = "myApp/auth-reducer/SET_MY_DATA"; // константа дл
 const SET_MY_PROFILE = "myApp/auth-reducer/SET_MY_PROFILE"; // константа задания расширенных данных моего профиля
 const AUTH_INITIAL_STATE = "myApp/auth-reducer/AUTH_INITIAL_STATE"; //константа зануления при логауте
 const SET_CAPTCHA_URL = "myApp/auth-reducer/SET_CAPTCHA_URL"; //константа задания URL каптчи
+const SET_LOGIN_ERROR= "myApp/auth-reducer/SET_LOGIN_ERROR"; //константа задания ошибки авторизации
 
 
 export let setAuthData = (id, email, login, isAuth) => { // экшн креатор задания моих ID, Email, login
@@ -24,6 +25,9 @@ export let authInitialState = () => { // экшн креатор занулен�
 export let setCaptchaURL = (captchaURL) => { // экшн креатор задания URL каптчи ответа от сервера
     return {type: SET_CAPTCHA_URL, captchaURL}
 };
+export let setLoginError = (loginError) => { // экшн креатор задания моих ID, Email, login
+    return {type: SET_LOGIN_ERROR, loginError}
+};
 
 let initialState = { // стейт по умолчанию для моего профиля
     myID: null, // мой ID по умолчанию
@@ -32,6 +36,7 @@ let initialState = { // стейт по умолчанию для моего п�
     isAuth: false, // Флаг авторизации
     myProfile: null, // мой расширенный профиль по умолчанию
     captchaURL: null, // URL каптчи после 5 неправильных вводов
+    loginError: null, // ошибка авторизации с сервера
 }
 
 let authReducer = (state = initialState, action) => { // редьюсер авторизации и моего профиля
@@ -72,6 +77,15 @@ let authReducer = (state = initialState, action) => { // редьюсер авт
             }
             if (bedug_mode) {
                 console.log("auth-reducer.jsx, SET_CAPTCHA_URL: ", state, stateCopy)
+            } // дебаг
+            return stateCopy; // возврат копии стейта после изменения
+        case SET_LOGIN_ERROR: // экшн задания ошибки авторизации с сервера
+            stateCopy = {
+                ...state,
+                loginError: action.loginError
+            }
+            if (bedug_mode) {
+                console.log("auth-reducer.jsx, SET_LOGIN_ERROR: ", state, stateCopy)
             } // дебаг
             return stateCopy; // возврат копии стейта после изменения
         default:
@@ -120,7 +134,7 @@ export let postLoginThunkCreator = (email, password, rememberme, captchaURL) => 
                 !response.messages[0] // если ответа от сервера нет
                     ? "no responce from server" // вывести сообщение заглушку
                     : response.messages[0] // иначе вывести ответ от сервера
-            let action = stopSubmit("LoginForm", {_error: message})
+            let loginError = stopSubmit("LoginForm", {_error: message})
             // LoginForm это наша форма логина.
             // объект _error является общей ошибкой для всей формы с сообщением message
             if (bedug_mode) {
@@ -129,7 +143,8 @@ export let postLoginThunkCreator = (email, password, rememberme, captchaURL) => 
             if (response.resultCode === 10) { // если ошибка в многократном неправильном вводе логина и пароля
                 dispatch(getCaptchaThunkCreator())
             }
-            dispatch(action) // отправить данные в форму
+            dispatch(setLoginError(loginError.payload._error)) // ошибка авторизации для формика
+            dispatch(loginError) // отправить данные в форму для redux-form
         }
     }
     return postLoginThunk;

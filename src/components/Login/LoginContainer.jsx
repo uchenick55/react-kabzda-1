@@ -32,6 +32,7 @@ class LoginContainer extends React.Component {
                        captchaURL={this.props.captchaURL}
                        updateCaptcha={this.updateCaptcha}
                        dispatch = {this.props.dispatch}
+                       loginError = {this.props.loginError}
                 /> {/*Возврат целевой компоненты*/}
             </div>
         )
@@ -46,6 +47,7 @@ let mapStateToProps = (state) => { // флаги isAuth - "я авторизов
         friendsTerm: state.sideBar.friendsTerm,
         friend: state.sideBar.friend,
         captchaURL: state.auth.captchaURL, // URL каптчи при неправильном вводе 5 раз логина
+        loginError: state.auth.loginError // ошибка авторизации
     }
 }
 

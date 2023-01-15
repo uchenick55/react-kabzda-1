@@ -10,7 +10,8 @@ import {Required} from "../common/Validation/validationField";
 
 let myInitialValues = { // начальные зачения форм
     email: "",
-    password: ""
+    password: "",
+    captcha: "",
 }
 let myValidationSchema = Yup.object({ // валидация форм на required, длину и заполнение полей
     email: Yup.string()
@@ -18,12 +19,14 @@ let myValidationSchema = Yup.object({ // валидация форм на requir
         .required('Required'),
     password: Yup.string()
         .required('Required'),
+
 })
 
 
-const SignupForm = ({postLogin, captchaURL, updateCaptcha}) => { // основная компонента с входным колбэком, чтобы забрать данные с форм
-    const myOnSubmit = (values) => { // действия по сабмиту
+const LoginFormik = ({postLogin, captchaURL, updateCaptcha, loginError}) => { // основная компонента с входным колбэком, чтобы забрать данные с форм
+    const myOnSubmit = (values, {resetForm}) => { // действия по сабмиту
         postLogin(values) // колбек, который принмает результат ввода формы
+        resetForm()
     }
     return (
         <>
@@ -67,22 +70,26 @@ const SignupForm = ({postLogin, captchaURL, updateCaptcha}) => { // основн
                                 <PointerCursor>
                                     <img src={captchaURL} onClick={updateCaptcha} alt="captcha"></img>
                                 </PointerCursor>
-                                <MyTextInput // ввод каптчи при 5 неверных попытках вводах формы
-                                    label="Captcha"
+                                {/*<label htmlFor="captcha">Captcha</label> {/*альтернатива написания input с обработкой ошибок*/}
+
+                                <MyTextInput // email
+                                    label=""
                                     name='captcha'
                                     type='text'
                                     placeholder='captcha'
                                 />
+
                             </div>
                             }
 
-                            <button type="submit"> {/*кнопка отправить форму*/}
+                            <button type="submit" > {/*кнопка отправить форму*/}
                                 Submit
                             </button>
                             <button type='button' onClick={handleReset}>Reset</button>
                             {/*кнопка сбора со значениям по умолчанию*/}
+                            <div className={classes.errorText}>{loginError && loginError}</div>
                         </fieldset>
-                        <div></div>
+                        <div/>
 
                         <DisplayFormikState/> {/*отображение всего стейта формика*/}
 
@@ -95,5 +102,5 @@ const SignupForm = ({postLogin, captchaURL, updateCaptcha}) => { // основн
     )
 }
 
-export default SignupForm
+export default LoginFormik
 

@@ -75,7 +75,11 @@ let Login = ({postLogin, captchaURL, updateCaptcha, dispatch}) => {
     }
     let onSubmit = (formData) => { // функция реакции на сабмит формы с данными от формы formData
         const rememberme = !formData.rememberme ? false : formData.rememberme // если галочка rememberme не стоит, то false
-        postLogin(formData.email, formData.password, rememberme, formData.captcha)//вызов postLoginThunkCreator выше из LoginContainer
+        postLogin({
+            email: formData.email,
+            password: formData.password,
+            rememberme,
+            captcha: formData.captcha})//вызов postLoginThunkCreator выше из LoginContainer
         resetFormFields() // сбросить поля формы после отправки данных полей
     }
     return (
