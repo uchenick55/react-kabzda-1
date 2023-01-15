@@ -38,26 +38,10 @@ class ProfileContainer extends React.Component {
         this.props.setprofilePhotoThunkCreator(profilePhoto, this.props.myId)
     }
 
-    putProfile = ( FullName, AboutMe, LookingForAJob, LookingForAJobDescription,
-        github, vk, facebook, instagram, twitter, website, youtube, mainLink ) => {
-        let MyProfile = {
-            userId: this.props.myId, //userId: required(integer) мой ID
-            LookingForAJob: LookingForAJob, //lookingForAJob: required(boolean)
-            AboutMe: AboutMe,
-            LookingForAJobDescription: LookingForAJobDescription, //  lookingForAJobDescription: required(string)
-            FullName: FullName,//required(string)
-            contacts: {
-                github: github, //  required(string)
-                vk: vk, // required(string)
-                facebook: facebook, // required(string)
-                instagram: instagram, //required(string),
-                twitter: twitter, //required(string),
-                website: website, //required(string),
-                youtube: youtube, //required(string),
-                mainLink: mainLink //required(string)
-            }
-        }
-        this.props.putMyProfileThunkCreator(MyProfile, this.props.myId)
+    putProfile = ( putProfile ) => { // обновить данные профиля просле правки
+        // добавить в данные после изменения формы мой ID для чтения результата обновления с сервера
+        let MyProfile = Object.assign({}, {userId: this.props.myId}, putProfile);
+        this.props.putMyProfileThunkCreator(MyProfile, this.props.myId)// обновить данные профиля просле правки
     }
 
     render() {

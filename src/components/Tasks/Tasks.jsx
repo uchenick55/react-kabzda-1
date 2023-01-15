@@ -47,6 +47,7 @@ let tasksRender = <div className={classes.taskcCommon}>
             <li> Все комбинации должны быть уникальными</li>
         </ul>
         <p>Репозиторий: https://github.com/uchenick55/lhtask1.git</p>
+        {/*<p>Посмотреть код через Ctrl+p в консоли: lhtask1.jsx</p>*/}
     </div>
 
 </div>

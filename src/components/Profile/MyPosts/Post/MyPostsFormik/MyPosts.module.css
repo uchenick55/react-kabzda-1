@@ -1,10 +1,6 @@
-.loginCommon {
-    padding: 10px;
-}
-
 .MyPosts {
     display: grid;
-    grid-template-columns: 5fr 1fr;
+    grid-template-columns: 1fr;
 }
 
 .legendStyle {

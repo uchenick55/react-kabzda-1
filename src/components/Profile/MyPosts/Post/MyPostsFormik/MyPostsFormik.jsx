@@ -6,13 +6,9 @@ import classes from "./MyPosts.module.css"
 import {MyTextArea} from "../../../../common/formikCommon/MyFields"
 
 let myInitialValues = { // начальные зачения форм
-    newPost: "123",
+    newPost: "",
 }
 let myValidationSchema = Yup.object({ // валидация форм на required, длину и заполнение полей
-    newPost: Yup.string()
-        .required('Required'),
-
-
 })
 
 const MyPostsFormik  = ({addPost}) => { // основная компонента с входным колбэком, чтобы забрать данные с форм

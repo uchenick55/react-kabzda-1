@@ -5,7 +5,8 @@ import Preloader from "../../common/Preloader/Preloader";
 import ProfileStatusUseReducer from "./ProfileStatus/ProfileStatusUseReducer";
 import {bedug_mode} from "../../../redux/store-redux";
 import userPhoto1 from "../../../assets/images/no-image3.png";
-import EditProfile from "./EditProfile/EditProfile"; // заглушка фото пользователя
+//import EditProfile from "./EditProfile/EditProfile";
+import EditProfileFormik from "./EditProfile/EditProfileFormik"; // заглушка фото пользователя
 
 const ShowProfile = ({profile, setEditMode, userId, myId}) => { // вынес отдельно отображение профиля
     let Contact = (key1) => { /*простая функция вывода отдельного элемента contacts из profile*/
@@ -50,63 +51,81 @@ const ProfileInfo = ({profile, myId, status, putStatusThunkCreator, uploadImage,
         setprofilePhoto(e.target.files[0]) // записать в useState выбранный файл фото профиля(временный стейт)
     }
     let displayClass = showUploadImageButton ? "" : commonClasses.displayNone // класс скрытия/отображения кнопок загрузки поверх картинки профиля
+
+    let profileStatus = <ProfileStatusUseReducer // можно еще использовать ProfileStatusUseState и ProfileStatusClass
+        myId={myId} // мой id для модификации статуса
+        userId={profile.userId} // id отображаемого пользователя
+        status={status} // статус из BLL
+        putStatusThunkCreator={putStatusThunkCreator} // санкреатор для обновления сатуса
+    />
+
+    let showProfile = !editMode &&
+        <ShowProfile profile={profile} setEditMode={setEditMode} userId={userId} myId={myId}/>
+
+    let editProfile = editMode &&
+        <div>
+{/*
+            <EditProfile profile={profile} putProfile={putProfile} dispatch={dispatch} setEditMode={setEditMode}
+                         userId={userId} myId={myId}/>
+*/}
+
+            <EditProfileFormik profile={profile} putProfile={putProfile} dispatch={dispatch} setEditMode={setEditMode}
+                               userId={userId} myId={myId}/>
+        </div>
+    let editMyPhoto = (userId === 0) &&// если мы перешли на свой профиль (в браузере нет ID возле profile)
+        <div>
+            <form> {/*форма отправки фото профиля на сервер*/}
+                <span><button
+                    className={commonClasses.btn1 + " " + displayClass} // двойной класс - сама кнопка загрузки + класс скрыть/показать при наведении
+                    onMouseOver={() => {
+                        setshowUploadImageButton(true)
+                    }} // при наведении сменить флаг  setshowUploadImageButton на true (показать кнопку)
+                    onMouseOut={() => {
+                        setshowUploadImageButton(false)
+                    }}// при убирании мышки сменить флаг  setshowUploadImageButton на false (скрыть кнопку)
+                    onClick={() => { //
+                        uploadImage(profilePhoto)
+                    }}>Загрузить</button></span> {/*По клику отправить файл на сервер*/}
+                <span>
+                    <input
+                        className={commonClasses.btn2 + " " + displayClass} // двойной класс - сама кнопка загрузки + класс скрыть/показать при наведении
+                        onMouseOver={() => {
+                            setshowUploadImageButton(true)
+                        }} // при наведении сменить флаг  setshowUploadImageButton на true (показать кнопку)
+                        onMouseOut={() => {
+                            setshowUploadImageButton(false)
+                        }}// при убирании мышки сменить флаг  setshowUploadImageButton на false (скрыть кнопку)
+                        type="file" onChange={onChangeProfilePhoto}/></span> {/*загрузить файл*/}
+            </form>
+        </div>
+
+    let showUserPhoto = <img
+        alt={"userPhoto"}
+        onMouseOver={() => {
+            setshowUploadImageButton(true)
+        }} // при поя
+        onMouseOut={() => {
+            setshowUploadImageButton(false)
+        }}
+        className={commonClasses.profilePhotoIMG}
+        src={profile.photos.large ? profile.photos.large : userPhoto1}/>
+
     return <div>
         <div className={classes.profileInfoGreed}>
             <div className={commonClasses.container}>
-                <img
-                    alt={"userPhoto"}
-                    onMouseOver={() => {
-                        setshowUploadImageButton(true)
-                    }} // при поя
-                    onMouseOut={() => {
-                        setshowUploadImageButton(false)
-                    }}
-                    className={commonClasses.profilePhotoIMG}
-                    src={profile.photos.large ? profile.photos.large : userPhoto1}/>
-                <div>
-                    {(userId === 0) &&// если мы перешли на свой профиль (в браузере нет ID возле profile)
-                    <div>
-                        <form> {/*форма отправки фото профиля на сервер*/}
-                            <span><button
-                                className={commonClasses.btn1 + " " + displayClass} // двойной класс - сама кнопка загрузки + класс скрыть/показать при наведении
-                                onMouseOver={() => {
-                                    setshowUploadImageButton(true)
-                                }} // при наведении сменить флаг  setshowUploadImageButton на true (показать кнопку)
-                                onMouseOut={() => {
-                                    setshowUploadImageButton(false)
-                                }}// при убирании мышки сменить флаг  setshowUploadImageButton на false (скрыть кнопку)
-                                onClick={() => { //
-                                    uploadImage(profilePhoto)
-                                }}>Загрузить</button></span> {/*По клику отправить файл на сервер*/}
-                            <span><input
-                                className={commonClasses.btn2 + " " + displayClass} // двойной класс - сама кнопка загрузки + класс скрыть/показать при наведении
-                                onMouseOver={() => {
-                                    setshowUploadImageButton(true)
-                                }} // при наведении сменить флаг  setshowUploadImageButton на true (показать кнопку)
-                                onMouseOut={() => {
-                                    setshowUploadImageButton(false)
-                                }}// при убирании мышки сменить флаг  setshowUploadImageButton на false (скрыть кнопку)
-                                type="file" onChange={onChangeProfilePhoto}/></span> {/*загрузить файл*/}
-                        </form>
-                    </div>
-                    }
-                </div>
+                <div>{showUserPhoto}</div>
+                {/*показать фото пользователя*/}
+                <div> {editMyPhoto} </div>
+                {/* сменить фото, если это мой профиль*/}
             </div>
 
-
             <div>
-                {!editMode && <ShowProfile profile={profile} setEditMode={setEditMode} userId={userId} myId={myId}/>}
-                {editMode &&
-                <EditProfile profile={profile} putProfile={putProfile} dispatch={dispatch} setEditMode={setEditMode}
-                             userId={userId} myId={myId}/>}
                 <div>
-                    {/*Компонента отображения моего статуса*/}
-                    <ProfileStatusUseReducer // можно еще использовать ProfileStatusUseState и ProfileStatusClass
-                        myId={myId} // мой id для модификации статуса
-                        userId={profile.userId} // id отображаемого пользователя
-                        status={status} // статус из BLL
-                        putStatusThunkCreator={putStatusThunkCreator} // санкреатор для обновления сатуса
-                    />
+                    {showProfile} {/*показать профиль*/}
+                    {editProfile} {/*редактировать профиль*/}
+                </div>
+                <div>
+                    {profileStatus} {/*отображение моего статуса*/}
                 </div>
             </div>
         </div>
