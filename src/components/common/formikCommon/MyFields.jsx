@@ -29,7 +29,7 @@ export const MyTextArea = ({label, ...props}) => {  // вынесенная об
     return (
         <CommonInputTextArea label={label} props={props}>{/*композиция вывод общей части InputTextArea*/}
             <textarea
-                className={meta.touched && meta.error ? classes.errorInputTextArea : null} {...field} {...props}/> {/*то различие между input и textarea*/}
+                className={meta.touched && meta.error ? classes.errorInputTextArea : classes.inputTextArea} {...field} {...props}/> {/*то различие между input и textarea*/}
         </CommonInputTextArea>
     )
 }

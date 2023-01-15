@@ -4,7 +4,8 @@ import Post from "./Post/Post"; // подкомпонента отрисовки
 import {Field, reduxForm, reset} from "redux-form";
 import {maxLengthCreator, Required} from "../../common/Validation/validationField";
 import {Textarea} from "../../common/Validation/customFields";
-import {bedug_mode} from "../../../redux/store-redux"; // reduxForm для ввода новых постов
+import {bedug_mode} from "../../../redux/store-redux";
+import MyPostsFormik from "./Post/MyPostsFormik/MyPostsFormik"; // reduxForm для ввода новых постов
 
 const newPostForm = ({handleSubmit}) => { // компонента формы
     return (
@@ -12,7 +13,7 @@ const newPostForm = ({handleSubmit}) => { // компонента формы
             <div>
                 <div className={classes.newPostFormTextArea}>
                     <Field
-                        name={"newPostData"} // имя поля формы и возвращаемого свойства объекта после сабмита формы
+                        name={"newPost"} // имя поля формы и возвращаемого свойства объекта после сабмита формы
                         component={Textarea} //настраиваемый компонент текстовое поле для вывода ошибок ввода
                         placeholder={"newPost"} // текст подсказка при пустом поле
                         validate={[Required, maxLengthCreator(60)]} //  валидация требуемого поля и максимальной длины
@@ -41,20 +42,27 @@ const MyPosts = ({userId, state, addPost, dispatch}) => { // основная к
     let AddPost = (formData) => { // функция отправления данных формы нового поста в стейт
 // здесь зарезетить форму
         dispatch(reset('newPostForm'))
-        addPost(formData.newPostData);
+        addPost(formData.newPost);
     };
 
     return (
         <div className={classes.postsBlock} /*стиль*/ >
             {(userId === 0) && // если мы перешли на свой профиль (в браузере нет ID возле profile)
-                <div>
-                    <h3>My posts</h3> {/*h3 заголовок*/}
-                    <NewPostReduxForm
+            <div>
+                {/*<h3>My posts</h3> h3 заголовок*/}
+                <fieldset>
+                    <legend>
+                        <div className={classes.legendStyle}>Мои посты</div>
+                    </legend>
+                    <MyPostsFormik
+                        addPost={addPost}/> {/*вызов формы постов с отсылкой на локальный обработчик сабмита*/}
+                    {/* <NewPostReduxForm
                         onSubmit={AddPost}/> {/*вызов формы постов с отсылкой на локальный обработчик сабмита*/}
                     <div className={classes.posts}>
                         {postElements} {/*отрисовка постов*/}
                     </div>
-                </div>
+                </fieldset>
+            </div>
             }
         </div>
     )

@@ -1,0 +1,21 @@
+.loginCommon {
+    padding: 10px;
+}
+
+.MyPosts {
+    display: grid;
+    grid-template-columns: 5fr 1fr;
+}
+
+.legendStyle {
+    font-size: 1.5rem;
+    font-weight: bold;
+}
+
+.fieldSetStyle {
+    padding: 10px;
+}
+
+.errorText {
+    color: red;
+}

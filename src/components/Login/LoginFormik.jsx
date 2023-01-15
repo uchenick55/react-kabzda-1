@@ -26,7 +26,7 @@ let myValidationSchema = Yup.object({ // валидация форм на requir
 const LoginFormik = ({postLogin, captchaURL, updateCaptcha, loginError}) => { // основная компонента с входным колбэком, чтобы забрать данные с форм
     const myOnSubmit = (values, {resetForm}) => { // действия по сабмиту
         postLogin(values) // колбек, который принмает результат ввода формы
-        resetForm()
+        resetForm()// сбросить значение формы после ввода
     }
     return (
         <>
@@ -86,12 +86,12 @@ const LoginFormik = ({postLogin, captchaURL, updateCaptcha, loginError}) => { //
                                 Submit
                             </button>
                             <button type='button' onClick={handleReset}>Reset</button>
-                            {/*кнопка сбора со значениям по умолчанию*/}
+                            {/*кнопка сброса к значениям по умолчанию*/}
                             <div className={classes.errorText}>{loginError && loginError}</div>
                         </fieldset>
                         <div/>
 
-                        <DisplayFormikState/> {/*отображение всего стейта формика*/}
+                        {/* <DisplayFormikState/> {/*отображение всего стейта формика*/}
 
                     </Form>
 
