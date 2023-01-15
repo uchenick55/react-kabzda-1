@@ -1,5 +1,5 @@
 import React from "react";
-import Login from "./Login";
+import Login from "./LoginFormik";
 import {connect} from "react-redux";
 import {getCaptchaThunkCreator, postLoginThunkCreator} from "../../redux/auth-reducer";
 import {Navigate} from "react-router-dom";
