@@ -61,7 +61,7 @@ const LoginFormik = ({postLogin, captchaURL, updateCaptcha, loginError}) => { //
                             {captchaURL &&
                             <div>
                                 <PointerCursor>
-                                    <img src={captchaURL} onClick={updateCaptcha} alt="captcha"/>
+                                    <img src={captchaURL} onClick={updateCaptcha} alt="captcha"></img>
                                 </PointerCursor>
                                 {/*<label htmlFor="captcha">Captcha</label> {/*альтернатива написания input с обработкой ошибок*/}
 

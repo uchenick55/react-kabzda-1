@@ -10,6 +10,7 @@ let myValidationSchema = Yup.object({ // валидация форм на requir
 
 const EditProfileFormik = ({putProfile, setEditMode, profile, userId}) => { // основная компонента с входным колбэком, чтобы забрать данные с форм
 
+    let e = React.createElement
     let myInitialValues = { // начальные зачения форм
         FullName: profile.fullName,
         AboutMe: profile.aboutMe,
@@ -26,60 +27,88 @@ const EditProfileFormik = ({putProfile, setEditMode, profile, userId}) => { // �
     }
 
     return (
-        <>
-            <Formik
-                initialValues={myInitialValues} // начальные значения форм
-                validationSchema={myValidationSchema} // схема валидации
-                onSubmit={myOnSubmit} // действия по сабмиту
-            >
+        e(Formik, {
+            initialValues: myInitialValues, // начальные значения форм
+            validationSchema: myValidationSchema, // схема валидации
+            onSubmit: myOnSubmit // действия по сабмиту
+        }, ({
+                handleReset,// обнуление полей
+            }) => ( // обертка для вывода значений ввода в любом месте формы паралельно (или в итоге)
+            e(Form, {className: classes.MyPosts},
 
-                {({
-                      handleReset,// обнуление полей
-                  }) => ( // обертка для вывода значений ввода в любом месте формы паралельно (или в итоге)
-                    <Form className={classes.MyPosts}>
-                        <div>
-                            <div className={classes.HeaderEditProfileForm}>Редактирование профиля</div>
-                            <MyTextInput // Полное имя
-                                label="Полное имя:" name='FullName' type='text' placeholder='Полное имя'
+                e('div', {},
+                    e('div', //Редактирование профиля
+                        {className: classes.HeaderEditProfileForm},
+                        'Редактирование профиля'
+                    ),
+
+                    e(MyTextInput, //Полное имя:
+                        {label: "Полное имя:", name: 'FullName', type: 'text', placeholder: 'Полное имя'}
+                    ),
+
+                    e(MyTextInput,//Обо мне
+                        {label: "Обо мне:", name: 'AboutMe', type: 'text', placeholder: 'Обо мне'},
+                    ),
+
+                    e(MyCheckbox, {name: 'LookingForAJob'}, //чекбокс ищу работу
+                        "в поисках работы"
+                    ),
+
+                    e(MyTextArea, { //Описание поиска работы
+                            label: "Описание поиска работы:", name: 'LookingForAJobDescription',
+                            type: 'textarea', placeholder: 'Описание поиска работы'
+                        }
+                    ),
+
+                    e('h4', {},// вывод всех полей подобъекта контакты
+                        "Контакты:"
+                    ),
+
+                    /* <div className={classes.EditProfileContactsFields}>
+                    {Object.keys(profile.contacts).map((c) => { // мапим по контактам
+                        return <div key={c}>
+                            <MyTextInput  //поля с ключами
+                                label={c} name={`contacts[` + c + ']'} type='text' placeholder={c}
                             />
-
-                            <MyTextInput //Обо мне
-                                label="Обо мне:" name='AboutMe' type='text' placeholder='Обо мне'
-                            />
-
-                            <MyCheckbox name='LookingForAJob'>  {/*чекбокс ищу работу*/}
-                                в поисках работы
-                            </MyCheckbox>
-
-                            <MyTextArea //Описание поиска работы
-                                label="Описание поиска работы:" name='LookingForAJobDescription'
-                                type='textarea' placeholder='Описание поиска работы'
-                            />
-
-                            <h4>Контакты:</h4> {/*вывод всех полей подобъекта контакты*/}
-                            <div className={classes.EditProfileContactsFields}>
-                                {Object.keys(profile.contacts).map((c) => { // мапим по контактам
-                                    return <div key={c} >
-                                        <MyTextInput  //поля с ключами
-                                            label={c} name={`contacts[`+c+']'} type='text' placeholder={c}
-                                        />
-                                    </div>
-                                })}
-                            </div>
-                            <br/>
-                            <button type='button' onClick={handleReset}>Сброс</button>
-                            {/*кнопка сброса к значениям по умолчанию*/}
-                            {" "}
-                            <button type="submit">Применить</button> {/*кнопка отправить форму*/}
-
-                             <button type="button" onClick={() => {setEditMode(false)}}>Отмена</button>  {/*отмена*/}
-
                         </div>
-                        {/*   <DisplayFormikState/> {/*отображение всего стейта формика*/}
-                    </Form>
-                )}
-            </Formik>
-        </>
+                    })}
+                </div>*/
+                    e('div', {className: classes.EditProfileContactsFields},
+                        Object.keys(profile.contacts).map((c) => { // вывод списка контактов, мапим
+                            return e('div', {key: c},
+                                e(
+                                    MyTextInput,
+                                    {
+                                        label: c,
+                                        name: 'contacts[' + c + ']',
+                                        type: 'text',
+                                        placeholder: c
+                                    },
+                                )
+                            )
+                        })
+                    ),
+                    e('br'), //перенос строки
+
+                    //кнопка сброса к значениям по умолчанию
+                    e('button', {type: 'button', onClick: handleReset}, 'Сброс'),
+
+                    " ", //отступ между кнопками
+
+                    //кнопка отправить форму
+                    e('button', {type: 'submit'}, 'Применить'),
+
+                    " ", //отступ между кнопками
+
+                    //отмена
+                    e('button', {
+                        onClick: () => { // по клику
+                            setEditMode(false)// переключиться с режима редактирования профиля на просмотр
+                        }
+                    }, 'Отмена')
+                )
+            )
+        ))
     )
 }
 
