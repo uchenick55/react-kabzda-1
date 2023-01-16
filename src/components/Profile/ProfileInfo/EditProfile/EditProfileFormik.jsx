@@ -59,8 +59,8 @@ const EditProfileFormik = ({putProfile, setEditMode, profile, userId}) => { // �
                             <h4>Контакты:</h4> {/*вывод всех полей подобъекта контакты*/}
                             <div className={classes.EditProfileContactsFields}>
                                 {Object.keys(profile.contacts).map((c) => { // мапим по контактам
-                                    return <div>
-                                        <MyTextInput  key={c} //поля с ключами
+                                    return <div key={c} >
+                                        <MyTextInput  //поля с ключами
                                             label={c} name={`contacts[`+c+']'} type='text' placeholder={c}
                                         />
                                     </div>

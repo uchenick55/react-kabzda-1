@@ -1,8 +1,8 @@
-import {Formik, Form, useField, Field, ErrorMessage, useFormikContext} from "formik"; //формик с компонентами и пользовательским хуком
+import {useField} from "formik"; //формик с компонентами и пользовательским хуком
 import classes from "./formik1.module.css"
 
 export const CommonInputTextArea = ({label, children, ...props}) => {
-    const [field, meta] = useField(props.props)  // данные onBlur и meta для обработки ошибок
+    const [meta] = useField(props.props)  // данные onBlur и meta для обработки ошибок
     return (
         <>
             <label

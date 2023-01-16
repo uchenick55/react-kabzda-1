@@ -1,12 +1,10 @@
 import React from "react";
-import {Formik, Form, useField, Field, ErrorMessage, useFormikContext} from "formik"; //формик с компонентами и пользовательским хуком
+import {Formik, Form} from "formik"; //формик с компонентами и пользовательским хуком
 import * as Yup from 'yup' // валидация форм с помошью сторонней библиотеки Yup
 import classes from "./Login.module.css"
-import DisplayFormikState from "../common/formikCommon/DisplayFormikState"
-import {MyTextInput, MyTextArea, MySelect, MyCheckbox} from "../common/formikCommon/MyFields"
+import {MyTextInput, MyCheckbox} from "../common/formikCommon/MyFields"
 import {PointerCursor} from "../Dark_light_theme/globalStyles";
-import {Input} from "../common/Validation/customFields";
-import {Required} from "../common/Validation/validationField";
+//import DisplayFormikState from "../common/formikCommon/DisplayFormikState"
 
 let myInitialValues = { // начальные зачения форм
     email: "",
@@ -19,9 +17,7 @@ let myValidationSchema = Yup.object({ // валидация форм на requir
         .required('Required'),
     password: Yup.string()
         .required('Required'),
-
 })
-
 
 const LoginFormik = ({postLogin, captchaURL, updateCaptcha, loginError}) => { // основная компонента с входным колбэком, чтобы забрать данные с форм
     const myOnSubmit = (values, {resetForm}) => { // действия по сабмиту
@@ -37,10 +33,7 @@ const LoginFormik = ({postLogin, captchaURL, updateCaptcha, loginError}) => { //
             >
 
                 {({
-                      values, // значения полей (можно взять любое)
                       handleReset,// обнуление полей
-                      errors, // все ошибки ввода
-                      isValid
                   }) => ( // обертка для вывода значений ввода в любом месте формы паралельно (или в итоге)
                     <Form className={classes.LoginForm}>
                         <fieldset>
@@ -68,7 +61,7 @@ const LoginFormik = ({postLogin, captchaURL, updateCaptcha, loginError}) => { //
                             {captchaURL &&
                             <div>
                                 <PointerCursor>
-                                    <img src={captchaURL} onClick={updateCaptcha} alt="captcha"></img>
+                                    <img src={captchaURL} onClick={updateCaptcha} alt="captcha"/>
                                 </PointerCursor>
                                 {/*<label htmlFor="captcha">Captcha</label> {/*альтернатива написания input с обработкой ошибок*/}
 
