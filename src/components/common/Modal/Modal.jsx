@@ -7,15 +7,15 @@ const Modal = (props) => {
             // сделать что делает escape
             props.onClose()
         }
-    },[])
+    },[props.onClose])
 
     useEffect(()=>{
-        document.addEventListener("keydown", escFunction, false)
+        document.addEventListener("keydown", escFunction)
         return () => {
 
-            document.addEventListener("keydown", escFunction, false)
+            document.addEventListener("keydown", escFunction)
         }
-    }, [])
+    }, [escFunction])
 
     if (!props.show) {
         return null
@@ -27,9 +27,9 @@ const Modal = (props) => {
                  onClick={(e)=>{e.stopPropagation()}}>
                 {/*при клике по самому окну, его не закрывать*/}
                 <div className={classes.modal_header}>
-                    <h4 className={classes.modal_title}>Modal Title</h4> {/*заголовок модального окна*/}
+                    <h4 className={classes.modal_title}>{props.modal_title}</h4> {/*заголовок модального окна*/}
                 </div>
-                <div className={classes.modal_body}>This is modal content</div> {/*контент модального окна*/}
+                <div className={classes.modal_body}>{props.modal_body}</div> {/*контент модального окна*/}
                 <div className={classes.modal_footer}>
                     <button className={classes.button} onClick={props.onClose}>Close</button>
                     {/*закрыть модальное окно по клику*/}

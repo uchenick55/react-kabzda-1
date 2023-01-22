@@ -36,9 +36,12 @@ let ContentContainer = () => { // вынес роутинг контента в 
                     </Routes>
                     <div>
                         <button onClick={()=>{setShow(true)}}>Show Modal</button> {/*открыть модальрное окно по клику*/}
-                        <Modal show={show} onClose={()=>{setShow(false)}} />
-                        {/*флаг show показывает/скрывает модальное окно
-                        onClose это колбек на закрытие модального окна*/}
+                        <Modal
+                            show={show} //флаг show показывает/скрывает модальное окно
+                            onClose={()=>{setShow(false)}} // колбек на закрытие модального окна
+                            modal_title={"Modal Title"} // заголовок модального окна
+                            modal_body={"This is modal content"} // тело модального окна
+                        />
                     </div>
                 </div>
             </Suspense>
