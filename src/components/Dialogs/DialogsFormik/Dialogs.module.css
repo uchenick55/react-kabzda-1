@@ -15,3 +15,8 @@
 /*.errorText {
     color: red;
 }*/
+
+.fieldButtonGrid {
+    display: grid;
+    grid-template-columns: 1fr 4rem;
+}

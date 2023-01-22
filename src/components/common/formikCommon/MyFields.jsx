@@ -13,23 +13,31 @@ export const CommonInputTextArea = ({label, children, ...props}) => {
         </>
     )
 }
-export const MyTextInput = ({label, ...props}) => {  // вынесенная общая часть для тесктового поля
+export const MyTextInput = ({label, autoFocus, ...props}) => {  // вынесенная общая часть для тесктового поля
     const [field, meta] = useField(props) // данные onBlur и meta для обработки ошибок
 
     return (
         <CommonInputTextArea label={label} props={props}> {/*композиция выод общей части InputTextArea*/}
             <input
-                className={meta.touched && meta.error ? classes.errorInputTextArea : classes.inputTextArea}  {...field} {...props}/> {/*то различие между input и textarea*/}
+                className={meta.touched && meta.error ? classes.errorInputTextArea : classes.inputTextArea}
+                {...field}
+                {...props}
+                autoFocus={autoFocus}
+            /> {/*то различие между input и textarea*/}
         </CommonInputTextArea>
     )
 }
 
-export const MyTextArea = ({label, ...props}) => {  // вынесенная общая часть для тесктового поля
+export const MyTextArea = ({label, autoFocus, ...props}) => {  // вынесенная общая часть для тесктового поля
     const [field, meta] = useField(props)  // данные onBlur и meta для обработки ошибок
     return (
         <CommonInputTextArea label={label} props={props}>{/*композиция вывод общей части InputTextArea*/}
             <textarea
-                className={meta.touched && meta.error ? classes.errorInputTextArea : classes.inputTextArea} {...field} {...props}/> {/*то различие между input и textarea*/}
+                className={meta.touched && meta.error ? classes.errorInputTextArea : classes.inputTextArea}
+                {...field}
+                {...props}
+                autoFocus={autoFocus}
+            /> {/*то различие между input и textarea*/}
         </CommonInputTextArea>
     )
 }

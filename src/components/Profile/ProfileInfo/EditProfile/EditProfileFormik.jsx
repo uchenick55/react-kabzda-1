@@ -38,12 +38,18 @@ const EditProfileFormik = ({putProfile, setEditMode, profile, userId}) => { // �
 
                 e('div', {},
                     e('div', //Редактирование профиля
-                        {className: classes.HeaderEditProfileForm},
+                        { className: classes.HeaderEditProfileForm},
                         'Редактирование профиля'
                     ),
 
                     e(MyTextInput, //Полное имя:
-                        {label: "Полное имя:", name: 'FullName', type: 'text', placeholder: 'Полное имя'}
+                        {
+                            label: "Полное имя:",
+                            name: 'FullName',
+                            type: 'text',
+                            placeholder: 'Полное имя',
+                            autoFocus: true
+                        }
                     ),
 
                     e(MyTextInput,//Обо мне
@@ -64,15 +70,6 @@ const EditProfileFormik = ({putProfile, setEditMode, profile, userId}) => { // �
                         "Контакты:"
                     ),
 
-                    /* <div className={classes.EditProfileContactsFields}>
-                    {Object.keys(profile.contacts).map((c) => { // мапим по контактам
-                        return <div key={c}>
-                            <MyTextInput  //поля с ключами
-                                label={c} name={`contacts[` + c + ']'} type='text' placeholder={c}
-                            />
-                        </div>
-                    })}
-                </div>*/
                     e('div', {className: classes.EditProfileContactsFields},
                         Object.keys(profile.contacts).map((c) => { // вывод списка контактов, мапим
                             return e('div', {key: c},

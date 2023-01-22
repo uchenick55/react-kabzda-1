@@ -64,6 +64,9 @@ class DialogsContainer extends React.Component {
             alert("Выберите диалог") // предупреждение если диалог не выбран
             return
         }
+        if (!NewMessage) { // при клике просто по вкладке Dialogs
+            return // не реагировать на пустые сообщения
+        }
 
         let profilePage = this.props.profilePage // локальный стейт страницы пользователя
         let userName = 0 // задаем переменную имени пользователя
@@ -97,14 +100,7 @@ class DialogsContainer extends React.Component {
     deleteDialog = (dialogId, userId2) => {
         this.props.deleteDialogThunkCreator(dialogId, this.props.myID, userId2)
         // здесь сменить URL без ID
-
-
-
-
-
-
     }
-
 
     render () {
         return <div>

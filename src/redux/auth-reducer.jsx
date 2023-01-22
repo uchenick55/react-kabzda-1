@@ -37,6 +37,7 @@ let initialState = { // стейт по умолчанию для моего п�
     myProfile: null, // мой расширенный профиль по умолчанию
     captchaURL: null, // URL каптчи после 5 неправильных вводов
     loginError: null, // ошибка авторизации с сервера
+   // editProfileError: null, // ошибка правки формы профиля
 }
 
 let authReducer = (state = initialState, action) => { // редьюсер авторизации и моего профиля
@@ -120,7 +121,6 @@ export let getAuthMeThunkCreator = () => {//санкреатор я автори
     return getAuthMeThunk;
 }
 
-
 export let postLoginThunkCreator = (email, password, rememberme, captchaURL) => {//санкреатор на логин
     let postLoginThunk = async (dispatch) => { // объявление санки на логин
         const response = await apiProfile.postLogin(email, password, rememberme, captchaURL) // отправка данных на авторизацию из формы логина
@@ -134,17 +134,13 @@ export let postLoginThunkCreator = (email, password, rememberme, captchaURL) => 
                 !response.messages[0] // если ответа от сервера нет
                     ? "no responce from server" // вывести сообщение заглушку
                     : response.messages[0] // иначе вывести ответ от сервера
-            let loginError = stopSubmit("LoginForm", {_error: message})
-            // LoginForm это наша форма логина.
-            // объект _error является общей ошибкой для всей формы с сообщением message
             if (bedug_mode) {
                 console.log("auth-reducer.jsx, postLoginThunkCreator.await / если логин или пароль не подошли: dispatch(action) // отправить данные в форму")
             } // дебаг
             if (response.resultCode === 10) { // если ошибка в многократном неправильном вводе логина и пароля
                 dispatch(getCaptchaThunkCreator())
             }
-            dispatch(setLoginError(loginError.payload._error)) // ошибка авторизации для формика
-            dispatch(loginError) // отправить данные в форму для redux-form
+            dispatch(setLoginError(message)) // ошибка авторизации для формика
         }
     }
     return postLoginThunk;
@@ -207,13 +203,13 @@ export let putMyProfileThunkCreator = (MyProfile, myId) => { // санкреат
                 !response.messages[0] // если ответа от сервера нет
                     ? "no responce from server" // вывести сообщение заглушку
                     : response.messages[0] // иначе вывести ответ от сервера
-            let action = stopSubmit("EditProfileForm", {_error: message})
+           // let action = stopSubmit("EditProfileForm", {_error: message})
             // LoginForm это наша форма логина.
             // объект _error является общей ошибкой для всей формы с сообщением message
             if (bedug_mode) {
                 console.log("auth-reducer.jsx, putMyProfileThunkCreator.await / пришла ошибка с сервера:", response.messages[0]) // отправить данные в форму
             } // дебаг
-            dispatch(action) // отправить данные в форму
+            //  dispatch(action) // отправить данные в форму
         }
     }
 }
