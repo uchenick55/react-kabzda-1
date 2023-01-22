@@ -28,9 +28,9 @@ let StackInfo = () => {
         <ScrollContainer // обернуть диалоги скролом
             child={usedStack}
             height={window.screen.availHeight - 218} // высота поля скрола
-            firstInsideContainer={"DialogsUp"}
-            secondInsideContainer={"DialogsDown"}
-            containerElement={"DialogsContainer"}
+            firstInsideContainer={"StackInfoUp"}
+            secondInsideContainer={"StackInfoDown"}
+            containerElement={"StackInfoContainer"}
         /> {/*отрисовка диалогов в скрол контейнере*/}
 
     </div>)
