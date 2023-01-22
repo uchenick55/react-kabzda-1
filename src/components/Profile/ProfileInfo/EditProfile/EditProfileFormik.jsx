@@ -8,7 +8,7 @@ import {MyCheckbox, MyTextArea, MyTextInput} from "../../../common/formikCommon/
 let myValidationSchema = Yup.object({ // валидация форм на required, длину и заполнение полей
 })
 
-const EditProfileFormik = ({putProfile, setEditMode, profile, userId}) => { // основная компонента с входным колбэком, чтобы забрать данные с форм
+const EditProfileFormik = ({putProfile, setEditMode, profile, editProfileError}) => { // основная компонента с входным колбэком, чтобы забрать данные с форм
 
     let e = React.createElement
     let myInitialValues = { // начальные зачения форм
@@ -22,7 +22,7 @@ const EditProfileFormik = ({putProfile, setEditMode, profile, userId}) => { // �
     const myOnSubmit = (values, {resetForm}) => { // действия по сабмиту
         putProfile(values) // колбек, который принмает результат ввода формы
         resetForm()// сбросить значение формы после ввода
-        setEditMode(false) // снятие режима редактирования комменты когда закончу форму
+      //  setEditMode(false) // снятие режима редактирования комменты когда закончу форму
 
     }
 
@@ -102,7 +102,7 @@ const EditProfileFormik = ({putProfile, setEditMode, profile, userId}) => { // �
                         onClick: () => { // по клику
                             setEditMode(false)// переключиться с режима редактирования профиля на просмотр
                         }
-                    }, 'Отмена')
+                    }, 'Отмена'),
                 )
             )
         ))

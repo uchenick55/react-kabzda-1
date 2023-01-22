@@ -5,7 +5,7 @@ import {connect} from "react-redux";
 let mapStateToProps = (state) => {
     return {
         state: state.profilePage,
-        myId: state.auth.myID
+        myId: state.auth.myId
     }
 }
 let mapDispatchToProps = (dispatch) => {

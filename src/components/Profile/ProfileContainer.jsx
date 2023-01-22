@@ -3,13 +3,13 @@ import Profile from "./Profile";
 import {connect} from "react-redux";
 import {
     getProfileThunkCreator,
+    putMyProfileThunkCreator,
     putStatusThunkCreator,
     setprofilePhotoThunkCreator
 } from "../../redux/profile-reducer";
 import {Navigate} from "react-router-dom"
 import {compose} from "redux";
 import {bedug_mode} from "../../redux/store-redux";
-import {putMyProfileThunkCreator} from "../../redux/auth-reducer";
 import NavigateToLoginHoc2 from "../hoc/NavigateToLoginHoc2";
 import withRouter2 from "../hoc/withRouter2";
 
@@ -54,6 +54,8 @@ class ProfileContainer extends React.Component {
             uploadImage={this.uploadImage} // загрузка
             putProfile={this.putProfile} // задание профиля на сервер после ввода данных
             dispatch={this.props.dispatch} // для резета формы профиля
+            editProfileError = {this.props.editProfileError} // список ошибок правки формы профиля с сервера
+
         />
     }
 }
@@ -62,8 +64,10 @@ let mapStateToProps = (state) => {
     return {
         profile: state.profilePage.profile,
         isAuth: state.auth.isAuth,
-        myId: state.auth.myID,
-        status: state.profilePage.status,
+        myId: state.auth.myId, // мой
+        status: state.profilePage.status, // статус
+        editProfileError: state.profilePage.editProfileError  // список ошибок правки формы профиля с сервера
+
     }
 }
 

@@ -5,7 +5,6 @@ import Preloader from "../../common/Preloader/Preloader";
 import ProfileStatusUseReducer from "./ProfileStatus/ProfileStatusUseReducer";
 import {bedug_mode} from "../../../redux/store-redux";
 import userPhoto1 from "../../../assets/images/no-image3.png";
-//import EditProfile from "./EditProfile/EditProfile";
 import EditProfileFormik from "./EditProfile/EditProfileFormik"; // заглушка фото пользователя
 
 const ShowProfile = ({profile, setEditMode, userId, myId}) => { // вынес отдельно отображение профиля
@@ -37,7 +36,8 @@ const ShowProfile = ({profile, setEditMode, userId, myId}) => { // вынес о
     )
 }
 
-const ProfileInfo = ({profile, myId, status, putStatusThunkCreator, uploadImage, userId, putProfile, dispatch}) => {
+const ProfileInfo = ({profile, myId, status, putStatusThunkCreator, uploadImage,
+                         userId, putProfile, editProfileError}) => {
     const [profilePhoto, setprofilePhoto] = useState(userPhoto1) // useState для временного хранения фото пользователя
     const [editMode, setEditMode] = useState(false) // флаг режима редактирования профиля
     const [showUploadImageButton, setshowUploadImageButton] = useState(false) // флаг показать ли кнопку загрузки изображения
@@ -64,13 +64,8 @@ const ProfileInfo = ({profile, myId, status, putStatusThunkCreator, uploadImage,
 
     let editProfile = editMode &&
         <div>
-{/*
-            <EditProfile profile={profile} putProfile={putProfile} dispatch={dispatch} setEditMode={setEditMode}
-                         userId={userId} myId={myId}/>
-*/}
-
-            <EditProfileFormik profile={profile} putProfile={putProfile} dispatch={dispatch} setEditMode={setEditMode}
-                               userId={userId} myId={myId}/>
+            <EditProfileFormik profile={profile} putProfile={putProfile} setEditMode={setEditMode}
+                               userId={userId} myId={myId} editProfileError={editProfileError}/>
         </div>
     let editMyPhoto = (userId === 0) &&// если мы перешли на свой профиль (в браузере нет ID возле profile)
         <div>
@@ -123,6 +118,17 @@ const ProfileInfo = ({profile, myId, status, putStatusThunkCreator, uploadImage,
                 <div>
                     {showProfile} {/*показать профиль*/}
                     {editProfile} {/*редактировать профиль*/}
+                </div>
+                {/*Если длина больше нуля, то выводим сообщение.
+                Если сообщение sucessully, то закрываем режим редактирования, выводим успех редактирования и по сеттаймауту зануляем стейт с ошибками
+                Если не саксесфулли, то выводим ошибки и не закрываем редактирование*/}
+                <div className={classes.errorText}>
+                    {editProfileError.length>0&&editProfileError.map(err=>{
+                        return <div>
+                            {err}
+                        </div>
+                        }
+                    )} {/*ошибка редактирования профиля*/}
                 </div>
                 <div>
                     {profileStatus} {/*отображение моего статуса*/}

@@ -11,7 +11,7 @@ let Users = ({
                  totalUsersCount, pageSize, currentPage, onPageChanged, users,
                  followingInProgress, unfollowAPI, isAuth, followAPI,
                  SetTermFunction, onChangeTerm, onChangeTermFunction,
-                 onChangeRangeLocal, currentRangeLocal, myID // раскукожили все пропсы
+                 onChangeRangeLocal, currentRangeLocal, myId // раскукожили все пропсы
              }) => {
     const [error, setError] = useState("")
     if  (error) {return error.message}
@@ -23,7 +23,7 @@ let Users = ({
         let FollowUnfollowButtons = ({u, followUnfollowAPICallback, buttonText}) => { // унификация нажатия кнопки Follow/Unfollow
             return (<span>
                 <button
-                    disabled={followingInProgress.some(id => id === u.id) || u.id === myID}
+                    disabled={followingInProgress.some(id => id === u.id) || u.id === myId}
                     // отключение возможности повторного нажатия пока не пришел ответ от сервера или если это ваш ID
                     onClick={() => {
                         isAuth // проверка авторизации. Если нет, то алерт. Если да, то API запрос на follow/unfollow

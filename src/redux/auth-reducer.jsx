@@ -1,23 +1,21 @@
 import {apiProfile} from "../components/api/api";
-import {stopSubmit} from "redux-form";
 import {bedug_mode} from "./store-redux";
 import {friendsInitialState} from "./sidebar-reducer";
 import {dialogsInitialState} from "./dialogs-reducer";
-import {getProfileThunkCreator, profileInitialState} from "./profile-reducer";
+import {profileInitialState} from "./profile-reducer";
 import {usersInitialState} from "./users-reducer";
 
 const SET_MY_DATA = "myApp/auth-reducer/SET_MY_DATA"; // константа для задания базовых данных моего профиля (ID, Email, login, isAuth)
-const SET_MY_PROFILE = "myApp/auth-reducer/SET_MY_PROFILE"; // константа задания расширенных данных моего профиля
 const AUTH_INITIAL_STATE = "myApp/auth-reducer/AUTH_INITIAL_STATE"; //константа зануления при логауте
 const SET_CAPTCHA_URL = "myApp/auth-reducer/SET_CAPTCHA_URL"; //константа задания URL каптчи
 const SET_LOGIN_ERROR= "myApp/auth-reducer/SET_LOGIN_ERROR"; //константа задания ошибки авторизации
+const SET_MY_PROFILE = "myApp/auth-reducer/SET_MY_PROFILE"; // константа задания расширенных данных моего профиля
 
-
-export let setAuthData = (id, email, login, isAuth) => { // экшн креатор задания моих ID, Email, login
-    return {type: SET_MY_DATA, id, email, login, isAuth}
-};
 export let setMyProfile = (myProfile) => { // экшн креатор задания расширенных данных моего профиля
     return {type: SET_MY_PROFILE, myProfile}
+};
+export let setAuthData = (id, email, login, isAuth) => { // экшн креатор задания моих ID, Email, login
+    return {type: SET_MY_DATA, id, email, login, isAuth}
 };
 export let authInitialState = () => { // экшн креатор зануления при логауте
     return {type: AUTH_INITIAL_STATE}
@@ -29,15 +27,15 @@ export let setLoginError = (loginError) => { // экшн креатор зада
     return {type: SET_LOGIN_ERROR, loginError}
 };
 
+
 let initialState = { // стейт по умолчанию для моего профиля
-    myID: null, // мой ID по умолчанию
+    myId: null, // мой ID по умолчанию
     myEmail: null,// мой Email по умолчанию
     myLogin: null,// мой логин по умолчанию
     isAuth: false, // Флаг авторизации
     myProfile: null, // мой расширенный профиль по умолчанию
     captchaURL: null, // URL каптчи после 5 неправильных вводов
     loginError: null, // ошибка авторизации с сервера
-   // editProfileError: null, // ошибка правки формы профиля
 }
 
 let authReducer = (state = initialState, action) => { // редьюсер авторизации и моего профиля
@@ -46,7 +44,7 @@ let authReducer = (state = initialState, action) => { // редьюсер авт
         case SET_MY_DATA: // экшн задания моих id, email, login
             stateCopy = {
                 ...state,
-                myID: action.id,
+                myId: action.id,
                 myEmail: action.email,
                 myLogin: action.login,
                 isAuth: action.isAuth,
@@ -183,35 +181,6 @@ export let deleteLoginThunkCreator = () => {//санкреатор на логА
         }
     }
     return deleteLoginThunk;
-}
-
-export let putMyProfileThunkCreator = (MyProfile, myId) => { // санкреатор установки моего профиля myProfile
-    return async (dispatch) => { // нонеййм санка установки моего профиля myProfile
-        const response = await apiProfile.putMyProfileData(MyProfile) // отправка нового статуса на сервер
-        if (response.resultCode === 0) { // если успешное обновление профиля на сервере
-            if (bedug_mode) {
-                console.log("auth-reducer.jsx, putMyProfileThunkCreator.await putMyProfileData(): dispatch(getProfileThunkCreator())")
-            } // дебаг
-            const response2 = await apiProfile.getProfile(myId)//получение моих дополнительных данных после записи на сервер
-            if (bedug_mode) {
-                console.log("auth-reducer.jsx, putMyProfileThunkCreator.await(putMyProfileData)->await .getProfile() : dispatch(setMyProfile()->SET_MY_PROFILE")
-            } // дебаг
-            dispatch(setMyProfile(response2))//задание в стейт моих доп данных
-            dispatch(getProfileThunkCreator(myId))
-        } else { // если пришла ошибка с сервера ввода формы правки профиля
-            let message =  // определение локальной переменной message - ответ от сервера
-                !response.messages[0] // если ответа от сервера нет
-                    ? "no responce from server" // вывести сообщение заглушку
-                    : response.messages[0] // иначе вывести ответ от сервера
-           // let action = stopSubmit("EditProfileForm", {_error: message})
-            // LoginForm это наша форма логина.
-            // объект _error является общей ошибкой для всей формы с сообщением message
-            if (bedug_mode) {
-                console.log("auth-reducer.jsx, putMyProfileThunkCreator.await / пришла ошибка с сервера:", response.messages[0]) // отправить данные в форму
-            } // дебаг
-            //  dispatch(action) // отправить данные в форму
-        }
-    }
 }
 
 export let getCaptchaThunkCreator = () => {//санкреатор на получение каптчи

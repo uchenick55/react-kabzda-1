@@ -6,7 +6,8 @@ import ScrollContainer from "../common/Scroll/ScrollContainer";
 import userPhotoAva from "../../assets/images/no-image3.png";
 import DialogsFormik from "./DialogsFormik/DialogsFormik";
 
-const Dialogs = ({deleteDialog, dialogUserID, getDialogList, dialogs2, messages2, sendMessage, getDialogLastUpdateTime, myID, deleteMessage}) => { // основная компонента отрисовки диалогов
+const Dialogs = ({deleteDialog, dialogUserID, getDialogList, dialogs2, messages2, sendMessage,
+                     getDialogLastUpdateTime, myId, deleteMessage}) => { // основная компонента отрисовки диалогов
 
     let dialogElements = dialogs2.map((d) => // подкомпонента отрисовки всех диалогов через map
         {
@@ -19,7 +20,7 @@ const Dialogs = ({deleteDialog, dialogUserID, getDialogList, dialogs2, messages2
     );
 
     let messagesElements = messages2.map((m) => // подкомпонента отрисовки всех сообщений через map
-        <Message key={m.id+m.message} message={m.message} myID={myID} userId={m.userId} Date={m.Date} MessageId={m.id}
+        <Message key={m.id+m.message} message={m.message} myId={myId} userId={m.userId} Date={m.Date} MessageId={m.id}
                  deleteMessage={deleteMessage}/>);
 
     useEffect(() => { // при очередном ререндере

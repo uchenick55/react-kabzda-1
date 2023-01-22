@@ -27,7 +27,7 @@ class DialogsContainer extends React.Component {
         if ( this.props.dialogUserID!==this.props.userId) { // если считаный из URL userId не равен тому, что в BLL
             this.props.setdialogUserID(this.props.userId) // задать в BLL считаный из URL ID
             //здесь запросить профиль выбранного userId через getProfileThunkCreator
-            this.props.getProfileThunkCreator(this.props.userId, true, this.props.myID)// при переходе в диалог любого пользователя считать его данные профиля с сервера
+            this.props.getProfileThunkCreator(this.props.userId, true, this.props.myId)// при переходе в диалог любого пользователя считать его данные профиля с сервера
         }
 
     }
@@ -47,16 +47,16 @@ class DialogsContainer extends React.Component {
 
     getDialogs = () => {
         if (this.props.userId === "") {return}// при клике просто по вкладке Dialogs
-        this.props.getDialogsThunkCreator(this.props.myID, this.props.userId);// получить диалоги
+        this.props.getDialogsThunkCreator(this.props.myId, this.props.userId);// получить диалоги
     }
 
     getDialogLastUpdateTime = () => {
         if (this.props.userId === "") {return}// при клике просто по вкладке Dialogs
-        this.props.getDialogLastUpdateTimeTnkCrt(this.props.myID, this.props.userId); // получить время последенего обновления диалога
+        this.props.getDialogLastUpdateTimeTnkCrt(this.props.myId, this.props.userId); // получить время последенего обновления диалога
     }
 
     getDialogList = () => {
-        this.props.getMyDialogListThunkCreator(this.props.myID)
+        this.props.getMyDialogListThunkCreator(this.props.myId)
     }
 
     sendMessage = (NewMessage) => { // отправка сообщения
@@ -78,14 +78,14 @@ class DialogsContainer extends React.Component {
 
         this.props.sendDialogsThunkCreator( // отправить сообщение
             NewMessage,
-            this.props.auth.myID, // мой ID для формирования DialogList собеседника
+            this.props.auth.myId, // мой ID для формирования DialogList собеседника
             this.props.auth.myLogin, // мой логин  для формирования DialogList собеседника
             this.props.auth.myProfile.photos.small, // мое фото  для формирования DialogList собеседника
             this.props.userId, // ID собеседника для формирования моего DialogList
         ); // отправить сообщение
 
         this.props.updateDialogListThunkCreator( // обновление диалогЛиста
-            this.props.auth.myID, // мой ID
+            this.props.auth.myId, // мой ID
             this.props.userId, // ID с кем веду диалог
             userName, // его имя
             userPhoto // и фото
@@ -94,11 +94,11 @@ class DialogsContainer extends React.Component {
     }
 
     deleteMessage = (messageID) => { // удалить сообщение по его ID в списке
-        this.props.deleteMessageThunkCreator(messageID, this.props.myID, this.props.userId);
+        this.props.deleteMessageThunkCreator(messageID, this.props.myId, this.props.userId);
     }
 
     deleteDialog = (dialogId, userId2) => {
-        this.props.deleteDialogThunkCreator(dialogId, this.props.myID, userId2)
+        this.props.deleteDialogThunkCreator(dialogId, this.props.myId, userId2)
         // здесь сменить URL без ID
     }
 
@@ -112,7 +112,7 @@ class DialogsContainer extends React.Component {
                 sendMessage={this.sendMessage} // проброс местного метода отправки сообщений
                 getDialogs={this.getDialogs}  // проброс местного метода получить диалоги
                 getDialogLastUpdateTime={this.getDialogLastUpdateTime} // проброс метода - получить время обновления текущего диалога
-                myID={this.props.myID} // мой ID
+                myId={this.props.myId} // мой ID
                 deleteMessage = {this.deleteMessage} // удалить сообщение
                 getDialogList={this.getDialogList} // периодическая проверка написал ли кто мне, или я с кем диалог начал
                 dialogUserID = {this.props.dialogUserID}
@@ -122,14 +122,14 @@ class DialogsContainer extends React.Component {
     }
 }
 
-let mapDispatchToProps  = (dispatch) => {
+/*let mapDispatchToProps  = (dispatch) => {
     return {
 
-        sendDialogsThunkCreator: (formDataNewMessage, myID, MyName, MyPhoto, userId) => { // отправить сообщение
-            dispatch(sendDialogsThunkCreator(formDataNewMessage, myID, MyName, MyPhoto, userId))
+        sendDialogsThunkCreator: (formDataNewMessage, myId, MyName, MyPhoto, userId) => { // отправить сообщение
+            dispatch(sendDialogsThunkCreator(formDataNewMessage, myId, MyName, MyPhoto, userId))
         },
-        getDialogsThunkCreator: (myID, userId) => { // получить данные по текущему диалогу
-            dispatch(getDialogsThunkCreator(myID, userId))
+        getDialogsThunkCreator: (myId, userId) => { // получить данные по текущему диалогу
+            dispatch(getDialogsThunkCreator(myId, userId))
         },
         setdialogUserID: (dialogUserID) => { // задать ID собеседника в BLL
             dispatch(setdialogUserID(dialogUserID))
@@ -137,48 +137,62 @@ let mapDispatchToProps  = (dispatch) => {
         setMessages: (updatedMessages) => { // задать сообщения напрямую (для зануления)
             dispatch(setMessages(updatedMessages))
         },
-        getDialogLastUpdateTimeTnkCrt: (myID, userId) => { // получить время последнего обновления текущего диалога
-            dispatch(getDialogLastUpdateTimeTnkCrt(myID, userId))
+        getDialogLastUpdateTimeTnkCrt: (myId, userId) => { // получить время последнего обновления текущего диалога
+            dispatch(getDialogLastUpdateTimeTnkCrt(myId, userId))
         },
-        deleteMessageThunkCreator: (messageID, myID, userId) => { // удалить сообщение из диалога
-            dispatch(deleteMessageThunkCreator(messageID, myID, userId))
+        deleteMessageThunkCreator: (messageID, myId, userId) => { // удалить сообщение из диалога
+            dispatch(deleteMessageThunkCreator(messageID, myId, userId))
         },
-        getProfileThunkCreator: (dialogUserID, shouldUpdateDialogList, myID) => { // удалить сообщение из диалога
-            dispatch(getProfileThunkCreator(dialogUserID, shouldUpdateDialogList, myID))
+        getProfileThunkCreator: (dialogUserID, shouldUpdateDialogList, myId) => { //
+            dispatch(getProfileThunkCreator(dialogUserID, shouldUpdateDialogList, myId))
         },
-        getFollowThunkCreator: (dialogUserID) => { // удалить сообщение из диалога
+        getFollowThunkCreator: (dialogUserID) => { //
             dispatch(getFollowThunkCreator(dialogUserID))
         },
-        getMyDialogListThunkCreator: (myID) => { // удалить сообщение из диалога
-            dispatch(getMyDialogListThunkCreator(myID))
+        getMyDialogListThunkCreator: (myId) => { //
+            dispatch(getMyDialogListThunkCreator(myId))
         },
-        updateDialogListThunkCreator: (userId1, userId2, Name2, Photo2) => { // удалить сообщение из диалога
+        updateDialogListThunkCreator: (userId1, userId2, Name2, Photo2) => { //
             dispatch(updateDialogListThunkCreator(userId1, userId2, Name2, Photo2))
         },
-        deleteDialogThunkCreator: (dialogId, userId1, userId2) => { // удалить сообщение из диалога
+        deleteDialogThunkCreator: (dialogId, userId1, userId2) => { //
             dispatch(deleteDialogThunkCreator(dialogId, userId1, userId2))
         },
         dispatch: dispatch // для зануления redux-form
     }
-}
+}*/
 
 let mapStateToProps = (state) => {
     return {
         isAuth: state.auth.isAuth, // флаг, авторизован ли я сейчас,
-        myID: state.auth.myID, // мой ID (авторизованного пользователя)
+        myId: state.auth.myId, // мой ID (авторизованного пользователя)
         dialogUserID: state.dialogsPage.dialogUserID, // ID пользователя, с кем сейчас идет диалог
         messages2: state.dialogsPage.messages2, // массив сообщений текущего диалога
         dialogs: state.dialogsPage.dialogs, // список диалогов
         dialogLastUpdateTime: state.dialogsPage.dialogLastUpdateTime,// время последнего времени обновления текущего диалога
         dialogs2: state.dialogsPage.dialogs2, // список диалогов с LocalStorage
-
         profilePage:state.profilePage, // страница профиля пользователя для создания dialogList
         auth: state.auth,// страница моего профиля для создания dialogList
+        editProfileError: state.auth.editProfileError // ошибка правки формы профиля
     }
 }
 
 export default compose(
-    connect(mapStateToProps, mapDispatchToProps),
+    connect(mapStateToProps,
+        {
+            sendDialogsThunkCreator,//санкреатор отправки нового сообщения в диалог
+            getDialogsThunkCreator,//санкреатор получения диалогов с данными
+            setdialogUserID, // экшнкреатор задания списка сообщений в стейт messages2
+            setMessages,// экшнкреатор задания списка сообщений в стейт messages2
+            getDialogLastUpdateTimeTnkCrt,//санкреатор получения диалогов с данными
+            deleteMessageThunkCreator,//санкреатор удаления сообщения из далога
+            getProfileThunkCreator,// санкреатор на получение профиля выбранного пользователя
+            getFollowThunkCreator,//санкреатор проверки follow/unfollow выбранного юзера для составления списка диалогов
+            getMyDialogListThunkCreator,//санкреатор получения моего диалогЛиста
+            updateDialogListThunkCreator,//санкреатор обновления диалогЛиста (моего когда я пишу кому то сообщение) - запись в localStorage.
+            deleteDialogThunkCreator, //санкреатор удаления диалога из диалогЛиста
+        }
+    ),
     withRouter2,// получить данные ID из URL браузера и добавить в пропсы
     NavigateToLoginHoc2 // проверка, залогинен ли я
 )
