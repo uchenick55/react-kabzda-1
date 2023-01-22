@@ -8,11 +8,12 @@
     display: flex; /*создание блока flex*/
     align-items: center; /*выравнивание по вертикали в центре*/
     justify-content: center; /*выравнивание по горизонтали в центре*/
+    z-index: 10; /*поверх остальных окон*/
 }
 
 .modal_content {
     width: 500px; /*ширина модального окна*/
-    background-color: #fff; /*фон окна белый*/
+    background-color: red; /*фон окна белый*/
 }
 
 .modal_header, .modal_footer {

@@ -1,9 +1,10 @@
-import React, {Suspense} from "react";
+import React, {Suspense, useState} from "react";
 import {Route, Routes} from "react-router-dom";
 import classes from './ContentContainer.module.css';
 import ErrorBoundary from "../common/ErrorBoundary/ErrorBoundary";
 import Tasks from "../Tasks/Tasks";
 import ProfileContainer from "../Profile/ProfileContainer";
+import Modal from "../common/Modal/Modal";
 
 //const ProfileContainer = React.lazy(() => import("../Profile/ProfileContainer"))
 const DialogsContainer = React.lazy(() => import("../Dialogs/DialogsContainer"))
@@ -16,6 +17,7 @@ const StackInfo = React.lazy(() => import("../Info/StackInfo"))
 const FeedBackContainer = React.lazy(() => import("../FeedBack/FeedBackContainer"))
 
 let ContentContainer = () => { // вынес роутинг контента в отдельную компоненту
+    const [show, setShow] = useState(false)
     return (<div>
         <ErrorBoundary> {/*Локальный обработчик ошибок ContentContainer*/}
             <Suspense fallback={
@@ -32,6 +34,12 @@ let ContentContainer = () => { // вынес роутинг контента в 
                         <Route path='feedback' element={<FeedBackContainer/>}/> {/*Общие Комментарии*/}
                         <Route path='tasks' element={<Tasks/>}/> {/*Общие Комментарии*/}
                     </Routes>
+                    <div>
+                        <button onClick={()=>{setShow(true)}}>Show Modal</button> {/*открыть модальрное окно по клику*/}
+                        <Modal show={show} onClose={()=>{setShow(false)}} />
+                        {/*флаг show показывает/скрывает модальное окно
+                        onClose это колбек на закрытие модального окна*/}
+                    </div>
                 </div>
             </Suspense>
         </ErrorBoundary>

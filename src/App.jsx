@@ -1,4 +1,4 @@
-import React from "react";
+import React, {useState} from "react";
 import './App.css';
 import {HashRouter} from "react-router-dom";
 import HeaderContainer from "./components/Header/HeaderContainer";
@@ -9,14 +9,13 @@ import Preloader from "./components/common/Preloader/Preloader";
 import InfoContainer from "./components/Info/InfoContainer";
 import ContentContainer from "./components/Content/ContentContainer";
 import ErrorBoundary from "./components/common/ErrorBoundary/ErrorBoundary";
-import Modal from "./components/common/Modal/Modal";
 
 class App extends React.Component { // конвертируем app в классовую компоненту для жизненного цикла
     componentDidMount() {
         this.props.initialisedAppThunkCreator() // запускаем инициализацию приложения
     }
-
     render() {
+
         if (!this.props.initialisedApp) { // если приложение еще не инициализировано
             return <Preloader/> // показать статус загрузки
         }
@@ -38,10 +37,6 @@ class App extends React.Component { // конвертируем app в клас�
                             <div><ContentContainer/> {/*страницы контента в зависмости от URL*/}</div>
                         </div>
                     </ErrorBoundary>
-                    <div>
-                        <button>Show Modal</button>
-                        <Modal/>
-                    </div>
                 </div>
             </HashRouter>
 

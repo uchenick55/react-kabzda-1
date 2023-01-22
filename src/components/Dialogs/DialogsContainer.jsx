@@ -60,17 +60,17 @@ class DialogsContainer extends React.Component {
     }
 
     sendMessage = (NewMessage) => { // отправка сообщения
+        if (!this.props.userId) { // при клике просто по вкладке Dialogs
+            alert("Выберите диалог") // предупреждение если диалог не выбран
+            return
+        }
+
         let profilePage = this.props.profilePage // локальный стейт страницы пользователя
         let userName = 0 // задаем переменную имени пользователя
         let userPhoto = 0 // и его фото для отображения в диалоглисте
         if (profilePage!==null) { // если профиль пользователя уже загружен
             userName = this.props.profilePage.profile.fullName; // переопределить имя пользователя
             userPhoto = this.props.profilePage.profile.photos.small; // и его фото и стейта
-        }
-
-        if (!this.props.userId) { // при клике просто по вкладке Dialogs
-            alert("Выберите диалог") // предупреждение если диалог не выбран
-            return
         }
 
         this.props.sendDialogsThunkCreator( // отправить сообщение
