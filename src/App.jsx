@@ -9,6 +9,7 @@ import Preloader from "./components/common/Preloader/Preloader";
 import InfoContainer from "./components/Info/InfoContainer";
 import ContentContainer from "./components/Content/ContentContainer";
 import ErrorBoundary from "./components/common/ErrorBoundary/ErrorBoundary";
+import Modal from "./components/common/Modal/Modal";
 
 class App extends React.Component { // конвертируем app в классовую компоненту для жизненного цикла
     componentDidMount() {
@@ -37,7 +38,10 @@ class App extends React.Component { // конвертируем app в клас�
                             <div><ContentContainer/> {/*страницы контента в зависмости от URL*/}</div>
                         </div>
                     </ErrorBoundary>
-
+                    <div>
+                        <button>Show Modal</button>
+                        <Modal/>
+                    </div>
                 </div>
             </HashRouter>
 
