@@ -82,11 +82,12 @@ const EditProfileFormik = ({putProfile, setEditMode, profile, editProfileStatus,
                                         placeholder: c
                                     },
                                 ),
-                                e('div', {className: classes.errorText}, //ошибки редактирования профиля с сервера
+                                e('div', {}, //ошибки редактирования профиля с сервера
                                     editProfileStatus.map(err => {// прогоняем весь массив ошибок с сервера на обновление профиля
                                         if (err.toLowerCase().includes(c.toLowerCase())) { // если имя отрисовываемого поля "с" соджержится в сообщении об ошибке
-                                            return e('div', {key: err}, err )// выводим сообщение об ошибке рядом с полем
+                                            return e('div', {key: err, className: classes.errorText}, err )// выводим сообщение об ошибке рядом с полем
                                         }
+                                        return null
                                     })
                                 ),
                             )

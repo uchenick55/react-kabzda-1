@@ -1,6 +1,6 @@
 import React from "react";
 import classes from "./FeedBack.module.css";
-import FeedBackForm from "./FeedBackForm";
+import FeedBackFormik from "./FeedBackFormik/FeedBackFormik";
 
 const FeedBack = ({sendFeedBack, feedBackStatus, setFeedBackStatus}) => {
     let SendMessageBoard = (props) => {
@@ -29,9 +29,9 @@ const FeedBack = ({sendFeedBack, feedBackStatus, setFeedBackStatus}) => {
     return (
         <div className={classes.feedBackGreed}> {/*растягивание полей ввода не на весь экран*/}
             <div>
-                <FeedBackForm
-                    sendFeedBack={sendFeedBack} // redux форма ввода данных
-                />
+                <FeedBackFormik sendFeedBack={sendFeedBack}/>
+            </div>
+            <div>
             </div>
         </div>
     );

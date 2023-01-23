@@ -3,13 +3,7 @@
     grid-template-columns: 2fr 1fr;
 }
 
-.FeedBackCommon {
-}
 
-.FeedBackForm2 {
-    display: grid;
-    grid-template-columns: 2frx 1fr;
-}
 .FeedBackSuccess {
     display: grid;
     grid-template-columns: 1frx 1fr;

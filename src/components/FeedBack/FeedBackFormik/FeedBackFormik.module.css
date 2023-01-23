@@ -1,0 +1,15 @@
+
+
+.legendStyle {
+    font-size: 1.5rem;
+    font-weight: bold;
+}
+
+.fieldSetStyle {
+    padding: 10px;
+}
+
+.fieldButtonGrid {
+    display: grid;
+    grid-template-columns: 1fr 4rem;
+}

@@ -52,12 +52,12 @@ const ProfileInfo = ({
     useEffect(()=>{
         if (editedSuccessfully) { // если успешно обновлен профиль на сервере
             setEditMode(false) // закрыть режим редактирования профиля
-            // прокрутить скрол контейнера контента вверх
+            // желательно здесь сделать прокрутку до верха профиля
             setTimeout(()=>{
                 setEditProfileStatus([]) // убирание сообщения ответа от сервера по таймеру
             },2000)
         }
-    },[editProfileStatus]) // переключение режима редактирования зависит от ответа с сервера
+    },[editProfileStatus, editedSuccessfully, setEditProfileStatus ]) // переключение режима редактирования зависит от ответа с сервера
 
     if (bedug_mode) {
         console.log("ProfileInfo.jsx")
