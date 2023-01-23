@@ -5,7 +5,6 @@ import dialogsReducer from "./dialogs-reducer";
 import sidebarReducer from "./sidebar-reducer";
 import usersReducer from "./users-reducer";
 import authReducer from "./auth-reducer";
-import { reducer as formReducer } from 'redux-form'
 import appReducer from "./app-reducer";
 import darkLightReducer from "./dark-light-reducer";
 import feedBackReducer from "./feedback-reducer"
@@ -16,7 +15,6 @@ let reducers = combineReducers({ // объединяем стейт редьюс
     sideBar: sidebarReducer, // стейт сайдбара
     usersPage: usersReducer, // стейт страницы пользователей
     auth: authReducer, // стейт текущего пользователя
-    form: formReducer, // стейт от redux-form
     app: appReducer, // стейт инициализации приложения
     theme: darkLightReducer, // стейт темы (dark-light)
     feedback: feedBackReducer, // стейт фидбека

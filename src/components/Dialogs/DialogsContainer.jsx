@@ -122,45 +122,6 @@ class DialogsContainer extends React.Component {
     }
 }
 
-/*let mapDispatchToProps  = (dispatch) => {
-    return {
-
-        sendDialogsThunkCreator: (formDataNewMessage, myId, MyName, MyPhoto, userId) => { // отправить сообщение
-            dispatch(sendDialogsThunkCreator(formDataNewMessage, myId, MyName, MyPhoto, userId))
-        },
-        getDialogsThunkCreator: (myId, userId) => { // получить данные по текущему диалогу
-            dispatch(getDialogsThunkCreator(myId, userId))
-        },
-        setdialogUserID: (dialogUserID) => { // задать ID собеседника в BLL
-            dispatch(setdialogUserID(dialogUserID))
-        },
-        setMessages: (updatedMessages) => { // задать сообщения напрямую (для зануления)
-            dispatch(setMessages(updatedMessages))
-        },
-        getDialogLastUpdateTimeTnkCrt: (myId, userId) => { // получить время последнего обновления текущего диалога
-            dispatch(getDialogLastUpdateTimeTnkCrt(myId, userId))
-        },
-        deleteMessageThunkCreator: (messageID, myId, userId) => { // удалить сообщение из диалога
-            dispatch(deleteMessageThunkCreator(messageID, myId, userId))
-        },
-        getProfileThunkCreator: (dialogUserID, shouldUpdateDialogList, myId) => { //
-            dispatch(getProfileThunkCreator(dialogUserID, shouldUpdateDialogList, myId))
-        },
-        getFollowThunkCreator: (dialogUserID) => { //
-            dispatch(getFollowThunkCreator(dialogUserID))
-        },
-        getMyDialogListThunkCreator: (myId) => { //
-            dispatch(getMyDialogListThunkCreator(myId))
-        },
-        updateDialogListThunkCreator: (userId1, userId2, Name2, Photo2) => { //
-            dispatch(updateDialogListThunkCreator(userId1, userId2, Name2, Photo2))
-        },
-        deleteDialogThunkCreator: (dialogId, userId1, userId2) => { //
-            dispatch(deleteDialogThunkCreator(dialogId, userId1, userId2))
-        },
-        dispatch: dispatch // для зануления redux-form
-    }
-}*/
 
 let mapStateToProps = (state) => {
     return {
