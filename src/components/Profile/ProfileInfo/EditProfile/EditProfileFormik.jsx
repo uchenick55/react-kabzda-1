@@ -8,7 +8,7 @@ import {MyCheckbox, MyTextArea, MyTextInput} from "../../../common/formikCommon/
 let myValidationSchema = Yup.object({ // валидация форм на required, длину и заполнение полей
 })
 
-const EditProfileFormik = ({putProfile, setEditMode, profile, setEditProfileStatus}) => { // основная компонента с входным колбэком, чтобы забрать данные с форм
+const EditProfileFormik = ({putProfile, setEditMode, profile, editProfileStatus, setEditProfileStatus}) => { // основная компонента с входным колбэком, чтобы забрать данные с форм
 
     let e = React.createElement
     let myInitialValues = { // начальные зачения форм
@@ -48,7 +48,7 @@ const EditProfileFormik = ({putProfile, setEditMode, profile, setEditProfileStat
                             name: 'FullName',
                             type: 'text',
                             placeholder: 'Полное имя',
-                            autoFocus: true
+                            //  autoFocus: true
                         }
                     ),
 
@@ -81,7 +81,14 @@ const EditProfileFormik = ({putProfile, setEditMode, profile, setEditProfileStat
                                         type: 'text',
                                         placeholder: c
                                     },
-                                )
+                                ),
+                                e('div', {className: classes.errorText}, //ошибки редактирования профиля с сервера
+                                    editProfileStatus.map(err => {// прогоняем весь массив ошибок с сервера на обновление профиля
+                                        if (err.toLowerCase().includes(c.toLowerCase())) { // если имя отрисовываемого поля "с" соджержится в сообщении об ошибке
+                                            return e('div', {key: err}, err )// выводим сообщение об ошибке рядом с полем
+                                        }
+                                    })
+                                ),
                             )
                         })
                     ),
@@ -90,7 +97,7 @@ const EditProfileFormik = ({putProfile, setEditMode, profile, setEditProfileStat
                     //кнопка сброса к значениям по умолчанию
                     e('button', {
                         type: 'button',
-                        onClick: () => { // при клике по кнопке отмена
+                        onClick: () => { // при клике по кнопке сброс
                             handleReset()// занулить поля вводла по умолчанию
                             setEditProfileStatus([]) // сбросить сообщение об ошибке с сервера
                         }

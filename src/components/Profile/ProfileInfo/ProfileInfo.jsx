@@ -147,14 +147,7 @@ const ProfileInfo = ({
                         ? <div className={classes.succesfullyUpdated}>
                             {editProfileStatus[0]} {/*вывести сообщение об успехе*/}
                         </div>// вывести сообщение успешного обновления
-                        : <div className={classes.errorText}>
-                            {editProfileStatus.map(err => { // иначе вывести ошибки
-                                    return <li key={err}>
-                                        {err}
-                                    </li>
-                                }
-                            )}
-                        </div>
+                        : null
 
                     } {/*ошибка редактирования профиля*/}
                 </div>

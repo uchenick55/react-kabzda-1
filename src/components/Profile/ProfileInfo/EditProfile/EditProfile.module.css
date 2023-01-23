@@ -11,3 +11,7 @@
 .EditProfileContactsFields {
     padding-left: 2rem;
 }
+
+.errorText {
+    color: red;
+}
