@@ -173,7 +173,7 @@ let mapStateToProps = (state) => {
         dialogs2: state.dialogsPage.dialogs2, // список диалогов с LocalStorage
         profilePage:state.profilePage, // страница профиля пользователя для создания dialogList
         auth: state.auth,// страница моего профиля для создания dialogList
-        editProfileError: state.auth.editProfileError // ошибка правки формы профиля
+        editProfileStatus: state.auth.editProfileStatus // ошибка правки формы профиля
     }
 }
 

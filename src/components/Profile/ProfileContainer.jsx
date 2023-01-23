@@ -4,7 +4,7 @@ import {connect} from "react-redux";
 import {
     getProfileThunkCreator,
     putMyProfileThunkCreator,
-    putStatusThunkCreator,
+    putStatusThunkCreator, setEditProfileStatus,
     setprofilePhotoThunkCreator
 } from "../../redux/profile-reducer";
 import {Navigate} from "react-router-dom"
@@ -54,8 +54,8 @@ class ProfileContainer extends React.Component {
             uploadImage={this.uploadImage} // загрузка
             putProfile={this.putProfile} // задание профиля на сервер после ввода данных
             dispatch={this.props.dispatch} // для резета формы профиля
-            editProfileError = {this.props.editProfileError} // список ошибок правки формы профиля с сервера
-
+            editProfileStatus = {this.props.editProfileStatus} // список ошибок правки формы профиля с сервера
+            setEditProfileStatus={this.props.setEditProfileStatus}// экшн креатор задания ошибки с сервера в стейт после правки профиля
         />
     }
 }
@@ -66,11 +66,11 @@ let mapStateToProps = (state) => {
         isAuth: state.auth.isAuth,
         myId: state.auth.myId, // мой
         status: state.profilePage.status, // статус
-        editProfileError: state.profilePage.editProfileError  // список ошибок правки формы профиля с сервера
-
+        editProfileStatus: state.profilePage.editProfileStatus  // список ошибок правки формы профиля с сервера
     }
 }
 
+/*
 let mapDispatchToProps = (dispatch) => {
     return {
         getProfileThunkCreator: (userId) => {
@@ -88,9 +88,17 @@ let mapDispatchToProps = (dispatch) => {
         dispatch: dispatch
     }
 }
+*/
 
 export default compose(
-    connect(mapStateToProps, mapDispatchToProps),
+    connect(mapStateToProps, {
+        setEditProfileStatus,// экшн креатор задания ошибки с сервера в стейт после правки профиля
+        getProfileThunkCreator,// санкреатор на получение профиля выбранного пользователя
+        putStatusThunkCreator,// санкреатор обновления моего статуса
+        setprofilePhotoThunkCreator,// санкреатор установки фотографии моего профиля
+        putMyProfileThunkCreator, // санкреатор установки моего профиля myProfile
+
+    }),
     withRouter2,// получить данные ID из URL браузера и добавить в пропсы
     NavigateToLoginHoc2// проверка, залогинен ли я
 )

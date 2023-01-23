@@ -8,7 +8,7 @@ import {MyCheckbox, MyTextArea, MyTextInput} from "../../../common/formikCommon/
 let myValidationSchema = Yup.object({ // валидация форм на required, длину и заполнение полей
 })
 
-const EditProfileFormik = ({putProfile, setEditMode, profile, editProfileError}) => { // основная компонента с входным колбэком, чтобы забрать данные с форм
+const EditProfileFormik = ({putProfile, setEditMode, profile, setEditProfileStatus}) => { // основная компонента с входным колбэком, чтобы забрать данные с форм
 
     let e = React.createElement
     let myInitialValues = { // начальные зачения форм
@@ -22,7 +22,7 @@ const EditProfileFormik = ({putProfile, setEditMode, profile, editProfileError})
     const myOnSubmit = (values, {resetForm}) => { // действия по сабмиту
         putProfile(values) // колбек, который принмает результат ввода формы
         resetForm()// сбросить значение формы после ввода
-      //  setEditMode(false) // снятие режима редактирования комменты когда закончу форму
+        //  setEditMode(false) // снятие режима редактирования комменты когда закончу форму
 
     }
 
@@ -38,7 +38,7 @@ const EditProfileFormik = ({putProfile, setEditMode, profile, editProfileError})
 
                 e('div', {},
                     e('div', //Редактирование профиля
-                        { className: classes.HeaderEditProfileForm},
+                        {className: classes.HeaderEditProfileForm},
                         'Редактирование профиля'
                     ),
 
@@ -88,7 +88,13 @@ const EditProfileFormik = ({putProfile, setEditMode, profile, editProfileError})
                     e('br'), //перенос строки
 
                     //кнопка сброса к значениям по умолчанию
-                    e('button', {type: 'button', onClick: handleReset}, 'Сброс'),
+                    e('button', {
+                        type: 'button',
+                        onClick: () => { // при клике по кнопке отмена
+                            handleReset()// занулить поля вводла по умолчанию
+                            setEditProfileStatus([]) // сбросить сообщение об ошибке с сервера
+                        }
+                    }, 'Сброс'),
 
                     " ", //отступ между кнопками
 
@@ -99,8 +105,9 @@ const EditProfileFormik = ({putProfile, setEditMode, profile, editProfileError})
 
                     //отмена
                     e('button', {
-                        onClick: () => { // по клику
+                        onClick: () => { // при клике по кнопке отмена
                             setEditMode(false)// переключиться с режима редактирования профиля на просмотр
+                            setEditProfileStatus([]) // сбросить сообщение об ошибке с сервера
                         }
                     }, 'Отмена'),
                 )

@@ -11,8 +11,8 @@ const PROFILE_INITIAL_STATE = "myApp/profile-reducer/PROFILE_INITIAL_STATE" // �
 const SET_PROFILE_PHOTO = "myApp/profile-reducer/SET_PROFILE_PHOTO" // константа задания фото профиля
 const SET_EDIT_PROFILE_ERROR= "myApp/auth-reducer/SET_EDIT_PROFILE_ERROR"; //константа задания ошибки правеки профиля
 
-export let setEditProfileError = (editProfileError) => { // экшн креатор задания моих ID, Email, login
-    return {type: SET_EDIT_PROFILE_ERROR, editProfileError}
+export let setEditProfileStatus = (editProfileStatus) => { // экшн креатор задания ошибки с сервера в стейт после правки профиля
+    return {type: SET_EDIT_PROFILE_ERROR, editProfileStatus}
 };
 export let deletePostActionCreator = (postId) => { // экшнкреатор удаления поста по postId
     return {type: DELETE_POST, postId}
@@ -40,7 +40,7 @@ let initialState = {
     ],
     profile: null, // нулевой профиль просматриваемого пользователя по умолчанию
     status: null, // нулевой статус просматриваемого пользователя по умолчанию
-    editProfileError: [], // список ошибок правки формы профиля с сервера
+    editProfileStatus: [], // список ошибок правки формы профиля с сервера
 
 }
 export let profileReducer = (state = initialState, action) => { // редьюсер профиля
@@ -85,10 +85,10 @@ export let profileReducer = (state = initialState, action) => { // редьюс�
             stateCopy = initialState
             if (bedug_mode) {console.log("profile-reducer.jsx, PROFILE_INITIAL_STATE: ", state, stateCopy)} // дебаг
             return stateCopy;
-        case SET_EDIT_PROFILE_ERROR: // экшн задания ошибки правки профиля с сервера
+        case SET_EDIT_PROFILE_ERROR: // экшн задания ошибки с сервера в стейт после правки профиля
             stateCopy = {
                 ...state,
-                editProfileError: action.editProfileError
+                editProfileStatus: action.editProfileStatus
             }
             if (bedug_mode) {
                 console.log("auth-reducer.jsx, SET_EDIT_PROFILE_ERROR: ", state, stateCopy)
@@ -167,16 +167,16 @@ export let putMyProfileThunkCreator = (MyProfile, myId) => { // санкреат
             } // дебаг
             dispatch(setMyProfile(response2))//задание в стейт моих доп данных
             dispatch(getProfileThunkCreator(myId))
-            dispatch(setEditProfileError(["Edited successfully!"])) // отправить данные ошибки в стейт
+            dispatch(setEditProfileStatus(["Edited successfully!"])) // отправить данные ошибки в стейт
         } else { // если пришла ошибка с сервера ввода формы правки профиля
             let message =  // определение локальной переменной message - ответ от сервера
                 !response.messages===0 // если ответа от сервера нет
                     ? "no responce from server" // вывести сообщение заглушку
                     : response.messages // иначе вывести ответ от сервера
             if (bedug_mode) {
-                console.log("auth-reducer.jsx, putMyProfileThunkCreator.await / пришла ошибка с сервера:", response.messages[0]) // отправить данные в форму
+                console.log("auth-reducer.jsx, putMyProfileThunkCreator.await / пришла ошибка с сервера:", message) // отправить данные в форму
             } // дебаг
-            dispatch(setEditProfileError(message)) // отправить данные ошибки в стейт
+            dispatch(setEditProfileStatus(message)) // отправить данные ошибки в стейт
         }
     }
 }

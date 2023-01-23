@@ -1,13 +1,14 @@
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import classes from './ProfileInfo.module.css'
 import commonClasses from '../../common/ButtonOverImage/ButtonOverImage.module.css'
 import Preloader from "../../common/Preloader/Preloader";
 import ProfileStatusUseReducer from "./ProfileStatus/ProfileStatusUseReducer";
 import {bedug_mode} from "../../../redux/store-redux";
 import userPhoto1 from "../../../assets/images/no-image3.png";
-import EditProfileFormik from "./EditProfile/EditProfileFormik"; // заглушка фото пользователя
+import EditProfileFormik from "./EditProfile/EditProfileFormik";
 
 const ShowProfile = ({profile, setEditMode, userId, myId}) => { // вынес отдельно отображение профиля
+
     let Contact = (key1) => { /*простая функция вывода отдельного элемента contacts из profile*/
         return <div>
             <b>{key1}: </b>{profile.contacts[key1]}
@@ -36,11 +37,28 @@ const ShowProfile = ({profile, setEditMode, userId, myId}) => { // вынес о
     )
 }
 
-const ProfileInfo = ({profile, myId, status, putStatusThunkCreator, uploadImage,
-                         userId, putProfile, editProfileError}) => {
+const ProfileInfo = ({
+                         profile, myId, status, putStatusThunkCreator, uploadImage,
+                         userId, putProfile, editProfileStatus, setEditProfileStatus
+                     }) => {
+
     const [profilePhoto, setprofilePhoto] = useState(userPhoto1) // useState для временного хранения фото пользователя
     const [editMode, setEditMode] = useState(false) // флаг режима редактирования профиля
     const [showUploadImageButton, setshowUploadImageButton] = useState(false) // флаг показать ли кнопку загрузки изображения
+
+    const editedSuccessfully = editProfileStatus.length > 0 // если сообщение об ошибке/обновлении существует
+        && editProfileStatus[0] === "Edited successfully!" // и успешный статус обновления с сервера
+
+    useEffect(()=>{
+        if (editedSuccessfully) { // если успешно обновлен профиль на сервере
+            setEditMode(false) // закрыть режим редактирования профиля
+            // прокрутить скрол контейнера контента вверх
+            setTimeout(()=>{
+                setEditProfileStatus([]) // убирание сообщения ответа от сервера по таймеру
+            },2000)
+        }
+    },[editProfileStatus]) // переключение режима редактирования зависит от ответа с сервера
+
     if (bedug_mode) {
         console.log("ProfileInfo.jsx")
     } // дебаг
@@ -64,8 +82,9 @@ const ProfileInfo = ({profile, myId, status, putStatusThunkCreator, uploadImage,
 
     let editProfile = editMode &&
         <div>
-            <EditProfileFormik profile={profile} putProfile={putProfile} setEditMode={setEditMode}
-                               userId={userId} myId={myId} editProfileError={editProfileError}/>
+            <EditProfileFormik
+                profile={profile} putProfile={putProfile} setEditMode={setEditMode}
+                userId={userId} myId={myId} editProfileStatus={editProfileStatus} setEditProfileStatus={setEditProfileStatus}/>
         </div>
     let editMyPhoto = (userId === 0) &&// если мы перешли на свой профиль (в браузере нет ID возле profile)
         <div>
@@ -118,17 +137,26 @@ const ProfileInfo = ({profile, myId, status, putStatusThunkCreator, uploadImage,
                 <div>
                     {showProfile} {/*показать профиль*/}
                     {editProfile} {/*редактировать профиль*/}
+                    {/*{editProfileStatus} {/*статус обновления профиля (успешно/ошибки)*/}
                 </div>
                 {/*Если длина больше нуля, то выводим сообщение.
                 Если сообщение sucessully, то закрываем режим редактирования, выводим успех редактирования и по сеттаймауту зануляем стейт с ошибками
                 Если не саксесфулли, то выводим ошибки и не закрываем редактирование*/}
-                <div className={classes.errorText}>
-                    {editProfileError.length>0&&editProfileError.map(err=>{
-                        return <div>
-                            {err}
+                <div>
+                    {editedSuccessfully // если успешно обновлен профиль на сервере
+                        ? <div className={classes.succesfullyUpdated}>
+                            {editProfileStatus[0]} {/*вывести сообщение об успехе*/}
+                        </div>// вывести сообщение успешного обновления
+                        : <div className={classes.errorText}>
+                            {editProfileStatus.map(err => { // иначе вывести ошибки
+                                    return <li key={err}>
+                                        {err}
+                                    </li>
+                                }
+                            )}
                         </div>
-                        }
-                    )} {/*ошибка редактирования профиля*/}
+
+                    } {/*ошибка редактирования профиля*/}
                 </div>
                 <div>
                     {profileStatus} {/*отображение моего статуса*/}
