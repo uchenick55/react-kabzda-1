@@ -14,17 +14,17 @@ const MyFriendItem = ({id, avaSrc, name, unfollowFriendsAPI, dialogUserID}) => {
     if (bedug_mode) {
         console.log("MyFriendItem")
     }
+
+
     const profileImgRender = <NavLink to={'/profile/' + id}>
         <img src={avaSrc} alt={"myFriendImg"} title="Профиль"
-
-             className={imgScale === id ? classes.myFriendImg : classes.myFriendImgHover}
-          //   className={   imgScale === id ? classes.myFriendImg : classes.myFriendImgHover}
-
-             onMouseOver={() => {
-                 setImgScale(id)
+             className={`${classes.myFriendImg} ${imgScale === id ? classes.myFriendImgHover : ""}`}
+            // склеивание классов нормальной картинки и при наведении мышкой
+             onMouseOver={() => { // при наведении мышкой на картинку друга
+                 setImgScale(id) // задать ее id
              }}
-             onMouseLeave={() => {
-                 setImgScale(null)
+             onMouseLeave={() => { // при убирании мышки
+                 setImgScale(null) // занyлить класс наведения
              }}
 
         />
@@ -38,22 +38,19 @@ const MyFriendItem = ({id, avaSrc, name, unfollowFriendsAPI, dialogUserID}) => {
             <div>
                 <div className={classes.DialogProfileUnfollow}>
                     <NavLink to={'/dialogs/' + id}>
-                        <span className={classes.dialogImg}
-                              //className={imgScale === id ? classes.myFriendImg : classes.myFriendImgHover}
-
-                              onMouseOver={() => {
-                                  setDilalogScale(id)
-                              }}
-                              onMouseLeave={() => {
-                                  setDilalogScale(null)
-                              }}
-                        >
-                            <img src={DialogPic} alt="dialog" title="Диалог"/>
-                        </span>
+                        <img src={DialogPic} alt="dialog" title="Диалог"
+                             className={`${classes.dialogImg} ${dilalogScale === id ? classes.dialogImgHover : ""}`}
+                            // склеивание классов нормальной картинки и при наведении мышкой
+                             onMouseOver={() => {
+                                 setDilalogScale(id)
+                             }}
+                             onMouseLeave={() => {
+                                 setDilalogScale(null)
+                             }}/>
                     </NavLink>
                     <span>
                         <PointerCursor>
-                            <img src={UnfollowPic} onClick={() => {
+                            <img src={UnfollowPic} alt="remove_friend" onClick={() => {
                                 unfollowFriendsAPI(id)
                             }} alt="Удалить friendList" title="Удалить из друзей"/>
                         </PointerCursor>

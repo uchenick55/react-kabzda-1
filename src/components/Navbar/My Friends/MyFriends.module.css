@@ -12,20 +12,7 @@
 
 }
 
-.myFriendImg {
-    width: 50px;
-    border-radius: 30px;
-    transform: scale(1.1) rotate(3deg);
-    transition: 0.2s ease-in-out
 
-}
-.myFriendImgHover {
-    width: 50px;
-    border-radius: 2rem;
-    transform: scale(1) ;
-    transition: 0.2s ease-in-out
-
-}
 
 .DialogProfileUnfollow img {
     width: 2rem;
@@ -34,7 +21,20 @@
 .myFriendName {
     font-size: 0.8rem;
 }
+.myFriendImg {
+    width: 50px;
+    border-radius: 30px;
+    transition: 0.2s ease-in-out
+}
+.myFriendImgHover {
+    transform: scale(1.1) rotate(3deg) translate(+6%, 0);
+}
 
 .dialogImg {
-    padding: 1rem;
+    padding-left: 1rem;
+    padding-right: 1rem;
+    transition: 0.2s ease-in-out
+}
+.dialogImgHover {
+    transform: scale(1.2);
 }
