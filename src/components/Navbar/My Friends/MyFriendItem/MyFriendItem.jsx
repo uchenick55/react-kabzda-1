@@ -8,46 +8,54 @@ import {PointerCursor} from "../../../Dark_light_theme/globalStyles";
 
 
 const MyFriendItem = ({id, avaSrc, name, unfollowFriendsAPI, dialogUserID}) => {
-    const [imgScale, setImgScale] = useState(null);
-    const [dilalogScale, setDilalogScale] = useState(null);
+    const [imgScale, setImgScale] = useState(null);// стейт для анимации наведения на картинку друга
+    const [dilalogScale, setDilalogScale] = useState(null); // стейт для анимации наведения на картинку диалога
+    const [removeScale, setRemoveScale] = useState(null); // стейт для анимации наведения на картинку удаления друга
 
     if (bedug_mode) {
         console.log("MyFriendItem")
     }
 
-    const commonImgRender = (src, alt, title, className1, setIdMethod) => {
-        return <img src={src} alt={alt} title={title}
-                    className={className1}
-            // склеивание классов нормальной картинки и при наведении мышкой
-                    onMouseOver={() => { // при наведении мышкой на картинку друга
-                        setIdMethod(id) // задать ее id
+    const commonImgRender = (src, alt, title, className1, setIdMethod, onClickMethod) => { // общий метод отрисовки картинок
+        return <img src={src} alt={alt} title={title} // url картинки, тайтл и alt
+                    className={className1} // класс картитнки с анимацией
+                    onMouseOver={() => { // при наведении мышкой на картинку
+                        setIdMethod(id) // задать ее id в соответствующий метод useState (так меняется класс)
                     }}
                     onMouseLeave={() => { // при убирании мышки
-                        setIdMethod(null) // занyлить класс наведения
+                        setIdMethod(null) // занyлить id в методе useState (так меняется класс)
+                    }}
+                    onClick={() => {
+                        onClickMethod(id)
                     }}
         />
     }
     const profileImgRenderClass = `${classes.myFriendImg} ${imgScale === id ? classes.myFriendImgHover : ""}`
 
     const profileImgRender1 = commonImgRender(
-        avaSrc,// аватар для отрисовки картинки из профиля друга
+        avaSrc,// src для отрисовки картинки из профиля друга
         "myFriendImg", // альтернативный текст картинки
-        "Профиль", // заголовок профиль
+        "Профиль", // заголовок
         `${classes.myFriendImg} ${imgScale === id ? classes.myFriendImgHover : ""}`, // стиль картинок при наведении
         setImgScale // метод для обновления id картинки, на которую навели мышкой
     )
 
     const dialogImgRender1 = commonImgRender(
-        DialogPic,// аватар для отрисовки картинки из профиля друга
+        DialogPic,// src для отрисовки картинки начала диалога
         "dialog", // альтернативный текст картинки
-        "Диалог", // заголовок профиль
-        `${classes.dialogImg} ${dilalogScale === id ? classes.dialogImgHover : ""}`, // стиль картинок при наведении
+        "Диалог", // заголовок
+        `${classes.Img} ${dilalogScale === id ? classes.ImgHover : ""}`, // стиль картинок при наведении
         setDilalogScale // метод для обновления id картинки, на которую навели мышкой
     )
 
-    const removeFriendRender1 = <img src={UnfollowPic} alt="remove_friend" onClick={() => {
-        unfollowFriendsAPI(id)
-    }} alt="Удалить friendList" title="Удалить из друзей"/>
+    const removeFriendRender1 = commonImgRender(
+        UnfollowPic,// src для отрисовки картинки удаления друга из списка
+        "remove_friend", // альтернативный текст картинки
+        "Удалить из friendList", // заголовок
+        `${classes.Img} ${removeScale === id ? classes.ImgHover : ""}`, // стиль картинок при наведении
+        setRemoveScale, // метод для обновления id картинки, на которую навели мышкой
+        unfollowFriendsAPI // метод удаления друга из диалогов
+    )
 
     return <div className={classes.myfriends}>
         <div className={classes.myFriendImgNameId}>
@@ -55,7 +63,6 @@ const MyFriendItem = ({id, avaSrc, name, unfollowFriendsAPI, dialogUserID}) => {
                 <NavLink to={'/profile/' + id}>
                     {profileImgRender1} {/*отрисовка фото друзей с анимацией*/}
                 </NavLink>
-
             </div>
             <div>
                 <div className={classes.DialogProfileUnfollow}>
