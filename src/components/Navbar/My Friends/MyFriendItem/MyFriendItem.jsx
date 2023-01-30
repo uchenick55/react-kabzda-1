@@ -15,49 +15,58 @@ const MyFriendItem = ({id, avaSrc, name, unfollowFriendsAPI, dialogUserID}) => {
         console.log("MyFriendItem")
     }
 
-
-    const profileImgRender = <NavLink to={'/profile/' + id}>
-        <img src={avaSrc} alt={"myFriendImg"} title="Профиль"
-             className={`${classes.myFriendImg} ${imgScale === id ? classes.myFriendImgHover : ""}`}
+    const commonImgRender = (src, alt, title, className1, setIdMethod) => {
+        return <img src={src} alt={alt} title={title}
+                    className={className1}
             // склеивание классов нормальной картинки и при наведении мышкой
-             onMouseOver={() => { // при наведении мышкой на картинку друга
-                 setImgScale(id) // задать ее id
-             }}
-             onMouseLeave={() => { // при убирании мышки
-                 setImgScale(null) // занyлить класс наведения
-             }}
-
+                    onMouseOver={() => { // при наведении мышкой на картинку друга
+                        setIdMethod(id) // задать ее id
+                    }}
+                    onMouseLeave={() => { // при убирании мышки
+                        setIdMethod(null) // занyлить класс наведения
+                    }}
         />
-    </NavLink>
+    }
+    const profileImgRenderClass = `${classes.myFriendImg} ${imgScale === id ? classes.myFriendImgHover : ""}`
+
+    const profileImgRender1 = commonImgRender(
+        avaSrc,// аватар для отрисовки картинки из профиля друга
+        "myFriendImg", // альтернативный текст картинки
+        "Профиль", // заголовок профиль
+        `${classes.myFriendImg} ${imgScale === id ? classes.myFriendImgHover : ""}`, // стиль картинок при наведении
+        setImgScale // метод для обновления id картинки, на которую навели мышкой
+    )
+
+    const dialogImgRender1 = commonImgRender(
+        DialogPic,// аватар для отрисовки картинки из профиля друга
+        "dialog", // альтернативный текст картинки
+        "Диалог", // заголовок профиль
+        `${classes.dialogImg} ${dilalogScale === id ? classes.dialogImgHover : ""}`, // стиль картинок при наведении
+        setDilalogScale // метод для обновления id картинки, на которую навели мышкой
+    )
+
+    const removeFriendRender1 = <img src={UnfollowPic} alt="remove_friend" onClick={() => {
+        unfollowFriendsAPI(id)
+    }} alt="Удалить friendList" title="Удалить из друзей"/>
 
     return <div className={classes.myfriends}>
         <div className={classes.myFriendImgNameId}>
             <div>
-                {profileImgRender} {/*отрисовка фото друзей с анимацией*/}
+                <NavLink to={'/profile/' + id}>
+                    {profileImgRender1} {/*отрисовка фото друзей с анимацией*/}
+                </NavLink>
+
             </div>
             <div>
                 <div className={classes.DialogProfileUnfollow}>
                     <NavLink to={'/dialogs/' + id}>
-                        <img src={DialogPic} alt="dialog" title="Диалог"
-                             className={`${classes.dialogImg} ${dilalogScale === id ? classes.dialogImgHover : ""}`}
-                            // склеивание классов нормальной картинки и при наведении мышкой
-                             onMouseOver={() => {
-                                 setDilalogScale(id)
-                             }}
-                             onMouseLeave={() => {
-                                 setDilalogScale(null)
-                             }}/>
+                        {dialogImgRender1} {/*отрисовка картитнки начала диалога с анимацией*/}
                     </NavLink>
-                    <span>
-                        <PointerCursor>
-                            <img src={UnfollowPic} alt="remove_friend" onClick={() => {
-                                unfollowFriendsAPI(id)
-                            }} alt="Удалить friendList" title="Удалить из друзей"/>
-                        </PointerCursor>
-                     </span>
+                    <PointerCursor>
+                        {removeFriendRender1} {/*отрисовка картинок удаления друзей с анимацией*/}
+                    </PointerCursor>
                 </div>
-                <div className={classes.myFriendName}> {name}</div>
-
+                <div className={classes.myFriendName}> {name}</div> {/*отрисовка имени друга*/}
             </div>
         </div>
 
