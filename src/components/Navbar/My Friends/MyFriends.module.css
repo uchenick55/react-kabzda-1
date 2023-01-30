@@ -15,25 +15,26 @@
 .myFriendImg {
     width: 50px;
     border-radius: 30px;
+    transform: scale(1.1) rotate(3deg);
+    transition: 0.2s ease-in-out
+
+}
+.myFriendImgHover {
+    width: 50px;
+    border-radius: 2rem;
+    transform: scale(1) ;
+    transition: 0.2s ease-in-out
 
 }
 
 .DialogProfileUnfollow img {
-    width: 30px;
+    width: 2rem;
 }
 
 .myFriendName {
-    font-size: 11px;
+    font-size: 0.8rem;
 }
 
-.currentDialog {
-    padding: 10px;
-    font-weight: bold;
-    color: coral;
-}
-.otherDialogs {
-    padding: 10px;
-}
-.otherProfile {
-    padding-right: 10px;
+.dialogImg {
+    padding: 1rem;
 }

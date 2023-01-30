@@ -2,27 +2,37 @@ import {useState} from "react";
 import classes from "./tmp.module.css";
 
 let Tmp = () => {
-    const [imgScale, setImgScale] = useState();
+    const [imgScale, setImgScale] = useState(null);
 
-    const onMouseOverFn = () => {
-        setImgScale("fox");
+    const onMouseOverFn = (itemId) => {
+        setImgScale(itemId);
     };
     return (
-        <div className={classes.basicWidts} style={{width: "100px"}}>
-            <div style={{transform: "scale(1.1)"}}>
-                <img
-                    src="https://interactive-examples.mdn.mozilla.net/media/examples/firefox-logo.svg"
-                    alt=""
-                    // onMouseOver = {onMouseOverFn}
+        <div>
+            <span>
+                <img className={imgScale === 1 ? classes.item1: classes.item2}
+                     src="https://interactive-examples.mdn.mozilla.net/media/examples/firefox-logo.svg"
+                     onMouseOver={() => {
+                         onMouseOverFn(1)
+                     }}
+                     onMouseLeave={() => {
+                         onMouseOverFn(null)
+                     }}
+
                 />
-            </div>
-            <div style={{width: "100px"}}>
-                <img
-                    src="https://interactive-examples.mdn.mozilla.net/media/examples/firefox-logo.svg"
-                    alt=""
-                    // onMouseOver = {onMouseOverFn}
+            </span>
+            <span>
+                <img className={imgScale === 2 ? classes.item1: classes.item2}
+                     src="https://interactive-examples.mdn.mozilla.net/media/examples/firefox-logo.svg"
+                     onMouseOver={() => {
+                         onMouseOverFn(2)
+                     }}
+                     onMouseLeave={() => {
+                         onMouseOverFn(null)
+                     }}
+
                 />
-            </div>
+            </span>
         </div>
     );
 };

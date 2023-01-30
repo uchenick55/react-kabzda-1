@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useState} from 'react';
 import classes from './../MyFriends.module.css';
 import {NavLink} from "react-router-dom";
 import {bedug_mode} from "../../../../redux/store-redux";
@@ -8,23 +8,48 @@ import {PointerCursor} from "../../../Dark_light_theme/globalStyles";
 
 
 const MyFriendItem = ({id, avaSrc, name, unfollowFriendsAPI, dialogUserID}) => {
+    const [imgScale, setImgScale] = useState(null);
+    const [dilalogScale, setDilalogScale] = useState(null);
+
     if (bedug_mode) {
         console.log("MyFriendItem")
     }
+    const profileImgRender = <NavLink to={'/profile/' + id}>
+        <img src={avaSrc} alt={"myFriendImg"} title="Профиль"
+
+             className={imgScale === id ? classes.myFriendImg : classes.myFriendImgHover}
+          //   className={   imgScale === id ? classes.myFriendImg : classes.myFriendImgHover}
+
+             onMouseOver={() => {
+                 setImgScale(id)
+             }}
+             onMouseLeave={() => {
+                 setImgScale(null)
+             }}
+
+        />
+    </NavLink>
+
     return <div className={classes.myfriends}>
         <div className={classes.myFriendImgNameId}>
             <div>
-                <NavLink to={'/profile/' + id}>
-                    <img src={avaSrc} alt={"myFriendImg"} title="Профиль" className={classes.myFriendImg}/>
-                </NavLink>
+                {profileImgRender} {/*отрисовка фото друзей с анимацией*/}
             </div>
             <div>
                 <div className={classes.DialogProfileUnfollow}>
                     <NavLink to={'/dialogs/' + id}>
-                        {dialogUserID === id
-                            ? <span className={classes.currentDialog}><img src={DialogPic} alt="dialog" title="Диалог"/></span>
-                            : <span className={classes.otherDialogs}><img src={DialogPic} alt="dialog" title="Диалог"/></span>
-                        }
+                        <span className={classes.dialogImg}
+                              //className={imgScale === id ? classes.myFriendImg : classes.myFriendImgHover}
+
+                              onMouseOver={() => {
+                                  setDilalogScale(id)
+                              }}
+                              onMouseLeave={() => {
+                                  setDilalogScale(null)
+                              }}
+                        >
+                            <img src={DialogPic} alt="dialog" title="Диалог"/>
+                        </span>
                     </NavLink>
                     <span>
                         <PointerCursor>
@@ -36,9 +61,6 @@ const MyFriendItem = ({id, avaSrc, name, unfollowFriendsAPI, dialogUserID}) => {
                 </div>
                 <div className={classes.myFriendName}> {name}</div>
 
-{/*
-                <div>{id}</div>
-*/}
             </div>
         </div>
 

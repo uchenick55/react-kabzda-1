@@ -1,0 +1,12 @@
+.basicWidts {
+    width: 30px;
+}
+
+.item1 {
+    transform: scale(1.1) rotate(3deg);
+    transition: 0.2s ease-in-out
+}
+.item2 {
+    transform: scale(1) ;
+    transition: 0.2s ease-in-out
+}
