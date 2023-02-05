@@ -30,8 +30,6 @@ const MyFriendItem = ({id, avaSrc, name, unfollowFriendsAPI, dialogUserID}) => {
                     }}
         />
     }
-    const profileImgRenderClass = `${classes.myFriendImg} ${imgScale === id ? classes.myFriendImgHover : ""}`
-
     const profileImgRender1 = commonImgRender(
         avaSrc,// src для отрисовки картинки из профиля друга
         "myFriendImg", // альтернативный текст картинки

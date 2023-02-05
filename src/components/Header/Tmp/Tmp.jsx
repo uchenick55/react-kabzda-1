@@ -1,39 +1,51 @@
 import {useState} from "react";
 import classes from "./tmp.module.css";
+import "./tmp.scss"
 
 let Tmp = () => {
-    const [imgScale, setImgScale] = useState(null);
 
-    const onMouseOverFn = (itemId) => {
-        setImgScale(itemId);
+    const dataItems = {
+        name1: "item1",
+        name2: "item2",
+        name3: "item3",
+        name4: "item4",
+        name5: "item5"
     };
-    return (
-        <div>
-            <span>
-                <img className={imgScale === 1 ? classes.item1: classes.item2}
-                     src="https://interactive-examples.mdn.mozilla.net/media/examples/firefox-logo.svg"
-                     onMouseOver={() => {
-                         onMouseOverFn(1)
-                     }}
-                     onMouseLeave={() => {
-                         onMouseOverFn(null)
-                     }}
 
-                />
-            </span>
-            <span>
-                <img className={imgScale === 2 ? classes.item1: classes.item2}
-                     src="https://interactive-examples.mdn.mozilla.net/media/examples/firefox-logo.svg"
-                     onMouseOver={() => {
-                         onMouseOverFn(2)
-                     }}
-                     onMouseLeave={() => {
-                         onMouseOverFn(null)
-                     }}
+    const item = Object.keys(dataItems).map((item, i) => {
+        let className1 = `${dataItems[item]}-${i}`;
+        return (
+            <div className={className1} key={i}>
+                <div className="container">
+                    {" "}
+                    <p> {`${dataItems[item]}`} <b>{`- bold ${i+1}`}</b> </p>{/* в теге p завернут тег b - стилизуется миксином*/}
 
-                />
-            </span>
+                </div>
+            </div>
+        );
+    });
+    const item2 = Object.keys(dataItems).map((item, i) => {
+        return (
+            <div key={i}>
+                <div className="container2">
+                    {" "}
+                    <a href="#qqq"> Убираем подчеркивание стиля миксином</a> {/* в теге p завернут тег b - стилизуется миксином*/}
+
+                </div>
+            </div>
+        );
+    });
+    return (<div>
+            <div className='container1'>
+                <p>123</p>
+            </div>
+            <span>{item}</span>
+            {item2}
         </div>
+
     );
+    return;
+
+
 };
 export default Tmp;

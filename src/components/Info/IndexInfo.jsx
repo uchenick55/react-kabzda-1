@@ -26,7 +26,6 @@ let IndexInfo = () => {
                     <li>Поиск возможных комбинаций чисел из массива, для получения опреденной суммы.</li>
                 </ol>
             </ul>
-            <p>Проверка оптимизации: <a href="https://pagespeed.web.dev/report?url=https%3A%2F%2Fuchenick55.github.io%2Freact-kabzda-1%2F&form_factor=desktop">Google PageSpeed Insights</a></p>
             <p>Git репозиторий: <a
                 href="https://github.com/uchenick55/react-kabzda-1.git"><br/>https://github.com/uchenick55/react-kabzda-1.git</a>
             </p>
