@@ -44,6 +44,11 @@ div.knopka:hover { background: rgb(100,100,255,0.2); } /* при наведен�
     border-radius: 30px;
     width: 50px;
     padding: 5px;
+    transition: 0.2s ease-in-out;
+}
+.dialogImg:hover {
+    transform: scale(0.95) translate(+3px, 0);
+    -ms-transform: translate(10px, 0px);
 }
 
 .FieldLeft {

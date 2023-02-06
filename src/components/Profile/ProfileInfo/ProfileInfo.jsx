@@ -113,6 +113,8 @@ const ProfileInfo = ({
             </form>
         </div>
 
+    let myImgScale = showUploadImageButton ? "commonClasses.ImgHover" : "" // класс увеличения изображения при наведении
+
     let showUserPhoto = <img
         alt={"userPhoto"}
         onMouseOver={() => {
@@ -121,7 +123,8 @@ const ProfileInfo = ({
         onMouseOut={() => {
             setshowUploadImageButton(false)
         }}
-        className={commonClasses.profilePhotoIMG}
+        className={`${commonClasses.profilePhotoIMG} ${userId === 0 && showUploadImageButton === true ? commonClasses.ImgHover : ""}`}
+        // если это мой профиль (userId === 0) и мышкой навели на картинку, добавить ImgHover класс (альтернатива псевдокласса :hover)
         src={profile.photos.large ? profile.photos.large : userPhoto1}/>
 
     return <div>

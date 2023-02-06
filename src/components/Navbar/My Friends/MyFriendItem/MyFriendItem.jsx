@@ -8,6 +8,7 @@ import {PointerCursor} from "../../../Dark_light_theme/globalStyles";
 
 
 const MyFriendItem = ({id, avaSrc, name, unfollowFriendsAPI}) => {
+    /*для тренировки - альтернатива псевдоклассу :hover через хуки useState*/
     const [imgScale, setImgScale] = useState(null);// стейт для анимации наведения на картинку друга
     const [dilalogScale, setDilalogScale] = useState(null); // стейт для анимации наведения на картинку диалога
     const [removeScale, setRemoveScale] = useState(null); // стейт для анимации наведения на картинку удаления друга

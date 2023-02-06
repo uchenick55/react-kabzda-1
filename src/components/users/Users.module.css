@@ -1,6 +1,12 @@
 .userPhoto {
     border-radius: 30px;
     width:80px;
+    transition: 0.2s ease-in-out;
+
+}
+.userPhoto:hover {
+    transform: scale(0.95) translate(+0px, 2px);
+    -ms-transform: translate(10px, 0px);
 }
 
 .users {

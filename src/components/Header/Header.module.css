@@ -20,8 +20,13 @@
 .header img {
     height: 45px;
     border-radius: 20px;
-}
+    transition: 0.2s ease-in-out;
 
+}
+.header img:hover {
+    transform: scale(1.05) translate(+0px, 0px);
+    -ms-transform: translate(0px, 0px);
+}
 
 .font1word {
     font-size: 12px;
@@ -70,9 +75,18 @@
     left: 4px;
     box-shadow: 0px 2px 5px 0px rgba(0, 0, 0, 0.3);
     background: linear-gradient(to bottom, #fcfff4 0%, #dfe5d7 40%, #b3bead 100%);
-    transition: all 0.4s ease;
     cursor: pointer;
+    transition: 0.2s ease-in-out;
+
+
 }
+.checkboxLabel:hover {
+
+    transform: scale(1.1) translate(+0px, 0px);
+    -ms-transform: translate(0px, 0px);
+
+}
+
 .checkboxLabel:after {
     content: '';
     width: 10px;

@@ -37,7 +37,7 @@ let ContentContainer = () => { // вынес роутинг контента в 
                         <Route path='tmp' element={<Tmp/>}/> {/*Общие Комментарии*/}
                     </Routes>
                     <div>
-                        <button onClick={()=>{setShow(true)}}>Show Modal</button> {/*открыть модальрное окно по клику*/}
+                        {/*  <button onClick={()=>{setShow(true)}}>Show Modal</button> {/*открыть модальрное окно по клику*/}
                         <Modal
                             show={show} //флаг show показывает/скрывает модальное окно
                             onClose={()=>{setShow(false)}} // колбек на закрытие модального окна

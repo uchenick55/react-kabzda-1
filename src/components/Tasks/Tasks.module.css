@@ -7,5 +7,14 @@ a.taskcCommon {
     width: 70%;
     height: auto;
     border-radius: 10px;
+    transition: 0.2s ease-in-out;
+
 }
+.imgTasks:hover {
+    transform: scale(0.98) translate(+0px, 0);
+    -ms-transform: translate(10px, 0px);
+
+}
+
+
 
