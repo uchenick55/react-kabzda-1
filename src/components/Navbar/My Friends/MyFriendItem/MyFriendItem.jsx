@@ -7,7 +7,7 @@ import UnfollowPic from "../../../../assets/images/unfollow.png"
 import {PointerCursor} from "../../../Dark_light_theme/globalStyles";
 
 
-const MyFriendItem = ({id, avaSrc, name, unfollowFriendsAPI, dialogUserID}) => {
+const MyFriendItem = ({id, avaSrc, name, unfollowFriendsAPI}) => {
     const [imgScale, setImgScale] = useState(null);// стейт для анимации наведения на картинку друга
     const [dilalogScale, setDilalogScale] = useState(null); // стейт для анимации наведения на картинку диалога
     const [removeScale, setRemoveScale] = useState(null); // стейт для анимации наведения на картинку удаления друга
@@ -65,10 +65,10 @@ const MyFriendItem = ({id, avaSrc, name, unfollowFriendsAPI, dialogUserID}) => {
             <div>
                 <div className={classes.DialogProfileUnfollow}>
                     <NavLink to={'/dialogs/' + id}>
-                        {dialogImgRender1} {/*отрисовка картитнки начала диалога с анимацией*/}
+                        {dialogImgRender1 /*отрисовка картитнки начала диалога с анимацией*/}
                     </NavLink>
                     <PointerCursor>
-                        {removeFriendRender1} {/*отрисовка картинок удаления друзей с анимацией*/}
+                        {removeFriendRender1 /*отрисовка картинок удаления друзей с анимацией*/}
                     </PointerCursor>
                 </div>
                 <div className={classes.myFriendName}> {name}</div> {/*отрисовка имени друга*/}

@@ -1,5 +1,4 @@
-import {useState} from "react";
-import classes from "./tmp.module.css";
+
 import "./tmp.scss"
 
 let Tmp = () => {
@@ -45,7 +44,5 @@ let Tmp = () => {
 
     );
     return;
-
-
 };
 export default Tmp;
