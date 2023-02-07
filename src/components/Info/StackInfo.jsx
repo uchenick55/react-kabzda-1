@@ -13,14 +13,14 @@ let StackInfo = () => {
         <p>BLL (Redux): store, state, reducer, callback, dispatch, action (type), action creator, case/switch,
             thunk/thunkCreator, thunkMiddleWare, redux-ducks. </p>
         <p>DAL (API): ajax, axios, get, post, put, delete, async/await, .then/.catch.        </p>
-        <p>JS: try/catch/finally, setTimeout/setInterval, Object.keys/values, Math.ceil, new Date(), JSON.stringify, deep/shallow copy, closure, map, filter, some, find, sort.</p>
+        <p>JS: try/catch/finally, setTimeout/setInterval, Object.keys/values/hasOwnProperty,  Math.ceil/floor, new Date(), JSON.stringify, deep/shallow copy, closure, map, filter, some, find, sort, reduce, forEach, slice, splice, split, join, includes, Array.from, reverse etc. </p>
         <p>Git: checkout (-b), commit –a -m, merge, push, branch (–m), gitk –all&, reset –hard, pull.       </p>
         <p>Libs: react-router-dom, react-redux, redux-form, formik + yup, reselect, styled-components.        </p>
         <p>Node: npm/npx </p>
         <p>IDE: Webstorm/ codesandbox.io. </p>
         <p>Test: Jest.</p>
         <p>Extra: base html, fieldset/legend, cookie, github pages.</p>
-        <p>CSS: base css, module.css, grid. </p>
+        <p>CSS: basic css, module.css, scss, grid. </p>
         <p>BugFix: debugger/ breakpoint/console/network/window.store, ReduxDevTools (state, history), ReactDevTools(state, props, components).</p>
         <p>My CodeWars acc: <a href="https://www.codewars.com/users/uchenick55/completed" target = "_blank"  rel="noreferrer">completed kata</a></p>
     </div>

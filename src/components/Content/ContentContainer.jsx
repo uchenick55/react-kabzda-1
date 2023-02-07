@@ -5,7 +5,7 @@ import ErrorBoundary from "../common/ErrorBoundary/ErrorBoundary";
 import Tasks from "../Tasks/Tasks";
 import ProfileContainer from "../Profile/ProfileContainer";
 import Modal from "../common/Modal/Modal";
-import Tmp from "../Header/Tmp/Tmp";
+import Scss from "../Scss/Scss";
 
 //const ProfileContainer = React.lazy(() => import("../Profile/ProfileContainer"))
 const DialogsContainer = React.lazy(() => import("../Dialogs/DialogsContainer"))
@@ -34,7 +34,7 @@ let ContentContainer = () => { // вынес роутинг контента в 
                         <Route path='' element={<StackInfo/>}/> {/*Общие Комментарии*/}
                         <Route path='feedback' element={<FeedBackContainer/>}/> {/*Общие Комментарии*/}
                         <Route path='tasks' element={<Tasks/>}/> {/*Общие Комментарии*/}
-                        <Route path='tmp' element={<Tmp/>}/> {/*Общие Комментарии*/}
+                        <Route path='scss' element={<Scss/>}/> {/*Общие Комментарии*/}
                     </Routes>
                     <div>
                         {/*  <button onClick={()=>{setShow(true)}}>Show Modal</button> {/*открыть модальрное окно по клику*/}

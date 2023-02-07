@@ -112,9 +112,7 @@ const ProfileInfo = ({
                         type="file" onChange={onChangeProfilePhoto}/></span> {/*загрузить файл*/}
             </form>
         </div>
-
-    let myImgScale = showUploadImageButton ? "commonClasses.ImgHover" : "" // класс увеличения изображения при наведении
-
+    
     let showUserPhoto = <img
         alt={"userPhoto"}
         onMouseOver={() => {
