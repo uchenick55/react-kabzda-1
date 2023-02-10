@@ -1,3 +1,5 @@
+import React from "react";
+
 let IndexInfo = () => {
     return (<div>
             <p>За основу взят курс <a href="https://www.youtube.com/playlist?list=PLcvhF2Wqh7DNVy1OCUpG3i5lyxyBWhGZ8">React
@@ -20,10 +22,12 @@ let IndexInfo = () => {
                 <li>Игра крестики-нолики</li>
                 <li>Скролинг данных</li>
                 <li>FeedBack - Форма обратной связи с отправкой на почту</li>
-                <li>Tasks - примеры решения задач</li>
+                <li>Tasks - примеры решения интересных задач и выполнения заданий:</li>
                 <ol>
                     <li>Поиск сортировка, фильтрация и контекстное меню</li>
                     <li>Поиск возможных комбинаций чисел из массива, для получения опреденной суммы.</li>
+                    <li>Одностраничник на HTML+CSS + адаптивный масштаб, popup, аккордеон, слайдер, и прочее оформление из bootstrap</li>
+
                 </ol>
             </ul>
             <p>Git репозиторий: <a
@@ -35,3 +39,4 @@ let IndexInfo = () => {
     )
 }
 export default IndexInfo
+
