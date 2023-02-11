@@ -1,0 +1,45 @@
+.myfriends {
+    padding-top: 10px;
+
+}
+
+.myfriends img {
+}
+
+.myFriendImgNameId {
+    display: grid;
+    grid-template-columns: 60px 1fr;
+
+}
+
+
+
+.DialogProfileUnfollow img {
+    width: 2rem;
+}
+
+.myFriendName {
+    font-size: 0.8rem;
+}
+.myFriendImg {
+    width: 50px;
+    border-radius: 30px;
+    transition: 0.2s ease-in-out
+}
+.myFriendImgHover {
+    transform: scale(1.1) rotate(3deg) translate(+6%, 0);
+}
+
+.Img {
+    transform: none;
+    padding-left: 1rem;
+    transition: 0.2s ease-in-out
+}
+.Img:hover {
+    transform: scale(1.2);
+}
+.ImgHover {
+    /*
+    transform: scale(1.2);
+    */
+}
