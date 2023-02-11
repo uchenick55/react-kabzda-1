@@ -6,36 +6,38 @@ import {PointerCursor} from "../../Dark_light_theme/globalStyles";
 
 
 const DialogItem = ({deleteDialog, dialogId, userPhoto, userName, userId, dialogUserID}) => {
-    let onMouseOverAction = () => {
 
-    }
-    return <div className={userId === dialogUserID ? classes.dialogCurrent : classes.dialog} >
+    const DialogNamePhotoRender = <NavLink to={'/dialogs/' + userId}> {/*навигация на диалог*/}
+        {/*отдельно вынес отрисовку фото и имени пользователя со сменой URL*/}
+        <div className={classes.knopka}>
+            <div className={classes.dialogList}>{/* Разделение фото и имени*/}
+                <div>
+                    <img src={userPhoto} alt={"userPhoto"} className={classes.dialogImg}/> {/*Фото диалога*/}
+                </div>
+                <div>
+                    <div>{userName}</div>
+                    {/*имя*/}
+                </div>
+            </div>
+        </div>
+    </NavLink>
+
+    const deleteDialogRender = <PointerCursor> {/*вынес отдельно кнопку удаления диалога из диалоглиста*/}
+        <img src={x} alt={"Удалить из своего диалогЛиста"} className={classes.x}
+             onClick={() => {
+                 deleteDialog(dialogId, userId)
+             }} title={"Удалить из своего диалогЛиста"}/>
+    </PointerCursor>
+
+    return <div className={userId === dialogUserID ? classes.dialogCurrent : classes.dialog}>
         <div className={classes.dialogItemGreed}>  {/*разделение фото имени с кнопкой закрытия диалога в диалогЛисте*/}
-            <div >
-                <NavLink to={'/dialogs/' + userId}> {/*навигация на диалог*/}
-                    <div className={classes.knopka}>
-                        <div className={classes.dialogList}>{/* Разделение фото и имени*/}
-                            <div>
-                                <img src={userPhoto} alt={"userPhoto"} className={classes.dialogImg}/> {/*Фото диалога*/}
-                            </div>
-                            <div>
-                                <div>{userName}</div> {/*имя*/}
-                            </div>
-                        </div>
-                    </div>
-                </NavLink>
+            <div>
+                {DialogNamePhotoRender} {/*отдельно вынес отрисовку фото и имени пользователя со сменой URL*/}
             </div>
             <div>
-                <PointerCursor>
-                    <img src={x} alt={"Удалить из своего диалогЛиста"} className={classes.x}
-                         onMouseOver={onMouseOverAction} onClick={() => {
-                        deleteDialog(dialogId, userId)
-                    }} title={"Удалить из своего диалогЛиста"}/>
-                </PointerCursor>
+                {deleteDialogRender} {/*вынес отдельно кнопку удаления диалога из диалоглиста*/}
             </div>
-
         </div>
-
     </div>
 }
 
