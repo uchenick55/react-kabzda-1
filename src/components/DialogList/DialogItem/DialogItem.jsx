@@ -1,5 +1,5 @@
 import React from 'react';
-import classes from './../Dialogs.module.css';
+import classes from '../DialogList.module.css';
 import {NavLink} from "react-router-dom";
 import x from "../../../assets/images/x.png";
 import {PointerCursor} from "../../Dark_light_theme/globalStyles";

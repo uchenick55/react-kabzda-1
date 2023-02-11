@@ -1,12 +1,13 @@
 import React, {useEffect} from 'react'; // импорт реакта
-import classes from './Dialogs.module.css';// css обработка
+import classes from './DialogList.module.css';// css обработка
 import DialogItem from "./DialogItem/DialogItem";// подкомпонента отрисовки диалогов через map
 import Message from "./Message/Message";// подкомпонента отрисовки сообщений через map
 import ScrollContainer from "../common/Scroll/ScrollContainer";
 import userPhotoAva from "../../assets/images/no-image3.png";
 import DialogsFormik from "./DialogsFormik/DialogsFormik";
+import MessagesElements from "./MessagesElements";
 
-const Dialogs = ({deleteDialog, dialogUserID, getDialogList, dialogs2, messages2, sendMessage,
+const DialogList = ({deleteDialog, dialogUserID, getDialogList, dialogs2, messages2, sendMessage,
                      getDialogLastUpdateTime, myId, deleteMessage}) => { // основная компонента отрисовки диалогов
 
     let dialogElements = dialogs2.map((d) => // подкомпонента отрисовки всех диалогов через map
@@ -51,7 +52,11 @@ const Dialogs = ({deleteDialog, dialogUserID, getDialogList, dialogs2, messages2
                 <h3 className={classes.messagesHeader}>Messages</h3>
 
                 <ScrollContainer // обернуть сообщения скролом
-                    child={messagesElements}
+                    child={<MessagesElements // вынес в отдельную компоненту отрисовку сообщений для ScrollContainer
+                        messages2={messages2} // сообщения
+                        myId={myId} // мой ID
+                        deleteMessage={deleteMessage} // функйцию удаления сообщений
+                    />}
                     height={window.screen.availHeight - 300} // высота поля скрола
                     firstInsideContainer={"MessagesUp"}
                     secondInsideContainer={"MessagesDown"}
@@ -64,5 +69,5 @@ const Dialogs = ({deleteDialog, dialogUserID, getDialogList, dialogs2, messages2
         </div>
     )
 }
-export default Dialogs;
+export default DialogList;
 

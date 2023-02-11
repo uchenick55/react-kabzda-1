@@ -9,7 +9,7 @@ import Scss from "../Scss/Scss";
 import NavBarContainer from "../MyFriendsCommon/MyFriendsContainer";
 
 //const ProfileContainer = React.lazy(() => import("../Profile/ProfileContainer"))
-const DialogsContainer = React.lazy(() => import("../Dialogs/DialogsContainer"))
+const DialogsContainer = React.lazy(() => import("../DialogList/DialogListContainer"))
 // В случае именного экспорта, оборачиваем компоненту в промежуточную с экспортом по умолчанию, чтобы работал lazy
 const ExportDefaultUsersContainer = React.lazy(() => import("../users/ExportDefaultUsersContainer"))
 const LoginContainer = React.lazy(() => import("../Login/LoginContainer"))

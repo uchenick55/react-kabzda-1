@@ -1,5 +1,5 @@
 import React from 'react';
-import Dialogs from "./Dialogs";
+import DialogList from "./DialogList";
 import {
     deleteDialogThunkCreator,
     deleteMessageThunkCreator,
@@ -15,9 +15,9 @@ import {getProfileThunkCreator} from "../../redux/profile-reducer";
 import NavigateToLoginHoc2 from "../hoc/NavigateToLoginHoc2";
 import withRouter2 from "../hoc/withRouter2";
 
-class DialogsContainer extends React.Component {
+class DialogListContainer extends React.Component {
     commonPartMountUpdate = () => {// общая часть для componentDidMount и componentDidUpdate
-        if (!this.props.userId) { // если перешли на вкладку Dialogs с нулевым userId
+        if (!this.props.userId) { // если перешли на вкладку DialogList с нулевым userId
             if (this.props.messages2.length>0) { // если массив сообщений непустой
                 this.props.setMessages([]); // занулить массив сообщений (очистить список сообщений)
                 this.props.setdialogUserID(null) // занулить userId (убрать выделение диалога)
@@ -33,12 +33,12 @@ class DialogsContainer extends React.Component {
     }
     componentDidMount() {
         this.getDialogList()
-        //      console.log("DialogsContainer -> componentDidMount")
+        //      console.log("DialogListContainer -> componentDidMount")
         this.commonPartMountUpdate();// общая часть для componentDidMount и componentDidUpdate
     }
 
     componentDidUpdate(prevProps, prevState, snapshot) {
-        //       console.log("DialogsContainer -> componentDidUpdate")
+        //       console.log("DialogListContainer -> componentDidUpdate")
         this.commonPartMountUpdate(); // общая часть для componentDidMount и componentDidUpdate
         if  (this.props.dialogLastUpdateTime!==prevProps.dialogLastUpdateTime) { // если время обновления диалога изменилось
             this.getDialogs()// запросить новые сообщения по диалогу
@@ -46,12 +46,12 @@ class DialogsContainer extends React.Component {
     }
 
     getDialogs = () => {
-        if (this.props.userId === "") {return}// при клике просто по вкладке Dialogs
+        if (this.props.userId === "") {return}// при клике просто по вкладке DialogList
         this.props.getDialogsThunkCreator(this.props.myId, this.props.userId);// получить диалоги
     }
 
     getDialogLastUpdateTime = () => {
-        if (this.props.userId === "") {return}// при клике просто по вкладке Dialogs
+        if (this.props.userId === "") {return}// при клике просто по вкладке DialogList
         this.props.getDialogLastUpdateTimeTnkCrt(this.props.myId, this.props.userId); // получить время последенего обновления диалога
     }
 
@@ -60,11 +60,11 @@ class DialogsContainer extends React.Component {
     }
 
     sendMessage = (NewMessage) => { // отправка сообщения
-        if (!this.props.userId) { // при клике просто по вкладке Dialogs
+        if (!this.props.userId) { // при клике просто по вкладке DialogList
             alert("Выберите диалог") // предупреждение если диалог не выбран
             return
         }
-        if (!NewMessage) { // при клике просто по вкладке Dialogs
+        if (!NewMessage) { // при клике просто по вкладке DialogList
             return // не реагировать на пустые сообщения
         }
 
@@ -104,7 +104,7 @@ class DialogsContainer extends React.Component {
 
     render () {
         return <div>
-            <Dialogs
+            <DialogList
                 messages2 ={this.props.messages2}// массив сообщений текущего диалога
                 dialogs ={this.props.dialogs} // список диалогов
                 dialogs2 ={this.props.dialogs2} // список диалогов с LocalStorage
@@ -157,7 +157,7 @@ export default compose(
     withRouter2,// получить данные ID из URL браузера и добавить в пропсы
     NavigateToLoginHoc2 // проверка, залогинен ли я
 )
-(DialogsContainer);
+(DialogListContainer);
 
 
 

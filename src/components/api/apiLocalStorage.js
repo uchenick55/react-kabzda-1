@@ -1,7 +1,7 @@
 import {bedug_mode} from "../../redux/store-redux";
 import GetDate from "./GetDate";
 
-export let apiDialogs = { // объект с методами api для Dialogs
+export let apiDialogs = { // объект с методами api для DialogList
   _setMessages2LS: (Dialog_2, myId, userId) => { // метод отправки измененного диалога в LocalStorage и считывания его же
     let LocalStoragedialogUpdateTime1 =
       GetDate().Day + "." +
