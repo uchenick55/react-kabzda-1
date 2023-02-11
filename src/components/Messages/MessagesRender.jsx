@@ -1,10 +1,10 @@
 import classes from "../DialogList/DialogList.module.css";
 import ScrollContainer from "../common/Scroll/ScrollContainer";
 import MessagesElements from "./Message/MessagesElements";
-import DialogFormik from "./DialogFormik/DialogFormik";
+import DialogFormik from "./MessagesFormik/DialogFormik";
 import React from "react";
 
-const DialogRender = ({messages2, myId, deleteMessage, sendMessage}) => {
+const MessagesRender = ({messages2, myId, deleteMessage, sendMessage}) => {
     return <div>
         <h3 className={classes.messagesHeader}>Messages</h3>
 
@@ -24,4 +24,4 @@ const DialogRender = ({messages2, myId, deleteMessage, sendMessage}) => {
         </div>
     </div>
 }
-export default DialogRender
+export default MessagesRender

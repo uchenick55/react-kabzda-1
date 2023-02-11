@@ -3,7 +3,7 @@ import classes from './DialogList.module.css';// css обработка
 import DialogItem from "./DialogItem/DialogItem";// подкомпонента отрисовки диалогов через map
 import ScrollContainer from "../common/Scroll/ScrollContainer";
 import userPhotoAva from "../../assets/images/no-image3.png";
-import DialogContainer from "../Dialog/DialogContainer";
+import DialogContainer from "../Messages/MessagesContainer";
 
 const DialogList = ({deleteDialog, dialogUserID, getDialogList, dialogs2,
                      getDialogLastUpdateTime}) => { // основная компонента отрисовки диалогов

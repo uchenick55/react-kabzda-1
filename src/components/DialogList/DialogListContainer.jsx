@@ -59,6 +59,7 @@ class DialogListContainer extends React.Component {
         this.props.getMyDialogListThunkCreator(this.props.myId)
     }
 
+/*
     sendMessage = (NewMessage) => { // отправка сообщения
         if (!this.props.userId) { // при клике просто по вкладке DialogList
             alert("Выберите диалог") // предупреждение если диалог не выбран
@@ -92,10 +93,11 @@ class DialogListContainer extends React.Component {
         )
         //userId1, userId2, Name2, Photo2
     }
+*/
 
-    deleteMessage = (messageID) => { // удалить сообщение по его ID в списке
+/*    deleteMessage = (messageID) => { // удалить сообщение по его ID в списке
         this.props.deleteMessageThunkCreator(messageID, this.props.myId, this.props.userId);
-    }
+    }*/
 
     deleteDialog = (dialogId, userId2) => {
         this.props.deleteDialogThunkCreator(dialogId, this.props.myId, userId2)
@@ -109,11 +111,11 @@ class DialogListContainer extends React.Component {
                 dialogs ={this.props.dialogs} // список диалогов
                 dialogs2 ={this.props.dialogs2} // список диалогов с LocalStorage
                 {...this.props} // все входящие пропсы пробросили дальше
-                sendMessage={this.sendMessage} // проброс местного метода отправки сообщений
+             //   sendMessage={this.sendMessage} // проброс местного метода отправки сообщений
                 getDialogs={this.getDialogs}  // проброс местного метода получить диалоги
                 getDialogLastUpdateTime={this.getDialogLastUpdateTime} // проброс метода - получить время обновления текущего диалога
                 myId={this.props.myId} // мой ID
-                deleteMessage = {this.deleteMessage} // удалить сообщение
+             //   deleteMessage = {this.deleteMessage} // удалить сообщение
                 getDialogList={this.getDialogList} // периодическая проверка написал ли кто мне, или я с кем диалог начал
                 dialogUserID = {this.props.dialogUserID}
                 deleteDialog = {this.deleteDialog}
@@ -129,28 +131,28 @@ let mapStateToProps = (state) => {
         myId: state.auth.myId, // мой ID (авторизованного пользователя)
         dialogUserID: state.dialogsPage.dialogUserID, // ID пользователя, с кем сейчас идет диалог
         messages2: state.dialogsPage.messages2, // массив сообщений текущего диалога
-        dialogs: state.dialogsPage.dialogs, // список диалогов
+  //      dialogs: state.dialogsPage.dialogs, // список диалогов
         dialogLastUpdateTime: state.dialogsPage.dialogLastUpdateTime,// время последнего времени обновления текущего диалога
         dialogs2: state.dialogsPage.dialogs2, // список диалогов с LocalStorage
         profilePage:state.profilePage, // страница профиля пользователя для создания dialogList
         auth: state.auth,// страница моего профиля для создания dialogList
-        editProfileStatus: state.auth.editProfileStatus // ошибка правки формы профиля
+     //   editProfileStatus: state.auth.editProfileStatus // ошибка правки формы профиля
     }
 }
 
 export default compose(
     connect(mapStateToProps,
         {
-            sendDialogsThunkCreator,//санкреатор отправки нового сообщения в диалог
+        //    sendDialogsThunkCreator,//санкреатор отправки нового сообщения в диалог
             getDialogsThunkCreator,//санкреатор получения диалогов с данными
             setdialogUserID, // экшнкреатор задания списка сообщений в стейт messages2
             setMessages,// экшнкреатор задания списка сообщений в стейт messages2
             getDialogLastUpdateTimeTnkCrt,//санкреатор получения диалогов с данными
-            deleteMessageThunkCreator,//санкреатор удаления сообщения из далога
+         //   deleteMessageThunkCreator,//санкреатор удаления сообщения из далога
             getProfileThunkCreator,// санкреатор на получение профиля выбранного пользователя
             getFollowThunkCreator,//санкреатор проверки follow/unfollow выбранного юзера для составления списка диалогов
             getMyDialogListThunkCreator,//санкреатор получения моего диалогЛиста
-            updateDialogListThunkCreator,//санкреатор обновления диалогЛиста (моего когда я пишу кому то сообщение) - запись в localStorage.
+          //  updateDialogListThunkCreator,//санкреатор обновления диалогЛиста (моего когда я пишу кому то сообщение) - запись в localStorage.
             deleteDialogThunkCreator, //санкреатор удаления диалога из диалогЛиста
         }
     ),
