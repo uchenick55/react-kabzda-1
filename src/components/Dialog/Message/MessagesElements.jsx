@@ -1,4 +1,4 @@
-import Message from "./Message/Message";
+import Message from "./Message";
 import React from "react";
 
 let MessagesElements = ({messages2, myId, deleteMessage}) => messages2.map((m) => // подкомпонента отрисовки всех сообщений через map

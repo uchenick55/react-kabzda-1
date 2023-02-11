@@ -1,11 +1,11 @@
 import React, {useEffect} from 'react'; // импорт реакта
 import classes from './DialogList.module.css';// css обработка
 import DialogItem from "./DialogItem/DialogItem";// подкомпонента отрисовки диалогов через map
-import Message from "./Message/Message";// подкомпонента отрисовки сообщений через map
+import Message from "../Dialog/Message/Message";// подкомпонента отрисовки сообщений через map
 import ScrollContainer from "../common/Scroll/ScrollContainer";
 import userPhotoAva from "../../assets/images/no-image3.png";
-import DialogsFormik from "./DialogsFormik/DialogsFormik";
-import MessagesElements from "./MessagesElements";
+import DialogFormik from "../Dialog/DialogFormik/DialogFormik";
+import MessagesElements from "../Dialog/Message/MessagesElements";
 
 const DialogList = ({deleteDialog, dialogUserID, getDialogList, dialogs2, messages2, sendMessage,
                      getDialogLastUpdateTime, myId, deleteMessage}) => { // основная компонента отрисовки диалогов
@@ -19,10 +19,6 @@ const DialogList = ({deleteDialog, dialogUserID, getDialogList, dialogs2, messag
             />
         }
     );
-
-    let messagesElements = messages2.map((m) => // подкомпонента отрисовки всех сообщений через map
-        <Message key={m.id+m.message} message={m.message} myId={myId} userId={m.userId} Date={m.Date} MessageId={m.id}
-                 deleteMessage={deleteMessage}/>);
 
     useEffect(() => { // при очередном ререндере
         const id = setInterval(() => { // задать цикл с интервалом в 1 сек
@@ -63,7 +59,7 @@ const DialogList = ({deleteDialog, dialogUserID, getDialogList, dialogs2, messag
                     containerElement={"MessagesContainer"}
                 /> {/*отрисовка сообщений в скрол контейнере*/}
                 <div>
-                    <DialogsFormik sendMessage={sendMessage}/>{/*вызов формы сообщений*/}
+                    <DialogFormik sendMessage={sendMessage}/>{/*вызов формы сообщений*/}
                 </div>
             </div>
         </div>
