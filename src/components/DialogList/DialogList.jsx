@@ -6,6 +6,7 @@ import ScrollContainer from "../common/Scroll/ScrollContainer";
 import userPhotoAva from "../../assets/images/no-image3.png";
 import DialogFormik from "../Dialog/DialogFormik/DialogFormik";
 import MessagesElements from "../Dialog/Message/MessagesElements";
+import DialogRender from "./DialogRender";
 
 const DialogList = ({deleteDialog, dialogUserID, getDialogList, dialogs2, messages2, sendMessage,
                      getDialogLastUpdateTime, myId, deleteMessage}) => { // основная компонента отрисовки диалогов
@@ -30,6 +31,8 @@ const DialogList = ({deleteDialog, dialogUserID, getDialogList, dialogs2, messag
         }) // для сброса цикла при очередном рендере
     }, [getDialogLastUpdateTime, getDialogList]) // useEffect без зависимостей
 
+
+
     return (
         <div className={classes.dialogs} /*стиль всех диалогов*/>
             <div>
@@ -45,22 +48,12 @@ const DialogList = ({deleteDialog, dialogUserID, getDialogList, dialogs2, messag
 
             </div>
             <div>
-                <h3 className={classes.messagesHeader}>Messages</h3>
-
-                <ScrollContainer // обернуть сообщения скролом
-                    child={<MessagesElements // вынес в отдельную компоненту отрисовку сообщений для ScrollContainer
-                        messages2={messages2} // сообщения
-                        myId={myId} // мой ID
-                        deleteMessage={deleteMessage} // функйцию удаления сообщений
-                    />}
-                    height={window.screen.availHeight - 300} // высота поля скрола
-                    firstInsideContainer={"MessagesUp"}
-                    secondInsideContainer={"MessagesDown"}
-                    containerElement={"MessagesContainer"}
-                /> {/*отрисовка сообщений в скрол контейнере*/}
-                <div>
-                    <DialogFormik sendMessage={sendMessage}/>{/*вызов формы сообщений*/}
-                </div>
+                <DialogRender
+                    messages2={messages2}
+                    myId={myId}
+                    deleteMessage={deleteMessage}
+                    sendMessage={sendMessage}
+                /> {/*отрисовка отдельного диалога*/}
             </div>
         </div>
     )
