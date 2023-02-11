@@ -1,15 +1,12 @@
 import React, {useEffect} from 'react'; // импорт реакта
 import classes from './DialogList.module.css';// css обработка
 import DialogItem from "./DialogItem/DialogItem";// подкомпонента отрисовки диалогов через map
-import Message from "../Dialog/Message/Message";// подкомпонента отрисовки сообщений через map
 import ScrollContainer from "../common/Scroll/ScrollContainer";
 import userPhotoAva from "../../assets/images/no-image3.png";
-import DialogFormik from "../Dialog/DialogFormik/DialogFormik";
-import MessagesElements from "../Dialog/Message/MessagesElements";
-import DialogRender from "./DialogRender";
+import DialogContainer from "../Dialog/DialogContainer";
 
-const DialogList = ({deleteDialog, dialogUserID, getDialogList, dialogs2, messages2, sendMessage,
-                     getDialogLastUpdateTime, myId, deleteMessage}) => { // основная компонента отрисовки диалогов
+const DialogList = ({deleteDialog, dialogUserID, getDialogList, dialogs2,
+                     getDialogLastUpdateTime}) => { // основная компонента отрисовки диалогов
 
     let dialogElements = dialogs2.map((d) => // подкомпонента отрисовки всех диалогов через map
         {
@@ -48,12 +45,7 @@ const DialogList = ({deleteDialog, dialogUserID, getDialogList, dialogs2, messag
 
             </div>
             <div>
-                <DialogRender
-                    messages2={messages2}
-                    myId={myId}
-                    deleteMessage={deleteMessage}
-                    sendMessage={sendMessage}
-                /> {/*отрисовка отдельного диалога*/}
+                <DialogContainer/> {/*отрисовка диалога независомо от диалогЛиста*/}
             </div>
         </div>
     )

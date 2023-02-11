@@ -1,7 +1,7 @@
-import classes from "./DialogList.module.css";
+import classes from "../DialogList/DialogList.module.css";
 import ScrollContainer from "../common/Scroll/ScrollContainer";
-import MessagesElements from "../Dialog/Message/MessagesElements";
-import DialogFormik from "../Dialog/DialogFormik/DialogFormik";
+import MessagesElements from "./Message/MessagesElements";
+import DialogFormik from "./DialogFormik/DialogFormik";
 import React from "react";
 
 const DialogRender = ({messages2, myId, deleteMessage, sendMessage}) => {
