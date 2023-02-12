@@ -1,8 +1,8 @@
 import React from 'react';
-import classes from '../DialogList.module.css';
+import classes from './DialogList.module.css';
 import {NavLink} from "react-router-dom";
-import x from "../../../assets/images/x.png";
-import {PointerCursor} from "../../Dark_light_theme/globalStyles";
+import x from "../../assets/images/x.png";
+import {PointerCursor} from "../Dark_light_theme/globalStyles";
 
 
 const DialogItem = ({deleteDialog, dialogId, userPhoto, userName, userId, dialogUserID}) => {

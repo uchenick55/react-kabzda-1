@@ -1,6 +1,6 @@
 import React from 'react';
 import classes from './Message.module.css';
-import x from "../../../assets/images/x.png";
+import x from "../../../../assets/images/x.png";
 
 
 const Message = ({message, myId, userId, Date, MessageId, deleteMessage}) => {

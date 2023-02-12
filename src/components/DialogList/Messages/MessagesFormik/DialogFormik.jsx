@@ -3,7 +3,7 @@ import {Formik, Form} from "formik"; //формик с компонентами 
 import * as Yup from 'yup' // валидация форм с помошью сторонней библиотеки Yup
 import classes from "./Dialog.module.css"
 //import DisplayFormikState from "../../common/formikCommon/DisplayFormikState"
-import {MyTextInput} from "../../common/formikCommon/MyFields"
+import {MyTextInput} from "../../../common/formikCommon/MyFields"
 
 let myInitialValues = { // начальные зачения форм
     newMessage: "",

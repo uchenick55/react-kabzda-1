@@ -1,5 +1,5 @@
-import classes from "../DialogList/DialogList.module.css";
-import ScrollContainer from "../common/Scroll/ScrollContainer";
+import classes from "../DialogList.module.css";
+import ScrollContainer from "../../common/Scroll/ScrollContainer";
 import MessagesElements from "./Message/MessagesElements";
 import DialogFormik from "./MessagesFormik/DialogFormik";
 import React from "react";

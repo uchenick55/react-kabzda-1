@@ -2,7 +2,7 @@ import React, {useState} from "react";
 import classes from "./Users.module.css";
 import userPhoto from "../../assets/images/no-image3.png";
 import {NavLink} from "react-router-dom";
-import PaginationByCourse from "../common/Pagination/PaginationByCourse";
+import PaginationByCourse from "../common/Pagination/PaginationByCourseBS";
 import {bedug_mode} from "../../redux/store-redux";
 import ScrollContainer from "../common/Scroll/ScrollContainer";
 import FindUsers from "./FindUsers";

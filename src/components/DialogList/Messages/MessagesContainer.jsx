@@ -3,10 +3,10 @@ import {
     deleteMessageThunkCreator,
     sendDialogsThunkCreator,
     updateDialogListThunkCreator
-} from "../../redux/dialogs-reducer";
+} from "../../../redux/dialogs-reducer";
 import {connect} from "react-redux";
 import {compose} from "redux";
-import withRouter2 from "../hoc/withRouter2";
+import withRouter2 from "../../hoc/withRouter2";
 import MessagesRender from "./MessagesRender";
 
 class MessagesContainer extends React.Component {
