@@ -13,11 +13,6 @@
 
 }
 
-.inputFindUsers {
-padding-top: 10px;
-padding-bottom: 10px;
-}
-
 .preloader {
     background-color: white;
 
@@ -25,5 +20,12 @@ padding-bottom: 10px;
 
 .textMaxWidth {
     max-width: 250px;
+    height: 90px;
 }
 
+.line { /*линия подчеркивания*/
+    width: 200px;
+    height: 3px;
+    background-color: rgb(184,209,244);
+    margin: 15px auto 30px;
+}

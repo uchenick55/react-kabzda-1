@@ -11,7 +11,7 @@ let PaginationByCourse = ({
                               pageSize, // количество пользователей на одной странице
                               currentPage, // текущая страница пагинации
                               onPageChanged, // колбек-функция изменения текущей страницы
-                              PortionSize = 10, // количество отображаемых страниц из всего массива
+                              PortionSize = 5, // количество отображаемых страниц из всего массива
                               currentRangeLocal,
                               onChangeRangeLocal
                           }) => {
@@ -62,7 +62,7 @@ let PaginationByCourse = ({
 
     return (
         <div>
-            <Pagination> {/*стиль мышки рука */}
+            <Pagination className={"pagination-sm img-fluid "}> {/*стиль мышки рука */}
                 <Pagination.Prev onClick={()=>{setPortion("prevPortion")}} /> {/*диапазон пагинации вниз*/}
                 {renderSlicedPages} {/*отрисовка пагинации десяти страниц внутри кнопок*/}
                 <Pagination.Next onClick={()=>{setPortion("nextPortion")}}/>  {/*диапазон пагинации вверх*/}
