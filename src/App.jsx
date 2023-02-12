@@ -24,15 +24,16 @@ class App extends React.Component { // конвертируем app в клас�
                 <div
                     className={this.props.info_mode ? 'app-wrapper' : 'app-wrapper-no-info'}> {/*позиционирование по сетке гридов*/}
                     <ErrorBoundary> {/*Общий обработчик ошибок во всем приложении*/}
-                        <HeaderContainer/> {/*Header с пользователем и day/night режимом*/}
-                        <div className='app-wrapper-navbar'>
-                            <NavBarContainer/> {/*Навигационная панель со ссылками и FriendList*/}
-                        </div>
-                        {this.props.info_mode &&
+                        {/*  <HeaderContainer/> {/*Header с пользователем и day/night режимом*/}
+                        {/* <div className='app-wrapper-navbar'>
+                            <NavBarContainer/>
+                        </div>Навигационная панель со ссылками и FriendList*/}
+{/*                        {this.props.info_mode &&
                         <div className='app-wrapper-info'>
-                            <InfoContainer/> {/*поле комментариев функциональности к страницам в зависмости от URL*/}
+                            <InfoContainer //поле комментариев функциональности к страницам в зависмости от URL
+                            />
                         </div>
-                        }
+                        }*/}
                         <div className='app-wrapper-content'>
                             <div><ContentContainer/> {/*страницы контента в зависмости от URL*/}</div>
                         </div>

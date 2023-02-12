@@ -7,7 +7,7 @@ import classes from "./Users.module.css"
 const InputButtonUsersRender = ({onChangeTerm, onChangeTermFunction, SetTermFunction, handleClick}) => {
     return <div>
         <Form>
-            <Stack direction="horizontal" gap={3} className="m-5">
+            <Stack direction="horizontal" gap={3} className="mx-1">
                 <Form.Control
                     type="text"
                     value={onChangeTerm}// значение поля поиска захардкодили
@@ -22,8 +22,6 @@ const InputButtonUsersRender = ({onChangeTerm, onChangeTermFunction, SetTermFunc
                 {/* кнопка с обработчиком клика. type="submit" дает нажатие на Enter*/}
             </Stack>
         </Form>
-        <div className={classes.line}></div>
-
     </div>
 }
 export default InputButtonUsersRender

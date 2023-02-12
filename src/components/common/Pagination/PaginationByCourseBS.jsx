@@ -1,10 +1,6 @@
 import React, {useState} from "react";
-import classes from "./Pagination.module.css";
-import {PointerCursor} from "../../Dark_light_theme/globalStyles";
-
 import "bootstrap/dist/css/bootstrap.min.css"
 import Pagination from 'react-bootstrap/Pagination';
-
 
 let PaginationByCourse = ({
                               totalUsersCount, // общее число пользователей на сервере
@@ -62,7 +58,7 @@ let PaginationByCourse = ({
 
     return (
         <div>
-            <Pagination className={"pagination-sm img-fluid "}> {/*стиль мышки рука */}
+            <Pagination className={"pagination align-items-center justify-content-center"}> {/*стиль мышки рука */}
                 <Pagination.Prev onClick={()=>{setPortion("prevPortion")}} /> {/*диапазон пагинации вниз*/}
                 {renderSlicedPages} {/*отрисовка пагинации десяти страниц внутри кнопок*/}
                 <Pagination.Next onClick={()=>{setPortion("nextPortion")}}/>  {/*диапазон пагинации вверх*/}

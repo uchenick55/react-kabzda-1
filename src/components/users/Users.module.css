@@ -20,12 +20,12 @@
 
 .textMaxWidth {
     max-width: 250px;
-    height: 90px;
+    height: 30px;
 }
 
 .line { /*линия подчеркивания*/
     width: 200px;
     height: 3px;
     background-color: rgb(184,209,244);
-    margin: 15px auto 30px;
+    margin: auto;
 }
