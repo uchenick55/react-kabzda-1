@@ -7,6 +7,7 @@ import {bedug_mode} from "../../redux/store-redux";
 import ScrollContainer from "../common/Scroll/ScrollContainer";
 import FindUsers from "./FindUsers";
 import InputButtonUsersRender from "./InputButtonRender";
+import "bootstrap/dist/css/bootstrap.min.css"
 
 let Users = ({
                  totalUsersCount, pageSize, currentPage, onPageChanged, users,
@@ -47,7 +48,7 @@ let Users = ({
             users.map((u) => {
                 //   throw new Error("Я - сообщение об ошибке"); //проверка обработки ошибок
                 return (
-                    <div key={u.id}>
+                    <div key={u.id} className="d-inline-block text-truncate">
                         <div>
                             <NavLink to={'/profile/' + u.id}>
                                 <img alt={"userPhoto"} className={classes.userPhoto}
@@ -65,8 +66,9 @@ let Users = ({
                             }
                         </div>
                         <div>Name: {u.name}</div>
-                        <div>{u.status}</div>
+                        <div className={classes.textMaxWidth}><div>{u.status}</div></div>
                         <div>{u.id}</div>
+
                     </div>
                 )
             })

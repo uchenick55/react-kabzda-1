@@ -1,9 +1,9 @@
-import preloader from "../../../assets/images/Spin-1s-64px.svg";
 import React from "react";
+import classes from "./Preloader.module.css"
 
 let Preloader = () => {
    return <div >
-           <img alt={"Загрузка"} src={preloader}/>
+            <div className={classes.spinner}></div>
        </div>
 }
 export default Preloader
