@@ -6,6 +6,7 @@ import PaginationByCourse from "../common/Pagination/PaginationByCourseBS";
 import {bedug_mode} from "../../redux/store-redux";
 import ScrollContainer from "../common/Scroll/ScrollContainer";
 import FindUsers from "./FindUsers";
+import InputButtonUsersRender from "./InputButtonRender";
 
 let Users = ({
                  totalUsersCount, pageSize, currentPage, onPageChanged, users,
@@ -14,7 +15,9 @@ let Users = ({
                  onChangeRangeLocal, currentRangeLocal, myId // раскукожили все пропсы
              }) => {
     const [error, setError] = useState("")
-    if  (error) {return error.message}
+    if (error) {
+        return error.message
+    }
     try {
         if (bedug_mode) {
             console.log("Users")
@@ -42,7 +45,7 @@ let Users = ({
 
         let UserItems =
             users.map((u) => {
-             //   throw new Error("Я - сообщение об ошибке"); //проверка обработки ошибок
+                //   throw new Error("Я - сообщение об ошибке"); //проверка обработки ошибок
                 return (
                     <div key={u.id}>
                         <div>
@@ -75,20 +78,6 @@ let Users = ({
             onChangeRangeLocal={onChangeRangeLocal}
 
         />
-        let inputButtonRender = <form className={classes.inputFindUsers}>  {/* объединение инпута и кнопки*/}
-            <input
-                value={onChangeTerm} // значение поля поиска захардкодили
-                onChange={(event) => {
-                    onChangeTermFunction(event)
-                }} // по изменению поля получить значение
-                onBlur={SetTermFunction}// задать в локальный стейт значение поиска при потере фокуса
-                placeholder={"find users"} // пояснение поля ввода
-                autoFocus // сразу фокусировка на поле ввода
-            />
-            <button onClick={handleClick}>Find</button>
-            {/* кнопка с обработчиком клика*/}
-        </form>
-
 
         return <div className={classes.users}>
 
@@ -97,7 +86,12 @@ let Users = ({
                 {paginationRender}{/*Вывод пагинации вверху страницы */}
             </div>
             <div>
-                {inputButtonRender} {/*вывод инпута и кнопки для поиска юзеров*/}
+                <InputButtonUsersRender
+                    onChangeTerm={onChangeTerm}
+                    onChangeTermFunction={onChangeTermFunction}
+                    SetTermFunction={SetTermFunction}
+                    handleClick={handleClick}
+                /> {/*вывод инпута и кнопки для поиска юзеров*/}
             </div>
             <div>
                 <FindUsers/>
@@ -117,8 +111,8 @@ let Users = ({
     } catch (error) {
         setError(error); // задание в стейт ошибки
     } finally {
-    // console.log("try/catch Users.jsx выполнен! ") действие после прохождения try/catch
-}
+        // console.log("try/catch Users.jsx выполнен! ") действие после прохождения try/catch
+    }
 
 }
 
