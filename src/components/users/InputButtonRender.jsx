@@ -15,7 +15,7 @@ const InputButtonUsersRender = ({onChangeTerm, onChangeTermFunction, SetTermFunc
                                   onChangeTermFunction(event)
                               }}
                     onBlur={SetTermFunction}// задать в локальный стейт значение поиска при потере фокуса
-                    placeholder={"find users"} // пояснение поля ввода
+                    placeholder={"find users..."} // пояснение поля ввода
                     autoFocus/> {/*сразу фокусировка на поле ввода */}
                 <div className="vr"/> {/*разделитель поля поиска и кнопки поиска*/}
                 <Button onClick={handleClick} type="submit">Find</Button>

@@ -55,12 +55,14 @@ let Users = ({
             users.map((u) => {
                 //   throw new Error("Я - сообщение об ошибке"); //проверка обработки ошибок
                 return (
-                    <div key={u.id} className="d-inline-block text-truncate m-2">
-                        <Card style={{width: '13rem'}}>
-                            <NavLink to={'/profile/' + u.id}>
-                                <Card.Img variant="top" className={"p-3 rounded img-fluid"} src={u.photos.small !== null
-                                    ? u.photos.small
-                                    : userPhoto}/> </NavLink>
+                    <div key={u.id}
+                         class="col-12 col-sm-3 col-lg-2 d-inline-block m-2"> {/*размеры карточек в зависимости от размера экрана*/}
+                        <Card>
+                            <NavLink to={'/profile/' + u.id}> {/*при нажатии на картинку переход в профиль*/}
+                                <img variant="top" class={''} className={classes.userPhoto}
+                                     src={u.photos.small !== null
+                                         ? u.photos.large
+                                         : userPhoto}/> </NavLink>
                             <Card.Body>
                                 <Card.Title>{u.name}</Card.Title>
                                 <Card.Text>
@@ -74,9 +76,7 @@ let Users = ({
                                     </div>
                                     <div className={classes.textMaxWidth}>
                                         <div>Name: {u.name}</div>
-                                        <div>
-                                            <div>{u.status}</div>
-                                        </div>
+                                        <div>{u.status}</div>
                                     </div>
                                 </Card.Text>
                             </Card.Body>
@@ -94,46 +94,33 @@ let Users = ({
         />
 
         return <div className={classes.users}>
-            <section className="mx-1">
+            <Container fluid className="d-block justify-content-center p-3">
+                <Row>
+                    <h1 className="d-flex justify-content-center text-uppercase">
+                        Users
+                    </h1>
+                </Row>
 
-                <h2 className="d-flex justify-content-center">
-                    Find users
-                </h2>
-                <Container fluid className="d-flex justify-content-center">
+                <Row>
+                    {paginationRender}{/*Вывод пагинации вверху страницы */}
 
-                    <Row>
-                        <Col className="col-xl-6 col-md-6 col-sm-12 ">
-                            {paginationRender}{/*Вывод пагинации вверху страницы */}
-                        </Col>
-                        <Col class="col-xl-6 col-md-6 col-sm-12">
-                            <InputButtonUsersRender //вывод инпута и кнопки для поиска юзеров
-                                onChangeTerm={onChangeTerm}
-                                onChangeTermFunction={onChangeTermFunction}
-                                SetTermFunction={SetTermFunction}
-                                handleClick={handleClick}
-                            />
-                        </Col>
-                    </Row>
-                </Container>
+                    <InputButtonUsersRender //вывод инпута и кнопки для поиска юзеров
+                        onChangeTerm={onChangeTerm}
+                        onChangeTermFunction={onChangeTermFunction}
+                        SetTermFunction={SetTermFunction}
+                        handleClick={handleClick}
+                    />
 
-                <div>
-                    <div className="d-flex justify-content-center"> Found users: {totalUsersCount}</div>
+                </Row>
+                <Row>
+                    <div className="d-flex justify-content-center opacity-50"> Total: {totalUsersCount}</div>
                     <div className={classes.line}></div>
-                </div>
+                </Row>
+                <Row>
+                    {UserItems} {/*отрисовка Users*/}
+                </Row>
 
-                {/*отрисовка Users в скрол контейнере*/}
-                <div >
-                    {UserItems}
-     {/*               <ScrollContainer
-                        child={UserItems}
-                        height={window.screen.availHeight - 298}
-                        firstInsideContainer={"UsersUp"}
-                        secondInsideContainer={"UsersDown"}
-                        containerElement={"UserContainer"}
-                    />*/}
-                </div>
-
-            </section>
+            </Container>
         </div>
 
     } catch (error) {
