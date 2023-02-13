@@ -30,13 +30,14 @@
     margin: auto;
 }
 
-    .myAlignCenter {
+.myAlignCenter {
     display: flex;
     align-items: center;
     justify-content: center;
 }
 
 .textMaxWidth {
+    font-size: 3vh;
     white-space: nowrap; /* Отменяем перенос текста */
     overflow: hidden; /* Обрезаем содержимое */
     text-overflow: ellipsis; /* Многоточие */

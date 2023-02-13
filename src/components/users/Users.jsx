@@ -13,7 +13,6 @@ import Card from 'react-bootstrap/Card';
 import Button from "react-bootstrap/Button";
 import Container from 'react-bootstrap/Container';
 import Row from 'react-bootstrap/Row';
-import Col from 'react-bootstrap/Col';
 
 
 let Users = ({
@@ -77,7 +76,7 @@ let Users = ({
                                     <div className={classes.textMaxWidth}>
                                         <div>Name: {u.name}</div>
                                         <div>{u.status}</div>
-                                    </div>
+                                    </div >
                                 </Card.Text>
                             </Card.Body>
                         </Card>
@@ -113,7 +112,7 @@ let Users = ({
 
                 </Row>
                 <Row>
-                    <div className="d-flex justify-content-center opacity-50"> Total: {totalUsersCount}</div>
+                    <div className="d-flex justify-content-center opacity-50 mt-1"> Total: {totalUsersCount}</div>
                     <div className={classes.line}></div>
                 </Row>
                 <Row>

@@ -1,5 +1,5 @@
 import React from 'react';
-import Header from "./Header";
+import Header from "./HeaderBS";
 import {connect} from "react-redux";
 import {deleteLoginThunkCreator} from "../../redux/auth-reducer";
 import {getProfileThunkCreator} from "../../redux/profile-reducer";

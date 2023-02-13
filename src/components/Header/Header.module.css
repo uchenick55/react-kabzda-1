@@ -11,18 +11,18 @@
     grid-template-columns: 80px 1fr 360px;
 }
 
-.myProfilePart {
+/*.myProfilePart {
     text-align: right;
     padding-right: 5px;
 
-}
+}*/
 
-.header img {
+/*.header img {
     height: 45px;
     border-radius: 20px;
     transition: 0.2s ease-in-out;
 
-}
+}*/
 .header img:hover {
     transform: scale(1.05) translate(+0px, 0px);
     -ms-transform: translate(0px, 0px);
@@ -104,3 +104,10 @@
 .checkbox:checked + .checkboxLabel:after {
     background-color: #27ae60;
 }
+
+.myHeader {
+    height: 45px;
+    border-radius: 20px;
+    transition: 0.2s ease-in-out;
+}
+
