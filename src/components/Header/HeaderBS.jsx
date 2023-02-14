@@ -4,7 +4,7 @@ import Navbar from 'react-bootstrap/Navbar';
 import NavDropdown from 'react-bootstrap/NavDropdown';
 import "bootstrap/dist/css/bootstrap.min.css"
 import React from "react";
-import swgInfoPic from "../../assets/images/swg/info_icon.svg"
+import swgInfoPic from "../../assets/images/swg/info.svg"
 import classes from './Header.module.css';
 import CallThemeRemote from "../Dark_light_theme/CallThemeRemote";
 import LoginAndProfileRender from "./LoginAndProfileRender";
@@ -13,7 +13,26 @@ import LoginAndProfileRender from "./LoginAndProfileRender";
 function HeaderBS({isAuth, goToMyPage, myProfile, deleteLogin}) {
     return (
         <Navbar variant="dark" bg="dark" expand="lg" fixed="top" class='mb-2'>
-            <Container fluid>
+            <Container className='text-uppercase'>
+{/*
+                <div className="justify-content-end d-inline-flex ">
+*/}
+                <div className="d-inline-flex ">
+                    <div><CallThemeRemote/></div>
+                    {/*переключатель темы*/}
+
+                    <div><img src={swgInfoPic} className={classes.myHeaderWH1}/></div>
+
+                    <div>
+                        <LoginAndProfileRender
+                            isAuth={isAuth}
+                            goToMyPage={goToMyPage}
+                            myProfile={myProfile}
+                            deleteLogin={deleteLogin}
+                        />
+
+                    </div>
+                </div>
                 <Navbar.Toggle aria-controls="navbar-dark-example" />
                 <Navbar.Collapse id="basic-navbar-nav">
                     <Nav>
@@ -28,24 +47,12 @@ function HeaderBS({isAuth, goToMyPage, myProfile, deleteLogin}) {
                             <NavDropdown.Item href="#/feedback">FeedBack</NavDropdown.Item>
                             <NavDropdown.Item href="#/tasks">Tasks</NavDropdown.Item>
                         </NavDropdown>
-
-
-                        <div className='px-1'><CallThemeRemote/></div>
-                        <div className='px-1'><img src={swgInfoPic} className={classes.myHeaderWH1}/></div>
-                        <div className='px-1' className={classes.myHeaderWH2}>
-                            <LoginAndProfileRender
-                                isAuth={isAuth}
-                                goToMyPage={goToMyPage}
-                                myProfile={myProfile}
-                                deleteLogin={deleteLogin}
-                            />
-
-                        </div>
-
-
                     </Nav>
-
                 </Navbar.Collapse>
+
+
+
+
                   {/*  <Nav class="justify-content-end d-inline-flex ">
                     <Nav class=" ">
                         <div class='px-1'><CallThemeRemote/></div>

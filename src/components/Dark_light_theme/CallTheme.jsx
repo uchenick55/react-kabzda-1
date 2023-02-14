@@ -1,6 +1,6 @@
 import React from 'react'
 import {PointerCursor} from "./globalStyles";
-import dayNightLight from "../../assets/images/day-night.png"
+import dayNightLight from "../../assets/images/swg/day-night.svg"
 import classes from "../Header/Header.module.css";
 
 
@@ -8,11 +8,11 @@ const CallTheme = ({themeTogglerLocal}) => { // отображение карт�
     return (
         <span>
             <PointerCursor>
-            <img className={classes.dayNight}
-                src="https://cdn-icons-png.flaticon.com/512/2490/2490365.png" //
-                onClick={themeTogglerLocal} // по клику вызвать themeTogglerLocal
-                alt="Switch Theme" // альтернативный текст
-            />
+                <img src={dayNightLight} className={classes.myHeaderWH1}
+                     onClick={themeTogglerLocal} // по клику вызвать themeTogglerLocal
+                     alt="Switch Theme" // альтернативный текст
+                />
+
             </PointerCursor>
         </span>
     );

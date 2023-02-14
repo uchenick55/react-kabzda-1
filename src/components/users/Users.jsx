@@ -99,7 +99,6 @@ let Users = ({
 
             <HeaderContainer/>
 
-            {/* <HeaderBsOc/>*/}
             <Container fluid className="d-block justify-content-center p-3">
                 <Row>
                     <h1 className="d-flex justify-content-center text-uppercase">
