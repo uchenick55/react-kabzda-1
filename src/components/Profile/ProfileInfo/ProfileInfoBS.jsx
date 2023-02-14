@@ -5,7 +5,7 @@ import Preloader from "../../common/Preloader/Preloader";
 import ProfileStatusUseReducer from "./ProfileStatus/ProfileStatusUseReducer";
 import {bedug_mode} from "../../../redux/store-redux";
 import userPhoto1 from "../../../assets/images/no-image3.png";
-import EditProfileFormik from "./EditProfile/EditProfileFormik";
+import EditProfileFormikBS from "./EditProfile/EditProfileFormikBS";
 import "bootstrap/dist/css/bootstrap.min.css"
 import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
@@ -90,7 +90,7 @@ const ProfileInfo = ({
 
     let editProfile = editMode &&
         <div>
-            <EditProfileFormik
+            <EditProfileFormikBS
                 profile={profile} putProfile={putProfile} setEditMode={setEditMode}
                 userId={userId} myId={myId} editProfileStatus={editProfileStatus}
                 setEditProfileStatus={setEditProfileStatus}/>
