@@ -2,7 +2,7 @@ import React from "react";
 import {ThemeProvider} from "styled-components";
 import { GlobalStyles} from "./components/Dark_light_theme/globalStyles";
 import {lightTheme, darkTheme} from "./components/Dark_light_theme/Themes";
-import App from "./App";
+import App from "./App1";
 import {connect} from "react-redux";
 
 const AppDayNightContainer = ({themeBLL}) => {

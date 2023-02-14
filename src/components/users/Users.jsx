@@ -97,7 +97,9 @@ let Users = ({
 
         return <div className={classes.users}>
 
+{/*
             <HeaderContainer/>
+*/}
 
             <Container fluid className="d-block justify-content-center p-3">
                 <Row>

@@ -1,41 +1,50 @@
-import "bootstrap/dist/css/bootstrap.min.css"
-import Container from 'react-bootstrap/Container';
-import Row from 'react-bootstrap/Row';
-import Col from 'react-bootstrap/Col';
+import React from "react";
+import './App.css';
+import {HashRouter} from "react-router-dom";
+import HeaderContainer from "./components/Header/HeaderContainer";
+import NavBarContainer from "./components/Navbar/NavBarContainer";
+import {connect} from "react-redux";
+import {initialisedAppThunkCreator} from "./redux/app-reducer";
+import Preloader from "./components/common/Preloader/Preloader";
+import InfoContainer from "./components/Info/InfoContainer";
+import ContentContainer from "./components/Content/ContentContainer";
+import ErrorBoundary from "./components/common/ErrorBoundary/ErrorBoundary";
 
-function ResponsiveExample() {
-    return (
-        <Container>
-            {/* Stack the columns on mobile by making one full-width and the other half-width */}
-            <Row>
-                <Col xs={12} md={8}>
-                    xs=12 md=8
-                </Col>
-                <Col xs={6} md={4}>
-                    xs=6 md=4
-                </Col>
-            </Row>
+class App extends React.Component { // конвертируем app в классовую компоненту для жизненного цикла
+    componentDidMount() {
+        this.props.initialisedAppThunkCreator() // запускаем инициализацию приложения
+    }
+    render() {
 
-            {/* Columns start at 50% wide on mobile and bump up to 33.3% wide on desktop */}
-            <Row>
-                <Col xs={6} md={4}>
-                    xs=6 md=4
-                </Col>
-                <Col xs={6} md={4}>
-                    xs=6 md=4
-                </Col>
-                <Col xs={6} md={4}>
-                    xs=6 md=4
-                </Col>
-            </Row>
+        if (!this.props.initialisedApp) { // если приложение еще не инициализировано
+            return <Preloader/> // показать статус загрузки
+        }
+        return ( // иначе показать все приложение
+            <HashRouter> {/*BrowserRouter для продакшн, HashRouter для gh-pages*/}
+                <div
+                    className={this.props.info_mode ? 'app-wrapper' : 'app-wrapper-no-info'}> {/*позиционирование по сетке гридов*/}
+                    <ErrorBoundary> {/*Общий обработчик ошибок во всем приложении*/}
+                        <HeaderContainer/>
 
-            {/* Columns are always 50% wide, on mobile and desktop */}
-            <Row>
-                <Col xs={6}>xs=6</Col>
-                <Col xs={6}>xs=6</Col>
-            </Row>
-        </Container>
-    );
+                        <div className='app-wrapper-content'>
+                            <div>
+                                <ContentContainer/> {/*страницы контента в зависмости от URL*/}
+                            </div>
+                        </div>
+                    </ErrorBoundary>
+                </div>
+            </HashRouter>
+
+        );
+    }
 }
 
-export default ResponsiveExample;
+const mapStateToProps = (state) => {
+    return {
+        initialisedApp: state.app.initialisedApp, // флаг инициализации приложения
+        info_mode: state.app.info_mode, // флаг включения комментариев по телу сайта
+    }
+}
+
+export default connect(mapStateToProps, {initialisedAppThunkCreator})(App);
+// коннектим к app флаг и санки инициализации
