@@ -121,3 +121,8 @@
 .rounded {
     border-radius: 50%;
 }
+
+.container {
+    margin-right: unset;
+    margin-left: unset;
+}
