@@ -58,7 +58,7 @@ let Users = ({
                 //   throw new Error("Я - сообщение об ошибке"); //проверка обработки ошибок
                 return (
                     <div key={u.id}
-                         class="col-12 col-sm-3 col-lg-2 d-inline-block m-2"> {/*размеры карточек в зависимости от размера экрана*/}
+                         class="col-12 col-sm-3 col-lg-2 d-inline-block"> {/*размеры карточек в зависимости от размера экрана*/}
                         <Card>
                             <NavLink to={'/profile/' + u.id}> {/*при нажатии на картинку переход в профиль*/}
                                 <img variant="top" class={''} className={classes.userPhoto}

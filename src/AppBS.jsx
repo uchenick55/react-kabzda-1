@@ -9,11 +9,14 @@ import Preloader from "./components/common/Preloader/Preloader";
 import InfoContainer from "./components/Info/InfoContainer";
 import ContentContainer from "./components/Content/ContentContainer";
 import ErrorBoundary from "./components/common/ErrorBoundary/ErrorBoundary";
+import Row from "react-bootstrap/Row";
+import Container from "react-bootstrap/Container";
 
 class App extends React.Component { // конвертируем app в классовую компоненту для жизненного цикла
     componentDidMount() {
         this.props.initialisedAppThunkCreator() // запускаем инициализацию приложения
     }
+
     render() {
 
         if (!this.props.initialisedApp) { // если приложение еще не инициализировано
@@ -24,13 +27,14 @@ class App extends React.Component { // конвертируем app в клас�
                 <div
                     className={this.props.info_mode ? 'app-wrapper' : 'app-wrapper-no-info'}> {/*позиционирование по сетке гридов*/}
                     <ErrorBoundary> {/*Общий обработчик ошибок во всем приложении*/}
-                        <HeaderContainer/>
+                        <Container>
+                            <HeaderContainer/>
 
-                        <div className='app-wrapper-content'>
-                            <div>
+                        <div className='app-wrapper-content g-5'>
+                            <div className='mt-5 mt-5'>
                                 <ContentContainer/> {/*страницы контента в зависмости от URL*/}
                             </div>
-                        </div>
+                        </div></Container>
                     </ErrorBoundary>
                 </div>
             </HashRouter>
