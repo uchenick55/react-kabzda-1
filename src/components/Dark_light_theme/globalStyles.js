@@ -2,6 +2,7 @@ import { createGlobalStyle } from "styled-components";
 import styled from "styled-components";
 
 export const GlobalStyles = createGlobalStyle`
+/*
  body {
   font-family: sans-serif;
   font-size: 5;
@@ -16,6 +17,7 @@ a {
 a:visited {
     color: ${({ theme }) => theme.a_visited};
 }
+*/
 
 
 

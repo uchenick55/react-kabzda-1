@@ -20,9 +20,17 @@ class HeaderContainer extends React.Component {
         this.props.setInfoModeThunkCreator(info_modeLocal) // задать infoMode в localStorage
 
     }
+    goToMyPage = () => {
+        getProfileThunkCreator(this.props.myId); //получить профиль по моему ID
+    }
     render() {
         return <ErrorBoundary> {/*Локальный обработчик ошибок Header*/}
-                <Header {...this.props} deleteLogin={this.deleteLogin} switchInfo={this.switchInfo} /> {/*отрисовка целевой компоненты*/}
+                <Header
+                    {...this.props}
+                    deleteLogin={this.deleteLogin}
+                    switchInfo={this.switchInfo}
+                    goToMyPage={this.goToMyPage}
+                /> {/*отрисовка целевой компоненты*/}
             </ErrorBoundary>
     }
 }

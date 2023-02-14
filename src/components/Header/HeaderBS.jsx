@@ -3,22 +3,22 @@ import Nav from 'react-bootstrap/Nav';
 import Navbar from 'react-bootstrap/Navbar';
 import NavDropdown from 'react-bootstrap/NavDropdown';
 import "bootstrap/dist/css/bootstrap.min.css"
-import {NavLink} from "react-router-dom";
 import React from "react";
+import swgInfoPic from "../../assets/images/swg/info_icon.svg"
+import classes from './Header.module.css';
+import CallThemeRemote from "../Dark_light_theme/CallThemeRemote";
+import LoginAndProfileRender from "./LoginAndProfileRender";
 
-function NavbarDarkExample() {
+
+function HeaderBS({isAuth, goToMyPage, myProfile, deleteLogin}) {
     return (
-        <Navbar variant="dark" bg="dark" expand="lg">
+        <Navbar variant="dark" bg="dark" expand="lg" fixed="top" class='mb-2'>
             <Container fluid>
-                <Navbar.Brand href="#">Home</Navbar.Brand>
                 <Navbar.Toggle aria-controls="navbar-dark-example" />
-                <Navbar.Collapse id="navbar-dark-example">
+                <Navbar.Collapse id="basic-navbar-nav">
                     <Nav>
-                        <NavDropdown
-                            id="nav-dropdown-dark-example"
-                            title="Dropdown"
-                            menuVariant="dark"
-                        >
+                        <NavDropdown title="Pages">
+                            <NavDropdown.Item href="#/">Info</NavDropdown.Item>
                             <NavDropdown.Item href="#/profile">Profile</NavDropdown.Item>
                             <NavDropdown.Item href="#/users">Users</NavDropdown.Item>
                             <NavDropdown.Item href="#/friends">My friends</NavDropdown.Item>
@@ -28,11 +28,40 @@ function NavbarDarkExample() {
                             <NavDropdown.Item href="#/feedback">FeedBack</NavDropdown.Item>
                             <NavDropdown.Item href="#/tasks">Tasks</NavDropdown.Item>
                         </NavDropdown>
+
+
+                        <div className='px-1'><CallThemeRemote/></div>
+                        <div className='px-1'><img src={swgInfoPic} className={classes.myHeaderWH1}/></div>
+                        <div className='px-1' className={classes.myHeaderWH2}>
+                            <LoginAndProfileRender
+                                isAuth={isAuth}
+                                goToMyPage={goToMyPage}
+                                myProfile={myProfile}
+                                deleteLogin={deleteLogin}
+                            />
+
+                        </div>
+
+
                     </Nav>
+
                 </Navbar.Collapse>
+                  {/*  <Nav class="justify-content-end d-inline-flex ">
+                    <Nav class=" ">
+                        <div class='px-1'><CallThemeRemote/></div>
+                        <div class='px-1'><img src={swgInfoPic} className={classes.myHeaderWH1}/></div>
+                        <div class='px-1' className={classes.myHeaderWH2}>
+                            <LoginAndProfileRender
+                                isAuth={isAuth}
+                                goToMyPage={goToMyPage}
+                                myProfile={myProfile}
+                                DeleteLogin={DeleteLogin}
+                            />
+                        </div>
+                    </Nav>*/}
             </Container>
         </Navbar>
     );
 }
 
-export default NavbarDarkExample;
+export default HeaderBS;

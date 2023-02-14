@@ -13,6 +13,9 @@ import Card from 'react-bootstrap/Card';
 import Button from "react-bootstrap/Button";
 import Container from 'react-bootstrap/Container';
 import Row from 'react-bootstrap/Row';
+import HeaderBS from "../Header/HeaderBS";
+import HeaderBsOc from "../Header/HeaderBsOc";
+import HeaderContainer from "../Header/HeaderContainer";
 
 
 let Users = ({
@@ -93,6 +96,10 @@ let Users = ({
         />
 
         return <div className={classes.users}>
+
+            <HeaderContainer/>
+
+            {/* <HeaderBsOc/>*/}
             <Container fluid className="d-block justify-content-center p-3">
                 <Row>
                     <h1 className="d-flex justify-content-center text-uppercase">

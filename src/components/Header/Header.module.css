@@ -4,6 +4,8 @@
     background-size: 180px;
     background-repeat: no-repeat;
     background-color: rgba(139, 239, 0, 0.3);
+    z-index: 1500;
+
 }
 
 .headerGreed {  /*размещение элементтов в header */
@@ -105,9 +107,21 @@
     background-color: #27ae60;
 }
 
-.myHeader {
+.myHeaderWH1 {
     height: 45px;
-    border-radius: 20px;
+    width: 45px;
+    border-radius: 50%;
+    padding: 0.5rem;
     transition: 0.2s ease-in-out;
+    background-color: rgba(255, 255, 255, 0.5);
+}
+.myHeaderWH2 {
+    height: 45px;
+    width: 45px;
+    transition: 0.2s ease-in-out;
+    background-color: rgba(255, 255, 255, 0.5);
 }
 
+.dayNight {
+    width: 2.8rem;
+}
