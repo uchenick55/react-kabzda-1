@@ -101,7 +101,7 @@ let Users = ({
             <HeaderContainer/>
 */}
 
-            <Container fluid className="d-block justify-content-center p-3">
+            <Container fluid className="d-block justify-content-center">
                 <Row>
                     <h1 className="d-flex justify-content-center text-uppercase">
                         Users

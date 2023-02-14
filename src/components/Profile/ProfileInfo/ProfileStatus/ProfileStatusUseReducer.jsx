@@ -1,5 +1,8 @@
 import React, {useReducer} from "react";
 import {bedug_mode} from "../../../../redux/store-redux";
+import "bootstrap/dist/css/bootstrap.min.css"
+import InputGroup from 'react-bootstrap/InputGroup';
+import Form from 'react-bootstrap/Form';
 
 let ProfileStatusUseReducer = ({status, userId, myId, putStatusThunkCreator}) => {
     const initialState = {
@@ -48,9 +51,9 @@ let ProfileStatusUseReducer = ({status, userId, myId, putStatusThunkCreator}) =>
     const setMyStatus = () => { // действия после двойного клика по полю input статуса или вводу Enter
         dispatch({type: SET_MODIFY_STATUS_FALSE})// смена текстового отображения статуса на поле input
 
-        if (bedug_mode) {console.log("ProfileStatusUseReducer.jsx, setMyStatus putStatusThunkCreator() ->SET_USER_PROFILE" )} // дебаг
-
-        /////////  ProfileInfo.jsx
+        if (bedug_mode) {
+            console.log("ProfileStatusUseReducer.jsx, setMyStatus putStatusThunkCreator() ->SET_USER_PROFILE")
+        } // дебаг
 
         putStatusThunkCreator(localState.statusTmpInput2, myId)// санкреатор на обновление статуса на сервере
     }
@@ -64,29 +67,25 @@ let ProfileStatusUseReducer = ({status, userId, myId, putStatusThunkCreator}) =>
         }
     }
 
+    const CommonInputGroup = ({isDisabled, onClickMethod}) => {
+        // общий метод (компонента) редактирования и отображения статуса
+        return <InputGroup className="my-3" onClick={onClickMethod}>
+           <InputGroup.Text id="basic-addon1">Статус:</InputGroup.Text>  {/* текст слева от поля*/}
+            <Form.Control
+                value={localState.statusTmpInput2} // жестко зафиксировали значение поля ввода на временное значение статуса в локальном стейте
+                onChange={onChangeStatus} // задание временного локального статуса
+                onBlur={setMyStatus}// задание стейта при потере фокуса input
+                autoFocus // фокусировка на поле ввода текста
+                placeholder={"задайте статус"}// текст при пустом поле ввода
+                onKeyPress={checkEnterPressed} // проверка нажатия Enter
+                disabled={isDisabled}
+            />
+        </InputGroup>
+    }
     return (<div>
-        {!localState.modifyStatus2
-            ? <div>
-                <h3
-                    onDoubleClick={checkIfICanModifyStatus}> {/*при двойном клике на статусе проверка могу ли я ввобще менять статус*/}
-                    Статус: {!status // если статуса из стейта нет или он нулевой
-                        ? "нет статуса" // отображение "нет статуса"
-                        : status // если статус есть из BLL, он отображается
-                    }
-                </h3>
-            </div>
-            : <h3>
-                <span onDoubleClick={setMyStatus}>
-                    <input
-                        value={localState.statusTmpInput2} // жестко зафиксировали значение поля ввода на временное значение статуса в локальном стейте
-                        onChange={onChangeStatus} // задание временного локального статуса
-                        onBlur={setMyStatus}// задание стейта при потере фокуса input
-                        autoFocus // фокусировка на поле ввода текста
-                        placeholder={"задайте статус"}// текст при пустом поле ввода
-                        onKeyPress={checkEnterPressed} // проверка нажатия Enter
-                    />
-                </span>
-            </h3>
+        {!localState.modifyStatus2 // отображение или модификация статуса
+            ? <CommonInputGroup isDisabled={true} onClickMethod={checkIfICanModifyStatus}/>
+            : <CommonInputGroup isDisabled={false} onClickMethod={setMyStatus}/>
         }
     </div>)
 }

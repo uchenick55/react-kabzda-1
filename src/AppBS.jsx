@@ -30,8 +30,8 @@ class App extends React.Component { // конвертируем app в клас�
                         <Container>
                             <HeaderContainer/>
 
-                        <div className='app-wrapper-content g-5'>
-                            <div className='mt-5 mt-5'>
+                        <div className="">
+                            <div className='paddingTopForMenu'>
                                 <ContentContainer/> {/*страницы контента в зависмости от URL*/}
                             </div>
                         </div></Container>

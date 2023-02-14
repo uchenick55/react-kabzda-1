@@ -1,6 +1,6 @@
 import React from 'react';
 import classes from './Profile.module.css'
-import ProfileInfo from "./ProfileInfo/ProfileInfo";
+import ProfileInfo from "./ProfileInfo/ProfileInfoBS";
 import MyPostsContainer from "./MyPosts/MyPostsContainer";
 import {bedug_mode} from "../../redux/store-redux";
 import ScrollContainer from "../common/Scroll/ScrollContainer";
@@ -28,7 +28,8 @@ const Profile = ({profile, status, myId, putStatusThunkCreator, uploadImage,
         />
     </div>
     return <div>
-        <ScrollContainer
+        {ProfileRender}
+        {/*   <ScrollContainer
             child={ProfileRender}
             height={window.screen.availHeight - 218}
             firstInsideContainer={"ProfileUp"}
