@@ -136,8 +136,8 @@ const ProfileInfo = ({
 
     return <div>
         <Container fluid="sm">
-            <Row className={commonClasses.container}>
-                <Col xs={12} md={5}>
+            <Row >
+                <Col xs={12} md={5} className={commonClasses.container}>
                     {showUserPhoto} {/*показать фото пользователя*/}
                     {editMyPhoto} {/* сменить фото, если это мой профиль*/}
                 </Col>

@@ -1,15 +1,6 @@
 /* Container needed to position the button. Adjust the width as needed */
-.container {
-    position: relative;
-    border-color: red;
 
-}
 
-.container img {
-    width: 95%;
-    height: auto;
-    padding-top: 5px;
-}
 
 .profilePhotoIMG {
     border-radius: 30px;
@@ -24,8 +15,13 @@
 Здесь добавить img Scale
 */
 /* Make the image responsive */
-
-
+.container {
+    position: relative;
+}
+.container img  {
+    width: 95%;
+    height: auto;
+}
 /* Style the button and place it in the middle of the container/image */
 .container .btn1 {
     position: absolute;
