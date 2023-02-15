@@ -4,7 +4,10 @@
 }
 
 .labelWidth {
+    /*
     width: 6rem;
+    */
     display: flex;
     justify-content: right;
 }
+

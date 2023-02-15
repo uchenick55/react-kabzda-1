@@ -49,12 +49,12 @@ const EditProfileFormik = ({putProfile, setEditMode, profile, editProfileStatus,
                             name: 'FullName',
                             type: 'text',
                             placeholder: 'Имя',
-                            isLeftLabel: true
+                            leftLabelLength: "5rem" // слева в input появляется label указанной длины
                         }
                     ),
 
                     e(MyTextInput,//Обо мне
-                        {label: "Обо мне", name: 'AboutMe', type: 'text', placeholder: 'Обо мне', isLeftLabel: true},
+                        {label: "Обо мне", name: 'AboutMe', type: 'text', placeholder: 'Обо мне', leftLabelLength: "5rem"}, // слева в input появляется label указанной длины
                     ),
 
                     e(MyCheckbox, {name: 'LookingForAJob'}, //чекбокс ищу работу
@@ -63,7 +63,7 @@ const EditProfileFormik = ({putProfile, setEditMode, profile, editProfileStatus,
 
                     e(MyTextInput, { //Описание поиска работы
                             label: "Описание", name: 'LookingForAJobDescription',
-                            type: 'textarea', placeholder: 'Описание', isLeftLabel: true
+                            type: 'textarea', placeholder: 'Описание', leftLabelLength: "5rem" // слева в input появляется label указанной длины
                         }
                     ),
 
@@ -81,7 +81,7 @@ const EditProfileFormik = ({putProfile, setEditMode, profile, editProfileStatus,
                                         name: 'contacts[' + c + ']',
                                         type: 'text',
                                         placeholder: c,
-                                        isLeftLabel: true
+                                        leftLabelLength: "5rem" // слева в input появляется label указанной длины
                                     },
                                 ),
                                 e('div', {}, //ошибки редактирования профиля с сервера
