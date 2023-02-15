@@ -4,7 +4,11 @@ import * as Yup from 'yup' // валидация форм с помошью ст
 import classes from "./Login.module.css"
 import {MyTextInput, MyCheckbox} from "../common/formikCommon/MyFieldsBS"
 import {PointerCursor} from "../Dark_light_theme/globalStyles";
+import Button from "react-bootstrap/Button";
+import ButtonGroup from "react-bootstrap/ButtonGroup";
 //import DisplayFormikState from "../common/formikCommon/DisplayFormikState"
+import "bootstrap/dist/css/bootstrap.min.css"
+import Col from "react-bootstrap/Col";
 
 let myInitialValues = { // начальные зачения форм
     email: "",
@@ -35,11 +39,11 @@ const LoginFormik = ({postLogin, captchaURL, updateCaptcha, loginError}) => { //
                 {({
                       handleReset,// обнуление полей
                   }) => ( // обертка для вывода значений ввода в любом месте формы паралельно (или в итоге)
-                    <Form className={classes.LoginForm}>
-                        <fieldset>
-                            <legend>
-                                <div className={classes.legendStyle}>Войдите в аккаунт</div>
-                            </legend>
+                    <Form> {/*className={classes.LoginForm}*/}
+                        <Col lg={6} md={12}>
+
+                            <div className={classes.legendStyle}>Войдите в аккаунт</div>
+
                             <MyTextInput // email
                                 label="Email Address"
                                 name='email'
@@ -62,8 +66,7 @@ const LoginFormik = ({postLogin, captchaURL, updateCaptcha, loginError}) => { //
                                 запомнить меня
                             </MyCheckbox>
 
-                            {captchaURL &&
-                            <div>
+                            {captchaURL && <div>
                                 <PointerCursor>
                                     <img src={captchaURL} onClick={updateCaptcha} alt="captcha"></img>
                                 </PointerCursor>
@@ -75,25 +78,25 @@ const LoginFormik = ({postLogin, captchaURL, updateCaptcha, loginError}) => { //
                                     type='text'
                                     placeholder='captcha'
                                 />
-
                             </div>
-                            }
 
-                            <button type="submit" > {/*кнопка отправить форму*/}
-                                Submit
-                            </button>
-                            <button type='button' onClick={handleReset}>Reset</button>
+                            }
+                            <ButtonGroup aria-label="Basic example">
+                                <Button type="submit"> {/*кнопка отправить форму*/}
+                                    Submit
+                                </Button>
+                                <Button type='button' onClick={handleReset}>Reset</Button>
+                            </ButtonGroup>
+
+
                             {/*кнопка сброса к значениям по умолчанию*/}
                             <div className={classes.errorText}>{loginError && loginError}</div>
-                        </fieldset>
-                        <div/>
+                            <div/>
 
-                        {/* <DisplayFormikState/> {/*отображение всего стейта формика*/}
-
+                            {/* <DisplayFormikState/> {/*отображение всего стейта формика*/}
+                        </Col>
                     </Form>
-
                 )}
-
             </Formik>
         </>
     )
