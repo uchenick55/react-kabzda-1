@@ -1,25 +1,4 @@
 
-.profileInfoGreed {
-    display: grid;
-    grid-template-columns: 270px 1fr;
-}
-.buttonsPhotoUpload {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-}
-
-.profilefullName {
-    font-size: 20px;
-    font-weight: bold;
-    padding-bottom: 15px;
-}
-
-.ProfileContacts {
-    font-size: small;
-    padding-left: 20px;
-
-}
-
-.succesfullyUpdated {
-    color: #27ae60;
+.minwidth {
+    width: 400px;
 }

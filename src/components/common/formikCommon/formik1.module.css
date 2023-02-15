@@ -1,19 +1,10 @@
-/*.errorText {
-    color: red;
-}*/
 
 .errorInputTextArea {
     border: 2px solid red;
-    width: 95%;
-
-}
-
-.inputTextArea {
-    width: 95%;
 }
 
 .labelWidth {
-    width: 7rem;
+    width: 6rem;
     display: flex;
     justify-content: right;
 }

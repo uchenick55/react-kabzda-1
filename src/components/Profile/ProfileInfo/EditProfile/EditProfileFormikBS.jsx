@@ -44,10 +44,10 @@ const EditProfileFormik = ({putProfile, setEditMode, profile, editProfileStatus,
 
                     e(MyTextInput, //Полное имя:
                         {
-                            label: "Полное имя",
+                            label: "Имя",
                             name: 'FullName',
                             type: 'text',
-                            placeholder: 'Полное имя',
+                            placeholder: 'Имя',
                             //  autoFocus: true
                         }
                     ),
@@ -61,8 +61,8 @@ const EditProfileFormik = ({putProfile, setEditMode, profile, editProfileStatus,
                     ),
 
                     e(MyTextArea, { //Описание поиска работы
-                            label: "Описание поиска работы:", name: 'LookingForAJobDescription',
-                            type: 'textarea', placeholder: 'Описание поиска работы'
+                            label: "Описание:", name: 'LookingForAJobDescription',
+                            type: 'textarea', placeholder: 'Описание'
                         }
                     ),
 

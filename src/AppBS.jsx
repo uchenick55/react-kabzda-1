@@ -9,7 +9,6 @@ import Preloader from "./components/common/Preloader/Preloader";
 import InfoContainer from "./components/Info/InfoContainer";
 import ContentContainer from "./components/Content/ContentContainer";
 import ErrorBoundary from "./components/common/ErrorBoundary/ErrorBoundary";
-import Row from "react-bootstrap/Row";
 import Container from "react-bootstrap/Container";
 
 class App extends React.Component { // конвертируем app в классовую компоненту для жизненного цикла
@@ -29,14 +28,17 @@ class App extends React.Component { // конвертируем app в клас�
                     <ErrorBoundary> {/*Общий обработчик ошибок во всем приложении*/}
                         <Container>
                             <HeaderContainer/>
-
-                        <div className="">
-                            <div className='paddingTopForMenu'>
-                                <ContentContainer/> {/*страницы контента в зависмости от URL*/}
+                            <div className="">
+                                <div className='paddingTopForMenu'>
+                                    <ContentContainer/> {/*страницы контента в зависмости от URL*/}
+                                </div>
                             </div>
-                        </div></Container>
+                        </Container>
                     </ErrorBoundary>
+                    <div className='minwidth'></div>
+                    {/*Для масштабирования и чтобы не поехал header, делаем div с шириной 350*/}
                 </div>
+
             </HashRouter>
 
         );

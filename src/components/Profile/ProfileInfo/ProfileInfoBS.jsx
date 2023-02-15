@@ -1,5 +1,5 @@
 import React, {useEffect, useState} from 'react';
-// import classes from './ProfileInfo.module.css'
+import classes from './ProfileInfo.module.css'
 import commonClasses from '../../common/ButtonOverImage/ButtonOverImage.module.css'
 import Preloader from "../../common/Preloader/Preloader";
 import ProfileStatusUseReducer from "./ProfileStatus/ProfileStatusUseReducer";
@@ -11,7 +11,7 @@ import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
 import Container from "react-bootstrap/Container";
 import Button from "react-bootstrap/Button";
-
+import Image from 'react-bootstrap/Image'
 
 const ShowProfile = ({profile, setEditMode, userId, myId}) => { // вынес отдельно отображение профиля
 
@@ -122,7 +122,7 @@ const ProfileInfo = ({
             </form>
         </div>
 
-    let showUserPhoto = <img
+    let showUserPhoto = <Image fluid={true}
         alt={"userPhoto"}
         onMouseOver={() => {
             setshowUploadImageButton(true)

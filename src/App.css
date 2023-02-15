@@ -90,3 +90,7 @@
 .paddingTopForMenu {
     padding-top: 80px;
 }
+
+.minwidth {
+    width: 350px;
+}

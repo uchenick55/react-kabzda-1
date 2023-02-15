@@ -3,6 +3,7 @@ import classes from "./formik1.module.css"
 import "bootstrap/dist/css/bootstrap.min.css"
 import InputGroup from 'react-bootstrap/InputGroup';
 import Form from 'react-bootstrap/Form';
+import Col from "react-bootstrap/Col";
 
 export const CommonInputTextArea = ({label, children, ...props}) => {
     const [meta] = useField(props.props)  // данные onBlur и meta для обработки ошибок
@@ -23,7 +24,7 @@ export const MyTextInput = ({label, autoFocus, ...props}) => {  // вынесе�
         <CommonInputTextArea label={label} props={props}> {/*композиция выод общей части InputTextArea*/}
 
             <InputGroup className="my-1">
-                <InputGroup.Text id={label} className = {classes.labelWidth}>{label}:</InputGroup.Text>
+                <InputGroup.Text id={label} className={classes.labelWidth}>{label}:</InputGroup.Text>
                 <Form.Control  //as="textarea"
                     className={meta.touched && meta.error ? classes.errorInputTextArea : classes.inputTextArea}
                     {...field}
@@ -42,13 +43,15 @@ export const MyTextArea = ({label, autoFocus, ...props}) => {  // вынесен
         <CommonInputTextArea label={label} props={props}>{/*композиция вывод общей части InputTextArea*/}
 
             <InputGroup className="my-1">
-                <InputGroup.Text id={label}>{label}</InputGroup.Text>
-                <Form.Control as="textarea"
-                              className={meta.touched && meta.error ? classes.errorInputTextArea : classes.inputTextArea}
-                              {...field}
-                              {...props}
-                              autoFocus={autoFocus}
-                />
+                <Col xs="auto">
+                    <InputGroup.Text id={label}>{label}</InputGroup.Text>
+                    <Form.Control as="textarea"
+                                  className={meta.touched && meta.error ? classes.errorInputTextArea : classes.inputTextArea}
+                                  {...field}
+                                  {...props}
+                                  autoFocus={autoFocus}
+                    />
+                </Col>
             </InputGroup>
         </CommonInputTextArea>
     )

@@ -8,6 +8,8 @@ import swgInfoPic from "../../assets/images/swg/info.svg"
 import classes from './Header.module.css';
 import CallThemeRemote from "../Dark_light_theme/CallThemeRemote";
 import LoginAndProfileRender from "./LoginAndProfileRender";
+import Image from "react-bootstrap/Image";
+import Col from "react-bootstrap/Col";
 
 
 function HeaderBS({isAuth, goToMyPage, myProfile, deleteLogin}) {
@@ -18,7 +20,7 @@ function HeaderBS({isAuth, goToMyPage, myProfile, deleteLogin}) {
                     <div><CallThemeRemote/></div>
                     {/*переключатель темы*/}
 
-                    <div><img src={swgInfoPic} className={classes.myHeaderWH1}/></div>
+                    <div><Image fluid={true} src={swgInfoPic} className={classes.myHeaderWH1}/></div>
                     {/* иконка активатор модального окна с контекстной подсказкой для данной страницы*/}
 
                     <div>
