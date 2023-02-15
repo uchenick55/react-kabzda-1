@@ -44,7 +44,7 @@ const EditProfileFormik = ({putProfile, setEditMode, profile, editProfileStatus,
 
                     e(MyTextInput, //Полное имя:
                         {
-                            label: "Полное имя:",
+                            label: "Полное имя",
                             name: 'FullName',
                             type: 'text',
                             placeholder: 'Полное имя',
@@ -53,7 +53,7 @@ const EditProfileFormik = ({putProfile, setEditMode, profile, editProfileStatus,
                     ),
 
                     e(MyTextInput,//Обо мне
-                        {label: "Обо мне:", name: 'AboutMe', type: 'text', placeholder: 'Обо мне'},
+                        {label: "Обо мне", name: 'AboutMe', type: 'text', placeholder: 'Обо мне'},
                     ),
 
                     e(MyCheckbox, {name: 'LookingForAJob'}, //чекбокс ищу работу

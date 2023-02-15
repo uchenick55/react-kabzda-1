@@ -23,7 +23,7 @@ export const MyTextInput = ({label, autoFocus, ...props}) => {  // вынесе�
         <CommonInputTextArea label={label} props={props}> {/*композиция выод общей части InputTextArea*/}
 
             <InputGroup className="my-1">
-                <InputGroup.Text id={label}>{label}</InputGroup.Text>
+                <InputGroup.Text id={label} className = {classes.labelWidth}>{label}:</InputGroup.Text>
                 <Form.Control  //as="textarea"
                     className={meta.touched && meta.error ? classes.errorInputTextArea : classes.inputTextArea}
                     {...field}
@@ -31,14 +31,6 @@ export const MyTextInput = ({label, autoFocus, ...props}) => {  // вынесе�
                     autoFocus={autoFocus}
                 />
             </InputGroup>
-
-
-            {/*       <input
-                className={meta.touched && meta.error ? classes.errorInputTextArea : classes.inputTextArea}
-                {...field}
-                {...props}
-                autoFocus={autoFocus}
-            /> {/*то различие между input и textarea*/}
         </CommonInputTextArea>
     )
 }
@@ -58,14 +50,6 @@ export const MyTextArea = ({label, autoFocus, ...props}) => {  // вынесен
                               autoFocus={autoFocus}
                 />
             </InputGroup>
-
-
-            {/*           <textarea
-                className={meta.touched && meta.error ? classes.errorInputTextArea : classes.inputTextArea}
-                {...field}
-                {...props}
-                autoFocus={autoFocus}
-            /> то различие между input и textarea*/}
         </CommonInputTextArea>
     )
 }

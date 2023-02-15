@@ -67,12 +67,13 @@ let ProfileStatusUseReducer = ({status, userId, myId, putStatusThunkCreator}) =>
         }
     }
 
-    const CommonInputGroup = ({isDisabled, onClickMethod}) => {
+    const CommonInputGroup = ({isDisabled, onClickMethod, value}) => {
         // общий метод (компонента) редактирования и отображения статуса
-        return <InputGroup className="my-3" onClick={onClickMethod}>
-           <InputGroup.Text id="basic-addon1">Статус:</InputGroup.Text>  {/* текст слева от поля*/}
+        return <InputGroup className="my-3" onClick={onClickMethod}> {/*отступ и метод по клику*/}
+            <InputGroup.Text id="basic-addon1">Статус:</InputGroup.Text> {/* текст слева от поля*/}
             <Form.Control
-                value={localState.statusTmpInput2} // жестко зафиксировали значение поля ввода на временное значение статуса в локальном стейте
+                onClick={onClickMethod}
+                value={value} // жестко зафиксировали значение поля ввода на временное значение статуса в локальном стейте
                 onChange={onChangeStatus} // задание временного локального статуса
                 onBlur={setMyStatus}// задание стейта при потере фокуса input
                 autoFocus // фокусировка на поле ввода текста
@@ -84,8 +85,8 @@ let ProfileStatusUseReducer = ({status, userId, myId, putStatusThunkCreator}) =>
     }
     return (<div>
         {!localState.modifyStatus2 // отображение или модификация статуса
-            ? <CommonInputGroup isDisabled={true} onClickMethod={checkIfICanModifyStatus}/>
-            : <CommonInputGroup isDisabled={false} onClickMethod={setMyStatus}/>
+            ? <CommonInputGroup isDisabled={true} onClickMethod={checkIfICanModifyStatus} value={status}/>
+            : <CommonInputGroup isDisabled={false} onClickMethod={setMyStatus} value={localState.statusTmpInput2}/>
         }
     </div>)
 }

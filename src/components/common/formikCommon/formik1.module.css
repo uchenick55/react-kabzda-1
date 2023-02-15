@@ -11,3 +11,9 @@
 .inputTextArea {
     width: 95%;
 }
+
+.labelWidth {
+    width: 7rem;
+    display: flex;
+    justify-content: right;
+}
