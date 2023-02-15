@@ -34,7 +34,7 @@ const FeedBackFormik = ({sendFeedBack}) => { // основная компоне�
                     <Form>
                         <div className={classes.fieldButtonGrid}>
                             <div>
-                                <MyTextInput // сообщение в MyPosts
+                                <MyTextInput // сообщение в MyPostsBS
                                     label="Ваше имя"
                                     name='name'
                                     type='text'
@@ -46,7 +46,7 @@ const FeedBackFormik = ({sendFeedBack}) => { // основная компоне�
                                     type='email'
                                     placeholder='email'
                                 />
-                               <MyTextArea // сообщение в MyPosts
+                               <MyTextArea // сообщение в MyPostsBS
                                    label="Введите сообщение*"
                                    name='message'
                                    type='textarea'

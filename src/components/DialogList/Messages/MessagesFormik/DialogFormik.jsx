@@ -31,7 +31,7 @@ const DialogFormik = ({sendMessage}) => { // основная компонент
                     <Form className={classes.MyPosts}>
                         <div className={classes.fieldButtonGrid}>
                             <div>
-                                <MyTextInput // сообщение в MyPosts
+                                <MyTextInput // сообщение в MyPostsBS
                                     label=""
                                     name='newMessage'
                                     type='text'

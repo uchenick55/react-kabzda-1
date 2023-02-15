@@ -4,6 +4,7 @@ import * as Yup from 'yup' // валидация форм с помошью ст
 import classes from './EditProfile.module.css'
 //import DisplayFormikState from "../../../common/formikCommon/DisplayFormikState"
 import {MyCheckbox, MyTextArea, MyTextInput} from "../../../common/formikCommon/MyFieldsBS"
+import Button from "react-bootstrap/Button";
 
 let myValidationSchema = Yup.object({ // валидация форм на required, длину и заполнение полей
 })
@@ -48,12 +49,12 @@ const EditProfileFormik = ({putProfile, setEditMode, profile, editProfileStatus,
                             name: 'FullName',
                             type: 'text',
                             placeholder: 'Имя',
-                            //  autoFocus: true
+                            isLeftLabel: true
                         }
                     ),
 
                     e(MyTextInput,//Обо мне
-                        {label: "Обо мне", name: 'AboutMe', type: 'text', placeholder: 'Обо мне'},
+                        {label: "Обо мне", name: 'AboutMe', type: 'text', placeholder: 'Обо мне', isLeftLabel: true},
                     ),
 
                     e(MyCheckbox, {name: 'LookingForAJob'}, //чекбокс ищу работу
@@ -61,8 +62,8 @@ const EditProfileFormik = ({putProfile, setEditMode, profile, editProfileStatus,
                     ),
 
                     e(MyTextInput, { //Описание поиска работы
-                            label: "Описание:", name: 'LookingForAJobDescription',
-                            type: 'textarea', placeholder: 'Описание'
+                            label: "Описание", name: 'LookingForAJobDescription',
+                            type: 'textarea', placeholder: 'Описание', isLeftLabel: true
                         }
                     ),
 
@@ -79,7 +80,8 @@ const EditProfileFormik = ({putProfile, setEditMode, profile, editProfileStatus,
                                         label: c,
                                         name: 'contacts[' + c + ']',
                                         type: 'text',
-                                        placeholder: c
+                                        placeholder: c,
+                                        isLeftLabel: true
                                     },
                                 ),
                                 e('div', {}, //ошибки редактирования профиля с сервера
@@ -96,7 +98,7 @@ const EditProfileFormik = ({putProfile, setEditMode, profile, editProfileStatus,
                     e('br'), //перенос строки
 
                     //кнопка сброса к значениям по умолчанию
-                    e('button', {
+                    e(Button, {
                         type: 'button',
                         onClick: () => { // при клике по кнопке сброс
                             handleReset()// занулить поля вводла по умолчанию
@@ -107,12 +109,12 @@ const EditProfileFormik = ({putProfile, setEditMode, profile, editProfileStatus,
                     " ", //отступ между кнопками
 
                     //кнопка отправить форму
-                    e('button', {type: 'submit'}, 'Применить'),
+                    e(Button, {type: 'submit'}, 'Применить'),
 
                     " ", //отступ между кнопками
 
                     //отмена
-                    e('button', {
+                    e(Button, {
                         onClick: () => { // при клике по кнопке отмена
                             setEditMode(false)// переключиться с режима редактирования профиля на просмотр
                             setEditProfileStatus([]) // сбросить сообщение об ошибке с сервера

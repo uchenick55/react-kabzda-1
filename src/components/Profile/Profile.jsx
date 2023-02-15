@@ -5,8 +5,10 @@ import MyPostsContainer from "./MyPosts/MyPostsContainer";
 import {bedug_mode} from "../../redux/store-redux";
 import ScrollContainer from "../common/Scroll/ScrollContainer";
 
-const Profile = ({profile, status, myId, putStatusThunkCreator, uploadImage,
-                     userId, putProfile, editProfileStatus, setEditProfileStatus}) => {
+const Profile = ({
+                     profile, status, myId, putStatusThunkCreator, uploadImage,
+                     userId, putProfile, editProfileStatus, setEditProfileStatus
+                 }) => {
     if (bedug_mode) {
         console.log("Profile.jsx")
     } // дебаг
@@ -23,19 +25,14 @@ const Profile = ({profile, status, myId, putStatusThunkCreator, uploadImage,
             editProfileStatus={editProfileStatus} // список ошибок правки формы профиля с сервера
             setEditProfileStatus={setEditProfileStatus}
         />
+
+    </div>
+    return <div>
+        {ProfileRender} {/*Отрисовка данных профиля с картинкой, и статусом*/}
+
         <MyPostsContainer // контейнер отображения постов (пока заглушка из стейта BLL)
             userId={userId} // id выбранного пользователя, берется из URL
         />
-    </div>
-    return <div>
-        {ProfileRender}
-        {/*   <ScrollContainer
-            child={ProfileRender}
-            height={window.screen.availHeight - 218}
-            firstInsideContainer={"ProfileUp"}
-            secondInsideContainer={"ProfileDown"}
-            containerElement={"ProfileContainer"}
-        /> {/*отрисовка FriendList в скрол контейнере*/}
     </div>
 }
 export default Profile;

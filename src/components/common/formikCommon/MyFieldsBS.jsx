@@ -16,14 +16,14 @@ export const CommonInputTextArea = ({label, children, ...props}) => {
         </>
     )
 }
-export const MyTextInput = ({label, autoFocus, type, ...props}) => {  // вынесенная общая часть для тесктового поля
+export const MyTextInput = ({label, autoFocus, type, isLeftLabel, ...props}) => {  // вынесенная общая часть для тесктового поля
     const [field, meta] = useField(props) // данные onBlur и meta для обработки ошибок
 
     return (
         <CommonInputTextArea label={label} props={props}> {/*композиция выод общей части InputTextArea*/}
 
-            <InputGroup className="my-1">
-                <InputGroup.Text id={label} className={classes.labelWidth}>{label}:</InputGroup.Text>
+            <InputGroup className="my-1" size="sm">
+                {isLeftLabel && <InputGroup.Text id={label} className={classes.labelWidth}>{label}:</InputGroup.Text>}
                 <Form.Control  as={type==="textarea"?type:"input"}
                     className={meta.touched && meta.error ? classes.errorInputTextArea : classes.inputTextArea}
                     {...field}
@@ -35,6 +35,16 @@ export const MyTextInput = ({label, autoFocus, type, ...props}) => {  // вын�
         </CommonInputTextArea>
     )
 }
+/*
+<InputGroup>
+    <Form.Control
+        placeholder="Recipient's username"
+        aria-label="Recipient's username with two button addons"
+    />
+    <Button variant="outline-secondary">Button</Button>
+    <Button variant="outline-secondary">Button</Button>
+</InputGroup>
+*/
 
 export const MyCheckbox = ({children, ...props}) => {
     const [field, meta] = useField({...props, type: 'checkbox'}) // данные onBlur и meta для обработки ошибок
