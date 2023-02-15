@@ -60,7 +60,7 @@ const EditProfileFormik = ({putProfile, setEditMode, profile, editProfileStatus,
                         "в поисках работы"
                     ),
 
-                    e(MyTextArea, { //Описание поиска работы
+                    e(MyTextInput, { //Описание поиска работы
                             label: "Описание:", name: 'LookingForAJobDescription',
                             type: 'textarea', placeholder: 'Описание'
                         }

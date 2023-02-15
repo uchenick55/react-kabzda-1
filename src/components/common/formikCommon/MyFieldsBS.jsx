@@ -3,7 +3,6 @@ import classes from "./formik1.module.css"
 import "bootstrap/dist/css/bootstrap.min.css"
 import InputGroup from 'react-bootstrap/InputGroup';
 import Form from 'react-bootstrap/Form';
-import Col from "react-bootstrap/Col";
 
 export const CommonInputTextArea = ({label, children, ...props}) => {
     const [meta] = useField(props.props)  // данные onBlur и meta для обработки ошибок
@@ -17,7 +16,7 @@ export const CommonInputTextArea = ({label, children, ...props}) => {
         </>
     )
 }
-export const MyTextInput = ({label, autoFocus, ...props}) => {  // вынесенная общая часть для тесктового поля
+export const MyTextInput = ({label, autoFocus, type, ...props}) => {  // вынесенная общая часть для тесктового поля
     const [field, meta] = useField(props) // данные onBlur и meta для обработки ошибок
 
     return (
@@ -25,38 +24,17 @@ export const MyTextInput = ({label, autoFocus, ...props}) => {  // вынесе�
 
             <InputGroup className="my-1">
                 <InputGroup.Text id={label} className={classes.labelWidth}>{label}:</InputGroup.Text>
-                <Form.Control  //as="textarea"
+                <Form.Control  as={type==="textarea"?type:"input"}
                     className={meta.touched && meta.error ? classes.errorInputTextArea : classes.inputTextArea}
                     {...field}
                     {...props}
                     autoFocus={autoFocus}
                 />
             </InputGroup>
+
         </CommonInputTextArea>
     )
 }
-
-
-export const MyTextArea = ({label, autoFocus, ...props}) => {  // вынесенная общая часть для тесктового поля
-    const [field, meta] = useField(props)  // данные onBlur и meta для обработки ошибок
-    return (
-        <CommonInputTextArea label={label} props={props}>{/*композиция вывод общей части InputTextArea*/}
-
-            <InputGroup className="my-1">
-                <Col xs="auto">
-                    <InputGroup.Text id={label}>{label}</InputGroup.Text>
-                    <Form.Control as="textarea"
-                                  className={meta.touched && meta.error ? classes.errorInputTextArea : classes.inputTextArea}
-                                  {...field}
-                                  {...props}
-                                  autoFocus={autoFocus}
-                    />
-                </Col>
-            </InputGroup>
-        </CommonInputTextArea>
-    )
-}
-
 
 export const MyCheckbox = ({children, ...props}) => {
     const [field, meta] = useField({...props, type: 'checkbox'}) // данные onBlur и meta для обработки ошибок
