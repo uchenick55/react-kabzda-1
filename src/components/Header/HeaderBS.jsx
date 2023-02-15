@@ -9,7 +9,6 @@ import classes from './Header.module.css';
 import CallThemeRemote from "../Dark_light_theme/CallThemeRemote";
 import LoginAndProfileRender from "./LoginAndProfileRender";
 import Image from "react-bootstrap/Image";
-import Col from "react-bootstrap/Col";
 
 
 function HeaderBS({isAuth, goToMyPage, myProfile, deleteLogin}) {

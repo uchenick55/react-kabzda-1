@@ -87,8 +87,9 @@
     background-size:cover;
 }
 
-.paddingTopForMenu {
-    padding-top: 80px;
+.marginForMenu {
+    margin-top: 6rem;
+    padding-bottom: 1rem;
 }
 
 .minwidth {

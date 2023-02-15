@@ -10,6 +10,7 @@ import InfoContainer from "./components/Info/InfoContainer";
 import ContentContainer from "./components/Content/ContentContainer";
 import ErrorBoundary from "./components/common/ErrorBoundary/ErrorBoundary";
 import Container from "react-bootstrap/Container";
+import FooterBS from "./components/Footer/FooterBS";
 
 class App extends React.Component { // конвертируем app в классовую компоненту для жизненного цикла
     componentDidMount() {
@@ -27,12 +28,11 @@ class App extends React.Component { // конвертируем app в клас�
                     className={this.props.info_mode ? 'app-wrapper' : 'app-wrapper-no-info'}> {/*позиционирование по сетке гридов*/}
                     <ErrorBoundary> {/*Общий обработчик ошибок во всем приложении*/}
                         <Container>
-                            <HeaderContainer/>
-                            <div className="">
-                                <div className='paddingTopForMenu'>
-                                    <ContentContainer/> {/*страницы контента в зависмости от URL*/}
-                                </div>
-                            </div>
+                            <HeaderContainer/> {/*плавающий заголовок*/}
+                            <div className={'marginForMenu'}></div>
+                            <ContentContainer/> {/*страницы контента в зависмости от URL*/}
+                            <div className={'marginForMenu'}></div>
+                            <FooterBS/>
                         </Container>
                     </ErrorBoundary>
                     <div className='minwidth'></div>

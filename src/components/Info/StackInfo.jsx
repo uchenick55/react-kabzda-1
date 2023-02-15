@@ -26,14 +26,7 @@ let StackInfo = () => {
     </div>
 
     return (<div>
-        <ScrollContainer // обернуть диалоги скролом
-            child={usedStack}
-            height={window.screen.availHeight - 218} // высота поля скрола
-            firstInsideContainer={"StackInfoUp"}
-            secondInsideContainer={"StackInfoDown"}
-            containerElement={"StackInfoContainer"}
-        /> {/*отрисовка диалогов в скрол контейнере*/}
-
+        {usedStack}
     </div>)
 }
 export default StackInfo

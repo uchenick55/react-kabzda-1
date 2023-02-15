@@ -40,7 +40,7 @@ const MyPostsFormik  = ({addPost}) => { // основная компонента
                                 type='textarea'
                                 placeholder='Введите ваше сообщение'
                             />
-                            
+
                             {/*кнопка сброса к значениям по умолчанию*/}
                             <Stack direction="vertical" gap={1} className={'mt-2'}>
                                     <Button type="submit1" > {/*кнопка отправить форму*/}
