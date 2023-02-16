@@ -40,7 +40,6 @@ function HeaderBS({isAuth, goToMyPage, myProfile, deleteLogin}) {
                             <NavDropdown.Item href="#/mystack">My Stack</NavDropdown.Item>
                             <NavDropdown.Item href="#/profile">Profile</NavDropdown.Item>
                             <NavDropdown.Item href="#/users">Users</NavDropdown.Item>
-                            <NavDropdown.Item href="#/friends">My friends</NavDropdown.Item>
                             <NavDropdown.Item href="#/dialogs">Dialogs</NavDropdown.Item>
                             <NavDropdown.Item href="#/news">News</NavDropdown.Item>
                             <NavDropdown.Item href="#/rest">Rest</NavDropdown.Item>

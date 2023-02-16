@@ -1,11 +1,12 @@
 import React from 'react';
 import classes from './MyFriends.module.css';
-import MyFriendItem from "./MyFriendItem/MyFriendItem";
+import MyFriendItem from "./MyFriendItem/MyFriendItemBS";
 import userPhoto from "../../../assets/images/no-image3.png";
 import {bedug_mode} from "../../../redux/store-redux";
 import ScrollContainer from "../../common/Scroll/ScrollContainer";
 import commonClasses from "../../common/CommonClasses/common.module.css";
 import Container from "react-bootstrap/Container";
+import "bootstrap/dist/css/bootstrap.min.css"
 
 
 const MyFriends = ({state, unfollowFriendsAPI, dialogUserID}) => {
@@ -14,10 +15,10 @@ const MyFriends = ({state, unfollowFriendsAPI, dialogUserID}) => {
     }
     let MyFriendElements =
         state.map((f) => {
-                const avaSrc = f.photos.small ? f.photos.small : userPhoto;
+                const avaSrc = f.photos.large ? f.photos.large : userPhoto;
                 return (
                     <MyFriendItem
-                        key = {f.id}
+                        key={f.id}
                         name={f.name}
                         id={f.id}
                         avaSrc={avaSrc}
@@ -29,19 +30,18 @@ const MyFriends = ({state, unfollowFriendsAPI, dialogUserID}) => {
         );
 
     return (
-        <div>
+        <Container>
             <h2 className={commonClasses.pageHeader}>My Friends</h2>
 
-            <div className={classes.myfrienditems}>
+            <div>
                 {state.length > 0 &&
-                <b>My Friends:
+                <div class="col-12 col-sm-3 col-lg-2 d-inline-block d-flex">
                     {MyFriendElements}{/*отрисовка FriendList*/}
-
-                </b>
+                </div>
                 }
 
             </div>
-        </div>
+        </Container>
     )
 }
 export default MyFriends;
