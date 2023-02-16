@@ -7,6 +7,7 @@ import ProfileContainer from "../Profile/ProfileContainer";
 import Modal from "../common/Modal/Modal";
 import Scss from "../Scss/Scss";
 import NavBarContainer from "../MyFriendsCommon/MyFriendsContainer";
+import Home from "../Home/Home";
 
 //const ProfileContainer = React.lazy(() => import("../Profile/ProfileContainer"))
 const DialogsContainer = React.lazy(() => import("../DialogList/DialogListContainer"))
@@ -15,7 +16,7 @@ const ExportDefaultUsersContainer = React.lazy(() => import("../users/ExportDefa
 const LoginContainer = React.lazy(() => import("../Login/LoginContainer"))
 const News = React.lazy(() => import("../News/News"))
 const Rest = React.lazy(() => import("../Rest/Krestiki-Noliki/krestiki-noliki"))
-const StackInfo = React.lazy(() => import("../Info/StackInfo"))
+const StackInfo = React.lazy(() => import("../Info/StackInfoBS"))
 const FeedBackContainer = React.lazy(() => import("../FeedBack/FeedBackContainer"))
 
 let ContentContainer = () => { // вынес роутинг контента в отдельную компоненту
@@ -26,6 +27,8 @@ let ContentContainer = () => { // вынес роутинг контента в 
                 <div>Загрузка...</div>}> {/*Оборачивает компоненты, по которым идет Lazy import и выдает fallback на время загрузки*/}
                 <div className={classes.contentClass}>
                     <Routes> {/*в зависимости от URL подгрузка разного контента*/}
+                        <Route path='' element={<Home/>}/> {/*Общие Комментарии*/}
+                        <Route path='/mystack/*' element={<StackInfo/>}/> {/*Общие Комментарии*/}
                         <Route path='/profile/*' element={<ProfileContainer/>}/> {/*Профиль*/}
                         <Route path='/dialogs/*' element={<DialogsContainer/>}/> {/*Диалоги*/}
                         <Route path='/users/*' element={<ExportDefaultUsersContainer/>}/> {/*Поиск по Users*/}
@@ -33,7 +36,6 @@ let ContentContainer = () => { // вынес роутинг контента в 
                         <Route path='/login/*' element={<LoginContainer/>}/> {/*Логин*/}
                         <Route path='/news/*' element={<News/>}/> {/*Поиск по новостям hn algonia*/}
                         <Route path='/rest/*' element={<Rest/>}/> {/*Страница отдыха*/}
-                        <Route path='' element={<StackInfo/>}/> {/*Общие Комментарии*/}
                         <Route path='feedback' element={<FeedBackContainer/>}/> {/*Общие Комментарии*/}
                         <Route path='tasks' element={<Tasks/>}/> {/*Общие Комментарии*/}
                         <Route path='scss' element={<Scss/>}/> {/*Общие Комментарии*/}

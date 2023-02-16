@@ -9,7 +9,7 @@ function FooterBS () {
     return (
         <Navbar variant="dark" bg="dark" expand="sm" fixed={"bottom"}>
             <Container fluid> {/*контейнер, текст большими буквами */}
-{/*                <Navbar.Collapse> выпадающее меню со ссылкам нва страницы
+{/*                <-Navbar.Collapse> выпадающее меню со ссылкам нва страницы
                     <Nav>
                         <NavDropdown title="Pages" id="collasible-nav-dropdown">
                             <NavDropdown.Item href="#/">Info</NavDropdown.Item>
@@ -23,7 +23,7 @@ function FooterBS () {
                             <NavDropdown.Item href="#/tasks">Tasks</NavDropdown.Item>
                         </NavDropdown>
                     </Nav>
-                </Navbar.Collapse>*/}
+                </-Navbar.Collapse>*/}
             </Container>
         </Navbar>
     );

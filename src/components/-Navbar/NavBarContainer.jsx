@@ -37,7 +37,7 @@ class NavBarContainer extends React.Component {
         }
 
         const {myFriends2} = this.props; // получение из пропсов данных по друзьям
-        return <ErrorBoundary> {/*Локальный обработчик ошибок Navbar*/}
+        return <ErrorBoundary> {/*Локальный обработчик ошибок -Navbar*/}
             <Navbar
                 myFriends2={myFriends2}
                 unfollowFriendsAPI={this.unfollowFriendsAPI}

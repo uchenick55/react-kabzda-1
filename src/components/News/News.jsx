@@ -1,24 +1,23 @@
 //Реализация async и await на классовых кмпонентах
 import axios from "axios"; // библиотека асинхронных запросов
 import React from "react";
-import ScrollContainer from "../common/Scroll/ScrollContainer"; // пишем в любой компоненте с JSX
 
 class News extends React.Component {
     state = {
         // локальный стейт
-        data: { hits: [] }, // пока пустой массив, сюда придут данные с сервера
+        data: {hits: []}, // пока пустой массив, сюда придут данные с сервера
         query: "react", // поисковый запрос
         onChangeQuery: "react" // временное значение поиска, обновляется через onChange
     };
 
     inputOnChange = (event) => {
         //
-        this.setState({ onChangeQuery: event.currentTarget.value });
+        this.setState({onChangeQuery: event.currentTarget.value});
         // задаем временное значение стейта по onChange input
     };
 
     buttonOnClick = () => {
-        this.setState({ query: this.state.onChangeQuery }); // реакция на кнопку
+        this.setState({query: this.state.onChangeQuery}); // реакция на кнопку
         //задание в поле поиска query значение из временного onChangeQuery
     };
 
@@ -30,7 +29,7 @@ class News extends React.Component {
     async AsyncF(props) {
         // асинхронный запрос
         const result = await axios(this.callURL(props));
-        this.setState({ data: result.data }); // задание с массив hits данных с сервера
+        this.setState({data: result.data}); // задание с массив hits данных с сервера
     }
 
     componentDidMount() {
@@ -72,37 +71,30 @@ class News extends React.Component {
 
             <ul>
                 {this.state.data.hits &&
-                    <div>
-                        {this.state.data.hits.map((
-                            //мапим
-                            d
-                        ) => (
-                            <li key={d.objectID}>
-                                {" "}
-                                {/* key привязываем к map id*/}
-                                <a href={d.url} >
-                                    {d.title}
-                                    {d.story_title}
-                                </a>
-                                {/* список ссылок с URL*/}
-                            </li>
-                        ))}
-                    </div>
+                <div>
+                    {this.state.data.hits.map((
+                        //мапим
+                        d
+                    ) => (
+                        <li key={d.objectID}>
+                            {" "}
+                            {/* key привязываем к map id*/}
+                            <a href={d.url}>
+                                {d.title}
+                                {d.story_title}
+                            </a>
+                            {/* список ссылок с URL*/}
+                        </li>
+                    ))}
+                </div>
                 }
             </ul>
         </div>
-        return (    <div>
-                <ScrollContainer
-                    child={hn}
-                    height={window.screen.availHeight-218}
-                    firstInsideContainer={"UsersUp"}
-                    secondInsideContainer={"UsersDown"}
-                    containerElement={"UserContainer"}
-                /> {/*отрисовка Users в скрол контейнере*/}
-
-
+        return (<div>
+                {hn}{/*отрисовка результатов поиска*/}
             </div>
         );
     }
 }
+
 export default News;

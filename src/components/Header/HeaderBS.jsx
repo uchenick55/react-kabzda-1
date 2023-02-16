@@ -36,7 +36,8 @@ function HeaderBS({isAuth, goToMyPage, myProfile, deleteLogin}) {
                 <Navbar.Collapse>{/* выпадающее меню со ссылкам нва страницы*/}
                     <Nav>
                         <NavDropdown title="Pages" id="collasible-nav-dropdown">
-                            <NavDropdown.Item href="#/">Info</NavDropdown.Item>
+                            <NavDropdown.Item href="#/">Home</NavDropdown.Item>
+                            <NavDropdown.Item href="#/mystack">My Stack</NavDropdown.Item>
                             <NavDropdown.Item href="#/profile">Profile</NavDropdown.Item>
                             <NavDropdown.Item href="#/users">Users</NavDropdown.Item>
                             <NavDropdown.Item href="#/friends">My friends</NavDropdown.Item>

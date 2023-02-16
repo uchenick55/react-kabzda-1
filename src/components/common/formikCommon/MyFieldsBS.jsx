@@ -22,8 +22,8 @@ export const MyTextInput = ({label, autoFocus, type, leftLabelLength, ...props})
     return (
         <CommonInputTextArea label={label} props={props}> {/*композиция выод общей части InputTextArea*/}
 
-            <InputGroup className="my-1" size="sm">
-                {leftLabelLength &&
+            <InputGroup className="my-1" size="sm"> {/*Инпут, отступ 1 уе по вертикали, маленький*/}
+                {leftLabelLength && // если параметр leftLabelLength не пустой, то рисуем лейбл сдева от input с label
                 <InputGroup.Text id={label} className={classes.labelWidth} style={{width: leftLabelLength}}
                 >{label}:</InputGroup.Text>}
                 <Form.Control  as={type==="textarea"?type:"input"}
