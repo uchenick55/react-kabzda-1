@@ -46,7 +46,8 @@ let initialState = {
     isFetching: false, // статус загрузки (крутилка)
     followingInProgress: [], // массив тех пользователей, которые в процессе follow/unfollow для disable button
     term: "", // поисковый запрос среди пользователей
-    needUpdateFriends: false // флаг, что список друзей изменился, нужно обновить
+    needUpdateFriends: false, // флаг, что список друзей изменился, нужно обновить
+    onlyFriends: true, // получить список только моих друзей
 }
 let usersReducer = (state = initialState, action) => {
   let stateCopy; // объявлениечасти части стейта до изменения редьюсером
@@ -108,11 +109,11 @@ let usersReducer = (state = initialState, action) => {
     }
 }
 
-export let getUsersThunkCreator = (currentPage, pageSize, term) => {//санкреатор получить пользователей с данными
+export let getUsersThunkCreator = (currentPage, pageSize, term, friend) => {//санкреатор получить пользователей с данными
   let getUsersThunk = (dispatch) => { // санка получить пользователей
       if (bedug_mode) {console.log("users-reducer.js, getUsersThunkCreator dispatch(toggleIsFetching()) ->TOGGLE_IS_FETCHING (показать крутилку)" )} // дебаг
       dispatch(toggleIsFetching(true)) //показать крутилку загрузки с сервера
-        apiUsers.getUsers(currentPage, pageSize, term) //получить пользователей по текущей странице и размере страницы
+        apiUsers.getUsers(currentPage, pageSize, term, friend) //получить пользователей по текущей странице и размере страницы
             .then((data) => {
                 if (bedug_mode) {console.log("users-reducer.js, getUsersThunkCreator .getUsers.then dispatch(toggleIsFetching()) ->TOGGLE_IS_FETCHING (убрать крутилку)" )} // дебаг
                 dispatch(toggleIsFetching(false))  //убрать крутилку загрузки с сервера
@@ -126,13 +127,13 @@ export let getUsersThunkCreator = (currentPage, pageSize, term) => {//санкр
     return getUsersThunk
 }
 
-const followUnfollowFlow = (dispatch, userId, currentPage, pageSize, apiMethod, term) => {
+const followUnfollowFlow = (dispatch, userId, currentPage, pageSize, apiMethod, term, friend) => {
   if (bedug_mode) {console.log("users-reducer.js, followUnfollowFlow dispatch(toggleIsFollowingProgerss ->TOGGLE_IS_FOLLOWING_PROGRESS(добавить ID button disable)" )} // дебаг
   dispatch(toggleIsFollowingProgerss(true, userId))//внести ID кнопки пользователя в массив followingInProgress от повторного нажатия
     apiMethod(userId)// подписаться на пользователя // diff apiMethod = postFollow
         .then((response) => {
             if (response.resultCode === 0) {
-                apiUsers.getUsers(currentPage, pageSize, term) //получить пользователей по текущей странице и размере страницы
+                apiUsers.getUsers(currentPage, pageSize, term, friend) //получить пользователей по текущей странице и размере страницы
                     .then((response) => {
                       if (bedug_mode) {console.log("users-reducer.js, followUnfollowFlow postFollow()/deleteFollow().then -> .getUsers.then dispatch(setUsers) ->SET_USERS" )} // дебаг
                       dispatch(setUsers(response.items))//записать в стейт закгруженный стек пользователей
@@ -145,17 +146,17 @@ const followUnfollowFlow = (dispatch, userId, currentPage, pageSize, apiMethod, 
         })
 }
 
-export let followThunkCreator = (userId, currentPage, pageSize, term) => {//санкреатор follow с данными
+export let followThunkCreator = (userId, currentPage, pageSize, term, friend) => {//санкреатор follow с данными
 
   return (dispatch) => {// санка follow
     if (bedug_mode) {console.log("users-reducer.js, followThunkCreator postFollow() -> followUnfollowFlow" )} // дебаг
-    followUnfollowFlow(dispatch, userId, currentPage, pageSize, apiUsers.postFollow.bind(apiUsers), term);
+    followUnfollowFlow(dispatch, userId, currentPage, pageSize, apiUsers.postFollow.bind(apiUsers), term, friend);
     }
 }
-export let unfollowThunkCreator = (userId, currentPage, pageSize, term) => {//санкреатор unfollow с данными
+export let unfollowThunkCreator = (userId, currentPage, pageSize, term, friend) => {//санкреатор unfollow с данными
   return (dispatch) => {// санка unfollow
     if (bedug_mode) {console.log("users-reducer.js, unfollowThunkCreator deleteFollow()-> followUnfollowFlow" )} // дебаг
-    followUnfollowFlow(dispatch, userId, currentPage, pageSize, apiUsers.deleteFollow.bind(apiUsers), term);
+    followUnfollowFlow(dispatch, userId, currentPage, pageSize, apiUsers.deleteFollow.bind(apiUsers), term, friend);
     }
 }
 export default usersReducer;

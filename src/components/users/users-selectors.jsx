@@ -21,7 +21,11 @@ export const usersSelectorsSimple = { // простой селектор пол�
     },
     getIsAuth: (state) => {// простой селектор получить из стейта isAuth
         return state.auth.isAuth
-    }
+    },
+    getOnlyFriends: (state) => {// простой селектор сделать выборку только моих друзей
+        return state.usersPage.onlyFriends
+    },
+
 }
 
 export let getUsersReselect = createSelector(usersSelectorsSimple.getUsersSL, (users) => {

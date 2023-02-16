@@ -19,8 +19,8 @@ class UsersAPI extends React.Component {
     }
 
     componentDidMount() {
-        const {getUsersThunkCreator, currentPage, pageSize, term } = this.props; // данные из пропсов для получения пользователей по умолчанию
-        getUsersThunkCreator(currentPage, pageSize, term);
+        const {getUsersThunkCreator, currentPage, pageSize, term, onlyFriends} = this.props; // данные из пропсов для получения пользователей по умолчанию
+        getUsersThunkCreator(currentPage, pageSize, term, onlyFriends);
     }
     onChangeTermFunction = (event) => {
         this.setState({onChangeTerm: event.currentTarget.value }) // задание значения поиска при изменении поля
@@ -37,22 +37,22 @@ class UsersAPI extends React.Component {
         if (prevProps.term !== this.props.term) {
             this.props.setCurrentPage(1)// задание в стейт текущей страницы
             this.setState({currentRangeLocal: 1}) // перевод диапазона пагинации2 на 1 (сброс)
-            const {getUsersThunkCreator, pageSize, term } = this.props; // получение из проспсов данные для запроса
-            getUsersThunkCreator(1, pageSize, term);// получение списка пользователей с поисковым запросом (переключение на 1 страницу)
+            const {getUsersThunkCreator, pageSize, term, onlyFriends } = this.props; // получение из проспсов данные для запроса
+            getUsersThunkCreator(1, pageSize, term, onlyFriends );// получение списка пользователей с поисковым запросом (переключение на 1 страницу)
         }
     }
 
 
     onPageChanged = (setPage) => {
-        const {setCurrentPage, getUsersThunkCreator, pageSize, term } = this.props;
+        const {setCurrentPage, getUsersThunkCreator, pageSize, term, onlyFriends } = this.props;
         setCurrentPage(setPage, );
-        getUsersThunkCreator(setPage, pageSize, term );
+        getUsersThunkCreator(setPage, pageSize, term, onlyFriends );
     }
     followAPI = (id) => {
-        this.props.followThunkCreator(id, this.props.currentPage,this.props.pageSize, this.props.term)
+        this.props.followThunkCreator(id, this.props.currentPage,this.props.pageSize, this.props.term, this.props.onlyFriends)
     }
     unfollowAPI = (id) => {
-        this.props.unfollowThunkCreator(id, this.props.currentPage,this.props.pageSize, this.props.term)
+        this.props.unfollowThunkCreator(id, this.props.currentPage,this.props.pageSize, this.props.term, this.props.onlyFriends)
     }
     render() {
         const {isFetching, totalUsersCount, pageSize, currentPage, users, followingInProgress, isAuth} = this.props;
@@ -89,6 +89,7 @@ let mapStateToProps = (state) => {
         isAuth: usersSelectorsSimple.getIsAuth(state), // селектор isAuth - флаг авторизации
         term: state.usersPage.term,
         myId: state.auth.myId,
+        onlyFriends: usersSelectorsSimple.getOnlyFriends(state), // селектор получить только моих рузей
     }
 }
 
