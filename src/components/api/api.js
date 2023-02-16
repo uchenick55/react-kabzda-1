@@ -9,17 +9,14 @@ const instance = axios.create({
   }
 });
 
-//672204d9-92d7-4a15-9913-d64f4d26dd62
-//5498d71c-4755-4089-8800-ce606df9ca6f
-//
 
 export let apiUsers = { // объект с методами api для USERS и follow/unfollow
-  getUsers: async (currentPage, pageSize, term, friend = undefined) => {// получить стек пользователей
+  getUsers: async (currentPage, pageSize, term, friend = null) => {// получить стек пользователей
     try {
       //throw new Error("Я - сообщение об ошибке"); //проверка обработки ошибок
-
+      const friendLocal = friend? friend: null
       if (bedug_mode) {console.log("getUsers")}
-      const response = await instance.get(`users?count=${pageSize}&page=${currentPage}&term=${term}&friend=${friend}`)
+      const response = await instance.get(`users?count=${pageSize}&page=${currentPage}&term=${term}&friend=${friendLocal}`)
       return (response.data) //возврат данных из поля data
     } catch (err) {
       console.error(err)

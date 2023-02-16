@@ -37,16 +37,6 @@ export const MyTextInput = ({label, autoFocus, type, leftLabelLength, ...props})
         </CommonInputTextArea>
     )
 }
-/*
-<InputGroup>
-    <Form.Control
-        placeholder="Recipient's username"
-        aria-label="Recipient's username with two button addons"
-    />
-    <Button variant="outline-secondary">Button</Button>
-    <Button variant="outline-secondary">Button</Button>
-</InputGroup>
-*/
 
 export const MyCheckbox = ({children, ...props}) => {
     const [field, meta] = useField({...props, type: 'checkbox'}) // данные onBlur и meta для обработки ошибок

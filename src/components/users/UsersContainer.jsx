@@ -3,7 +3,7 @@ import {connect} from "react-redux";
 import {
     followThunkCreator,
     getUsersThunkCreator,
-    setCurrentPage, setTerm, unfollowThunkCreator,
+    setCurrentPage, setOnlyFriends, setTerm, unfollowThunkCreator,
 } from "../../redux/users-reducer";
 import UsersBS from "./UsersBS";
 import Preloader from "../common/Preloader/Preloader";
@@ -73,6 +73,7 @@ class UsersAPI extends React.Component {
                      currentRangeLocal= {this.state.currentRangeLocal}
                      onChangeRangeLocal = {this.onChangeRangeLocal}
                      myId ={this.props.myId}
+                     setOnlyFriends={this.props.setOnlyFriends}
             />
         </>
     }
@@ -95,7 +96,7 @@ let mapStateToProps = (state) => {
 
 export let UsersContainer = connect(mapStateToProps,
     { setCurrentPage,
-        getUsersThunkCreator, followThunkCreator, unfollowThunkCreator, setTerm})(UsersAPI);
+        getUsersThunkCreator, followThunkCreator, unfollowThunkCreator, setTerm, setOnlyFriends})(UsersAPI);
 
 //export default UsersContainer;
 

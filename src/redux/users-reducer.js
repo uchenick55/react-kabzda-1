@@ -9,6 +9,7 @@ const TOGGLE_IS_FETCHING = "myApp/users-reducer/TOGGLE_IS_FETCHING";
 const TOGGLE_IS_FOLLOWING_PROGRESS = "myApp/users-reducer/TOGGLE_IS_FOLLOWING_PROGRESS";
 const NEED_UPDATE_FRIENDS = "myApp/users-reducer/NEED_UPDATE_FRIENDS";
 const USERS_INITIAL_STATE = "myApp/users-reducer/USERS_INITIAL_STATE";
+const SET_ONLY_FRIENDS = "myApp/users-reducer/SET_ONLY_FRIENDS";// экшн отображения только моих друзей, или общий список
 
 
 export let setTerm = (term) => {
@@ -35,8 +36,9 @@ export let needUpdateFriendsAC = (needUpdateFriends) => {
 export let usersInitialState = () => {
     return {type: USERS_INITIAL_STATE}
 };
-
-
+export let setOnlyFriends = () => { // экшн креатор отображения только моих друзей, или общий список
+    return {type: SET_ONLY_FRIENDS}
+};
 
 let initialState = {
     users: [], // массив пользователей по умолчанию (пока пустой)
@@ -47,7 +49,8 @@ let initialState = {
     followingInProgress: [], // массив тех пользователей, которые в процессе follow/unfollow для disable button
     term: "", // поисковый запрос среди пользователей
     needUpdateFriends: false, // флаг, что список друзей изменился, нужно обновить
-    onlyFriends: true, // получить список только моих друзей
+    onlyFriends: true
+  , // получить список только моих друзей
 }
 let usersReducer = (state = initialState, action) => {
   let stateCopy; // объявлениечасти части стейта до изменения редьюсером
@@ -103,6 +106,13 @@ let usersReducer = (state = initialState, action) => {
         case USERS_INITIAL_STATE:
           stateCopy = initialState
           if (bedug_mode) {console.log("users-reducer.js, USERS_INITIAL_STATE: ", state, stateCopy)} // дебаг
+          return stateCopy; // вернуть копию стейта
+        case SET_ONLY_FRIENDS:
+          stateCopy = {
+            ...state,
+            onlyFriends: !state.onlyFriends
+          }
+          if (bedug_mode) {console.log("users-reducer.js, SET_ONLY_FRIENDS: ", state, stateCopy)} // дебаг
           return stateCopy; // вернуть копию стейта
         default:
             return state;

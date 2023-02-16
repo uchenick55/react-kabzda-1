@@ -25,7 +25,7 @@ let UsersBS = ({
                    totalUsersCount, pageSize, currentPage, onPageChanged, users,
                    followingInProgress, unfollowAPI, isAuth, followAPI,
                    SetTermFunction, onChangeTerm, onChangeTermFunction,
-                   onChangeRangeLocal, currentRangeLocal, myId // раскукожили все пропсы
+                   onChangeRangeLocal, currentRangeLocal, myId, setOnlyFriends // раскукожили все пропсы
                }) => {
     const [error, setError] = useState("")
     if (error) {
@@ -38,7 +38,7 @@ let UsersBS = ({
 
         let FollowUnfollowButtons = ({u, followUnfollowAPICallback, buttonText}) => { // унификация нажатия кнопки Follow/Unfollow
             return (<span>
-            <Button  variant="light"
+            <Button variant={u.followed?"warning":"light"}
                      disabled={followingInProgress.some(id => id === u.id) || u.id === myId}
                 // отключение возможности повторного нажатия пока не пришел ответ от сервера или если это ваш ID
                      onClick={() => {
@@ -116,14 +116,17 @@ let UsersBS = ({
                 <h2 className={commonClasses.pageHeader}>Users</h2>
 
                 <Row>
-                    {paginationRender}{/*Вывод пагинации вверху страницы */}
-
-                    <InputButtonUsersRender //вывод инпута и кнопки для поиска юзеров
-                        onChangeTerm={onChangeTerm}
-                        onChangeTermFunction={onChangeTermFunction}
-                        SetTermFunction={SetTermFunction}
-                        handleClick={handleClick}
-                    />
+                    <Col lg={6} md={12}>
+                        {paginationRender}{/*Вывод пагинации вверху страницы */}
+                    </Col>
+                    <Col lg={6} md={12}>
+                        <InputButtonUsersRender //вывод инпута и кнопки для поиска юзеров
+                            onChangeTerm={onChangeTerm}
+                            onChangeTermFunction={onChangeTermFunction}
+                            SetTermFunction={SetTermFunction}
+                            handleClick={handleClick}
+                        />
+                    </Col>
 
                 </Row>
                 <Row>
