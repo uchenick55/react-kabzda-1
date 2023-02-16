@@ -14,7 +14,7 @@ function FooterBS () {
                         <NavDropdown title="Pages" id="collasible-nav-dropdown">
                             <NavDropdown.Item href="#/">Info</NavDropdown.Item>
                             <NavDropdown.Item href="#/profile">Profile</NavDropdown.Item>
-                            <NavDropdown.Item href="#/users">Users</NavDropdown.Item>
+                            <NavDropdown.Item href="#/users">UsersBS</NavDropdown.Item>
                             <NavDropdown.Item href="#/friends">My friends</NavDropdown.Item>
                             <NavDropdown.Item href="#/dialogs">Dialogs</NavDropdown.Item>
                             <NavDropdown.Item href="#/news">News</NavDropdown.Item>

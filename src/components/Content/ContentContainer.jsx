@@ -6,7 +6,7 @@ import Tasks from "../Tasks/Tasks";
 import ProfileContainer from "../Profile/ProfileContainer";
 import Modal from "../common/Modal/Modal";
 import Scss from "../Scss/Scss";
-import NavBarContainer from "../MyFriendsCommon/MyFriendsContainer";
+import NavBarContainer from "../MyFriends1/MyFriendsContainer";
 import Home from "../Home/Home";
 
 //const ProfileContainer = React.lazy(() => import("../Profile/ProfileContainer"))
@@ -31,7 +31,7 @@ let ContentContainer = () => { // вынес роутинг контента в 
                         <Route path='/mystack/*' element={<StackInfo/>}/> {/*Общие Комментарии*/}
                         <Route path='/profile/*' element={<ProfileContainer/>}/> {/*Профиль*/}
                         <Route path='/dialogs/*' element={<DialogsContainer/>}/> {/*Диалоги*/}
-                        <Route path='/users/*' element={<ExportDefaultUsersContainer/>}/> {/*Поиск по Users*/}
+                        <Route path='/users/*' element={<ExportDefaultUsersContainer/>}/> {/*Поиск по UsersBS*/}
                         <Route path='/friends/*' element={<NavBarContainer/>}/> {/*список друзей в content*/}
                         <Route path='/login/*' element={<LoginContainer/>}/> {/*Логин*/}
                         <Route path='/news/*' element={<News/>}/> {/*Поиск по новостям hn algonia*/}

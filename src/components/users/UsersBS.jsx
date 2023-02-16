@@ -16,7 +16,7 @@ import Row from 'react-bootstrap/Row';
 
 
 
-let Users = ({
+let UsersBS = ({
                  totalUsersCount, pageSize, currentPage, onPageChanged, users,
                  followingInProgress, unfollowAPI, isAuth, followAPI,
                  SetTermFunction, onChangeTerm, onChangeTermFunction,
@@ -28,7 +28,7 @@ let Users = ({
     }
     try {
         if (bedug_mode) {
-            console.log("Users")
+            console.log("UsersBS")
         }
 
         let FollowUnfollowButtons = ({u, followUnfollowAPICallback, buttonText}) => { // унификация нажатия кнопки Follow/Unfollow
@@ -95,16 +95,8 @@ let Users = ({
 
         return <div className={classes.users}>
 
-{/*
-            <HeaderContainer/>
-*/}
-
             <Container fluid className="d-block justify-content-center">
-                <Row>
-                    <h1 className="d-flex justify-content-center text-uppercase">
-                        Users
-                    </h1>
-                </Row>
+                <h2 className="d-flex justify-content-center text-uppercase mb-5">Users</h2>
 
                 <Row>
                     {paginationRender}{/*Вывод пагинации вверху страницы */}
@@ -118,11 +110,11 @@ let Users = ({
 
                 </Row>
                 <Row>
-                    <div className="d-flex justify-content-center opacity-50 mt-1"> Total: {totalUsersCount}</div>
+                    <div className="d-flex justify-content-center opacity-50 mt-2 "> Total: {totalUsersCount}</div>
                     <div className={classes.line}></div>
                 </Row>
                 <Row>
-                    {UserItems} {/*отрисовка Users*/}
+                    {UserItems} {/*отрисовка UsersBS*/}
                 </Row>
 
             </Container>
@@ -131,10 +123,10 @@ let Users = ({
     } catch (error) {
         setError(error); // задание в стейт ошибки
     } finally {
-        // console.log("try/catch Users.jsx выполнен! ") действие после прохождения try/catch
+        // console.log("try/catch UsersBS.jsx выполнен! ") действие после прохождения try/catch
     }
 
 }
 
-export default Users
+export default UsersBS
 

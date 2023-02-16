@@ -1,0 +1,8 @@
+/*<h2 className="d-flex justify-content-center text-uppercase mb-5">Users</h2>*/
+
+.pageHeader {
+    display: flex;
+    justify-content: center;
+    text-transform: uppercase;
+    margin-bottom: 4rem;
+}

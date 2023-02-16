@@ -1,6 +1,6 @@
 import React, {useEffect, useState} from 'react';
 import classes from './ProfileInfo.module.css'
-import commonClasses from '../../common/ButtonOverImage/ButtonOverImage.module.css'
+import commonClasses from '../../common/CommonClasses/ButtonOverImage.module.css'
 import Preloader from "../../common/Preloader/Preloader";
 import ProfileStatusUseReducer from "./ProfileStatus/ProfileStatusUseReducer";
 import {bedug_mode} from "../../../redux/store-redux";

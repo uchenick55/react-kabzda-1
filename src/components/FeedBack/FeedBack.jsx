@@ -1,6 +1,7 @@
 import React from "react";
 import classes from "./FeedBack.module.css";
 import FeedBackFormik from "./FeedBackFormik/FeedBackFormik";
+import commonClasses from "../common/CommonClasses/common.module.css";
 
 const FeedBack = ({sendFeedBack, feedBackStatus, setFeedBackStatus}) => {
     let SendMessageBoard = (props) => {
@@ -26,15 +27,13 @@ const FeedBack = ({sendFeedBack, feedBackStatus, setFeedBackStatus}) => {
         );
     }
 
-    return (
-        <div className={classes.feedBackGreed}> {/*растягивание полей ввода не на весь экран*/}
-            <div>
-                <FeedBackFormik sendFeedBack={sendFeedBack}/>
-            </div>
-            <div>
-            </div>
-        </div>
-    );
+    return <div>
+        <h2 className={commonClasses.pageHeader}>FeedBack</h2>
+
+        <FeedBackFormik sendFeedBack={sendFeedBack}/>
+
+    </div>
+
 };
 
 export default FeedBack;

@@ -5,6 +5,7 @@ import FilterSort from "../../assets/images/Filter&Sort page.jpg"
 import combinationChisel from "../../assets/images/combinationChisel.jpg"
 import bootstrapImg from "../../assets/images/bootstrap.jpg"
 import ScrollContainer from "../common/Scroll/ScrollContainer";
+import commonClasses from "../common/CommonClasses/common.module.css";
 
 const filterSort = "https://uchenick55.github.io/supplydirector-web-page-test/#/app/profile"
 const lhtask1 = "https://uchenick55.github.io/lhtask1/"
@@ -12,6 +13,8 @@ const bootstrapUrl = "https://uchenick55.github.io/bootstraphtmlcss/"
 
 let tasksRender = <div className={classes.taskcCommon}>
     <div>
+        <h2 className={commonClasses.pageHeader}>Tasks</h2>
+        <p>Здесь собраны небольшие работы, не касающиеся социальной сети</p>
         <div><a href={filterSort} target = "_blank"  rel="noreferrer"><h2>Поиск, сортировка и фильтрация</h2>
             <img className={classes.imgTasks} src={FilterSort} alt="Поиск, сортировка и фильтрация"/></a>
         </div>

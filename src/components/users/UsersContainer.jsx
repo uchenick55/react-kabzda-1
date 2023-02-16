@@ -5,7 +5,7 @@ import {
     getUsersThunkCreator,
     setCurrentPage, setTerm, unfollowThunkCreator,
 } from "../../redux/users-reducer";
-import Users from "./Users";
+import UsersBS from "./UsersBS";
 import Preloader from "../common/Preloader/Preloader";
 import {getUsersReselect, usersSelectorsSimple} from "./users-selectors";
 
@@ -58,21 +58,21 @@ class UsersAPI extends React.Component {
         const {isFetching, totalUsersCount, pageSize, currentPage, users, followingInProgress, isAuth} = this.props;
         return <> {/*использование фрагмента вместо div/span*/}
             {isFetching && <Preloader/>}
-            <Users onPageChanged={this.onPageChanged}
-                   totalUsersCount={totalUsersCount}
-                   pageSize={pageSize}
-                   currentPage={currentPage}
-                   users={users}
-                   unfollowAPI={this.unfollowAPI}
-                   followAPI={this.followAPI}
-                   followingInProgress={followingInProgress}
-                   isAuth={isAuth}
-                   SetTermFunction = {this.SetTermFunction}
-                   onChangeTerm = {this.state.onChangeTerm}
-                   onChangeTermFunction = {this.onChangeTermFunction}
-                   currentRangeLocal= {this.state.currentRangeLocal}
-                   onChangeRangeLocal = {this.onChangeRangeLocal}
-                   myId ={this.props.myId}
+            <UsersBS onPageChanged={this.onPageChanged}
+                     totalUsersCount={totalUsersCount}
+                     pageSize={pageSize}
+                     currentPage={currentPage}
+                     users={users}
+                     unfollowAPI={this.unfollowAPI}
+                     followAPI={this.followAPI}
+                     followingInProgress={followingInProgress}
+                     isAuth={isAuth}
+                     SetTermFunction = {this.SetTermFunction}
+                     onChangeTerm = {this.state.onChangeTerm}
+                     onChangeTermFunction = {this.onChangeTermFunction}
+                     currentRangeLocal= {this.state.currentRangeLocal}
+                     onChangeRangeLocal = {this.onChangeRangeLocal}
+                     myId ={this.props.myId}
             />
         </>
     }

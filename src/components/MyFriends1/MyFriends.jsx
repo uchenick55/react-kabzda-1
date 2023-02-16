@@ -4,7 +4,7 @@ import MyFriends from "./My Friends/MyFriends";
 import {connect} from "react-redux";
 import {bedug_mode} from "../../redux/store-redux";
 
-const Navbar = ({myFriends2, unfollowFriendsAPI, dialogUserID}) => {
+const MyFriends1 = ({myFriends2, unfollowFriendsAPI, dialogUserID}) => {
 
     if (bedug_mode) {console.log("Navbar")}
     return <nav className={classes.nav}>
@@ -25,4 +25,4 @@ const mapStateToProps = (state) => {
         state: state.sideBar
     }
 }
-export default connect(mapStateToProps, null)(Navbar)
+export default connect(mapStateToProps, null)(MyFriends1)

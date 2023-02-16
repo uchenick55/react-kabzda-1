@@ -4,6 +4,7 @@ import DialogItem from "./DialogItem";// подкомпонента отрисо
 import ScrollContainer from "../common/Scroll/ScrollContainer";
 import userPhotoAva from "../../assets/images/no-image3.png";
 import MessagesContainer from "./Messages/MessagesContainer";
+import commonClasses from "../common/CommonClasses/common.module.css";
 
 const DialogList = ({deleteDialog, dialogUserID, getDialogList, dialogs2,
                      getDialogLastUpdateTime}) => { // основная компонента отрисовки диалогов
@@ -44,6 +45,7 @@ const DialogList = ({deleteDialog, dialogUserID, getDialogList, dialogs2,
 
     return (
         <div className={classes.dialogs} /*стиль всех диалогов*/>
+            <h2 className={commonClasses.pageHeader}>Dialogs</h2>
             <div>
                 <DialogListRender/> {/*отрисовка диалоглиста независомо от сообщений*/}
             </div>

@@ -173,7 +173,7 @@ export let deleteLoginThunkCreator = () => {//санкреатор на логА
                 if (bedug_mode) {
                     console.log("auth-reducer.jsx, deleteLoginThunkCreator.await .deleteLogin():dispatch(usersInitialState())->USERS_INITIAL_STATE")
                 } // дебаг
-                dispatch(usersInitialState())// зануление Users при логауте
+                dispatch(usersInitialState())// зануление UsersBS при логауте
 
             }, 300)
         } else {

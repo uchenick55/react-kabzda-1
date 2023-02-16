@@ -1,4 +1,4 @@
-// Вынес в отдельную компоненту (файл) пагинацию страниц из Users.
+// Вынес в отдельную компоненту (файл) пагинацию страниц из UsersBS.
 
 import classes from "./Pagination.module.css";
 import React from "react";

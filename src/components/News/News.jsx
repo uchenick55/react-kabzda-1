@@ -1,6 +1,7 @@
 //Реализация async и await на классовых кмпонентах
 import axios from "axios"; // библиотека асинхронных запросов
 import React from "react";
+import commonClasses from "../common/CommonClasses/common.module.css";
 
 class News extends React.Component {
     state = {
@@ -47,7 +48,8 @@ class News extends React.Component {
 
     render() {
         let hn = <div>
-            <h3>Search by HackerNews</h3>
+            <h2 className={commonClasses.pageHeader}>Search by HackerNews</h2>
+
             <form>
                 {/* объединяем input и button*/}
                 <input // поле поиска

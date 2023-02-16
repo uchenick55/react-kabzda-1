@@ -1,9 +1,3 @@
-.nav {
-    grid-area: n;
-    padding-left: 10px;
-    padding-top: 10px;
-}
-
 .item {
     color: white;
 }

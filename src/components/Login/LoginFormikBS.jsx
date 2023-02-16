@@ -12,6 +12,7 @@ import Col from "react-bootstrap/Col";
 import LoginInfoShort from "../Info/LoginInfoShort";
 import Container from "react-bootstrap/Container";
 import Row from "react-bootstrap/Row";
+import commonClasses from "../common/CommonClasses/common.module.css"
 
 let myInitialValues = { // начальные зачения форм
     email: "",
@@ -43,8 +44,6 @@ const LoginFormik = ({postLogin, captchaURL, updateCaptcha, loginError}) => { //
           }) => ( // обертка для вывода значений ввода в любом месте формы паралельно (или в итоге)
             <Form> {/*className={classes.LoginForm}*/}
                 <Col> {/*lg={6} md={12}*/}
-
-                    <div className={classes.legendStyle}>Войдите в аккаунт</div>
 
                     <MyTextInput // email
                         label="Email Address"
@@ -101,6 +100,8 @@ const LoginFormik = ({postLogin, captchaURL, updateCaptcha, loginError}) => { //
     return (
         <>
             <Container class="d-inline-block">
+                <h2 className={commonClasses.pageHeader}>Login</h2>
+
                 <Row >
                     <Col>{loginForm}</Col>
                     <Col><LoginInfoShort/></Col>

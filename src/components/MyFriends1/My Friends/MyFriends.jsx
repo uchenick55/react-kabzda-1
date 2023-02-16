@@ -4,6 +4,8 @@ import MyFriendItem from "./MyFriendItem/MyFriendItem";
 import userPhoto from "../../../assets/images/no-image3.png";
 import {bedug_mode} from "../../../redux/store-redux";
 import ScrollContainer from "../../common/Scroll/ScrollContainer";
+import commonClasses from "../../common/CommonClasses/common.module.css";
+import Container from "react-bootstrap/Container";
 
 
 const MyFriends = ({state, unfollowFriendsAPI, dialogUserID}) => {
@@ -27,17 +29,14 @@ const MyFriends = ({state, unfollowFriendsAPI, dialogUserID}) => {
         );
 
     return (
-        <div className={classes.myfriends}>
+        <div>
+            <h2 className={commonClasses.pageHeader}>My Friends</h2>
+
             <div className={classes.myfrienditems}>
                 {state.length > 0 &&
                 <b>My Friends:
-                    <ScrollContainer
-                        child={MyFriendElements}
-                        height={window.screen.availHeight - 257}
-                        firstInsideContainer={"friendsUp"}
-                        secondInsideContainer={"friendsDown"}
-                        containerElement={"friendsContainer"}
-                    /> {/*отрисовка FriendList в скрол контейнере*/}
+                    {MyFriendElements}{/*отрисовка FriendList*/}
+
                 </b>
                 }
 

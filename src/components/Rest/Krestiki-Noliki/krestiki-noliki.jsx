@@ -1,5 +1,6 @@
 import React from "react";
 import "./krestiki-noliki.css";
+import commonClasses from "../../common/CommonClasses/common.module.css";
 
 const Square = (props) => {
     // отрисовка квадрата (отдельной клетки)
@@ -136,7 +137,7 @@ class KrestikiNoliki extends React.Component {
         let squaresNew = this.state.history[currentStep].squaresNew.slice(); // делаем копию текущего массива
         return (
             <div>
-                <div><h3>Крестики нолики</h3></div>
+                <h2 className={commonClasses.pageHeader}>Крестики нолики</h2>
                 <div>
                     <Board
                         squares={squaresNew} // пропсами передаем вглубь текущий массив клеток

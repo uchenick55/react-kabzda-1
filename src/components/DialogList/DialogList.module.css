@@ -1,7 +1,4 @@
-.dialogs {
-    display: grid;
-    grid-template-columns: 200px 1fr;
-}
+
 .dialogList {
     display: grid;
     grid-template-columns: 60px 1fr;

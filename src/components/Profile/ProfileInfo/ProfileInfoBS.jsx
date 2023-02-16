@@ -1,6 +1,6 @@
 import React, {useEffect, useState} from 'react';
 import classes from './ProfileInfo.module.css'
-import commonClasses from '../../common/ButtonOverImage/ButtonOverImage.module.css'
+import ButtonOverImage from '../../common/CommonClasses/ButtonOverImage.module.css'
 import Preloader from "../../common/Preloader/Preloader";
 import ProfileStatusUseReducer from "./ProfileStatus/ProfileStatusUseReducer";
 import {bedug_mode} from "../../../redux/store-redux";
@@ -12,6 +12,8 @@ import Col from "react-bootstrap/Col";
 import Container from "react-bootstrap/Container";
 import Button from "react-bootstrap/Button";
 import Image from 'react-bootstrap/Image'
+import commonClasses from "../../common/CommonClasses/common.module.css";
+
 
 const ShowProfile = ({profile, setEditMode, userId, myId}) => { // вынес отдельно отображение профиля
 
@@ -21,7 +23,7 @@ const ShowProfile = ({profile, setEditMode, userId, myId}) => { // вынес о
         </div>
     }
     return (<div>
-            <h2>{profile.fullName}</h2>
+            <h3>{profile.fullName}</h3>
             <div><b>Обо мне</b>: {profile.aboutMe}</div>
             <div><b>В поиске работы?</b> {profile.lookingForAJob ? "Да" : "Нет"}</div>
             <div><b>Описание поиска работы:</b> {profile.lookingForAJobDescription}</div>
@@ -76,7 +78,7 @@ const ProfileInfo = ({
     let onChangeProfilePhoto = (e) => {
         setprofilePhoto(e.target.files[0]) // записать в useState выбранный файл фото профиля(временный стейт)
     }
-    let displayClass = showUploadImageButton ? "" : commonClasses.displayNone // класс скрытия/отображения кнопок загрузки поверх картинки профиля
+    let displayClass = showUploadImageButton ? "" : ButtonOverImage.displayNone // класс скрытия/отображения кнопок загрузки поверх картинки профиля
 
     let profileStatus = <ProfileStatusUseReducer // можно еще использовать ProfileStatusUseState и ProfileStatusClass
         myId={myId} // мой id для модификации статуса
@@ -99,7 +101,7 @@ const ProfileInfo = ({
         <div>
             <form> {/*форма отправки фото профиля на сервер*/}
                 <span><button
-                    className={commonClasses.btn1 + " " + displayClass} // двойной класс - сама кнопка загрузки + класс скрыть/показать при наведении
+                    className={ButtonOverImage.btn1 + " " + displayClass} // двойной класс - сама кнопка загрузки + класс скрыть/показать при наведении
                     onMouseOver={() => {
                         setshowUploadImageButton(true)
                     }} // при наведении сменить флаг  setshowUploadImageButton на true (показать кнопку)
@@ -111,7 +113,7 @@ const ProfileInfo = ({
                     }}>Загрузить</button></span> {/*По клику отправить файл на сервер*/}
                 <span>
                     <input
-                        className={commonClasses.btn2 + " " + displayClass} // двойной класс - сама кнопка загрузки + класс скрыть/показать при наведении
+                        className={ButtonOverImage.btn2 + " " + displayClass} // двойной класс - сама кнопка загрузки + класс скрыть/показать при наведении
                         onMouseOver={() => {
                             setshowUploadImageButton(true)
                         }} // при наведении сменить флаг  setshowUploadImageButton на true (показать кнопку)
@@ -130,14 +132,16 @@ const ProfileInfo = ({
         onMouseOut={() => {
             setshowUploadImageButton(false)
         }}
-        className={`${commonClasses.profilePhotoIMG} ${userId === 0 && showUploadImageButton === true ? commonClasses.ImgHover : ""}`}
+        className={`${ButtonOverImage.profilePhotoIMG} ${userId === 0 && showUploadImageButton === true ? ButtonOverImage.ImgHover : ""}`}
         // если это мой профиль (userId === 0) и мышкой навели на картинку, добавить ImgHover класс (альтернатива псевдокласса :hover)
         src={profile.photos.large ? profile.photos.large : userPhoto1}/>
 
     return <div>
         <Container fluid="sm">
+            <h2 className={commonClasses.pageHeader}>Profile</h2>
+
             <Row >
-                <Col xs={12} md={5} className={commonClasses.container}>
+                <Col xs={12} md={5} className={ButtonOverImage.container}>
                     {showUserPhoto} {/*показать фото пользователя*/}
                     {editMyPhoto} {/* сменить фото, если это мой профиль*/}
                 </Col>

@@ -1,7 +1,7 @@
 import React from 'react';
 import {connect} from "react-redux";
 import {getFriendsThunkCreator} from "../../redux/sidebar-reducer";
-import Navbar from "./Navbar";
+import Navbar from "./MyFriends";
 import {needUpdateFriendsAC, unfollowThunkCreator} from "../../redux/users-reducer";
 import {bedug_mode} from "../../redux/store-redux";
 import ErrorBoundary from "../common/ErrorBoundary/ErrorBoundary";
