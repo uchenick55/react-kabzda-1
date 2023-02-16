@@ -34,7 +34,7 @@ class UsersAPI extends React.Component {
     }
 
     componentDidUpdate(prevProps, prevState, snapshot) {
-        if (prevProps.term !== this.props.term) {
+        if (prevProps.term !== this.props.term || prevProps.onlyFriends !== this.props.onlyFriends) {
             this.props.setCurrentPage(1)// задание в стейт текущей страницы
             this.setState({currentRangeLocal: 1}) // перевод диапазона пагинации2 на 1 (сброс)
             const {getUsersThunkCreator, pageSize, term, onlyFriends } = this.props; // получение из проспсов данные для запроса

@@ -116,17 +116,18 @@ let UsersBS = ({
                 <h2 className={commonClasses.pageHeader}>Users</h2>
 
                 <Row>
-                    <Col lg={6} md={12}>
+                    {/* <Col lg={6} md={12}> */}
                         {paginationRender}{/*Вывод пагинации вверху страницы */}
-                    </Col>
-                    <Col lg={6} md={12}>
+                    {/*</Col>*/}
+                    {/*<Col lg={6} md={12}> */}
                         <InputButtonUsersRender //вывод инпута и кнопки для поиска юзеров
                             onChangeTerm={onChangeTerm}
                             onChangeTermFunction={onChangeTermFunction}
                             SetTermFunction={SetTermFunction}
                             handleClick={handleClick}
+                            setOnlyFriends={setOnlyFriends}
                         />
-                    </Col>
+                  {/*  </Col>*/}
 
                 </Row>
                 <Row>
