@@ -9,8 +9,10 @@ const InputButtonUsersRender = ({onChangeTerm, onChangeTermFunction, SetTermFunc
     return <div>
         <Form>
             <Stack direction="horizontal" gap={3} className="mx-1">
-                <InputGroup className="mb-3">
-                    <InputGroup.Checkbox onClick={()=>{setOnlyFriends()}} />
+                <InputGroup>
+                    <InputGroup.Text>Only favorite:</InputGroup.Text>
+                    <InputGroup.Checkbox onClick={(event)=>{setOnlyFriends(event.currentTarget.checked)}} />
+
                     <Form.Control
                         type="text"
                         value={onChangeTerm}// значение поля поиска захардкодили

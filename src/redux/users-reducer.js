@@ -36,8 +36,8 @@ export let needUpdateFriendsAC = (needUpdateFriends) => {
 export let usersInitialState = () => {
     return {type: USERS_INITIAL_STATE}
 };
-export let setOnlyFriends = () => { // экшн креатор отображения только моих друзей, или общий список
-    return {type: SET_ONLY_FRIENDS}
+export let setOnlyFriends = (onlyFriends) => { // экшн креатор отображения только моих друзей, или общий список
+    return {type: SET_ONLY_FRIENDS, onlyFriends}
 };
 
 let initialState = {
@@ -110,7 +110,7 @@ let usersReducer = (state = initialState, action) => {
         case SET_ONLY_FRIENDS:
           stateCopy = {
             ...state,
-            onlyFriends: !state.onlyFriends
+            onlyFriends: action.onlyFriends
           }
           if (bedug_mode) {console.log("users-reducer.js, SET_ONLY_FRIENDS: ", state, stateCopy)} // дебаг
           return stateCopy; // вернуть копию стейта
