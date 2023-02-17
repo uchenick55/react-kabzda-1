@@ -23,21 +23,35 @@
 
 }
 
+.messagesCommon {
+    display: flex;
+    align-items: center;
+    margin: 0.2rem;
+    margin-left: 2rem;
+    margin-right: 2rem;
+}
 .messageMyId {
-    display: grid;
-    grid-template-columns: 1fr 15px;
-    grid-area: my;
-    padding: 5px;
-    background-color: rgba(117, 190, 218, 0.5);
-    border-radius: 5px;
+    justify-content: right;
 }
 .messageNotMyId {
-    display: grid;
-    grid-template-columns: 1fr 15px;
-    grid-area: notmy;
-    padding: 5px;
-    background-color: rgba(0, 100, 218, 0.5);
-    border-radius: 5px;
-
+    justify-content: left;
 }
 
+.insideToastMy {
+    width: max-content;
+    max-width: 80%;
+    background-color: rgb(214,249,208);
+}
+.insideToastNotMy {
+    max-width: max-content;
+}
+
+.time {
+    margin-top: 0.7rem;
+    font-size: 0.7rem;
+    margin-left: 1rem;
+}
+.closeButton {
+    margin-top: 0.8rem;
+    font-size: 0.6rem;
+}
