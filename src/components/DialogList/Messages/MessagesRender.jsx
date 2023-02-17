@@ -3,8 +3,6 @@ import ScrollContainer from "../../common/Scroll/ScrollContainer";
 import MessagesElements from "./Message/MessagesElements";
 import DialogFormik from "./MessagesFormik/DialogFormik";
 import React from "react";
-import Col from "react-bootstrap/Col";
-import Container from "react-bootstrap/Container";
 import Row from "react-bootstrap/Row";
 
 const MessagesRender = ({messages2, myId, deleteMessage, sendMessage, scrollBottom}) => {
@@ -16,12 +14,14 @@ const MessagesRender = ({messages2, myId, deleteMessage, sendMessage, scrollBott
                 deleteMessage={deleteMessage} // функйцию удаления сообщений
             />
         </Row>
-        <Row className={classes.inputButton}>
-            <DialogFormik
-                sendMessage={sendMessage}
-                scrollBottom={scrollBottom}
-            />{/*вызов формы сообщений*/}
-        </Row>
+        <div className={classes.inputFixed}> {/*спозиционированный внизу инпут и кнопка ввода сообщений*/}
+            <div className={classes.bottonDiv}>
+                <DialogFormik
+                    sendMessage={sendMessage}
+                    scrollBottom={scrollBottom}
+                />{/*вызов формы сообщений*/}
+            </div>
+        </div>
 
     </div>
 }

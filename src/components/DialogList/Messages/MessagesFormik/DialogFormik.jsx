@@ -31,32 +31,26 @@ const DialogFormik = ({sendMessage, scrollBottom}) => { // основная ко
                       handleReset,// обнуление полей
                   }) => ( // обертка для вывода значений ввода в любом месте формы паралельно (или в итоге)
                     <Form>
-                        <Row>
-                            <Stack direction="horizontal" gap={3} className="mx-1">
-                                <Col sm>
-                                    <MyTextInput // сообщение в MyPostsBS
-                                        label=""
-                                        name='newMessage'
-                                        type='text'
-                                        placeholder='Введите ваше сообщение'
-                                        autoFocus={true}
-                                    />
-                                </Col>
-{/*                               <Col>
-                                   <div className="vr" //разделитель поля поиска и кнопки поиска
-                                   />
-                               </Col>*/}
-                                <Col >
-                                    <Button
-                                        type="submit" //кнопка отправить форму
-                                        onClick={scrollBottom} /*прокрутка вниз при добавлении нового сообщения*/
-                                    >
-                                        Submit
-                                    </Button>
-                                </Col>
-                                {/* <DisplayFormikState/> {/*отображение всего стейта формика*/}
-                            </Stack>
-                        </Row>
+                        <div class='d-flex d-inline-block justify-content-center align-items-center'>
+                            <div  class='col-9'>
+                                <MyTextInput // сообщение в MyPostsBS
+                                    label=""
+                                    name='newMessage'
+                                    type='text'
+                                    placeholder='Введите ваше сообщение'
+                                    autoFocus={true}
+                                />
+                            </div>
+                            <div>
+                                <Button
+                                    type="submit" //кнопка отправить форму
+                                    onClick={scrollBottom} /*прокрутка вниз при добавлении нового сообщения*/
+                                >
+                                    Submit
+                                </Button>
+                            </div>
+                        </div>
+                        {/* <DisplayFormikState/> {/*отображение всего стейта формика*/}
                     </Form>
                 )}
             </Formik>
