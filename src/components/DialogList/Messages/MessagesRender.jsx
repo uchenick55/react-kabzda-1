@@ -9,12 +9,14 @@ import Row from "react-bootstrap/Row";
 
 const MessagesRender = ({messages2, myId, deleteMessage, sendMessage}) => {
     return <div className={classes.BgStyle}>
-        <Row><MessagesElements // вынес в отдельную компоненту отрисовку сообщений
-            messages2={messages2} // сообщения
-            myId={myId} // мой ID
-            deleteMessage={deleteMessage} // функйцию удаления сообщений
-        /></Row>
         <Row>
+            <MessagesElements // вынес в отдельную компоненту отрисовку сообщений
+                messages2={messages2} // сообщения
+                myId={myId} // мой ID
+                deleteMessage={deleteMessage} // функйцию удаления сообщений
+            />
+        </Row>
+        <Row className={classes.inputButton}>
             <DialogFormik sendMessage={sendMessage}/>{/*вызов формы сообщений*/}
         </Row>
 

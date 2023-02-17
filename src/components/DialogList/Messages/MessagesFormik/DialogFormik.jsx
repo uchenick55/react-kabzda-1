@@ -19,7 +19,15 @@ const DialogFormik = ({sendMessage}) => { // основная компонент
         sendMessage(values.newMessage) // колбек, который принмает результат ввода формы
         resetForm()// сбросить значение формы после ввода
     }
+    const scrollHeight = Math.max(
+        document.body.scrollHeight, document.documentElement.scrollHeight,
+        document.body.offsetHeight, document.documentElement.offsetHeight,
+        document.body.clientHeight, document.documentElement.clientHeight
+    );
 
+/*
+    alert( 'Высота с учётом прокрутки: ' + scrollHeight );
+*/
     return (
         <>
             <Formik
@@ -34,7 +42,7 @@ const DialogFormik = ({sendMessage}) => { // основная компонент
                     <Form>
                         <Row>
                             <Stack direction="horizontal" gap={3} className="mx-1">
-                                <Col>
+                                <Col sm>
                                     <MyTextInput // сообщение в MyPostsBS
                                         label=""
                                         name='newMessage'
@@ -43,12 +51,14 @@ const DialogFormik = ({sendMessage}) => { // основная компонент
                                         autoFocus={true}
                                     />
                                 </Col>
-                               <Col lg={1}>
+{/*                               <Col>
                                    <div className="vr" //разделитель поля поиска и кнопки поиска
                                    />
-                               </Col>
-                                <Col lg={3}>
-                                    <Button type="submit" //кнопка отправить форму
+                               </Col>*/}
+                                <Col >
+                                    <Button
+                                        type="submit" //кнопка отправить форму
+                                        onClick={()=>{window.scrollTo(0, scrollHeight)}}
                                     >
                                         Submit
                                     </Button>

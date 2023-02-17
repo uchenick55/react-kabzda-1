@@ -75,4 +75,13 @@ padding-right: 10px
 
 .BgStyle {
     background-color: rgb(249,249,249);
+    padding: 2rem;
+}
+
+.inputButton {
+
+    position: fixed;
+    left: 10%;
+    top: 90%;
+
 }
