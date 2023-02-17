@@ -25,7 +25,7 @@ let UsersBS = ({
                    totalUsersCount, pageSize, currentPage, onPageChanged, users,
                    followingInProgress, unfollowAPI, isAuth, followAPI,
                    SetTermFunction, onChangeTerm, onChangeTermFunction,
-                   onChangeRangeLocal, currentRangeLocal, myId, setOnlyFriends // раскукожили все пропсы
+                   onChangeRangeLocal, currentRangeLocal, myId, setOnlyFriends, onlyFriends // раскукожили все пропсы
                }) => {
     const [error, setError] = useState("")
     if (error) {
@@ -71,7 +71,7 @@ let UsersBS = ({
                                          ? u.photos.large
                                          : userPhoto}/> </NavLink>
                             <Card.Body>
-                                <Card.Title>{u.name}</Card.Title>
+                                <Card.Title className={classes.textMaxWidth}>{u.name}</Card.Title>
                                 <Card.Text>
                                     <Row>
                                         <Col >
@@ -91,7 +91,7 @@ let UsersBS = ({
                                         </Col>
                                     </Row>
 
-                                    <div className={classes.textMaxWidthHeight}>
+                                    <div className={classes.textMaxWidth}>
                                         {u.status && <div>Status: {u.status}</div>}
                                     </div >
                                 </Card.Text>
@@ -126,6 +126,7 @@ let UsersBS = ({
                             SetTermFunction={SetTermFunction}
                             handleClick={handleClick}
                             setOnlyFriends={setOnlyFriends}
+                            onlyFriends={onlyFriends}
                         />
                   {/*  </Col>*/}
 
@@ -137,6 +138,10 @@ let UsersBS = ({
                 <Row>
                     {UserItems} {/*отрисовка UsersBS*/}
                 </Row>
+                <Row class="mt-3">
+                    {paginationRender}{/*Вывод пагинации снизу страницы */}
+                </Row>
+
 
             </Container>
         </div>

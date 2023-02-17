@@ -74,6 +74,7 @@ class UsersAPI extends React.Component {
                      onChangeRangeLocal = {this.onChangeRangeLocal}
                      myId ={this.props.myId}
                      setOnlyFriends={this.props.setOnlyFriends}
+                     onlyFriends={this.props.onlyFriends}
             />
         </>
     }

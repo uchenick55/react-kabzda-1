@@ -42,14 +42,14 @@ export let setOnlyFriends = (onlyFriends) => { // экшн креатор ото
 
 let initialState = {
     users: [], // массив пользователей по умолчанию (пока пустой)
-    pageSize: 50, // размер пачки пользователей при загрузке с сервера
+    pageSize: 60, // размер пачки пользователей при загрузке с сервера
     totalUsersCount: 0, // общее количество пользователей по умолчанию
     currentPage: 1, // текущая страница загрузки пользователей по умолчанию
     isFetching: false, // статус загрузки (крутилка)
     followingInProgress: [], // массив тех пользователей, которые в процессе follow/unfollow для disable button
     term: "", // поисковый запрос среди пользователей
     needUpdateFriends: false, // флаг, что список друзей изменился, нужно обновить
-    onlyFriends: true
+    onlyFriends: false
   , // получить список только моих друзей
 }
 let usersReducer = (state = initialState, action) => {

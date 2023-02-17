@@ -5,13 +5,13 @@ import Button from "react-bootstrap/Button";
 import classes from "./Users.module.css"
 import InputGroup from 'react-bootstrap/InputGroup'
 
-const InputButtonUsersRender = ({onChangeTerm, onChangeTermFunction, SetTermFunction, handleClick, setOnlyFriends}) => {
+const InputButtonUsersRender = ({onChangeTerm, onChangeTermFunction, SetTermFunction, handleClick, setOnlyFriends, onlyFriends}) => {
     return <div>
         <Form>
             <Stack direction="horizontal" gap={3} className="mx-1">
                 <InputGroup>
-                    <InputGroup.Text>Only favorite:</InputGroup.Text>
-                    <InputGroup.Checkbox onClick={(event)=>{setOnlyFriends(event.currentTarget.checked)}} />
+                    <InputGroup.Text>Только друзья:</InputGroup.Text>
+                    <InputGroup.Checkbox checked={onlyFriends} onClick={(event)=>{setOnlyFriends(event.currentTarget.checked)}} />
 
                     <Form.Control
                         type="text"
