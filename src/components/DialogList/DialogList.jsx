@@ -42,7 +42,9 @@ const DialogList = ({deleteDialog, dialogUserID, getDialogList, dialogs2,
 
     return (
         <Row>
+{/*
             <h2 className={commonClasses.pageHeader}>Dialogs</h2>
+*/}
 
                 {/* <Col><DialogListRender/></Col> {/*отрисовка диалоглиста*/}
 

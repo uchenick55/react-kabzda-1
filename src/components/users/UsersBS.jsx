@@ -63,7 +63,7 @@ let UsersBS = ({
                 //   throw new Error("Я - сообщение об ошибке"); //проверка обработки ошибок
                 return (
                     <div key={u.id}
-                         class="my-2 col-12 col-sm-3 col-lg-2 d-inline-block"> {/*размеры карточек в зависимости от размера экрана*/}
+                         className="my-2 col-12 col-sm-3 col-lg-2 d-inline-block"> {/*размеры карточек в зависимости от размера экрана*/}
                         <Card>
                             <NavLink to={'/profile/' + u.id}> {/*при нажатии на картинку переход в профиль*/}
                                 <Image fluid={true} variant="top" className={classes.userPhoto}
@@ -141,7 +141,7 @@ let UsersBS = ({
                 <Row>
                     {UserItems} {/*отрисовка UsersBS*/}
                 </Row>
-                <Row class="mt-3">
+                <Row className="mt-3">
                     {paginationRender}{/*Вывод пагинации снизу страницы */}
                 </Row>
 

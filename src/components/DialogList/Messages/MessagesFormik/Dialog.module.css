@@ -6,3 +6,9 @@
 .fieldSetStyle {
     padding: 10px;
 }
+
+.sendSwg {
+    max-width: 1rem;
+    display: flex;
+    align-items: center;
+}

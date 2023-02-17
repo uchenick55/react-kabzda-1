@@ -4,9 +4,9 @@ import * as Yup from 'yup' // валидация форм с помошью ст
 //import DisplayFormikState from "../../common/formikCommon/DisplayFormikState"
 import {MyTextInput} from "../../../common/formikCommon/MyFieldsBS"
 import Button from "react-bootstrap/Button";
-import Stack from "react-bootstrap/Stack";
-import Row from "react-bootstrap/Row";
-import Col from "react-bootstrap/Col";
+import Image from "react-bootstrap/Image";
+import sendSwg from "../../../../assets/images/swg/send-svg2.svg"
+import classes from "./Dialog.module.css"
 
 let myInitialValues = { // начальные зачения форм
     newMessage: "",
@@ -29,6 +29,7 @@ const DialogFormik = ({sendMessage, scrollBottom}) => { // основная ко
             >
                 {({
                       handleReset,// обнуление полей
+                    values,
                   }) => ( // обертка для вывода значений ввода в любом месте формы паралельно (или в итоге)
                     <Form>
                         <div class='d-flex d-inline-block justify-content-center align-items-center'>
@@ -42,13 +43,19 @@ const DialogFormik = ({sendMessage, scrollBottom}) => { // основная ко
                                 />
                             </div>
                             <div>
-                                <Button
-                                    type="submit" //кнопка отправить форму
-                                    onClick={scrollBottom} /*прокрутка вниз при добавлении нового сообщения*/
+                                <Button variant={"light"} className={"mx-2"}
+                                        type="submit" //кнопка отправить форму
+                                        onClick={scrollBottom} /*прокрутка вниз при добавлении нового сообщения*/
+                                        disabled={!values.newMessage} //скрыть кнопку отправки если нет текста на отправку
                                 >
-                                    Submit
+
+                                    <Image src={sendSwg} className={classes.sendSwg} alt={'Отправить сообщение'}
+                                           title={'Отправить сообщение'}/>
                                 </Button>
                             </div>
+{/*
+                            <div><Button onClick={()=>{history.back()}}>Prev</Button></div>
+*/}
                         </div>
                         {/* <DisplayFormikState/> {/*отображение всего стейта формика*/}
                     </Form>

@@ -84,4 +84,23 @@ padding-right: 10px
     right: 0rem;
     background-color: rgb(249,249,249);
     padding: 0.5rem;
+    border-top: 1px solid rgb(237,237,237);
+}
+.photoFixed {
+    position: fixed;
+    top: 3.8rem;
+    left: 0rem;
+    right: 0rem;
+    background-color: rgb(249,249,249);
+    border-bottom: 1px solid rgb(237,237,237);
+}
+
+.userPhoto {
+    border-radius: 50%;
+    margin: 0.5rem 2rem;
+    width: 2.5rem;
+}
+
+.linkNoDecoration a {
+    text-decoration: none;
 }

@@ -65,6 +65,7 @@ class MessagesContainer extends React.Component {
                 deleteMessage = {this.deleteMessage} // удалить сообщение
                 sendMessage={this.sendMessage} // проброс местного метода отправки сообщений
                 scrollBottom={this.scrollBottom}
+                profilePage={this.props.profilePage}
         />
         </div>
     }
