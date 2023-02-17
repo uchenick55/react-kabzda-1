@@ -2,15 +2,17 @@ import React from "react";
 import Stack from "react-bootstrap/Stack";
 import Form from 'react-bootstrap/Form';
 import Button from "react-bootstrap/Button";
-import classes from "./Users.module.css"
 import InputGroup from 'react-bootstrap/InputGroup'
+import Image from "react-bootstrap/Image";
+import favImage from "../../assets/images/swg/star+.svg"
+import classes from './Users.module.css'
 
 const InputButtonUsersRender = ({onChangeTerm, onChangeTermFunction, SetTermFunction, handleClick, setOnlyFriends, onlyFriends}) => {
     return <div>
         <Form>
             <Stack direction="horizontal" gap={3} className="mx-1">
                 <InputGroup>
-                    <InputGroup.Text>Только друзья:</InputGroup.Text>
+                    <InputGroup.Text><Image fluid={true} src={favImage} className={classes.favImage}/></InputGroup.Text>
                     <InputGroup.Checkbox checked={onlyFriends} onClick={(event)=>{setOnlyFriends(event.currentTarget.checked)}} />
 
                     <Form.Control

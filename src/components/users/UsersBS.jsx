@@ -3,8 +3,8 @@ import classes from "./Users.module.css";
 import userPhoto from "../../assets/images/no-image3.png";
 import DialogPic from "../../assets/images/swg/dialog-svgrepo-com.svg"
 
-import FollowPic from "../../assets/images/swg/add-user.svg"
-import UnfollowPic from "../../assets/images/swg/delete-user-svgrepo-com.svg"
+import FollowPic from "../../assets/images/swg/star-.svg"
+import UnfollowPic from "../../assets/images/swg/star+.svg"
 
 import {HashRouter, NavLink} from "react-router-dom";
 import PaginationByCourse from "../common/Pagination/PaginationByCourseBS";
@@ -38,7 +38,7 @@ let UsersBS = ({
 
         let FollowUnfollowButtons = ({u, followUnfollowAPICallback, buttonText}) => { // унификация нажатия кнопки Follow/Unfollow
             return (<span>
-            <Button variant={u.followed?"warning":"light"}
+            <Button variant={"light"}
                      disabled={followingInProgress.some(id => id === u.id) || u.id === myId}
                 // отключение возможности повторного нажатия пока не пришел ответ от сервера или если это ваш ID
                      onClick={() => {
@@ -46,8 +46,8 @@ let UsersBS = ({
                              ? followUnfollowAPICallback(u.id) //send to server request follow/unfollow from UsersContainer
                              : alert("You are not authorized, please Login") // алерт авторизуйтесь!
                      }}> {/*{buttonText}*/}
-                {!u.followed && <Image fluid={true} src={FollowPic} alt={"Добавить в друзья"} title={"Добавить в друзья"}/>}
-                {u.followed && <Image fluid={true} src={UnfollowPic} alt={"Удалить из друзей"} title={"Удалить из друзей"}/>}
+                {!u.followed && <Image fluid={true} src={FollowPic} alt={"Добавить в избранное"} title={"Добавить в избранное"}/>}
+                {u.followed && <Image fluid={true} src={UnfollowPic} alt={"Удалить из избранного"} title={"Удалить из избранного"}/>}
                 </Button>
                     {/* buttonText - текст кнопки Follow/Unfollow*/}
             </span>
@@ -66,10 +66,13 @@ let UsersBS = ({
                          class="my-2 col-12 col-sm-3 col-lg-2 d-inline-block"> {/*размеры карточек в зависимости от размера экрана*/}
                         <Card>
                             <NavLink to={'/profile/' + u.id}> {/*при нажатии на картинку переход в профиль*/}
-                                <img variant="top" className={classes.userPhoto}
+                                <Image fluid={true} variant="top" className={classes.userPhoto}
                                      src={u.photos.small !== null
                                          ? u.photos.large
-                                         : userPhoto}/> </NavLink>
+                                         : userPhoto}
+                                       alt={"Перейти в профиль"}
+                                       title={"Перейти в профиль"}
+                                /> </NavLink>
                             <Card.Body>
                                 <Card.Title className={classes.textMaxWidth}>{u.name}</Card.Title>
                                 <Card.Text>

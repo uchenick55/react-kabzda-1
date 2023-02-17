@@ -5,6 +5,8 @@ import ScrollContainer from "../common/Scroll/ScrollContainer";
 import userPhotoAva from "../../assets/images/no-image3.png";
 import MessagesContainer from "./Messages/MessagesContainer";
 import commonClasses from "../common/CommonClasses/common.module.css";
+import Row from "react-bootstrap/Row";
+import Col from "react-bootstrap/Col";
 
 const DialogList = ({deleteDialog, dialogUserID, getDialogList, dialogs2,
                      getDialogLastUpdateTime}) => { // основная компонента отрисовки диалогов
@@ -33,26 +35,21 @@ const DialogList = ({deleteDialog, dialogUserID, getDialogList, dialogs2,
         return <div>
             <h3 className={classes.dialogListHeader}>dialogList</h3>
             <div className={classes.dialogContainer}>
-                <ScrollContainer // обернуть сообщения скролом
-                    child={dialogElements}
-                    height={window.screen.availHeight - 277} // высота поля скрола
-                    firstInsideContainer={"DialogsUp"}
-                    secondInsideContainer={"DialogsDown"}
-                    containerElement={"DialogsContainer123"}
-                /> {/*отрисовка диалогов в скрол контейнере*/}</div>
+                {dialogElements} {/*отрисовка диалогов*/}
+            </div>
         </div>
     }
 
     return (
-        <div className={classes.dialogs} /*стиль всех диалогов*/>
+        <Row>
             <h2 className={commonClasses.pageHeader}>Dialogs</h2>
-            <div>
-                <DialogListRender/> {/*отрисовка диалоглиста независомо от сообщений*/}
-            </div>
-            <div>
-                <MessagesContainer/> {/*отрисовка сообщений независомо от диалогЛиста*/}
-            </div>
-        </div>
+
+                {/* <Col><DialogListRender/></Col> {/*отрисовка диалоглиста*/}
+
+            <Col>
+                <MessagesContainer/> {/*отрисовка сообщений*/}
+            </Col>
+        </Row>
     )
 }
 export default DialogList;

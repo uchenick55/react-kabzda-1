@@ -10,52 +10,7 @@ import withRouter2 from "../../hoc/withRouter2";
 import MessagesRender from "./MessagesRender";
 
 class MessagesContainer extends React.Component {
-/*    commonPartMountUpdate = () => {// общая часть для componentDidMount и componentDidUpdate
-        if (!this.props.userId) { // если перешли на вкладку DialogList с нулевым userId
-            if (this.props.messages2.length > 0) { // если массив сообщений непустой
-                this.props.setMessages([]); // занулить массив сообщений (очистить список сообщений)
-                this.props.setdialogUserID(null) // занулить userId (убрать выделение диалога)
-            }
-            return
-        }
-        if (this.props.dialogUserID !== this.props.userId) { // если считаный из URL userId не равен тому, что в BLL
-            this.props.setdialogUserID(this.props.userId) // задать в BLL считаный из URL ID
-            //здесь запросить профиль выбранного userId через getProfileThunkCreator
-            this.props.getProfileThunkCreator(this.props.userId, true, this.props.myId)// при переходе в диалог любого пользователя считать его данные профиля с сервера
-        }
 
-    }
-
-    componentDidMount() {
-        this.getDialogList()
-        this.commonPartMountUpdate();// общая часть для componentDidMount и componentDidUpdate
-    }
-    componentDidUpdate(prevProps, prevState, snapshot) {
-        this.commonPartMountUpdate(); // общая часть для componentDidMount и componentDidUpdate
-        if (this.props.dialogLastUpdateTime !== prevProps.dialogLastUpdateTime) { // если время обновления диалога изменилось
-            this.getDialogs()// запросить новые сообщения по диалогу
-        }
-    }
-    getDialogs = () => {
-        if (this.props.userId === "") {
-            return
-        }// при клике просто по вкладке DialogList
-        this.props.getDialogsThunkCreator(this.props.myId, this.props.userId);// получить диалоги
-    }
-    getDialogLastUpdateTime = () => {
-        if (this.props.userId === "") {
-            return
-        }// при клике просто по вкладке DialogList
-        this.props.getDialogLastUpdateTimeTnkCrt(this.props.myId, this.props.userId); // получить время последенего обновления диалога
-    }
-    getDialogList = () => {
-        this.props.getMyDialogListThunkCreator(this.props.myId)
-    }
-    deleteDialog = (dialogId, userId2) => {
-            this.props.deleteDialogThunkCreator(dialogId, this.props.myId, userId2)
-            // здесь сменить URL без ID
-        }*/
-    
     sendMessage = (NewMessage) => { // отправка сообщения
         if (!this.props.userId) { // при клике просто по вкладке DialogList
             alert("Выберите диалог") // предупреждение если диалог не выбран
@@ -112,11 +67,6 @@ let mapStateToProps = (state) => {
         messages2: state.dialogsPage.messages2, // массив сообщений текущего диалога
         profilePage: state.profilePage, // страница профиля пользователя для создания dialogList
         auth: state.auth,// страница моего профиля для создания dialogList
-        //    isAuth: state.auth.isAuth, // флаг, авторизован ли я сейчас,
-      //  editProfileStatus: state.auth.editProfileStatus, // ошибка правки формы профиля
-        //   dialogs: state.dialogsPage.dialogs, // список диалогов
-        //   dialogLastUpdateTime: state.dialogsPage.dialogLastUpdateTime,// время последнего времени обновления текущего диалога
-        //    dialogs2: state.dialogsPage.dialogs2, // список диалогов с LocalStorage
     }
 }
 
@@ -126,14 +76,6 @@ export default compose(
             sendDialogsThunkCreator,//санкреатор отправки нового сообщения в диалог
             deleteMessageThunkCreator,//санкреатор удаления сообщения из далога
             updateDialogListThunkCreator,//санкреатор обновления диалогЛиста (моего когда я пишу кому то сообщение) - запись в localStorage.
-         //   getDialogsThunkCreator,//санкреатор получения диалогов с данными
-          //  setdialogUserID, // экшнкреатор задания списка сообщений в стейт messages2
-          //  setMessages,// экшнкреатор задания списка сообщений в стейт messages2
-         //   getDialogLastUpdateTimeTnkCrt,//санкреатор получения диалогов с данными
-        //    getProfileThunkCreator,// санкреатор на получение профиля выбранного пользователя
-        //    getFollowThunkCreator,//санкреатор проверки follow/unfollow выбранного юзера для составления списка диалогов
-        //    getMyDialogListThunkCreator,//санкреатор получения моего диалогЛиста
-         //   deleteDialogThunkCreator, //санкреатор удаления диалога из диалогЛиста
         }
     ),
     withRouter2,// получить данные ID из URL браузера и добавить в пропсы
