@@ -3,25 +3,21 @@ import ScrollContainer from "../../common/Scroll/ScrollContainer";
 import MessagesElements from "./Message/MessagesElements";
 import DialogFormik from "./MessagesFormik/DialogFormik";
 import React from "react";
+import Col from "react-bootstrap/Col";
+import Container from "react-bootstrap/Container";
+import Row from "react-bootstrap/Row";
 
 const MessagesRender = ({messages2, myId, deleteMessage, sendMessage}) => {
     return <div>
-        <h3 className={classes.messagesHeader}>Messages</h3>
-
-        <ScrollContainer // обернуть сообщения скролом
-            child={<MessagesElements // вынес в отдельную компоненту отрисовку сообщений для ScrollContainer
-                messages2={messages2} // сообщения
-                myId={myId} // мой ID
-                deleteMessage={deleteMessage} // функйцию удаления сообщений
-            />}
-            height={window.screen.availHeight - 300} // высота поля скрола
-            firstInsideContainer={"MessagesUp"}
-            secondInsideContainer={"MessagesDown"}
-            containerElement={"MessagesContainer"}
-        /> {/*отрисовка сообщений в скрол контейнере*/}
-        <div>
+        <Row><MessagesElements // вынес в отдельную компоненту отрисовку сообщений
+            messages2={messages2} // сообщения
+            myId={myId} // мой ID
+            deleteMessage={deleteMessage} // функйцию удаления сообщений
+        /></Row>
+        <Row>
             <DialogFormik sendMessage={sendMessage}/>{/*вызов формы сообщений*/}
-        </div>
+        </Row>
+
     </div>
 }
 export default MessagesRender

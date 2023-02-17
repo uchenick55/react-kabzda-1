@@ -1,9 +1,12 @@
 import React from "react";
 import {Formik, Form} from "formik"; //формик с компонентами и пользовательским хуком
 import * as Yup from 'yup' // валидация форм с помошью сторонней библиотеки Yup
-import classes from "./Dialog.module.css"
 //import DisplayFormikState from "../../common/formikCommon/DisplayFormikState"
-import {MyTextInput} from "../../../common/formikCommon/MyFields"
+import {MyTextInput} from "../../../common/formikCommon/MyFieldsBS"
+import Button from "react-bootstrap/Button";
+import Stack from "react-bootstrap/Stack";
+import Row from "react-bootstrap/Row";
+import Col from "react-bootstrap/Col";
 
 let myInitialValues = { // начальные зачения форм
     newMessage: "",
@@ -28,24 +31,31 @@ const DialogFormik = ({sendMessage}) => { // основная компонент
                 {({
                       handleReset,// обнуление полей
                   }) => ( // обертка для вывода значений ввода в любом месте формы паралельно (или в итоге)
-                    <Form className={classes.MyPosts}>
-                        <div className={classes.fieldButtonGrid}>
-                            <div>
-                                <MyTextInput // сообщение в MyPostsBS
-                                    label=""
-                                    name='newMessage'
-                                    type='text'
-                                    placeholder='Введите ваше сообщение'
-                                    autoFocus ={true}
-                                />
-                            </div>
-                            <div>
-                                <button type="submit"> {/*кнопка отправить форму*/}
-                                    Submit
-                                </button>
-                            </div>
-                        </div>
-                        {/* <DisplayFormikState/> {/*отображение всего стейта формика*/}
+                    <Form>
+                        <Row>
+                            <Stack direction="horizontal" gap={3} className="mx-1">
+                                <Col>
+                                    <MyTextInput // сообщение в MyPostsBS
+                                        label=""
+                                        name='newMessage'
+                                        type='text'
+                                        placeholder='Введите ваше сообщение'
+                                        autoFocus={true}
+                                    />
+                                </Col>
+                               <Col lg={1}>
+                                   <div className="vr" //разделитель поля поиска и кнопки поиска
+                                   />
+                               </Col>
+                                <Col lg={3}>
+                                    <Button type="submit" //кнопка отправить форму
+                                    >
+                                        Submit
+                                    </Button>
+                                </Col>
+                                {/* <DisplayFormikState/> {/*отображение всего стейта формика*/}
+                            </Stack>
+                        </Row>
                     </Form>
                 )}
             </Formik>
