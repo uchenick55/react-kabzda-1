@@ -13,7 +13,10 @@ const InputButtonUsersRender = ({onChangeTerm, onChangeTermFunction, SetTermFunc
             <Stack direction="horizontal" gap={3} className="mx-1">
                 <InputGroup>
                     <InputGroup.Text><Image fluid={true} src={favImage} className={classes.favImage}/></InputGroup.Text>
-                    <InputGroup.Checkbox checked={onlyFriends} onClick={(event)=>{setOnlyFriends(event.currentTarget.checked)}} />
+                    <InputGroup.Checkbox
+                        checked={onlyFriends}
+                        onChange={(event)=>{setOnlyFriends(event.currentTarget.checked)}}
+                    />
 
                     <Form.Control
                         type="text"

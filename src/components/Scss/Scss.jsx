@@ -15,8 +15,8 @@ function App() {
                 <div>888</div>
 
             </div>
-            <div class='block first'>123</div>
-            <div class='block' id="central_block">
+            <div className='block first'>123</div>
+            <div className='block' id="central_block">
                 <ul>
                     <li>Элемент - 1 <a href="">внутри тега li </a></li>
                     <li>Элемент - 2</li>

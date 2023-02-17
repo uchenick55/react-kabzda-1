@@ -68,6 +68,9 @@ let ProfileStatusUseReducer = ({status, userId, myId, putStatusThunkCreator}) =>
     }
 
     const CommonInputGroup = ({isDisabled, onClickMethod, value}) => {
+        if (!value) {
+            value="";
+        }
         // общий метод (компонента) редактирования и отображения статуса
         return <InputGroup className="my-3" onClick={onClickMethod}> {/*отступ и метод по клику*/}
             <InputGroup.Text id="basic-addon1">Статус:</InputGroup.Text> {/* текст слева от поля*/}

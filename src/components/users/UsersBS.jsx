@@ -94,9 +94,9 @@ let UsersBS = ({
                                         </Col>
                                     </Row>
 
-                                    <div className={classes.textMaxWidth}>
+                                    <Row className={classes.textMaxWidth}>
                                         {u.status && <div>Status: {u.status}</div>}
-                                    </div >
+                                    </Row >
                                 </Card.Text>
                             </Card.Body>
                         </Card>
@@ -119,10 +119,9 @@ let UsersBS = ({
                 <h2 className={commonClasses.pageHeader}>Users</h2>
 
                 <Row>
-                    {/* <Col lg={6} md={12}> */}
+
                         {paginationRender}{/*Вывод пагинации вверху страницы */}
-                    {/*</Col>*/}
-                    {/*<Col lg={6} md={12}> */}
+
                         <InputButtonUsersRender //вывод инпута и кнопки для поиска юзеров
                             onChangeTerm={onChangeTerm}
                             onChangeTermFunction={onChangeTermFunction}
@@ -131,7 +130,6 @@ let UsersBS = ({
                             setOnlyFriends={setOnlyFriends}
                             onlyFriends={onlyFriends}
                         />
-                  {/*  </Col>*/}
 
                 </Row>
                 <Row>

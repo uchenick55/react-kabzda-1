@@ -100,6 +100,7 @@ const EditProfileFormik = ({putProfile, setEditMode, profile, editProfileStatus,
                     //кнопка сброса к значениям по умолчанию
                     e(Button, {
                         type: 'button',
+                        variant: "warning",
                         onClick: () => { // при клике по кнопке сброс
                             handleReset()// занулить поля вводла по умолчанию
                             setEditProfileStatus([]) // сбросить сообщение об ошибке с сервера
@@ -115,6 +116,7 @@ const EditProfileFormik = ({putProfile, setEditMode, profile, editProfileStatus,
 
                     //отмена
                     e(Button, {
+                        variant: "secondary",
                         onClick: () => { // при клике по кнопке отмена
                             setEditMode(false)// переключиться с режима редактирования профиля на просмотр
                             setEditProfileStatus([]) // сбросить сообщение об ошибке с сервера

@@ -81,7 +81,7 @@ const LoginFormik = ({postLogin, captchaURL, updateCaptcha, loginError}) => { //
 
                     }
                     <ButtonGroup aria-label="Basic example">
-                        <Button type='button' onClick={handleReset}>Reset</Button>
+                        <Button variant="warning" type='button' onClick={handleReset}>Reset</Button>
                         <Button type="submit"> {/*кнопка отправить форму*/}
                             Submit
                         </Button>
@@ -98,7 +98,7 @@ const LoginFormik = ({postLogin, captchaURL, updateCaptcha, loginError}) => { //
     </Formik>
     return (
         <>
-            <Container class="d-inline-block">
+            <Container className="d-inline-block">
                 <h2 className={commonClasses.pageHeader}>Login</h2>
 
                 <Row >

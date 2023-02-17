@@ -32,8 +32,8 @@ const DialogFormik = ({sendMessage, scrollBottom}) => { // основная ко
                     values,
                   }) => ( // обертка для вывода значений ввода в любом месте формы паралельно (или в итоге)
                     <Form>
-                        <div class='d-flex d-inline-block justify-content-center align-items-center'>
-                            <div  class='col-9'>
+                        <div className='d-flex d-inline-block justify-content-center align-items-center'>
+                            <div  className='col-9'>
                                 <MyTextInput // сообщение в MyPostsBS
                                     label=""
                                     name='newMessage'

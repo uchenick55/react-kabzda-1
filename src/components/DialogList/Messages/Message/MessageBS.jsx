@@ -19,7 +19,7 @@ const Message = ({message, myId, userId, Date, MessageId, deleteMessage}) => {
 
             <Toast className={myId === userId ?classes.insideToastMy:classes.insideToastNotMy}>
                 <Toast.Body>
-                    <div class='d-flex d-inline-block'>
+                    <div className='d-flex d-inline-block'>
                         <big>{message} {/*сообщение */}</big>
                         <div className={classes.time}>
                             {Date.Hour}{":"}{Date.Minutes}

@@ -35,7 +35,7 @@ const MyFriends = ({state, unfollowFriendsAPI, dialogUserID}) => {
 
             <div>
                 {state.length > 0 &&
-                <div class="col-12 col-sm-3 col-lg-2 d-inline-block d-flex">
+                <div className="col-12 col-sm-3 col-lg-2 d-inline-block d-flex">
                     {MyFriendElements}{/*отрисовка FriendList*/}
                 </div>
                 }

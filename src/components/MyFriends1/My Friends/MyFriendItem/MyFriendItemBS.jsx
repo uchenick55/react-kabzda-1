@@ -46,13 +46,13 @@ const MyFriendItem = ({id, avaSrc, name, unfollowFriendsAPI}) => {
         unfollowFriendsAPI // метод удаления друга из диалогов
     )
 
-    return <div key={name} class={'m-2'}>
+    return <div key={name} className={'m-2'}>
 
         <Card className={classes.cards}>
             <NavLink to={'/profile/' + id} className={"p-4"}>
                 {profileImgRender1} {/*отрисовка фото друзей с анимацией*/}
             </NavLink>
-            <Card.Body class={'p-3'}>
+            <Card.Body className={'p-3'}>
                 <Card.Title >{name}</Card.Title> {/*отрисовка имени друга*/}
                 <Card.Text>
                     <Row>
