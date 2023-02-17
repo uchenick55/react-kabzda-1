@@ -7,7 +7,7 @@ import Col from "react-bootstrap/Col";
 import Container from "react-bootstrap/Container";
 import Row from "react-bootstrap/Row";
 
-const MessagesRender = ({messages2, myId, deleteMessage, sendMessage}) => {
+const MessagesRender = ({messages2, myId, deleteMessage, sendMessage, scrollBottom}) => {
     return <div className={classes.BgStyle}>
         <Row>
             <MessagesElements // вынес в отдельную компоненту отрисовку сообщений
@@ -17,7 +17,10 @@ const MessagesRender = ({messages2, myId, deleteMessage, sendMessage}) => {
             />
         </Row>
         <Row className={classes.inputButton}>
-            <DialogFormik sendMessage={sendMessage}/>{/*вызов формы сообщений*/}
+            <DialogFormik
+                sendMessage={sendMessage}
+                scrollBottom={scrollBottom}
+            />{/*вызов формы сообщений*/}
         </Row>
 
     </div>

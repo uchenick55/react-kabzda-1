@@ -14,20 +14,12 @@ let myInitialValues = { // начальные зачения форм
 let myValidationSchema = Yup.object({ // валидация форм на required, длину и заполнение полей
 })
 
-const DialogFormik = ({sendMessage}) => { // основная компонента с входным колбэком, чтобы забрать данные с форм
+const DialogFormik = ({sendMessage, scrollBottom}) => { // основная компонента с входным колбэком, чтобы забрать данные с форм
     const myOnSubmit = (values, {resetForm}) => { // действия по сабмиту
         sendMessage(values.newMessage) // колбек, который принмает результат ввода формы
         resetForm()// сбросить значение формы после ввода
     }
-    const scrollHeight = Math.max(
-        document.body.scrollHeight, document.documentElement.scrollHeight,
-        document.body.offsetHeight, document.documentElement.offsetHeight,
-        document.body.clientHeight, document.documentElement.clientHeight
-    );
 
-/*
-    alert( 'Высота с учётом прокрутки: ' + scrollHeight );
-*/
     return (
         <>
             <Formik
@@ -35,7 +27,6 @@ const DialogFormik = ({sendMessage}) => { // основная компонент
                 validationSchema={myValidationSchema}
                 onSubmit={myOnSubmit}
             >
-
                 {({
                       handleReset,// обнуление полей
                   }) => ( // обертка для вывода значений ввода в любом месте формы паралельно (или в итоге)
@@ -58,7 +49,7 @@ const DialogFormik = ({sendMessage}) => { // основная компонент
                                 <Col >
                                     <Button
                                         type="submit" //кнопка отправить форму
-                                        onClick={()=>{window.scrollTo(0, scrollHeight)}}
+                                        onClick={scrollBottom} /*прокрутка вниз при добавлении нового сообщения*/
                                     >
                                         Submit
                                     </Button>

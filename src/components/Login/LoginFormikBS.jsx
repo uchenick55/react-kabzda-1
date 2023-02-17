@@ -81,12 +81,11 @@ const LoginFormik = ({postLogin, captchaURL, updateCaptcha, loginError}) => { //
 
                     }
                     <ButtonGroup aria-label="Basic example">
+                        <Button type='button' onClick={handleReset}>Reset</Button>
                         <Button type="submit"> {/*кнопка отправить форму*/}
                             Submit
                         </Button>
-                        <Button type='button' onClick={handleReset}>Reset</Button>
                     </ButtonGroup>
-
 
                     {/*кнопка сброса к значениям по умолчанию*/}
                     <div className={classes.errorText}>{loginError && loginError}</div>

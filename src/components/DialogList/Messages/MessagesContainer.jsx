@@ -48,6 +48,15 @@ class MessagesContainer extends React.Component {
         this.props.deleteMessageThunkCreator(messageID, this.props.myId, this.props.userId);
     }
 
+    scrollBottom = () => {
+        const scrollHeight = Math.max(
+            document.body.scrollHeight, document.documentElement.scrollHeight,
+            document.body.offsetHeight, document.documentElement.offsetHeight,
+            document.body.clientHeight, document.documentElement.clientHeight
+        );
+        window.scrollTo(0, scrollHeight)
+    }
+
     render() {
         return <div>
             <MessagesRender
@@ -55,6 +64,7 @@ class MessagesContainer extends React.Component {
                 myId={this.props.myId} // мой ID
                 deleteMessage = {this.deleteMessage} // удалить сообщение
                 sendMessage={this.sendMessage} // проброс местного метода отправки сообщений
+                scrollBottom={this.scrollBottom}
         />
         </div>
     }
