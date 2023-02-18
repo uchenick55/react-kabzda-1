@@ -5,7 +5,7 @@ import Preloader from "../../common/Preloader/Preloader";
 import ProfileStatusUseReducer from "./ProfileStatus/ProfileStatusUseReducer";
 import {bedug_mode} from "../../../redux/store-redux";
 import userPhoto1 from "../../../assets/images/no-image3.png";
-import EditProfileFormik from "./EditProfile/EditProfileFormik";
+import EditProfileFormik from "./EditProfile/-EditProfileFormik";
 
 const ShowProfile = ({profile, setEditMode, userId, myId}) => { // вынес отдельно отображение профиля
 

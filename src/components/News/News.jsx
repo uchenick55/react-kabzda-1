@@ -2,6 +2,10 @@
 import axios from "axios"; // библиотека асинхронных запросов
 import React from "react";
 import commonClasses from "../common/CommonClasses/common.module.css";
+import Button from "react-bootstrap/Button";
+import ListGroup from 'react-bootstrap/ListGroup'
+import InputGroup from 'react-bootstrap/InputGroup'
+import Form from 'react-bootstrap/Form'
 
 class News extends React.Component {
     state = {
@@ -52,45 +56,73 @@ class News extends React.Component {
 
             <form>
                 {/* объединяем input и button*/}
-                <input // поле поиска
-                    value={this.state.onChangeQuery} // привязали value к значению из стейта
-                    onChange={(event) => {
-                        // при изменении
-                        this.inputOnChange(event); // задаем временное значение стейта по onChange input
-                    }}
-                />
-                <button // кнопка
-                    onClick={(e) => {
-                        // по клику
-                        e.preventDefault(); // отменяем действие по умолчанию (отправка формы)
-                        this.buttonOnClick();
-                        //задание в поле поиска query значение из временного onChangeQuery
-                    }}
-                >
-                    Search
-                </button>
+                <InputGroup className="mb-3">
+                    <Form.Control
+                        placeholder="введите поисковый запрос"
+
+                        value={this.state.onChangeQuery} // привязали value к значению из стейта
+                        onChange={(event) => {
+                            // при изменении
+                            this.inputOnChange(event); // задаем временное значение стейта по onChange input
+                        }}
+                    />
+
+                    <Button variant="outline-secondary" // кнопка
+                        type='submit'
+                        onClick={(e) => {
+                            // по клику
+                            e.preventDefault(); // отменяем действие по умолчанию (отправка формы)
+                            this.buttonOnClick();
+                            //задание в поле поиска query значение из временного onChangeQuery
+                        }}
+                    >
+                        Search
+                    </Button>
+                </InputGroup>
             </form>
 
+
+{/*                <ListGroup.Item>No style</ListGroup.Item>
+                <ListGroup.Item variant="primary">Primary</ListGroup.Item>
+                <ListGroup.Item variant="secondary">Secondary</ListGroup.Item>
+                <ListGroup.Item variant="success">Success</ListGroup.Item>
+                <ListGroup.Item variant="danger">Danger</ListGroup.Item>
+                <ListGroup.Item variant="warning">Warning</ListGroup.Item>
+                <ListGroup.Item variant="info">Info</ListGroup.Item>
+                <ListGroup.Item variant="light">Light</ListGroup.Item>
+                <ListGroup.Item variant="dark">Dark</ListGroup.Item>*/}
+
+
+{/*
             <ul>
+*/}
                 {this.state.data.hits &&
                 <div>
                     {this.state.data.hits.map((
                         //мапим
                         d
-                    ) => (
-                        <li key={d.objectID}>
-                            {" "}
-                            {/* key привязываем к map id*/}
-                            <a href={d.url}>
-                                {d.title}
-                                {d.story_title}
-                            </a>
+                    ) => {return <div key={d.objectID}>  {/* key привязываем к map id*/}
+                        <ListGroup>
+                            <ListGroup.Item variant="Light" className='my-1' >
+                                <div >
+                                    <a href={d.url}>
+                                        {d.title}
+                                        {d.story_title}
+                                    </a>
+                                </div>
+
+                            </ListGroup.Item>
+                        </ListGroup>
                             {/* список ссылок с URL*/}
-                        </li>
-                    ))}
+                        </div>
+                    })}
                 </div>
                 }
+{/*
             </ul>
+*/}
+
+
         </div>
         return (<div>
                 {hn}{/*отрисовка результатов поиска*/}

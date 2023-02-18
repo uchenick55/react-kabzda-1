@@ -75,7 +75,9 @@ let UsersBS = ({
                                 /> </NavLink>
                             <Card.Body>
                                 <Card.Title className={classes.textMaxWidth}>{u.name}</Card.Title>
+{/*
                                 <Card.Text>
+*/}
                                     <Row>
                                         <Col >
                                             <div>
@@ -97,7 +99,7 @@ let UsersBS = ({
                                     <Row className={classes.textMaxWidth}>
                                         {u.status && <div>Status: {u.status}</div>}
                                     </Row >
-                                </Card.Text>
+                                {/*</Card.Text>*/}
                             </Card.Body>
                         </Card>
                     </div>
