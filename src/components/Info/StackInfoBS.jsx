@@ -32,7 +32,7 @@ let StackInfoBS = () => {
             <p>Extra: base html, fieldset/legend, cookie, github pages.</p>
             <p>CSS: basic css (+ grid), module.css, SCSS, bootstrap. </p>
             <p>BugFix: debugger/ breakpoint/console/network/window.store, ReduxDevTools (state, history), ReactDevTools(state, props, components).</p>
-            <p>My CodeWars acc: <a href="https://www.codewars.com/users/uchenick55/completed" target = "_blank"  rel="noreferrer">completed kata</a></p>
+            <p>My CodeWars acc: <a href="https://www.codewars.com/users/uchenick55/completed" >completed kata</a></p>
 
         </Container>
     </div>

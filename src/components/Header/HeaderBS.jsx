@@ -16,11 +16,11 @@ function HeaderBS({isAuth, goToMyPage, myProfile, deleteLogin}) {
         <Navbar variant="dark" bg="dark" expand="sm" fixed="top">
             <Container fluid className='text-uppercase'> {/*контейнер, текст большими буквами */}
                 <div className="d-inline-flex">
-                    <div><CallThemeRemote/></div>
-                    {/*переключатель темы*/}
+                    {/*<div><CallThemeRemote/></div>
+                    переключатель темы*/}
 
-                    <div><Image fluid={true} src={swgInfoPic} className={classes.myHeaderWH1}/></div>
-                    {/* иконка активатор модального окна с контекстной подсказкой для данной страницы*/}
+                    {/* <div><Image fluid={true} src={swgInfoPic} className={classes.myHeaderWH1}/></div>
+                    иконка активатор модального окна с контекстной подсказкой для данной страницы*/}
 
                     <div>
                         <LoginAndProfileRender

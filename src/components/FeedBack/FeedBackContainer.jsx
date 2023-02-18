@@ -1,7 +1,7 @@
 import React from 'react';
 import {connect} from "react-redux";
 import {postFeedBackThunkCreator2, setFeedBackStatus} from "../../redux/feedback-reducer";
-import FeedBack from "./FeedBack";
+import FeedBack from "./FeedBackBS";
 
 class FeedBackContainer extends React.Component {
 
