@@ -28,17 +28,16 @@ const ShowProfile = ({profile, setEditMode, userId, myId}) => { // вынес о
             <div><b>В поиске работы?</b> {profile.lookingForAJob ? "Да" : "Нет"}</div>
             <div><b>Описание поиска работы:</b> {profile.lookingForAJobDescription}</div>
             <div><b>userId:</b> {profile.userId}</div>
-{/*
-            <div><b>Контакты:</b></div>
-*/}
+
             <ul>
                 {Object.keys(profile.contacts).map((key1) => { //
-                    return (<li key={key1}>
+                    return (<li key={key1} className={classes.textMaxWidth}>
                             {Contact(key1)}
                         </li>
                     )
                 })}
             </ul>
+            
             {(userId === 0) && <Button onClick={() => {
                 setEditMode(true)
             }}>Редактировать профиль </Button>}
@@ -70,7 +69,7 @@ const ProfileInfo = ({
     }, [editProfileStatus, editedSuccessfully, setEditProfileStatus]) // переключение режима редактирования зависит от ответа с сервера
 
     if (bedug_mode) {
-        console.log("ProfileInfo.jsx")
+        console.log("-ProfileInfo.jsx")
     } // дебаг
     if (!profile) { // если профиль еще не загружен
         return <Preloader/> // отобразить предзагрузку

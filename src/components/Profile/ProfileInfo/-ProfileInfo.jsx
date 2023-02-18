@@ -60,7 +60,7 @@ const ProfileInfo = ({
     },[editProfileStatus, editedSuccessfully, setEditProfileStatus ]) // переключение режима редактирования зависит от ответа с сервера
 
     if (bedug_mode) {
-        console.log("ProfileInfo.jsx")
+        console.log("-ProfileInfo.jsx")
     } // дебаг
     if (!profile) { // если профиль еще не загружен
         return <Preloader/> // отобразить предзагрузку

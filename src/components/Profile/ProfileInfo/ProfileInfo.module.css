@@ -2,3 +2,12 @@
 .minwidth {
     width: 400px;
 }
+
+.textMaxWidth {
+    max-width: 15rem;
+    font-size: 3vh;
+    white-space: nowrap; /* Отменяем перенос текста */
+    overflow: hidden; /* Обрезаем содержимое */
+    text-overflow: ellipsis; /* Многоточие */
+    height: 2rem;
+}
