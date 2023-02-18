@@ -3,7 +3,11 @@ import {Formik, Form} from "formik"; //формик с компонентами 
 import * as Yup from 'yup' // валидация форм с помошью сторонней библиотеки Yup
 import classes from "./FeedBackFormik.module.css"
 //import DisplayFormikState from "../../common/formikCommon/DisplayFormikState"
-import {MyTextArea, MyTextInput} from "../../common/formikCommon/MyFields"
+import {MyTextInput} from "../../common/formikCommon/MyFieldsBS"
+import Button from "react-bootstrap/Button";
+import Col from "react-bootstrap/Col";
+import InputGroup from "react-bootstrap/InputGroup";
+import Row from "react-bootstrap/Row";
 
 let myInitialValues = { // начальные зачения форм
     newMessage: "",
@@ -17,11 +21,7 @@ const FeedBackFormik = ({sendFeedBack}) => { // основная компоне�
         resetForm()// сбросить значение формы после ввода
     }
 
-    return (
-        <fieldset>
-                <legend>
-                    <div className={classes.legendStyle}>Обратная связь</div>
-                </legend>
+    return (<div>
             <Formik
                 initialValues={myInitialValues}
                 validationSchema={myValidationSchema}
@@ -32,37 +32,46 @@ const FeedBackFormik = ({sendFeedBack}) => { // основная компоне�
                       handleReset,// обнуление полей
                   }) => ( // обертка для вывода значений ввода в любом месте формы паралельно (или в итоге)
                     <Form>
-                        <div className={classes.fieldButtonGrid}>
+                        <div>
                             <div>
                                 <MyTextInput // сообщение в MyPostsBS
                                     label="Ваше имя"
                                     name='name'
                                     type='text'
                                     placeholder='имя'
+                                    leftLabelLength='7rem'
+
                                 />
+
                                 <MyTextInput // email
                                     label="Email"
                                     name='email'
                                     type='email'
                                     placeholder='email'
+                                    leftLabelLength='7rem'
                                 />
-                               <MyTextArea // сообщение в MyPostsBS
-                                   label="Введите сообщение*"
-                                   name='message'
-                                   type='textarea'
-                                   placeholder='сообщение'
-                                   autoFocus={true}
-                               />
-                                <button type="submit"> {/*кнопка отправить форму*/}
-                                    Submit
-                                </button>
+                                    <MyTextInput // сообщение в MyPostsBS
+                                        label="Сообщение*"
+                                        name='message'
+                                        type='textarea'
+                                        placeholder='сообщение'
+                                        autoFocus={true}
+                                        leftLabelLength='7rem'
+                                    />
+                                <Row className="mx-1">
+
+                                <Button type="submit"> {/*кнопка отправить форму*/}
+                                        Submit
+                                    </Button>
+                                </Row>
                             </div>
                         </div>
                         {/* <DisplayFormikState/> {/*отображение всего стейта формика*/}
                     </Form>
                 )}
             </Formik>
-        </fieldset>
+        </div>
+
     )
 }
 

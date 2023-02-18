@@ -2,6 +2,8 @@ import React from "react";
 import classes from "./FeedBack.module.css";
 import FeedBackFormik from "./FeedBackFormik/FeedBackFormik";
 import commonClasses from "../common/CommonClasses/common.module.css";
+import Container from "react-bootstrap/Container";
+import FeedBackInfoShort from "../Info/FeedBackInfoShort";
 
 const FeedBack = ({sendFeedBack, feedBackStatus, setFeedBackStatus}) => {
     let SendMessageBoard = (props) => {
@@ -29,9 +31,11 @@ const FeedBack = ({sendFeedBack, feedBackStatus, setFeedBackStatus}) => {
 
     return <div>
         <h2 className={commonClasses.pageHeader}>FeedBack</h2>
+        <Container fluid>
+            <FeedBackFormik sendFeedBack={sendFeedBack}/>
+            <FeedBackInfoShort/>
 
-        <FeedBackFormik sendFeedBack={sendFeedBack}/>
-
+        </Container>
     </div>
 
 };

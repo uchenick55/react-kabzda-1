@@ -20,7 +20,6 @@ import Image from "react-bootstrap/Image";
 import Col from "react-bootstrap/Col";
 
 
-
 let UsersBS = ({
                    totalUsersCount, pageSize, currentPage, onPageChanged, users,
                    followingInProgress, unfollowAPI, isAuth, followAPI,
@@ -39,15 +38,17 @@ let UsersBS = ({
         let FollowUnfollowButtons = ({u, followUnfollowAPICallback, buttonText}) => { // унификация нажатия кнопки Follow/Unfollow
             return (<span>
             <Button variant={"light"}
-                     disabled={followingInProgress.some(id => id === u.id) || u.id === myId}
+                    disabled={followingInProgress.some(id => id === u.id) || u.id === myId}
                 // отключение возможности повторного нажатия пока не пришел ответ от сервера или если это ваш ID
-                     onClick={() => {
-                         isAuth // проверка авторизации. Если нет, то алерт. Если да, то API запрос на follow/unfollow
-                             ? followUnfollowAPICallback(u.id) //send to server request follow/unfollow from UsersContainer
-                             : alert("You are not authorized, please Login") // алерт авторизуйтесь!
-                     }}> {/*{buttonText}*/}
-                {!u.followed && <Image fluid={true} src={FollowPic} alt={"Добавить в избранное"} title={"Добавить в избранное"}/>}
-                {u.followed && <Image fluid={true} src={UnfollowPic} alt={"Удалить из избранного"} title={"Удалить из избранного"}/>}
+                    onClick={() => {
+                        isAuth // проверка авторизации. Если нет, то алерт. Если да, то API запрос на follow/unfollow
+                            ? followUnfollowAPICallback(u.id) //send to server request follow/unfollow from UsersContainer
+                            : alert("You are not authorized, please Login") // алерт авторизуйтесь!
+                    }}> {/*{buttonText}*/}
+                {!u.followed &&
+                <Image fluid={true} src={FollowPic} alt={"Добавить в избранное"} title={"Добавить в избранное"}/>}
+                {u.followed &&
+                <Image fluid={true} src={UnfollowPic} alt={"Удалить из избранного"} title={"Удалить из избранного"}/>}
                 </Button>
                     {/* buttonText - текст кнопки Follow/Unfollow*/}
             </span>
@@ -67,39 +68,36 @@ let UsersBS = ({
                         <Card>
                             <NavLink to={'/profile/' + u.id}> {/*при нажатии на картинку переход в профиль*/}
                                 <Image fluid={true} variant="top" className={classes.userPhoto}
-                                     src={u.photos.small !== null
-                                         ? u.photos.large
-                                         : userPhoto}
+                                       src={u.photos.small !== null
+                                           ? u.photos.large
+                                           : userPhoto}
                                        alt={"Перейти в профиль"}
                                        title={"Перейти в профиль"}
                                 /> </NavLink>
                             <Card.Body>
                                 <Card.Title className={classes.textMaxWidth}>{u.name}</Card.Title>
-{/*
-                                <Card.Text>
-*/}
-                                    <Row>
-                                        <Col >
-                                            <div>
-                                                {u.followed
-                                                    ? <FollowUnfollowButtons u={u} followUnfollowAPICallback={unfollowAPI}
-                                                                             buttonText={"Remove"}/>
-                                                    : <FollowUnfollowButtons u={u} followUnfollowAPICallback={followAPI}
-                                                                             buttonText={"Add"}/>
-                                                }
-                                            </div>
-                                        </Col>
-                                        <Col>
-                                            <NavLink to={'/dialogs/' + u.id}><Button variant="light">
-                                                <Image fluid={true} src={DialogPic} alt={"Начать диалог"} title={"Начать диалог"}/>
-                                            </Button></NavLink>
-                                        </Col>
-                                    </Row>
+                                <Row>
+                                    <Col>
+                                        <div>
+                                            {u.followed
+                                                ? <FollowUnfollowButtons u={u} followUnfollowAPICallback={unfollowAPI}
+                                                                         buttonText={"Remove"}/>
+                                                : <FollowUnfollowButtons u={u} followUnfollowAPICallback={followAPI}
+                                                                         buttonText={"Add"}/>
+                                            }
+                                        </div>
+                                    </Col>
+                                    <Col>
+                                        <NavLink to={'/dialogs/' + u.id}><Button variant="light">
+                                            <Image fluid={true} src={DialogPic} alt={"Начать диалог"}
+                                                   title={"Начать диалог"}/>
+                                        </Button></NavLink>
+                                    </Col>
+                                </Row>
 
-                                    <Row className={classes.textMaxWidth}>
-                                        {u.status && <div>Status: {u.status}</div>}
-                                    </Row >
-                                {/*</Card.Text>*/}
+                                <Row className={classes.textMaxWidth}>
+                                    {u.status && <div>Status: {u.status}</div>}
+                                </Row>
                             </Card.Body>
                         </Card>
                     </div>
@@ -122,16 +120,16 @@ let UsersBS = ({
 
                 <Row>
 
-                        {paginationRender}{/*Вывод пагинации вверху страницы */}
+                    {paginationRender}{/*Вывод пагинации вверху страницы */}
 
-                        <InputButtonUsersRender //вывод инпута и кнопки для поиска юзеров
-                            onChangeTerm={onChangeTerm}
-                            onChangeTermFunction={onChangeTermFunction}
-                            SetTermFunction={SetTermFunction}
-                            handleClick={handleClick}
-                            setOnlyFriends={setOnlyFriends}
-                            onlyFriends={onlyFriends}
-                        />
+                    <InputButtonUsersRender //вывод инпута и кнопки для поиска юзеров
+                        onChangeTerm={onChangeTerm}
+                        onChangeTermFunction={onChangeTermFunction}
+                        SetTermFunction={SetTermFunction}
+                        handleClick={handleClick}
+                        setOnlyFriends={setOnlyFriends}
+                        onlyFriends={onlyFriends}
+                    />
 
                 </Row>
                 <Row>
