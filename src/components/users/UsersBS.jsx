@@ -75,7 +75,7 @@ let UsersBS = ({
                                        title={"Перейти в профиль"}
                                 /> </NavLink>
                             <Card.Body>
-                                <Card.Title className={classes.textMaxWidth}>{u.name}</Card.Title>
+                                <Card.Title className={commonClasses.textMaxWidth}>{u.name}</Card.Title>
                                 <Row>
                                     <Col>
                                         <div>
@@ -95,7 +95,7 @@ let UsersBS = ({
                                     </Col>
                                 </Row>
 
-                                <Row className={classes.textMaxWidth}>
+                                <Row className={commonClasses.textMaxWidth}>
                                     {u.status && <div>Status: {u.status}</div>}
                                 </Row>
                             </Card.Body>

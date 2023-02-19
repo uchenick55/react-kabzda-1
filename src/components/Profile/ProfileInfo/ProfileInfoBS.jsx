@@ -1,5 +1,4 @@
 import React, {useEffect, useState} from 'react';
-import classes from './ProfileInfo.module.css'
 import ButtonOverImage from '../../common/CommonClasses/ButtonOverImage.module.css'
 import Preloader from "../../common/Preloader/Preloader";
 import ProfileStatusUseReducer from "./ProfileStatus/ProfileStatusUseReducer";
@@ -22,7 +21,7 @@ const ShowProfile = ({profile, setEditMode, userId, myId}) => { // вынес о
             <b>{key1}: </b>{profile.contacts[key1]}
         </div>
     }
-    return (<div className={classes.textMaxWidth}>
+    return (<div className={commonClasses.textMaxWidth}>
                 <h3 >{profile.fullName}</h3>
                 <div ><b>Обо мне</b>: {profile.aboutMe}</div>
                 <div><b>В поиске работы?</b> {profile.lookingForAJob ? "Да" : "Нет"}</div>

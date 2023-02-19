@@ -9,6 +9,7 @@ import ContentContainer from "./components/Content/ContentContainer";
 import ErrorBoundary from "./components/common/ErrorBoundary/ErrorBoundary";
 import Container from "react-bootstrap/Container";
 import FooterBS from "./components/Footer/FooterBS";
+import commonClasses from "./components/common/CommonClasses/common.module.css";
 
 class App extends React.Component { // конвертируем app в классовую компоненту для жизненного цикла
     componentDidMount() {
@@ -33,7 +34,7 @@ class App extends React.Component { // конвертируем app в клас�
                             <FooterBS/>
                         </Container>
                     </ErrorBoundary>
-                    <div className='minwidth'></div>
+                    <div className={commonClasses.minwidth}></div>
                     {/*Для масштабирования и чтобы не поехал header, делаем div с шириной 350*/}
                 </div>
 
