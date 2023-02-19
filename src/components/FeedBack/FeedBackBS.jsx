@@ -10,11 +10,11 @@ const FeedBack = ({sendFeedBack, feedBackStatus, setFeedBackStatus}) => {
 
     const [show, setShow] = useState(!!setFeedBackStatus); // хук задания флага показать ли модальное окно
 
-    let SendMessageBoard = (props) => {
-        return <div className={classes.sendMessageBoard}>{/*стилизация отправки данных на сервер*/}
+/*    let SendMessageBoard = (props) => {
+        return <div className={classes.sendMessageBoard}>{/!*стилизация отправки данных на сервер*!/}
             {props.children}
         </div>
-    }
+    }*/
 
     if (feedBackStatus) { // если статус feedback из BLL не пустой
         const modalHeader = <div>Спасибо!</div>

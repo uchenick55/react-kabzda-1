@@ -1,12 +1,9 @@
 import React from "react";
 import {Formik, Form} from "formik"; //формик с компонентами и пользовательским хуком
 import * as Yup from 'yup' // валидация форм с помошью сторонней библиотеки Yup
-import classes from "./FeedBackFormik.module.css"
 //import DisplayFormikState from "../../common/formikCommon/DisplayFormikState"
 import {MyTextInput} from "../../common/formikCommon/MyFieldsBS"
 import Button from "react-bootstrap/Button";
-import Col from "react-bootstrap/Col";
-import InputGroup from "react-bootstrap/InputGroup";
 import Row from "react-bootstrap/Row";
 
 let myInitialValues = { // начальные зачения форм

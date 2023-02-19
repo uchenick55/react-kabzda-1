@@ -1,5 +1,4 @@
 import React from 'react';
-import classes from './MyFriendsContainer.module.css';
 import MyFriends from "./My Friends/MyFriends";
 import {connect} from "react-redux";
 import {bedug_mode} from "../../redux/store-redux";
@@ -7,7 +6,7 @@ import {bedug_mode} from "../../redux/store-redux";
 const MyFriends1 = ({myFriends2, unfollowFriendsAPI, dialogUserID}) => {
 
     if (bedug_mode) {console.log("Navbar")}
-    return <nav className={classes.nav}>
+    return <nav>
 
         <div>
             <MyFriends

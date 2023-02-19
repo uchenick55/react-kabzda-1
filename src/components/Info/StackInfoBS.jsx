@@ -1,18 +1,13 @@
-import ScrollContainer from "../common/Scroll/ScrollContainer";
 import React from "react";
 import "bootstrap/dist/css/bootstrap-grid.min.css"
 import Container from "react-bootstrap/Container";
-import MyBreadCrumb from "../common/MyBreadCrumb/MyBreadCrumb";
 import commonClasses from "../common/CommonClasses/common.module.css";
 
 let StackInfoBS = () => {
     const usedStack = <div>
         <Container>
-{/*
-            <MyBreadCrumb/>
-*/}
-            <h2 className={commonClasses.pageHeader}>My Stack</h2>
 
+            <h2 className={commonClasses.pageHeader}>My Stack</h2>
 
             <p>UI (React): create-react-app, function component, props (spread), import /export (named/default),
                 connect (mstp, mdtp (short record)), class component (lifecycle methods, localState, this), pagination,

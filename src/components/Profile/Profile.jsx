@@ -3,7 +3,6 @@ import classes from './Profile.module.css'
 import ProfileInfo from "./ProfileInfo/ProfileInfoBS";
 import MyPostsContainer from "./MyPosts/MyPostsContainer";
 import {bedug_mode} from "../../redux/store-redux";
-import ScrollContainer from "../common/Scroll/ScrollContainer";
 
 const Profile = ({
                      profile, status, myId, putStatusThunkCreator, uploadImage,

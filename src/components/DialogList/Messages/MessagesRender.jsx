@@ -1,11 +1,11 @@
 import classes from "../DialogList.module.css";
-import ScrollContainer from "../../common/Scroll/ScrollContainer";
+import userPhoto from "../../../assets/images/no-image3.png";
 import MessagesElements from "./Message/MessagesElements";
 import DialogFormik from "./MessagesFormik/DialogFormik";
 import React from "react";
 import Row from "react-bootstrap/Row";
 import Image from "react-bootstrap/Image";
-import {Navigate, NavLink} from "react-router-dom";
+import {NavLink} from "react-router-dom";
 
 const MessagesRender = ({messages2, myId, deleteMessage, sendMessage, scrollBottom, profilePage}) => {
 
@@ -14,7 +14,7 @@ const MessagesRender = ({messages2, myId, deleteMessage, sendMessage, scrollBott
         {profilePage.profile &&  // если профиль пользователя уже загружен
         <NavLink to={`/profile/${profilePage.profile.userId}`}> {/*при клике переход на профиль собеседника*/}
             <Image // картинка аватар собеседника
-                src={profilePage.profile.photos.small}
+                src={profilePage.profile.photos.small?profilePage.profile.photos.small:userPhoto}
                 className={classes.userPhoto}
                 title={"Перейти в профиль"}
                 alt={"Перейти в профиль"}

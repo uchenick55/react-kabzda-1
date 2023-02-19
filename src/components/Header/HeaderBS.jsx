@@ -4,11 +4,11 @@ import Navbar from 'react-bootstrap/Navbar';
 import NavDropdown from 'react-bootstrap/NavDropdown';
 import "bootstrap/dist/css/bootstrap.min.css"
 import React from "react";
-import swgInfoPic from "../../assets/images/swg/info.svg"
-import classes from './Header.module.css';
-import CallThemeRemote from "../Dark_light_theme/CallThemeRemote";
 import LoginAndProfileRender from "./LoginAndProfileRender";
-import Image from "react-bootstrap/Image";
+//import swgInfoPic from "../../assets/images/swg/info.svg"
+//import classes from './Header.module.css';
+//import CallThemeRemote from "../Dark_light_theme/CallThemeRemote";
+//import Image from "react-bootstrap/Image";
 
 
 function HeaderBS({isAuth, goToMyPage, myProfile, deleteLogin}) {
@@ -40,9 +40,6 @@ function HeaderBS({isAuth, goToMyPage, myProfile, deleteLogin}) {
                             <NavDropdown.Item href="#/mystack">My Stack</NavDropdown.Item>
                             <NavDropdown.Item href="#/profile">Profile</NavDropdown.Item>
                             <NavDropdown.Item href="#/users">Users</NavDropdown.Item>
-{/*
-                            <NavDropdown.Item href="#/dialogs">Dialogs</NavDropdown.Item>
-*/}
                             <NavDropdown.Item href="#/news">News</NavDropdown.Item>
                             <NavDropdown.Item href="#/rest">Rest</NavDropdown.Item>
                             <NavDropdown.Item href="#/feedback">FeedBack</NavDropdown.Item>

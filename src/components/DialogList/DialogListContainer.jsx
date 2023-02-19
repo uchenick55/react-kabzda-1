@@ -2,12 +2,10 @@ import React from 'react';
 import DialogList from "./DialogList";
 import {
     deleteDialogThunkCreator,
-    deleteMessageThunkCreator,
     getDialogLastUpdateTimeTnkCrt,
     getDialogsThunkCreator, getFollowThunkCreator, getMyDialogListThunkCreator,
-    sendDialogsThunkCreator,
     setdialogUserID,
-    setMessages, updateDialogListThunkCreator
+    setMessages
 } from "../../redux/dialogs-reducer";
 import {connect} from "react-redux";
 import {compose} from "redux";

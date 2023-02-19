@@ -1,4 +1,3 @@
-import FeedBackInfoShort from "./FeedBackInfoShort";
 
 let FeedBackInfo = () => {
     return (<div>

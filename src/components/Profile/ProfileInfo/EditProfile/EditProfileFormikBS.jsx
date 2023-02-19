@@ -3,7 +3,7 @@ import {Formik, Form} from "formik"; //формик с компонентами 
 import * as Yup from 'yup' // валидация форм с помошью сторонней библиотеки Yup
 import classes from './EditProfile.module.css'
 //import DisplayFormikState from "../../../common/formikCommon/DisplayFormikState"
-import {MyCheckbox, MyTextArea, MyTextInput} from "../../../common/formikCommon/MyFieldsBS"
+import {MyCheckbox, MyTextInput} from "../../../common/formikCommon/MyFieldsBS"
 import Button from "react-bootstrap/Button";
 
 let myValidationSchema = Yup.object({ // валидация форм на required, длину и заполнение полей

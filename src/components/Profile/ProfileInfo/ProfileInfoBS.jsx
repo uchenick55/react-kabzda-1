@@ -37,7 +37,7 @@ const ShowProfile = ({profile, setEditMode, userId, myId}) => { // вынес о
                     )
                 })}
             </ul>
-            
+
             {(userId === 0) && <Button onClick={() => {
                 setEditMode(true)
             }}>Редактировать профиль </Button>}

@@ -6,8 +6,6 @@ import classes from "./MyPosts.module.css"
 import {MyTextInput} from "../../../../common/formikCommon/MyFieldsBS"
 import Button from "react-bootstrap/Button";
 import Stack from "react-bootstrap/Stack";
-import Col from "react-bootstrap/Col";
-import Row from "react-bootstrap/Row";
 
 let myInitialValues = { // начальные зачения форм
     newPost: "",

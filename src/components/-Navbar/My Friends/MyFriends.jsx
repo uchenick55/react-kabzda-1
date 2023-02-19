@@ -3,7 +3,7 @@ import classes from './MyFriends.module.css';
 import MyFriendItem from "./MyFriendItem/MyFriendItem";
 import userPhoto from "../../../assets/images/no-image3.png";
 import {bedug_mode} from "../../../redux/store-redux";
-import ScrollContainer from "../../common/Scroll/ScrollContainer";
+import ScrollContainer from "../../common/-Scroll/ScrollContainer";
 
 
 const MyFriends = ({state, unfollowFriendsAPI, dialogUserID}) => {

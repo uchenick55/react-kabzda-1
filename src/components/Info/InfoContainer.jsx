@@ -1,7 +1,7 @@
 import React, {Suspense} from "react";
 import classes from "../Content/ContentContainer.module.css";
 import {Route, Routes} from "react-router-dom";
-import ScrollContainer from "../common/Scroll/ScrollContainer";
+import ScrollContainer from "../common/-Scroll/ScrollContainer";
 import ErrorBoundary from "../common/ErrorBoundary/ErrorBoundary";
 import TasksInfo from "./TasksInfo";
 
