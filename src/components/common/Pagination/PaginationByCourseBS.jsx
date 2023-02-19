@@ -7,7 +7,7 @@ let PaginationByCourse = ({
                               pageSize, // количество пользователей на одной странице
                               currentPage, // текущая страница пагинации
                               onPageChanged, // колбек-функция изменения текущей страницы
-                              PortionSize = 7, // количество отображаемых страниц из всего массива
+                              PortionSize = 6, // количество отображаемых страниц из всего массива
                               currentRangeLocal,
                               onChangeRangeLocal
                           }) => {

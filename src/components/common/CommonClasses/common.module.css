@@ -8,9 +8,8 @@
 }
 
 .textMaxWidth {
-    max-width: 18rem;
+    max-width: 8rem;
     overflow: hidden; /* Обрезаем содержимое */
-    font-size: 3vh;
     white-space: nowrap; /* Отменяем перенос текста */
     background: linear-gradient(to left, transparent 0%, black 30%, black 100%);
     -webkit-background-clip: text;
