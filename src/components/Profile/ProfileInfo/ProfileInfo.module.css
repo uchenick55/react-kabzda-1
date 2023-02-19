@@ -2,12 +2,22 @@
 .minwidth {
     width: 400px;
 }
+/*
+.textMaxWidth {
+    max-width: 18rem;
+    font-size: 3vh;
+    white-space: nowrap; !* Отменяем перенос текста *!
+    overflow: hidden; !* Обрезаем содержимое *!
+    text-overflow: ellipsis; !* Многоточие *!
+}*/
 
 .textMaxWidth {
-    max-width: 15rem;
+    max-width: 18rem;
+    overflow: hidden; /* Обрезаем содержимое */
     font-size: 3vh;
     white-space: nowrap; /* Отменяем перенос текста */
-    overflow: hidden; /* Обрезаем содержимое */
-    text-overflow: ellipsis; /* Многоточие */
-    height: 2rem;
+    background: linear-gradient(to left, transparent 0%, black 30%, black 100%);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
 }

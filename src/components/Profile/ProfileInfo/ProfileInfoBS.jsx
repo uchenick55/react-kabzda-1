@@ -22,24 +22,21 @@ const ShowProfile = ({profile, setEditMode, userId, myId}) => { // вынес о
             <b>{key1}: </b>{profile.contacts[key1]}
         </div>
     }
-    return (<div>
-            <div >
-                <h3 className={classes.textMaxWidth}>{profile.fullName}</h3>
-                <div className={classes.textMaxWidth}><b>Обо мне</b>: {profile.aboutMe}</div>
-                <div className={classes.textMaxWidth}><b>В поиске работы?</b> {profile.lookingForAJob ? "Да" : "Нет"}</div>
-                <div className={classes.textMaxWidth}><b>Описание:</b> {profile.lookingForAJobDescription}</div>
-                <div className={classes.textMaxWidth}><b>userId:</b> {profile.userId}</div>
+    return (<div className={classes.textMaxWidth}>
+                <h3 >{profile.fullName}</h3>
+                <div ><b>Обо мне</b>: {profile.aboutMe}</div>
+                <div><b>В поиске работы?</b> {profile.lookingForAJob ? "Да" : "Нет"}</div>
+                <div ><b>Описание:</b> {profile.lookingForAJobDescription}</div>
+                <div><b>userId:</b> {profile.userId}</div>
 
                 <ul>
                     {Object.keys(profile.contacts).map((key1) => { //
-                        return (<li key={key1} className={classes.textMaxWidth}>
+                        return (<li key={key1} >
                                 {Contact(key1)}
                             </li>
                         )
                     })}
                 </ul>
-            </div>
-
 
             {(userId === 0) && <Button onClick={() => {
                 setEditMode(true)
