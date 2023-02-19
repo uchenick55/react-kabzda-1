@@ -8,6 +8,7 @@ import {connect} from "react-redux";
 import {compose} from "redux";
 import withRouter2 from "../../hoc/withRouter2";
 import MessagesRender from "./MessagesRender";
+import ScrollBottom from "../../common/CommonClasses/ScrollBottom";
 
 class MessagesContainer extends React.Component {
 
@@ -49,12 +50,7 @@ class MessagesContainer extends React.Component {
     }
 
     scrollBottom = () => {
-        const scrollHeight = Math.max(
-            document.body.scrollHeight, document.documentElement.scrollHeight,
-            document.body.offsetHeight, document.documentElement.offsetHeight,
-            document.body.clientHeight, document.documentElement.clientHeight
-        );
-        window.scrollTo(0, scrollHeight)
+        return ScrollBottom()
     }
 
     render() {

@@ -52,7 +52,7 @@ const FeedBackFormik = ({sendFeedBack}) => { // основная компоне�
                                         name='message'
                                         type='textarea'
                                         placeholder='сообщение'
-                                        autoFocus={true}
+                                      //  autoFocus={true}
                                         leftLabelLength='7rem'
                                     />
                                 <Row className="mx-1">

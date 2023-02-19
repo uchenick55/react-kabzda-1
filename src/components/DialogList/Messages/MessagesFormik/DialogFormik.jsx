@@ -39,7 +39,7 @@ const DialogFormik = ({sendMessage, scrollBottom}) => { // основная ко
                                     name='newMessage'
                                     type='text'
                                     placeholder='Введите ваше сообщение'
-                                    autoFocus={true}
+                                   // autoFocus={true}
                                 />
                             </div>
                             <div>

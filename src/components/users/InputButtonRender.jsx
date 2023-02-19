@@ -26,7 +26,7 @@ const InputButtonUsersRender = ({onChangeTerm, onChangeTermFunction, SetTermFunc
                         }}
                         onBlur={SetTermFunction}// задать в локальный стейт значение поиска при потере фокуса
                         placeholder={"find users..."} // пояснение поля ввода
-                        autoFocus
+                        //autoFocus
                     /> {/*сразу фокусировка на поле ввода */}
                 </InputGroup>
 

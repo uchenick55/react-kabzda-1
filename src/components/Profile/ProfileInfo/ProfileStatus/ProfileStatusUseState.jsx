@@ -41,7 +41,7 @@ let ProfileStatusWithHoocs = ({userId, myId, status, putStatusThunkCreator }) =>
                         value={statusTmpInput} // жестко зафиксировали значение поля ввода на временное значение статуса в локальном стейте
                         onChange={onChangeStatus} // задание временного локального статуса
                         onBlur={setMyStatus}// задание стейта при потере фокуса input
-                        autoFocus // фокусировка на поле ввода текста
+                        // autoFocus  фокусировка на поле ввода текста
                         placeholder={"задайте статус"}// текст при пустом поле ввода
                         onKeyPress={checkEnterPressed} // проверка нажатия Enter
                     />

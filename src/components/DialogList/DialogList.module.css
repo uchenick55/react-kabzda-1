@@ -75,6 +75,9 @@ padding-right: 10px
 
 .BgStyle {
     padding: 2rem;
+    display: flex;
+    align-items: 90%;
+    justify-content: right;
 }
 
 .inputFixed {
