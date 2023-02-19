@@ -1,7 +1,7 @@
 {
   "files": {
     "main.css": "/react-kabzda-1/static/css/main.d02694e8.css",
-    "main.js": "/react-kabzda-1/static/js/main.637009e9.js",
+    "main.js": "/react-kabzda-1/static/js/main.759d2ebf.js",
     "static/css/524.cab0b5c2.chunk.css": "/react-kabzda-1/static/css/524.cab0b5c2.chunk.css",
     "static/js/524.3b8499d3.chunk.js": "/react-kabzda-1/static/js/524.3b8499d3.chunk.js",
     "static/css/741.b411f3dd.chunk.css": "/react-kabzda-1/static/css/741.b411f3dd.chunk.css",
@@ -29,7 +29,7 @@
     "index.html": "/react-kabzda-1/index.html",
     "static/media/logout2.svg": "/react-kabzda-1/static/media/logout2.0bad7df4e5e473f94c1500c4b15b4510.svg",
     "main.d02694e8.css.map": "/react-kabzda-1/static/css/main.d02694e8.css.map",
-    "main.637009e9.js.map": "/react-kabzda-1/static/js/main.637009e9.js.map",
+    "main.759d2ebf.js.map": "/react-kabzda-1/static/js/main.759d2ebf.js.map",
     "524.cab0b5c2.chunk.css.map": "/react-kabzda-1/static/css/524.cab0b5c2.chunk.css.map",
     "524.3b8499d3.chunk.js.map": "/react-kabzda-1/static/js/524.3b8499d3.chunk.js.map",
     "741.b411f3dd.chunk.css.map": "/react-kabzda-1/static/css/741.b411f3dd.chunk.css.map",
@@ -46,6 +46,6 @@
   },
   "entrypoints": [
     "static/css/main.d02694e8.css",
-    "static/js/main.637009e9.js"
+    "static/js/main.759d2ebf.js"
   ]
 }
