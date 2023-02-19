@@ -21,7 +21,10 @@ const ShowProfile = ({profile, setEditMode, userId, myId}) => { // вынес о
             <b>{key1}: </b>{profile.contacts[key1]}
         </div>
     }
-    return (<div className={commonClasses.textMaxWidth}>
+    return (<div
+            className={`${commonClasses.textMaxWidthCommon} ${commonClasses.textMaxWidth18rem}`}>
+
+
                 <h3 >{profile.fullName}</h3>
                 <div ><b>Обо мне</b>: {profile.aboutMe}</div>
                 <div><b>В поиске работы?</b> {profile.lookingForAJob ? "Да" : "Нет"}</div>

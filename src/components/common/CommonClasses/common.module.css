@@ -6,15 +6,20 @@
     text-transform: uppercase;
     margin-bottom: 4rem;
 }
-
-.textMaxWidth {
-    max-width: 8rem;
+.textMaxWidthCommon {
     overflow: hidden; /* Обрезаем содержимое */
     white-space: nowrap; /* Отменяем перенос текста */
     background: linear-gradient(to left, transparent 0%, black 30%, black 100%);
     -webkit-background-clip: text;
     background-clip: text;
     color: transparent;
+}
+
+.textMaxWidth8rem {
+    max-width: 7rem;
+}
+.textMaxWidth18rem {
+    max-width: 18rem;
 }
 
 .minwidth {

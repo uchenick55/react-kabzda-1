@@ -81,11 +81,12 @@ let UsersBS = ({
                 //   throw new Error("Я - сообщение об ошибке"); //проверка обработки ошибок
                 return (
                     <div key={u.id}
-                         className="my-2 col-12 col-sm-5 col-lg-2 d-inline-block"> {/*размеры карточек в зависимости от размера экрана*/}
+                         className="my-2 col-12 col-sm-5 col-lg-2 d-inline-block"> {/* "my-2 col-12 col-sm-5 col-lg-2 d-inline-block"размеры карточек в зависимости от размера экрана*/}
                         <Card className={classes.myCard}>
 
                             <Card.Body>
-                                <Card.Title className={commonClasses.textMaxWidth}>{u.name}</Card.Title>
+                                <Card.Title
+                                    className={`${commonClasses.textMaxWidthCommon} ${commonClasses.textMaxWidth8rem}`}                                >{u.name}</Card.Title>
                                 <Row className={classes.myRow}>
                                     <Col className={classes.myCol}>
                                         <NavLink to={'/profile/' + u.id}> {/*при нажатии на картинку переход в профиль*/}
@@ -115,7 +116,8 @@ let UsersBS = ({
                                     </Col>
                                 </Row>
 
-                                <Row className={commonClasses.textMaxWidth}>
+                                <Row
+                                    className={`${commonClasses.textMaxWidthCommon} ${commonClasses.textMaxWidth8rem}`}                                >
                                     {u.status && <div>{u.status}</div>}
                                 </Row>
                             </Card.Body>
