@@ -1,5 +1,4 @@
 import React, {useState} from "react";
-import classes from "./FeedBack.module.css";
 import FeedBackFormik from "./FeedBackFormik/FeedBackFormik";
 import commonClasses from "../common/CommonClasses/common.module.css";
 import Container from "react-bootstrap/Container";
@@ -9,12 +8,6 @@ import FeedBackInfoShort from "../Info/FeedBackInfoShort";
 const FeedBack = ({sendFeedBack, feedBackStatus, setFeedBackStatus}) => {
 
     const [show, setShow] = useState(!!setFeedBackStatus); // хук задания флага показать ли модальное окно
-
-/*    let SendMessageBoard = (props) => {
-        return <div className={classes.sendMessageBoard}>{/!*стилизация отправки данных на сервер*!/}
-            {props.children}
-        </div>
-    }*/
 
     if (feedBackStatus) { // если статус feedback из BLL не пустой
         const modalHeader = <div>Спасибо!</div>

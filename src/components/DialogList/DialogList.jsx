@@ -1,7 +1,7 @@
 import React, {useEffect} from 'react'; // импорт реакта
-import classes from './DialogList.module.css';// css обработка
-import DialogItem from "./DialogItem";// подкомпонента отрисовки диалогов через map
-import userPhotoAva from "../../assets/images/no-image3.png";
+//import classes from './DialogList.module.css';// css обработка
+//import DialogItem from "./DialogItem";// подкомпонента отрисовки диалогов через map
+//import userPhotoAva from "../../assets/images/no-image3.png";
 import MessagesContainer from "./Messages/MessagesContainer";
 import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
@@ -39,7 +39,8 @@ const DialogList = ({deleteDialog, dialogUserID, getDialogList, dialogs2,
 
     return (
         <Row>
-            {/* <Col><DialogListRender/></Col> {/*отрисовка диалоглиста*/}
+            {/* <Col><DialogListRender/></Col>
+            {/*отрисовка диалоглиста*/}
 
             <Col>
                 <MessagesContainer/> {/*отрисовка сообщений*/}

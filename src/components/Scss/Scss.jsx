@@ -18,15 +18,15 @@ function App() {
             <div className='block first'>123</div>
             <div className='block' id="central_block">
                 <ul>
-                    <li>Элемент - 1 <a href="">внутри тега li </a></li>
+                    <li>Элемент - 1 <a href="https://ya.ru/">внутри тега li </a></li>
                     <li>Элемент - 2</li>
                     <li>Элемент - 3</li>
                     <li id="liNumber4">Элемент - 4</li>
                     <li id="liNumberFive">Элемент - 5</li>
                 </ul>
-                <a href="">снаружи тега li </a>
+                <a href="https://ya.ru/">снаружи тега li </a>
             </div>
-            <a id="prostoEsheOdnaSsilka" href="">prostoEsheOdnaSsilka</a>
+            <a id="prostoEsheOdnaSsilka" href="https://ya.ru/">prostoEsheOdnaSsilka</a>
 
         </div>
     );

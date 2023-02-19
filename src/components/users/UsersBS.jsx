@@ -6,7 +6,7 @@ import DialogPic from "../../assets/images/swg/dialog-svgrepo-com.svg"
 import FollowPic from "../../assets/images/swg/star-.svg"
 import UnfollowPic from "../../assets/images/swg/star+.svg"
 
-import {HashRouter, NavLink} from "react-router-dom";
+import {NavLink} from "react-router-dom";
 import PaginationByCourse from "../common/Pagination/PaginationByCourseBS";
 import {bedug_mode} from "../../redux/store-redux";
 import InputButtonUsersRender from "./InputButtonRender";

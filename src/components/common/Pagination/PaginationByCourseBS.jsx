@@ -1,4 +1,4 @@
-import React, {useState} from "react";
+import React from "react";
 import "bootstrap/dist/css/bootstrap.min.css"
 import Pagination from 'react-bootstrap/Pagination';
 
@@ -14,7 +14,7 @@ let PaginationByCourse = ({
     // currentRange - текущий диапазон. Он в PortionSize меньше PagesCount
     //setCurrentRange - изменение currentRange по клику на кнопку
     // PortionSizeLeft - Нижнее значение порций (не меньше 1)
-    const [mouseHovered, setMouseHovered] = useState("");
+   // const [mouseHovered, setMouseHovered] = useState("");
     let PagesCount = Math.ceil(totalUsersCount / pageSize); // сколько всего страниц можно вызвать
     //с пользователями пачками по PageSize
     let pages = []; // определяем массив страниц под всех пользователей
