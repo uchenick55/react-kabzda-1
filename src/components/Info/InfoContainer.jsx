@@ -3,7 +3,6 @@ import classes from "../Content/ContentContainer.module.css";
 import {Route, Routes} from "react-router-dom";
 import ErrorBoundary from "../common/ErrorBoundary/ErrorBoundary";
 import TasksInfo from "./TasksInfo";
-import Home from "../Home/Home";
 
 const ProfileInfo2 = React.lazy(() => import("../Info/ProfileInfo2"))
 const DialogsInfo = React.lazy(() => import("../Info/DialogsInfo"))
@@ -11,7 +10,6 @@ const UsersInfo = React.lazy(() => import("../Info/UsersInfo"))
 const LoginInfo = React.lazy(() => import("../Info/LoginInfo"))
 const NewsInfo = React.lazy(() => import("../Info/NewsInfo"))
 const RestInfo = React.lazy(() => import("../Info/RestInfo"))
-const IndexInfo = React.lazy(() => import("../Info/IndexInfo"))
 const FeedBackInfo = React.lazy(() => import("../Info/FeedBackInfo"))
 const MyStackInfo = React.lazy(() => import("../Info/MyStackInfo"))
 const HomeInfo = React.lazy(() => import("../Info/HomeInfo"))

@@ -35,26 +35,14 @@ let UsersBS = ({
 
         let FollowUnfollowButtons = ({u, followUnfollowAPICallback, buttonText}) => { // унификация нажатия кнопки Follow/Unfollow
             const starCanBePressed = followingInProgress.some(id => id === u.id)
-            return (<span>
-            {/* <Button variant={"light"} className={classes.buttonLight}
-                    disabled={followingInProgress.some(id => id === u.id) || u.id === myId}
-                // отключение возможности повторного нажатия пока не пришел ответ от сервера или если это ваш ID
-                    onClick={() => {
-                        isAuth // проверка авторизации. Если нет, то алерт. Если да, то API запрос на follow/unfollow
-                            ? followUnfollowAPICallback(u.id) //send to server request follow/unfollow from UsersContainer
-                            : alert("You are not authorized, please Login") // алерт авторизуйтесь!
-                    }}>
-                {!u.followed &&
-                <Image fluid={true} src={FollowPic} alt={"Добавить в избранное"} title={"Добавить в избранное"}/>}
-                {u.followed &&
-                <Image fluid={true} src={UnfollowPic} alt={"Удалить из избранного"} title={"Удалить из избранного"}/>}
-                </Button>
-                    buttonText - текст кнопки Follow/Unfollow*/}
-
+            return  <span>
                     <Image
+
+
+
                         className={classes.myImg}
                         fluid={true} // картинка растягивается
-                        src={!u.followed?FollowPic:UnfollowPic} // картинка в зависимости избранное или нет
+                        src={!u.followed ? FollowPic : UnfollowPic} // картинка в зависимости избранное или нет
                         alt={"Добавить в избранное"} // alt
                         title={"Добавить в избранное"} // title
                         onClick={() => {
@@ -65,9 +53,7 @@ let UsersBS = ({
                             }
                         }}
                     />
-
-            </span>
-            )
+                </span>
         }
         const handleClick = (e) => { // обработка клика по кнопке
             e.preventDefault(); // отменить отправку формы по умолчанию с кнопки
@@ -84,10 +70,11 @@ let UsersBS = ({
 
                             <Card.Body>
                                 <Card.Title
-                                    className={`${commonClasses.textMaxWidthCommon} ${commonClasses.textMaxWidth8rem}`}                                >{u.name}</Card.Title>
+                                    className={`${commonClasses.textMaxWidthCommon} ${commonClasses.textMaxWidth8rem}`}>{u.name}</Card.Title>
                                 <Row className={classes.myRow}>
                                     <Col className={classes.myCol}>
-                                        <NavLink to={'/profile/' + u.id}> {/*при нажатии на картинку переход в профиль*/}
+                                        <NavLink
+                                            to={'/profile/' + u.id}> {/*при нажатии на картинку переход в профиль*/}
                                             <Image fluid={true} variant="top" className={classes.userPhoto}
                                                    src={u.photos.small !== null
                                                        ? u.photos.small
@@ -96,13 +83,13 @@ let UsersBS = ({
                                                    title={"Перейти в профиль"}
                                             /> </NavLink>
                                     </Col>
-                                    <Col className={classes.img1}>
+                                    <Col className={classes.myCol}>
                                         <NavLink to={'/dialogs/' + u.id}>
                                             <Image fluid={true} src={DialogPic} alt={"Начать диалог"}
                                                    title={"Начать диалог"} className={classes.myImg}/>
-                                       </NavLink>
+                                        </NavLink>
                                     </Col>
-                                    <Col className={classes.img1}>
+                                    <Col className={classes.myCol}>
                                         <div>
                                             {u.followed
                                                 ? <FollowUnfollowButtons u={u} followUnfollowAPICallback={unfollowAPI}
@@ -115,7 +102,7 @@ let UsersBS = ({
                                 </Row>
 
                                 <Row
-                                    className={`${commonClasses.textMaxWidthCommon} ${commonClasses.textMaxWidth8rem}`}                                >
+                                    className={`${commonClasses.textMaxWidthCommon} ${commonClasses.textMaxWidth8rem}`}>
                                     {u.status && <div>{u.status}</div>}
                                 </Row>
                             </Card.Body>

@@ -10,10 +10,10 @@ import swgInfoPic from "../../assets/images/swg/info.svg"
 import classes from './Header.module.css';
 //import CallThemeRemote from "../Dark_light_theme/CallThemeRemote";
 import Image from "react-bootstrap/Image";
-import { useNavigate } from 'react-router-dom';
+import {useNavigate} from 'react-router-dom';
 import ModalBS1 from "../common/ModalBS/ModalBS1";
 import InfoContainer from "../Info/InfoContainer";
-
+import {useLocation} from "react-router";
 
 
 function HeaderBS({isAuth, goToMyPage, myProfile, deleteLogin}) {
@@ -21,27 +21,50 @@ function HeaderBS({isAuth, goToMyPage, myProfile, deleteLogin}) {
 
     const [show, setShow] = useState(false); // хук задания флага показать ли модальное Info
 
-    const modalHeader = <div>TASKS</div>
-    const modalBody = <div><InfoContainer/></div>
-    // отображение штфоконтейнера, контекстнозависимого от URL
-    const buttonOnClick = () => { // доп действия кроме закрытия окна
+    const location = useLocation()
 
+    let modalHeader1;
+    let modalBody;
+    let buttonOnClick;
+    if (show) {
+        modalHeader1 = location.pathname // путь из URL вида /profile
+            .toUpperCase() // в верхний регистр /PROFILE
+            .split("") // разделить все на массив ['/', 'P', 'R', 'O', 'F', 'I', 'L', 'E']
+            .filter(i => i !== "/") // удалить все символы "/" ['P', 'R', 'O', 'F', 'I', 'L', 'E']
+            .join("") //Склеить в слово PROFILE
+
+        modalBody = <div><InfoContainer/></div>
+        // отображение штфоконтейнера, контекстнозависимого от URL
+        buttonOnClick = () => { // доп действия кроме закрытия окна
+
+        }
+        if (location.pathname==="/") {
+            modalHeader1 = "HOME"
+        }
+        console.log(modalHeader1);
     }
-    {/* иконка активатор модального окна с контекстной подсказкой для данной страницы*/}
+
+
+//+++
+
+
+    /* иконка активатор модального окна с контекстной подсказкой для данной страницы*/
     let infoModalRender = <div>
         <Image fluid={true} src={swgInfoPic} className={classes.myHeaderWH1}
-                onClick={()=>{setShow(true)}}
+               onClick={() => {
+                   setShow(true)
+               }} alt={"info"} title={"info"}
         />
 
-        <ModalBS1
+        {show && <ModalBS1
             show={show} // флаг показать ли модальное окно
             setShow={setShow} // колбек смены флага показать модальное окно
 
-            modalHeader={modalHeader} // заголовок модального окна
+            modalHeader={modalHeader1} // заголовок модального окна
             modalBody={modalBody} // тело модального окна
             buttonOnClick={buttonOnClick} // действие по кнопке модального окна
             buttonName={"Закрыть"} // текст кнопки
-        />
+        />}
     </div>
 
     return (
