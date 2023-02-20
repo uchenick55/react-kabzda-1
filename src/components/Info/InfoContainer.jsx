@@ -4,6 +4,7 @@ import {Route, Routes} from "react-router-dom";
 import ScrollContainer from "../common/-Scroll/ScrollContainer";
 import ErrorBoundary from "../common/ErrorBoundary/ErrorBoundary";
 import TasksInfo from "./TasksInfo";
+import Home from "../Home/Home";
 
 const ProfileInfo2 = React.lazy(() => import("../Info/ProfileInfo2"))
 const DialogsInfo = React.lazy(() => import("../Info/DialogsInfo"))
@@ -13,6 +14,7 @@ const NewsInfo = React.lazy(() => import("../Info/NewsInfo"))
 const RestInfo = React.lazy(() => import("../Info/RestInfo"))
 const IndexInfo = React.lazy(() => import("../Info/IndexInfo"))
 const FeedBackInfo = React.lazy(() => import("../Info/FeedBackInfo"))
+const StackInfo = React.lazy(() => import("../Info/StackInfoBS"))
 
 
 let InfoContainer = () => {
@@ -20,15 +22,16 @@ let InfoContainer = () => {
         <Suspense fallback={
             <div>Загрузка...</div>}> {/*Оборачивает компоненты, по которым идет Lazy import и выдает fallback на время загрузки*/}
             <Routes> {/*в зависимости от URL подгрузка разного контента*/}
+                <Route path='' element={<Home/>}/> {/*Общие Комментарии*/}
+                <Route path='/mystack/*' element={<StackInfo/>}/> {/*Общие Комментарии*/}
                 <Route path='/profile/*' element={<ProfileInfo2/>}/>{/*Профиль Комментарии*/}
                 <Route path='/dialogs/*' element={<DialogsInfo/>}/> {/*Диалоги Комментарии*/}
                 <Route path='/users/*' element={<UsersInfo/>}/> {/*Поиск по пользователям Комментарии*/}
                 <Route path='/login/*' element={<LoginInfo/>}/> {/*Логин Комментарии*/}
                 <Route path='/news/*' element={<NewsInfo/>}/>{/*Новости Комментарии*/}
                 <Route path='/rest/*' element={<RestInfo/>}/> {/*Отдых Комментарии*/}
-                <Route path='' element={<IndexInfo/>}/> {/*Общие Комментарии*/}
-                <Route path='feedback' element={<FeedBackInfo/>}/> {/*Комментарии обратной связи*/}
-                <Route path='tasks' element={<TasksInfo/>}/> {/*Комментарии обратной связи*/}
+                <Route path='/feedback/*' element={<FeedBackInfo/>}/> {/*Комментарии обратной связи*/}
+                <Route path='/tasks/*' element={<TasksInfo/>}/> {/*Комментарии обратной связи*/}
             </Routes>
         </Suspense>
 
@@ -36,13 +39,7 @@ let InfoContainer = () => {
 
     return (<div>
         <ErrorBoundary> {/*Локальный обработчик ошибок InfoContainer*/}
-            <ScrollContainer // обернуть диалоги скролом
-                child={info}
-                height={window.screen.availHeight - 208} // высота поля скрола
-                firstInsideContainer={"DialogsUp"}
-                secondInsideContainer={"DialogsDown"}
-                containerElement={"DialogsContainer"}
-            /> {/*отрисовка диалогов в скрол контейнере*/}
+            {info}{/*отрисовка диалогов*/}
         </ErrorBoundary>
     </div>)
 

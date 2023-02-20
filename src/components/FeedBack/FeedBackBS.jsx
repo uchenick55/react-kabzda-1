@@ -2,7 +2,7 @@ import React, {useState} from "react";
 import FeedBackFormik from "./FeedBackFormik/FeedBackFormik";
 import commonClasses from "../common/CommonClasses/common.module.css";
 import Container from "react-bootstrap/Container";
-import ModalBS1 from "./ModalBS/ModalBS1";
+import ModalBS1 from "../common/ModalBS/ModalBS1";
 import FeedBackInfoShort from "../Info/FeedBackInfoShort";
 
 const FeedBack = ({sendFeedBack, feedBackStatus, setFeedBackStatus}) => {

@@ -4,9 +4,8 @@ import classes from './ContentContainer.module.css';
 import ErrorBoundary from "../common/ErrorBoundary/ErrorBoundary";
 import Tasks from "../Tasks/Tasks";
 import ProfileContainer from "../Profile/ProfileContainer";
-import Modal from "../common/Modal/Modal";
+import Modal from "../common/-Modal/Modal";
 import Scss from "../Scss/Scss";
-import NavBarContainer from "../MyFriends1/MyFriendsContainer";
 import Home from "../Home/Home";
 
 //const ProfileContainer = React.lazy(() => import("../Profile/ProfileContainer"))
@@ -20,7 +19,6 @@ const StackInfo = React.lazy(() => import("../Info/StackInfoBS"))
 const FeedBackContainer = React.lazy(() => import("../FeedBack/FeedBackContainer"))
 
 let ContentContainer = () => { // вынес роутинг контента в отдельную компоненту
-    const [show, setShow] = useState(false)
     return (<div>
         <ErrorBoundary> {/*Локальный обработчик ошибок ContentContainer*/}
             <Suspense fallback={
@@ -32,23 +30,12 @@ let ContentContainer = () => { // вынес роутинг контента в 
                         <Route path='/profile/*' element={<ProfileContainer/>}/> {/*Профиль*/}
                         <Route path='/dialogs/*' element={<DialogsContainer/>}/> {/*Диалоги*/}
                         <Route path='/users/*' element={<ExportDefaultUsersContainer/>}/> {/*Поиск по UsersBS*/}
-                        <Route path='/friends/*' element={<NavBarContainer/>}/> {/*список друзей в content*/}
                         <Route path='/login/*' element={<LoginContainer/>}/> {/*Логин*/}
                         <Route path='/news/*' element={<News/>}/> {/*Поиск по новостям hn algonia*/}
                         <Route path='/rest/*' element={<Rest/>}/> {/*Страница отдыха*/}
-                        <Route path='feedback' element={<FeedBackContainer/>}/> {/*Общие Комментарии*/}
-                        <Route path='tasks' element={<Tasks/>}/> {/*Общие Комментарии*/}
-                        <Route path='scss' element={<Scss/>}/> {/*Общие Комментарии*/}
+                        <Route path='/feedback/*' element={<FeedBackContainer/>}/> {/*Общие Комментарии*/}
+                        <Route path='/tasks/*' element={<Tasks/>}/> {/*Общие Комментарии*/}
                     </Routes>
-                    <div>
-                        {/*  <button onClick={()=>{setShow(true)}}>Show ModalBS</button> {/*открыть модальрное окно по клику*/}
-                        <Modal
-                            show={show} //флаг show показывает/скрывает модальное окно
-                            onClose={()=>{setShow(false)}} // колбек на закрытие модального окна
-                            modal_title={"ModalBS Title"} // заголовок модального окна
-                            modal_body={"This is modal content"} // тело модального окна
-                        />
-                    </div>
                 </div>
             </Suspense>
         </ErrorBoundary>

@@ -11,8 +11,7 @@ function ModalBS1 ({show, setShow, modalHeader, modalBody, buttonOnClick, button
 
     return (
         <>
-
-            <Modal show={show} onHide={()=>{setShow(false)}}>
+            <Modal show={show} onHide={()=>{setShow(false)}}  size="lg">
                 <Modal.Header closeButton>
                     <Modal.Title>{modalHeader}</Modal.Title>
                 </Modal.Header>

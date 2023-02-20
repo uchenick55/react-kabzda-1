@@ -3,19 +3,48 @@ import Nav from 'react-bootstrap/Nav';
 import Navbar from 'react-bootstrap/Navbar';
 import NavDropdown from 'react-bootstrap/NavDropdown';
 import "bootstrap/dist/css/bootstrap.min.css"
-import React from "react";
+import React, {useState} from "react";
 import LoginAndProfileRender from "./LoginAndProfileRender";
 import goBack from "../../assets/images/swg/go-back2.svg"
-//import swgInfoPic from "../../assets/images/swg/info.svg"
+import swgInfoPic from "../../assets/images/swg/info.svg"
 import classes from './Header.module.css';
 //import CallThemeRemote from "../Dark_light_theme/CallThemeRemote";
 import Image from "react-bootstrap/Image";
 import { useNavigate } from 'react-router-dom';
+import ModalBS1 from "../common/ModalBS/ModalBS1";
+import InfoContainer from "../Info/InfoContainer";
 
 
 
 function HeaderBS({isAuth, goToMyPage, myProfile, deleteLogin}) {
     let navigate = useNavigate(); // хук для навигации по страницам (кнопка назад)
+
+    const [show, setShow] = useState(false); // хук задания флага показать ли модальное Info
+
+    const modalHeader = <div>TASKS</div>
+    const modalBody = <div><InfoContainer/></div>
+    // отображение штфоконтейнера, контекстнозависимого от URL
+    const buttonOnClick = () => { // доп действия кроме закрытия окна
+
+    }
+
+    let infoModalRender = <div>
+        <Image fluid={true} src={swgInfoPic} className={classes.myHeaderWH1}
+                onClick={()=>{setShow(true)}}
+        />
+
+        <ModalBS1
+            show={show} // флаг показать ли модальное окно
+            setShow={setShow} // колбек смены флага показать модальное окно
+
+            modalHeader={modalHeader} // заголовок модального окна
+            modalBody={modalBody} // тело модального окна
+            buttonOnClick={buttonOnClick} // действие по кнопке модального окна
+            buttonName={"Закрыть"} // текст кнопки
+        />
+    </div>
+    {/* иконка активатор модального окна с контекстной подсказкой для данной страницы*/}
+
     return (
         <Navbar variant="dark" bg="dark" expand="sm" fixed="top">
             <Container fluid className='text-uppercase'> {/*контейнер, текст большими буквами */}
@@ -29,8 +58,8 @@ function HeaderBS({isAuth, goToMyPage, myProfile, deleteLogin}) {
                     {/*<div><CallThemeRemote/></div>
                     переключатель темы*/}
 
-                    {/* <div><Image fluid={true} src={swgInfoPic} className={classes.myHeaderWH1}/></div>
-                    иконка активатор модального окна с контекстной подсказкой для данной страницы*/}
+                    {infoModalRender}
+                    {/* иконка активатор модального окна с контекстной подсказкой для данной страницы*/}
 
                     <div>
                         <LoginAndProfileRender
