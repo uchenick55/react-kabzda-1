@@ -5,17 +5,27 @@ import NavDropdown from 'react-bootstrap/NavDropdown';
 import "bootstrap/dist/css/bootstrap.min.css"
 import React from "react";
 import LoginAndProfileRender from "./LoginAndProfileRender";
+import goBack from "../../assets/images/swg/go-back2.svg"
 //import swgInfoPic from "../../assets/images/swg/info.svg"
-//import classes from './Header.module.css';
+import classes from './Header.module.css';
 //import CallThemeRemote from "../Dark_light_theme/CallThemeRemote";
-//import Image from "react-bootstrap/Image";
+import Image from "react-bootstrap/Image";
+import { useNavigate } from 'react-router-dom';
+
 
 
 function HeaderBS({isAuth, goToMyPage, myProfile, deleteLogin}) {
+    let navigate = useNavigate(); // хук для навигации по страницам (кнопка назад)
     return (
         <Navbar variant="dark" bg="dark" expand="sm" fixed="top">
             <Container fluid className='text-uppercase'> {/*контейнер, текст большими буквами */}
                 <div className="d-inline-flex">
+                    <div><Image fluid={true} src={goBack} className={classes.myHeaderWH1}
+                                alt={"go back"} title={"go back"}
+                                onClick={() => navigate(-1)} // при клике перейти назад по истории
+                    /></div>
+                    {/* иконка активатор модального окна с контекстной подсказкой для данной страницы*/}
+
                     {/*<div><CallThemeRemote/></div>
                     переключатель темы*/}
 

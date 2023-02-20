@@ -7,11 +7,13 @@ import classes from "./Header.module.css"
 
 const LoginAndProfileRender = ({isAuth, goToMyPage, myProfile, deleteLogin}) => {
 
-    const UserPhoto = ({src}) => <img src={src} alt={"userPhoto"} className={classes.myHeaderWH1 + " " + classes.rounded}/>
+    const UserPhoto = ({src}) => <img src={src} alt={"userPhoto"} title={"profile"} className={classes.myHeaderWH1 + " " + classes.rounded}/>
 
     const LoginLogoutImg = ({text, src, scale}) => {
         return <NavLink to='/login'>
-            <img src={src} alt={text} className={classes.myHeaderWH1 + " " + classes.scale20}/>
+            <img src={src} alt={text} className={classes.myHeaderWH1 + " " + classes.scale20}
+                 title={"logout"}
+            />
         </NavLink>
     }
 

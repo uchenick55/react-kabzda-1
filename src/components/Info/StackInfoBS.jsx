@@ -12,7 +12,7 @@ let StackInfoBS = () => {
             <p>UI (React): create-react-app, function component, props (spread), import /export (named/default),
                 connect (mstp, mdtp (short record)), class component (lifecycle methods, localState, this), pagination,
                 presentation/wrapped components, HOC (isAuth redirect, withRouter), compose, preloader, ref/value,
-                async. buttons disabled, initial App, useState/useEffect/ useReducer/useParams,
+                async. buttons disabled, initial App, useState/ useEffect/ useReducer/ useParams/ useNavigate,
                 lazy/Suspense/ ErrorBoundary/namedExport, selector, BrowserRouter/HashRouter
                 (NavLink/Navigate/ Routes/Route), Lifting State Up, top-down (unidirectional) flow, props.children, fragment, JSX, React.createElement </p>
             <p>BLL (Redux): store, state, reducer, callback, dispatch, action (type), action creator, case/switch,
