@@ -12,13 +12,11 @@ import {bedug_mode} from "../../redux/store-redux";
 import InputButtonUsersRender from "./InputButtonRender";
 
 import Card from 'react-bootstrap/Card';
-import Button from "react-bootstrap/Button";
 import Container from 'react-bootstrap/Container';
 import Row from 'react-bootstrap/Row';
 import commonClasses from "../common/CommonClasses/common.module.css";
 import Image from "react-bootstrap/Image";
 import Col from "react-bootstrap/Col";
-
 
 let UsersBS = ({
                    totalUsersCount, pageSize, currentPage, onPageChanged, users,

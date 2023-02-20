@@ -16,7 +16,7 @@ let tasksRender = <div className={classes.taskcCommon}>
     <div>
         <h3 className={commonClasses.pageHeader}>Tasks</h3>
         <p>Здесь собраны небольшие работы, не касающиеся социальной сети</p>
-        <h4>Поиск, сортировка и фильтрация</h4>
+        <h4 className={'mt-5'}>Поиск, сортировка и фильтрация</h4>
         <div><a href={filterSort} >
             <img className={classes.imgTasks} src={FilterSort} alt="Поиск, сортировка и фильтрация"/></a>
         </div>
@@ -30,8 +30,7 @@ let tasksRender = <div className={classes.taskcCommon}>
                 <li>"Удалить" запрос</li>
                 <li>Пометить "В архив"/снять отметку</li>
             </ol>
-
-            Репозиторий: https://github.com/uchenick55/supplydirector-web-page-test.git<br/>
+            <a href="https://github.com/uchenick55/supplydirector-web-page-test.git">Репозиторий</a>
         </ul>
         <div>
         </div>
@@ -41,7 +40,7 @@ let tasksRender = <div className={classes.taskcCommon}>
     {/*================================================*/}
 
     <div>
-        <h4>Комбинации чисел</h4>
+        <h4 className={'mt-5'}>Комбинации чисел</h4>
         <div><a href={lhtask1} >
             <img className={classes.imgTasks} src={combinationChisel} alt="Комбинации чисел"/></a>
         </div>
@@ -53,19 +52,19 @@ let tasksRender = <div className={classes.taskcCommon}>
             <li> В комбинации не должно быть повторений чисел</li>
             <li> Все комбинации должны быть уникальными</li>
         </ul>
-        <p>Репозиторий: https://github.com/uchenick55/lhtask1.git</p>
+        <a href="https://github.com/uchenick55/lhtask1.git">Репозиторий</a>
         {/*<p>Посмотреть код через Ctrl+p в консоли: lhtask1.jsx</p>*/}
     </div>
     {/*================================================*/}
 
     <div>
-        <h4>Пример bootstrap сайта на чистом HTML+CSS</h4>
+        <h4 className={'mt-5'}>Пример bootstrap сайта на чистом HTML+CSS</h4>
         <div><a href={bootstrapUrl}>
             <img className={classes.imgTasks} src={bootstrapImg} alt="Пример bootstrap сайта на чистом HTML+CSS"/></a>
         </div>
         <p>Одностраничник на HTML+CSS + адаптивный масштаб, popup, аккордеон, слайдер, и прочее оформление из
             bootstrap</p>
-        <p>Репозиторий: https://github.com/uchenick55/bootstraphtmlcss</p>
+        <a href="https://github.com/uchenick55/bootstraphtmlcss">Репозиторий</a>
     </div>
     </Container>
 </div>
