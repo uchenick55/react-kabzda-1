@@ -1,11 +1,9 @@
-import React, {Suspense, useState} from "react";
+import React, {Suspense} from "react";
 import {Route, Routes} from "react-router-dom";
 import classes from './ContentContainer.module.css';
 import ErrorBoundary from "../common/ErrorBoundary/ErrorBoundary";
 import Tasks from "../Tasks/Tasks";
 import ProfileContainer from "../Profile/ProfileContainer";
-import Modal from "../common/-Modal/Modal";
-import Scss from "../Scss/Scss";
 import Home from "../Home/Home";
 
 //const ProfileContainer = React.lazy(() => import("../Profile/ProfileContainer"))

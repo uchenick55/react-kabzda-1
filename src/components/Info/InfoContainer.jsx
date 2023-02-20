@@ -1,7 +1,6 @@
 import React, {Suspense} from "react";
 import classes from "../Content/ContentContainer.module.css";
 import {Route, Routes} from "react-router-dom";
-import ScrollContainer from "../common/-Scroll/ScrollContainer";
 import ErrorBoundary from "../common/ErrorBoundary/ErrorBoundary";
 import TasksInfo from "./TasksInfo";
 import Home from "../Home/Home";
@@ -14,7 +13,8 @@ const NewsInfo = React.lazy(() => import("../Info/NewsInfo"))
 const RestInfo = React.lazy(() => import("../Info/RestInfo"))
 const IndexInfo = React.lazy(() => import("../Info/IndexInfo"))
 const FeedBackInfo = React.lazy(() => import("../Info/FeedBackInfo"))
-const StackInfo = React.lazy(() => import("../Info/StackInfoBS"))
+const MyStackInfo = React.lazy(() => import("../Info/MyStackInfo"))
+const HomeInfo = React.lazy(() => import("../Info/HomeInfo"))
 
 
 let InfoContainer = () => {
@@ -22,8 +22,8 @@ let InfoContainer = () => {
         <Suspense fallback={
             <div>Загрузка...</div>}> {/*Оборачивает компоненты, по которым идет Lazy import и выдает fallback на время загрузки*/}
             <Routes> {/*в зависимости от URL подгрузка разного контента*/}
-                <Route path='' element={<Home/>}/> {/*Общие Комментарии*/}
-                <Route path='/mystack/*' element={<StackInfo/>}/> {/*Общие Комментарии*/}
+                <Route path='' element={<HomeInfo/>}/> {/*Общие Комментарии*/}
+                <Route path='/mystack/*' element={<MyStackInfo/>}/> {/*Общие Комментарии*/}
                 <Route path='/profile/*' element={<ProfileInfo2/>}/>{/*Профиль Комментарии*/}
                 <Route path='/dialogs/*' element={<DialogsInfo/>}/> {/*Диалоги Комментарии*/}
                 <Route path='/users/*' element={<UsersInfo/>}/> {/*Поиск по пользователям Комментарии*/}

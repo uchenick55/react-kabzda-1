@@ -27,7 +27,7 @@ function HeaderBS({isAuth, goToMyPage, myProfile, deleteLogin}) {
     const buttonOnClick = () => { // доп действия кроме закрытия окна
 
     }
-
+    {/* иконка активатор модального окна с контекстной подсказкой для данной страницы*/}
     let infoModalRender = <div>
         <Image fluid={true} src={swgInfoPic} className={classes.myHeaderWH1}
                 onClick={()=>{setShow(true)}}
@@ -43,7 +43,6 @@ function HeaderBS({isAuth, goToMyPage, myProfile, deleteLogin}) {
             buttonName={"Закрыть"} // текст кнопки
         />
     </div>
-    {/* иконка активатор модального окна с контекстной подсказкой для данной страницы*/}
 
     return (
         <Navbar variant="dark" bg="dark" expand="sm" fixed="top">
