@@ -68,7 +68,7 @@ function HeaderBS({isAuth, goToMyPage, myProfile, deleteLogin}) {
     </div>
 
     return (
-        <Navbar variant="dark" bg="dark" expand="sm" fixed="top">
+        <Navbar collapseOnSelect variant="dark" bg="dark" expand="sm" fixed="top">
             <Container fluid className='text-uppercase'> {/*контейнер, текст большими буквами */}
                 <div className="d-inline-flex">
                     <div><Image fluid={true} src={goBack} className={classes.myHeaderWH1}
