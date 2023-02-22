@@ -1,6 +1,6 @@
 import React, {Suspense} from "react";
 import {Route, Routes} from "react-router-dom";
-import classes from './ContentContainer.module.css';
+import './ContentContainer.module.css';
 import ErrorBoundary from "../common/ErrorBoundary/ErrorBoundary";
 import Tasks from "../Tasks/Tasks";
 import ProfileContainer from "../Profile/ProfileContainer";
@@ -21,7 +21,7 @@ let ContentContainer = () => { // вынес роутинг контента в 
         <ErrorBoundary> {/*Локальный обработчик ошибок ContentContainer*/}
             <Suspense fallback={
                 <div>Загрузка...</div>}> {/*Оборачивает компоненты, по которым идет Lazy import и выдает fallback на время загрузки*/}
-                <div className={classes.contentClass}>
+                <div>
                     <Routes> {/*в зависимости от URL подгрузка разного контента*/}
                         <Route path='' element={<Home/>}/> {/*Общие Комментарии*/}
                         <Route path='/mystack/*' element={<StackInfo/>}/> {/*Общие Комментарии*/}

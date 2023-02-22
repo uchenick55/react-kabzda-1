@@ -1,2 +1,16 @@
-.contentClass {
+* {
+    --bs-body-color-my: black;
+   --background-color-my: whote;  /* #363537;*/
+    --bs-card-bg-my: rgb(255,255,0, 0.1);
+
+    /*=============================*/
+
+    --bs-body-color: var(--bs-body-color-my);
+}
+
+body {
+    background-color: var(--background-color-my);
+}
+
+:root {
 }

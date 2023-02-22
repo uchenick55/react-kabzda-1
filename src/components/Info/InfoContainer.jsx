@@ -1,5 +1,7 @@
 import React, {Suspense} from "react";
+/*
 import classes from "../Content/ContentContainer.module.css";
+*/
 import {Route, Routes} from "react-router-dom";
 import ErrorBoundary from "../common/ErrorBoundary/ErrorBoundary";
 import TasksInfo from "./TasksInfo";
@@ -16,7 +18,7 @@ const HomeInfo = React.lazy(() => import("../Info/HomeInfo"))
 
 
 let InfoContainer = () => {
-    let info = <div className={classes.contentClass}>
+    let info = <div>
         <Suspense fallback={
             <div>Загрузка...</div>}> {/*Оборачивает компоненты, по которым идет Lazy import и выдает fallback на время загрузки*/}
             <Routes> {/*в зависимости от URL подгрузка разного контента*/}
