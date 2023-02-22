@@ -1,16 +1,18 @@
 import store from "./redux/store-redux"
 import React from 'react';
 import ReactDOM from 'react-dom/client';
-import './index.css';
-import AppDayNightContainer from "./AppDayNightContainer";
-import reportWebVitals from './reportWebVitals';
+/*
+import './-index.css';
+*/
+import reportWebVitals from './-reportWebVitals';
 import {Provider} from "react-redux";
+import AppBS from "./AppBS";
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
     root.render(
     <React.StrictMode>
         <Provider store={store}>
-            <AppDayNightContainer />
+            <AppBS />
         </Provider>
     </React.StrictMode>
 );
