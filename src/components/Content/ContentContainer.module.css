@@ -1,16 +1,27 @@
-* {
+/*.aaa {
     --bs-body-color-my: black;
-   --background-color-my: whote;  /* #363537;*/
-    --bs-card-bg-my: rgb(255,255,0, 0.1);
+    --background-color-my: white; !* #363537;*!
+    --bs-card-bg-my: rgb(255, 255, 0, 0.1);
 
-    /*=============================*/
-
-    --bs-body-color: var(--bs-body-color-my);
+    !*=============================*!
 }
 
+.bbb {
+    --bs-body-color: var(--bs-red);
+    --background-color-my: #363537; !* #363537;*!
+    --bs-card-bg-my: rgb(255, 255, 0, 0.1);
+
+    !*=============================*!
+
+}
+
+
 body {
+    color: var(--bs-body-color-my); !*#3dd5f3;
+    !*background-color: red;*!
     background-color: var(--background-color-my);
+
 }
 
 :root {
-}
+}*/

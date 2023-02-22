@@ -1,5 +1,5 @@
 import React from "react";
-import './App.css';
+import './App.scss';
 import {HashRouter} from "react-router-dom";
 import HeaderContainer from "./components/Header/HeaderContainer";
 import {connect} from "react-redux";
@@ -23,8 +23,7 @@ class App extends React.Component { // конвертируем app в клас�
         }
         return ( // иначе показать все приложение
             <HashRouter> {/*BrowserRouter для продакшн, HashRouter для gh-pages*/}
-                <div
-                    className={this.props.info_mode ? 'app-wrapper' : 'app-wrapper-no-info'}> {/*позиционирование по сетке гридов*/}
+                <div className={this.props.theme === "light"?"aaa":"bbb"}> {/*позиционирование по сетке гридов*/}
                     <ErrorBoundary> {/*Общий обработчик ошибок во всем приложении*/}
                         <Container>
                             <HeaderContainer/> {/*плавающий заголовок*/}
@@ -47,7 +46,7 @@ class App extends React.Component { // конвертируем app в клас�
 const mapStateToProps = (state) => {
     return {
         initialisedApp: state.app.initialisedApp, // флаг инициализации приложения
-        info_mode: state.app.info_mode, // флаг включения комментариев по телу сайта
+        theme: state.theme.themeBLL, // флаг включения комментариев по телу сайта
     }
 }
 
