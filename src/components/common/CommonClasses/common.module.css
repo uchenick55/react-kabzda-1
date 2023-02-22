@@ -3,8 +3,8 @@
 .pageHeader {
     display: flex;
     justify-content: center;
+    align-items: center;
     text-transform: uppercase;
-    margin-bottom: 1.5rem;
 }
 .textMaxWidthCommon {
     overflow: hidden; /* Обрезаем содержимое */

@@ -1,5 +1,5 @@
 import React from 'react';
-import classes from './Rest.css';
+import classes from './-Rest.css';
 import {NavLink} from "react-router-dom";
 
 const Rest = () => {

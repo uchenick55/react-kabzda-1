@@ -1,6 +1,7 @@
 import React from "react";
 import "bootstrap/dist/css/bootstrap.min.css"
 import Pagination from 'react-bootstrap/Pagination';
+import classes from "./Pagination.module.css"
 
 let PaginationByCourse = ({
                               totalUsersCount, // общее число пользователей на сервере
@@ -57,8 +58,8 @@ let PaginationByCourse = ({
     })
 
     return (
-        <div>
-            <Pagination className={"pagination align-items-center justify-content-center"}> {/*стиль мышки рука */}
+        <div className={classes.pagination}>
+            <Pagination className={"pagination align-items-center justify-content-center"} > {/*стиль мышки рука */}
                 <Pagination.Prev onClick={()=>{setPortion("prevPortion")}} /> {/*диапазон пагинации вниз*/}
                 {renderSlicedPages} {/*отрисовка пагинации десяти страниц внутри кнопок*/}
                 <Pagination.Next onClick={()=>{setPortion("nextPortion")}}/>  {/*диапазон пагинации вверх*/}

@@ -12,14 +12,15 @@ const MessagesRender = ({messages2, myId, deleteMessage, sendMessage, scrollBott
     const messagesProfileRender = <div className={classes.photoFixed}>
         {/*спозиционированный сверху иконку человека, с кем общаюсь*/}
         {profilePage.profile &&  // если профиль пользователя уже загружен
-        <NavLink to={`/profile/${profilePage.profile.userId}`}> {/*при клике переход на профиль собеседника*/}
+        <NavLink to={`/profile/${profilePage.profile.userId}`} className={classes.myLink} >
+            {/*при клике переход на профиль собеседника, ссылка без подчеркивания*/}
             <Image // картинка аватар собеседника
                 src={profilePage.profile.photos.small?profilePage.profile.photos.small:userPhoto}
                 className={classes.userPhoto}
                 title={"Перейти в профиль"}
                 alt={"Перейти в профиль"}
             />
-            <span className={classes.linkNoDecoration}>{profilePage.profile.fullName}</span>
+            <span>{profilePage.profile.fullName}</span>
         </NavLink>
         }
     </div>

@@ -1,34 +1,8 @@
-.messageCommon {
-    padding: 8px;
-    width: max-content;
-}
-
-.timeStyle {
-    font-size: 10px;
-    text-align: right;
-}
-
-.x {
-    width: 15px;
-    padding-left: 5px;
-}
-
-.messageswrapper {
-    display: grid;
-    grid-template-areas:
-            'notmy my';
-    grid-template-columns: 1fr 1fr;
-    padding: 10px;
-    border-radius: 5px;
-
-}
-
 .messagesCommon {
     display: flex;
     align-items: center;
     margin: 0.2rem;
-    /*margin-left: 2rem;*/
-    /*margin-right: 2rem;*/
+
 }
 .messageMyId {
     justify-content: right;
@@ -39,7 +13,7 @@
 
 .insideToastMy {
     max-width: max-content;
-    background-color: var(--insideToastMy);
+    background-color: var(--color3);
 }
 .insideToastNotMy {
     max-width: max-content;

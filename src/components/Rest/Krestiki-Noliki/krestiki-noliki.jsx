@@ -1,6 +1,7 @@
 import React from "react";
 import "./krestiki-noliki.css";
 import commonClasses from "../../common/CommonClasses/common.module.css";
+import Button from "react-bootstrap/Button";
 
 const Square = (props) => {
     // отрисовка квадрата (отдельной клетки)
@@ -147,7 +148,7 @@ class KrestikiNoliki extends React.Component {
                     />
                 </div>
                 <div>
-                    <button className="new-game-button" onClick={this.newGame}>Начать заново</button>
+                    <Button className="new-game-button" onClick={this.newGame}>Начать заново</Button>
                 </div>
             </div>
         );

@@ -5,7 +5,7 @@ import CloseButton from "react-bootstrap/CloseButton";
 
 const Message = ({message, myId, userId, Date, MessageId, deleteMessage}) => {
 
-    return <div> {/*className={classes.messageswrapper}разделить сообщения на мои и собеседника поровну (право-лево)*/}
+    return <div>
         <div
             className={`${classes.messagesCommon} ${myId === userId ? classes.messageMyId : classes.messageNotMyId}`}>
             {/*в зависимости от того кто пишет, доп стили к тексту*/}

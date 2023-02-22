@@ -1,4 +1,4 @@
-.selected {
-    font-weight: bold;
-
+.pagination {
+    opacity: var(--opacity1);
+;
 }
