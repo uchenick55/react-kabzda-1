@@ -8,7 +8,7 @@ import LoginAndProfileRender from "./LoginAndProfileRender";
 import goBack from "../../assets/images/swg/go-back2.svg"
 import swgInfoPic from "../../assets/images/swg/info.svg"
 import classes from './Header.module.css';
-//import CallThemeRemote from "../Dark_light_theme/CallThemeRemote";
+import CallThemeRemote from "../Dark_light_theme/CallThemeRemote";
 import Image from "react-bootstrap/Image";
 import {useNavigate} from 'react-router-dom';
 import ModalBS1 from "../common/ModalBS/ModalBS1";
@@ -77,8 +77,8 @@ function HeaderBS({isAuth, goToMyPage, myProfile, deleteLogin}) {
                     /></div>
                     {/* иконка активатор модального окна с контекстной подсказкой для данной страницы*/}
 
-                    {/*<div><CallThemeRemote/></div>
-                    переключатель темы*/}
+                    <div><CallThemeRemote/></div>
+                    {/*переключатель темы*/}
 
                     {infoModalRender}
                     {/* иконка активатор модального окна с контекстной подсказкой для данной страницы*/}
