@@ -9,13 +9,13 @@
     background-color: yellow;
     --bs-body-color-my: pink;
     --bs-card-bg-my: blue;
-    height: 100vh;
+    min-height:100vh;
 }
 .bbb {
     color: red;
     background-color: #3dd5f3;
     --bs-body-color-my: blue;
     --bs-card-bg-my: yellow;
-    height: 100vh;
+    min-height:100vh;
 }
 
