@@ -1,125 +1,3 @@
-/*.header {
-    padding: 5px;
-    grid-area: h;
-    background-size: 180px;
-    background-repeat: no-repeat;
-    background-color: rgba(139, 239, 0, 0.3);
-    z-index: 1500;
-
-}*/
-
-/*.headerGreed {  !*размещение элементтов в header *!*/
-/*    display: grid;*/
-/*    grid-template-columns: 80px 1fr 360px;*/
-/*}*/
-
-/*.myProfilePart {
-    text-align: right;
-    padding-right: 5px;
-
-}*/
-
-/*.header img {
-    height: 45px;
-    border-radius: 20px;
-    transition: 0.2s ease-in-out;
-
-}*/
-/*
-.header img:hover {
-    transform: scale(1.05) translate(+0px, 0px);
-    -ms-transform: translate(0px, 0px);
-}
-*/
-
-/*.font1word {*/
-/*    font-size: 12px;*/
-/*    text-align: center;*/
-
-/*}*/
-
-/*
-.callThemeRemoteTheme {
-    padding-left: 20px;
-    text-align: left;
-
-}
-*/
-
-/*далее стили для переключателя режима отображения комментариев на сайте*/
-/*.checkbox {
- visibility: hidden;
-}*/
-/*.checkboxGroup {
-    position: relative;
-    width: 80px;
-    height: 30px;
-    background-color: #333;
-    border-radius: 50px;
-    box-shadow: inset 0px 1px 1px rgba(0, 0, 0, 0.5), 0px 1px 0px rgba(255, 255, 255, 0.2);
-}*/
-/*.checkboxGroup:after {
-    content: '';
-    position: absolute;
-    top: 14px;
-    left: 14px;
-    height: 2px;
-    width: 52px;
-    background-color: #111;
-    border-radius: 50px;
-    box-shadow: inset 0px 1px 1px rgba(0, 0, 0, 0.5), 0px 1px 0px rgba(255, 255, 255, 0.2);
-}*/
-/*.checkboxLabel {
-    display: block;
-    width: 22px;
-    height: 22px;
-    border-radius: 50%;
-    background: #fff;
-    position: absolute;
-    top: 4px;
-    z-index: 1;
-    left: 4px;
-    box-shadow: 0px 2px 5px 0px rgba(0, 0, 0, 0.3);
-    background: linear-gradient(to bottom, #fcfff4 0%, #dfe5d7 40%, #b3bead 100%);
-    cursor: pointer;
-    transition: 0.2s ease-in-out;
-
-
-}*/
-/*.checkboxLabel:hover {
-
-    transform: scale(1.1) translate(+0px, 0px);
-    -ms-transform: translate(0px, 0px);
-
-}*/
-
-/*.checkboxLabel:after {
-    content: '';
-    width: 10px;
-    height: 10px;
-    border-radius: 50%;
-    background-color: #333;
-    position: absolute;
-    top: 6px;
-    left: 6px;
-    box-shadow: inset 0px 1px 1px rgba(0, 0, 0, 0.9), 0px 1px 0px rgba(255, 255, 255, 0.8);
-}*/
-/*.checkbox:checked + .checkboxLabel {
-    left: 54px;
-}*/
-/*.checkbox:checked + .checkboxLabel:after {
-    background-color: #27ae60;
-}*/
-
-
-
-
-
-/*.container {
-    margin-right: unset;
-    margin-left: unset;
-}*/
-
 .rounded {
     border-radius: 50%;
 }
@@ -128,8 +6,13 @@
     width: 40px;
     transition: 0.2s ease-in-out;
     margin-right: 0.8rem;
+    opacity: 0.9;
 }
 
 .myHeaderWH1:hover {
     transform: scale(1.1) translate(+0px, 0px);
+}
+
+.myHeader1 {
+    border-bottom: 1px solid var(--color1);
 }

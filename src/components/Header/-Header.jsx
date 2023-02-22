@@ -4,7 +4,7 @@ import {NavLink} from "react-router-dom";
 import userPhoto from "../../assets/images/no-image3.png";
 import logoutImg from "../../assets/images/power-off.png";
 import loginImg from "../../assets/images/login.png";
-import CallThemeRemote from "../Dark_light_theme/CallThemeRemote";
+import CallThemeRemote from "../-Dark_light_theme/CallThemeRemote";
 
 const Header = ({getProfileThunkCreator, deleteLogin, isAuth, myId, myProfile, switchInfo, info_mode}) => {
     const commentsRender = <div> {/*отрисовка переключателя для отображения/скрытия комментариев*/}

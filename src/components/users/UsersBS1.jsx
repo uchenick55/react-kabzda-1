@@ -120,7 +120,9 @@ let UsersBS = ({
         />
 
         return <div>
+{/*
             <div className={classes.minwidth}></div>
+*/}
 
             <Container fluid className="d-block justify-content-center">
                 <h2 className={commonClasses.pageHeader}>Users</h2>

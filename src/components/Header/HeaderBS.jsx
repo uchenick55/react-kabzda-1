@@ -8,7 +8,7 @@ import LoginAndProfileRender from "./LoginAndProfileRender";
 import goBack from "../../assets/images/swg/go-back2.svg"
 import swgInfoPic from "../../assets/images/swg/info.svg"
 import classes from './Header.module.css';
-import CallThemeRemote from "../Dark_light_theme/CallThemeRemote";
+import CallThemeRemote from "../-Dark_light_theme/CallThemeRemote";
 import Image from "react-bootstrap/Image";
 import {useNavigate} from 'react-router-dom';
 import ModalBS1 from "../common/ModalBS/ModalBS1";
@@ -68,7 +68,7 @@ function HeaderBS({isAuth, goToMyPage, myProfile, deleteLogin}) {
     </div>
 
     return (
-        <Navbar collapseOnSelect variant="dark" bg="dark" expand="sm" fixed="top">
+        <Navbar collapseOnSelect variant="dark" bg="dark" expand="sm" fixed="top" className={classes.myHeader1}>
             <Container fluid className='text-uppercase'> {/*контейнер, текст большими буквами */}
                 <div className="d-inline-flex">
                     <div><Image fluid={true} src={goBack} className={classes.myHeaderWH1}

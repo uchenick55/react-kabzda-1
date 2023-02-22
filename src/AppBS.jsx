@@ -1,5 +1,6 @@
 import React from "react";
-import './App.scss';
+import './theme.scss';
+import commonClasses from "./components/common/CommonClasses/common.module.css";
 import {HashRouter} from "react-router-dom";
 import HeaderContainer from "./components/Header/HeaderContainer";
 import {connect} from "react-redux";
@@ -9,7 +10,6 @@ import ContentContainer from "./components/Content/ContentContainer";
 import ErrorBoundary from "./components/common/ErrorBoundary/ErrorBoundary";
 import Container from "react-bootstrap/Container";
 import FooterBS from "./components/Footer/FooterBS";
-import commonClasses from "./components/common/CommonClasses/common.module.css";
 
 class App extends React.Component { // конвертируем app в классовую компоненту для жизненного цикла
     componentDidMount() {
@@ -23,17 +23,16 @@ class App extends React.Component { // конвертируем app в клас�
         }
         return ( // иначе показать все приложение
             <HashRouter> {/*BrowserRouter для продакшн, HashRouter для gh-pages*/}
-                <div className={this.props.theme === "light"?"aaa":"bbb"}> {/*позиционирование по сетке гридов*/}
+                {/*<div className={this.props.theme === "light"?"light":"dark"}> позиционирование по сетке гридов*/}
+                <div className={`${"themeCommon"} ${this.props.theme === "light"?"light":"dark"}`}>
+                    {/*класс в зависимости от темы*/}
                     <ErrorBoundary> {/*Общий обработчик ошибок во всем приложении*/}
-                        <Container>
-                            <HeaderContainer/> {/*плавающий заголовок*/}
-                            <div className={'marginForMenu'}></div>
+                        <Container className={commonClasses.minwidth}>
+                            <HeaderContainer/>  {/*плавающий заголовок*/}
                             <ContentContainer/> {/*страницы контента в зависмости от URL*/}
-                            <div className={'marginForMenu'}></div>
                             <FooterBS/>
                         </Container>
                     </ErrorBoundary>
-                    <div className={commonClasses.minwidth}></div>
                     {/*Для масштабирования и чтобы не поехал header, делаем div с шириной 350*/}
                 </div>
 

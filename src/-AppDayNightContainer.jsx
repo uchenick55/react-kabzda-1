@@ -1,7 +1,7 @@
 import React from "react";
 import {ThemeProvider} from "styled-components";
-import { GlobalStyles} from "./components/Dark_light_theme/globalStyles";
-import {lightTheme, darkTheme} from "./components/Dark_light_theme/Themes";
+import { GlobalStyles} from "./components/-Dark_light_theme/globalStyles";
+import {lightTheme, darkTheme} from "./components/-Dark_light_theme/Themes";
 import App from "./AppBS";
 import {connect} from "react-redux";
 

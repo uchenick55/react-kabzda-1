@@ -1,5 +1,5 @@
 import React from "react";
-import './App.scss';
+import './theme.scss';
 import {HashRouter} from "react-router-dom";
 import HeaderContainer from "./components/Header/HeaderContainer";
 import NavBarContainer from "./components/-Navbar/NavBarContainer";

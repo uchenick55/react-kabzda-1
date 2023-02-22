@@ -1,0 +1,32 @@
+
+.themeCommon {
+    min-height:91vh; // растянуть на всю высоту экрана фон
+    --insideToastMy: rgb(214,249,208, 0.7);
+    --bs-body-color-my: var(--color1);
+    color: var(--color1); // цвет текста
+    --bs-body-color-my: var(--color1);
+    background-color: var(--color2); // цвет фона
+    --bs-card-bg-my: var(--color3);// фон карточек в users
+}
+
+
+.light{
+    --color1:  var(--bs-gray-800);
+    --color2: var(--bs-gray-100);
+    --color3: rgb(233,236,239, 0.5);
+
+    /*================================*/
+
+}
+.dark {
+    --color1: var(--bs-gray-100);
+    --color2: var(--bs-gray-800);
+    --color3: rgb(233,236,239, 0.5);
+
+    /*================================*/
+
+}
+.contentContainer {
+    padding-top: 5rem;
+}
+
