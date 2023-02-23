@@ -3,7 +3,7 @@ import {Formik, Form} from "formik"; //формик с компонентами 
 import * as Yup from 'yup' // валидация форм с помошью сторонней библиотеки Yup
 import classes from "./Login.module.css"
 import {MyTextInput, MyCheckbox} from "../common/formikCommon/MyFields"
-import {PointerCursor} from "../-Dark_light_theme/globalStyles";
+import {PointerCursor} from "../-Dark_light_theme/-globalStyles";
 //import DisplayFormikState from "../common/formikCommon/DisplayFormikState"
 
 let myInitialValues = { // начальные зачения форм

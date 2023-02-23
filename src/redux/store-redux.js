@@ -6,7 +6,7 @@ import sidebarReducer from "./sidebar-reducer";
 import usersReducer from "./users-reducer";
 import authReducer from "./auth-reducer";
 import appReducer from "./app-reducer";
-import darkLightReducer from "./dark-light-reducer";
+import themeReducer from "./theme-reducer";
 import feedBackReducer from "./feedback-reducer"
 
 let reducers = combineReducers({ // объединяем стейт редьюсеров в один объект store
@@ -16,7 +16,7 @@ let reducers = combineReducers({ // объединяем стейт редьюс
     usersPage: usersReducer, // стейт страницы пользователей
     auth: authReducer, // стейт текущего пользователя
     app: appReducer, // стейт инициализации приложения
-    theme: darkLightReducer, // стейт темы (dark-light)
+    theme: themeReducer, // стейт темы (dark-light)
     feedback: feedBackReducer, // стейт фидбека
 });
 

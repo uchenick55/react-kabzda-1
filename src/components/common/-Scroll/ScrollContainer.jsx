@@ -1,6 +1,6 @@
 import React from 'react';
 import Scroll from "react-scroll";
-import {PointerCursor} from "../../-Dark_light_theme/globalStyles";
+import {PointerCursor} from "../../-Dark_light_theme/-globalStyles";
 import classes from './scroll.module.css' // css обработка
 
 

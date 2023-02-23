@@ -7,6 +7,7 @@
     transition: 0.2s ease-in-out;
     margin-right: 0.8rem;
     opacity: 0.9;
+    cursor: pointer;
 }
 
 .myHeaderWH1:hover {

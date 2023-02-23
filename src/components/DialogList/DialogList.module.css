@@ -13,7 +13,7 @@
 }
 
 div.knopka {
-    text-decoration: none; /* убирать подчёркивание у ссылок */
+    /* text-decoration: none; убирать подчёркивание у ссылок */
 
     user-select: none; /* убирать выделение текста */
     outline: none; /* убирать контур в Mozilla */
@@ -105,10 +105,12 @@ padding-right: 10px
 }
 
 .linkNoDecoration a {
-    text-decoration: none;
+    /*text-decoration: none;*/
 }
 
 .myLink {
+    /*
     text-decoration: none;
-    color: var(--color2);
+    */
+    color: var(--bs-gray-700);
 }

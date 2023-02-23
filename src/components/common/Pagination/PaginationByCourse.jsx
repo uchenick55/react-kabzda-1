@@ -1,6 +1,6 @@
 import React, {useState} from "react";
 import classes from "./Pagination.module.css";
-import {PointerCursor} from "../../-Dark_light_theme/globalStyles";
+import {PointerCursor} from "../../-Dark_light_theme/-globalStyles";
 
 let PaginationByCourse = ({
                               totalUsersCount, // общее число пользователей на сервере

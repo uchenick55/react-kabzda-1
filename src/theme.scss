@@ -4,6 +4,9 @@
     --bs-body-color-my: var(--color1); // фон градиента для текста в профиле
     color: var(--color1); // цвет основного текста
     background-color: var(--color2); // цвет основного фона
+    a {
+        text-decoration: none;
+    }
 }
 
 

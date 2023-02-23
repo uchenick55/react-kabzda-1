@@ -6,11 +6,18 @@ import {getProfileThunkCreator} from "../../redux/profile-reducer";
 import {getInfoModeThunkCreator, setInfoMode, setInfoModeThunkCreator} from "../../redux/app-reducer";
 import ErrorBoundary from "../common/ErrorBoundary/ErrorBoundary";
 import {compose} from "redux";
+import {getThemeThunkCreator, setThemeThunkCreator} from "../../redux/theme-reducer";
 
 
 class HeaderContainer extends React.Component {
     componentDidMount() {
         this.props.getInfoModeThunkCreator() // считыаем с localStorage флаг комментариев по сайту
+        this.props.getThemeThunkCreator() // считываем тему из localStorage
+    }
+
+    setTheme1 = () => {
+        const theme1 = this.props.theme1==="light"?"dark":"light" //берем значение темы из стора
+        this.props.setThemeThunkCreator(theme1) // вызов смены темы
     }
 
     deleteLogin = () => {
@@ -32,6 +39,7 @@ class HeaderContainer extends React.Component {
                 deleteLogin={this.deleteLogin}
                 switchInfo={this.switchInfo}
                 goToMyPage={this.goToMyPage}
+                setTheme1={this.setTheme1} // задание темы1
             /> {/*отрисовка целевой компоненты*/}
         </ErrorBoundary>
     }
@@ -44,6 +52,7 @@ let mapStateToProps = (state) => {
         isAuth: state.auth.isAuth,
         myProfile: state.auth.myProfile,
         info_mode: state.app.info_mode,
+        theme1: state.theme.themeBLL,
     }
 }
 export default compose(
@@ -53,38 +62,12 @@ export default compose(
             deleteLoginThunkCreator,
             setInfoMode,
             setInfoModeThunkCreator,
-            getInfoModeThunkCreator
+            getInfoModeThunkCreator,
+            setThemeThunkCreator,
+            getThemeThunkCreator
         }),
 
 )(HeaderContainer)
-
-
-/*zds
-
-export default compose(
-    connect(mapStateToProps,
-        {
-        //    sendDialogsThunkCreator,//санкреатор отправки нового сообщения в диалог
-            getDialogsThunkCreator,//санкреатор получения диалогов с данными
-            setdialogUserID, // экшнкреатор задания списка сообщений в стейт messages2
-            setMessages,// экшнкреатор задания списка сообщений в стейт messages2
-            getDialogLastUpdateTimeTnkCrt,//санкреатор получения диалогов с данными
-         //   deleteMessageThunkCreator,//санкреатор удаления сообщения из далога
-            getProfileThunkCreator,// санкреатор на получение профиля выбранного пользователя
-            getFollowThunkCreator,//санкреатор проверки follow/unfollow выбранного юзера для составления списка диалогов
-            getMyDialogListThunkCreator,//санкреатор получения моего диалогЛиста
-          //  updateDialogListThunkCreator,//санкреатор обновления диалогЛиста (моего когда я пишу кому то сообщение) - запись в localStorage.
-            deleteDialogThunkCreator, //санкреатор удаления диалога из диалогЛиста
-        }
-    ),
-    withRouter2,// получить данные ID из URL браузера и добавить в пропсы
-    NavigateToLoginHoc2 // проверка, залогинен ли я
-)
-
-
-
-fzsdfg*/
-
 
 
 

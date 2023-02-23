@@ -4,7 +4,7 @@ import {NavLink} from "react-router-dom";
 import {bedug_mode} from "../../../../redux/store-redux";
 import DialogPic from "../../../../assets/images/swg/dialogue2.svg"
 import UnfollowPic from "../../../../assets/images/swg/delete-user1.svg"
-import {PointerCursor} from "../../../-Dark_light_theme/globalStyles";
+import {PointerCursor} from "../../../-Dark_light_theme/-globalStyles";
 import Card from "react-bootstrap/Card";
 import Col from "react-bootstrap/Col";
 import Row from "react-bootstrap/Row";

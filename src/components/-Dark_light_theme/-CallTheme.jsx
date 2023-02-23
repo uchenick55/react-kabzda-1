@@ -1,5 +1,5 @@
 import React from 'react'
-import {PointerCursor} from "./globalStyles";
+import {PointerCursor} from "./-globalStyles";
 import dayNightLight from "../../assets/images/swg/day-night.svg"
 import classes from "../Header/Header.module.css";
 import Image from "react-bootstrap/Image";

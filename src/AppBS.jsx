@@ -23,7 +23,6 @@ class App extends React.Component { // конвертируем app в клас�
         }
         return ( // иначе показать все приложение
             <HashRouter> {/*BrowserRouter для продакшн, HashRouter для gh-pages*/}
-                {/*<div className={this.props.theme === "light"?"light":"dark"}> позиционирование по сетке гридов*/}
                 <div className={`${"themeCommon"} ${this.props.theme === "light"?"light":"dark"}`}>
                     {/*класс в зависимости от темы*/}
                     <ErrorBoundary> {/*Общий обработчик ошибок во всем приложении*/}

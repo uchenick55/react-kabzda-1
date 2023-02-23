@@ -1,9 +1,9 @@
 import React, {useEffect} from "react";
 import {connect} from "react-redux";
-import {setTheme} from "../../redux/dark-light-reducer";
-import {useDarkMode} from "./useDarkMode";
-import {PointerCursor} from "./globalStyles";
-import CallTheme from "./CallTheme";
+import {setTheme} from "../../redux/theme-reducer";
+import {useDarkMode} from "./-useDarkMode";
+import {PointerCursor} from "./-globalStyles";
+import CallTheme from "./-CallTheme";
 
 const CallThemeRemote = ({themeBLL, setTheme}) => {
     const [theme, themeToggler] = useDarkMode(themeBLL); // в LocalStorage записывает значение темы из

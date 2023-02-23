@@ -8,15 +8,15 @@ import LoginAndProfileRender from "./LoginAndProfileRender";
 import goBack from "../../assets/images/swg/go-back2.svg"
 import swgInfoPic from "../../assets/images/swg/info.svg"
 import classes from './Header.module.css';
-import CallThemeRemote from "../-Dark_light_theme/CallThemeRemote";
 import Image from "react-bootstrap/Image";
 import {useNavigate} from 'react-router-dom';
 import ModalBS1 from "../common/ModalBS/ModalBS1";
 import InfoContainer from "../Info/InfoContainer";
 import {useLocation} from "react-router";
+import dayNightLight from "../../assets/images/swg/day-night.svg";
 
 
-function HeaderBS({isAuth, goToMyPage, myProfile, deleteLogin}) {
+function HeaderBS({isAuth, goToMyPage, myProfile, deleteLogin, setTheme1}) {
     let navigate = useNavigate(); // хук для навигации по страницам (кнопка назад)
 
     const [show, setShow] = useState(false); // хук задания флага показать ли модальное Info
@@ -77,8 +77,13 @@ function HeaderBS({isAuth, goToMyPage, myProfile, deleteLogin}) {
                     /></div>
                     {/* иконка активатор модального окна с контекстной подсказкой для данной страницы*/}
 
-                    <div><CallThemeRemote/></div>
-                    {/*переключатель темы*/}
+                    <Image fluid={true} src={dayNightLight} className={classes.myHeaderWH1}
+                           onClick={setTheme1} // по клику вызвать themeTogglerLocal
+                           alt="Switch Theme" title="Switch Theme" // альтернативный текст
+                    />
+
+                    {/*<div><CallThemeRemote/></div>
+                   переключатель темы*/}
 
                     {infoModalRender}
                     {/* иконка активатор модального окна с контекстной подсказкой для данной страницы*/}
