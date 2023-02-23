@@ -1,4 +1,3 @@
-import Container from 'react-bootstrap/Container';
 import Navbar from 'react-bootstrap/Navbar';
 import React from "react";
 import classes from "./footer.module.css"

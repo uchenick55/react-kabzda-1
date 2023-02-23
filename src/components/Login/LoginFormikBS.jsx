@@ -67,7 +67,7 @@ const LoginFormik = ({postLogin, captchaURL, updateCaptcha, loginError}) => { //
 
                     {captchaURL && <div>
                         <PointerCursor>
-                            <img src={captchaURL} onClick={updateCaptcha} alt="captcha"></img>
+                            <img src={captchaURL} onClick={updateCaptcha} alt="captcha"/>
                         </PointerCursor>
                         {/*<label htmlFor="captcha">Captcha</label> {/*альтернатива написания input с обработкой ошибок*/}
 
@@ -89,7 +89,6 @@ const LoginFormik = ({postLogin, captchaURL, updateCaptcha, loginError}) => { //
 
                     {/*кнопка сброса к значениям по умолчанию*/}
                     <div className={classes.errorText}>{loginError && loginError}</div>
-                    <div/>
 
                     {/* <DisplayFormikState/> {/*отображение всего стейта формика*/}
                 </Col>

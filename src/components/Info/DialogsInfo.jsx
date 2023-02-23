@@ -1,5 +1,6 @@
 import LoginInfoShort from "./LoginInfoShort";
 import React from "react";
+import dialogs from "../../assets/images/messages.jpg"
 
 let DialogsInfo = () => {
     return (<div>
@@ -11,6 +12,7 @@ let DialogsInfo = () => {
             аккаунтов: </p><LoginInfoShort/>
         <p>После нужно найти друг друга через поиск (или проверить сразу в избранном) и насладиться общением между двух
             окон :) </p>
+        <img src={dialogs} alt="пример диалогов" title="пример диалогов"/>
 
     </div>)
 }

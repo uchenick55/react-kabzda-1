@@ -1,13 +1,10 @@
-a.taskcCommon {
-    padding: 10px;
-
-}
 
 .imgTasks {
     width: 70%;
     height: auto;
     border-radius: 10px;
     transition: 0.2s ease-in-out;
+    border: 6px solid var(--color3);
 
 }
 .imgTasks:hover {

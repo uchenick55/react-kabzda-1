@@ -67,6 +67,12 @@ function HeaderBS({isAuth, goToMyPage, myProfile, deleteLogin, setTheme1}) {
         />}
     </div>
 
+    /* Переключатель день/ночь */
+    const dayNightRender = <Image fluid={true} src={dayNightLight} className={classes.myHeaderWH1}
+                                  onClick={setTheme1} // по клику вызвать themeTogglerLocal
+                                  alt="Switch Theme" title="Switch Theme" // альтернативный текст
+    />
+
     return (
         <Navbar collapseOnSelect variant="dark" bg="dark" expand="sm" fixed="top" className={classes.myHeader1}>
             <Container fluid className='text-uppercase'> {/*контейнер, текст большими буквами */}
@@ -77,13 +83,7 @@ function HeaderBS({isAuth, goToMyPage, myProfile, deleteLogin, setTheme1}) {
                     /></div>
                     {/* иконка активатор модального окна с контекстной подсказкой для данной страницы*/}
 
-                    <Image fluid={true} src={dayNightLight} className={classes.myHeaderWH1}
-                           onClick={setTheme1} // по клику вызвать themeTogglerLocal
-                           alt="Switch Theme" title="Switch Theme" // альтернативный текст
-                    />
-
-                    {/*<div><CallThemeRemote/></div>
-                   переключатель темы*/}
+                    {dayNightRender}
 
                     {infoModalRender}
                     {/* иконка активатор модального окна с контекстной подсказкой для данной страницы*/}
@@ -106,8 +106,6 @@ function HeaderBS({isAuth, goToMyPage, myProfile, deleteLogin, setTheme1}) {
                             <NavDropdown.Item href="#/mystack">My Stack</NavDropdown.Item>
                             <NavDropdown.Item href="#/profile">Profile</NavDropdown.Item>
                             <NavDropdown.Item href="#/users">Users</NavDropdown.Item>
-                            <NavDropdown.Item href="#/news">News</NavDropdown.Item>
-                            <NavDropdown.Item href="#/rest">Rest</NavDropdown.Item>
                             <NavDropdown.Item href="#/feedback">FeedBack</NavDropdown.Item>
                             <NavDropdown.Item href="#/tasks">Tasks</NavDropdown.Item>
                         </NavDropdown>
