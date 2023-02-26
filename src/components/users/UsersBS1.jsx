@@ -159,7 +159,7 @@ let UsersBS = ({
     } catch (error) {
         setError(error); // задание в стейт ошибки
     } finally {
-        // console.log("try/catch UsersBS.jsx выполнен! ") действие после прохождения try/catch
+        // console.log("try/catch -UsersBS.jsx выполнен! ") действие после прохождения try/catch
     }
 
 }
