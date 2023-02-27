@@ -1,13 +1,13 @@
 import {applyMiddleware, combineReducers, compose, createStore} from "redux";
 import thunkMiddleWare from 'redux-thunk'; // thunkMiddleWare позволяет диспатчить санки помимо экшенов дл обновления стейта
-import profileReducer from "./profile-reducer";
-import dialogsReducer from "./dialogs-reducer";
-import sidebarReducer from "./sidebar-reducer";
+import profileReducer from "./profile-reducer.ts";
+import dialogsReducer from "./dialogs-reducer.ts";
+import sidebarReducer from "./sidebar-reducer.ts";
 import usersReducer from "./users-reducer.ts";
-import authReducer from "./auth-reducer";
-import appReducer from "./app-reducer";
-import themeReducer from "./theme-reducer";
-import feedBackReducer from "./feedback-reducer"
+import authReducer from "./auth-reducer.ts";
+import appReducer from "./app-reducer.ts";
+import themeReducer from "./theme-reducer.ts";
+import feedBackReducer from "./feedback-reducer.ts"
 
 let reducers = combineReducers({ // объединяем стейт редьюсеров в один объект store
     profilePage: profileReducer, // стейт профиля

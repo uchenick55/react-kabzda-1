@@ -1,6 +1,6 @@
 import {apiProfile} from "../components/api/api";
-import {getAuthMeThunkCreator, setMyProfile} from "./auth-reducer";
-import {updateDialogListThunkCreator} from "./dialogs-reducer";
+import {getAuthMeThunkCreator, setMyProfile} from "./auth-reducer.ts";
+import {updateDialogListThunkCreator} from "./dialogs-reducer.ts";
 
 const DELETE_POST = "myApp/profile-reducer/DELETE_POST";// константа удаления новых постов
 const ADD_POST = "myApp/profile-reducer/ADD-POST";// константа отправки новых постов

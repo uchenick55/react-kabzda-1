@@ -1,7 +1,7 @@
 import {apiProfile} from "../components/api/api";
-import {friendsInitialState} from "./sidebar-reducer";
-import {dialogsInitialState} from "./dialogs-reducer";
-import {profileInitialState} from "./profile-reducer";
+import {friendsInitialState} from "./sidebar-reducer.ts";
+import {dialogsInitialState} from "./dialogs-reducer.ts";
+import {profileInitialState} from "./profile-reducer.ts";
 import {usersInitialState} from "./users-reducer.ts";
 
 const SET_MY_DATA = "myApp/auth-reducer/SET_MY_DATA"; // константа для задания базовых данных моего профиля (ID, Email, login, isAuth)

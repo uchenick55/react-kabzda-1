@@ -1,6 +1,6 @@
 import React, {useEffect} from "react";
 import {connect} from "react-redux";
-import {setTheme} from "../../redux/theme-reducer";
+import {setTheme} from "../../redux/theme-reducer.ts";
 import {useDarkMode} from "./-useDarkMode";
 import {PointerCursor} from "./-globalStyles";
 import CallTheme from "./-CallTheme";

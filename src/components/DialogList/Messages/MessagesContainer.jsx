@@ -3,7 +3,7 @@ import {
     deleteMessageThunkCreator,
     sendDialogsThunkCreator,
     updateDialogListThunkCreator
-} from "../../../redux/dialogs-reducer";
+} from "../../../redux/dialogs-reducer.ts";
 import {connect} from "react-redux";
 import {compose} from "redux";
 import withRouter2 from "../../hoc/withRouter2";

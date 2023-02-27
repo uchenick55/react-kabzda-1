@@ -6,10 +6,10 @@ import {
     getDialogsThunkCreator, getFollowThunkCreator, getMyDialogListThunkCreator,
     setdialogUserID,
     setMessages
-} from "../../redux/dialogs-reducer";
+} from "../../redux/dialogs-reducer.ts";
 import {connect} from "react-redux";
 import {compose} from "redux";
-import {getProfileThunkCreator} from "../../redux/profile-reducer";
+import {getProfileThunkCreator} from "../../redux/profile-reducer.ts";
 import NavigateToLoginHoc2 from "../hoc/NavigateToLoginHoc2";
 import withRouter2 from "../hoc/withRouter2";
 

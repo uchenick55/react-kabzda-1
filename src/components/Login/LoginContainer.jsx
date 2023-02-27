@@ -1,9 +1,9 @@
 import React from "react";
 import Login from "./LoginFormikBS";
 import {connect} from "react-redux";
-import {getCaptchaThunkCreator, postLoginThunkCreator} from "../../redux/auth-reducer";
+import {getCaptchaThunkCreator, postLoginThunkCreator} from "../../redux/auth-reducer.ts";
 import {Navigate} from "react-router-dom";
-import {getFriendsThunkCreator} from "../../redux/sidebar-reducer";
+import {getFriendsThunkCreator} from "../../redux/sidebar-reducer.ts";
 
 class LoginContainer extends React.Component {
 
