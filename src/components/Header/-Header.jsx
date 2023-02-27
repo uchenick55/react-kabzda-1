@@ -6,12 +6,12 @@ import logoutImg from "../../assets/images/power-off.png";
 import loginImg from "../../assets/images/login.png";
 import CallThemeRemote from "../-Dark_light_theme/-CallThemeRemote";
 
-const Header = ({getProfileThunkCreator, deleteLogin, isAuth, myId, myProfile, switchInfo, info_mode}) => {
+const Header = ({getProfileThunkCreator, deleteLogin, isAuth, myId, myProfile, info_mode}) => {
     const commentsRender = <div> {/*отрисовка переключателя для отображения/скрытия комментариев*/}
         <div className={classes.font1word}>comments</div>
         <div className={classes.checkboxGroup}>
             <div><input type="checkbox" className={classes.checkbox} id="checkbox"
-                        checked={info_mode} onChange={switchInfo}/>
+                        checked={info_mode}/>
                 <label htmlFor="checkbox" className={classes.checkboxLabel}></label></div>
         </div>
     </div>

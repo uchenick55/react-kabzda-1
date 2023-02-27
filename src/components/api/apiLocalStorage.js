@@ -140,19 +140,6 @@ export let apiDialogs = { // объект с методами api для DialogL
 }
 
 export let apiCommon = { // объект с методами api для общих нужд
-  putInfoMode: (info_mode) => { // задание info_mode в localStorage
-    localStorage.setItem("putInfoMode", JSON.stringify(info_mode)); // отправить info_mode в LocalStorage
-    let Data1 = JSON.parse(localStorage.getItem("putInfoMode")); // запросить info_mode с LocalStorage
-    return Data1
-  },
-  getInfoMode: () => { // задание info_mode в localStorage
-    let Data1 = JSON.parse(localStorage.getItem("putInfoMode")); // запросить info_mode с LocalStorage
-    if (Data1===undefined|| Data1===0 || Data1===null) {
-      Data1=true
-    }
-    apiCommon.putInfoMode(Data1)
-    return Data1
-  },
   putTheme1: (theme1) => { // задание theme1 в localStorage
     if (!theme1) {
       theme1="light" // задаем значение темы по умолчанию

@@ -3,7 +3,6 @@ import Header from "./HeaderBS";
 import {connect} from "react-redux";
 import {deleteLoginThunkCreator} from "../../redux/auth-reducer";
 import {getProfileThunkCreator} from "../../redux/profile-reducer";
-import {getInfoModeThunkCreator, setInfoMode, setInfoModeThunkCreator} from "../../redux/app-reducer";
 import ErrorBoundary from "../common/ErrorBoundary/ErrorBoundary";
 import {compose} from "redux";
 import {getThemeThunkCreator, setThemeThunkCreator} from "../../redux/theme-reducer";
@@ -11,7 +10,6 @@ import {getThemeThunkCreator, setThemeThunkCreator} from "../../redux/theme-redu
 
 class HeaderContainer extends React.Component {
     componentDidMount() {
-        this.props.getInfoModeThunkCreator() // считыаем с localStorage флаг комментариев по сайту
         this.props.getThemeThunkCreator() // считываем тему из localStorage
     }
 
@@ -23,11 +21,7 @@ class HeaderContainer extends React.Component {
     deleteLogin = () => {
         this.props.deleteLoginThunkCreator()// логаут текущего пользователя
     }
-    switchInfo = () => {
-        let info_modeLocal = !this.props.info_mode // меняем infoMode на противоположный и отправляем в localStorage
-        this.props.setInfoModeThunkCreator(info_modeLocal) // задать infoMode в localStorage
 
-    }
     goToMyPage = () => {
         getProfileThunkCreator(this.props.myId); //получить профиль по моему ID
     }
@@ -60,9 +54,6 @@ export default compose(
         {
             getProfileThunkCreator,
             deleteLoginThunkCreator,
-            setInfoMode,
-            setInfoModeThunkCreator,
-            getInfoModeThunkCreator,
             setThemeThunkCreator,
             getThemeThunkCreator
         }),
