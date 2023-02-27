@@ -1,4 +1,4 @@
-import profileReducer, {addPostActionCreator, deletePostActionCreator} from "./profile-reducer.ts";
+import profileReducer, {addPostActionCreator, deletePostActionCreator} from "../../redux/profile-reducer.js";
 
 const ADD_POST = "myApp/profile-reducer/ADD-POST";// константа отправки новых постов
 

@@ -5,13 +5,10 @@ import {deleteLoginThunkCreator} from "../../redux/auth-reducer.ts";
 import {getProfileThunkCreator} from "../../redux/profile-reducer.ts";
 import ErrorBoundary from "../common/ErrorBoundary/ErrorBoundary";
 import {compose} from "redux";
-import {getThemeThunkCreator, setThemeThunkCreator} from "../../redux/theme-reducer.ts";
+import {setThemeThunkCreator} from "../../redux/theme-reducer.ts";
 
 
 class HeaderContainer extends React.Component {
-    componentDidMount() {
-        this.props.getThemeThunkCreator() // считываем тему из localStorage
-    }
 
     setTheme1 = () => {
         const theme1 = this.props.theme1==="light"?"dark":"light" //берем значение темы из стора
@@ -54,8 +51,7 @@ export default compose(
         {
             getProfileThunkCreator,
             deleteLoginThunkCreator,
-            setThemeThunkCreator,
-            getThemeThunkCreator
+            setThemeThunkCreator
         }),
 
 )(HeaderContainer)

@@ -143,9 +143,9 @@ let usersReducer = (state:initialStateType = initialState, action:any ):initialS
 }
 
 
-export let getUsersThunkCreator
-    = (currentPage: number, pageSize: number, term: string, friend:boolean, userId: number) => {//санкреатор получить пользователей с данными
-    return (dispatch) => { // нонейм санка получить пользователей
+export let getUsersThunkCreator = (currentPage: number, pageSize: number, term: string, friend:boolean, userId: number) => {
+    //санкреатор получить пользователей с данными
+    return (dispatch:any) => { // нонейм санка получить пользователей
         dispatch(toggleIsFetching(true)) //показать крутилку загрузки с сервера
 
         apiUsers.getUsers(currentPage, pageSize, term, friend) //получить пользователей по текущей странице и размере страницы
