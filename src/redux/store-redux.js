@@ -30,6 +30,4 @@ const store = createStore(reducers, composeEnhancers(
 
 window.store = store; // возможность смотреть стор через консоль
 
-export let bedug_mode = store.getState().app.bedug_mode
-
 export default store

@@ -1,5 +1,4 @@
 import * as axios from "axios";
-import {bedug_mode} from "../../redux/store-redux";
 
 const instance = axios.create({
   baseURL: 'https://social-network.samuraijs.com/api/1.0/',
@@ -15,7 +14,6 @@ export let apiUsers = { // объект с методами api для USERS и 
     try {
       //throw new Error("Я - сообщение об ошибке"); //проверка обработки ошибок
       const friendLocal = friend? friend: null
-      if (bedug_mode) {console.log("getUsers")}
       const response = await instance.get(`users?count=${pageSize}&page=${currentPage}&term=${term}&friend=${friendLocal}`)
       return (response.data) //возврат данных из поля data
     } catch (err) {

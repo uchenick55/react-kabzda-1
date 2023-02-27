@@ -3,7 +3,6 @@ import {connect} from "react-redux";
 import {getFriendsThunkCreator} from "../../redux/sidebar-reducer";
 import Navbar from "./MyFriends";
 import {needUpdateFriendsAC, unfollowThunkCreator} from "../../redux/users-reducer";
-import {bedug_mode} from "../../redux/store-redux";
 import ErrorBoundary from "../common/ErrorBoundary/ErrorBoundary";
 
 
@@ -32,9 +31,6 @@ class MyFriendsContainer extends React.Component {
     }
 
     render() {
-        if (bedug_mode) {
-            console.log("MyFriendsContainer render")
-        }
 
         const {myFriends2} = this.props; // получение из пропсов данных по друзьям
         return <ErrorBoundary> {/*Локальный обработчик ошибок -Navbar*/}

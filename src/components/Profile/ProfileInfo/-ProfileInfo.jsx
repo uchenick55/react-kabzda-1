@@ -3,7 +3,6 @@ import classes from './ProfileInfo.module.css'
 import commonClasses from '../../common/CommonClasses/ButtonOverImage.module.css'
 import Preloader from "../../common/Preloader/Preloader";
 import ProfileStatusUseReducer from "./ProfileStatus/ProfileStatusUseReducer";
-import {bedug_mode} from "../../../redux/store-redux";
 import userPhoto1 from "../../../assets/images/no-image3.png";
 import EditProfileFormik from "./EditProfile/-EditProfileFormik";
 
@@ -59,9 +58,6 @@ const ProfileInfo = ({
         }
     },[editProfileStatus, editedSuccessfully, setEditProfileStatus ]) // переключение режима редактирования зависит от ответа с сервера
 
-    if (bedug_mode) {
-        console.log("-ProfileInfo.jsx")
-    } // дебаг
     if (!profile) { // если профиль еще не загружен
         return <Preloader/> // отобразить предзагрузку
     }

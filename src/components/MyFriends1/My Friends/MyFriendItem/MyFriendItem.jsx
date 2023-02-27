@@ -1,7 +1,6 @@
 import React, {useState} from 'react';
 import classes from './../MyFriends.module.css';
 import {NavLink} from "react-router-dom";
-import {bedug_mode} from "../../../../redux/store-redux";
 import DialogPic from "../../../../assets/images/dialog3.png"
 import UnfollowPic from "../../../../assets/images/unfollow.png"
 import {PointerCursor} from "../../../-Dark_light_theme/-globalStyles";
@@ -12,10 +11,6 @@ const MyFriendItem = ({id, avaSrc, name, unfollowFriendsAPI}) => {
     const [imgScale, setImgScale] = useState(null);// стейт для анимации наведения на картинку друга
     const [dilalogScale, setDilalogScale] = useState(null); // стейт для анимации наведения на картинку диалога
     const [removeScale, setRemoveScale] = useState(null); // стейт для анимации наведения на картинку удаления друга
-
-    if (bedug_mode) {
-        console.log("MyFriendItem")
-    }
 
     const commonImgRender = (src, alt, title, className1, setIdMethod, onClickMethod) => { // общий метод отрисовки картинок
         return <img src={src} alt={alt} title={title} // url картинки, тайтл и alt

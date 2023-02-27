@@ -1,5 +1,4 @@
 import {apiProfile} from "../components/api/api";
-import {bedug_mode} from "./store-redux";
 import {getAuthMeThunkCreator, setMyProfile} from "./auth-reducer";
 import {updateDialogListThunkCreator} from "./dialogs-reducer";
 
@@ -51,7 +50,6 @@ export let profileReducer = (state = initialState, action) => { // редьюс�
                 ...state,
                 profile: action.profile // профиль выбранного пользователя с сервера
             }
-            if (bedug_mode) {console.log("profile-reducer.jsx, SET_USER_PROFILE: ", state, stateCopy)} // дебаг
             return stateCopy;
         case ADD_POST: {// добавление поста
             let newPost = { // задание локального объекта с постом
@@ -63,7 +61,6 @@ export let profileReducer = (state = initialState, action) => { // редьюс�
                 ...state,
                 posts: [...state.posts, newPost], // добавление созданного локального объекта в посты
             }
-            if (bedug_mode) {console.log("profile-reducer.jsx, ADD_POST: ", state, stateCopy)} // дебаг
             return stateCopy;
         }
         case DELETE_POST: {// удаления поста по postId
@@ -71,7 +68,6 @@ export let profileReducer = (state = initialState, action) => { // редьюс�
                 ...state,
                 posts: [...state.posts.filter(f=>f.id!==action.postId)], // удаление локального объекта в постах
             }
-            if (bedug_mode) {console.log("profile-reducer.jsx, DELETE_POST: ", state, stateCopy)} // дебаг
             return stateCopy;
         }
         case SET_STATUS: //задание моего статуса в локальный стейт (после API запроса)
@@ -79,20 +75,15 @@ export let profileReducer = (state = initialState, action) => { // редьюс�
                 ...state,
                 status: action.newStatus
             }
-            if (bedug_mode) {console.log("profile-reducer.jsx, SET_STATUS: ", state, stateCopy)} // дебаг
             return stateCopy;
         case PROFILE_INITIAL_STATE: //зануления при логауте
             stateCopy = initialState
-            if (bedug_mode) {console.log("profile-reducer.jsx, PROFILE_INITIAL_STATE: ", state, stateCopy)} // дебаг
             return stateCopy;
         case SET_EDIT_PROFILE_ERROR: // экшн задания ошибки с сервера в стейт после правки профиля
             stateCopy = {
                 ...state,
                 editProfileStatus: action.editProfileStatus
             }
-            if (bedug_mode) {
-                console.log("auth-reducer.jsx, SET_EDIT_PROFILE_ERROR: ", state, stateCopy)
-            } // дебаг
             return stateCopy; // возврат копии стейта после изменения
         default:
             return state;
@@ -103,9 +94,7 @@ export let getProfileThunkCreator = (userId, shouldUpdateDialogList, myId) => { 
     return async (dispatch) => { // нонейм санка на получение профиля выбранного пользователя
 
         let CommonPart = (response, userId) => { // общая часть для задания статуса профиля и получения статуса
-            if (bedug_mode) {console.log("profile-reducer.jsx, getProfileThunkCreator.await getAuthMe()->await .getProfile() :   dispatch(setUserProfile()) ->SET_USER_PROFILE" )} // дебаг
             dispatch(setUserProfile(response)) // задание полных данных в профиль
-            if (bedug_mode) {console.log("profile-reducer.jsx, getProfileThunkCreator.await getAuthMe()->await .getProfile() :   dispatch(getStatusThunkCreator())" )} // дебаг
             dispatch(getStatusThunkCreator(userId)) // запрос моего статуса
             if (shouldUpdateDialogList) {// проверка нужно ли обновить диалоглист
                 dispatch(updateDialogListThunkCreator(myId, response.userId, response.fullName, response.photos.small  )) // обновление длиалоглиста
@@ -130,7 +119,6 @@ export let getProfileThunkCreator = (userId, shouldUpdateDialogList, myId) => { 
 export let getStatusThunkCreator = (userId) => {  // санкреатор запроса статуса выбранного пользователя
     return async (dispatch) => { // нонейм санка запроса статуса выбранного пользователя
         const response = await apiProfile.getStatus(userId) // api запрос получение статуса по userId
-        if (bedug_mode) {console.log("profile-reducer.jsx, getStatusThunkCreator.await getStatus(): dispatch(setStatus()) -> SET_STATUS" )} // дебаг
         dispatch(setStatus(response)) // задание статуса в локальный стейт с последующей переотрисовкой
     }
 }
@@ -138,7 +126,6 @@ export let putStatusThunkCreator = (statusTmpInput, myId) => { // санкреа
     return async (dispatch) => { // нонеййм санка обновления моего статуса
         const response = await apiProfile.putStatus(statusTmpInput) // отправка нового статуса на сервер
         if (response.resultCode === 0) { // если успешное обновление статуса с сервера
-            if (bedug_mode) {console.log("profile-reducer.jsx, putStatusThunkCreator.await putStatus(): dispatch(getStatusThunkCreator())" )} // дебаг
             dispatch(getStatusThunkCreator(myId))// получение нового статуса с сервера после обновления
         }
     }
@@ -147,7 +134,6 @@ export let setprofilePhotoThunkCreator = (profilePhoto, myId) => { // санкр
     return async (dispatch) => { // нонеййм санка установки фотографии моего профиля
         const response = await apiProfile.putPhoto(profilePhoto) // отправка нового статуса на сервер
         if (response.resultCode === 0) { // если успешное обновление статуса с сервера
-            if (bedug_mode) {console.log("profile-reducer.jsx, setprofilePhotoThunkCreator.await putPhoto(): dispatch(getProfileThunkCreator())" )} // дебаг
             dispatch(getProfileThunkCreator(myId));// перезапрашиваем данные профиля после обновления фото
             dispatch(getAuthMeThunkCreator()) // обновить данные моего профиля (header photo) при обновлении фото
         }
@@ -158,13 +144,7 @@ export let putMyProfileThunkCreator = (MyProfile, myId) => { // санкреат
     return async (dispatch) => { // нонеййм санка установки моего профиля myProfile
         const response = await apiProfile.putMyProfileData(MyProfile) // отправка нового статуса на сервер
         if (response.resultCode === 0) { // если успешное обновление профиля на сервере
-            if (bedug_mode) {
-                console.log("auth-reducer.jsx, putMyProfileThunkCreator.await putMyProfileData(): dispatch(getProfileThunkCreator())")
-            } // дебаг
             const response2 = await apiProfile.getProfile(myId)//получение моих дополнительных данных после записи на сервер
-            if (bedug_mode) {
-                console.log("auth-reducer.jsx, putMyProfileThunkCreator.await(putMyProfileData)->await .getProfile() : dispatch(setMyProfile()->SET_MY_PROFILE")
-            } // дебаг
             dispatch(setMyProfile(response2))//задание в стейт моих доп данных
             dispatch(getProfileThunkCreator(myId))
             dispatch(setEditProfileStatus(["Edited successfully!"])) // отправить данные ошибки в стейт
@@ -173,9 +153,6 @@ export let putMyProfileThunkCreator = (MyProfile, myId) => { // санкреат
                 !response.messages===0 // если ответа от сервера нет
                     ? "no responce from server" // вывести сообщение заглушку
                     : response.messages // иначе вывести ответ от сервера
-            if (bedug_mode) {
-                console.log("auth-reducer.jsx, putMyProfileThunkCreator.await / пришла ошибка с сервера:", message) // отправить данные в форму
-            } // дебаг
             dispatch(setEditProfileStatus(message)) // отправить данные ошибки в стейт
         }
     }

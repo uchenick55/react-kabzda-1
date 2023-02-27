@@ -1,4 +1,3 @@
-import {bedug_mode} from "./store-redux";
 import {apiFeedBack2} from "../components/api/api";
 
 const SET_FEED_BACK_STATUS = "myApp/feedback-reducer/SET_FEED_BACK_STATUS"; // константа для задания статуса feedback
@@ -20,9 +19,6 @@ let feedBackReducer = (state = initialState, action) => {//редьюсер от
         ...state,
         feedBackStatus: action.feedBackStatus
       }
-      if (bedug_mode) {
-        console.log("feedback-reducer.jsx, SET_FEED_BACK_STATUS: ", state, stateCopy)
-      } // дебаг
       return stateCopy; // возврат копии стейта после изменения
     default:
       return state; // по умолчанию стейт возврашается неизмененным

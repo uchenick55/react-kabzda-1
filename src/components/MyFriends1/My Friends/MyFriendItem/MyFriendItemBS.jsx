@@ -1,7 +1,6 @@
 import React from 'react';
 import classes from './../MyFriends.module.css';
 import {NavLink} from "react-router-dom";
-import {bedug_mode} from "../../../../redux/store-redux";
 import DialogPic from "../../../../assets/images/swg/dialogue2.svg"
 import UnfollowPic from "../../../../assets/images/swg/delete-user1.svg"
 import {PointerCursor} from "../../../-Dark_light_theme/-globalStyles";
@@ -12,9 +11,6 @@ import Image from "react-bootstrap/Image";
 
 
 const MyFriendItem = ({id, avaSrc, name, unfollowFriendsAPI}) => {
-    if (bedug_mode) {
-        console.log("MyFriendItem")
-    }
 
     const commonImgRender = (src, alt, title, className1, onClickMethod) => { // общий метод отрисовки картинок
         return <Image fluid={true} src={src} alt={alt} title={title} // url картинки, тайтл и alt

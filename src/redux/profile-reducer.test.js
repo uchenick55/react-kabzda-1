@@ -1,5 +1,5 @@
 import profileReducer, {addPostActionCreator, deletePostActionCreator} from "./profile-reducer";
-import {bedug_mode} from "./store-redux";
+
 const ADD_POST = "myApp/profile-reducer/ADD-POST";// константа отправки новых постов
 
 let initialState = {

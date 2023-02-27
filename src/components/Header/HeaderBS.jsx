@@ -41,7 +41,6 @@ function HeaderBS({isAuth, goToMyPage, myProfile, deleteLogin, setTheme1}) {
         if (location.pathname==="/") {
             modalHeader1 = "HOME"
         }
-        console.log(modalHeader1);
     }
 
 

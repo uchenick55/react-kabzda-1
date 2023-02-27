@@ -2,11 +2,9 @@ import React from 'react';
 import classes from './Navbar.module.css';
 import {NavLink} from "react-router-dom";
 import {connect} from "react-redux";
-import {bedug_mode} from "../../redux/store-redux";
 
 const Navbar = ({myFriends2, unfollowFriendsAPI, dialogUserID}) => {
 
-    if (bedug_mode) {console.log("Navbar")}
     return <nav className={classes.nav}>
         <div className={classes.item}>
             <NavLink to=''>Info</NavLink>

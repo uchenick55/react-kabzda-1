@@ -1,4 +1,3 @@
-import {bedug_mode} from "./store-redux";
 import {apiCommon} from "../components/api/apiLocalStorage";
 
 
@@ -20,7 +19,6 @@ let themeReducer = (state = initialState, action) => {//редьюсер зад�
         ...state, // копия всего стейта
         themeBLL: action.themeUpdate, // задание темы в BLL
       }
-      if (bedug_mode) {console.log("theme-reducer.js, SET_THEME: ", state, stateCopy)} // дебаг
       return stateCopy; // возврат копии стейта после изменения
     default:
       return state; // по умолчанию стейт возврашается неизмененным
@@ -31,7 +29,6 @@ export let setThemeThunkCreator = (theme1) => {//санкреатор задан
   let setThemeThunk = async (dispatch) => { // санка задания темы в LocalStorage
     const response1 = await apiCommon.putTheme1(theme1)  //записать значение темы в localStorage
     if (response1) {
-      if (bedug_mode) {console.log("theme-reducer.js, setThemeThunkCreator dispatch(setTheme()) ->SET_THEME" )} // дебаг
       dispatch(setTheme(response1))  //записать считаное из localStorage значение темы в store
     }
 
@@ -42,7 +39,6 @@ export let getThemeThunkCreator = () => {//санкреатор получени
   let getThemeThunk = async (dispatch) => { // санка получения темы из LocalStorage
     const response1 = await apiCommon.getTheme1()  //получить значение темы из localStorage
     if (response1) {
-      if (bedug_mode) {console.log("theme-reducer.js, getThemeThunkCreator dispatch(setTheme()) ->SET_THEME" )} // дебаг
       dispatch(setTheme(response1))  //записать считаное из localStorage значение темы в store
     }
 

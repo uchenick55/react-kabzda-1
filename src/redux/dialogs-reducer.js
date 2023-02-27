@@ -1,4 +1,3 @@
-import {bedug_mode} from "./store-redux";
 import {apiDialogs} from "../components/api/apiLocalStorage";
 import {apiDialogs2} from "../components/api/api";
 
@@ -49,33 +48,21 @@ let dialogsReducer = (state = initialState, action) => { // редьюсер д�
         ...state,
         messages: [...state.messages, {id: 6, message: body}], // добавление сообщений (заглушка)
       }
-      if (bedug_mode) {
-        console.log("dialogs-reducer.js, SEND_MESSAGE: ", state, stateCopy)
-      } // дебаг
       return stateCopy
     case DIALOGS_INITIAL_STATE: // экшн отправки сообщений по данным из формы диалогов
       stateCopy = initialState;
-      if (bedug_mode) {
-        console.log("dialogs-reducer.js, DIALOGS_INITIAL_STATE: ", state, stateCopy)
-      } // дебаг
       return stateCopy
     case SET_MESSAGES: // экшн отправки сообщений по данным из формы диалогов
       stateCopy = {
         ...state,
         messages2: action.updatedMessages, // добавление сообщений
       }
-      if (bedug_mode) {
-        console.log("dialogs-reducer.js, SET_MESSAGES(LocalStorage): ", state, stateCopy)
-      } // дебаг
       return stateCopy
     case DIALOG_USER_ID: // экшн  задания ID пользователя, с кем диалог
       stateCopy = {
         ...state,
         dialogUserID: action.dialogUserID, // задание ID пользователя, с кем диалог
       }
-      if (bedug_mode) {
-        console.log("dialogs-reducer.js, DIALOG_USER_ID: ", state, stateCopy)
-      } // дебаг
       return stateCopy
     case DIALOG_LAST_UPDATE_TIME: // экшн  задания последнего времени обновления текущего диалога
       if (state.dialogLastUpdateTime !== action.dialogLastUpdateTime) { // проверяем, есть ли смысл сетать время обновления диалога (если оно изменилось)
@@ -83,9 +70,6 @@ let dialogsReducer = (state = initialState, action) => { // редьюсер д�
           ...state,
           dialogLastUpdateTime: action.dialogLastUpdateTime, //  задание последнего времени обновления текущего диалога
         }
-        if (bedug_mode) {
-          console.log("dialogs-reducer.js, DIALOG_LAST_UPDATE_TIME: ", state, stateCopy)
-        } // дебаг
         return stateCopy
       }
       return state // если время не поменялось,  вернуть текущий стейт
@@ -94,18 +78,12 @@ let dialogsReducer = (state = initialState, action) => { // редьюсер д�
         ...state,
         dialogUserFollowed: action.dialogUserFollowed, //  задание follow/unfollow выбранного пользователя (для формирования списка диалогов)
       }
-      if (bedug_mode) {
-        console.log("dialogs-reducer.js, DIALOG_USER_FOLLOWED: ", state, stateCopy)
-      } // дебаг
       return stateCopy
     case GET_MY_DIALOG_LIST: // экшн  задания моего диалоглиста
       stateCopy = {
         ...state,
         dialogs2: action.myDialogList, //  задание моего диалоглиста
       }
-      if (bedug_mode) {
-        console.log("dialogs-reducer.js, GET_MY_DIALOG_LIST: ", state, stateCopy)
-      } // дебаг
       return stateCopy
     default:
       return state;
@@ -113,29 +91,17 @@ let dialogsReducer = (state = initialState, action) => { // редьюсер д�
 }
 
 export let getDialogsThunkCreator = (myId, userId) => {//санкреатор получения диалогов с данными
-  if (bedug_mode) {
-    console.log("getDialogsThunkCreator")
-  }
 
   let getDialogsThunk = async (dispatch) => {// санка получения сообщений диалога
     let updatedMessages = await apiDialogs.getDialog(myId, userId)
-    if (bedug_mode) {
-      console.log("dialogs-reducer.js, getDialogsThunkCreator->: dispatch(setMessages)->SET_MESSAGES")
-    } // дебаг
     dispatch(setMessages(updatedMessages))
   }
   return getDialogsThunk
 }
 export let sendDialogsThunkCreator = (formDataNewMessage, myId, MyName, MyPhoto, userId) => {//санкреатор отправки нового сообщения в диалог
-  if (bedug_mode) {
-    console.log("sendDialogsThunkCreator")
-  }
 
   let sendDialogsThunk = async (dispatch) => {// санка отправки нового сообщения в диалог
     let updatedMessages = await apiDialogs.postDialog(formDataNewMessage, myId, MyName, MyPhoto, userId)
-    if (bedug_mode) {
-      console.log("dialogs-reducer.js, sendDialogsThunkCreator->: dispatch(setMessages)->SET_MESSAGES")
-    } // дебаг
     dispatch(setMessages(updatedMessages))
   }
   return sendDialogsThunk
@@ -152,9 +118,6 @@ export let getDialogLastUpdateTimeTnkCrt = (myId, userId) => {//санкреат
 export let deleteMessageThunkCreator = (messageID, myId, userId) => {//санкреатор удаления сообщения из далога
   let deleteMessageThunk = async (dispatch) => {// санка удаления сообщения из далога
     let dialogAfterDeleteMessage = await apiDialogs.deleteMessage(messageID, myId, userId) // удалить сообщение на стороне сервера и запросить обновленные данные
-    if (bedug_mode) {
-      console.log("dialogs-reducer.js, deleteMessageThunkCreator->: dispatch(setMessages)->SET_MESSAGES")
-    } // дебаг
     dispatch(setMessages(dialogAfterDeleteMessage))// записать в стейт обновленный список сообщений
   }
   return deleteMessageThunk
@@ -163,7 +126,6 @@ export let deleteMessageThunkCreator = (messageID, myId, userId) => {//санк�
 export let getFollowThunkCreator = (dialogUserID) => {//санкреатор проверки follow/unfollow выбранного юзера для составления списка диалогов
   let getFollowThunk = async (dispatch) => {// санка
     let dialogUserFollowed = await apiDialogs2.getFollow(dialogUserID) // проверка follow/unfollow выбранного юзера для составления списка диалогов
-    if (bedug_mode) {console.log("dialogs-reducer.js, getFollowThunkCreator->: dispatch(setDialogUserFollowed)->DIALOG_USER_FOLLOWED")} // дебаг
     dispatch(setDialogUserFollowed(dialogUserFollowed))// записать в стейт follow/unfollow выбранного пользователя
   }
   return getFollowThunk
@@ -171,7 +133,6 @@ export let getFollowThunkCreator = (dialogUserID) => {//санкреатор п�
 export let getMyDialogListThunkCreator = (myId) => {//санкреатор получения моего диалогЛиста
   let getMyDialogListThunk = async (dispatch) => {// санка
     let myDialogList = await apiDialogs.getDialogListMyID(myId) // получение моего диалогЛиста
-    //  if (bedug_mode) {console.log("dialogs-reducer.js, getMyDialogListThunkCreator->: dispatch(setDialogUserFollowed)->DIALOG_USER_FOLLOWED")} // дебаг
     dispatch(getMyDialogList(myDialogList))// записать в стейт мой диалоглист
   }
   return getMyDialogListThunk

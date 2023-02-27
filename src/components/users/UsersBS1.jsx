@@ -5,12 +5,9 @@ import DialogPic from "../../assets/images/swg/dialog-svgrepo-com.svg"
 
 import FollowPic from "../../assets/images/swg/star-.svg"
 import UnfollowPic from "../../assets/images/swg/star+.svg"
-
 import {NavLink} from "react-router-dom";
 import PaginationByCourse from "../common/Pagination/PaginationByCourseBS";
-import {bedug_mode} from "../../redux/store-redux";
 import InputButtonUsersRender from "./InputButtonRender";
-
 import Card from 'react-bootstrap/Card';
 import Container from 'react-bootstrap/Container';
 import Row from 'react-bootstrap/Row';
@@ -29,9 +26,6 @@ let UsersBS = ({
         return error.message
     }
     try {
-        if (bedug_mode) {
-            console.log("UsersBS")
-        }
 
         let FollowUnfollowButtons = ({u, followUnfollowAPICallback, buttonText}) => { // унификация нажатия кнопки Follow/Unfollow
             const starCanBePressed = followingInProgress.some(id => id === u.id)

@@ -1,4 +1,3 @@
-import {bedug_mode} from "../../redux/store-redux";
 import GetDate from "./GetDate";
 
 export let apiDialogs = { // объект с методами api для DialogList
@@ -112,10 +111,6 @@ export let apiDialogs = { // объект с методами api для DialogL
 
     let Dialog_1 = apiDialogs.getDialog(myId, userId); // получить данные Dialog_25528_1079 с LocalStorage
 
-    if (bedug_mode) {
-      console.log("apiLocalStorage Dialog_1(getItem): ", Dialog_1)
-    } // дебаг
-
     let Dialog_2 = [...Dialog_1, {// добавить новое сообщение в запрошенный диалог
       id: Dialog_1.length + 1, // задать id сообщения
       Date: GetDate(), // задать время сообщения
@@ -170,7 +165,7 @@ export let apiCommon = { // объект с методами api для общи
     let Data1 = JSON.parse(localStorage.getItem("theme1")); // получить theme1 из LocalStorage
     if (!Data1) {
       Data1="light" // задаем значение темы по умолчанию
-      apiCommon.putTheme(Data1) // записываем тему по умолчанию в localStorage если ее нет
+      apiCommon.putTheme1(Data1) // записываем тему по умолчанию в localStorage если ее нет
     }
     return Data1 // вернуть тему после считывания
   },

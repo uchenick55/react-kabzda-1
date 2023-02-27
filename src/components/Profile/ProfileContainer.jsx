@@ -9,15 +9,12 @@ import {
 } from "../../redux/profile-reducer";
 import {Navigate} from "react-router-dom"
 import {compose} from "redux";
-import {bedug_mode} from "../../redux/store-redux";
 import NavigateToLoginHoc2 from "../hoc/NavigateToLoginHoc2";
 import withRouter2 from "../hoc/withRouter2";
 
 class ProfileContainer extends React.Component {
     componentDidMount() {
-        if (bedug_mode) {
-            console.log("ProfileContainer.js componentDidMount()")
-        } // дебаг
+
         this.props.getProfileThunkCreator(this.props.userId);// обновить профиль в зависомости от ID
     }
 

@@ -1,5 +1,4 @@
 import {getAuthMeThunkCreator} from "./auth-reducer";
-import {bedug_mode} from "./store-redux";
 import {apiCommon} from "../components/api/apiLocalStorage";
 
 const SET_INITIALISED_APP = "myApp/app-reducer/SET_INITIALISED_APP"; //константа инициализации приложения
@@ -18,7 +17,6 @@ export let setInfoMode = (info_mode) => { // экшн задания режим�
 
 let initialState = { //стейт по умолчанию для инициализации приложения
   initialisedApp: false, // флаг приложение инициализировано?
-  bedug_mode: false, // флаг вывода всех операций в консоли
   info_mode: true, // флаг вывода информации по страницам приложения
 }
 
@@ -30,18 +28,15 @@ let appReducer = (state = initialState, action) => {//редьюсер иниц�
         ...state, // копия всего стейта
         initialisedApp: true, // смена флага инициализации приложения на true
       }
-      if (bedug_mode) {console.log("app-reducer.js, SET_INITIALISED_APP: ", state, stateCopy)} // дебаг
       return stateCopy; // возврат копии стейта после изменения
     case APP_INITIAL_STATE: // экшн зануления при логауте
       stateCopy = initialState
-      if (bedug_mode) {console.log("app-reducer.js, APP_INITIAL_STATE: ", state, stateCopy)} // дебаг
       return stateCopy; // возврат копии стейта после изменения
     case SET_INFO_MODE: // экшн переключения режима отображения комментариев (информации) по сайту
       stateCopy = {
         ...state, // копия всего стейта
         info_mode: action.info_mode, // смена флага инициализации приложения
       }
-      if (bedug_mode) {console.log("app-reducer.js, APP_INITIAL_STATE: ", state, stateCopy)} // дебаг
       return stateCopy; // возврат копии стейта после изменения
     default:
       return state; // по умолчанию стейт возврашается неизмененным
@@ -55,7 +50,6 @@ export let initialisedAppThunkCreator = () => {// санкреатор иниц�
       .then(() => {
 
         // если диспатч авторизации прошел успешно (и все остальные диспатчи в массиве)
-        if (bedug_mode) {console.log("app-reducer.js, initialisedAppThunkCreator.then: ", "setInitialisedApp()->SET_INITIALISED_APP")} // дебаг
         dispatch(setInitialisedApp()) // смена флага инициализации на true
 
       })
