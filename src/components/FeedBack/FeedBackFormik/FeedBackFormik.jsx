@@ -1,5 +1,5 @@
 import React from "react";
-import {Formik, Form} from "formik"; //формик с компонентами и пользовательским хуком
+import {Formik, Form, ErrorMessage} from "formik"; //формик с компонентами и пользовательским хуком
 import * as Yup from 'yup' // валидация форм с помошью сторонней библиотеки Yup
 //import DisplayFormikState from "../../common/formikCommon/DisplayFormikState"
 import {MyTextInput} from "../../common/formikCommon/MyFieldsBS"
@@ -7,9 +7,15 @@ import Button from "react-bootstrap/Button";
 import Row from "react-bootstrap/Row";
 
 let myInitialValues = { // начальные зачения форм
-    newMessage: "",
+    name: "",
+    email: "",
+    message: "",
 }
 let myValidationSchema = Yup.object({ // валидация форм на required, длину и заполнение полей
+    email: Yup.string()
+        .email('Invalid email address'),
+    message: Yup.string()
+        .required('Required'),
 })
 
 const FeedBackFormik = ({sendFeedBack}) => { // основная компонента с входным колбэком, чтобы забрать данные с форм
@@ -47,17 +53,19 @@ const FeedBackFormik = ({sendFeedBack}) => { // основная компоне�
                                     placeholder='email'
                                     leftLabelLength='7rem'
                                 />
-                                    <MyTextInput // сообщение в MyPostsBS
-                                        label="Сообщение*"
-                                        name='message'
-                                        type='textarea'
-                                        placeholder='сообщение'
-                                      //  autoFocus={true}
-                                        leftLabelLength='7rem'
-                                    />
+
+                                <MyTextInput // сообщение
+                                    label="Сообщение * "
+                                    name='message'
+                                    type='textarea'
+                                    placeholder='сообщение'
+                                    //  autoFocus={true}
+                                    leftLabelLength='7rem'
+                                />
+
                                 <Row className="mx-1">
 
-                                <Button type="submit"> {/*кнопка отправить форму*/}
+                                    <Button type="submit"> {/*кнопка отправить форму*/}
                                         Submit
                                     </Button>
                                 </Row>

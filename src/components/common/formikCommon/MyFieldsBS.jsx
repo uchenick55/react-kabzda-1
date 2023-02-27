@@ -33,7 +33,7 @@ export const MyTextInput = ({label, autoFocus, type, leftLabelLength, ...props})
                     autoFocus={autoFocus}
                 />
             </InputGroup>
-
+            <div className={classes.errorText}>{meta.touched && meta.error}</div>
         </CommonInputTextArea>
     )
 }

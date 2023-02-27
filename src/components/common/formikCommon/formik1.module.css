@@ -2,6 +2,11 @@
 .errorInputTextArea {
     border: 2px solid red;
 }
+.errorText {
+    color: red;
+    display: flex;
+    justify-content: right;
+}
 
 .labelWidth {
     /*
