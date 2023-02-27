@@ -1,65 +1,61 @@
 import {apiUsers} from "../components/api/api";
 
-const SET_TERM: string = "myApp/users-reducer/SET_TERM";
-const SET_USERS: string = "myApp/users-reducer/SET_USERS";
-const SET_CURRENT_PAGE: string = "myApp/users-reducer/SET_CURRENT_PAGE";
-const SET_TOTAL_USERS_COUNT: string = "myApp/users-reducer/SET_TOTAL_USERS_COUNT";
-const TOGGLE_IS_FETCHING: string = "myApp/users-reducer/TOGGLE_IS_FETCHING";
-const TOGGLE_IS_FOLLOWING_PROGRESS: string = "myApp/users-reducer/TOGGLE_IS_FOLLOWING_PROGRESS";
-const NEED_UPDATE_FRIENDS: string = "myApp/users-reducer/NEED_UPDATE_FRIENDS";
-const USERS_INITIAL_STATE: string = "myApp/users-reducer/USERS_INITIAL_STATE";
-const SET_ONLY_FRIENDS: string = "myApp/users-reducer/SET_ONLY_FRIENDS";// экшн отображения только моих друзей, или общий список
+const SET_TERM = "myApp/users-reducer/SET_TERM";
+const SET_USERS = "myApp/users-reducer/SET_USERS";
+const SET_CURRENT_PAGE = "myApp/users-reducer/SET_CURRENT_PAGE";
+const SET_TOTAL_USERS_COUNT = "myApp/users-reducer/SET_TOTAL_USERS_COUNT";
+const TOGGLE_IS_FETCHING = "myApp/users-reducer/TOGGLE_IS_FETCHING";
+const TOGGLE_IS_FOLLOWING_PROGRESS = "myApp/users-reducer/TOGGLE_IS_FOLLOWING_PROGRESS";
+const NEED_UPDATE_FRIENDS = "myApp/users-reducer/NEED_UPDATE_FRIENDS";
+const USERS_INITIAL_STATE = "myApp/users-reducer/USERS_INITIAL_STATE";
+const SET_ONLY_FRIENDS = "myApp/users-reducer/SET_ONLY_FRIENDS";// экшн отображения только моих друзей, или общий список
 
-
-export let setTerm = (term: string) => {
-    type setTermActionType = {
-        type: typeof SET_TERM
-        term: string
-    }
-    const setTermAction:setTermActionType = {type: SET_TERM, term}
-    return setTermAction
+type setTermActionType = { type: typeof SET_TERM, term: string}
+export let setTerm = (term: string):setTermActionType => {
+    return {type: SET_TERM, term}
 };
 
-let setUsers = (users: Array<object>) => {
-    type setUsersActionType = {
-        type: typeof SET_USERS,
-        users: Array<object>,
-    }
-    const setUsersAction: setUsersActionType = {type: SET_USERS, users}
-    return setUsersAction
+type setUsersActionType = { type: typeof SET_USERS, users: Array<object>}
+let setUsers = (users: Array<object>): setUsersActionType => {
+    return {type: SET_USERS, users}
 };
 
-export let setCurrentPage = (currentPage: number) => {
-    type setCurrentPageActionType = {
-        type: typeof SET_CURRENT_PAGE
-        currentPage: number
-    }
-    const setCurrentPageAction:setCurrentPageActionType = {type: SET_CURRENT_PAGE, currentPage}
-    return setCurrentPageAction
-};
-let toggleIsFetching = (isFetching: boolean) => {
-    type toggleIsFetchingActionType = {
-        type: typeof TOGGLE_IS_FETCHING
-        isFetching: boolean
-    }
-    const toggleIsFetchingAction:toggleIsFetchingActionType = {type: TOGGLE_IS_FETCHING, isFetching}
-    return toggleIsFetchingAction
+type setCurrentPageActionType = {type: typeof SET_CURRENT_PAGE, currentPage: number}
+export let setCurrentPage = (currentPage: number):setCurrentPageActionType  => {
+    return {type: SET_CURRENT_PAGE, currentPage}
 };
 
-let setUsersTotalCount = (totalUsersCount:number) => {
+type toggleIsFetchingActionType = { type: typeof TOGGLE_IS_FETCHING, isFetching: boolean}
+let toggleIsFetching = (isFetching: boolean):toggleIsFetchingActionType => {
+    return {type: TOGGLE_IS_FETCHING, isFetching}
+};
+
+type setUsersTotalCountActionType = {type: typeof SET_TOTAL_USERS_COUNT, totalUsersCount: number}
+let setUsersTotalCount = (totalUsersCount:number):setUsersTotalCountActionType => {
     return {type: SET_TOTAL_USERS_COUNT, totalUsersCount}
 };
 
-let toggleIsFollowingProgerss = (isFetching:boolean, id:number) => {
+type toggleIsFollowingProgerssActionType = {
+    type: typeof TOGGLE_IS_FOLLOWING_PROGRESS
+    isFetching: boolean
+    id: number
+}
+let toggleIsFollowingProgerss = (isFetching:boolean, id:number):toggleIsFollowingProgerssActionType => {
     return {type: TOGGLE_IS_FOLLOWING_PROGRESS, isFetching, id}
 };
-export let needUpdateFriendsAC = (needUpdateFriends:boolean) => {
+
+type needUpdateFriendsACActionType = { type: typeof NEED_UPDATE_FRIENDS, needUpdateFriends: boolean}
+export let needUpdateFriendsAC = (needUpdateFriends:boolean):needUpdateFriendsACActionType => {
     return {type: NEED_UPDATE_FRIENDS, needUpdateFriends}
 };
-export let usersInitialState = () => {
+
+type usersInitialStateActonType = {type: typeof USERS_INITIAL_STATE}
+export let usersInitialState = ():usersInitialStateActonType => {
     return {type: USERS_INITIAL_STATE}
 };
-export let setOnlyFriends = (onlyFriends:boolean) => { // экшн креатор отображения только моих друзей, или общий список
+
+type setOnlyFriendsActionType = {type: typeof SET_ONLY_FRIENDS, onlyFriends: boolean}
+export let setOnlyFriends = (onlyFriends:boolean):setOnlyFriendsActionType => { // экшн креатор отображения только моих друзей, или общий список
     return {type: SET_ONLY_FRIENDS, onlyFriends}
 };
 
