@@ -1,7 +1,6 @@
 import {apiDialogs} from "../components/api/apiLocalStorage";
 import {apiDialogs2} from "../components/api/api";
 
-const SEND_MESSAGE = "myApp/dialogs-reducer/SEND-MESSAGE"; // Константа отправки сообщения
 const DIALOGS_INITIAL_STATE = "myApp/dialogs-reducer/DIALOGS_INITIAL_STATE";  //константа зануления при логауте
 const SET_MESSAGES = "myApp/dialogs-reducer/SET_MESSAGES";  //константа задания списка сообщений в стейт
 const DIALOG_USER_ID = "myApp/dialogs-reducer/DIALOG_USER_ID"; //константа задания ID пользователя, с кем диалог
@@ -9,9 +8,6 @@ const DIALOG_LAST_UPDATE_TIME = "myApp/dialogs-reducer/DIALOG_LAST_UPDATE_TIME";
 const DIALOG_USER_FOLLOWED = "myApp/dialogs-reducer/DIALOG_USER_FOLLOWED"; //константа проверки follow/unfollow выбранный пользователь (для списка диалогов)
 const GET_MY_DIALOG_LIST = "myApp/dialogs-reducer/GET_MY_DIALOG_LIST"; //константа получения моего диалогЛиста
 
-export let sendMessageCreator = (formDataNewMessage) => { // экшнкреатор отправки сообщений
-  return {type: SEND_MESSAGE, formDataNewMessage}
-};
 export let dialogsInitialState = () => { // экшнкреатор зануления при логауте
   return {type: DIALOGS_INITIAL_STATE,}
 };
@@ -42,13 +38,6 @@ let initialState = { // стейт сообщений по умолчанию
 let dialogsReducer = (state = initialState, action) => { // редьюсер диалогов
   let stateCopy; // объявлениечасти части стейта до изменения редьюсером
   switch (action.type) {
-    case SEND_MESSAGE: // экшн отправки сообщений по данным из формы диалогов
-      let body = action.formDataNewMessage;
-      stateCopy = {
-        ...state,
-        messages: [...state.messages, {id: 6, message: body}], // добавление сообщений (заглушка)
-      }
-      return stateCopy
     case DIALOGS_INITIAL_STATE: // экшн отправки сообщений по данным из формы диалогов
       stateCopy = initialState;
       return stateCopy

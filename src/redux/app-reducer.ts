@@ -1,3 +1,4 @@
+// @ts-ignore
 import {getAuthMeThunkCreator} from "./auth-reducer.ts";
 
 const SET_INITIALISED_APP = "myApp/app-reducer/SET_INITIALISED_APP"; //константа инициализации приложения

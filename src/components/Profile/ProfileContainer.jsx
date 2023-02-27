@@ -67,25 +67,6 @@ let mapStateToProps = (state) => {
     }
 }
 
-/*
-let mapDispatchToProps = (dispatch) => {
-    return {
-        getProfileThunkCreator: (userId) => {
-            dispatch(getProfileThunkCreator(userId))
-        },
-        putStatusThunkCreator: (statusTmpInput, myId) => {
-            dispatch(putStatusThunkCreator(statusTmpInput, myId))
-        },
-        setprofilePhotoThunkCreator: (profilePhoto, myId) => {
-            dispatch(setprofilePhotoThunkCreator(profilePhoto, myId))
-        },
-        putMyProfileThunkCreator: (MyProfile, myId) => {
-            dispatch(putMyProfileThunkCreator(MyProfile, myId))
-        },
-        dispatch: dispatch
-    }
-}
-*/
 
 export default compose(
     connect(mapStateToProps, {

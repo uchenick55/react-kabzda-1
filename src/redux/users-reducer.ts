@@ -1,3 +1,4 @@
+// @ts-ignore
 import {apiUsers} from "../components/api/api";
 
 const SET_TERM = "myApp/users-reducer/SET_TERM";

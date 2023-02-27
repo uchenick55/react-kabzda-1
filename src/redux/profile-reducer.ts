@@ -1,5 +1,7 @@
 import {apiProfile} from "../components/api/api";
+// @ts-ignore
 import {getAuthMeThunkCreator, setMyProfile} from "./auth-reducer.ts";
+// @ts-ignore
 import {updateDialogListThunkCreator} from "./dialogs-reducer.ts";
 
 const DELETE_POST = "myApp/profile-reducer/DELETE_POST";// константа удаления новых постов
@@ -134,7 +136,7 @@ export let setprofilePhotoThunkCreator = (profilePhoto, myId) => { // санкр
     return async (dispatch) => { // нонеййм санка установки фотографии моего профиля
         const response = await apiProfile.putPhoto(profilePhoto) // отправка нового статуса на сервер
         if (response.resultCode === 0) { // если успешное обновление статуса с сервера
-            dispatch(getProfileThunkCreator(myId));// перезапрашиваем данные профиля после обновления фото
+            dispatch(getProfileThunkCreator(myId,null, null));// перезапрашиваем данные профиля после обновления фото
             dispatch(getAuthMeThunkCreator()) // обновить данные моего профиля (header photo) при обновлении фото
         }
     }
@@ -146,13 +148,13 @@ export let putMyProfileThunkCreator = (MyProfile, myId) => { // санкреат
         if (response.resultCode === 0) { // если успешное обновление профиля на сервере
             const response2 = await apiProfile.getProfile(myId)//получение моих дополнительных данных после записи на сервер
             dispatch(setMyProfile(response2))//задание в стейт моих доп данных
-            dispatch(getProfileThunkCreator(myId))
+            dispatch(getProfileThunkCreator(myId, null, null))
             dispatch(setEditProfileStatus(["Edited successfully!"])) // отправить данные ошибки в стейт
         } else { // если пришла ошибка с сервера ввода формы правки профиля
             let message =  // определение локальной переменной message - ответ от сервера
-                !response.messages===0 // если ответа от сервера нет
-                    ? "no responce from server" // вывести сообщение заглушку
-                    : response.messages // иначе вывести ответ от сервера
+                response.messages && response.messages.length!==0  // если response.messages емсть и их длина не равна 0
+                    ? response.messages //  вывести ответ от сервера
+                    : "no responce from server" // иначе вывести сообщение заглушку
             dispatch(setEditProfileStatus(message)) // отправить данные ошибки в стейт
         }
     }
