@@ -1,5 +1,5 @@
 // @ts-ignore
-import {apiUsers} from "../components/api/api";
+import {apiUsers} from "../components/api/api.ts";
 
 const SET_TERM = "myApp/users-reducer/SET_TERM";
 const SET_USERS = "myApp/users-reducer/SET_USERS";

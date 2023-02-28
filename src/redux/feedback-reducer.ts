@@ -1,4 +1,5 @@
-import {apiFeedBack2} from "../components/api/api";
+// @ts-ignore
+import {apiFeedBack2} from "../components/api/api.ts";
 
 const SET_FEED_BACK_STATUS = "myApp/feedback-reducer/SET_FEED_BACK_STATUS"; // константа для задания статуса feedback
 

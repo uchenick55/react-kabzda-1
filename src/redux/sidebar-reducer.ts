@@ -1,4 +1,5 @@
-import {apiUsers} from "../components/api/api";
+// @ts-ignore
+import {apiUsers} from "../components/api/api.ts";
 
 const SET_FRIENDS = "myApp/users-reducer/SET_FRIENDS"; // редакс дакс
 const FRIENDS_INITIAL_STATE = "myApp/users-reducer/FRIENDS_INITIAL_STATE"; //константа зануления при логауте

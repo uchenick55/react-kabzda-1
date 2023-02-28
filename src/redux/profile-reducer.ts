@@ -1,4 +1,5 @@
-import {apiProfile} from "../components/api/api";
+// @ts-ignore
+import {apiProfile} from "../components/api/api.ts";
 // @ts-ignore
 import {getAuthMeThunkCreator, setMyProfile} from "./auth-reducer.ts";
 // @ts-ignore

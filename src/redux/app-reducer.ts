@@ -41,15 +41,14 @@ let appReducer = (state:initialStateType = initialState, action:any):initialStat
 }
 
 export let initialisedAppThunkCreator = () => {// санкреатор инициализации приложения
-  let initialisedAppThunk = (dispatch:any) => { // санки  инициализации приложения
+  return (dispatch: any) => { // санки  инициализации приложения
     const promise1 = dispatch(getAuthMeThunkCreator()) // проверка статуса авторизации
     const promise2 = dispatch(getThemeThunkCreator()) // получение темы
-    Promise.all([promise1,promise2]) // если все промисы зарезолвились
-      .then(() => {
-        dispatch(setInitialisedApp()) // смена флага инициализации на true
-      })
-  }
-  return initialisedAppThunk;
+    Promise.all([promise1, promise2]) // если все промисы зарезолвились
+        .then(() => {
+          dispatch(setInitialisedApp()) // смена флага инициализации на true
+        })
+  };
 }
 
 export default appReducer;

@@ -1,5 +1,6 @@
 import {apiDialogs} from "../components/api/apiLocalStorage";
-import {apiDialogs2} from "../components/api/api";
+// @ts-ignore
+import {apiDialogs2} from "../components/api/api.ts";
 
 const DIALOGS_INITIAL_STATE = "myApp/dialogs-reducer/DIALOGS_INITIAL_STATE";  //константа зануления при логауте
 const SET_MESSAGES = "myApp/dialogs-reducer/SET_MESSAGES";  //константа задания списка сообщений в стейт
@@ -8,8 +9,9 @@ const DIALOG_LAST_UPDATE_TIME = "myApp/dialogs-reducer/DIALOG_LAST_UPDATE_TIME";
 const DIALOG_USER_FOLLOWED = "myApp/dialogs-reducer/DIALOG_USER_FOLLOWED"; //константа проверки follow/unfollow выбранный пользователь (для списка диалогов)
 const GET_MY_DIALOG_LIST = "myApp/dialogs-reducer/GET_MY_DIALOG_LIST"; //константа получения моего диалогЛиста
 
-export let dialogsInitialState = () => { // экшнкреатор зануления при логауте
-  return {type: DIALOGS_INITIAL_STATE,}
+type dialogsInitialStateType =  {type: typeof DIALOGS_INITIAL_STATE}
+export let dialogsInitialState = ():dialogsInitialStateType => { // экшнкреатор зануления при логауте
+  return {type: DIALOGS_INITIAL_STATE}
 };
 export let setMessages = (updatedMessages) => { // экшнкреатор задания списка сообщений в стейт messages2
   return {type: SET_MESSAGES, updatedMessages}

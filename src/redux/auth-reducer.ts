@@ -1,5 +1,5 @@
-import {apiProfile} from "../components/api/api";
-
+// @ts-ignore
+import {apiProfile} from "../components/api/api.ts";
 // @ts-ignore
 import {friendsInitialState} from "./sidebar-reducer.ts";
 // @ts-ignore
@@ -15,24 +15,49 @@ const SET_CAPTCHA_URL = "myApp/auth-reducer/SET_CAPTCHA_URL"; //констант
 const SET_LOGIN_ERROR= "myApp/auth-reducer/SET_LOGIN_ERROR"; //константа задания ошибки авторизации
 const SET_MY_PROFILE = "myApp/auth-reducer/SET_MY_PROFILE"; // константа задания расширенных данных моего профиля
 
-export let setMyProfile = (myProfile) => { // экшн креатор задания расширенных данных моего профиля
+type setMyProfileActionType = {type: typeof SET_MY_PROFILE, myProfile: object}
+export let setMyProfile = (myProfile:object):setMyProfileActionType => { // экшн креатор задания расширенных данных моего профиля
     return {type: SET_MY_PROFILE, myProfile}
 };
-export let setAuthData = (id, email, login, isAuth) => { // экшн креатор задания моих ID, Email, login
+
+type setAuthDataActionType = {
+    type: typeof SET_MY_DATA,
+    id:number,
+    email:string,
+    login:string,
+    isAuth: boolean
+}
+export let setAuthData = (id:number, email:string, login:string, isAuth:boolean):setAuthDataActionType => {
+    // экшн креатор задания моих ID, Email, login
     return {type: SET_MY_DATA, id, email, login, isAuth}
 };
-export let authInitialState = () => { // экшн креатор зануления при логауте
+
+type authInitialStateActionType = {type: typeof AUTH_INITIAL_STATE}
+export let authInitialState = ():authInitialStateActionType => { // экшн креатор зануления при логауте
     return {type: AUTH_INITIAL_STATE}
 };
-export let setCaptchaURL = (captchaURL) => { // экшн креатор задания URL каптчи ответа от сервера
+
+type setCaptchaURLActionType = {type: typeof SET_CAPTCHA_URL, captchaURL: string}
+export let setCaptchaURL = (captchaURL:string):setCaptchaURLActionType => { // экшн креатор задания URL каптчи ответа от сервера
     return {type: SET_CAPTCHA_URL, captchaURL}
 };
-export let setLoginError = (loginError) => { // экшн креатор задания моих ID, Email, login
+
+type setLoginErrorActionType = {type: typeof SET_LOGIN_ERROR, loginError: string}
+export let setLoginError = (loginError: string):setLoginErrorActionType => { // экшн креатор задания ошибки с сервера
     return {type: SET_LOGIN_ERROR, loginError}
 };
 
 
-let initialState = { // стейт по умолчанию для моего профиля
+type initialStateType = { // стейт по умолчанию для моего профиля
+    myId: number | null, // мой ID по умолчанию
+    myEmail: string | null,// мой Email по умолчанию
+    myLogin: string | null,// мой логин по умолчанию
+    isAuth: boolean, // Флаг авторизации
+    myProfile: object | null, // мой расширенный профиль по умолчанию
+    captchaURL: string | null, // URL каптчи после 5 неправильных вводов
+    loginError: string | null, // ошибка авторизации с сервера
+}
+let initialState:initialStateType = { // стейт по умолчанию для моего профиля
     myId: null, // мой ID по умолчанию
     myEmail: null,// мой Email по умолчанию
     myLogin: null,// мой логин по умолчанию
@@ -42,8 +67,8 @@ let initialState = { // стейт по умолчанию для моего п�
     loginError: null, // ошибка авторизации с сервера
 }
 
-let authReducer = (state = initialState, action) => { // редьюсер авторизации и моего профиля
-    let stateCopy; // объявлениечасти части стейта до изменения редьюсером
+let authReducer = (state:initialStateType = initialState, action:any):initialStateType => { // редьюсер авторизации и моего профиля
+    let stateCopy:initialStateType; // объявлениечасти части стейта до изменения редьюсером
     switch (action.type) {
         case SET_MY_DATA: // экшн задания моих id, email, login
             stateCopy = {
@@ -84,7 +109,7 @@ let authReducer = (state = initialState, action) => { // редьюсер авт
 }
 
 export let getAuthMeThunkCreator = () => {//санкреатор я авторизован?. Данных для запроса нет
-    let getAuthMeThunk = async (dispatch) => {
+    return async (dispatch: any) => {
         const response1 = await apiProfile.getAuthMe() // я авторизован?
         if (response1.resultCode === 0) { //если я авторизован
             dispatch(setAuthData(
@@ -101,12 +126,12 @@ export let getAuthMeThunkCreator = () => {//санкреатор я автори
         if (response1.resultCode !== 0) { //пользователь не авторизован
             dispatch(authInitialState()) // запустить зануление стейта
         }
-    }
-    return getAuthMeThunk;
+    };
 }
 
-export let postLoginThunkCreator = (email, password, rememberme, captchaURL) => {//санкреатор на логин
-    let postLoginThunk = async (dispatch) => { // объявление санки на логин
+export let postLoginThunkCreator = (email:string, password:string, rememberme:boolean, captchaURL:string) => {
+    //санкреатор на логин
+    return async (dispatch: any) => { // объявление санки на логин
         const response = await apiProfile.postLogin(email, password, rememberme, captchaURL) // отправка данных на авторизацию из формы логина
         if (response.resultCode === 0) { // если успешная авторизация на сервере
             dispatch(getAuthMeThunkCreator()) // получить данные с сервера авторизованного пользователя
@@ -120,11 +145,11 @@ export let postLoginThunkCreator = (email, password, rememberme, captchaURL) => 
             }
             dispatch(setLoginError(message)) // ошибка авторизации для формика
         }
-    }
-    return postLoginThunk;
+    };
 }
+
 export let deleteLoginThunkCreator = () => {//санкреатор на логАут
-    let deleteLoginThunk = async (dispatch) => { // объявление санки на логаут
+    return async (dispatch: any) => { // объявление санки на логаут
         const response = await apiProfile.deleteLogin() // отправка запроса на логаут
         if (response.resultCode === 0) { // если сессия успешно закрыта
             setTimeout(() => {
@@ -143,16 +168,14 @@ export let deleteLoginThunkCreator = () => {//санкреатор на логА
         } else {
             console.log(response.messages) // вывести в консоль сообщение ошибки логаута
         }
-    }
-    return deleteLoginThunk;
+    };
 }
 
 export let getCaptchaThunkCreator = () => {//санкреатор на получение каптчи
-    let getCaptchaThunk = async (dispatch) => { // санка на получение каптчи
+    return async (dispatch: any) => { // санка на получение каптчи
         const response2 = await apiProfile.getCaptcha() // запрос каптчи
         dispatch(setCaptchaURL(response2.url)) // получить данные с сервера авторизованного пользователя
-    }
-    return getCaptchaThunk;
+    };
 }
 
 export default authReducer;
