@@ -4,23 +4,34 @@ import {apiUsers} from "../components/api/api.ts";
 const SET_FRIENDS = "myApp/users-reducer/SET_FRIENDS"; // редакс дакс
 const FRIENDS_INITIAL_STATE = "myApp/users-reducer/FRIENDS_INITIAL_STATE"; //константа зануления при логауте
 
-export let setFriends = (users) => {//экшн креатор задания списка друзей
+type setFriendsActyionType = {type: typeof SET_FRIENDS, users: object}
+export let setFriends = (users:object):setFriendsActyionType => {//экшн креатор задания списка друзей
   return {type: SET_FRIENDS, users}
 };
-export let friendsInitialState = (users) => {//экшн креатор зануления при логауте
+
+type friendsInitialStateActionType = {type: typeof FRIENDS_INITIAL_STATE, users:object}
+export let friendsInitialState = (users:object):friendsInitialStateActionType => {//экшн креатор зануления при логауте
   return {type: FRIENDS_INITIAL_STATE, users}
 };
 
-let initialState = {
+
+type initialStateType = {
+  myFriends2: object[] | null,
+  friendsCurrentPage: number,
+  friendsPageSize: number,
+  friendsTerm: string,
+  friend: boolean
+}
+let initialState:initialStateType = {
   myFriends2: [], // массив списка друзей
   friendsCurrentPage: 1, // текущая страница выгрузки друзей
   friendsPageSize: 50, // количество друзей в одной выгрузке с сервера
   friendsTerm: "", // поиск по друзьям
   friend: true // поиск по друзьям (только те, что follow = true)
-
 }
-const sidebarReducer = (state = initialState, action) => {
-  let stateCopy; // объявлениечасти части стейта до изменения редьюсером
+
+const sidebarReducer = (state:initialStateType = initialState, action:any):initialStateType => {
+  let stateCopy:initialStateType; // объявлениечасти части стейта до изменения редьюсером
   switch (action.type) {
     case SET_FRIENDS:
       stateCopy = {...state, myFriends2: action.users};
@@ -33,20 +44,13 @@ const sidebarReducer = (state = initialState, action) => {
   }
 }
 
-export let getFriendsThunkCreator = (currentPage, pageSize, term, friend) => {//санкреатор получить друзей с данными
-  let getUsersThunk = (dispatch) => { // санка получить друзей
-
+export let getFriendsThunkCreator = (currentPage:number, pageSize:number, term:string, friend:boolean) => {//санкреатор получить друзей с данными
+  return (dispatch:any) => { // санка получить друзей
     apiUsers.getUsers(currentPage, pageSize, term, friend) //получить друзей по текущей странице и размере страницы
-      .then((data) => {
-        dispatch(setFriends(data.items))//записать в стейт загруженный стек друзей
-      })
-/*
-      .catch((error)=>{
-        console.log("=======================>", error) // отображение ошибки в случае, если then ее выдаст
-      })
-*/
+        .then((data) => {
+          dispatch(setFriends(data.items))//записать в стейт загруженный стек друзей
+        })
   }
-  return getUsersThunk
 }
 
 export default sidebarReducer;
