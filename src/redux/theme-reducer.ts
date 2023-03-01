@@ -39,7 +39,7 @@ export let setThemeThunkCreator = (theme1:"light" | "dark") => {//санкреа
   }
 }
 export let getThemeThunkCreator = () => {//санкреатор получения темы из LocalStorage
-  let getThemeThunk = async (dispatch) => { // санка получения темы из LocalStorage
+  let getThemeThunk = async (dispatch:any) => { // санка получения темы из LocalStorage
     const response1 = await apiCommon.getTheme1()  //получить значение темы из localStorage
     if (response1) {
       dispatch(setTheme(response1))  //записать считаное из localStorage значение темы в store

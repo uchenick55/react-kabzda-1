@@ -60,14 +60,26 @@ export let setOnlyFriends = (onlyFriends:boolean):setOnlyFriendsActionType => { 
     return {type: SET_ONLY_FRIENDS, onlyFriends}
 };
 
+type usersType = {
+    followed: boolean
+    id:number
+    name:string
+    photos: {
+        large: string | null
+        small: string | null
+    }
+    status: string | null
+    uniqueUrlName:string | null
+}
+
 type initialStateType = {
-    users: Array<object>, // массив пользователей по умолчанию (пока пустой)
+    users: Array<usersType> | null, // массив пользователей по умолчанию (пока пустой)
     pageSize: number, // размер пачки пользователей при загрузке с сервера
     totalUsersCount: number, // общее количество пользователей по умолчанию
     currentPage: number, // текущая страница загрузки пользователей по умолчанию
     isFetching: boolean, // статус загрузки (крутилка)
     followingInProgress: Array<number>, // массив тех пользователей, которые в процессе follow/unfollow для disable button
-    term: string | "", // поисковый запрос среди пользователей
+    term: string, // поисковый запрос среди пользователей
     needUpdateFriends: boolean, // флаг, что список друзей изменился, нужно обновить
     onlyFriends: boolean
 }
@@ -177,13 +189,13 @@ const followUnfollowFlow
 
 export let followThunkCreator = (userId:number, currentPage:number, pageSize:number, term:string, friend:boolean) => {//санкреатор follow с данными
 
-    return (dispatch) => {// санка follow
+    return (dispatch:any) => {// санка follow
         followUnfollowFlow(dispatch, userId, currentPage, pageSize, apiUsers.postFollow.bind(apiUsers), term, friend);
     }
 }
 
 export let unfollowThunkCreator: typeof followThunkCreator = (userId, currentPage, pageSize, term, friend) => {//санкреатор unfollow с данными
-    return (dispatch) => {// санка unfollow
+    return (dispatch:any) => {// санка unfollow
         followUnfollowFlow(dispatch, userId, currentPage, pageSize, apiUsers.deleteFollow.bind(apiUsers), term, friend);
     }
 }
