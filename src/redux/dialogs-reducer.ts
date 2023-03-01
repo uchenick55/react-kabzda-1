@@ -13,23 +13,62 @@ type dialogsInitialStateType =  {type: typeof DIALOGS_INITIAL_STATE}
 export let dialogsInitialState = ():dialogsInitialStateType => { // экшнкреатор зануления при логауте
   return {type: DIALOGS_INITIAL_STATE}
 };
-export let setMessages = (updatedMessages) => { // экшнкреатор задания списка сообщений в стейт messages2
+
+type setMessagesActionType = {type: typeof SET_MESSAGES, updatedMessages:Array<messages2Type>}
+export let setMessages = (updatedMessages:Array<messages2Type>):setMessagesActionType => { // экшнкреатор задания списка сообщений в стейт messages2
   return {type: SET_MESSAGES, updatedMessages}
 };
-export let setdialogUserID = (dialogUserID) => { // экшнкреатор задания списка сообщений в стейт messages2
+
+type setdialogUserIDActionType = {type: typeof DIALOG_USER_ID, dialogUserID:number}
+export let setdialogUserID = (dialogUserID:number):setdialogUserIDActionType => { // экшнкреатор задания списка сообщений в стейт messages2
   return {type: DIALOG_USER_ID, dialogUserID}
 };
-export let setDialogLastUpdateTime = (dialogLastUpdateTime) => { // экшнкреатор задания последнего времени обновления текущего диалога
+
+type setDialogLastUpdateTimeActionType = {type: typeof  DIALOG_LAST_UPDATE_TIME, dialogLastUpdateTime:string}
+export let setDialogLastUpdateTime = (dialogLastUpdateTime:string):setDialogLastUpdateTimeActionType => { // экшнкреатор задания последнего времени обновления текущего диалога
   return {type: DIALOG_LAST_UPDATE_TIME, dialogLastUpdateTime}
 };
-export let setDialogUserFollowed = (dialogUserFollowed) => { // экшнкреатор задания последнего времени обновления текущего диалога
+
+type setDialogUserFollowedActionType = {type: typeof DIALOG_USER_FOLLOWED, dialogUserFollowed:boolean}
+export let setDialogUserFollowed = (dialogUserFollowed:boolean):setDialogUserFollowedActionType => { // экшнкреатор задания последнего времени обновления текущего диалога
   return {type: DIALOG_USER_FOLLOWED, dialogUserFollowed}
 };
-export let getMyDialogList = (myDialogList) => { // экшнкреатор задания моего диалогЛиста для вывода
+
+type getMyDialogListActionType={type: typeof GET_MY_DIALOG_LIST, myDialogList:Array<object>}
+export let getMyDialogList = (myDialogList:Array<object>):getMyDialogListActionType => { // экшнкреатор задания моего диалогЛиста для вывода
   return {type: GET_MY_DIALOG_LIST, myDialogList}
 };
 
-let initialState = { // стейт сообщений по умолчанию
+type dialogs2Type = {
+  dialogId: number
+  userId: number
+  userName: string
+  userPhoto: string
+}
+
+type DateType = {
+  Day: number
+  Hour: number
+  Minutes: number
+  Month:string
+  Seconds: number
+  Year :number
+}
+
+type messages2Type = {
+  id: number
+  Date: DateType
+  userId: number
+  message: string
+}
+type initialStateType = { // стейт сообщений по умолчанию
+  messages2: Array<messages2Type> | [],
+  dialogUserID: number | null, // ID пользователя с кем диалог
+  dialogUserFollowed: boolean, // собеседник followed? (друг)
+  dialogLastUpdateTime: string | null, // последнее время обновления текущего диалога
+  dialogs2: Array<dialogs2Type> | [] // мой диалогЛист. Берет данные с LocalStorage по всем входящим диалогам
+}
+let initialState:initialStateType = { // стейт сообщений по умолчанию
   messages2: [],
   dialogUserID: null, // ID пользователя с кем диалог
   dialogUserFollowed: false, // собеседник followed? (друг)
@@ -37,8 +76,8 @@ let initialState = { // стейт сообщений по умолчанию
   dialogs2: [] // мой диалогЛист. Берет данные с LocalStorage по всем входящим диалогам
 }
 
-let dialogsReducer = (state = initialState, action) => { // редьюсер диалогов
-  let stateCopy; // объявлениечасти части стейта до изменения редьюсером
+let dialogsReducer = (state:initialStateType = initialState, action: any):initialStateType => { // редьюсер диалогов
+  let stateCopy:initialStateType; // объявлениечасти части стейта до изменения редьюсером
   switch (action.type) {
     case DIALOGS_INITIAL_STATE: // экшн отправки сообщений по данным из формы диалогов
       stateCopy = initialState;
@@ -81,68 +120,58 @@ let dialogsReducer = (state = initialState, action) => { // редьюсер д�
   }
 }
 
-export let getDialogsThunkCreator = (myId, userId) => {//санкреатор получения диалогов с данными
-
-  let getDialogsThunk = async (dispatch) => {// санка получения сообщений диалога
+export let getDialogsThunkCreator = (myId:number, userId:number) => {//санкреатор получения диалогов с данными
+  return async (dispatch:any) => {// санка получения сообщений диалога
     let updatedMessages = await apiDialogs.getDialog(myId, userId)
     dispatch(setMessages(updatedMessages))
   }
-  return getDialogsThunk
 }
-export let sendDialogsThunkCreator = (formDataNewMessage, myId, MyName, MyPhoto, userId) => {//санкреатор отправки нового сообщения в диалог
-
-  let sendDialogsThunk = async (dispatch) => {// санка отправки нового сообщения в диалог
+export let sendDialogsThunkCreator = (formDataNewMessage:string, myId:number, MyName:string, MyPhoto:string, userId:number) => {//санкреатор отправки нового сообщения в диалог
+  return async (dispatch:any) => {// санка отправки нового сообщения в диалог
     let updatedMessages = await apiDialogs.postDialog(formDataNewMessage, myId, MyName, MyPhoto, userId)
     dispatch(setMessages(updatedMessages))
   }
-  return sendDialogsThunk
 }
 
-export let getDialogLastUpdateTimeTnkCrt = (myId, userId) => {//санкреатор получения диалогов с данными
-  let getDialogLastUpdateTimeTnk = async (dispatch) => {// санка получения сообщений диалога
+export let getDialogLastUpdateTimeTnkCrt = (myId:number, userId:number) => {//санкреатор получения диалогов с данными
+  return async (dispatch:any) => {// санка получения сообщений диалога
     let dialogLastUpdateTime = await apiDialogs.getUpdateTime(myId, userId) // запросить время обновления текущего диалога
     dispatch(setDialogLastUpdateTime(dialogLastUpdateTime)) // отправить в BLL время последнего обновления текущего диалога
   }
-  return getDialogLastUpdateTimeTnk
 }
 
-export let deleteMessageThunkCreator = (messageID, myId, userId) => {//санкреатор удаления сообщения из далога
-  let deleteMessageThunk = async (dispatch) => {// санка удаления сообщения из далога
+export let deleteMessageThunkCreator = (messageID:number, myId:number, userId:number) => {//санкреатор удаления сообщения из далога
+  return async (dispatch:any) => {// санка удаления сообщения из далога
     let dialogAfterDeleteMessage = await apiDialogs.deleteMessage(messageID, myId, userId) // удалить сообщение на стороне сервера и запросить обновленные данные
     dispatch(setMessages(dialogAfterDeleteMessage))// записать в стейт обновленный список сообщений
   }
-  return deleteMessageThunk
 }
 
-export let getFollowThunkCreator = (dialogUserID) => {//санкреатор проверки follow/unfollow выбранного юзера для составления списка диалогов
-  let getFollowThunk = async (dispatch) => {// санка
+/*let getFollowThunkCreator = (dialogUserID) => {//санкреатор проверки follow/unfollow выбранного юзера для составления списка диалогов
+  return async (dispatch:any) => {// санка
     let dialogUserFollowed = await apiDialogs2.getFollow(dialogUserID) // проверка follow/unfollow выбранного юзера для составления списка диалогов
     dispatch(setDialogUserFollowed(dialogUserFollowed))// записать в стейт follow/unfollow выбранного пользователя
   }
-  return getFollowThunk
-}
-export let getMyDialogListThunkCreator = (myId) => {//санкреатор получения моего диалогЛиста
-  let getMyDialogListThunk = async (dispatch) => {// санка
+}*/
+export let getMyDialogListThunkCreator = (myId:number) => {//санкреатор получения моего диалогЛиста
+  return async (dispatch:any) => {// санка
     let myDialogList = await apiDialogs.getDialogListMyID(myId) // получение моего диалогЛиста
     dispatch(getMyDialogList(myDialogList))// записать в стейт мой диалоглист
   }
-  return getMyDialogListThunk
 }
-export let updateDialogListThunkCreator = (userId1, userId2, Name2, Photo2) => {
+export let updateDialogListThunkCreator = (userId1:number, userId2:number, Name2:string, Photo2:string) => {
   //санкреатор обновления диалогЛиста (моего когда я пишу кому то сообщение) - запись в localStorage.
-  let updateDialogListThunk = async (dispatch) => {// санка
-      await apiDialogs.updateDialogListUserId(userId1, userId2, Name2, Photo2) // получение моего диалогЛиста
+  return async (dispatch:any) => {// санка
+    await apiDialogs.updateDialogListUserId(userId1, userId2, Name2, Photo2) // получение моего диалогЛиста
   }
-  return updateDialogListThunk
 }
 
-export let deleteDialogThunkCreator = (dialogId, userId1, userId2) => {
+export let deleteDialogThunkCreator = (dialogId:number, userId1:number, userId2:number) => {
   //санкреатор удаления диалога из диалогЛиста
-  let deleteDialogThunk = async (dispatch) => {// санка
-      await apiDialogs.deleteDialog(dialogId, userId1, userId2) // получение моего диалогЛиста после удаления диалога
+  return async (dispatch:any) => {// санка
+    await apiDialogs.deleteDialog(dialogId, userId1, userId2) // получение моего диалогЛиста после удаления диалога
 // записать в стейт не провожу - обновление раз в секунду
   }
-  return deleteDialogThunk
 }
 
 export default dialogsReducer;

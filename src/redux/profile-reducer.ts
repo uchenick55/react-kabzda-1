@@ -13,40 +13,66 @@ const PROFILE_INITIAL_STATE = "myApp/profile-reducer/PROFILE_INITIAL_STATE" // �
 const SET_PROFILE_PHOTO = "myApp/profile-reducer/SET_PROFILE_PHOTO" // константа задания фото профиля
 const SET_EDIT_PROFILE_ERROR= "myApp/auth-reducer/SET_EDIT_PROFILE_ERROR"; //константа задания ошибки правеки профиля
 
-export let setEditProfileStatus = (editProfileStatus) => { // экшн креатор задания ошибки с сервера в стейт после правки профиля
+type setEditProfileStatusActionType ={type: typeof SET_EDIT_PROFILE_ERROR, editProfileStatus: Array<string>}
+export let setEditProfileStatus = (editProfileStatus: Array<string>):setEditProfileStatusActionType => { // экшн креатор задания ошибки с сервера в стейт после правки профиля
     return {type: SET_EDIT_PROFILE_ERROR, editProfileStatus}
 };
-export let deletePostActionCreator = (postId) => { // экшнкреатор удаления поста по postId
+
+type deletePostActionCreatorActionType = {type:typeof DELETE_POST, postId:number}
+export let deletePostActionCreator = (postId:number):deletePostActionCreatorActionType => { // экшнкреатор удаления поста по postId
     return {type: DELETE_POST, postId}
 };
-export let addPostActionCreator = (newPostData) => { // экшнкреатор добавления поста
+
+type addPostActionCreatorActionType ={type:typeof ADD_POST, newPostData: object}
+export let addPostActionCreator = (newPostData: object):addPostActionCreatorActionType => { // экшнкреатор добавления поста
     return {type: ADD_POST, newPostData}
 };
-let setUserProfile = (profile) => { // экшнкреатор задания в локальный стейт профиля просматриваемого пользователя
+
+type setUserProfileActionType ={type:typeof SET_USER_PROFILE, profile: object}
+    let setUserProfile = (profile: object):setUserProfileActionType => { // экшнкреатор задания в локальный стейт профиля просматриваемого пользователя
     return {type: SET_USER_PROFILE, profile}
 };
-export let setStatus = (newStatus) => { //экшнкреатор задания моего статуса (после API запроса)
+
+type setStatusActionType ={type:typeof SET_STATUS, newStatus: string}
+export let setStatus = (newStatus: string):setStatusActionType => { //экшнкреатор задания моего статуса (после API запроса)
     return {type: SET_STATUS, newStatus}
 };
-export let profileInitialState = () => { //экшнкреатор зануления при логауте
+
+type profileInitialStateActionType ={type:typeof PROFILE_INITIAL_STATE}
+export let profileInitialState = ():profileInitialStateActionType => { //экшнкреатор зануления при логауте
     return {type: PROFILE_INITIAL_STATE}
 };
-export let setProfilePhoto = () => { //экшнкреатор задания фото профиля
+
+type setProfilePhotoActionType = {type:typeof SET_PROFILE_PHOTO}
+export let setProfilePhoto = ():setProfilePhotoActionType => { //экшнкреатор задания фото профиля
     return {type: SET_PROFILE_PHOTO}
 };
 
-let initialState = {
+type postsType = {
+    id: number
+    message: string
+    like: number
+}
+
+type initialStateType = { //тип инишиалстейта
+    posts: null | Array<postsType>
+    profile: null | object
+    status: null | string
+    editProfileStatus: Array<string>
+
+}
+let initialState:initialStateType = {
     posts: [// заглушка постов на странице профиля
-        {id: 1, message: "state 2 Hi, how are you?", like: "12"},
-        {id: 2, message: "state 2 it's, my first post", like: "15"},
-    ],
+        {id: 1, message: "state 2 Hi, how are you?", like: 12},
+        {id: 2, message: "state 2 it's, my first post", like: 15},
+    ] as Array<postsType>,
     profile: null, // нулевой профиль просматриваемого пользователя по умолчанию
     status: null, // нулевой статус просматриваемого пользователя по умолчанию
     editProfileStatus: [], // список ошибок правки формы профиля с сервера
 
 }
-export let profileReducer = (state = initialState, action) => { // редьюсер профиля
-    let stateCopy; // объявлениечасти части стейта до изменения редьюсером
+export let profileReducer = (state:initialStateType = initialState, action:any):initialStateType => { // редьюсер профиля
+    let stateCopy:initialStateType; // объявлениечасти части стейта до изменения редьюсером
     switch (action.type) {
         case SET_USER_PROFILE: // задание в локальный стейт профиля просматриваемого пользователя
             stateCopy = {
@@ -93,15 +119,13 @@ export let profileReducer = (state = initialState, action) => { // редьюс�
     }
 }
 
-export let getProfileThunkCreator = (userId, shouldUpdateDialogList, myId) => { // санкреатор на получение профиля выбранного пользователя
-    return async (dispatch) => { // нонейм санка на получение профиля выбранного пользователя
-
+export let getProfileThunkCreator = (userId:number, shouldUpdateDialogList:boolean, myId:number) => { // санкреатор на получение профиля выбранного пользователя
+    return async (dispatch:any) => { // нонейм санка на получение профиля выбранного пользователя
         let CommonPart = (response, userId) => { // общая часть для задания статуса профиля и получения статуса
             dispatch(setUserProfile(response)) // задание полных данных в профиль
             dispatch(getStatusThunkCreator(userId)) // запрос моего статуса
             if (shouldUpdateDialogList) {// проверка нужно ли обновить диалоглист
                 dispatch(updateDialogListThunkCreator(myId, response.userId, response.fullName, response.photos.small  )) // обновление длиалоглиста
-
             }
         }
 
@@ -119,37 +143,37 @@ export let getProfileThunkCreator = (userId, shouldUpdateDialogList, myId) => { 
     }
 }
 
-export let getStatusThunkCreator = (userId) => {  // санкреатор запроса статуса выбранного пользователя
-    return async (dispatch) => { // нонейм санка запроса статуса выбранного пользователя
+export let getStatusThunkCreator = (userId:number) => {  // санкреатор запроса статуса выбранного пользователя
+    return async (dispatch:any) => { // нонейм санка запроса статуса выбранного пользователя
         const response = await apiProfile.getStatus(userId) // api запрос получение статуса по userId
         dispatch(setStatus(response)) // задание статуса в локальный стейт с последующей переотрисовкой
     }
 }
-export let putStatusThunkCreator = (statusTmpInput, myId) => { // санкреатор обновления моего статуса
-    return async (dispatch) => { // нонеййм санка обновления моего статуса
+export let putStatusThunkCreator = (statusTmpInput:string, myId:number) => { // санкреатор обновления моего статуса
+    return async (dispatch:any) => { // нонеййм санка обновления моего статуса
         const response = await apiProfile.putStatus(statusTmpInput) // отправка нового статуса на сервер
         if (response.resultCode === 0) { // если успешное обновление статуса с сервера
             dispatch(getStatusThunkCreator(myId))// получение нового статуса с сервера после обновления
         }
     }
 }
-export let setprofilePhotoThunkCreator = (profilePhoto, myId) => { // санкреатор установки фотографии моего профиля
-    return async (dispatch) => { // нонеййм санка установки фотографии моего профиля
+export let setprofilePhotoThunkCreator = (profilePhoto:string, myId:number) => { // санкреатор установки фотографии моего профиля
+    return async (dispatch:any) => { // нонеййм санка установки фотографии моего профиля
         const response = await apiProfile.putPhoto(profilePhoto) // отправка нового статуса на сервер
         if (response.resultCode === 0) { // если успешное обновление статуса с сервера
-            dispatch(getProfileThunkCreator(myId,null, null));// перезапрашиваем данные профиля после обновления фото
+            dispatch(getProfileThunkCreator(myId,false, null));// перезапрашиваем данные профиля после обновления фото
             dispatch(getAuthMeThunkCreator()) // обновить данные моего профиля (header photo) при обновлении фото
         }
     }
 }
 
-export let putMyProfileThunkCreator = (MyProfile, myId) => { // санкреатор установки моего профиля myProfile
-    return async (dispatch) => { // нонеййм санка установки моего профиля myProfile
+export let putMyProfileThunkCreator = (MyProfile:object, myId:number) => { // санкреатор установки моего профиля myProfile
+    return async (dispatch:any) => { // нонеййм санка установки моего профиля myProfile
         const response = await apiProfile.putMyProfileData(MyProfile) // отправка нового статуса на сервер
         if (response.resultCode === 0) { // если успешное обновление профиля на сервере
             const response2 = await apiProfile.getProfile(myId)//получение моих дополнительных данных после записи на сервер
             dispatch(setMyProfile(response2))//задание в стейт моих доп данных
-            dispatch(getProfileThunkCreator(myId, null, null))
+            dispatch(getProfileThunkCreator(myId, false, null))
             dispatch(setEditProfileStatus(["Edited successfully!"])) // отправить данные ошибки в стейт
         } else { // если пришла ошибка с сервера ввода формы правки профиля
             let message =  // определение локальной переменной message - ответ от сервера

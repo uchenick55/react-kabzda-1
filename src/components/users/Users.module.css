@@ -47,8 +47,8 @@
     --bs-card-spacer-y: 0rem;
     --bs-card-spacer-x: 0rem;
     display: flex;
-    justify-content: center;
     align-items: center;
     padding: 1rem;
     --bs-card-bg: var(--color3); /*цвет карточек в Users*/
+    height: 8rem;
 }

@@ -3,7 +3,7 @@ import DialogList from "./DialogList";
 import {
     deleteDialogThunkCreator,
     getDialogLastUpdateTimeTnkCrt,
-    getDialogsThunkCreator, getFollowThunkCreator, getMyDialogListThunkCreator,
+    getDialogsThunkCreator, getMyDialogListThunkCreator,//getFollowThunkCreator,
     setdialogUserID,
     setMessages
 } from "../../redux/dialogs-reducer.ts";
@@ -57,46 +57,6 @@ class DialogListContainer extends React.Component {
         this.props.getMyDialogListThunkCreator(this.props.myId)
     }
 
-/*
-    sendMessage = (NewMessage) => { // отправка сообщения
-        if (!this.props.userId) { // при клике просто по вкладке DialogList
-            alert("Выберите диалог") // предупреждение если диалог не выбран
-            return
-        }
-        if (!NewMessage) { // при клике просто по вкладке DialogList
-            return // не реагировать на пустые сообщения
-        }
-
-        let profilePage = this.props.profilePage // локальный стейт страницы пользователя
-        let userName = 0 // задаем переменную имени пользователя
-        let userPhoto = 0 // и его фото для отображения в диалоглисте
-        if (profilePage!==null) { // если профиль пользователя уже загружен
-            userName = this.props.profilePage.profile.fullName; // переопределить имя пользователя
-            userPhoto = this.props.profilePage.profile.photos.small; // и его фото и стейта
-        }
-
-        this.props.sendDialogsThunkCreator( // отправить сообщение
-            NewMessage,
-            this.props.auth.myId, // мой ID для формирования DialogList собеседника
-            this.props.auth.myLogin, // мой логин  для формирования DialogList собеседника
-            this.props.auth.myProfile.photos.small, // мое фото  для формирования DialogList собеседника
-            this.props.userId, // ID собеседника для формирования моего DialogList
-        ); // отправить сообщение
-
-        this.props.updateDialogListThunkCreator( // обновление диалогЛиста
-            this.props.auth.myId, // мой ID
-            this.props.userId, // ID с кем веду диалог
-            userName, // его имя
-            userPhoto // и фото
-        )
-        //userId1, userId2, Name2, Photo2
-    }
-*/
-
-/*    deleteMessage = (messageID) => { // удалить сообщение по его ID в списке
-        this.props.deleteMessageThunkCreator(messageID, this.props.myId, this.props.userId);
-    }*/
-
     deleteDialog = (dialogId, userId2) => {
         this.props.deleteDialogThunkCreator(dialogId, this.props.myId, userId2)
         // здесь сменить URL без ID
@@ -148,7 +108,7 @@ export default compose(
             getDialogLastUpdateTimeTnkCrt,//санкреатор получения диалогов с данными
          //   deleteMessageThunkCreator,//санкреатор удаления сообщения из далога
             getProfileThunkCreator,// санкреатор на получение профиля выбранного пользователя
-            getFollowThunkCreator,//санкреатор проверки follow/unfollow выбранного юзера для составления списка диалогов
+            //  getFollowThunkCreator,санкреатор проверки follow/unfollow выбранного юзера для составления списка диалогов
             getMyDialogListThunkCreator,//санкреатор получения моего диалогЛиста
           //  updateDialogListThunkCreator,//санкреатор обновления диалогЛиста (моего когда я пишу кому то сообщение) - запись в localStorage.
             deleteDialogThunkCreator, //санкреатор удаления диалога из диалогЛиста
