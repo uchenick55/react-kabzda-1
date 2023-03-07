@@ -1,7 +1,7 @@
 {
   "files": {
-    "main.css": "/react-kabzda-1/static/css/main.cd9eb797.css",
-    "main.js": "/react-kabzda-1/static/js/main.16dfcd93.js",
+    "main.css": "/react-kabzda-1/static/css/main.4ca9989c.css",
+    "main.js": "/react-kabzda-1/static/js/main.f7d37b87.js",
     "static/js/526.6d652d89.chunk.js": "/react-kabzda-1/static/js/526.6d652d89.chunk.js",
     "static/js/166.bd8bc0f6.chunk.js": "/react-kabzda-1/static/js/166.bd8bc0f6.chunk.js",
     "static/js/19.9d6d95cd.chunk.js": "/react-kabzda-1/static/js/19.9d6d95cd.chunk.js",
@@ -31,6 +31,7 @@
     "static/media/bootstrap.jpg": "/react-kabzda-1/static/media/bootstrap.07fc240e0a19cc0c29a1.jpg",
     "static/media/no-image3.png": "/react-kabzda-1/static/media/no-image3.c9034bb506157e8b0738.png",
     "static/media/News.jpg": "/react-kabzda-1/static/media/News.0bfc4fa8b9666d6fc2cf.jpg",
+    "static/media/CryptoCalculator.jpg": "/react-kabzda-1/static/media/CryptoCalculator.6fe3c11c18805421384f.jpg",
     "static/media/krestiki-noliki.jpg": "/react-kabzda-1/static/media/krestiki-noliki.ff159d577b01cfbf033b.jpg",
     "static/media/dialog-svgrepo-com.svg": "/react-kabzda-1/static/media/dialog-svgrepo-com.0d0c7d1c2dbd133450ec43d4683a2547.svg",
     "static/media/info.svg": "/react-kabzda-1/static/media/info.ac07131552e2f4f5c5f435b344660269.svg",
@@ -43,8 +44,8 @@
     "static/media/logout2.svg": "/react-kabzda-1/static/media/logout2.354ba8f19f0bbf866016da247c41bb5c.svg",
     "index.html": "/react-kabzda-1/index.html",
     "static/media/go-back2.svg": "/react-kabzda-1/static/media/go-back2.c1306080385fc9ecb1bfc86f56f9ab08.svg",
-    "main.cd9eb797.css.map": "/react-kabzda-1/static/css/main.cd9eb797.css.map",
-    "main.16dfcd93.js.map": "/react-kabzda-1/static/js/main.16dfcd93.js.map",
+    "main.4ca9989c.css.map": "/react-kabzda-1/static/css/main.4ca9989c.css.map",
+    "main.f7d37b87.js.map": "/react-kabzda-1/static/js/main.f7d37b87.js.map",
     "526.6d652d89.chunk.js.map": "/react-kabzda-1/static/js/526.6d652d89.chunk.js.map",
     "166.bd8bc0f6.chunk.js.map": "/react-kabzda-1/static/js/166.bd8bc0f6.chunk.js.map",
     "19.9d6d95cd.chunk.js.map": "/react-kabzda-1/static/js/19.9d6d95cd.chunk.js.map",
@@ -70,7 +71,7 @@
     "532.5cb8604a.chunk.css.map": "/react-kabzda-1/static/css/532.5cb8604a.chunk.css.map"
   },
   "entrypoints": [
-    "static/css/main.cd9eb797.css",
-    "static/js/main.16dfcd93.js"
+    "static/css/main.4ca9989c.css",
+    "static/js/main.f7d37b87.js"
   ]
 }
