@@ -1,7 +1,7 @@
 {
   "files": {
-    "main.css": "/react-kabzda-1/static/css/main.4ca9989c.css",
-    "main.js": "/react-kabzda-1/static/js/main.f7d37b87.js",
+    "main.css": "/react-kabzda-1/static/css/main.99896f58.css",
+    "main.js": "/react-kabzda-1/static/js/main.02148959.js",
     "static/js/526.6d652d89.chunk.js": "/react-kabzda-1/static/js/526.6d652d89.chunk.js",
     "static/js/166.bd8bc0f6.chunk.js": "/react-kabzda-1/static/js/166.bd8bc0f6.chunk.js",
     "static/js/19.9d6d95cd.chunk.js": "/react-kabzda-1/static/js/19.9d6d95cd.chunk.js",
@@ -12,9 +12,9 @@
     "static/js/401.0f3ed1fb.chunk.js": "/react-kabzda-1/static/js/401.0f3ed1fb.chunk.js",
     "static/js/931.80479422.chunk.js": "/react-kabzda-1/static/js/931.80479422.chunk.js",
     "static/css/524.f641ba0c.chunk.css": "/react-kabzda-1/static/css/524.f641ba0c.chunk.css",
-    "static/js/524.e3d3bad1.chunk.js": "/react-kabzda-1/static/js/524.e3d3bad1.chunk.js",
+    "static/js/524.69856cfc.chunk.js": "/react-kabzda-1/static/js/524.69856cfc.chunk.js",
     "static/css/789.ee3d8577.chunk.css": "/react-kabzda-1/static/css/789.ee3d8577.chunk.css",
-    "static/js/789.2d8ec35b.chunk.js": "/react-kabzda-1/static/js/789.2d8ec35b.chunk.js",
+    "static/js/789.06f5602c.chunk.js": "/react-kabzda-1/static/js/789.06f5602c.chunk.js",
     "static/css/469.45caa41e.chunk.css": "/react-kabzda-1/static/css/469.45caa41e.chunk.css",
     "static/js/469.ea014f1c.chunk.js": "/react-kabzda-1/static/js/469.ea014f1c.chunk.js",
     "static/js/718.f72839f9.chunk.js": "/react-kabzda-1/static/js/718.f72839f9.chunk.js",
@@ -33,19 +33,19 @@
     "static/media/News.jpg": "/react-kabzda-1/static/media/News.0bfc4fa8b9666d6fc2cf.jpg",
     "static/media/CryptoCalculator.jpg": "/react-kabzda-1/static/media/CryptoCalculator.6fe3c11c18805421384f.jpg",
     "static/media/krestiki-noliki.jpg": "/react-kabzda-1/static/media/krestiki-noliki.ff159d577b01cfbf033b.jpg",
-    "static/media/dialog-svgrepo-com.svg": "/react-kabzda-1/static/media/dialog-svgrepo-com.0d0c7d1c2dbd133450ec43d4683a2547.svg",
+    "static/media/dialog-svgrepo-com.svg": "/react-kabzda-1/static/media/dialog-svgrepo-com.299239adca60e0536c40a6aea5f6fee4.svg",
     "static/media/info.svg": "/react-kabzda-1/static/media/info.ac07131552e2f4f5c5f435b344660269.svg",
     "static/media/info-home-black.svg": "/react-kabzda-1/static/media/info-home-black.1d502f3ececb68807afbecb9d0e409b9.svg",
-    "static/media/send-svg2.svg": "/react-kabzda-1/static/media/send-svg2.bf250e69b5830be8d34d1dd3f2cbf9ac.svg",
+    "static/media/send-svg2.svg": "/react-kabzda-1/static/media/send-svg2.12d8e771d6d27bcd4485de69966afd04.svg",
     "static/media/day-night.svg": "/react-kabzda-1/static/media/day-night.d4f130e9886002ce4ea7ae1bf28fc995.svg",
     "static/media/login.svg": "/react-kabzda-1/static/media/login.e191970491d6eb54d92a42145381c9f8.svg",
-    "static/media/star-.svg": "/react-kabzda-1/static/media/star-.b5a91c838974fe9894b8b52694e8f9dd.svg",
+    "static/media/star-.svg": "/react-kabzda-1/static/media/star-.0741470d42a207292c915853e443c7c4.svg",
     "static/media/star+.svg": "/react-kabzda-1/static/media/star+.8f12c1f646656dcb9d3b823059f13349.svg",
     "static/media/logout2.svg": "/react-kabzda-1/static/media/logout2.354ba8f19f0bbf866016da247c41bb5c.svg",
     "index.html": "/react-kabzda-1/index.html",
     "static/media/go-back2.svg": "/react-kabzda-1/static/media/go-back2.c1306080385fc9ecb1bfc86f56f9ab08.svg",
-    "main.4ca9989c.css.map": "/react-kabzda-1/static/css/main.4ca9989c.css.map",
-    "main.f7d37b87.js.map": "/react-kabzda-1/static/js/main.f7d37b87.js.map",
+    "main.99896f58.css.map": "/react-kabzda-1/static/css/main.99896f58.css.map",
+    "main.02148959.js.map": "/react-kabzda-1/static/js/main.02148959.js.map",
     "526.6d652d89.chunk.js.map": "/react-kabzda-1/static/js/526.6d652d89.chunk.js.map",
     "166.bd8bc0f6.chunk.js.map": "/react-kabzda-1/static/js/166.bd8bc0f6.chunk.js.map",
     "19.9d6d95cd.chunk.js.map": "/react-kabzda-1/static/js/19.9d6d95cd.chunk.js.map",
@@ -56,9 +56,9 @@
     "401.0f3ed1fb.chunk.js.map": "/react-kabzda-1/static/js/401.0f3ed1fb.chunk.js.map",
     "931.80479422.chunk.js.map": "/react-kabzda-1/static/js/931.80479422.chunk.js.map",
     "524.f641ba0c.chunk.css.map": "/react-kabzda-1/static/css/524.f641ba0c.chunk.css.map",
-    "524.e3d3bad1.chunk.js.map": "/react-kabzda-1/static/js/524.e3d3bad1.chunk.js.map",
+    "524.69856cfc.chunk.js.map": "/react-kabzda-1/static/js/524.69856cfc.chunk.js.map",
     "789.ee3d8577.chunk.css.map": "/react-kabzda-1/static/css/789.ee3d8577.chunk.css.map",
-    "789.2d8ec35b.chunk.js.map": "/react-kabzda-1/static/js/789.2d8ec35b.chunk.js.map",
+    "789.06f5602c.chunk.js.map": "/react-kabzda-1/static/js/789.06f5602c.chunk.js.map",
     "469.45caa41e.chunk.css.map": "/react-kabzda-1/static/css/469.45caa41e.chunk.css.map",
     "469.ea014f1c.chunk.js.map": "/react-kabzda-1/static/js/469.ea014f1c.chunk.js.map",
     "718.f72839f9.chunk.js.map": "/react-kabzda-1/static/js/718.f72839f9.chunk.js.map",
@@ -71,7 +71,7 @@
     "532.5cb8604a.chunk.css.map": "/react-kabzda-1/static/css/532.5cb8604a.chunk.css.map"
   },
   "entrypoints": [
-    "static/css/main.4ca9989c.css",
-    "static/js/main.f7d37b87.js"
+    "static/css/main.99896f58.css",
+    "static/js/main.02148959.js"
   ]
 }
