@@ -4,6 +4,7 @@ import {apiProfile} from "../components/api/api.ts";
 import {getAuthMeThunkCreator, setMyProfile} from "./auth-reducer.ts";
 // @ts-ignore
 import {updateDialogListThunkCreator} from "./dialogs-reducer.ts";
+import {postsType} from "../types/commonTypes";
 
 const DELETE_POST = "myApp/profile-reducer/DELETE_POST";// константа удаления новых постов
 const ADD_POST = "myApp/profile-reducer/ADD-POST";// константа отправки новых постов
@@ -48,11 +49,7 @@ export let setProfilePhoto = ():setProfilePhotoActionType => { //экшнкре�
     return {type: SET_PROFILE_PHOTO}
 };
 
-type postsType = {
-    id: number
-    message: string
-    like: number
-}
+
 
 type initialStateType = { //тип инишиалстейта
     posts: null | Array<postsType>
@@ -157,9 +154,9 @@ export let putStatusThunkCreator = (statusTmpInput:string, myId:number) => { // 
         }
     }
 }
-export let setprofilePhotoThunkCreator = (profilePhoto:string, myId:number) => { // санкреатор установки фотографии моего профиля
+export let setprofilePhotoThunkCreator = (profilePhoto:any, myId:number) => { // санкреатор установки фотографии моего профиля
     return async (dispatch:any) => { // нонеййм санка установки фотографии моего профиля
-        const response = await apiProfile.putPhoto(profilePhoto) // отправка нового статуса на сервер
+        const response = await apiProfile.putPhoto(profilePhoto) // отправка нового фото на сервер
         if (response.resultCode === 0) { // если успешное обновление статуса с сервера
             dispatch(getProfileThunkCreator(myId,false, null));// перезапрашиваем данные профиля после обновления фото
             dispatch(getAuthMeThunkCreator()) // обновить данные моего профиля (header photo) при обновлении фото

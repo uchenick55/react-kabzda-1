@@ -1,5 +1,6 @@
-// @ts-ignore
+    // @ts-ignore
 import {apiUsers} from "../components/api/api.ts";
+import {usersType} from "../types/commonTypes";
 
 const SET_TERM = "myApp/users-reducer/SET_TERM";
 const SET_USERS = "myApp/users-reducer/SET_USERS";
@@ -16,8 +17,8 @@ export let setTerm = (term: string):setTermActionType => {
     return {type: SET_TERM, term}
 };
 
-type setUsersActionType = { type: typeof SET_USERS, users: Array<object>}
-let setUsers = (users: Array<object>): setUsersActionType => {
+type setUsersActionType = { type: typeof SET_USERS, users: Array<usersType>}
+let setUsers = (users: Array<usersType>): setUsersActionType => {
     return {type: SET_USERS, users}
 };
 
@@ -60,17 +61,6 @@ export let setOnlyFriends = (onlyFriends:boolean):setOnlyFriendsActionType => { 
     return {type: SET_ONLY_FRIENDS, onlyFriends}
 };
 
-type usersType = {
-    followed: boolean
-    id:number
-    name:string
-    photos: {
-        large: string | null
-        small: string | null
-    }
-    status: string | null
-    uniqueUrlName:string | null
-}
 
 type initialStateType = {
     users: Array<usersType> | null, // массив пользователей по умолчанию (пока пустой)
