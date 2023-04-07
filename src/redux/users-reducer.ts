@@ -1,76 +1,83 @@
 // @ts-ignore
 import {apiUsers} from "../components/api/api.ts";
+import {getUsersType, usersType} from "../types/commonTypes";
+import {ThunkAction} from "redux-thunk";
+import {GlobalStateType} from "./store-redux";
+import {Dispatch} from "redux";
+
+
 
 const SET_TERM = "myApp/users-reducer/SET_TERM";
-const SET_USERS = "myApp/users-reducer/SET_USERS";
-const SET_CURRENT_PAGE = "myApp/users-reducer/SET_CURRENT_PAGE";
-const SET_TOTAL_USERS_COUNT = "myApp/users-reducer/SET_TOTAL_USERS_COUNT";
-const TOGGLE_IS_FETCHING = "myApp/users-reducer/TOGGLE_IS_FETCHING";
-const TOGGLE_IS_FOLLOWING_PROGRESS = "myApp/users-reducer/TOGGLE_IS_FOLLOWING_PROGRESS";
-const NEED_UPDATE_FRIENDS = "myApp/users-reducer/NEED_UPDATE_FRIENDS";
-const USERS_INITIAL_STATE = "myApp/users-reducer/USERS_INITIAL_STATE";
-const SET_ONLY_FRIENDS = "myApp/users-reducer/SET_ONLY_FRIENDS";// экшн отображения только моих друзей, или общий список
 
-type setTermActionType = { type: typeof SET_TERM, term: string}
-export let setTerm = (term: string):setTermActionType => {
+type setTermActionType = { type: typeof SET_TERM, term: string }
+export let setTerm = (term: string): setTermActionType => {
     return {type: SET_TERM, term}
 };
 
-type setUsersActionType = { type: typeof SET_USERS, users: Array<object>}
-let setUsers = (users: Array<object>): setUsersActionType => {
+const SET_USERS = "myApp/users-reducer/SET_USERS";
+
+type setUsersActionType = { type: typeof SET_USERS, users: Array<usersType> }
+let setUsers = (users: Array<usersType>): setUsersActionType => {
     return {type: SET_USERS, users}
 };
 
-type setCurrentPageActionType = {type: typeof SET_CURRENT_PAGE, currentPage: number}
-export let setCurrentPage = (currentPage: number):setCurrentPageActionType  => {
+
+const SET_CURRENT_PAGE = "myApp/users-reducer/SET_CURRENT_PAGE";
+
+type setCurrentPageActionType = { type: typeof SET_CURRENT_PAGE, currentPage: number }
+export let setCurrentPage = (currentPage: number): setCurrentPageActionType => {
     return {type: SET_CURRENT_PAGE, currentPage}
 };
 
-type toggleIsFetchingActionType = { type: typeof TOGGLE_IS_FETCHING, isFetching: boolean}
-let toggleIsFetching = (isFetching: boolean):toggleIsFetchingActionType => {
+const TOGGLE_IS_FETCHING = "myApp/users-reducer/TOGGLE_IS_FETCHING";
+
+type toggleIsFetchingActionType = { type: typeof TOGGLE_IS_FETCHING, isFetching: boolean }
+let toggleIsFetching = (isFetching: boolean): toggleIsFetchingActionType => {
     return {type: TOGGLE_IS_FETCHING, isFetching}
 };
 
-type setUsersTotalCountActionType = {type: typeof SET_TOTAL_USERS_COUNT, totalUsersCount: number}
-let setUsersTotalCount = (totalUsersCount:number):setUsersTotalCountActionType => {
+const SET_TOTAL_USERS_COUNT = "myApp/users-reducer/SET_TOTAL_USERS_COUNT";
+
+type setUsersTotalCountActionType = { type: typeof SET_TOTAL_USERS_COUNT, totalUsersCount: number }
+let setUsersTotalCount = (totalUsersCount: number): setUsersTotalCountActionType => {
     return {type: SET_TOTAL_USERS_COUNT, totalUsersCount}
 };
+
+const TOGGLE_IS_FOLLOWING_PROGRESS = "myApp/users-reducer/TOGGLE_IS_FOLLOWING_PROGRESS";
 
 type toggleIsFollowingProgerssActionType = {
     type: typeof TOGGLE_IS_FOLLOWING_PROGRESS
     isFetching: boolean
     id: number
 }
-let toggleIsFollowingProgerss = (isFetching:boolean, id:number):toggleIsFollowingProgerssActionType => {
+let toggleIsFollowingProgerss = (isFetching: boolean, id: number): toggleIsFollowingProgerssActionType => {
     return {type: TOGGLE_IS_FOLLOWING_PROGRESS, isFetching, id}
 };
 
-type needUpdateFriendsACActionType = { type: typeof NEED_UPDATE_FRIENDS, needUpdateFriends: boolean}
-export let needUpdateFriendsAC = (needUpdateFriends:boolean):needUpdateFriendsACActionType => {
+const NEED_UPDATE_FRIENDS = "myApp/users-reducer/NEED_UPDATE_FRIENDS";
+
+type needUpdateFriendsACActionType = { type: typeof NEED_UPDATE_FRIENDS, needUpdateFriends: boolean }
+export let needUpdateFriendsAC = (needUpdateFriends: boolean): needUpdateFriendsACActionType => {
     return {type: NEED_UPDATE_FRIENDS, needUpdateFriends}
 };
 
-type usersInitialStateActonType = {type: typeof USERS_INITIAL_STATE}
-export let usersInitialState = ():usersInitialStateActonType => {
+const USERS_INITIAL_STATE = "myApp/users-reducer/USERS_INITIAL_STATE";
+
+type usersInitialStateActonType = { type: typeof USERS_INITIAL_STATE }
+export let usersInitialState = (): usersInitialStateActonType => {
     return {type: USERS_INITIAL_STATE}
 };
 
-type setOnlyFriendsActionType = {type: typeof SET_ONLY_FRIENDS, onlyFriends: boolean}
-export let setOnlyFriends = (onlyFriends:boolean):setOnlyFriendsActionType => { // экшн креатор отображения только моих друзей, или общий список
+const SET_ONLY_FRIENDS = "myApp/users-reducer/SET_ONLY_FRIENDS";// экшн отображения только моих друзей, или общий список
+
+type setOnlyFriendsActionType = { type: typeof SET_ONLY_FRIENDS, onlyFriends: boolean }
+export let setOnlyFriends = (onlyFriends: boolean): setOnlyFriendsActionType => { // экшн креатор отображения только моих друзей, или общий список
     return {type: SET_ONLY_FRIENDS, onlyFriends}
 };
 
-type usersType = {
-    followed: boolean
-    id:number
-    name:string
-    photos: {
-        large: string | null
-        small: string | null
-    }
-    status: string | null
-    uniqueUrlName:string | null
-}
+type ActionTypes = setOnlyFriendsActionType | usersInitialStateActonType | needUpdateFriendsACActionType |
+    toggleIsFollowingProgerssActionType | setUsersTotalCountActionType | toggleIsFetchingActionType |
+    setCurrentPageActionType | setUsersActionType | setTermActionType
 
 type initialStateType = {
     users: Array<usersType> | null, // массив пользователей по умолчанию (пока пустой)
@@ -83,7 +90,7 @@ type initialStateType = {
     needUpdateFriends: boolean, // флаг, что список друзей изменился, нужно обновить
     onlyFriends: boolean
 }
-let initialState:initialStateType = {
+let initialState: initialStateType = {
     users: [], // массив пользователей по умолчанию (пока пустой)
     pageSize: 12, // размер пачки пользователей при загрузке с сервера
     totalUsersCount: 0, // общее количество пользователей по умолчанию
@@ -95,7 +102,7 @@ let initialState:initialStateType = {
     onlyFriends: false
     , // получить список только моих друзей
 }
-let usersReducer = (state:initialStateType = initialState, action:any ):initialStateType => {
+let usersReducer = (state: initialStateType = initialState, action: any): initialStateType => {
     // типы принимаемые и возвращаемые редьюсером
     let stateCopy: initialStateType; // объявление части стейта до изменения редьюсером
     switch (action.type) {
@@ -104,7 +111,7 @@ let usersReducer = (state:initialStateType = initialState, action:any ):initialS
                 ...state,
                 followingInProgress: action.isFetching
                     ? [...state.followingInProgress, action.id] // кнопка follow/unfollow нажата, добавление в массив followingInProgress id кнопки
-                    : state.followingInProgress.filter(id => id !== action.id)// пришел ответ от сервера OK, удаляем id кнопки из массива followingInProgress
+                    : state.followingInProgress.filter( id => id !== action.id )// пришел ответ от сервера OK, удаляем id кнопки из массива followingInProgress
             }
             return stateCopy; // вернуть копию стейта
         case SET_USERS:
@@ -154,49 +161,66 @@ let usersReducer = (state:initialStateType = initialState, action:any ):initialS
     }
 }
 
+export let getUsersThunkCreator //санкреатор получить пользователей с данными
+    = (currentPage: number, pageSize: number, term: string, friend: boolean, userId: number) => {
 
-export let getUsersThunkCreator = (currentPage: number, pageSize: number, term: string, friend:boolean, userId: number) => {
-    //санкреатор получить пользователей с данными
-    return (dispatch:any) => { // нонейм санка получить пользователей
-        dispatch(toggleIsFetching(true)) //показать крутилку загрузки с сервера
+    return (dispatch: Dispatch<ActionTypes>) => { // нонейм санка получить пользователей
+        dispatch( toggleIsFetching( true ) ) //показать крутилку загрузки с сервера
 
-        apiUsers.getUsers(currentPage, pageSize, term, friend) //получить пользователей по текущей странице и размере страницы
-            .then((data: any) => {
-                dispatch(toggleIsFetching(false))  //убрать крутилку загрузки с сервера
-                dispatch(setUsers(data.items))//записать в стейт закгруженный стек пользователей
-                dispatch(setUsersTotalCount(data.totalCount))//записать в стейт общее количество пользователей
+        apiUsers.getUsers( currentPage, pageSize, term, friend ) //получить пользователей по текущей странице и размере страницы
+            .then( (data: getUsersType) => {
+                dispatch( toggleIsFetching( false ) )  //убрать крутилку загрузки с сервера
+                dispatch( setUsers( data.items ) )//записать в стейт закгруженный стек пользователей
+                dispatch( setUsersTotalCount( data.totalCount ) )//записать в стейт общее количество пользователей
 
                 if (userId) { // если добавление/удаление пользователя в избранное
-                    dispatch(needUpdateFriendsAC(true)) // обновить список избранного
-                    dispatch(toggleIsFollowingProgerss(false, userId))//убрать ID кнопки пользователя из массива followingInProgress, кнопка раздизаблена
+                    dispatch( needUpdateFriendsAC( true ) ) // обновить список избранного
+                    dispatch( toggleIsFollowingProgerss( false, userId ) )//убрать ID кнопки пользователя из массива followingInProgress, кнопка раздизаблена
                 }
-            })
+            } )
     }
 }
 
-const followUnfollowFlow
-    : (dispatch, userId:number, currentPage:number, pageSize:number, apiMethod, term:string, friend:boolean)=> void
-    = (dispatch, userId, currentPage, pageSize, apiMethod, term, friend) => {
-    dispatch(toggleIsFollowingProgerss(true, userId))//внести ID кнопки пользователя в массив followingInProgress от повторного нажатия
-    apiMethod(userId)// подписаться на пользователя // diff apiMethod = postFollow
-        .then((response) => {
-            if (response.resultCode === 0) {
-                dispatch(getUsersThunkCreator(currentPage, pageSize, term, friend, userId))
-                // получить список пользователей после добавления/удаления из избранного
-            }
-        })
+type responseType = {
+    data: object,
+    fieldsErrors: Array<string>,
+    messages: Array<string>,
+    resultCode: number
 }
 
-export let followThunkCreator = (userId:number, currentPage:number, pageSize:number, term:string, friend:boolean) => {//санкреатор follow с данными
+type followUnfollowFlowType = (
+    dispatch: Dispatch<ActionTypes>,
+    userId: number,
+    currentPage: number,
+    pageSize: number,
+    apiMethod: any,// (userId:number)=>,
+    term: string,
+    friend:boolean
 
-    return (dispatch:any) => {// санка follow
-        followUnfollowFlow(dispatch, userId, currentPage, pageSize, apiUsers.postFollow.bind(apiUsers), term, friend);
+) => void
+
+const followUnfollowFlow:followUnfollowFlowType = (dispatch, userId, currentPage, pageSize, apiMethod, term, friend) => {
+    dispatch( toggleIsFollowingProgerss( true, userId ) )//внести ID кнопки пользователя в массив followingInProgress от повторного нажатия
+    apiMethod( userId )// подписаться на пользователя // diff apiMethod = postFollow
+        .then( (response: responseType) => {
+            if (response.resultCode === 0) {
+                // @ts-ignore
+                dispatch( getUsersThunkCreator( currentPage, pageSize, term, friend, userId ) )
+                // получить список пользователей после добавления/удаления из избранного
+            }
+        } )
+}
+
+export let followThunkCreator = (userId: number, currentPage: number, pageSize: number, term: string, friend: boolean) => {//санкреатор follow с данными
+
+    return (dispatch: Dispatch<ActionTypes>) => {// санка follow
+        followUnfollowFlow( dispatch, userId, currentPage, pageSize, apiUsers.postFollow.bind( apiUsers ), term, friend );
     }
 }
 
 export let unfollowThunkCreator: typeof followThunkCreator = (userId, currentPage, pageSize, term, friend) => {//санкреатор unfollow с данными
-    return (dispatch:any) => {// санка unfollow
-        followUnfollowFlow(dispatch, userId, currentPage, pageSize, apiUsers.deleteFollow.bind(apiUsers), term, friend);
+    return (dispatch: Dispatch<ActionTypes>) => {// санка unfollow
+        followUnfollowFlow( dispatch, userId, currentPage, pageSize, apiUsers.deleteFollow.bind( apiUsers ), term, friend );
     }
 }
 export default usersReducer;

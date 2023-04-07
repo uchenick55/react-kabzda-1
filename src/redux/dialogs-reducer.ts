@@ -159,6 +159,8 @@ export let getMyDialogListThunkCreator = (myId:number) => {//санкреато�
     dispatch(getMyDialogList(myDialogList))// записать в стейт мой диалоглист
   }
 }
+
+//updateDialogListThunkCreator(myId, response.userId, response.fullName, response.photos.small
 export let updateDialogListThunkCreator = (userId1:number, userId2:number, Name2:string, Photo2:string) => {
   //санкреатор обновления диалогЛиста (моего когда я пишу кому то сообщение) - запись в localStorage.
   return async (dispatch:any) => {// санка

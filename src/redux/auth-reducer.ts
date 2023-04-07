@@ -15,7 +15,7 @@ const SET_CAPTCHA_URL = "myApp/auth-reducer/SET_CAPTCHA_URL"; //констант
 const SET_LOGIN_ERROR= "myApp/auth-reducer/SET_LOGIN_ERROR"; //константа задания ошибки авторизации
 const SET_MY_PROFILE = "myApp/auth-reducer/SET_MY_PROFILE"; // константа задания расширенных данных моего профиля
 
-type setMyProfileActionType = {type: typeof SET_MY_PROFILE, myProfile: object}
+export type setMyProfileActionType = {type: typeof SET_MY_PROFILE, myProfile: object}
 export let setMyProfile = (myProfile:object):setMyProfileActionType => { // экшн креатор задания расширенных данных моего профиля
     return {type: SET_MY_PROFILE, myProfile}
 };

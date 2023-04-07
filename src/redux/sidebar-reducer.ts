@@ -1,5 +1,7 @@
 // @ts-ignore
 import {apiUsers} from "../components/api/api.ts";
+import {Dispatch} from "redux";
+import {getUsersType} from "../types/commonTypes";
 
 const SET_FRIENDS = "myApp/users-reducer/SET_FRIENDS"; // редакс дакс
 const FRIENDS_INITIAL_STATE = "myApp/users-reducer/FRIENDS_INITIAL_STATE"; //константа зануления при логауте
@@ -8,6 +10,8 @@ type setFriendsActyionType = {type: typeof SET_FRIENDS, users: object}
 export let setFriends = (users:object):setFriendsActyionType => {//экшн креатор задания списка друзей
   return {type: SET_FRIENDS, users}
 };
+
+type ActionTypes = setFriendsActyionType
 
 type friendsInitialStateActionType = {type: typeof FRIENDS_INITIAL_STATE, users:object}
 export let friendsInitialState = (users:object):friendsInitialStateActionType => {//экшн креатор зануления при логауте
@@ -45,9 +49,9 @@ const sidebarReducer = (state:initialStateType = initialState, action:any):initi
 }
 
 export let getFriendsThunkCreator = (currentPage:number, pageSize:number, term:string, friend:boolean) => {//санкреатор получить друзей с данными
-  return (dispatch:any) => { // санка получить друзей
+  return (dispatch:Dispatch<ActionTypes>) => { // санка получить друзей
     apiUsers.getUsers(currentPage, pageSize, term, friend) //получить друзей по текущей странице и размере страницы
-        .then((data) => {
+        .then((data: getUsersType) => {
           dispatch(setFriends(data.items))//записать в стейт загруженный стек друзей
         })
   }
