@@ -1,6 +1,8 @@
 // @ts-ignore
 import {apiFeedBack2} from "../components/api/api.ts";
 import {apiFeedBackDataType} from "../types/commonTypes";
+import {Dispatch} from "redux";
+import {GlobalStateType} from "./store-redux";
 
 const SET_FEED_BACK_STATUS = "myApp/feedback-reducer/SET_FEED_BACK_STATUS"; // константа для задания статуса feedback
 
@@ -14,7 +16,9 @@ let initialState:initialStateType = { //стейт по умолчанию те�
   feedBackStatus: "" // статус отправки сообщения (feedBack) - если не нулевой отображается вместо формы сообщения
 }
 
-let feedBackReducer = (state:initialStateType = initialState, action:any):initialStateType => {//редьюсер отправки сообщения
+type ActionTypes = setFeedBackStatusActionType
+
+let feedBackReducer = (state:initialStateType = initialState, action:ActionTypes):initialStateType => {//редьюсер отправки сообщения
   let stateCopy:initialStateType; // объявлениечасти части стейта до изменения редьюсером
   switch (action.type) {
     case SET_FEED_BACK_STATUS: // экшн задания feedBackStatus
@@ -29,7 +33,7 @@ let feedBackReducer = (state:initialStateType = initialState, action:any):initia
 }
 
 export let postFeedBackThunkCreator2 = (data:apiFeedBackDataType) => {// санкреатор отправки фидбека
-  return async (dispatch: any) => { // санка отправки фидбека
+  return async (dispatch:Dispatch<ActionTypes>, getState: () => GlobalStateType) => { // санка отправки фидбека
     await apiFeedBack2.postFeedBack2(data) //
         .then(() => dispatch(setFeedBackStatus("Скоро мы получим ваше письмо")))// статсус задать в BLL "Скоро мы получим ваше письмо"
         .catch((err:object) => dispatch(setFeedBackStatus((err.toString()))));// в статус записать ошибку с сервера и задать в BLL

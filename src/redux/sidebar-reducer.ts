@@ -2,6 +2,7 @@
 import {apiUsers} from "../components/api/api.ts";
 import {Dispatch} from "redux";
 import {getUsersType} from "../types/commonTypes";
+import {GlobalStateType} from "./store-redux";
 
 const SET_FRIENDS = "myApp/users-reducer/SET_FRIENDS"; // редакс дакс
 const FRIENDS_INITIAL_STATE = "myApp/users-reducer/FRIENDS_INITIAL_STATE"; //константа зануления при логауте
@@ -49,7 +50,7 @@ const sidebarReducer = (state:initialStateType = initialState, action:any):initi
 }
 
 export let getFriendsThunkCreator = (currentPage:number, pageSize:number, term:string, friend:boolean) => {//санкреатор получить друзей с данными
-  return (dispatch:Dispatch<ActionTypes>) => { // санка получить друзей
+  return (dispatch:Dispatch<ActionTypes>, getState: () => GlobalStateType) => { // санка получить друзей
     apiUsers.getUsers(currentPage, pageSize, term, friend) //получить друзей по текущей странице и размере страницы
         .then((data: getUsersType) => {
           dispatch(setFriends(data.items))//записать в стейт загруженный стек друзей

@@ -8,6 +8,8 @@ import {dialogsInitialState} from "./dialogs-reducer.ts";
 import {profileInitialState} from "./profile-reducer.ts";
 // @ts-ignore
 import {usersInitialState} from "./users-reducer.ts";
+import {Dispatch} from "redux";
+import {GlobalStateType} from "./store-redux";
 
 const SET_MY_DATA = "myApp/auth-reducer/SET_MY_DATA"; // константа для задания базовых данных моего профиля (ID, Email, login, isAuth)
 const AUTH_INITIAL_STATE = "myApp/auth-reducer/AUTH_INITIAL_STATE"; //константа зануления при логауте
@@ -47,6 +49,8 @@ export let setLoginError = (loginError: string):setLoginErrorActionType => { // 
     return {type: SET_LOGIN_ERROR, loginError}
 };
 
+type ActionTypes = setLoginErrorActionType | setCaptchaURLActionType | authInitialStateActionType |
+    setAuthDataActionType | setMyProfileActionType
 
 type initialStateType = { // стейт по умолчанию для моего профиля
     myId: number | null, // мой ID по умолчанию
@@ -67,7 +71,7 @@ let initialState:initialStateType = { // стейт по умолчанию дл
     loginError: null, // ошибка авторизации с сервера
 }
 
-let authReducer = (state:initialStateType = initialState, action:any):initialStateType => { // редьюсер авторизации и моего профиля
+let authReducer = (state:initialStateType = initialState, action:ActionTypes):initialStateType => { // редьюсер авторизации и моего профиля
     let stateCopy:initialStateType; // объявлениечасти части стейта до изменения редьюсером
     switch (action.type) {
         case SET_MY_DATA: // экшн задания моих id, email, login
@@ -109,7 +113,7 @@ let authReducer = (state:initialStateType = initialState, action:any):initialSta
 }
 
 export let getAuthMeThunkCreator = () => {//санкреатор я авторизован?. Данных для запроса нет
-    return async (dispatch: any) => {
+    return async (dispatch:Dispatch<ActionTypes>, getState: () => GlobalStateType) => {
         const response1 = await apiProfile.getAuthMe() // я авторизован?
         if (response1.resultCode === 0) { //если я авторизован
             dispatch(setAuthData(
@@ -131,9 +135,10 @@ export let getAuthMeThunkCreator = () => {//санкреатор я автори
 
 export let postLoginThunkCreator = (email:string, password:string, rememberme:boolean, captchaURL:string) => {
     //санкреатор на логин
-    return async (dispatch: any) => { // объявление санки на логин
+    return async (dispatch:Dispatch<ActionTypes>, getState: () => GlobalStateType) => { // объявление санки на логин
         const response = await apiProfile.postLogin(email, password, rememberme, captchaURL) // отправка данных на авторизацию из формы логина
         if (response.resultCode === 0) { // если успешная авторизация на сервере
+            // @ts-ignore
             dispatch(getAuthMeThunkCreator()) // получить данные с сервера авторизованного пользователя
         } else { // если логин или пароль не подошли
             let message =  // определение локальной переменной message - ответ от сервера
@@ -141,6 +146,7 @@ export let postLoginThunkCreator = (email:string, password:string, rememberme:bo
                     ? "no responce from server" // вывести сообщение заглушку
                     : response.messages[0] // иначе вывести ответ от сервера
             if (response.resultCode === 10) { // если ошибка в многократном неправильном вводе логина и пароля
+                // @ts-ignore
                 dispatch(getCaptchaThunkCreator())
             }
             dispatch(setLoginError(message)) // ошибка авторизации для формика
@@ -149,7 +155,7 @@ export let postLoginThunkCreator = (email:string, password:string, rememberme:bo
 }
 
 export let deleteLoginThunkCreator = () => {//санкреатор на логАут
-    return async (dispatch: any) => { // объявление санки на логаут
+    return async (dispatch:Dispatch<ActionTypes>, getState: () => GlobalStateType) => { // объявление санки на логаут
         const response = await apiProfile.deleteLogin() // отправка запроса на логаут
         if (response.resultCode === 0) { // если сессия успешно закрыта
             setTimeout(() => {
@@ -172,7 +178,7 @@ export let deleteLoginThunkCreator = () => {//санкреатор на логА
 }
 
 export let getCaptchaThunkCreator = () => {//санкреатор на получение каптчи
-    return async (dispatch: any) => { // санка на получение каптчи
+    return async (dispatch:Dispatch<ActionTypes>, getState: () => GlobalStateType) => { // санка на получение каптчи
         const response2 = await apiProfile.getCaptcha() // запрос каптчи
         dispatch(setCaptchaURL(response2.url)) // получить данные с сервера авторизованного пользователя
     };
