@@ -1,7 +1,6 @@
-import * as axios from "axios";
+import axios from "axios";
 import {apiFeedBackDataType, ProfileType} from "../../types/commonTypes";
 
-// @ts-ignore
 const instance = axios.create({
   baseURL: 'https://social-network.samuraijs.com/api/1.0/',
   withCredentials: true,

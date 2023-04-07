@@ -1,10 +1,8 @@
-// @ts-ignore
-import {apiUsers} from "../components/api/api.ts";
+import {apiUsers} from "../components/api/api";
 import {getUsersType, usersType} from "../types/commonTypes";
 import {ThunkAction} from "redux-thunk";
 import {GlobalStateType} from "./store-redux";
 import {Dispatch} from "redux";
-
 
 
 const SET_TERM = "myApp/users-reducer/SET_TERM";
@@ -63,7 +61,7 @@ export let needUpdateFriendsAC = (needUpdateFriends: boolean): needUpdateFriends
 
 const USERS_INITIAL_STATE = "myApp/users-reducer/USERS_INITIAL_STATE";
 
-type usersInitialStateActonType = { type: typeof USERS_INITIAL_STATE }
+export type usersInitialStateActonType = { type: typeof USERS_INITIAL_STATE }
 export let usersInitialState = (): usersInitialStateActonType => {
     return {type: USERS_INITIAL_STATE}
 };
@@ -160,11 +158,15 @@ let usersReducer = (state: initialStateType = initialState, action: any): initia
             return state;
     }
 }
-
+type ThunkType = ThunkAction<void,    // санка ничего не возвращает
+    GlobalStateType,    // глобальный стейт из redux
+    unknown,    // нет доп параметров
+    ActionTypes // все типы ActionCreator
+    >
 export let getUsersThunkCreator //санкреатор получить пользователей с данными
-    = (currentPage: number, pageSize: number, term: string, friend: boolean, userId: number) => {
+    = (currentPage: number, pageSize: number, term: string, friend: boolean, userId: number): ThunkType => {
 
-    return (dispatch: Dispatch<ActionTypes>) => { // нонейм санка получить пользователей
+    return (dispatch, getState) => { // нонейм санка получить пользователей
         dispatch( toggleIsFetching( true ) ) //показать крутилку загрузки с сервера
 
         apiUsers.getUsers( currentPage, pageSize, term, friend ) //получить пользователей по текущей странице и размере страницы
@@ -188,18 +190,15 @@ type responseType = {
     resultCode: number
 }
 
-type followUnfollowFlowType = (
+const _followUnfollowFlow = ( // общий метод для санкреатеров followThunkCreator/unfollowThunkCreator
     dispatch: Dispatch<ActionTypes>,
     userId: number,
     currentPage: number,
     pageSize: number,
     apiMethod: any,// (userId:number)=>,
     term: string,
-    friend:boolean
-
-) => void
-
-const followUnfollowFlow:followUnfollowFlowType = (dispatch, userId, currentPage, pageSize, apiMethod, term, friend) => {
+    friend: boolean
+) => {
     dispatch( toggleIsFollowingProgerss( true, userId ) )//внести ID кнопки пользователя в массив followingInProgress от повторного нажатия
     apiMethod( userId )// подписаться на пользователя // diff apiMethod = postFollow
         .then( (response: responseType) => {
@@ -211,18 +210,19 @@ const followUnfollowFlow:followUnfollowFlowType = (dispatch, userId, currentPage
         } )
 }
 
-export let followThunkCreator = (userId: number, currentPage: number, pageSize: number, term: string, friend: boolean) => {//санкреатор follow с данными
-
-    return (dispatch: Dispatch<ActionTypes>) => {// санка follow
-        followUnfollowFlow( dispatch, userId, currentPage, pageSize, apiUsers.postFollow.bind( apiUsers ), term, friend );
+export let followThunkCreator =
+    (userId: number, currentPage: number, pageSize: number, term: string, friend: boolean): ThunkType => {//санкреатор follow с данными
+        return (dispatch, getState) => {// санка follow
+            _followUnfollowFlow( dispatch, userId, currentPage, pageSize, apiUsers.postFollow.bind( apiUsers ), term, friend );
+        }
     }
-}
 
-export let unfollowThunkCreator: typeof followThunkCreator = (userId, currentPage, pageSize, term, friend) => {//санкреатор unfollow с данными
-    return (dispatch: Dispatch<ActionTypes>) => {// санка unfollow
-        followUnfollowFlow( dispatch, userId, currentPage, pageSize, apiUsers.deleteFollow.bind( apiUsers ), term, friend );
+export let unfollowThunkCreator =
+    (userId: number, currentPage: number, pageSize: number, term: string, friend: boolean): ThunkType => {//санкреатор unfollow с данными
+        return (dispatch, getState) => {// санка unfollow
+            _followUnfollowFlow( dispatch, userId, currentPage, pageSize, apiUsers.deleteFollow.bind( apiUsers ), term, friend );
+        }
     }
-}
 export default usersReducer;
 
 

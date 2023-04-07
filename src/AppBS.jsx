@@ -4,7 +4,7 @@ import commonClasses from "./components/common/CommonClasses/common.module.css";
 import {HashRouter} from "react-router-dom";
 import HeaderContainer from "./components/Header/HeaderContainer";
 import {connect} from "react-redux";
-import {initialisedAppThunkCreator} from "./redux/app-reducer.ts";
+import {initialisedAppThunkCreator} from "./redux/app-reducer";
 import Preloader from "./components/common/Preloader/Preloader";
 import ContentContainer from "./components/Content/ContentContainer";
 import ErrorBoundary from "./components/common/ErrorBoundary/ErrorBoundary";

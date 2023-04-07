@@ -1,5 +1,5 @@
 import MyPostsBS from "./MyPostsBS";
-import {addPostActionCreator} from "../../../redux/profile-reducer.ts";
+import {addPostActionCreator} from "../../../redux/profile-reducer";
 import {connect} from "react-redux";
 
 let mapStateToProps = (state) => {

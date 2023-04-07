@@ -1,8 +1,6 @@
 import {apiDialogs} from "../components/api/apiLocalStorage";
-// @ts-ignore
-import {apiDialogs2} from "../components/api/api.ts";
-import {Dispatch} from "redux";
 import {GlobalStateType} from "./store-redux";
+import {ThunkAction} from "redux-thunk";
 
 const DIALOGS_INITIAL_STATE = "myApp/dialogs-reducer/DIALOGS_INITIAL_STATE";  //константа зануления при логауте
 const SET_MESSAGES = "myApp/dialogs-reducer/SET_MESSAGES";  //константа задания списка сообщений в стейт
@@ -11,7 +9,7 @@ const DIALOG_LAST_UPDATE_TIME = "myApp/dialogs-reducer/DIALOG_LAST_UPDATE_TIME";
 const DIALOG_USER_FOLLOWED = "myApp/dialogs-reducer/DIALOG_USER_FOLLOWED"; //константа проверки follow/unfollow выбранный пользователь (для списка диалогов)
 const GET_MY_DIALOG_LIST = "myApp/dialogs-reducer/GET_MY_DIALOG_LIST"; //константа получения моего диалогЛиста
 
-type dialogsInitialStateType =  {type: typeof DIALOGS_INITIAL_STATE}
+export type dialogsInitialStateType =  {type: typeof DIALOGS_INITIAL_STATE}
 export let dialogsInitialState = ():dialogsInitialStateType => { // экшнкреатор зануления при логауте
   return {type: DIALOGS_INITIAL_STATE}
 };
@@ -124,58 +122,59 @@ let dialogsReducer = (state:initialStateType = initialState, action: ActionTypes
       return state;
   }
 }
+type ThunkType = ThunkAction<
+    void,    // санка ничего не возвращает
+    GlobalStateType,    // глобальный стейт из redux
+    unknown,    // нет доп параметров
+    ActionTypes // все типы ActionCreator
+    >
 
-export let getDialogsThunkCreator = (myId:number, userId:number) => {//санкреатор получения диалогов с данными
-  return async (dispatch:Dispatch<ActionTypes>, getState: () => GlobalStateType) => {// санка получения сообщений диалога
+export let getDialogsThunkCreator = (myId:number, userId:number):ThunkType => {//санкреатор получения диалогов с данными
+  return async (dispatch, getState) => {// санка получения сообщений диалога
     let updatedMessages = await apiDialogs.getDialog(myId, userId)
     dispatch(setMessages(updatedMessages))
   }
 }
-export let sendDialogsThunkCreator = (formDataNewMessage:string, myId:number, MyName:string, MyPhoto:string, userId:number) => {//санкреатор отправки нового сообщения в диалог
-  return async (dispatch:Dispatch<ActionTypes>, getState: () => GlobalStateType) => {// санка отправки нового сообщения в диалог
+export let sendDialogsThunkCreator =
+    (formDataNewMessage:string, myId:number, MyName:string, MyPhoto:string, userId:number):ThunkType => {//санкреатор отправки нового сообщения в диалог
+  return async (dispatch, getState) => {// санка отправки нового сообщения в диалог
     let updatedMessages = await apiDialogs.postDialog(formDataNewMessage, myId, MyName, MyPhoto, userId)
     dispatch(setMessages(updatedMessages))
   }
 }
 
-export let getDialogLastUpdateTimeTnkCrt = (myId:number, userId:number) => {//санкреатор получения диалогов с данными
-  return async (dispatch:Dispatch<ActionTypes>, getState: () => GlobalStateType) => {// санка получения сообщений диалога
+export let getDialogLastUpdateTimeTnkCrt = (myId:number, userId:number):ThunkType => {//санкреатор получения диалогов с данными
+  return async (dispatch, getState) => {// санка получения сообщений диалога
     let dialogLastUpdateTime = await apiDialogs.getUpdateTime(myId, userId) // запросить время обновления текущего диалога
     dispatch(setDialogLastUpdateTime(dialogLastUpdateTime)) // отправить в BLL время последнего обновления текущего диалога
   }
 }
 
-export let deleteMessageThunkCreator = (messageID:number, myId:number, userId:number) => {//санкреатор удаления сообщения из далога
-  return async (dispatch:Dispatch<ActionTypes>, getState: () => GlobalStateType) => {// санка удаления сообщения из далога
+export let deleteMessageThunkCreator = (messageID:number, myId:number, userId:number):ThunkType => {//санкреатор удаления сообщения из далога
+  return async (dispatch, getState) => {// санка удаления сообщения из далога
     let dialogAfterDeleteMessage = await apiDialogs.deleteMessage(messageID, myId, userId) // удалить сообщение на стороне сервера и запросить обновленные данные
     dispatch(setMessages(dialogAfterDeleteMessage))// записать в стейт обновленный список сообщений
   }
 }
 
-/*let getFollowThunkCreator = (dialogUserID) => {//санкреатор проверки follow/unfollow выбранного юзера для составления списка диалогов
-  return async (dispatch:Dispatch<ActionTypes>, getState: () => GlobalStateType) => {// санка
-    let dialogUserFollowed = await apiDialogs2.getFollow(dialogUserID) // проверка follow/unfollow выбранного юзера для составления списка диалогов
-    dispatch(setDialogUserFollowed(dialogUserFollowed))// записать в стейт follow/unfollow выбранного пользователя
-  }
-}*/
-export let getMyDialogListThunkCreator = (myId:number) => {//санкреатор получения моего диалогЛиста
-  return async (dispatch:Dispatch<ActionTypes>, getState: () => GlobalStateType) => {// санка
+
+export let getMyDialogListThunkCreator = (myId:number):ThunkType => {//санкреатор получения моего диалогЛиста
+  return async (dispatch, getState) => {// санка
     let myDialogList = await apiDialogs.getDialogListMyID(myId) // получение моего диалогЛиста
     dispatch(getMyDialogList(myDialogList))// записать в стейт мой диалоглист
   }
 }
 
 //updateDialogListThunkCreator(myId, response.userId, response.fullName, response.photos.small
-export let updateDialogListThunkCreator = (userId1:number, userId2:number, Name2:string, Photo2:string) => {
+export let updateDialogListThunkCreator = (userId1:number, userId2:number, Name2:string, Photo2:string):ThunkType => {
   //санкреатор обновления диалогЛиста (моего когда я пишу кому то сообщение) - запись в localStorage.
-  return async (dispatch:Dispatch<ActionTypes>, getState: () => GlobalStateType) => {// санка
+  return async (dispatch, getState) => {// санка
     await apiDialogs.updateDialogListUserId(userId1, userId2, Name2, Photo2) // получение моего диалогЛиста
   }
 }
-
-export let deleteDialogThunkCreator = (dialogId:number, userId1:number, userId2:number) => {
+export let deleteDialogThunkCreator = (dialogId:number, userId1:number, userId2:number):ThunkType => {
   //санкреатор удаления диалога из диалогЛиста
-  return async (dispatch:Dispatch<ActionTypes>, getState: () => GlobalStateType) => {// санка
+  return async (dispatch, getState) => {// санка
     await apiDialogs.deleteDialog(dialogId, userId1, userId2) // получение моего диалогЛиста после удаления диалога
 // записать в стейт не провожу - обновление раз в секунду
   }

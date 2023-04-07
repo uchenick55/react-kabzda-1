@@ -4,7 +4,7 @@ import {
     followThunkCreator,
     getUsersThunkCreator,
     setCurrentPage, setOnlyFriends, setTerm, unfollowThunkCreator,
-} from "../../redux/users-reducer.ts";
+} from "../../redux/users-reducer";
 import UsersBS from "./UsersBS1";
 import Preloader from "../common/Preloader/Preloader";
 import {getUsersReselect, usersSelectorsSimple} from "./users-selectors";

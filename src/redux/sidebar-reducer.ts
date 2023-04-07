@@ -1,5 +1,4 @@
-// @ts-ignore
-import {apiUsers} from "../components/api/api.ts";
+import {apiUsers} from "../components/api/api";
 import {Dispatch} from "redux";
 import {getUsersType} from "../types/commonTypes";
 import {GlobalStateType} from "./store-redux";
@@ -14,9 +13,9 @@ export let setFriends = (users:object):setFriendsActyionType => {//экшн кр
 
 type ActionTypes = setFriendsActyionType
 
-type friendsInitialStateActionType = {type: typeof FRIENDS_INITIAL_STATE, users:object}
-export let friendsInitialState = (users:object):friendsInitialStateActionType => {//экшн креатор зануления при логауте
-  return {type: FRIENDS_INITIAL_STATE, users}
+export type friendsInitialStateActionType = {type: typeof FRIENDS_INITIAL_STATE}
+export let friendsInitialState = ():friendsInitialStateActionType => {//экшн креатор зануления при логауте
+  return {type: FRIENDS_INITIAL_STATE}
 };
 
 

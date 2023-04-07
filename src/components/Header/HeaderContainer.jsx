@@ -1,11 +1,11 @@
 import React from 'react';
 import Header from "./HeaderBS";
 import {connect} from "react-redux";
-import {deleteLoginThunkCreator} from "../../redux/auth-reducer.ts";
-import {getProfileThunkCreator} from "../../redux/profile-reducer.ts";
+import {deleteLoginThunkCreator} from "../../redux/auth-reducer";
+import {getProfileThunkCreator} from "../../redux/profile-reducer";
 import ErrorBoundary from "../common/ErrorBoundary/ErrorBoundary";
 import {compose} from "redux";
-import {setThemeThunkCreator} from "../../redux/theme-reducer.ts";
+import {setThemeThunkCreator} from "../../redux/theme-reducer";
 
 
 class HeaderContainer extends React.Component {

@@ -1,5 +1,4 @@
-// @ts-ignore
-import {apiFeedBack2} from "../components/api/api.ts";
+import {apiFeedBack2} from "../components/api/api";
 import {apiFeedBackDataType} from "../types/commonTypes";
 import {Dispatch} from "redux";
 import {GlobalStateType} from "./store-redux";

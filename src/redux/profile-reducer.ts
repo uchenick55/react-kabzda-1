@@ -3,6 +3,7 @@ import {getAuthMeThunkCreator, setMyProfile, setMyProfileActionType} from "./aut
 import {updateDialogListThunkCreator} from "./dialogs-reducer";
 import {postsType, ProfileType, ProfileTypeLowercase, usersType} from "../types/commonTypes";
 import {Dispatch} from "redux";
+import {ThunkAction} from "redux-thunk";
 import {GlobalStateType} from "./store-redux";
 
 const SET_EDIT_PROFILE_ERROR= "myApp/auth-reducer/SET_EDIT_PROFILE_ERROR"; //константа задания ошибки правеки профиля
@@ -42,7 +43,7 @@ export let setStatus = (newStatus: string):setStatusActionType => { //экшнк
 
 const PROFILE_INITIAL_STATE = "myApp/profile-reducer/PROFILE_INITIAL_STATE" // константа зануления при логауте
 
-type profileInitialStateActionType ={type:typeof PROFILE_INITIAL_STATE}
+export type profileInitialStateActionType ={type:typeof PROFILE_INITIAL_STATE}
 export let profileInitialState = ():profileInitialStateActionType => { //экшнкреатор зануления при логауте
     return {type: PROFILE_INITIAL_STATE}
 };
@@ -95,11 +96,6 @@ export let profileReducer = (state:initialStateType = initialState, action:Actio
             }
             return stateCopy;
 
-/*            export type postsType = {
-                id: number
-                message: string
-                like: number
-            }*/
         }
         case DELETE_POST: {// удаления поста по postId
             stateCopy = {
@@ -128,14 +124,20 @@ export let profileReducer = (state:initialStateType = initialState, action:Actio
     }
 }
 
-export let getProfileThunkCreator = (userId:number, shouldUpdateDialogList:boolean, myId:number) => { // санкреатор на получение профиля выбранного пользователя
-    return async (dispatch:Dispatch<ActionTypes>, getState: () => GlobalStateType) => { // нонейм санка на получение профиля выбранного пользователя
+type ThunkType = ThunkAction<
+    void,    // санка ничего не возвращает
+    GlobalStateType,    // глобальный стейт из redux
+    unknown,    // нет доп параметров
+    ActionTypes // все типы ActionCreator
+    >
+
+
+export let getProfileThunkCreator = (userId:number, shouldUpdateDialogList:boolean, myId:number):ThunkType => { // санкреатор на получение профиля выбранного пользователя
+    return async (dispatch, getState) => { // нонейм санка на получение профиля выбранного пользователя
         let CommonPart = (response:ProfileTypeLowercase, userId:number) => { // общая часть для задания статуса профиля и получения статуса
             dispatch(setUserProfile(response)) // задание полных данных в профиль
-            // @ts-ignore
             dispatch(getStatusThunkCreator(userId)) // запрос моего статуса
             if (shouldUpdateDialogList) {// проверка нужно ли обновить диалоглист
-                // @ts-ignore
                 dispatch(updateDialogListThunkCreator(myId, response.userId, response.fullName, response.photos.small  )) // обновление длиалоглиста
             }
         }
@@ -154,41 +156,37 @@ export let getProfileThunkCreator = (userId:number, shouldUpdateDialogList:boole
     }
 }
 
-export let getStatusThunkCreator = (userId:number) => {  // санкреатор запроса статуса выбранного пользователя
-    return async (dispatch:Dispatch<ActionTypes>, getState: () => GlobalStateType) => { // нонейм санка запроса статуса выбранного пользователя
+export let getStatusThunkCreator = (userId:number):ThunkType => {  // санкреатор запроса статуса выбранного пользователя
+    return async (dispatch, getState) => { // нонейм санка запроса статуса выбранного пользователя
         const response = await apiProfile.getStatus(userId) // api запрос получение статуса по userId
         dispatch(setStatus(response)) // задание статуса в локальный стейт с последующей переотрисовкой
     }
 }
-export let putStatusThunkCreator = (statusTmpInput:string, myId:number) => { // санкреатор обновления моего статуса
-    return async (dispatch:Dispatch<ActionTypes>, getState: () => GlobalStateType) => { // нонеййм санка обновления моего статуса
+export let putStatusThunkCreator = (statusTmpInput:string, myId:number):ThunkType => { // санкреатор обновления моего статуса
+    return async (dispatch, getState) => { // нонеййм санка обновления моего статуса
         const response = await apiProfile.putStatus(statusTmpInput) // отправка нового статуса на сервер
         if (response.resultCode === 0) { // если успешное обновление статуса с сервера
-            // @ts-ignore
             dispatch(getStatusThunkCreator(myId))// получение нового статуса с сервера после обновления
         }
     }
 }
-export let setprofilePhotoThunkCreator = (profilePhoto:any, myId:number) => { // санкреатор установки фотографии моего профиля
-    return async (dispatch:Dispatch<ActionTypes>, getState: () => GlobalStateType) => { // нонеййм санка установки фотографии моего профиля
+export let setprofilePhotoThunkCreator = (profilePhoto:any, myId:number):ThunkType => { // санкреатор установки фотографии моего профиля
+    return async (dispatch, getState) => { // нонеййм санка установки фотографии моего профиля
         const response = await apiProfile.putPhoto(profilePhoto) // отправка нового фото на сервер
         if (response.resultCode === 0) { // если успешное обновление статуса с сервера
-            // @ts-ignore
-            dispatch(getProfileThunkCreator(myId,false, null));// перезапрашиваем данные профиля после обновления фото
-            // @ts-ignore
+            dispatch(getProfileThunkCreator(myId,false, 0));// перезапрашиваем данные профиля после обновления фото
             dispatch(getAuthMeThunkCreator()) // обновить данные моего профиля (header photo) при обновлении фото
         }
     }
 }
 
-export let putMyProfileThunkCreator = (MyProfile:ProfileType, myId:number) => { // санкреатор установки моего профиля myProfile
-    return async (dispatch:Dispatch<ActionTypes>, getState: () => GlobalStateType) => { // нонеййм санка установки моего профиля myProfile
+export let putMyProfileThunkCreator = (MyProfile:ProfileType, myId:number):ThunkType => { // санкреатор установки моего профиля myProfile
+    return async (dispatch, getState) => { // нонеййм санка установки моего профиля myProfile
         const response = await apiProfile.putMyProfileData(MyProfile) // отправка нового статуса на сервер
         if (response.resultCode === 0) { // если успешное обновление профиля на сервере
             const response2:ProfileTypeLowercase = await apiProfile.getProfile(myId)//получение моих дополнительных данных после записи на сервер
             dispatch(setMyProfile(response2))//задание в стейт моих доп данных
-            // @ts-ignore
-            dispatch(getProfileThunkCreator(myId, false, null))
+            dispatch(getProfileThunkCreator(myId, false, 0))
             dispatch(setEditProfileStatus(["Edited successfully!"])) // отправить данные ошибки в стейт
         } else { // если пришла ошибка с сервера ввода формы правки профиля
             let message =  // определение локальной переменной message - ответ от сервера

@@ -4,7 +4,7 @@ import {HashRouter} from "react-router-dom";
 import HeaderContainer from "./components/Header/HeaderContainer";
 import NavBarContainer from "./components/-Navbar/NavBarContainer";
 import {connect} from "react-redux";
-import {initialisedAppThunkCreator} from "./redux/app-reducer.ts";
+import {initialisedAppThunkCreator} from "./redux/app-reducer";
 import Preloader from "./components/common/Preloader/Preloader";
 import InfoContainer from "./components/Info/InfoContainer";
 import ContentContainer from "./components/Content/ContentContainer";

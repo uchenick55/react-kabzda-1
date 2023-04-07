@@ -6,7 +6,7 @@ import {
     putMyProfileThunkCreator,
     putStatusThunkCreator, setEditProfileStatus,
     setprofilePhotoThunkCreator
-} from "../../redux/profile-reducer.ts";
+} from "../../redux/profile-reducer";
 import {Navigate} from "react-router-dom"
 import {compose} from "redux";
 import NavigateToLoginHoc2 from "../hoc/NavigateToLoginHoc2";
