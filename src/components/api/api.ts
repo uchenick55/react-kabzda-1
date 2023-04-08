@@ -1,6 +1,6 @@
 import axios from "axios";
-import {apiFeedBackDataType, ProfileType} from "../../types/commonTypes";
-import {getAuthMeType, getProfileType} from "../../types/apiTypes";
+import {apiFeedBackDataType, ProfileType} from "./commonTypes";
+import {getAuthMeType, getProfileType, getUsersType} from "./apiTypes";
 
 const instance = axios.create( {
     baseURL: 'https://social-network.samuraijs.com/api/1.0/',
@@ -13,14 +13,9 @@ const instance = axios.create( {
 
 export let apiUsers = { // объект с методами api для USERS и follow/unfollow
     getUsers: async (currentPage: number, pageSize: number, term: string, friend: boolean = false) => {// получить стек пользователей
-        try {
-            //throw new Error("Я - сообщение об ошибке"); //проверка обработки ошибок
-            const friendLocal = friend ? friend : null
-            const response = await instance.get( `users?count=${pageSize}&page=${currentPage}&term=${term}&friend=${friendLocal}` )
-            return (response.data) //возврат данных из поля data
-        } catch (err) {
-            console.error( err )
-        }
+        const friendLocal = friend ? friend : null
+        const response = await instance.get<getUsersType>( `users?count=${pageSize}&page=${currentPage}&term=${term}&friend=${friendLocal}` )
+        return (response.data) //возврат данных из поля data
     },
     postFollow: async (userId: number) => {// подписаться на выбранного пользователя
         const response = await instance.post( `follow/${userId}` )

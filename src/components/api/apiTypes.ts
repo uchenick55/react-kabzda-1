@@ -28,3 +28,22 @@ export type getProfileType = {
     }
     URL: string | null
 }
+
+
+export type usersType = {
+    followed: boolean
+    id: number
+    name: string
+    photos: {
+        large: string | null
+        small: string | null
+    }
+    status: string | null
+    uniqueUrlName: string | null
+}
+
+export type getUsersType = {
+    error: object,
+    items: Array<usersType>,
+    totalCount: number
+}

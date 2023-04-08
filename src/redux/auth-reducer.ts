@@ -5,7 +5,7 @@ import {profileInitialState, profileInitialStateActionType} from "./profile-redu
 import {usersInitialState, usersInitialStateActonType} from "./users-reducer";
 import {GlobalStateType} from "./store-redux";
 import {ThunkAction} from "redux-thunk";
-import {getProfileType} from "../types/apiTypes";
+import {getProfileType} from "../components/api/apiTypes";
 
 const SET_MY_DATA = "myApp/auth-reducer/SET_MY_DATA"; // константа для задания базовых данных моего профиля (ID, Email, login, isAuth)
 const AUTH_INITIAL_STATE = "myApp/auth-reducer/AUTH_INITIAL_STATE"; //константа зануления при логауте

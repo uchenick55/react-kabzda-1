@@ -1,5 +1,5 @@
 import {apiFeedBack2} from "../components/api/api";
-import {apiFeedBackDataType} from "../types/commonTypes";
+import {apiFeedBackDataType} from "../components/api/commonTypes";
 import {Dispatch} from "redux";
 import {GlobalStateType} from "./store-redux";
 

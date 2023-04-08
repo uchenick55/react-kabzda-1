@@ -1,11 +1,11 @@
 import {apiProfile} from "../components/api/api";
 import {getAuthMeThunkCreator, setMyProfile, setMyProfileActionType} from "./auth-reducer";
 import {updateDialogListThunkCreator} from "./dialogs-reducer";
-import {postsType, ProfileType} from "../types/commonTypes";
+import {postsType, ProfileType} from "../components/api/commonTypes";
 import {Dispatch} from "redux";
 import {ThunkAction} from "redux-thunk";
 import {GlobalStateType} from "./store-redux";
-import {getProfileType} from "../types/apiTypes";
+import {getProfileType} from "../components/api/apiTypes";
 
 const SET_EDIT_PROFILE_ERROR= "myApp/auth-reducer/SET_EDIT_PROFILE_ERROR"; //константа задания ошибки правеки профиля
 

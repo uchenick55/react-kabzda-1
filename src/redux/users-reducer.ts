@@ -1,8 +1,8 @@
 import {apiUsers} from "../components/api/api";
-import {getUsersType, usersType} from "../types/commonTypes";
 import {ThunkAction} from "redux-thunk";
 import {GlobalStateType} from "./store-redux";
 import {Dispatch} from "redux";
+import {getUsersType, usersType} from "../components/api/apiTypes";
 
 const SET_TERM = "myApp/users-reducer/SET_TERM";
 
@@ -172,7 +172,7 @@ export let getUsersThunkCreator //санкреатор получить поль
         dispatch( toggleIsFetching( true ) ) //показать крутилку загрузки с сервера
 
         apiUsers.getUsers( currentPage, pageSize, term, friend ) //получить пользователей по текущей странице и размере страницы
-            .then( (data: getUsersType) => {
+            .then( (data) => {
                 dispatch( toggleIsFetching( false ) )  //убрать крутилку загрузки с сервера
                 dispatch( setUsers( data.items ) )//записать в стейт закгруженный стек пользователей
                 dispatch( setUsersTotalCount( data.totalCount ) )//записать в стейт общее количество пользователей
