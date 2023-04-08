@@ -1,3 +1,4 @@
+import Saper from "../assets/images/saper.jpg";
 import CryptoCalculator from "../assets/images/CryptoCalculator.jpg";
 import FilterSort from "../assets/images/Filter&Sort page.jpg";
 import combinationChisel from "../assets/images/combinationChisel.jpg";
@@ -6,8 +7,45 @@ import krestikiNoliki from "../assets/images/krestiki-noliki.jpg";
 import news from "../assets/images/News.jpg";
 import React from "react";
 
+type tasksDataType = {
+    TaskHeader: JSX.Element | string, // заголовок задачи
+    imgSrc: string, // источник картинки
+    taskLink: string, // ссылка на задачу
+    altTitle: string, // альтернатива картинке
+    description: JSX.Element[], // описание задачи
+    repositoryHref: string // ссылка на репозиторий
+}
+
+type initialStateType = {
+    tasksData: Array<tasksDataType>
+}
+
 let initialState = { //стейт по умолчанию темы
     tasksData: [
+        {
+            TaskHeader: <>Игра сапер (React + Typescript)</>,
+            imgSrc: Saper,
+            taskLink: "https://uchenick55.github.io/saper-ts/",
+            altTitle: "Игра сапер",
+            description: [
+                <>
+                    <ul>
+                        <li>Случайное размещение мин</li>
+                        <li>Определение количества мин, расположенных рядом с каждой ячейкой</li>
+                        <li>Отрисовка поля</li>
+                        <li>Иконка статуса игры (в процессе/проигрыш/выигрыш). При ее нажатии, игра перезапускается</li>
+                        <li>Счетчик расставленых флажков над минами</li>
+                        <li>Открывание ячеек левой кнопкой мыши</li>
+                        <li>Автоматическое открывание всех нулевых рядом расположеных ячеек</li>
+                        <li>Установка флажка над предполагаемой миной правкой кнопкой мыши </li>
+                        <li>При клике на пустую открытую клетку автоматическое открывание 8 рядом расположенных ячеек, если совпадает количество флажков и мин </li>
+                        <li>Завешнение игры при клике на бомбу (проигрыш). При этом открываются все неоткрытые ранее бомбы</li>
+                        <li>Завешнение игры при закрытии всех бомб флажками (победа). Оставшиеся неоткрытые ячейки открываются</li>
+                    </ul>
+                </>
+            ],
+            repositoryHref: "https://github.com/uchenick55/saper-ts"
+        },
         {
             TaskHeader: <>Калькулятор обмена криптовалют <br/> (на Typescript)</>,
             imgSrc: CryptoCalculator,
@@ -65,7 +103,7 @@ let initialState = { //стейт по умолчанию темы
                         которая бы находила все возможные комбинации чисел из massivChisel,
                         сумма которых равна chislo. При этом:</p>
                     <ul>
-                        <li> massivChisel содержит уникальные положительные числа (>0)</li>
+                        <li> massivChisel содержит уникальные положительные числа ( больше 0)</li>
                         <li> В комбинации не должно быть повторений чисел</li>
                         <li> Все комбинации должны быть уникальными</li>
                     </ul>

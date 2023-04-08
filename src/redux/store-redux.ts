@@ -8,6 +8,7 @@ import authReducer from "./auth-reducer";
 import appReducer from "./app-reducer";
 import themeReducer from "./theme-reducer";
 import feedBackReducer from "./feedback-reducer"
+import tasksReducer from "./tasks-reducer";
 
 let reducers = combineReducers({ // объединяем стейт редьюсеров в один объект store
     profilePage: profileReducer, // стейт профиля
@@ -18,6 +19,7 @@ let reducers = combineReducers({ // объединяем стейт редьюс
     app: appReducer, // стейт инициализации приложения
     theme: themeReducer, // стейт темы (dark-light)
     feedback: feedBackReducer, // стейт фидбека
+    tasks: tasksReducer,// стейт тасков
 });
 
 //let store = createStore(reducers, applyMiddleware(thunkMiddleWare));//ApplyMiddleWare позволяет сделать прослойку между UI и редьюсером, чтобы можно было диспатчить не только экшены, но и санки.
