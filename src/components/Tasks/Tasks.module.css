@@ -1,11 +1,11 @@
 
 .imgTasks {
-    width: 70%;
+    margin-top: 2rem;
+    margin-bottom: 2rem;
     height: auto;
     border-radius: 10px;
     transition: 0.2s ease-in-out;
     border: 6px solid var(--color3);
-
 }
 .imgTasks:hover {
     transform: scale(0.98) translate(+0px, 0);
@@ -13,5 +13,9 @@
 
 }
 
+.TasksContainer {
+    max-width: 35rem;
+
+}
 
 

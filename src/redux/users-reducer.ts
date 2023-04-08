@@ -4,7 +4,6 @@ import {ThunkAction} from "redux-thunk";
 import {GlobalStateType} from "./store-redux";
 import {Dispatch} from "redux";
 
-
 const SET_TERM = "myApp/users-reducer/SET_TERM";
 
 type setTermActionType = { type: typeof SET_TERM, term: string }
@@ -15,6 +14,7 @@ export let setTerm = (term: string): setTermActionType => {
 const SET_USERS = "myApp/users-reducer/SET_USERS";
 
 type setUsersActionType = { type: typeof SET_USERS, users: Array<usersType> }
+
 let setUsers = (users: Array<usersType>): setUsersActionType => {
     return {type: SET_USERS, users}
 };
@@ -73,9 +73,11 @@ export let setOnlyFriends = (onlyFriends: boolean): setOnlyFriendsActionType => 
     return {type: SET_ONLY_FRIENDS, onlyFriends}
 };
 
+
 type ActionTypes = setOnlyFriendsActionType | usersInitialStateActonType | needUpdateFriendsACActionType |
     toggleIsFollowingProgerssActionType | setUsersTotalCountActionType | toggleIsFetchingActionType |
     setCurrentPageActionType | setUsersActionType | setTermActionType
+
 
 type initialStateType = {
     users: Array<usersType> | null, // массив пользователей по умолчанию (пока пустой)
