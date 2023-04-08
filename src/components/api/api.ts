@@ -1,6 +1,6 @@
 import axios from "axios";
 import {apiFeedBackDataType, ProfileType} from "./commonTypes";
-import {getAuthMeType, getProfileType, getUsersType} from "./apiTypes";
+import {commonResponseType, getAuthMeType, getProfileType, getUsersType} from "./apiTypes";
 
 const instance = axios.create( {
     baseURL: 'https://social-network.samuraijs.com/api/1.0/',
@@ -18,11 +18,11 @@ export let apiUsers = { // объект с методами api для USERS и 
         return (response.data) //возврат данных из поля data
     },
     postFollow: async (userId: number) => {// подписаться на выбранного пользователя
-        const response = await instance.post( `follow/${userId}` )
+        const response = await instance.post<commonResponseType>( `follow/${userId}` )
         return (response.data) //возврат данных из поля data
     },
     deleteFollow: async (userId: number) => {// отписаться от выбранного пользователя
-        const response = await instance.delete( `follow/${userId}` )
+        const response = await instance.delete<commonResponseType>( `follow/${userId}` )
         return (response.data) //возврат данных из поля data
     }
 }
@@ -38,15 +38,15 @@ export let apiProfile = { // объект с методами api для про�
         return (response.data) //возврат данных из поля data
     },
     getStatus: async (userId: number) => { // получить статус выбранного пользователя по userId
-        const response = await instance.get( `/profile/status/${userId}` )
+        const response = await instance.get<string>( `/profile/status/${userId}` )
         return (response.data) //возврат данных из поля data
     },
     putStatus: async (statusTmpInput: string) => { // отправка моего статуса
-        const response = await instance.put( `/profile/status/`, {status: statusTmpInput} )
+        const response = await instance.put<commonResponseType>( `/profile/status/`, {status: statusTmpInput} )
         return (response.data) //возврат данных из поля data
     },
     postLogin: async (email: string, password: string, rememberme: boolean, captchaURL: null | string) => { //авторизация на сервере по  данным из login формы
-        const response = await instance.post( `/auth/login`, {
+        const response = await instance.post<commonResponseType>( `/auth/login`, {
             email: email,
             password: password,
             rememberme: rememberme,
@@ -55,7 +55,7 @@ export let apiProfile = { // объект с методами api для про�
         return (response.data) //возврат данных из поля data
     },
     deleteLogin: async () => { // логаут текущего пользователя
-        const response = await instance.delete( `/auth/login` )
+        const response = await instance.delete<commonResponseType>( `/auth/login` )
         return (response.data) //возврат данных из поля data
     },
     putPhoto: async (profilePhoto: any) => { // отправка фото пользователя
@@ -67,12 +67,12 @@ export let apiProfile = { // объект с методами api для про�
                 'content-type': 'multipart/form-data' // задаем тип отправляемых данных
             }
         }
-        const response = await instance.put( `/profile/photo`, data, config ) // отправка фото на сервер
+        const response = await instance.put<commonResponseType>( `/profile/photo`, data, config ) // отправка фото на сервер
         return (response.data) //возврат данных из поля data
     },
 
     putMyProfileData: async (MyProfile: ProfileType) => { // отправка новых данных профиля пользователя на сервер
-        const response = await instance.put( `/profile`, MyProfile ) //
+        const response = await instance.put<commonResponseType>( `/profile`, MyProfile ) //
         return (response.data) //ответ от сервера
     },
 

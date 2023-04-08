@@ -185,7 +185,7 @@ export let putMyProfileThunkCreator = (MyProfile:ProfileType, myId:number):Thunk
     return async (dispatch, getState) => { // нонеййм санка установки моего профиля myProfile
         const response = await apiProfile.putMyProfileData(MyProfile) // отправка нового статуса на сервер
         if (response.resultCode === 0) { // если успешное обновление профиля на сервере
-            const response2:getProfileType = await apiProfile.getProfile(myId)//получение моих дополнительных данных после записи на сервер
+            const response2 = await apiProfile.getProfile(myId)//получение моих дополнительных данных после записи на сервер
             dispatch(setMyProfile(response2))//задание в стейт моих доп данных
             dispatch(getProfileThunkCreator(myId, false, 0))
             dispatch(setEditProfileStatus(["Edited successfully!"])) // отправить данные ошибки в стейт
@@ -193,7 +193,7 @@ export let putMyProfileThunkCreator = (MyProfile:ProfileType, myId:number):Thunk
             let message =  // определение локальной переменной message - ответ от сервера
                 response.messages && response.messages.length!==0  // если response.messages емсть и их длина не равна 0
                     ? response.messages //  вывести ответ от сервера
-                    : "no responce from server" // иначе вывести сообщение заглушку
+                    : ["no responce from server"] // иначе вывести сообщение заглушку
             dispatch(setEditProfileStatus(message)) // отправить данные ошибки в стейт
         }
     }

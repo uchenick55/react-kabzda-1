@@ -47,3 +47,10 @@ export type getUsersType = {
     items: Array<usersType>,
     totalCount: number
 }
+
+export type commonResponseType = {
+    resultCode: number
+    messages: Array<string>,
+    fieldsErrors: Array<string>,
+    data: object
+}
