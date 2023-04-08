@@ -1,9 +1,9 @@
 import React from "react";
 import {Formik, Form} from "formik"; //формик с компонентами и пользовательским хуком
 import * as Yup from 'yup' // валидация форм с помошью сторонней библиотеки Yup
-import classes from './EditProfile.module.css'
+import classes from '../components/Profile/ProfileInfo/EditProfile/EditProfile.module.css'
 //import DisplayFormikState from "../../../common/formikCommon/DisplayFormikState"
-import {MyCheckbox, MyTextArea, MyTextInput} from "../../../common/formikCommon/MyFields"
+import {MyCheckbox, MyTextArea, MyTextInput} from "../components/common/formikCommon/MyFields"
 import "bootstrap/dist/css/bootstrap.min.css"
 import InputGroup from 'react-bootstrap/InputGroup';
 import FormBS from 'react-bootstrap/Form';

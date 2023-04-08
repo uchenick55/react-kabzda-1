@@ -1,5 +1,5 @@
 import React, {useState} from 'react';
-import classes from './../MyFriends.module.css';
+import classes from '../MyFriends.module.css';
 import {NavLink} from "react-router-dom";
 import DialogPic from "../../../../assets/images/dialog3.png"
 import UnfollowPic from "../../../../assets/images/unfollow.png"
@@ -63,9 +63,7 @@ const MyFriendItem = ({id, avaSrc, name, unfollowFriendsAPI}) => {
                     <NavLink to={'/dialogs/' + id}>
                         {dialogImgRender1 /*отрисовка картитнки начала диалога с анимацией*/}
                     </NavLink>
-                    <PointerCursor>
                         {removeFriendRender1 /*отрисовка картинок удаления друзей с анимацией*/}
-                    </PointerCursor>
                 </div>
                 <div className={classes.myFriendName}> {name}</div> {/*отрисовка имени друга*/}
             </div>

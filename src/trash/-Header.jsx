@@ -1,10 +1,10 @@
 import React from 'react';
-import classes from './Header.module.css';
+import classes from '../components/Header/Header.module.css';
 import {NavLink} from "react-router-dom";
-import userPhoto from "../../assets/images/no-image3.png";
-import logoutImg from "../../assets/images/power-off.png";
-import loginImg from "../../assets/images/login.png";
-import CallThemeRemote from "../-Dark_light_theme/-CallThemeRemote";
+import userPhoto from "../assets/images/no-image3.png";
+import logoutImg from "../assets/images/power-off.png";
+import loginImg from "../assets/images/login.png";
+import CallThemeRemote from "../components/-Dark_light_theme/-CallThemeRemote";
 
 const Header = ({getProfileThunkCreator, deleteLogin, isAuth, myId, myProfile, info_mode}) => {
     const commentsRender = <div> {/*отрисовка переключателя для отображения/скрытия комментариев*/}

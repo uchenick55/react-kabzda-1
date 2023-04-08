@@ -1,6 +1,6 @@
 import React from 'react';
-import classes from './Message.module.css';
-import x from "../../../../assets/images/x.png";
+import classes from '../components/DialogList/Messages/Message/Message.module.css';
+import x from "../assets/images/x.png";
 
 
 const Message = ({message, myId, userId, Date, MessageId, deleteMessage}) => {

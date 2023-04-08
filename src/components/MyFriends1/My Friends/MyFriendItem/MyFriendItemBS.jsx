@@ -58,9 +58,9 @@ const MyFriendItem = ({id, avaSrc, name, unfollowFriendsAPI}) => {
                             </NavLink>
                         </Col>
                         <Col>
-                            <PointerCursor>
+                            <div>
                                 {removeFriendRender1} {/*отрисовка картинок удаления друзей с анимацией*/}
-                            </PointerCursor>
+                            </div>
                         </Col>
                     </Row>
 

@@ -1,9 +1,9 @@
-import store from "./redux/store-redux"
+import store from "../redux/store-redux"
 import React from 'react';
 import ReactDOM from 'react-dom/client';
 import reportWebVitals from './-reportWebVitals';
 import {Provider} from "react-redux";
-import AppBS from "./AppBS";
+import AppBS from "../AppBS";
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
     root.render(

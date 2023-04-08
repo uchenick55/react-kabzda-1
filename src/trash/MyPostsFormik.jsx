@@ -1,9 +1,9 @@
 import React from "react";
 import {Formik, Form} from "formik"; //формик с компонентами и пользовательским хуком
 import * as Yup from 'yup' // валидация форм с помошью сторонней библиотеки Yup
-import classes from "./MyPosts.module.css"
+import classes from "../components/Profile/MyPosts/Post/MyPostsFormik/MyPosts.module.css"
 //import DisplayFormikState from "../../../../common/formikCommon/DisplayFormikState"
-import {MyTextArea} from "../../../../common/formikCommon/MyFields"
+import {MyTextArea} from "../components/common/formikCommon/MyFields"
 
 let myInitialValues = { // начальные зачения форм
     newPost: "",

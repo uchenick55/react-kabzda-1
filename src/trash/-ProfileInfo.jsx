@@ -1,10 +1,10 @@
 import React, {useEffect, useState} from 'react';
-import classes from './ProfileInfo.module.css'
-import commonClasses from '../../common/CommonClasses/ButtonOverImage.module.css'
-import Preloader from "../../common/Preloader/Preloader";
-import ProfileStatusUseReducer from "./ProfileStatus/ProfileStatusUseReducer";
-import userPhoto1 from "../../../assets/images/no-image3.png";
-import EditProfileFormik from "./EditProfile/-EditProfileFormik";
+import classes from '../components/Profile/ProfileInfo/ProfileInfo.module.css'
+import commonClasses from '../components/common/CommonClasses/ButtonOverImage.module.css'
+import Preloader from "../components/common/Preloader/Preloader";
+import ProfileStatusUseReducer from "../components/Profile/ProfileInfo/ProfileStatus/ProfileStatusUseReducer";
+import userPhoto1 from "../assets/images/no-image3.png";
+import EditProfileFormik from "./-EditProfileFormik";
 
 const ShowProfile = ({profile, setEditMode, userId, myId}) => { // вынес отдельно отображение профиля
 

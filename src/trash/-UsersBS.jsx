@@ -1,18 +1,18 @@
 import React, {useState} from "react";
-import classes from "./Users.module.css";
-import userPhoto from "../../assets/images/no-image3.png";
-import DialogPic from "../../assets/images/swg/dialog-svgrepo-com.svg"
+import classes from "../components/users/Users.module.css";
+import userPhoto from "../assets/images/no-image3.png";
+import DialogPic from "../assets/images/swg/dialog-svgrepo-com.svg"
 
-import FollowPic from "../../assets/images/swg/star-.svg"
-import UnfollowPic from "../../assets/images/swg/star+.svg"
+import FollowPic from "../assets/images/swg/star-.svg"
+import UnfollowPic from "../assets/images/swg/star+.svg"
 import {NavLink} from "react-router-dom";
-import PaginationByCourse from "../common/Pagination/PaginationByCourseBS";
-import InputButtonUsersRender from "./InputButtonRender";
+import PaginationByCourse from "../components/common/Pagination/PaginationByCourseBS";
+import InputButtonUsersRender from "../components/users/InputButtonRender";
 import Card from 'react-bootstrap/Card';
 import Button from "react-bootstrap/Button";
 import Container from 'react-bootstrap/Container';
 import Row from 'react-bootstrap/Row';
-import commonClasses from "../common/CommonClasses/common.module.css";
+import commonClasses from "../components/common/CommonClasses/common.module.css";
 import Image from "react-bootstrap/Image";
 import Col from "react-bootstrap/Col";
 

@@ -22,12 +22,12 @@ const DialogItem = ({deleteDialog, dialogId, userPhoto, userName, userId, dialog
         </div>
     </NavLink>
 
-    const deleteDialogRender = <PointerCursor> {/*вынес отдельно кнопку удаления диалога из диалоглиста*/}
+    const deleteDialogRender = <div> {/*вынес отдельно кнопку удаления диалога из диалоглиста*/}
         <img src={x} alt={"Удалить из своего диалогЛиста"} className={classes.x}
              onClick={() => {
                  deleteDialog(dialogId, userId)
              }} title={"Удалить из своего диалогЛиста"}/>
-    </PointerCursor>
+    </div>
 
     return <div className={userId === dialogUserID ? classes.dialogCurrent : classes.dialog}>
         <div className={classes.dialogItemGreed}>  {/*разделение фото имени с кнопкой закрытия диалога в диалогЛисте*/}

@@ -1,15 +1,15 @@
 import React from "react";
-import classes from "./Tasks.module.css"
+import classes from "../components/Tasks/Tasks.module.css"
 
-import FilterSort from "../../assets/images/Filter&Sort page.jpg"
-import krestikiNoliki from "../../assets/images/krestiki-noliki.jpg"
-import news from "../../assets/images/News.jpg"
-import combinationChisel from "../../assets/images/combinationChisel.jpg"
-import bootstrapImg from "../../assets/images/bootstrap.jpg"
-import commonClasses from "../common/CommonClasses/common.module.css";
+import FilterSort from "../assets/images/Filter&Sort page.jpg"
+import krestikiNoliki from "../assets/images/krestiki-noliki.jpg"
+import news from "../assets/images/News.jpg"
+import combinationChisel from "../assets/images/combinationChisel.jpg"
+import bootstrapImg from "../assets/images/bootstrap.jpg"
+import commonClasses from "../components/common/CommonClasses/common.module.css";
 import Container from "react-bootstrap/Container";
 import {NavLink} from "react-router-dom";
-import CryptoCalculator from "../../assets/images/CryptoCalculator.jpg"
+import CryptoCalculator from "../assets/images/CryptoCalculator.jpg"
 import Image from "react-bootstrap/Image";
 
 const filterSort = "https://uchenick55.github.io/supplydirector-web-page-test/#/app/profile"

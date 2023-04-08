@@ -1,9 +1,9 @@
 import React from "react";
 import {Formik, Form} from "formik"; //формик с компонентами и пользовательским хуком
 import * as Yup from 'yup' // валидация форм с помошью сторонней библиотеки Yup
-import classes from "./Login.module.css"
-import {MyTextInput, MyCheckbox} from "../common/formikCommon/MyFields"
-import {PointerCursor} from "../-Dark_light_theme/-globalStyles";
+import classes from "../components/Login/Login.module.css"
+import {MyTextInput, MyCheckbox} from "../components/common/formikCommon/MyFields"
+import {PointerCursor} from "../components/-Dark_light_theme/-globalStyles";
 //import DisplayFormikState from "../common/formikCommon/DisplayFormikState"
 
 let myInitialValues = { // начальные зачения форм
