@@ -1,7 +1,7 @@
 import {apiProfile} from "../components/api/api";
 import {getAuthMeThunkCreator, setMyProfile, setMyProfileActionType} from "./auth-reducer";
 import {updateDialogListThunkCreator} from "./dialogs-reducer";
-import {postsType, ProfileType, ProfileTypeLowercase, usersType} from "../types/commonTypes";
+import {getProfileType, postsType, ProfileType} from "../types/commonTypes";
 import {Dispatch} from "redux";
 import {ThunkAction} from "redux-thunk";
 import {GlobalStateType} from "./store-redux";
@@ -134,7 +134,7 @@ type ThunkType = ThunkAction<
 
 export let getProfileThunkCreator = (userId:number, shouldUpdateDialogList:boolean, myId:number):ThunkType => { // санкреатор на получение профиля выбранного пользователя
     return async (dispatch, getState) => { // нонейм санка на получение профиля выбранного пользователя
-        let CommonPart = (response:ProfileTypeLowercase, userId:number) => { // общая часть для задания статуса профиля и получения статуса
+        let CommonPart = (response: getProfileType, userId:number) => { // общая часть для задания статуса профиля и получения статуса
             dispatch(setUserProfile(response)) // задание полных данных в профиль
             dispatch(getStatusThunkCreator(userId)) // запрос моего статуса
             if (shouldUpdateDialogList) {// проверка нужно ли обновить диалоглист
@@ -184,7 +184,7 @@ export let putMyProfileThunkCreator = (MyProfile:ProfileType, myId:number):Thunk
     return async (dispatch, getState) => { // нонеййм санка установки моего профиля myProfile
         const response = await apiProfile.putMyProfileData(MyProfile) // отправка нового статуса на сервер
         if (response.resultCode === 0) { // если успешное обновление профиля на сервере
-            const response2:ProfileTypeLowercase = await apiProfile.getProfile(myId)//получение моих дополнительных данных после записи на сервер
+            const response2:getProfileType = await apiProfile.getProfile(myId)//получение моих дополнительных данных после записи на сервер
             dispatch(setMyProfile(response2))//задание в стейт моих доп данных
             dispatch(getProfileThunkCreator(myId, false, 0))
             dispatch(setEditProfileStatus(["Edited successfully!"])) // отправить данные ошибки в стейт

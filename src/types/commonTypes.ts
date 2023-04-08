@@ -1,13 +1,13 @@
 export type usersType = {
     followed: boolean
-    id:number
-    name:string
+    id: number
+    name: string
     photos: {
         large: string | null
         small: string | null
     }
     status: string | null
-    uniqueUrlName:string | null
+    uniqueUrlName: string | null
 }
 
 export type getUsersType = {
@@ -25,7 +25,7 @@ export type postsType = {
 export type ProfileType = {
     AboutMe: string,
     FullName: string,
-    LookingForAJob:boolean,
+    LookingForAJob: boolean,
     LookingForAJobDescription: string,
     contacts: {
         facebook: string,
@@ -39,28 +39,6 @@ export type ProfileType = {
     }
     userId: number
 }
-export type ProfileTypeLowercase = {
-    aboutMe: string,
-    fullName: string,
-    lookingForAJob:boolean,
-    lookingForAJobDescription: string,
-    photos: {
-        large: string,
-        small: string,
-    }
-    contacts: {
-        facebook: string,
-        github: string,
-        instagram: string,
-        mainLink: string
-        twitter: string,
-        vk: string,
-        website: string,
-        youtube: string
-    }
-    userId: number
-}
-
 
 export type apiFeedBackDataType = {
     email: string
@@ -68,3 +46,33 @@ export type apiFeedBackDataType = {
     name: string
 }
 
+export type getAuthMeType = {
+    resultCode: number,
+    messages: Array<string>,
+    data: {
+        id: number,
+        email: string,
+        login: string
+    }
+}
+export type getProfileType = {
+    userId: number
+    lookingForAJob: boolean,
+    lookingForAJobDescription: string,
+    fullName: string,
+    contacts: {
+        github: string,
+        vk: string,
+        facebook: string,
+        instagram: string,
+        twitter: string
+        website: string
+        youtube: string
+        mainLink: string
+    },
+    photos: {
+        small: string,
+        large: string
+    }
+    URL: string | null
+}

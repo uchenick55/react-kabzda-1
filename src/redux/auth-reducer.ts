@@ -5,6 +5,7 @@ import {profileInitialState, profileInitialStateActionType} from "./profile-redu
 import {usersInitialState, usersInitialStateActonType} from "./users-reducer";
 import {GlobalStateType} from "./store-redux";
 import {ThunkAction} from "redux-thunk";
+import {getProfileType} from "../types/commonTypes";
 
 const SET_MY_DATA = "myApp/auth-reducer/SET_MY_DATA"; // константа для задания базовых данных моего профиля (ID, Email, login, isAuth)
 const AUTH_INITIAL_STATE = "myApp/auth-reducer/AUTH_INITIAL_STATE"; //константа зануления при логауте
@@ -12,8 +13,8 @@ const SET_CAPTCHA_URL = "myApp/auth-reducer/SET_CAPTCHA_URL"; //констант
 const SET_LOGIN_ERROR= "myApp/auth-reducer/SET_LOGIN_ERROR"; //константа задания ошибки авторизации
 const SET_MY_PROFILE = "myApp/auth-reducer/SET_MY_PROFILE"; // константа задания расширенных данных моего профиля
 
-export type setMyProfileActionType = {type: typeof SET_MY_PROFILE, myProfile: object}
-export let setMyProfile = (myProfile:object):setMyProfileActionType => { // экшн креатор задания расширенных данных моего профиля
+export type setMyProfileActionType = {type: typeof SET_MY_PROFILE, myProfile: getProfileType}
+export let setMyProfile = (myProfile:getProfileType):setMyProfileActionType => { // экшн креатор задания расширенных данных моего профиля
     return {type: SET_MY_PROFILE, myProfile}
 };
 
