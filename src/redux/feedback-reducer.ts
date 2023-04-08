@@ -1,4 +1,4 @@
-import {apiFeedBack2} from "../components/api/api";
+import {postFeedBack22} from "../components/api/api";
 import {apiFeedBackDataType} from "../components/api/commonTypes";
 import {Dispatch} from "redux";
 import {GlobalStateType} from "./store-redux";
@@ -33,7 +33,7 @@ let feedBackReducer = (state:initialStateType = initialState, action:ActionTypes
 
 export let postFeedBackThunkCreator2 = (data:apiFeedBackDataType) => {// санкреатор отправки фидбека
   return async (dispatch:Dispatch<ActionTypes>, getState: () => GlobalStateType) => { // санка отправки фидбека
-    await apiFeedBack2.postFeedBack2(data) //
+    await postFeedBack22(data) //
         .then(() => dispatch(setFeedBackStatus("Скоро мы получим ваше письмо")))// статсус задать в BLL "Скоро мы получим ваше письмо"
         .catch((err:object) => dispatch(setFeedBackStatus((err.toString()))));// в статус записать ошибку с сервера и задать в BLL
   };

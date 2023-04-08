@@ -1,6 +1,6 @@
 import axios from "axios";
 import {apiFeedBackDataType, ProfileType} from "./commonTypes";
-import {commonResponseType, getAuthMeType, getProfileType, getUsersType} from "./apiTypes";
+import {commonResponseType, getAuthMeType, getCaptchaType, getProfileType, getUsersType} from "./apiTypes";
 
 const instance = axios.create( {
     baseURL: 'https://social-network.samuraijs.com/api/1.0/',
@@ -77,24 +77,64 @@ export let apiProfile = { // объект с методами api для про�
     },
 
     getCaptcha: async () => { // запрс картинки captcha при многократном неправильном вводе
-        const response = await instance.get( `/security/get-captcha-url` ) //
+        const response = await instance.get<getCaptchaType>( `/security/get-captcha-url` ) //
         return (response.data) //ответ от сервера
     },
 }
 
 export let apiDialogs2 = { // объект с методами api для DialogList
     getFollow: async (dialogUserID: number) => {// проверить follow/unfollow выбранного пользователя
-        const response = await instance.get( `follow/${dialogUserID}` )
+        const response = await instance.get<boolean>( `follow/${dialogUserID}` )
         return (response.data) //возврат данных из поля data
     }
 }
 
+export type aaaType = {
+    body: string,
+    locked: boolean,
+    bodyUsed: boolean
+    headers: any
+    ok: boolean
+    redirected: boolean
+    status: number
+    statusText: string
+    type: "cors"
+    url: string
 
+}
+
+
+
+type postFeedBack2Type = (data: apiFeedBackDataType) => any
+
+
+
+
+export const postFeedBack22:postFeedBack2Type = async (data) => {// отправить письмо
+
+    const FORM_ENDPOINT = "https://public.herotofu.com/v1/e595a3c0-83b2-11ed-b38f-a1ed22f366b1";// конечная точка
+//declare function fetch(input: RequestInfo, init?: RequestInit): Promise<Response>;
+    const response = await fetch( FORM_ENDPOINT, {
+        method: "POST", // метод отправить
+        headers: {
+            Accept: "application/json",
+            "Content-Type": "application/json", // тип отправления
+        },
+        body: JSON.stringify( data ),
+    } )
+    type bbb = typeof response
+    return (response) //возврат данных из поля data
+
+}
+
+
+
+/*
 export let apiFeedBack2 = { // объект с методами api FeedBack2
     postFeedBack2: async (data: apiFeedBackDataType) => {// отправить письмо
 
         const FORM_ENDPOINT = "https://public.herotofu.com/v1/e595a3c0-83b2-11ed-b38f-a1ed22f366b1";// конечная точка
-
+//declare function fetch(input: RequestInfo, init?: RequestInit): Promise<Response>;
         const response = await fetch( FORM_ENDPOINT, {
             method: "POST", // метод отправить
             headers: {
@@ -106,10 +146,4 @@ export let apiFeedBack2 = { // объект с методами api FeedBack2
         return (response) //возврат данных из поля data
 
     }
-}
-
-
-
-
-
-
+}*/

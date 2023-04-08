@@ -3,6 +3,7 @@ import {ThunkAction} from "redux-thunk";
 import {GlobalStateType} from "./store-redux";
 import {Dispatch} from "redux";
 import {getUsersType, usersType} from "../components/api/apiTypes";
+import {ResultCodeEnum} from "../components/api/enum";
 
 const SET_TERM = "myApp/users-reducer/SET_TERM";
 
@@ -204,7 +205,7 @@ const _followUnfollowFlow = ( // общий метод для санкреате
     dispatch( toggleIsFollowingProgerss( true, userId ) )//внести ID кнопки пользователя в массив followingInProgress от повторного нажатия
     apiMethod( userId )// подписаться на пользователя // diff apiMethod = postFollow
         .then( (response: responseType) => {
-            if (response.resultCode === 0) {
+            if (response.resultCode === ResultCodeEnum.Success) {
                 // @ts-ignore
                 dispatch( getUsersThunkCreator( currentPage, pageSize, term, friend, userId ) )
                 // получить список пользователей после добавления/удаления из избранного

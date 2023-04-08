@@ -6,6 +6,7 @@ import {Dispatch} from "redux";
 import {ThunkAction} from "redux-thunk";
 import {GlobalStateType} from "./store-redux";
 import {getProfileType} from "../components/api/apiTypes";
+import {ResultCodeEnum} from "../components/api/enum";
 
 const SET_EDIT_PROFILE_ERROR= "myApp/auth-reducer/SET_EDIT_PROFILE_ERROR"; //константа задания ошибки правеки профиля
 
@@ -145,7 +146,7 @@ export let getProfileThunkCreator = (userId:number, shouldUpdateDialogList:boole
 
         if (!userId) { // если userId не задан в URL (переход на страницу моего профиля не подставляет ID в браузере)
             const response = await apiProfile.getAuthMe() // запрос на сервер "я авторизован?" чтобы получить мой ID (авторизованного пользователя)
-            if (response.resultCode === 0) { // успешное получение с сервера данных о моем ID
+            if (response.resultCode === ResultCodeEnum.Success) { // успешное получение с сервера данных о моем ID
                 userId = response.data.id; // задание моего ID в userId
                 const response2 = await apiProfile.getProfile(userId) // получение полных данных о моем профиле
                 CommonPart(response2, userId)  // общая часть для задания статуса профиля и получения статуса
@@ -166,7 +167,7 @@ export let getStatusThunkCreator = (userId:number):ThunkType => {  // санкр
 export let putStatusThunkCreator = (statusTmpInput:string, myId:number):ThunkType => { // санкреатор обновления моего статуса
     return async (dispatch, getState) => { // нонеййм санка обновления моего статуса
         const response = await apiProfile.putStatus(statusTmpInput) // отправка нового статуса на сервер
-        if (response.resultCode === 0) { // если успешное обновление статуса с сервера
+        if (response.resultCode === ResultCodeEnum.Success) { // если успешное обновление статуса с сервера
             dispatch(getStatusThunkCreator(myId))// получение нового статуса с сервера после обновления
         }
     }
@@ -174,7 +175,7 @@ export let putStatusThunkCreator = (statusTmpInput:string, myId:number):ThunkTyp
 export let setprofilePhotoThunkCreator = (profilePhoto:any, myId:number):ThunkType => { // санкреатор установки фотографии моего профиля
     return async (dispatch, getState) => { // нонеййм санка установки фотографии моего профиля
         const response = await apiProfile.putPhoto(profilePhoto) // отправка нового фото на сервер
-        if (response.resultCode === 0) { // если успешное обновление статуса с сервера
+        if (response.resultCode === ResultCodeEnum.Success) { // если успешное обновление статуса с сервера
             dispatch(getProfileThunkCreator(myId,false, 0));// перезапрашиваем данные профиля после обновления фото
             dispatch(getAuthMeThunkCreator()) // обновить данные моего профиля (header photo) при обновлении фото
         }
@@ -184,7 +185,7 @@ export let setprofilePhotoThunkCreator = (profilePhoto:any, myId:number):ThunkTy
 export let putMyProfileThunkCreator = (MyProfile:ProfileType, myId:number):ThunkType => { // санкреатор установки моего профиля myProfile
     return async (dispatch, getState) => { // нонеййм санка установки моего профиля myProfile
         const response = await apiProfile.putMyProfileData(MyProfile) // отправка нового статуса на сервер
-        if (response.resultCode === 0) { // если успешное обновление профиля на сервере
+        if (response.resultCode === ResultCodeEnum.Success) { // если успешное обновление профиля на сервере
             const response2 = await apiProfile.getProfile(myId)//получение моих дополнительных данных после записи на сервер
             dispatch(setMyProfile(response2))//задание в стейт моих доп данных
             dispatch(getProfileThunkCreator(myId, false, 0))

@@ -6,6 +6,7 @@ import {usersInitialState, usersInitialStateActonType} from "./users-reducer";
 import {GlobalStateType} from "./store-redux";
 import {ThunkAction} from "redux-thunk";
 import {getProfileType} from "../components/api/apiTypes";
+import {ResultCodeEnum} from "../components/api/enum";
 
 const SET_MY_DATA = "myApp/auth-reducer/SET_MY_DATA"; // константа для задания базовых данных моего профиля (ID, Email, login, isAuth)
 const AUTH_INITIAL_STATE = "myApp/auth-reducer/AUTH_INITIAL_STATE"; //константа зануления при логауте
@@ -117,7 +118,7 @@ type ThunkType = ThunkAction<
 export let getAuthMeThunkCreator = ():ThunkType => {//санкреатор я авторизован?. Данных для запроса нет
     return async (dispatch, getState) => {
         const response1 = await apiProfile.getAuthMe() // я авторизован?
-        if (response1.resultCode === 0) { //если я авторизован
+        if (response1.resultCode === ResultCodeEnum.Success) { //если неверно ввели логин/пароль 5 раз
             dispatch(setAuthData(
                 response1.data.id, // записать с стейт мой ID
                 response1.data.email, // записать с стейт мой емейл
@@ -129,7 +130,7 @@ export let getAuthMeThunkCreator = ():ThunkType => {//санкреатор я а
 
             dispatch(setMyProfile(response2))//задание в стейт моих доп данных
         }
-        if (response1.resultCode !== 0) { //пользователь не авторизован
+        if (response1.resultCode !== ResultCodeEnum.Success) { //пользователь не авторизован
             dispatch(authInitialState()) // запустить зануление стейта
         }
     };
@@ -139,14 +140,14 @@ export let postLoginThunkCreator = (email:string, password:string, rememberme:bo
     //санкреатор на логин
     return async (dispatch, getState) => { // объявление санки на логин
         const response = await apiProfile.postLogin(email, password, rememberme, captchaURL) // отправка данных на авторизацию из формы логина
-        if (response.resultCode === 0) { // если успешная авторизация на сервере
+        if (response.resultCode === ResultCodeEnum.Success) { // если успешная авторизация на сервере
             dispatch(getAuthMeThunkCreator()) // получить данные с сервера авторизованного пользователя
         } else { // если логин или пароль не подошли
             let message =  // определение локальной переменной message - ответ от сервера
                 !response.messages[0] // если ответа от сервера нет
                     ? "no responce from server" // вывести сообщение заглушку
                     : response.messages[0] // иначе вывести ответ от сервера
-            if (response.resultCode === 10) { // если ошибка в многократном неправильном вводе логина и пароля
+            if (response.resultCode === ResultCodeEnum.CaptchaIsReqiured) { // если ошибка в многократном неправильном вводе логина и пароля
                 dispatch(getCaptchaThunkCreator())
             }
             dispatch(setLoginError(message)) // ошибка авторизации для формика
@@ -157,7 +158,7 @@ export let postLoginThunkCreator = (email:string, password:string, rememberme:bo
 export let deleteLoginThunkCreator = ():ThunkType => {//санкреатор на логАут
     return async (dispatch, getState) => { // объявление санки на логаут
         const response = await apiProfile.deleteLogin() // отправка запроса на логаут
-        if (response.resultCode === 0) { // если сессия успешно закрыта
+        if (response.resultCode === ResultCodeEnum.Success) { // если сессия успешно закрыта
             setTimeout(() => {
 
                 dispatch(dialogsInitialState())// зануление диалогов при логауте

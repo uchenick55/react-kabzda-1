@@ -54,3 +54,8 @@ export type commonResponseType = {
     fieldsErrors: Array<string>,
     data: object
 }
+
+export type getCaptchaType = {
+    url: string
+}
+
