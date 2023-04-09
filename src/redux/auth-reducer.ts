@@ -6,7 +6,8 @@ import {usersInitialState, usersInitialStateActonType} from "./users-reducer";
 import {GlobalStateType} from "./store-redux";
 import {ThunkAction} from "redux-thunk";
 import {getProfileType} from "../components/api/apiTypes";
-import {ResultCodeEnum} from "../components/api/enum";
+import {ResultCodeEnum, ResultCodeEnumCaptcha} from "../components/api/enum";
+import {NulableType} from "../types/commonTypes";
 
 const SET_MY_DATA = "myApp/auth-reducer/SET_MY_DATA"; // константа для задания базовых данных моего профиля (ID, Email, login, isAuth)
 const AUTH_INITIAL_STATE = "myApp/auth-reducer/AUTH_INITIAL_STATE"; //константа зануления при логауте
@@ -50,25 +51,16 @@ type ActionTypes = setLoginErrorActionType | setCaptchaURLActionType | authIniti
     setAuthDataActionType | setMyProfileActionType | dialogsInitialStateType | profileInitialStateActionType |
 friendsInitialStateActionType | usersInitialStateActonType
 
-type initialStateType = { // стейт по умолчанию для моего профиля
-    myId: number | null, // мой ID по умолчанию
-    myEmail: string | null,// мой Email по умолчанию
-    myLogin: string | null,// мой логин по умолчанию
-    isAuth: boolean, // Флаг авторизации
-    myProfile: object | null, // мой расширенный профиль по умолчанию
-    captchaURL: string | null, // URL каптчи после 5 неправильных вводов
-    loginError: string | null, // ошибка авторизации с сервера
-}
-let initialState:initialStateType = { // стейт по умолчанию для моего профиля
-    myId: null, // мой ID по умолчанию
-    myEmail: null,// мой Email по умолчанию
-    myLogin: null,// мой логин по умолчанию
+let initialState = { // стейт по умолчанию для моего профиля
+    myId: null as NulableType<number>, // мой ID по умолчанию
+    myEmail: null as NulableType<string>,// мой Email по умолчанию
+    myLogin: null as NulableType<string>,// мой логин по умолчанию
     isAuth: false, // Флаг авторизации
-    myProfile: null, // мой расширенный профиль по умолчанию
-    captchaURL: null, // URL каптчи после 5 неправильных вводов
-    loginError: null, // ошибка авторизации с сервера
+    myProfile: null as NulableType<getProfileType>, // мой расширенный профиль по умолчанию
+    captchaURL: null as NulableType<string>, // URL каптчи после 5 неправильных вводов
+    loginError: null as NulableType<string>, // ошибка авторизации с сервера
 }
-
+type initialStateType = typeof initialState
 let authReducer = (state:initialStateType = initialState, action:ActionTypes):initialStateType => { // редьюсер авторизации и моего профиля
     let stateCopy:initialStateType; // объявлениечасти части стейта до изменения редьюсером
     switch (action.type) {
@@ -147,7 +139,7 @@ export let postLoginThunkCreator = (email:string, password:string, rememberme:bo
                 !response.messages[0] // если ответа от сервера нет
                     ? "no responce from server" // вывести сообщение заглушку
                     : response.messages[0] // иначе вывести ответ от сервера
-            if (response.resultCode === ResultCodeEnum.CaptchaIsReqiured) { // если ошибка в многократном неправильном вводе логина и пароля
+            if (response.resultCode === ResultCodeEnumCaptcha.CaptchaIsReqiured) { // если ошибка в многократном неправильном вводе логина и пароля
                 dispatch(getCaptchaThunkCreator())
             }
             dispatch(setLoginError(message)) // ошибка авторизации для формика

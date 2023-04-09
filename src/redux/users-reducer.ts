@@ -79,30 +79,20 @@ type ActionTypes = setOnlyFriendsActionType | usersInitialStateActonType | needU
     toggleIsFollowingProgerssActionType | setUsersTotalCountActionType | toggleIsFetchingActionType |
     setCurrentPageActionType | setUsersActionType | setTermActionType
 
-
-type initialStateType = {
-    users: Array<usersType> | null, // массив пользователей по умолчанию (пока пустой)
-    pageSize: number, // размер пачки пользователей при загрузке с сервера
-    totalUsersCount: number, // общее количество пользователей по умолчанию
-    currentPage: number, // текущая страница загрузки пользователей по умолчанию
-    isFetching: boolean, // статус загрузки (крутилка)
-    followingInProgress: Array<number>, // массив тех пользователей, которые в процессе follow/unfollow для disable button
-    term: string, // поисковый запрос среди пользователей
-    needUpdateFriends: boolean, // флаг, что список друзей изменился, нужно обновить
-    onlyFriends: boolean
-}
-let initialState: initialStateType = {
-    users: [], // массив пользователей по умолчанию (пока пустой)
+let initialState = {
+    users: [] as Array<usersType>, // массив пользователей по умолчанию (пока пустой)
     pageSize: 12, // размер пачки пользователей при загрузке с сервера
     totalUsersCount: 0, // общее количество пользователей по умолчанию
     currentPage: 1, // текущая страница загрузки пользователей по умолчанию
     isFetching: false, // статус загрузки (крутилка)
-    followingInProgress: [], // массив тех пользователей, которые в процессе follow/unfollow для disable button
+    followingInProgress: [] as Array<number>, // массив тех пользователей, которые в процессе follow/unfollow для disable button
     term: "", // поисковый запрос среди пользователей
     needUpdateFriends: false, // флаг, что список друзей изменился, нужно обновить
     onlyFriends: false
     , // получить список только моих друзей
 }
+type initialStateType = typeof initialState
+
 let usersReducer = (state: initialStateType = initialState, action: any): initialStateType => {
     // типы принимаемые и возвращаемые редьюсером
     let stateCopy: initialStateType; // объявление части стейта до изменения редьюсером

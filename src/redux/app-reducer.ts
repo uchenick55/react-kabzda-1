@@ -18,14 +18,13 @@ export let appInitialState = ():appInitialStateActionType => { // экшн за�
 
 type ActionTypes = appInitialStateActionType | setInitialisedApp
 
-type initialStateType = {
-  initialisedApp: boolean
-}
-let initialState:initialStateType = { //стейт по умолчанию для инициализации приложения
+type initialStateType = typeof initialState
+
+let initialState = { //стейт по умолчанию для инициализации приложения
   initialisedApp: false, // флаг приложение инициализировано?
 }
 
-let appReducer = (state:initialStateType = initialState, action:any):initialStateType => {//редьюсер инициализации приложения
+let appReducer = (state:initialStateType = initialState, action:ActionTypes):initialStateType => {//редьюсер инициализации приложения
   let stateCopy:initialStateType; // объявлениечасти части стейта до изменения редьюсером
   switch (action.type) {
     case SET_INITIALISED_APP: // экшн инициализации приложения

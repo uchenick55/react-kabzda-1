@@ -1,6 +1,7 @@
 import {apiDialogs} from "../components/api/apiLocalStorage";
 import {GlobalStateType} from "./store-redux";
 import {ThunkAction} from "redux-thunk";
+import {NulableType} from "../types/commonTypes";
 
 const DIALOGS_INITIAL_STATE = "myApp/dialogs-reducer/DIALOGS_INITIAL_STATE";  //константа зануления при логауте
 const SET_MESSAGES = "myApp/dialogs-reducer/SET_MESSAGES";  //константа задания списка сообщений в стейт
@@ -64,20 +65,16 @@ type messages2Type = {
   userId: number
   message: string
 }
-type initialStateType = { // стейт сообщений по умолчанию
-  messages2: Array<messages2Type> | [],
-  dialogUserID: number | null, // ID пользователя с кем диалог
-  dialogUserFollowed: boolean, // собеседник followed? (друг)
-  dialogLastUpdateTime: string | null, // последнее время обновления текущего диалога
-  dialogs2: Array<dialogs2Type> | [] // мой диалогЛист. Берет данные с LocalStorage по всем входящим диалогам
-}
-let initialState:initialStateType = { // стейт сообщений по умолчанию
-  messages2: [],
-  dialogUserID: null, // ID пользователя с кем диалог
+
+let initialState = { // стейт сообщений по умолчанию
+  messages2: null as NulableType<Array<messages2Type>>, // сообщения по умолчанию нулевые, но могут быть еще и Array<messages2Type>
+  dialogUserID: null as NulableType<number>, // ID пользователя с кем диалог
   dialogUserFollowed: false, // собеседник followed? (друг)
-  dialogLastUpdateTime: null, // последнее время обновления текущего диалога
-  dialogs2: [] // мой диалогЛист. Берет данные с LocalStorage по всем входящим диалогам
+  dialogLastUpdateTime: null as NulableType<string>, // последнее время обновления текущего диалога
+  dialogs2: null as NulableType<Array<dialogs2Type>> // мой диалогЛист. Берет данные с LocalStorage по всем входящим диалогам
 }
+
+type initialStateType = typeof initialState
 
 let dialogsReducer = (state:initialStateType = initialState, action: ActionTypes):initialStateType => { // редьюсер диалогов
   let stateCopy:initialStateType; // объявлениечасти части стейта до изменения редьюсером

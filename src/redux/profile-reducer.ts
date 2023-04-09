@@ -1,7 +1,7 @@
 import {apiProfile} from "../components/api/api";
 import {getAuthMeThunkCreator, setMyProfile, setMyProfileActionType} from "./auth-reducer";
 import {updateDialogListThunkCreator} from "./dialogs-reducer";
-import {postsType, ProfileType} from "../components/api/commonTypes";
+import {NulableType, postsType, ProfileType} from "../types/commonTypes";
 import {Dispatch} from "redux";
 import {ThunkAction} from "redux-thunk";
 import {GlobalStateType} from "./store-redux";
@@ -31,8 +31,8 @@ export let addPostActionCreator = (newPostData: string):addPostActionCreatorActi
 
 const SET_USER_PROFILE = "myApp/profile-reducer/SET_USER_PROFILE"; // константа задания в локальный стейт профиля просматриваемого пользователя
 
-type setUserProfileActionType ={type:typeof SET_USER_PROFILE, profile: object}
-    let setUserProfile = (profile: object):setUserProfileActionType => { // экшнкреатор задания в локальный стейт профиля просматриваемого пользователя
+type setUserProfileActionType ={type:typeof SET_USER_PROFILE, profile: getProfileType}
+    let setUserProfile = (profile: getProfileType):setUserProfileActionType => { // экшнкреатор задания в локальный стейт профиля просматриваемого пользователя
     return {type: SET_USER_PROFILE, profile}
 };
 
@@ -60,23 +60,18 @@ export let setProfilePhoto = ():setProfilePhotoActionType => { //экшнкре�
 type ActionTypes = setProfilePhotoActionType | profileInitialStateActionType | setStatusActionType | setUserProfileActionType |
     addPostActionCreatorActionType | deletePostActionCreatorActionType | setEditProfileStatusActionType | setMyProfileActionType
 
-    type initialStateType = { //тип инишиалстейта
-    posts: Array<postsType>
-    profile: null | object
-    status: null | string
-    editProfileStatus: Array<string>
-}
-
-let initialState:initialStateType = {
+let initialState = {
     posts: [// заглушка постов на странице профиля
         {id: 1, message: "state 2 Hi, how are you?", like: 12},
         {id: 2, message: "state 2 it's, my first post", like: 15},
-    ],
-    profile: null, // нулевой профиль просматриваемого пользователя по умолчанию
-    status: null, // нулевой статус просматриваемого пользователя по умолчанию
-    editProfileStatus: [], // список ошибок правки формы профиля с сервера
-
+    ] as Array<postsType>,
+    profile: null as NulableType<getProfileType> , // нулевой профиль просматриваемого пользователя по умолчанию
+    status: "", // нулевой статус просматриваемого пользователя по умолчанию
+    editProfileStatus: [] as Array<string>, // список ошибок правки формы профиля с сервера
 }
+
+type initialStateType = typeof initialState
+
 export let profileReducer = (state:initialStateType = initialState, action:ActionTypes):initialStateType => { // редьюсер профиля
     let stateCopy:initialStateType; // объявлениечасти части стейта до изменения редьюсером
     switch (action.type) {

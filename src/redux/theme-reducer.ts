@@ -12,12 +12,11 @@ export let setTheme = (themeUpdate:"light" | "dark"):setThemeActionType => { // 
 
 type ActionTypes = setThemeActionType
 
-type initialStateType = {
-  themeBLL:"light" | "dark"
+
+let initialState = { //стейт по умолчанию темы
+  themeBLL: "light" as "light" | "dark", // тема в bll по умолчанию
 }
-let initialState:initialStateType = { //стейт по умолчанию темы
-  themeBLL: "light", // тема в bll по умолчанию
-}
+type initialStateType = typeof initialState
 
 let themeReducer = (state:initialStateType = initialState, action:ActionTypes):initialStateType => {//редьюсер задания темы
   let stateCopy:initialStateType; // объявлениечасти части стейта до изменения редьюсером

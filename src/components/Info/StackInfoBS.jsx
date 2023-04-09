@@ -19,7 +19,7 @@ let StackInfoBS = () => {
                 thunk/thunkCreator, thunkMiddleWare, redux-ducks. </p>
             <p>DAL (API): ajax, axios, get, post, put, delete, async/await, .then/.catch.        </p>
             <p>JS: try/catch/finally, setTimeout/setInterval, Object.keys/values/ hasOwnProperty,  Math.ceil/floor, new Date(), JSON.stringify, deep/shallow copy, closure, map, filter, some, find, sort, reduce, forEach, slice, splice, split, join, includes, Array.from, reverse etc. </p>
-            <p>Typescript: primitive, typeof, commonType/import, selector, Array/Object, reducer, thunk, connect(MSTP, MDTP, globalStateType), function, event, FC, useState,  Generic  </p>
+            <p>Typescript: primitive, typeof, commonType/import, selector, Array/Object, reducer, thunk, connect(MSTP, MDTP, globalStateType), function, event, FC, useState, generic  </p>
             <p>Git: checkout (-b), commit –a -m, merge, push, branch (–m), gitk –all&, reset –hard, pull.       </p>
             <p>Libs: react-router-dom, react-redux, redux-form, formik + yup, reselect, styled-components.        </p>
             <p>Node: npm/npx </p>

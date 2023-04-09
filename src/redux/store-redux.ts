@@ -22,8 +22,6 @@ let reducers = combineReducers({ // объединяем стейт редьюс
     tasks: tasksReducer,// стейт тасков
 });
 
-//let store = createStore(reducers, applyMiddleware(thunkMiddleWare));//ApplyMiddleWare позволяет сделать прослойку между UI и редьюсером, чтобы можно было диспатчить не только экшены, но и санки.
-
 // @ts-ignore
 const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
 

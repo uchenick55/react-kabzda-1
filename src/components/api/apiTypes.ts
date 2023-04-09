@@ -1,3 +1,5 @@
+import {ResultCodeEnum, ResultCodeEnumCaptcha} from "./enum";
+
 export type getAuthMeType = {
     resultCode: number,
     messages: Array<string>,
@@ -49,7 +51,7 @@ export type getUsersType = {
 }
 
 export type commonResponseType = {
-    resultCode: number
+    resultCode: ResultCodeEnum | ResultCodeEnumCaptcha
     messages: Array<string>,
     fieldsErrors: Array<string>,
     data: object

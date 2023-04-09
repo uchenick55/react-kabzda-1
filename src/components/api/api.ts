@@ -1,5 +1,5 @@
 import axios from "axios";
-import {apiFeedBackDataType, ProfileType} from "./commonTypes";
+import {apiFeedBackDataType, ProfileType} from "../../types/commonTypes";
 import {commonResponseType, getAuthMeType, getCaptchaType, getProfileType, getUsersType} from "./apiTypes";
 
 const instance = axios.create( {

@@ -30,3 +30,4 @@ export type apiFeedBackDataType = {
     name: string
 }
 
+export type NulableType<n> = null | n // тип нулевой
