@@ -2,8 +2,22 @@ import React from 'react';
 import classes from './Profile.module.css'
 import ProfileInfo from "./ProfileInfo/ProfileInfoBS";
 import MyPostsContainer from "./MyPosts/MyPostsContainer";
+import {getProfileType} from "../api/apiTypes";
+import {ProfileType} from "../../types/commonTypes";
 
-const Profile = ({
+type ProfileType2 = {
+    profile: getProfileType,
+    status: string,
+    myId: number,
+    userId: number,
+    putProfile: ProfileType,
+    putStatusThunkCreator: (statusTmpInput:string, myId:number)=>void,
+    uploadImage: (profilePhoto: any)=>void,
+    editProfileStatus:Array<string>,
+    setEditProfileStatus: (editProfileStatus: Array<string>)=> void
+}
+
+const Profile: React.FC<ProfileType2> = ({
                      profile, status, myId, putStatusThunkCreator, uploadImage,
                      userId, putProfile, editProfileStatus, setEditProfileStatus
                  }) => {
