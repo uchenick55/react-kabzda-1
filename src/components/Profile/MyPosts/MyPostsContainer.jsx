@@ -4,7 +4,7 @@ import {connect} from "react-redux";
 
 let mapStateToProps = (state) => {
     return {
-        state: state.profilePage,
+        posts: state.profilePage.posts,
         myId: state.auth.myId
     }
 }
@@ -13,7 +13,6 @@ let mapDispatchToProps = (dispatch) => {
         addPost: (newPostData) => {
             dispatch(addPostActionCreator(newPostData))
         },
-        dispatch: dispatch
     }
 }
 
