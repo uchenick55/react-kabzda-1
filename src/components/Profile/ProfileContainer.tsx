@@ -14,16 +14,14 @@ import withRouter2 from "../hoc/withRouter2";
 import {GlobalStateType} from "../../redux/store-redux";
 import {ProfileType} from "../../types/commonTypes";
 import {getProfileType} from "../api/apiTypes";
-//export const Card: FunctionComponent<CardProps> = ({ title, paragraph }) => <aside>
-//export class Clock extends Component<{}, ClockState> {
 
 type ProfileContainerType = {
-    profile: getProfileType,
-    isAuth: boolean,
-    myId: number, // мой
+    profile: getProfileType, // весь профиль пользователя
+    isAuth: boolean, // авторизация прошла?
+    myId: number, // мой ID
     status: string, // статус
     editProfileStatus: Array<string>  // список ошибок правки формы профиля с сервера
-    userId:number
+    userId:number // id пользователя
     setEditProfileStatus:(editProfileStatus: Array<string>)=>void,// экшн креатор задания ошибки с сервера в стейт после правки профиля
     getProfileThunkCreator:(userId:number, shouldUpdateDialogList:boolean, myId:number)=>void,// санкреатор на получение профиля выбранного пользователя
     putStatusThunkCreator:(statusTmpInput:string, myId:number)=>void,// санкреатор обновления моего статуса
@@ -37,7 +35,7 @@ class ProfileContainer extends React.Component<ProfileContainerType> {
         this.props.getProfileThunkCreator( this.props.userId, false, 0 );// обновить профиль в зависомости от ID
     }
 
-    componentDidUpdate(prevProps:any, prevState:any, snapshot:any) {
+    componentDidUpdate() {
         let userId = this.props.userId; // получить локальный userId из URL браузера
 
         if (userId === 0) {

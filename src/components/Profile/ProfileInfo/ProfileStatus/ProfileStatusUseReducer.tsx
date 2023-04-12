@@ -1,19 +1,33 @@
-import React, {useReducer} from "react";
+import React, {ChangeEvent, SyntheticEvent, useReducer} from "react";
 import "bootstrap/dist/css/bootstrap.min.css"
 import InputGroup from 'react-bootstrap/InputGroup';
 import Form from 'react-bootstrap/Form';
 
-let ProfileStatusUseReducer = ({status, userId, myId, putStatusThunkCreator}) => {
+
+type ProfileStatusUseReducerType = {
+    myId:number, // мой id для модификации статуса
+    userId: number, // id отображаемого пользователя
+    status:string, // статус из BLL
+    putStatusThunkCreator: (statusTmpInput:string, myId:number)=>void, // санкреатор для обновления сатуса
+}
+let ProfileStatusUseReducer:React.FC<ProfileStatusUseReducerType> = ({status, userId, myId, putStatusThunkCreator}) => {
     const initialState = {
         modifyStatus2: false,// локальная переменная-флаг модификации статуса
-        statusTmpInput2: null // локальный статус до отправки на сервер (поле input)
+        statusTmpInput2: "" // локальный статус до отправки на сервер (поле input)
     }
+    type initialStateType = typeof initialState
 
-    const SET_MODIFY_STATUS_TRUE = "SET_MODIFY_STATUS_TRUE"; // константа чтобы не ошибиться при диспатче (modify true)
-    const SET_MODIFY_STATUS_FALSE = "SET_MODIFY_STATUS_FALSE";// константа чтобы не ошибиться при диспатче (modify false)
-    const SET_STATUS_TMP_INPUT = "SET_STATUS_TMP_INPUT";// константа чтобы не ошибиться при диспатче (временный статус input)
+    const SET_MODIFY_STATUS_TRUE = "SET_MODIFY_STATUS_TRUE"; // константа (modify true)
+    const SET_MODIFY_STATUS_FALSE = "SET_MODIFY_STATUS_FALSE";// константа (modify false)
+    const SET_STATUS_TMP_INPUT = "SET_STATUS_TMP_INPUT";// константа (временный статус input)
 
-    const localReducer = (localState, action) => {
+    type setModifyStatusTrue = {type:typeof SET_MODIFY_STATUS_TRUE}
+    type setModifyStatusFalse = {type:typeof SET_MODIFY_STATUS_FALSE}
+    type setStatusTmpInput = {type:typeof SET_STATUS_TMP_INPUT, text: string}
+
+    type ActionTypes = setModifyStatusTrue | setModifyStatusFalse | setStatusTmpInput
+
+    const localReducer = (localState:initialStateType, action:ActionTypes):initialStateType => {
         let stateCopy; // копия стейта для дебага
         switch (action.type) {
             case SET_MODIFY_STATUS_TRUE: // если мы открываем поле input (модификацию стьатуса)
@@ -42,6 +56,7 @@ let ProfileStatusUseReducer = ({status, userId, myId, putStatusThunkCreator}) =>
 
     const [localState, dispatch] = useReducer(localReducer, initialState)// меняем отдельные useState на useReducer
 
+    type checkIfICanModifyStatusType = () => void
     const checkIfICanModifyStatus = () => {// проверка, что я могу менять статус (открыт мой профиль со статусом)
         if (userId === myId) { // если ID открытого пользователя равен моему
             dispatch({type: SET_MODIFY_STATUS_TRUE})// смена текстового отображения статуса на поле input
@@ -52,17 +67,22 @@ let ProfileStatusUseReducer = ({status, userId, myId, putStatusThunkCreator}) =>
 
         putStatusThunkCreator(localState.statusTmpInput2, myId)// санкреатор на обновление статуса на сервере
     }
-    const onChangeStatus = (event) => {
-        const text = event.currentTarget.value;// вынимаем значение введенное в поле ввода input
+    const onChangeStatus = (event:ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+        const text = event.target.value;// вынимаем значение введенное в поле ввода input
         dispatch({type: SET_STATUS_TMP_INPUT, text: text})// присваиваем переменной временного статуса из локального стейта введенное значение в поле
     }
-    const checkEnterPressed = (event) => { // проверка нажатия Enter
-        if (event.charCode === 13) {
+    const checkEnterPressed = (e: React.KeyboardEvent) => { // проверка нажатия Enter
+        if (e.charCode === 13) {
             setMyStatus()//задание статуса при нажатии Enter
         }
     }
 
-    const CommonInputGroup = ({isDisabled, onClickMethod, value}) => {
+    type CommonInputGroupType = {
+        isDisabled: boolean,
+        onClickMethod: checkIfICanModifyStatusType,
+        value:string
+    }
+    const CommonInputGroup:React.FC<CommonInputGroupType>  = ({isDisabled, onClickMethod, value}) => {
         if (!value) {
             value="";
         }
@@ -72,11 +92,11 @@ let ProfileStatusUseReducer = ({status, userId, myId, putStatusThunkCreator}) =>
             <Form.Control
                 onClick={onClickMethod}
                 value={value} // жестко зафиксировали значение поля ввода на временное значение статуса в локальном стейте
-                onChange={onChangeStatus} // задание временного локального статуса
+                onChange={(e)=>onChangeStatus(e)} // задание временного локального статуса
                 onBlur={setMyStatus}// задание стейта при потере фокуса input
                 autoFocus // фокусировка на поле ввода текста
                 placeholder={"задайте статус"}// текст при пустом поле ввода
-                onKeyPress={checkEnterPressed} // проверка нажатия Enter
+                onKeyPress={(e)=>checkEnterPressed(e)} // проверка нажатия Enter
                 disabled={isDisabled}
             />
         </InputGroup>
