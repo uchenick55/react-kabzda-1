@@ -21,9 +21,8 @@ const EditProfileFormik = ({putProfile, setEditMode, profile, editProfileStatus,
     }
 
     const myOnSubmit = (values, {resetForm}) => { // действия по сабмиту
-        putProfile(values) // колбек, который принмает результат ввода формы
+        putProfile(values) // колбек, который принимает результат ввода формы
         resetForm()// сбросить значение формы после ввода
-        //  setEditMode(false) // снятие режима редактирования комменты когда закончу форму
 
     }
 

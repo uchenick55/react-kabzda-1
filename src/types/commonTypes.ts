@@ -21,8 +21,10 @@ export type ProfileType = {
         website: string,
         youtube: string
     }
-    userId: number
+  //  userId: number
 }
+
+
 
 export type apiFeedBackDataType = {
     email: string
