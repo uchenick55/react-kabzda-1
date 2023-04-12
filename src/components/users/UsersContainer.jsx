@@ -99,8 +99,6 @@ export let UsersContainer = connect(mapStateToProps,
     { setCurrentPage,
         getUsersThunkCreator, followThunkCreator, unfollowThunkCreator, setTerm, setOnlyFriends})(UsersAPI);
 
-//export default UsersContainer;
-
 
 
 

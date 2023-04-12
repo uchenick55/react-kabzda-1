@@ -12,7 +12,7 @@ type MyPostsBSType = {
 }
 const MyPostsBS:React.FC<MyPostsBSType> = ({userId, posts, addPost}) => { // основная компонента отрисовки постов
 
-    let postElements = posts.map((p) => // подкомпонента отрисовки всех постов через map
+    const postElements = posts.map((p) => // подкомпонента отрисовки всех постов через map
         <Post key={p.id} message={p.message} like={p.like}/>);
 
     return (

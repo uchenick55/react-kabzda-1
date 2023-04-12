@@ -21,14 +21,15 @@ type ProfileContainerType = {
     myId: number, // мой ID
     status: string, // статус
     editProfileStatus: Array<string>  // список ошибок правки формы профиля с сервера
-    userId:number // id пользователя
-    setEditProfileStatus:(editProfileStatus: Array<string>)=>void,// экшн креатор задания ошибки с сервера в стейт после правки профиля
-    getProfileThunkCreator:(userId:number, shouldUpdateDialogList:boolean, myId:number)=>void,// санкреатор на получение профиля выбранного пользователя
-    putStatusThunkCreator:(statusTmpInput:string, myId:number)=>void,// санкреатор обновления моего статуса
-    setprofilePhotoThunkCreator:(profilePhoto:any, myId:number)=>void,// санкреатор установки фотографии моего профиля
-    putMyProfileThunkCreator:(MyProfile:ProfileType, myId:number)=>void,
+    userId: number // id пользователя
+    setEditProfileStatus: (editProfileStatus: Array<string>) => void,// экшн креатор задания ошибки с сервера в стейт после правки профиля
+    getProfileThunkCreator: (userId: number, shouldUpdateDialogList: boolean, myId: number) => void,// санкреатор на получение профиля выбранного пользователя
+    putStatusThunkCreator: (statusTmpInput: string, myId: number) => void,// санкреатор обновления моего статуса
+    setprofilePhotoThunkCreator: (profilePhoto: any, myId: number) => void,// санкреатор установки фотографии моего профиля
+    putMyProfileThunkCreator: (MyProfile: ProfileType, myId: number) => void,
 
 }
+
 class ProfileContainer extends React.Component<ProfileContainerType> {
     componentDidMount() {
 
@@ -42,12 +43,12 @@ class ProfileContainer extends React.Component<ProfileContainerType> {
             userId = this.props.myId // подставить мой ID если URL профиля пустой
         }// если кликнули на мой профиль (без ID в URL браузера) то смотрим мой профиль
         if (userId !== this.props.profile.userId) { // если считаный из URL ID не равен записаному в стейт (смена пользователя)
-            this.props.getProfileThunkCreator( userId, false, 0); // обновить профиль в зависомости от ID
+            this.props.getProfileThunkCreator( userId, false, 0 ); // обновить профиль в зависомости от ID
             // здесь сменить setEditMode на false
         }
     }
 
-    uploadImage = (profilePhoto:any) => {
+    uploadImage = (profilePhoto: any) => {
         console.log( profilePhoto )
         this.props.setprofilePhotoThunkCreator( profilePhoto, this.props.myId )
     }
@@ -78,24 +79,30 @@ class ProfileContainer extends React.Component<ProfileContainerType> {
     }
 }
 
+type mapStateToPropsType = {
+    profile: getProfileType,
+    isAuth: boolean,
+    myId: number, // мой
+    status: string, // статус
+    editProfileStatus: Array<string>  // список ошибок правки формы профиля с сервера
+}
+
 let mapStateToProps = (state: GlobalStateType) => {
     return {
-        profile: state.profilePage.profile,
-        isAuth: state.auth.isAuth,
-        myId: state.auth.myId, // мой
-        status: state.profilePage.status, // статус
-        editProfileStatus: state.profilePage.editProfileStatus  // список ошибок правки формы профиля с сервера
+        profile: state.profilePage.profile as getProfileType,
+        isAuth: state.auth.isAuth as boolean,
+        myId: state.auth.myId as number, // мой
+        status: state.profilePage.status as string, // статус
+        editProfileStatus: state.profilePage.editProfileStatus as Array<string>  // список ошибок правки формы профиля с сервера
     }
 }
 
-type mapStateToPropsType = typeof mapStateToProps
-
 type mapDispatchToPropsType = {
-    setEditProfileStatus:(editProfileStatus: Array<string>)=>void,// экшн креатор задания ошибки с сервера в стейт после правки профиля
-    getProfileThunkCreator:(userId:number, shouldUpdateDialogList:boolean, myId:number)=>void,// санкреатор на получение профиля выбранного пользователя
-    putStatusThunkCreator:(statusTmpInput:string, myId:number)=>void,// санкреатор обновления моего статуса
-    setprofilePhotoThunkCreator:(profilePhoto:any, myId:number)=>void,// санкреатор установки фотографии моего профиля
-    putMyProfileThunkCreator:(MyProfile:ProfileType, myId:number)=>void,
+    setEditProfileStatus: (editProfileStatus: Array<string>) => void,// экшн креатор задания ошибки с сервера в стейт после правки профиля
+    getProfileThunkCreator: (userId: number, shouldUpdateDialogList: boolean, myId: number) => void,// санкреатор на получение профиля выбранного пользователя
+    putStatusThunkCreator: (statusTmpInput: string, myId: number) => void,// санкреатор обновления моего статуса
+    setprofilePhotoThunkCreator: (profilePhoto: any, myId: number) => void,// санкреатор установки фотографии моего профиля
+    putMyProfileThunkCreator: (MyProfile: ProfileType, myId: number) => void,
 }
 
 export default compose<any>(
@@ -103,18 +110,16 @@ export default compose<any>(
         mapDispatchToPropsType, // тип mapDispatchToProps
         unknown, // тип входящих пропсов от родителя
         GlobalStateType // глобальный стейт из стора
-        // @ts-ignore
         >( mapStateToProps, {
         setEditProfileStatus,// экшн креатор задания ошибки с сервера в стейт после правки профиля
         getProfileThunkCreator,// санкреатор на получение профиля выбранного пользователя
         putStatusThunkCreator,// санкреатор обновления моего статуса
         setprofilePhotoThunkCreator,// санкреатор установки фотографии моего профиля
         putMyProfileThunkCreator, // санкреатор установки моего профиля myProfile
-
     } ),
     withRouter2,// получить данные ID из URL браузера и добавить в пропсы
     NavigateToLoginHoc2// проверка, залогинен ли я
-)(ProfileContainer)
+)( ProfileContainer )
 
 
 
