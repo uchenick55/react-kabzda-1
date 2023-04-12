@@ -8,7 +8,7 @@ import EditProfileFormik from "./-EditProfileFormik";
 
 const ShowProfile = ({profile, setEditMode, userId, myId}) => { // вынес отдельно отображение профиля
 
-    let Contact = (key1) => { /*простая функция вывода отдельного элемента contacts из profile*/
+    let contact = (key1) => { /*простая функция вывода отдельного элемента contacts из profile*/
         return <div>
             <b>{key1}: </b>{profile.contacts[key1]}
         </div>
@@ -23,7 +23,7 @@ const ShowProfile = ({profile, setEditMode, userId, myId}) => { // вынес о
             <div className={classes.ProfileContacts}>
                 {Object.keys(profile.contacts).map((key1) => { //
                     return (<div key={key1}>
-                            {Contact(key1)}
+                            {contact(key1)}
                         </div>
                     )
                 })}

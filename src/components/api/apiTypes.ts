@@ -10,6 +10,7 @@ export type getAuthMeType = {
     }
 }
 export type getProfileType = {
+    aboutMe: string,
     userId: number
     lookingForAJob: boolean,
     lookingForAJobDescription: string,

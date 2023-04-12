@@ -8,46 +8,27 @@ import "bootstrap/dist/css/bootstrap.min.css"
 import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
 import Container from "react-bootstrap/Container";
-import Button from "react-bootstrap/Button";
 import Image from 'react-bootstrap/Image'
 import commonClasses from "../../common/CommonClasses/common.module.css";
+import {getProfileType} from "../../api/apiTypes";
+import {ProfileType} from "../../../types/commonTypes";
+import ShowProfile from "./ShowProfile";
 
 
-const ShowProfile = ({profile, setEditMode, userId, myId}) => { // вынес отдельно отображение профиля
 
-    let Contact = (key1) => { /*простая функция вывода отдельного элемента contacts из profile*/
-        return <div>
-            <b>{key1}: </b>{profile.contacts[key1]}
-        </div>
-    }
-    return (<div
-            className={`${commonClasses.textMaxWidthCommon} ${commonClasses.textMaxWidth18rem}`}>
-
-
-                <h3 >{profile.fullName}</h3>
-                <div ><b>Обо мне</b>: {profile.aboutMe}</div>
-                <div><b>В поиске работы?</b> {profile.lookingForAJob ? "Да" : "Нет"}</div>
-                <div ><b>Описание:</b> {profile.lookingForAJobDescription}</div>
-                <div><b>userId:</b> {profile.userId}</div>
-
-                <ul>
-                    {Object.keys(profile.contacts).map((key1) => { //
-                        return (<li key={key1} >
-                                {Contact(key1)}
-                            </li>
-                        )
-                    })}
-                </ul>
-
-            {(userId === 0) && <Button onClick={() => {
-                setEditMode(true)
-            }}>Редактировать профиль </Button>}
-
-        </div>
-    )
+type ProfileInfoType2 = {
+    profile: getProfileType,
+    status: string,
+    myId: number,
+    userId: number,
+    putProfile: ProfileType,
+    putStatusThunkCreator: (statusTmpInput:string, myId:number)=>void,
+    uploadImage: (profilePhoto: any)=>void,
+    editProfileStatus:Array<string>,
+    setEditProfileStatus: (editProfileStatus: Array<string>)=> void
 }
 
-const ProfileInfo = ({
+const ProfileInfo: React.FC<ProfileInfoType2> = ({
                          profile, myId, status, putStatusThunkCreator, uploadImage,
                          userId, putProfile, editProfileStatus, setEditProfileStatus
                      }) => {
@@ -73,7 +54,7 @@ const ProfileInfo = ({
     if (!profile) { // если профиль еще не загружен
         return <Preloader/> // отобразить предзагрузку
     }
-    let onChangeProfilePhoto = (e) => {
+    let onChangeProfilePhoto = (e:any) => {
         setprofilePhoto(e.target.files[0]) // записать в useState выбранный файл фото профиля(временный стейт)
     }
     let displayClass = showUploadImageButton ? "" : ButtonOverImage.displayNone // класс скрытия/отображения кнопок загрузки поверх картинки профиля
@@ -91,9 +72,8 @@ const ProfileInfo = ({
     let editProfile = editMode &&
         <div>
             <EditProfileFormikBS
-                profile={profile} putProfile={putProfile} setEditMode={setEditMode}
-                userId={userId} myId={myId} editProfileStatus={editProfileStatus}
-                setEditProfileStatus={setEditProfileStatus}/>
+                putProfile={putProfile} setEditMode={setEditMode} profile={profile}
+                editProfileStatus={editProfileStatus} setEditProfileStatus={setEditProfileStatus}/>
         </div>
     let editMyPhoto = (userId === 0) &&// если мы перешли на свой профиль (в браузере нет ID возле profile)
         <div>
@@ -130,13 +110,13 @@ const ProfileInfo = ({
         onMouseOut={() => {
             setshowUploadImageButton(false)
         }}
-        className={`${ButtonOverImage.profilePhotoIMG} ${userId === 0 && showUploadImageButton === true ? ButtonOverImage.ImgHover : ""}`}
+        className={`${ButtonOverImage.profilePhotoIMG} ${userId === 0 && showUploadImageButton ? ButtonOverImage.ImgHover : ""}`}
         // если это мой профиль (userId === 0) и мышкой навели на картинку, добавить ImgHover класс (альтернатива псевдокласса :hover)
         src={profile.photos.large ? profile.photos.large : userPhoto1}/>
 
     return <div>
         <Container fluid="sm">
-            <h2 className={commonClasses.pageHeader}>Profile</h2>
+            <h2 className={commonClasses.pageHeader}>Profile</h2> {/*Заголовок*/}
 
             <Row >
                 <Col xs={12} md={5} className={ButtonOverImage.container}>
@@ -153,12 +133,10 @@ const ProfileInfo = ({
                 Если не саксесфулли, то выводим ошибки и не закрываем редактирование*/}
                     <div>
                         {editedSuccessfully // если успешно обновлен профиль на сервере
-                            ? <div>
-                                {editProfileStatus[0]} {/*вывести сообщение об успехе*/}
-                            </div>// вывести сообщение успешного обновления
-                            : null
-
-                        } {/*ошибка редактирования профиля*/}
+                            && <div>
+                                {editProfileStatus[0]} {/* вывести сообщение успешного обновления*/}
+                            </div>
+                        }
                     </div>
                     <div>
                         {profileStatus} {/*отображение моего статуса*/}
