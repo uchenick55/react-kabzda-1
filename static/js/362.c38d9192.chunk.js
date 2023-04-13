@@ -1,2 +1,0 @@
-"use strict";(self.webpackChunkmy_app=self.webpackChunkmy_app||[]).push([[362],{9362:function(e,n,p){p.r(n);var a=p(184);n.default=function(){return(0,a.jsx)("div",{children:(0,a.jsx)("p",{children:"\u0421\u0442\u0440\u0430\u043d\u0438\u0446\u0430 \u043f\u043e\u0438\u0441\u043a\u0430 \u043d\u043e\u0432\u043e\u0441\u0442\u0435\u0439 \u043d\u0430 \u043e\u0441\u043d\u043e\u0432\u0435 \u043e\u0442\u043a\u0440\u044b\u0442\u043e\u0433\u043e api HackerNews"})})}}}]);
-//# sourceMappingURL=362.c38d9192.chunk.js.map
