@@ -69,11 +69,9 @@ class DialogListContainer extends React.Component {
                 dialogs ={this.props.dialogs} // список диалогов
                 dialogs2 ={this.props.dialogs2} // список диалогов с LocalStorage
                 {...this.props} // все входящие пропсы пробросили дальше
-             //   sendMessage={this.sendMessage} // проброс местного метода отправки сообщений
                 getDialogs={this.getDialogs}  // проброс местного метода получить диалоги
                 getDialogLastUpdateTime={this.getDialogLastUpdateTime} // проброс метода - получить время обновления текущего диалога
                 myId={this.props.myId} // мой ID
-             //   deleteMessage = {this.deleteMessage} // удалить сообщение
                 getDialogList={this.getDialogList} // периодическая проверка написал ли кто мне, или я с кем диалог начал
                 dialogUserID = {this.props.dialogUserID}
                 deleteDialog = {this.deleteDialog}

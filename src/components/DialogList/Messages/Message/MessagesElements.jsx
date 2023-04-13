@@ -1,7 +1,7 @@
 import Message from "./MessageBS";
 import React from "react";
 
-let MessagesElements = ({messages2, myId, deleteMessage}) => messages2.map((m) => // подкомпонента отрисовки всех сообщений через map
+let MessagesElements = ({messages2, myId, deleteMessage}) => messages2 && messages2.map((m) => // подкомпонента отрисовки всех сообщений через map
     <Message key={m.id+m.message} message={m.message} myId={myId} userId={m.userId} Date={m.Date} MessageId={m.id}
              deleteMessage={deleteMessage}/>);
 
