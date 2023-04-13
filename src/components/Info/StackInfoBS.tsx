@@ -3,7 +3,8 @@ import "bootstrap/dist/css/bootstrap-grid.min.css"
 import Container from "react-bootstrap/Container";
 import commonClasses from "../common/CommonClasses/common.module.css";
 
-let StackInfoBS = () => {
+type StackInfoBSType = {}
+const StackInfoBS:React.FC<StackInfoBSType> = () => {
     const usedStack = <div>
         <Container>
 

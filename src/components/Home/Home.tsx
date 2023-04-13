@@ -4,7 +4,10 @@ import Container from "react-bootstrap/Container";
 import commonClasses from "../common/CommonClasses/common.module.css";
 import IndexInfo from "../Info/IndexInfo";
 
-let Home = () => {
+type HomeTypes = {
+
+}
+let Home: React.FC<HomeTypes> = () => {
     const home = <div>
         <Container>
             <h2 className={commonClasses.pageHeader}>Home</h2>

@@ -1,4 +1,7 @@
-let FeedBackInfoShort = () => {
+import React from "react";
+
+type FeedBackInfoShortType = {}
+const FeedBackInfoShort:React.FC<FeedBackInfoShortType> = () => {
     return (<div>
         <p>Проверить отправку почты можно на тестовом почтовом ящике {" "}
             <a href="https://passport.yandex.ru/auth/">яндекс почты</a>: <br/>

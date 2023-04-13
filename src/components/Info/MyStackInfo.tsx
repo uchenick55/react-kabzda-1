@@ -1,4 +1,9 @@
-let HomeInfo = () => {
+import React from "react";
+
+type HomeInfoType = {
+
+}
+const HomeInfo:React.FC<HomeInfoType> = () => {
 
     return <div>
         <p>Здесь вы можете посмотреть мой стек технологий. Большую часть постарался применить на данном проекте, но

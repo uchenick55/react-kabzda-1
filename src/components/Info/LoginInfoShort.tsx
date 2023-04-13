@@ -1,4 +1,7 @@
-let LoginInfoShort = () => {
+import React from "react";
+
+type LoginInfoShortType = {}
+const LoginInfoShort:React.FC<LoginInfoShortType> = () => {
     return (<div>
         Данные для тестового входа:
         <p>Аккаунт 1: Email: evgeniysazonov1983@gmail.com <br/>

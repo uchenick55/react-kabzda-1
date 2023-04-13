@@ -1,4 +1,7 @@
-let ProfileInfo2 = () => {
+import React from "react";
+
+type ProfileInfo2Type = {}
+const ProfileInfo2:React.FC<ProfileInfo2Type> = () => {
     return (<div>
         <p>Выводится профиль выбранного пользователя; </p>
         <p>На своей странице можно менять фотографию: навести мышкой на фото, через Обзор выбрать файл, нажать Загрузить; </p>

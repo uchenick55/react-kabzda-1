@@ -6,18 +6,18 @@ import {Route, Routes} from "react-router-dom";
 import ErrorBoundary from "../common/ErrorBoundary/ErrorBoundary";
 import TasksInfo from "./TasksInfo";
 
-const ProfileInfo2 = React.lazy(() => import("../Info/ProfileInfo2"))
-const DialogsInfo = React.lazy(() => import("../Info/DialogsInfo"))
-const UsersInfo = React.lazy(() => import("../Info/UsersInfo"))
-const LoginInfo = React.lazy(() => import("../Info/LoginInfo"))
-const NewsInfo = React.lazy(() => import("../Info/NewsInfo"))
-const RestInfo = React.lazy(() => import("../Info/RestInfo"))
-const FeedBackInfo = React.lazy(() => import("../Info/FeedBackInfo"))
-const MyStackInfo = React.lazy(() => import("../Info/MyStackInfo"))
-const HomeInfo = React.lazy(() => import("../Info/HomeInfo"))
+const ProfileInfo2 = React.lazy(() => import("./ProfileInfo2"))
+const DialogsInfo = React.lazy(() => import("./DialogsInfo"))
+const UsersInfo = React.lazy(() => import("./UsersInfo"))
+const LoginInfo = React.lazy(() => import("./LoginInfo"))
+const NewsInfo = React.lazy(() => import("./NewsInfo"))
+const RestInfo = React.lazy(() => import("./RestInfo"))
+const FeedBackInfo = React.lazy(() => import("./FeedBackInfo"))
+const MyStackInfo = React.lazy(() => import("./MyStackInfo"))
+const HomeInfo = React.lazy(() => import("./HomeInfo"))
 
-
-let InfoContainer = () => {
+type InfoContainerTrype = {}
+const InfoContainer: React.FC<InfoContainerTrype> = () => {
     let info = <div>
         <Suspense fallback={
             <div>Загрузка...</div>}> {/*Оборачивает компоненты, по которым идет Lazy import и выдает fallback на время загрузки*/}

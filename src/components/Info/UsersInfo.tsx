@@ -1,7 +1,13 @@
 import {connect} from "react-redux";
 import React from "react";
+import {GlobalStateType} from "../../redux/store-redux";
+import {NulableType} from "../../types/commonTypes";
 
-let UsersInfo = ({myId, myLogin}) => {
+type UsersInfoType = {
+    myId: NulableType<number>,
+    myLogin: NulableType<string>
+}
+let UsersInfo:React.FC<UsersInfoType> = ({myId, myLogin}) => {
     return (<div>
         <p>Пользователей можно искать по имени;</p>
         <p>Вы можете добавить пользователей в избранное, нажав звездочку. Аналогично их можно удалять;</p>
@@ -21,11 +27,20 @@ let UsersInfo = ({myId, myLogin}) => {
     </div>)
 }
 
-let mapStateToProps = (state) => {
+type mapStateToPropsType = {
+    myId: NulableType<number>,
+    myLogin: NulableType<string>
+}
+let mapStateToProps = (state:GlobalStateType) => {
     return {
         myId: state.auth.myId,
         myLogin: state.auth.myLogin
     }
 }
 
-export default connect(mapStateToProps, null)(UsersInfo)
+export default connect<
+    mapStateToPropsType,// тип mapStateToProps
+    null, // тип mapDispatchToProps
+    unknown,// тип входящих пропсов от родителя
+    GlobalStateType// глобальный стейт из стора
+    >(mapStateToProps, null)(UsersInfo)

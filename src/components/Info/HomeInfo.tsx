@@ -1,8 +1,10 @@
 import swgInfoPic from "../../assets/images/swg/info-home-black.svg"
 import Image from "react-bootstrap/Image";
 import classes from "../Header/Header.module.css";
+import React from "react";
 
-let HomeInfo = () => {
+type HomeInfoType = {}
+const HomeInfo:React.FC<HomeInfoType> = () => {
 
     return <div>
         <p>Приветствую!

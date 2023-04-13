@@ -1,6 +1,9 @@
 import React from "react";
 
-let IndexInfo = () => {
+type IndexInfoType = {
+
+}
+const IndexInfo:React.FC<IndexInfoType> = () => {
     return (<div>
             <p>За основу взят курс <a href="https://www.youtube.com/playlist?list=PLcvhF2Wqh7DNVy1OCUpG3i5lyxyBWhGZ8">React
                 JS</a></p>
