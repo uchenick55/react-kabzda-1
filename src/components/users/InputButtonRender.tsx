@@ -1,4 +1,4 @@
-import React from "react";
+import React, {ChangeEvent} from "react";
 import Stack from "react-bootstrap/Stack";
 import Form from 'react-bootstrap/Form';
 import Button from "react-bootstrap/Button";
@@ -7,7 +7,15 @@ import Image from "react-bootstrap/Image";
 import favImage from "../../assets/images/swg/star+.svg"
 import classes from './Users.module.css'
 
-const InputButtonUsersRender = ({onChangeTerm, onChangeTermFunction, SetTermFunction, handleClick, setOnlyFriends, onlyFriends}) => {
+type InputButtonUsersRenderType = {
+    onChangeTerm:string,
+    onlyFriends: boolean, // селектор получить только моих рузей
+    onChangeTermFunction:(event: React.ChangeEvent<HTMLInputElement|HTMLTextAreaElement>) =>void,
+    SetTermFunction:()=>void,
+    handleClick:(event: React.MouseEvent<HTMLButtonElement, MouseEvent>) => void,
+    setOnlyFriends:(onlyFriends: boolean)=>void,
+}
+const InputButtonUsersRender:React.FC<InputButtonUsersRenderType> = ({onChangeTerm, onChangeTermFunction, SetTermFunction, handleClick, setOnlyFriends, onlyFriends}) => {
     return <div>
         <Form>
             <Stack direction="horizontal" gap={3} className="mx-1">
@@ -15,7 +23,9 @@ const InputButtonUsersRender = ({onChangeTerm, onChangeTermFunction, SetTermFunc
                     <InputGroup.Text><Image fluid={true} src={favImage} className={classes.favImage}/></InputGroup.Text>
                     <InputGroup.Checkbox
                         checked={onlyFriends}
-                        onChange={(event)=>{setOnlyFriends(event.currentTarget.checked)}}
+                        onChange={(event:MouseEvent)=>{
+                            // @ts-ignore
+                            event && event.target && setOnlyFriends(event.target.checked)}}
                     />
 
                     <Form.Control
@@ -31,7 +41,8 @@ const InputButtonUsersRender = ({onChangeTerm, onChangeTermFunction, SetTermFunc
                 </InputGroup>
 
                 <div className="vr"/> {/*разделитель поля поиска и кнопки поиска*/}
-                <Button onClick={handleClick} type="submit">Find</Button>
+                <Button
+                    onClick={handleClick} type="submit">Find</Button>
                 {/* кнопка с обработчиком клика. type="submit" дает нажатие на Enter*/}
             </Stack>
         </Form>

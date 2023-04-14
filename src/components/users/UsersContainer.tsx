@@ -99,7 +99,6 @@ class UsersAPI extends React.Component<MainProps, MainState> {
                      onChangeTermFunction = {this.onChangeTermFunction}
                      currentRangeLocal= {this.state.currentRangeLocal}
                      onChangeRangeLocal = {this.onChangeRangeLocal}
-                     myId ={this.props.myId}
                      setOnlyFriends={this.props.setOnlyFriends}
                      onlyFriends={this.props.onlyFriends}
             />

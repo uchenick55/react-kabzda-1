@@ -1,34 +1,47 @@
-import React, {useState} from "react";
+import React, {ChangeEvent, useState} from "react";
 import classes from "./Users.module.css";
-import userPhoto from "../../assets/images/no-image3.png";
-import DialogPic from "../../assets/images/swg/dialog-svgrepo-com.svg"
-
-import FollowPic from "../../assets/images/swg/star-.svg"
-import UnfollowPic from "../../assets/images/swg/star+.svg"
-import {NavLink} from "react-router-dom";
 import PaginationByCourse from "../common/Pagination/PaginationByCourseBS";
 import InputButtonUsersRender from "./InputButtonRender";
-import Card from 'react-bootstrap/Card';
 import Container from 'react-bootstrap/Container';
 import Row from 'react-bootstrap/Row';
 import commonClasses from "../common/CommonClasses/common.module.css";
-import Image from "react-bootstrap/Image";
-import Col from "react-bootstrap/Col";
 import UserItems from "./UserItems";
+import {usersType} from "../api/apiTypes";
 
-const UsersBS = ({
+type UsersBSType = {
+    totalUsersCount: number,
+    pageSize:number,
+    currentPage:number,
+    users: Array<usersType>, // Реселектор users- список пользователей в пачке от сервера
+    followingInProgress: Array<number>, // селектор followingInProgress - массив на кого мы подписались, кнопка неактивна
+    isAuth: boolean, // селектор isAuth - флаг авторизации
+    onChangeTerm:string,
+    onlyFriends: boolean, // селектор получить только моих рузей
+    currentRangeLocal: number,
+    unfollowAPI:(id:number)=>void,
+    onPageChanged:(setPage:number)=>void,
+    followAPI:(id:number)=>void,
+    SetTermFunction:()=>void,
+    onChangeTermFunction:(event: ChangeEvent<HTMLInputElement|HTMLTextAreaElement>) =>void,
+    onChangeRangeLocal:(rangeShift:number) =>void,
+    setOnlyFriends:(onlyFriends: boolean)=>void,
+}
+const UsersBS:React.FC<UsersBSType> = ({
                      totalUsersCount, pageSize, currentPage, onPageChanged, users,
                      followingInProgress, unfollowAPI, isAuth, followAPI,
                      SetTermFunction, onChangeTerm, onChangeTermFunction,
-                     onChangeRangeLocal, currentRangeLocal, myId, setOnlyFriends, onlyFriends // раскукожили все пропсы
+                     onChangeRangeLocal, currentRangeLocal, setOnlyFriends, onlyFriends // раскукожили все пропсы
                  }) => {
-    const [error, setError] = useState("")
-    if (error) {
+    type errorType = {
+        message:string
+    }
+    const [error, setError] = useState<any>( {message:""})
+    if (error.message) {
         return error.message
     }
     try {
 
-        const handleClick = (e) => { // обработка клика по кнопке
+        const handleClick = (e:any) => { // обработка клика по кнопке
             e.preventDefault(); // отменить отправку формы по умолчанию с кнопки
             SetTermFunction() // задать в стейт значения поиска после сабмита
         }
