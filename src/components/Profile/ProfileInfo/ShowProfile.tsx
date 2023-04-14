@@ -2,7 +2,7 @@ import {getProfileType} from "../../api/apiTypes";
 import React from "react";
 import commonClasses from "../../common/CommonClasses/common.module.css";
 import Button from "react-bootstrap/Button";
-import contact from "./contact.jsx";
+import Contact from "./Contact";
 
 type ShowProfileType = {
     profile: getProfileType,
@@ -26,9 +26,10 @@ const ShowProfile: React.FC<ShowProfileType> = ({profile, setEditMode, userId, m
             <div><b>userId:</b> {profile.userId}</div>
 
             <ul>
-                {Object.keys(profile.contacts).map((key1) => { //
-                    return (<li key={key1} >
-                            {contact(key1, profile)}
+                {profile && Object.keys(profile.contacts).map((key1, ind) => { // ключи contacts
+                    const Value:string = Object.values(profile.contacts)[ind] // значения contacts
+                    return (<li key={key1}>
+                            <Contact key1={key1} Value={Value} /> {/*вывод ключ + значение*/}
                         </li>
                     )
                 })}

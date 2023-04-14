@@ -147,7 +147,7 @@ class KrestikiNoliki extends React.Component<null, KrestikiNolikiStateType> {
 
        // @ts-ignore
         this.setState( {history: historyNew2} ); // внести в history обновленный  historyNew2
-    };  
+    };
 
     newGame = () => {
         this.setState( {
