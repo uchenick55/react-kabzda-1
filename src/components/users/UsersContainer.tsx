@@ -36,7 +36,7 @@ type MainState = {
     onChangeTerm: string, // задание поискового запроса в локальный стейт обновления поля
     currentRangeLocal: number // текущий диапазон
 }
-class UsersAPI extends React.Component<MainProps, MainState> {
+class UsersContainer extends React.Component<MainProps, MainState> {
     constructor(props: any) {
         super(props);
         this.state = {
@@ -140,11 +140,11 @@ type mapDispatchToPropsType = {
     setTerm:(term: string)=>void,
     setOnlyFriends:(onlyFriends: boolean)=>void
 }
-export let UsersContainer = connect<
+export default connect<
     mapStateToPropsType,
     mapDispatchToPropsType,
     unknown,
     GlobalStateType
 >(mapStateToProps,
     { setCurrentPage, getUsersThunkCreator, followThunkCreator,
-        unfollowThunkCreator, setTerm, setOnlyFriends})(UsersAPI);
+        unfollowThunkCreator, setTerm, setOnlyFriends})(UsersContainer);

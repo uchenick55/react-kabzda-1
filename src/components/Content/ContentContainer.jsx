@@ -9,7 +9,7 @@ import classes from "./ContentContainer.module.css"
 //const ProfileContainer = React.lazy(() => import("../Profile/ProfileContainer"))
 const DialogsContainer = React.lazy(() => import("../DialogList/DialogListContainer"))
 // В случае именного экспорта, оборачиваем компоненту в промежуточную с экспортом по умолчанию, чтобы работал lazy
-const ExportDefaultUsersContainer = React.lazy(() => import("../users/ExportDefaultUsersContainer"))
+const UsersContainer = React.lazy(() => import("../users/UsersContainer"))
 const LoginContainer = React.lazy(() => import("../Login/LoginContainer"))
 const News = React.lazy(() => import("../News/News"))
 const Rest = React.lazy(() => import("../Rest/Krestiki-Noliki/krestiki-noliki"))
@@ -27,7 +27,7 @@ let ContentContainer = () => { // вынес роутинг контента в 
                         <Route path='/mystack/*' element={<StackInfo/>}/> {/*Общие Комментарии*/}
                         <Route path='/profile/*' element={<ProfileContainer/>}/> {/*Профиль*/}
                         <Route path='/dialogs/*' element={<DialogsContainer/>}/> {/*Диалоги*/}
-                        <Route path='/users/*' element={<ExportDefaultUsersContainer/>}/> {/*Поиск по UsersBS*/}
+                        <Route path='/users/*' element={<UsersContainer/>}/> {/*Поиск по UsersBS*/}
                         <Route path='/login/*' element={<LoginContainer/>}/> {/*Логин*/}
                         <Route path='/news/*' element={<News/>}/> {/*Поиск по новостям hn algonia*/}
                         <Route path='/rest/*' element={<Rest/>}/> {/*Страница отдыха*/}
