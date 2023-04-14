@@ -9,8 +9,17 @@ import userPhoto from "../../assets/images/no-image3.png";
 import DialogPic from "../../assets/images/swg/dialog-svgrepo-com.svg";
 import React from "react";
 import FollowUnfollowButtons from "./FollowUnfollowButtons";
+import {usersType} from "../api/apiTypes";
 
-const UserItems = ({users, unfollowAPI, followAPI, followingInProgress, isAuth}) => {
+type UserItemsType = {
+    users: Array<usersType>, // Реселектор users- список пользователей в пачке от сервера
+    unfollowAPI:(id:number)=>void,
+    followAPI:(id:number)=>void,
+    followingInProgress: Array<number>, // селектор followingInProgress - массив на кого мы подписались, кнопка неактивна
+    isAuth: boolean, // селектор isAuth - флаг авторизации
+
+}
+const UserItems:React.FC<UserItemsType> = ({users, unfollowAPI, followAPI, followingInProgress, isAuth}) => {
     // отрисовка всех карточек с пользователями
     return <div>
         {
@@ -27,13 +36,16 @@ const UserItems = ({users, unfollowAPI, followAPI, followingInProgress, isAuth})
                                     <Col className={classes.myCol}>
                                         <NavLink
                                             to={'/profile/' + u.id}> {/*при нажатии на картинку переход в профиль*/}
-                                            <Image fluid={true} variant="top" className={classes.userPhoto}
+                                            <Image fluid={true}
+                                                   className={classes.userPhoto}
                                                    src={u.photos.small !== null // или маленькая картинка профиля или заглушка
                                                        ? u.photos.small
                                                        : userPhoto}
                                                    alt={"Перейти в профиль"}
                                                    title={"Перейти в профиль"}
-                                            /> </NavLink>
+                                            />
+
+                                        </NavLink>
                                     </Col>
                                     <Col className={classes.myCol}>
                                        <NavLink to={'/dialogs/' + u.id}>  {/*смена URL при клике на диалог*/}
@@ -45,10 +57,10 @@ const UserItems = ({users, unfollowAPI, followAPI, followingInProgress, isAuth})
                                         <div>
                                             {u.followed
                                                 ? <FollowUnfollowButtons u={u} followUnfollowAPICallback={unfollowAPI}
-                                                      buttonText={"Remove"} followingInProgress={followingInProgress}
+                                                                         followingInProgress={followingInProgress}
                                                                          isAuth={isAuth}/>
                                                 : <FollowUnfollowButtons u={u} followUnfollowAPICallback={followAPI}
-                                                      buttonText={"Add"} followingInProgress={followingInProgress}
+                                                                         followingInProgress={followingInProgress}
                                                                          isAuth={isAuth}/>
                                             }
                                         </div>
