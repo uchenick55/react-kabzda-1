@@ -12,7 +12,7 @@ const DialogsContainer = React.lazy(() => import("../DialogList/DialogListContai
 const UsersContainer = React.lazy(() => import("../users/UsersContainer"))
 const LoginContainer = React.lazy(() => import("../Login/LoginContainer"))
 const News = React.lazy(() => import("../News/News"))
-const Rest = React.lazy(() => import("../Rest/Krestiki-Noliki/krestiki-noliki"))
+const Rest = React.lazy(() => import("../Rest/Krestiki-Noliki/KrestikiNoliki"))
 const StackInfo = React.lazy(() => import("../Info/StackInfoBS"))
 const FeedBackContainer = React.lazy(() => import("../FeedBack/FeedBackContainer"))
 

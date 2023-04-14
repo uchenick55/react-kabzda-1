@@ -120,7 +120,8 @@ let initialState = { //стейт по умолчанию темы
         {
             TaskHeader: "Игра крестики-нолики",
             imgSrc: krestikiNoliki,
-            taskLink: "https://uchenick55.github.io/react-kabzda-1/#/rest",
+          //  taskLink: "https://uchenick55.github.io/react-kabzda-1/#/rest",
+            taskLink: "http://localhost:3000/#/rest",
             altTitle: "Игра крестики-нолики",
             description: [
                 <>
