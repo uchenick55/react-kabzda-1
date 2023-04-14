@@ -6,15 +6,7 @@ import bootstrapImg from "../assets/images/bootstrap.jpg";
 import krestikiNoliki from "../assets/images/krestiki-noliki.jpg";
 import news from "../assets/images/News.jpg";
 import React from "react";
-
-type tasksDataType = {
-    TaskHeader: JSX.Element | string, // заголовок задачи
-    imgSrc: string, // источник картинки
-    taskLink: string, // ссылка на задачу
-    altTitle: string, // альтернатива картинке
-    description: JSX.Element[], // описание задачи
-    repositoryHref: string // ссылка на репозиторий
-}
+import {tasksDataType} from "../types/commonTypes";
 
 type initialStateType = {
     tasksData: Array<tasksDataType>

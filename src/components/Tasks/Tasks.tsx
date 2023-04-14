@@ -4,8 +4,19 @@ import commonClasses from "../common/CommonClasses/common.module.css";
 import Image from "react-bootstrap/Image";
 import Container from "react-bootstrap/Container";
 import {connect} from "react-redux";
+import {tasksDataType} from "../../types/commonTypes";
+import {GlobalStateType} from "../../redux/store-redux";
 
-const TasksCommon = ({TaskHeader, imgSrc, altTitle, description, repositoryHref, taskLink}) => {
+type TasksCommon = {
+    TaskHeader: JSX.Element | string, // заголовок задачи
+    imgSrc: string, // источник картинки
+    taskLink: string, // ссылка на задачу
+    altTitle: string, // альтернатива картинке
+    description: JSX.Element[], // описание задачи
+    repositoryHref: string // ссылка на репозиторий
+
+}
+const TasksCommon: React.FC<TasksCommon> = ({TaskHeader, imgSrc, altTitle, description, repositoryHref, taskLink}) => {
     return <div>
         <h4 className={'mt-5'}>{TaskHeader}</h4>
         <div><a href={taskLink}>
@@ -21,7 +32,10 @@ const TasksCommon = ({TaskHeader, imgSrc, altTitle, description, repositoryHref,
     </div>
 }
 
-let Tasks = ({tasksData}) => {
+type TasksType = {
+    tasksData: Array<tasksDataType>
+}
+let Tasks: React.FC<TasksType> = ({tasksData}) => {
     let tasksRender = <div>
         <Container className={classes.TasksContainer}>
             <h3 className={commonClasses.pageHeader}>Tasks</h3>
@@ -40,7 +54,7 @@ let Tasks = ({tasksData}) => {
     </div>
 }
 
-const mapStateToProps = (state) => {
+const mapStateToProps = (state:GlobalStateType) => {
     return {
         tasksData: state.tasks.tasksData
     }

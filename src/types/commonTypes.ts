@@ -33,3 +33,13 @@ export type apiFeedBackDataType = {
 }
 
 export type NulableType<n> = null | n // тип нулевой
+
+
+export type tasksDataType = {
+    TaskHeader: JSX.Element | string, // заголовок задачи
+    imgSrc: string, // источник картинки
+    taskLink: string, // ссылка на задачу
+    altTitle: string, // альтернатива картинке
+    description: JSX.Element[], // описание задачи
+    repositoryHref: string // ссылка на репозиторий
+}
