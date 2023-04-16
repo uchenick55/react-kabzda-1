@@ -5,7 +5,7 @@ import {NulableType} from "../../types/commonTypes";
 
 type UsersInfoType = {
     myId: NulableType<number>,
-    myLogin: NulableType<string>
+    myLogin: string
 }
 let UsersInfo:React.FC<UsersInfoType> = ({myId, myLogin}) => {
     return (<div>
@@ -29,7 +29,7 @@ let UsersInfo:React.FC<UsersInfoType> = ({myId, myLogin}) => {
 
 type mapStateToPropsType = {
     myId: NulableType<number>,
-    myLogin: NulableType<string>
+    myLogin: string
 }
 let mapStateToProps = (state:GlobalStateType) => {
     return {

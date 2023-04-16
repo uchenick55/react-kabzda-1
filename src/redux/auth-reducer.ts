@@ -53,12 +53,12 @@ friendsInitialStateActionType | usersInitialStateActonType
 
 let initialState = { // стейт по умолчанию для моего профиля
     myId: null as NulableType<number>, // мой ID по умолчанию
-    myEmail: null as NulableType<string>,// мой Email по умолчанию
-    myLogin: null as NulableType<string>,// мой логин по умолчанию
+    myEmail: "" as string,// мой Email по умолчанию
+    myLogin: "" as string,// мой логин по умолчанию
     isAuth: false, // Флаг авторизации
     myProfile: null as NulableType<getProfileType>, // мой расширенный профиль по умолчанию
-    captchaURL: null as NulableType<string>, // URL каптчи после 5 неправильных вводов
-    loginError: null as NulableType<string>, // ошибка авторизации с сервера
+    captchaURL: "" as string, // URL каптчи после 5 неправильных вводов
+    loginError: "" as string, // ошибка авторизации с сервера
 }
 type initialStateType = typeof initialState
 let authReducer = (state:initialStateType = initialState, action:ActionTypes):initialStateType => { // редьюсер авторизации и моего профиля

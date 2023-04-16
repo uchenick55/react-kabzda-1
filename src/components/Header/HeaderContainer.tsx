@@ -11,7 +11,7 @@ import {getProfileType} from "../api/apiTypes";
 import {GlobalStateType} from "../../redux/store-redux";
 
 type HeaderContainerPropsType = {
-    myLogin: NulableType<string>,// мой логин по умолчанию
+    myLogin: string,// мой логин по умолчанию
     myId: number, // мой ID по умолчанию
     isAuth: boolean, // Флаг авторизации
     myProfile: NulableType<getProfileType>, // мой расширенный профиль по умолчанию
@@ -49,7 +49,7 @@ class HeaderContainer extends React.Component<HeaderContainerPropsType, null> {
 }
 
 type mapStateToPropsType = {
-    myLogin: NulableType<string>,// мой логин по умолчанию
+    myLogin: string,// мой логин по умолчанию
     myId: NulableType<number>, // мой ID по умолчанию
     isAuth: boolean, // Флаг авторизации
     myProfile: NulableType<getProfileType>, // мой расширенный профиль по умолчанию

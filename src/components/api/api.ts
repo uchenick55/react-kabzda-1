@@ -45,7 +45,7 @@ export let apiProfile = { // объект с методами api для про�
         const response = await instance.put<commonResponseType>( `/profile/status/`, {status: statusTmpInput} )
         return (response.data) //возврат данных из поля data
     },
-    postLogin: async (email: string, password: string, rememberme: boolean, captchaURL: null | string) => { //авторизация на сервере по  данным из login формы
+    postLogin: async (email: string, password: string, rememberme: boolean, captchaURL: string) => { //авторизация на сервере по  данным из login формы
         const response = await instance.post<commonResponseType>( `/auth/login`, {
             email: email,
             password: password,

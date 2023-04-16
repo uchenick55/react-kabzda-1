@@ -70,7 +70,7 @@ let initialState = { // стейт сообщений по умолчанию
   messages2: null as NulableType<Array<messages2Type>>, // сообщения по умолчанию нулевые, но могут быть еще и Array<messages2Type>
   dialogUserID: null as NulableType<number>, // ID пользователя с кем диалог
   dialogUserFollowed: false, // собеседник followed? (друг)
-  dialogLastUpdateTime: null as NulableType<string>, // последнее время обновления текущего диалога
+  dialogLastUpdateTime: "" as string, // последнее время обновления текущего диалога
   dialogs2: null as NulableType<Array<dialogs2Type>> // мой диалогЛист. Берет данные с LocalStorage по всем входящим диалогам
 }
 
