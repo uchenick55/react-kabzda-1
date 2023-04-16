@@ -1,6 +1,6 @@
 import React from 'react';
 import {connect} from "react-redux";
-import {getFriendsThunkCreator} from "../../redux/sidebar-reducer";
+import {getFriendsThunkCreator} from "../sidebar-reducer";
 import Navbar from "./Navbar";
 import {needUpdateFriendsAC, unfollowThunkCreator} from "../../redux/users-reducer";
 import ErrorBoundary from "../../components/common/ErrorBoundary/ErrorBoundary";

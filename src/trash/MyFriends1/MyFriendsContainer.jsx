@@ -1,9 +1,9 @@
 import React from 'react';
 import {connect} from "react-redux";
-import {getFriendsThunkCreator} from "../../redux/sidebar-reducer";
+import {getFriendsThunkCreator} from "../sidebar-reducer";
 import Navbar from "./MyFriends";
 import {needUpdateFriendsAC, unfollowThunkCreator} from "../../redux/users-reducer";
-import ErrorBoundary from "../common/ErrorBoundary/ErrorBoundary";
+import ErrorBoundary from "../../components/common/ErrorBoundary/ErrorBoundary";
 
 
 class MyFriendsContainer extends React.Component {

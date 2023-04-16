@@ -1,6 +1,6 @@
 import {apiUsers} from "../components/api/api";
 import {Dispatch} from "redux";
-import {GlobalStateType} from "./store-redux";
+import {GlobalStateType} from "../redux/store-redux";
 import {usersType} from "../components/api/apiTypes";
 import {NulableType} from "../types/commonTypes";
 

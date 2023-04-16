@@ -1,5 +1,5 @@
 import React from 'react';
-import classes from './../MyFriends.module.css';
+import classes from '../MyFriends.module.css';
 import {NavLink} from "react-router-dom";
 import DialogPic from "../../../../assets/images/swg/dialogue2.svg"
 import UnfollowPic from "../../../../assets/images/swg/delete-user1.svg"

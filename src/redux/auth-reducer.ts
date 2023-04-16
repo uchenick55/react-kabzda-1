@@ -1,5 +1,5 @@
 import {apiProfile} from "../components/api/api";
-import {friendsInitialState, friendsInitialStateActionType} from "./sidebar-reducer";
+import {friendsInitialState, friendsInitialStateActionType} from "../trash/sidebar-reducer";
 import {dialogsInitialState, dialogsInitialStateType} from "./dialogs-reducer";
 import {profileInitialState, profileInitialStateActionType} from "./profile-reducer";
 import {usersInitialState, usersInitialStateActonType} from "./users-reducer";

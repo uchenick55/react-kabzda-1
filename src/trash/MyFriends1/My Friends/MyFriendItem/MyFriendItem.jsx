@@ -1,5 +1,5 @@
 import React, {useState} from 'react';
-import classes from './../MyFriends.module.css';
+import classes from '../MyFriends.module.css';
 import {NavLink} from "react-router-dom";
 import DialogPic from "../../../../assets/images/dialog3.png"
 import UnfollowPic from "../../../../assets/images/unfollow.png"
