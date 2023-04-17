@@ -1,9 +1,9 @@
 import React from "react";
-import classes from "./FeedBack.module.css";
-import FeedBackFormik from "./FeedBackFormik/FeedBackFormik";
-import commonClasses from "../common/CommonClasses/common.module.css";
+import classes from "../components/FeedBack/FeedBack.module.css";
+import FeedBackFormik from "../components/FeedBack/FeedBackFormik/FeedBackFormik";
+import commonClasses from "../components/common/CommonClasses/common.module.css";
 import Container from "react-bootstrap/Container";
-import FeedBackInfoShort from "../Info/FeedBackInfoShort";
+import FeedBackInfoShort from "../components/Info/FeedBackInfoShort";
 
 const FeedBack = ({sendFeedBack, feedBackStatus, setFeedBackStatus}) => {
     let SendMessageBoard = (props) => {

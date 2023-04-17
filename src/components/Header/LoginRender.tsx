@@ -4,12 +4,21 @@ import loginImg from "../../assets/images/swg/login.svg";
 import React from "react";
 import classes from "./Header.module.css"
 
-const LoginRender = ({isAuth, goToMyPage, deleteLogin}) => {
+type LoginRenderType = {
+    isAuth: boolean, // Флаг авторизации
+    goToMyPage:() =>void
+    deleteLogin:() =>void
+}
+const LoginRender:React.FC<LoginRenderType> = ({isAuth, goToMyPage, deleteLogin}) => {
 
-    const LoginLogoutImg = ({text, src, scale}) => {
+    type LoginLogoutImgType = {
+        text: "login" | "logout",
+        src: typeof logoutImg | typeof loginImg,
+    }
+    const LoginLogoutImg:React.FC<LoginLogoutImgType> = ({text, src}) => {
         return <NavLink to='/login'>
-            <img src={src} alt={text} className={classes.myHeaderWH1 + " " + classes.scale20}
-                 title={"logout"}
+            <img src={src} alt={text} className={classes.myHeaderWH1}
+                 title={text}
             />
         </NavLink>
     }
@@ -24,7 +33,7 @@ const LoginRender = ({isAuth, goToMyPage, deleteLogin}) => {
                           </span> {
                         /*переход на логин страницу после логаута*/}
                     </span>
-                : <span><LoginLogoutImg text={"login"} src={loginImg} scale={classes.scale10}/></span>
+                : <span><LoginLogoutImg text={"login"} src={loginImg}/></span>
         }
     </span>
 }
