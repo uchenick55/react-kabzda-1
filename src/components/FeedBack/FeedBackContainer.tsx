@@ -2,10 +2,17 @@ import React from 'react';
 import {connect} from "react-redux";
 import {postFeedBackThunkCreator2, setFeedBackStatus} from "../../redux/feedback-reducer";
 import FeedBack from "./FeedBackBS";
+import {GlobalStateType} from "../../redux/store-redux";
+import {apiFeedBackDataType} from "../../types/commonTypes";
 
-class FeedBackContainer extends React.Component {
+type FeedBackContainerPropsType = {
+    feedBackStatus: string
+    postFeedBackThunkCreator2: (data:apiFeedBackDataType) =>void
+    setFeedBackStatus:(feedBackStatus:string)=>void
+}
+class FeedBackContainer extends React.Component<FeedBackContainerPropsType> {
 
-    sendFeedBack = (data) => {
+    sendFeedBack = (data:apiFeedBackDataType) => {
         this.props.postFeedBackThunkCreator2(data)// отправка фидбека из api
     }
 
@@ -20,11 +27,25 @@ class FeedBackContainer extends React.Component {
     }
 }
 
-let mapStateToProps = (state) => {
+type mapStateToPropsType = {
+    feedBackStatus: string
+}
+// если поставить mapStateToPropsType вместо any, появляется ошибка
+let mapStateToProps:any = (state:GlobalStateType) => {
     return {
         feedBackStatus: state.feedback.feedBackStatus // статус отправки сообщения на сервер
     }
 }
+type mapDispatchToPropsType = {
+    postFeedBackThunkCreator2: (data:apiFeedBackDataType) =>void
+    setFeedBackStatus:(feedBackStatus:string)=>void
+}
 
-export default connect(mapStateToProps,
+
+export default connect<
+    mapStateToPropsType,
+    mapDispatchToPropsType,
+    unknown,
+    GlobalStateType
+    >(mapStateToProps,
     {postFeedBackThunkCreator2, setFeedBackStatus})(FeedBackContainer);
