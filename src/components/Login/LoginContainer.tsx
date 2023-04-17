@@ -15,9 +15,8 @@ type LoginContainerPropsType = {
 class LoginContainer extends React.Component<LoginContainerPropsType> {
 
     postLogin = (values: { email:string, password:string, rememberme:boolean, captcha:string }) => { // email, password, rememberme берем из формы login
-        const {email, password, rememberme, captcha} = values // деструктуризация пропсов
         //метод для проброса дальше целевой компоненты для вызова postLoginThunkCreator (авторизация на сервере)
-        this.props.postLoginThunkCreator( email, password, rememberme, captcha );
+        this.props.postLoginThunkCreator( values.email, values.password, values.rememberme, values.captcha );
     }
 
     updateCaptcha = () => {

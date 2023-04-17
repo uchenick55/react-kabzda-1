@@ -26,8 +26,14 @@ let myValidationSchema = Yup.object({ // валидация форм на requir
         .required('Required'),
 })
 
-const LoginFormik = ({postLogin, captchaURL, updateCaptcha, loginError}) => { // основная компонента с входным колбэком, чтобы забрать данные с форм
-    const myOnSubmit = (values, {resetForm}) => { // действия по сабмиту
+type LoginFormikType = {
+    captchaURL: string, // URL каптчи после 5 неправильных вводов
+    loginError: string // ошибка авторизации
+    postLogin: (values: { email:string, password:string, rememberme:boolean, captcha:string }) => void,
+    updateCaptcha: () => void,
+}
+const LoginFormik:React.FC<LoginFormikType> = ({postLogin, captchaURL, updateCaptcha, loginError}) => { // основная компонента с входным колбэком, чтобы забрать данные с форм
+    const myOnSubmit = (values:any, {resetForm}:any) => { // действия по сабмиту
         postLogin(values) // колбек, который принмает результат ввода формы
         resetForm()// сбросить значение формы после ввода
     }
@@ -46,6 +52,7 @@ const LoginFormik = ({postLogin, captchaURL, updateCaptcha, loginError}) => { //
 
                     <MyTextInput // email
                         label="Email Address"
+                        autoFocus={false}
                         name='email'
                         type='email'
                         placeholder='email'
@@ -54,6 +61,7 @@ const LoginFormik = ({postLogin, captchaURL, updateCaptcha, loginError}) => { //
 
                     <MyTextInput // password
                         label="Password"
+                        autoFocus={false}
                         name="password"
                         type="password"
                         placeholder='password'
@@ -71,10 +79,12 @@ const LoginFormik = ({postLogin, captchaURL, updateCaptcha, loginError}) => { //
                         {/*<label htmlFor="captcha">Captcha</label> {/*альтернатива написания input с обработкой ошибок*/}
 
                         <MyTextInput // email
-                            label=""
+                            label="Captcha"
+                            autoFocus={false}
                             name='captcha'
                             type='text'
                             placeholder='captcha'
+                            leftLabelLength='7rem'
                         />
                     </div>
 
