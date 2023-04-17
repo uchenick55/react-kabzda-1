@@ -1,11 +1,13 @@
 import Navbar from 'react-bootstrap/Navbar';
 import NavDropdown from 'react-bootstrap/NavDropdown';
 import React from "react";
+import classes from './Header.module.css';
+
 
 function NavbarDarkExample() {
     return (
         <Navbar variant="dark" bg="dark" expand="lg">
-            <NavDropdown title="Pages" drop='start' >
+            <NavDropdown title="Pages" className={classes.NavDropdown}>
                 <NavDropdown.Item href="#/">Home</NavDropdown.Item>
                 <NavDropdown.Item href="#/mystack">My Stack</NavDropdown.Item>
                 <NavDropdown.Item href="#/profile">Profile</NavDropdown.Item>

@@ -2,7 +2,6 @@ import Container from 'react-bootstrap/Container';
 import Navbar from 'react-bootstrap/Navbar';
 import "bootstrap/dist/css/bootstrap.min.css"
 import React, {useState} from "react";
-import LoginRender from "./LoginRender";
 import goBack from "../../assets/images/swg/go-back2.svg"
 import swgInfoPic from "../../assets/images/swg/info.svg"
 import classes from './Header.module.css';
@@ -15,6 +14,7 @@ import dayNightLight from "../../assets/images/swg/day-night.svg";
 import {NulableType} from "../../types/commonTypes";
 import {getProfileType} from "../api/apiTypes";
 import NavbarDarkExample from "./DropdownNavbarBS";
+import LoginRender from "./LoginRender";
 import ProfileRender from "./ProfileRender";
 
 type HeaderBSType = {

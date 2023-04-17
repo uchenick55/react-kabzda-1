@@ -82,19 +82,11 @@ export let apiProfile = { // объект с методами api для про�
     },
 }
 
-/*export let apiDialogs2 = { // объект с методами api для DialogList
-    getFollow: async (dialogUserID: number) => {// проверить follow/unfollow выбранного пользователя
-        const response = await instance.get<boolean>( `follow/${dialogUserID}` )
-        return (response.data) //возврат данных из поля data
-    }
-}*/
-
 type postFeedBack2Type = (data: apiFeedBackDataType) => any
 
 export const postFeedBack22:postFeedBack2Type = async (data) => {// отправить письмо
 
     const FORM_ENDPOINT = "https://public.herotofu.com/v1/e595a3c0-83b2-11ed-b38f-a1ed22f366b1";// конечная точка
-//declare function fetch(input: RequestInfo, init?: RequestInit): Promise<Response>;
     const response = await fetch( FORM_ENDPOINT, {
         method: "POST", // метод отправить
         headers: {
