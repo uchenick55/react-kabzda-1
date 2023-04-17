@@ -34,7 +34,7 @@ const ProfileInfo: React.FC<ProfileInfoType2> = ({
                      }) => {
 
     const [profilePhoto, setprofilePhoto] = useState(userPhoto1) // useState для временного хранения фото пользователя
-    const [editMode, setEditMode] = useState(false) // флаг режима редактирования профиля
+    const [editMode, setEditMode] = useState<boolean>(false) // флаг режима редактирования профиля
     const [showUploadImageButton, setshowUploadImageButton] = useState(false) // флаг показать ли кнопку загрузки изображения
 
     const editedSuccessfully = editProfileStatus.length > 0 // если сообщение об ошибке/обновлении существует
