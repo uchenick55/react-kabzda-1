@@ -6,8 +6,8 @@ import {ThunkAction} from "redux-thunk";
 const SET_INITIALISED_APP = "myApp/app-reducer/SET_INITIALISED_APP"; //константа инициализации приложения
 const APP_INITIAL_STATE = "myApp/app-reducer/APP_INITIAL_STATE"; //константа зануления при логауте
 
-type setInitialisedApp = {type: typeof SET_INITIALISED_APP}
-export let setInitialisedApp = ():setInitialisedApp => { // экшн креатор  инициализации приложения
+type setInitialisedAppType = {type: typeof SET_INITIALISED_APP}
+export let setInitialisedApp = ():setInitialisedAppType => { // экшн креатор  инициализации приложения
   return {type: SET_INITIALISED_APP}
 };
 
@@ -16,7 +16,7 @@ export let appInitialState = ():appInitialStateActionType => { // экшн за�
   return {type: APP_INITIAL_STATE}
 };
 
-type ActionTypes = appInitialStateActionType | setInitialisedApp
+type ActionTypes = appInitialStateActionType | setInitialisedAppType
 
 type initialStateType = typeof initialState
 

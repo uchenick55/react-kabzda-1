@@ -1,4 +1,4 @@
-import React, {ChangeEvent, SyntheticEvent, useReducer} from "react";
+import React, {ChangeEvent, useReducer} from "react";
 import "bootstrap/dist/css/bootstrap.min.css"
 import InputGroup from 'react-bootstrap/InputGroup';
 import Form from 'react-bootstrap/Form';

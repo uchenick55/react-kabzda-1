@@ -2,7 +2,7 @@ import {apiUsers} from "../components/api/api";
 import {ThunkAction} from "redux-thunk";
 import {GlobalStateType} from "./store-redux";
 import {Dispatch} from "redux";
-import {getUsersType, usersType} from "../components/api/apiTypes";
+import {usersType} from "../components/api/apiTypes";
 import {ResultCodeEnum} from "../components/api/enum";
 
 const SET_TERM = "myApp/users-reducer/SET_TERM";

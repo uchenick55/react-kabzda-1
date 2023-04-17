@@ -32,9 +32,7 @@ const UsersBS:React.FC<UsersBSType> = ({
                      SetTermFunction, onChangeTerm, onChangeTermFunction,
                      onChangeRangeLocal, currentRangeLocal, setOnlyFriends, onlyFriends // раскукожили все пропсы
                  }) => {
-    type errorType = {
-        message:string
-    }
+
     const [error, setError] = useState<any>( {message:""})
     if (error.message) {
         return error.message

@@ -5,13 +5,13 @@ import UnfollowPic from "../../assets/images/swg/star+.svg";
 import React from "react";
 import {usersType} from "../api/apiTypes";
 
-type FollowUnfollowButtons = {
+type FollowUnfollowButtonsType = {
     u: usersType,
     followUnfollowAPICallback:(id:number)=>void,
     followingInProgress: Array<number>, // селектор followingInProgress - массив на кого мы подписались, кнопка неактивна
     isAuth: boolean, // селектор isAuth - флаг авторизации
 }
-const FollowUnfollowButtons:React.FC<FollowUnfollowButtons> = ({u, followUnfollowAPICallback, followingInProgress, isAuth}) => { // унификация нажатия кнопки Follow/Unfollow
+const FollowUnfollowButtons2:React.FC<FollowUnfollowButtonsType> = ({u, followUnfollowAPICallback, followingInProgress, isAuth}) => { // унификация нажатия кнопки Follow/Unfollow
     // отрисовка кнопки follow/unfollow (друг/недруг) в виде звездочки на кнопке
     const starCanBePressed = followingInProgress.some(id => id === u.id)
     return  <span>
@@ -32,4 +32,4 @@ const FollowUnfollowButtons:React.FC<FollowUnfollowButtons> = ({u, followUnfollo
                 </span>
 }
 
-export default FollowUnfollowButtons
+export default FollowUnfollowButtons2

@@ -1,5 +1,5 @@
 import React from "react";
-import {Formik, Form, ErrorMessage} from "formik"; //формик с компонентами и пользовательским хуком
+import {Formik, Form} from "formik"; //формик с компонентами и пользовательским хуком
 import * as Yup from 'yup' // валидация форм с помошью сторонней библиотеки Yup
 //import DisplayFormikState from "../../common/formikCommon/DisplayFormikState"
 import {MyTextInput} from "../../common/formikCommon/MyFieldsBS"

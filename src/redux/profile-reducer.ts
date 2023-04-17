@@ -2,7 +2,6 @@ import {apiProfile} from "../components/api/api";
 import {getAuthMeThunkCreator, setMyProfile, setMyProfileActionType} from "./auth-reducer";
 import {updateDialogListThunkCreator} from "./dialogs-reducer";
 import {NulableType, postsType, ProfileType} from "../types/commonTypes";
-import {Dispatch} from "redux";
 import {ThunkAction} from "redux-thunk";
 import {GlobalStateType} from "./store-redux";
 import {getProfileType} from "../components/api/apiTypes";

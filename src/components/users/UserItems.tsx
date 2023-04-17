@@ -8,7 +8,7 @@ import Image from "react-bootstrap/Image";
 import userPhoto from "../../assets/images/no-image3.png";
 import DialogPic from "../../assets/images/swg/dialog-svgrepo-com.svg";
 import React from "react";
-import FollowUnfollowButtons from "./FollowUnfollowButtons";
+import FollowUnfollowButtons2 from "./FollowUnfollowButtons2";
 import {usersType} from "../api/apiTypes";
 
 type UserItemsType = {
@@ -56,10 +56,10 @@ const UserItems:React.FC<UserItemsType> = ({users, unfollowAPI, followAPI, follo
                                     <Col className={classes.myCol}>
                                         <div>
                                             {u.followed
-                                                ? <FollowUnfollowButtons u={u} followUnfollowAPICallback={unfollowAPI}
+                                                ? <FollowUnfollowButtons2 u={u} followUnfollowAPICallback={unfollowAPI}
                                                                          followingInProgress={followingInProgress}
                                                                          isAuth={isAuth}/>
-                                                : <FollowUnfollowButtons u={u} followUnfollowAPICallback={followAPI}
+                                                : <FollowUnfollowButtons2 u={u} followUnfollowAPICallback={followAPI}
                                                                          followingInProgress={followingInProgress}
                                                                          isAuth={isAuth}/>
                                             }

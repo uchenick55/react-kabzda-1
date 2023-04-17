@@ -7,7 +7,7 @@ import {connect} from "react-redux";
 import {tasksDataType} from "../../types/commonTypes";
 import {GlobalStateType} from "../../redux/store-redux";
 
-type TasksCommon = {
+type TasksCommon2Type = {
     TaskHeader: JSX.Element | string, // заголовок задачи
     imgSrc: string, // источник картинки
     taskLink: string, // ссылка на задачу
@@ -16,7 +16,7 @@ type TasksCommon = {
     repositoryHref: string // ссылка на репозиторий
 
 }
-const TasksCommon: React.FC<TasksCommon> = ({TaskHeader, imgSrc, altTitle, description, repositoryHref, taskLink}) => {
+const TasksCommon2: React.FC<TasksCommon2Type> = ({TaskHeader, imgSrc, altTitle, description, repositoryHref, taskLink}) => {
     return <div>
         <h4 className={'mt-5'}>{TaskHeader}</h4>
         <div><a href={taskLink}>
@@ -42,7 +42,7 @@ let Tasks: React.FC<TasksType> = ({tasksData}) => {
             <p>Здесь собраны небольшие работы, не касающиеся социальной сети</p>
 
             {tasksData.map((t, index) => { // проходим каждый элемент в исходном массиве
-                return <TasksCommon
+                return <TasksCommon2
                     key={index} TaskHeader={t.TaskHeader} imgSrc={t.imgSrc} altTitle={t.altTitle}
                     description={t.description} repositoryHref={t.repositoryHref} taskLink={t.taskLink}
                 />
