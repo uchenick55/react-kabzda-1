@@ -18,14 +18,14 @@ type HeaderContainerPropsType = {
     themeBLL: "light" | "dark", // тема в bll по умолчанию
     getProfileThunkCreator: (userId: number, shouldUpdateDialogList: boolean, myId: number) => void,
     deleteLoginThunkCreator: () => void,
-    setThemeThunkCreator: (theme1: "light" | "dark") => void
+    setThemeThunkCreator: (themeBLL: "light" | "dark") => void
 }
 
 class HeaderContainer extends React.Component<HeaderContainerPropsType, null> {
 
     setTheme1 = () => {
-        const theme1 = this.props.themeBLL === "light" ? "dark" : "light" //берем значение темы из стора
-        this.props.setThemeThunkCreator( theme1 ) // вызов смены темы
+        const themeBLL = this.props.themeBLL === "light" ? "dark" : "light" //берем значение темы из стора
+        this.props.setThemeThunkCreator( themeBLL ) // вызов смены темы
     }
 
     deleteLogin = () => {
@@ -62,13 +62,13 @@ let mapStateToProps = (state: GlobalStateType) => {
         myId: state.auth.myId,
         isAuth: state.auth.isAuth,
         myProfile: state.auth.myProfile,
-        theme1: state.theme.themeBLL,
+        themeBLL: state.theme.themeBLL,
     }
 }
 type mapDispatchToPropsType = {
     getProfileThunkCreator: (userId: number, shouldUpdateDialogList: boolean, myId: number) => void,
     deleteLoginThunkCreator: () => void,
-    setThemeThunkCreator: (theme1: "light" | "dark") => void
+    setThemeThunkCreator: (themeBLL: "light" | "dark") => void
 }
 export default compose<any>(
     connect<mapStateToPropsType, mapDispatchToPropsType, unknown, GlobalStateType>

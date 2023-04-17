@@ -14,12 +14,21 @@ import ModalBS1 from "../common/ModalBS/ModalBS1";
 import InfoContainer from "../Info/InfoContainer";
 import {useLocation} from "react-router";
 import dayNightLight from "../../assets/images/swg/day-night.svg";
+import {NulableType} from "../../types/commonTypes";
+import {getProfileType} from "../api/apiTypes";
 
+type HeaderBSType = {
+    isAuth: boolean, // Флаг авторизации
+    goToMyPage: ()=> void,
+    myProfile: NulableType<getProfileType>, // мой расширенный профиль по умолчанию
+    deleteLogin:() => void,
+    setTheme1: () => void,
 
-function HeaderBS({isAuth, goToMyPage, myProfile, deleteLogin, setTheme1}) {
-    let navigate = useNavigate(); // хук для навигации по страницам (кнопка назад)
+}
+const HeaderBS: React.FC<HeaderBSType> = ({isAuth, goToMyPage, myProfile, deleteLogin, setTheme1}) => {
+    const navigate = useNavigate(); // хук для навигации по страницам (кнопка назад)
 
-    const [show, setShow] = useState(false); // хук задания флага показать ли модальное Info
+    const [show, setShow] = useState<boolean>(false); // хук задания флага показать ли модальное Info
 
     const location = useLocation()
 
@@ -48,7 +57,7 @@ function HeaderBS({isAuth, goToMyPage, myProfile, deleteLogin, setTheme1}) {
 
 
     /* иконка активатор модального окна с контекстной подсказкой для данной страницы*/
-    let infoModalRender = <div>
+    const infoModalRender = <div>
         <Image fluid={true} src={swgInfoPic} className={classes.myHeaderWH1}
                onClick={() => {
                    setShow(true)
@@ -72,30 +81,34 @@ function HeaderBS({isAuth, goToMyPage, myProfile, deleteLogin, setTheme1}) {
                                   alt="Switch Theme" title="Switch Theme" // альтернативный текст
     />
 
+    // Перейти назад по истории
+    const goBackRender = <div><Image fluid={true} src={goBack} className={classes.myHeaderWH1}
+                                     alt={"go back"} title={"go back"}
+                                     onClick={() => navigate(-1)} // при клике перейти назад по истории
+    /></div>
+
+    const loginAndProfileRender1 = <div>
+        <LoginAndProfileRender
+            // отрисовка иконки логина со ссылкой на профиль и кнопки логаут
+            isAuth={isAuth}
+            goToMyPage={goToMyPage}
+            myProfile={myProfile}
+            deleteLogin={deleteLogin}
+        />
+    </div>
+
     return (
         <Navbar collapseOnSelect variant="dark" bg="dark" expand="sm" fixed="top" className={classes.myHeader1}>
             <Container fluid className='text-uppercase'> {/*контейнер, текст большими буквами */}
                 <div className="d-inline-flex">
-                    <div><Image fluid={true} src={goBack} className={classes.myHeaderWH1}
-                                alt={"go back"} title={"go back"}
-                                onClick={() => navigate(-1)} // при клике перейти назад по истории
-                    /></div>
-                    {/* иконка активатор модального окна с контекстной подсказкой для данной страницы*/}
 
-                    {dayNightRender}
+                    {goBackRender} {/*Перейти назад по истории*/}
 
-                    {infoModalRender}
-                    {/* иконка активатор модального окна с контекстной подсказкой для данной страницы*/}
+                    {dayNightRender}{/* Переключение день/ночь*/}
 
-                    <div>
-                        <LoginAndProfileRender
-                            // отрисовка иконки логина со ссылкой на профиль и кнопки логаут
-                            isAuth={isAuth}
-                            goToMyPage={goToMyPage}
-                            myProfile={myProfile}
-                            deleteLogin={deleteLogin}
-                        />
-                    </div>
+                    {infoModalRender} {/* иконка активатор модального окна с контекстной подсказкой для данной страницы*/}
+
+                    {loginAndProfileRender1} {/*отрисовка иконки логина со ссылкой на профиль и кнопки логаут*/}
                 </div>
                 <Navbar.Toggle/> {/*отображение меню при низком разрешении*/}
                 <Navbar.Collapse>{/* выпадающее меню со ссылкам нва страницы*/}
