@@ -13,8 +13,13 @@ let myInitialValues = { // начальные зачения форм
 let myValidationSchema = Yup.object({ // валидация форм на required, длину и заполнение полей
 })
 
-const MyPostsFormik = ({addPost}) => { // основная компонента с входным колбэком, чтобы забрать данные с форм
-    const myOnSubmit = (values, {resetForm}) => { // действия по сабмиту
+type MyPostsFormikType = {
+    addPost: (newPostData: string) => void
+
+}
+const MyPostsFormik:React.FC<MyPostsFormikType> = ({addPost}) => { // основная компонента с входным колбэком, чтобы забрать данные с форм
+    const myOnSubmit = (values:any, {resetForm}:any) => { // действия по сабмиту
+        console.log(values)
         addPost(values.newPost) // колбек, который принмает результат ввода формы
         resetForm()// сбросить значение формы после ввода
     }
@@ -34,14 +39,16 @@ const MyPostsFormik = ({addPost}) => { // основная компонента 
                         <div>
                             <MyTextInput // сообщение в MyPostsBS
                                 label="Пост"
+                                autoFocus={false}
                                 name='newPost'
                                 type='textarea'
                                 placeholder='Введите ваше сообщение'
+                                leftLabelLength={""}
                             />
 
                             {/*кнопка сброса к значениям по умолчанию*/}
                             <Stack direction="vertical" gap={1} className={'mt-2'}>
-                                <Button type="submit1"> {/*кнопка отправить форму*/}
+                                <Button type="submit"> {/*кнопка отправить форму*/}
                                     Submit
                                 </Button>
                                 <Button
@@ -65,4 +72,3 @@ const MyPostsFormik = ({addPost}) => { // основная компонента 
 }
 
 export default MyPostsFormik
-

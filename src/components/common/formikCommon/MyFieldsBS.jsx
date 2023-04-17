@@ -26,8 +26,8 @@ export const MyTextInput = ({label, autoFocus, type, leftLabelLength, ...props})
                 {leftLabelLength && // если параметр leftLabelLength не пустой, то рисуем лейбл сдева от input с label
                 <InputGroup.Text id={label} className={classes.labelWidth} style={{width: leftLabelLength}}
                 >{label}:</InputGroup.Text>}
-                <Form.Control  as={type==="textarea"?type:"input"} type={type==="password"&&type}
-                    className={meta.touched && meta.error ? classes.errorInputTextArea : classes.inputTextArea}
+                <Form.Control  as={type==="textarea"?type:"input"} type={type==="password"?type:undefined}
+                               className={meta.touched && meta.error ? classes.errorInputTextArea : classes.inputTextArea}
                     {...field}
                     {...props}
                     autoFocus={autoFocus}
