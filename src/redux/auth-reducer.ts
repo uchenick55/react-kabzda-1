@@ -128,10 +128,10 @@ export let getAuthMeThunkCreator = ():ThunkType => {//санкреатор я а
     };
 }
 
-export let postLoginThunkCreator = (email:string, password:string, rememberme:boolean, captchaURL:string):ThunkType => {
+export let postLoginThunkCreator = (email:string, password:string, rememberme?:boolean, captcha?:string):ThunkType => {
     //санкреатор на логин
     return async (dispatch, getState) => { // объявление санки на логин
-        const response = await apiProfile.postLogin(email, password, rememberme, captchaURL) // отправка данных на авторизацию из формы логина
+        const response = await apiProfile.postLogin(email, password, rememberme, captcha) // отправка данных на авторизацию из формы логина
         if (response.resultCode === ResultCodeEnum.Success) { // если успешная авторизация на сервере
             dispatch(getAuthMeThunkCreator()) // получить данные с сервера авторизованного пользователя
         } else { // если логин или пароль не подошли

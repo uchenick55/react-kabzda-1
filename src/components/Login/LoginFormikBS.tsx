@@ -29,11 +29,17 @@ let myValidationSchema = Yup.object({ // валидация форм на requir
 type LoginFormikType = {
     captchaURL: string, // URL каптчи после 5 неправильных вводов
     loginError: string // ошибка авторизации
-    postLogin: (values: { email:string, password:string, rememberme:boolean, captcha:string }) => void,
+    postLogin: (values: { email:string, password:string, rememberme?:boolean, captcha?:string }) => void,
     updateCaptcha: () => void,
 }
+type ValuesType = {
+    email: string,
+    password: string,
+    rememberme?: boolean
+    captcha?: string
+}
 const LoginFormik:React.FC<LoginFormikType> = ({postLogin, captchaURL, updateCaptcha, loginError}) => { // основная компонента с входным колбэком, чтобы забрать данные с форм
-    const myOnSubmit = (values:any, {resetForm}:any) => { // действия по сабмиту
+    const myOnSubmit = (values:ValuesType, {resetForm}:any) => { // действия по сабмиту
         postLogin(values) // колбек, который принмает результат ввода формы
         resetForm()// сбросить значение формы после ввода
     }

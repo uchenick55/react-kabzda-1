@@ -9,12 +9,12 @@ type LoginContainerPropsType = {
     isAuth: boolean
     captchaURL: string, // URL каптчи после 5 неправильных вводов
     loginError: string // ошибка авторизации
-    postLoginThunkCreator:(email:string, password:string, rememberme:boolean, captcha:string)=>void,
+    postLoginThunkCreator:(email:string, password:string, rememberme?:boolean, captcha?:string)=>void,
     getCaptchaThunkCreator: () => void
 }
 class LoginContainer extends React.Component<LoginContainerPropsType> {
 
-    postLogin = (values: { email:string, password:string, rememberme:boolean, captcha:string }) => { // email, password, rememberme берем из формы login
+    postLogin = (values: { email:string, password:string, rememberme?:boolean, captcha?:string }) => { // email, password, rememberme берем из формы login
         //метод для проброса дальше целевой компоненты для вызова postLoginThunkCreator (авторизация на сервере)
         this.props.postLoginThunkCreator( values.email, values.password, values.rememberme, values.captcha );
     }
@@ -53,7 +53,7 @@ let mapStateToProps = (state:GlobalStateType) => { // флаги isAuth - "я а
     }
 }
 type mapDispatchToPropsType = {
-    postLoginThunkCreator:(email:string, password:string, rememberme:boolean, captcha:string)=>void,
+    postLoginThunkCreator:(email:string, password:string, rememberme?:boolean, captcha?:string)=>void,
     getCaptchaThunkCreator: () => void
 
 }

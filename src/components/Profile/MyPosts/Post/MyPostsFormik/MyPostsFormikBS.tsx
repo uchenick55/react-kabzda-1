@@ -17,9 +17,11 @@ type MyPostsFormikType = {
     addPost: (newPostData: string) => void
 
 }
+type ValuesType = {
+    newPost: string
+}
 const MyPostsFormik:React.FC<MyPostsFormikType> = ({addPost}) => { // основная компонента с входным колбэком, чтобы забрать данные с форм
-    const myOnSubmit = (values:any, {resetForm}:any) => { // действия по сабмиту
-        console.log(values)
+    const myOnSubmit = (values:ValuesType, {resetForm}:any) => { // действия по сабмиту
         addPost(values.newPost) // колбек, который принмает результат ввода формы
         resetForm()// сбросить значение формы после ввода
     }
