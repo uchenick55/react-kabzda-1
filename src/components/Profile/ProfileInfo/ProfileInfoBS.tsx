@@ -1,7 +1,7 @@
 import React, {useEffect, useState} from 'react';
 import ButtonOverImage from '../../common/CommonClasses/ButtonOverImage.module.css'
 import Preloader from "../../common/Preloader/Preloader";
-import ProfileStatusUseReducer from "./ProfileStatus/ProfileStatusUseReducer";
+import ProfileStatusUseReducer from "./ProfileStatus/ProfileStatusClass";
 import userPhoto1 from "../../../assets/images/no-image3.png";
 import EditProfileFormikBS from "./EditProfile/EditProfileFormikBS";
 import "bootstrap/dist/css/bootstrap.min.css"

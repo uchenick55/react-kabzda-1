@@ -1,10 +1,23 @@
-import React from "react";
+import React, {ChangeEvent} from "react";
 
-class ProfileStatusClass extends React.Component {
+type ProfileStatusClassPropsType = {
+    myId:number, // мой id для модификации статуса
+    userId: number, // id отображаемого пользователя
+    status:string, // статус из BLL
+    putStatusThunkCreator: (statusTmpInput:string, myId:number)=>void, // санкреатор для обновления сатуса
+}
+
+type ProfileStatusClassStateType = {
+    modifyStatus: boolean, // можно ли модифицировать статус и переключить на поле ввода?
+    statusTmpInput: string // временное значение статуса на время ввода поля input. Изначально берем из статуса BLL
+
+}
+
+class ProfileStatusClass extends React.Component<ProfileStatusClassPropsType, ProfileStatusClassStateType> {
 
     localStatus = { // локальный стейт для статуса
         modifyStatus: false, // можно ли модифицировать статус и переключить на поле ввода?
-        statusTmpInput: null // временное значение статуса на время ввода поля input. Изначально берем из статуса BLL
+        statusTmpInput: "" // временное значение статуса на время ввода поля input. Изначально берем из статуса BLL
     }
     checkIfICanModifyStatus = () => { // проверка, что я могу менять статус (открыт мой профиль со статусом)
         const {userId, myId, status} = this.props;
@@ -14,8 +27,9 @@ class ProfileStatusClass extends React.Component {
             this.localStatus.statusTmpInput = status// временное значение статуса на время ввода поля input. Изначально берем из статуса BLL
         }
     }
-    onChangeStatus = (event) => {
+    onChangeStatus = (event:ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
         let text = event.target.value; // вынимаем значение введенное в поле ввода input
+      //  if (text===null) {text=""}
         this.localStatus.statusTmpInput = text;// присваиваем переменной временного статуса из локального стейта введенное значение в поле
         this.setState({statusTmpInput: text}) // принудительная переотрисовка после смены локального статуса
     }
@@ -25,7 +39,7 @@ class ProfileStatusClass extends React.Component {
         putStatusThunkCreator(this.localStatus.statusTmpInput, myId) // санкреатор на обновление статуса на сервере
         this.setState({modifyStatus: false}) // принудительная переотрисовка после смены локального статуса
     }
-    checkEnterPressed = (event) => { // проверка нажатия Enter
+    checkEnterPressed = (event: React.KeyboardEvent) => { // проверка нажатия Enter
         if (event.charCode === 13) {
             this.setMyStatus(); //задание статуса при нажатии Enter
         }
@@ -47,7 +61,7 @@ class ProfileStatusClass extends React.Component {
                         onBlur={this.setMyStatus}// задание статуса при потере фокуса input
                         onChange={this.onChangeStatus} // задание временного локального статуса
                         value={this.localStatus.statusTmpInput} // жестко зафиксировали значение поля ввода на временное значение статуса в локальном стейте
-                        // autoFocus  фокусировка на поле ввода текста
+                        autoFocus//  фокусировка на поле ввода текста
                         placeholder={"задайте статус"}// текст при пустом поле ввода
                         onKeyPress={this.checkEnterPressed} // проверка нажатия Enter
                     />
