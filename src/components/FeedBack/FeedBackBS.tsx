@@ -4,10 +4,17 @@ import commonClasses from "../common/CommonClasses/common.module.css";
 import Container from "react-bootstrap/Container";
 import ModalBS1 from "../common/ModalBS/ModalBS1";
 import FeedBackInfoShort from "../Info/FeedBackInfoShort";
+import {apiFeedBackDataType} from "../../types/commonTypes";
 
-const FeedBack = ({sendFeedBack, feedBackStatus, setFeedBackStatus}) => {
+type FeedBackType = {
+    feedBackStatus: string
+    sendFeedBack: (data:apiFeedBackDataType) => void,
+    setFeedBackStatus:(feedBackStatus:string)=>void
 
-    const [show, setShow] = useState(!!setFeedBackStatus); // хук задания флага показать ли модальное окно
+}
+const FeedBack:React.FC<FeedBackType> = ({sendFeedBack, feedBackStatus, setFeedBackStatus}) => {
+
+    const [show, setShow] = useState(true); // хук задания флага показать ли модальное окно
 
     if (feedBackStatus) { // если статус feedback из BLL не пустой
         const modalHeader = <div>Спасибо!</div>
