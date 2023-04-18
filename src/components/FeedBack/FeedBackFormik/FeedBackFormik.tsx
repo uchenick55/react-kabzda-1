@@ -5,6 +5,7 @@ import * as Yup from 'yup' // валидация форм с помошью ст
 import {MyTextInput} from "../../common/formikCommon/MyFieldsBS"
 import Button from "react-bootstrap/Button";
 import Row from "react-bootstrap/Row";
+import {apiFeedBackDataType} from "../../../types/commonTypes";
 
 let myInitialValues = { // начальные зачения форм
     name: "",
@@ -18,8 +19,11 @@ let myValidationSchema = Yup.object({ // валидация форм на requir
         .required('Required'),
 })
 
-const FeedBackFormik = ({sendFeedBack}) => { // основная компонента с входным колбэком, чтобы забрать данные с форм
-    const myOnSubmit = (values, {resetForm}) => { // действия по сабмиту
+type FeedBackFormikType = {
+    sendFeedBack: (data:apiFeedBackDataType) => void,
+}
+const FeedBackFormik:React.FC<FeedBackFormikType> = ({sendFeedBack}) => { // основная компонента с входным колбэком, чтобы забрать данные с форм
+    const myOnSubmit = (values:apiFeedBackDataType, {resetForm}:any) => { // действия по сабмиту
         sendFeedBack(values) // колбек, который принмает результат ввода формы
         resetForm()// сбросить значение формы после ввода
     }
@@ -39,6 +43,7 @@ const FeedBackFormik = ({sendFeedBack}) => { // основная компоне�
                             <div>
                                 <MyTextInput // сообщение в MyPostsBS
                                     label="Ваше имя"
+                                    autoFocus={false}
                                     name='name'
                                     type='text'
                                     placeholder='имя'
@@ -48,6 +53,7 @@ const FeedBackFormik = ({sendFeedBack}) => { // основная компоне�
 
                                 <MyTextInput // email
                                     label="Email"
+                                    autoFocus={false}
                                     name='email'
                                     type='email'
                                     placeholder='email'
@@ -56,10 +62,10 @@ const FeedBackFormik = ({sendFeedBack}) => { // основная компоне�
 
                                 <MyTextInput // сообщение
                                     label="Сообщение * "
+                                    autoFocus={false}
                                     name='message'
                                     type='textarea'
                                     placeholder='сообщение'
-                                    //  autoFocus={true}
                                     leftLabelLength='7rem'
                                 />
 
