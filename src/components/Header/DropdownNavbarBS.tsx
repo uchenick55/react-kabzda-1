@@ -3,8 +3,10 @@ import NavDropdown from 'react-bootstrap/NavDropdown';
 import React from "react";
 import classes from './Header.module.css';
 
+type DropdownNavbarBSType = {
 
-function NavbarDarkExample() {
+}
+const DropdownNavbarBS:React.FC<DropdownNavbarBSType> = () => {
     return (
         <Navbar variant="dark" bg="dark" expand="lg">
             <NavDropdown title="Pages" className={classes.NavDropdown}>
@@ -19,4 +21,4 @@ function NavbarDarkExample() {
     );
 }
 
-export default NavbarDarkExample;
+export default DropdownNavbarBS;
