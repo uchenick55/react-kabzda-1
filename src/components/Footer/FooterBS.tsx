@@ -2,8 +2,7 @@ import Navbar from 'react-bootstrap/Navbar';
 import React from "react";
 import classes from "./footer.module.css"
 
-
-function FooterBS() {
+const FooterBS:React.FC<null> = ()=> {
     return (
         <Navbar variant="dark" bg="dark" expand="sm" fixed={"bottom"} className={classes.myFoorer}>
         </Navbar>
