@@ -1,8 +1,16 @@
-import React, {useState} from "react";
+import React, {ChangeEvent, useState} from "react";
 
-let ProfileStatusWithHoocs = ({userId, myId, status, putStatusThunkCreator }) => {
-    const [modifyStatus, setModifyStatus] = useState(false) // локальная переменная-флаг модификации статуса
-    const [statusTmpInput, setStatusTmpInput] = useState(null) // локальный статус до отправки на сервер (поле input)
+type ProfileStatusUseStateType = {
+    myId:number, // мой id для модификации статуса
+    userId: number, // id отображаемого пользователя
+    status:string, // статус из BLL
+    putStatusThunkCreator: (statusTmpInput:string, myId:number)=>void, // санкреатор для обновления сатуса
+}
+
+
+let ProfileStatusUseState:React.FC<ProfileStatusUseStateType> = ({userId, myId, status, putStatusThunkCreator }) => {
+    const [modifyStatus, setModifyStatus] = useState<boolean>(false) // локальная переменная-флаг модификации статуса
+    const [statusTmpInput, setStatusTmpInput] = useState<string>("") // локальный статус до отправки на сервер (поле input)
 
     const checkIfICanModifyStatus = () => {// проверка, что я могу менять статус (открыт мой профиль со статусом)
         if (userId===myId) { // если ID открытого пользователя равен моему
@@ -14,12 +22,12 @@ let ProfileStatusWithHoocs = ({userId, myId, status, putStatusThunkCreator }) =>
         setModifyStatus(false) // переключение с поля ввода статуса на простой текст
         putStatusThunkCreator(statusTmpInput, myId)
     }
-    const onChangeStatus = (event) => {
+    const onChangeStatus = (event:ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
         const text = event.currentTarget.value;// вынимаем значение введенное в поле ввода input
         setStatusTmpInput(text);// присваиваем переменной временного статуса из локального стейта введенное значение в поле
     }
 
-    const checkEnterPressed = (event) => { // проверка нажатия Enter
+    const checkEnterPressed = (event: React.KeyboardEvent) => { // проверка нажатия Enter
         if (event.charCode==13) {
             setMyStatus()//задание статуса при нажатии Enter
         }
@@ -41,7 +49,7 @@ let ProfileStatusWithHoocs = ({userId, myId, status, putStatusThunkCreator }) =>
                         value={statusTmpInput} // жестко зафиксировали значение поля ввода на временное значение статуса в локальном стейте
                         onChange={onChangeStatus} // задание временного локального статуса
                         onBlur={setMyStatus}// задание стейта при потере фокуса input
-                        // autoFocus  фокусировка на поле ввода текста
+                        autoFocus //  фокусировка на поле ввода текста
                         placeholder={"задайте статус"}// текст при пустом поле ввода
                         onKeyPress={checkEnterPressed} // проверка нажатия Enter
                     />
@@ -52,4 +60,4 @@ let ProfileStatusWithHoocs = ({userId, myId, status, putStatusThunkCreator }) =>
     </div>)
 }
 
-export default ProfileStatusWithHoocs
+export default ProfileStatusUseState
