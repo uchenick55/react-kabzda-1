@@ -1,5 +1,5 @@
 import React from 'react';
-import classes from './DialogList.module.css';
+import classes from './Messages/UserListMessages.module.css';
 import {NavLink} from "react-router-dom";
 import x from "../../assets/images/x.png";
 
@@ -16,10 +16,10 @@ const DialogItem:React.FC<DialogItemType> = ({deleteDialog, dialogId, userPhoto,
 
     const DialogNamePhotoRender = <NavLink to={'/dialogs/' + userId}> {/*навигация на диалог*/}
         {/*отдельно вынес отрисовку фото и имени пользователя со сменой URL*/}
-        <div className={classes.knopka}>
-            <div className={classes.dialogList}>{/* Разделение фото и имени*/}
+        <div >
+            <div>{/* Разделение фото и имени*/}
                 <div>
-                    <img src={userPhoto} alt={"userPhoto"} className={classes.dialogImg}/> {/*Фото диалога*/}
+                    <img src={userPhoto} alt={"userPhoto"}/> {/*Фото диалога*/}
                 </div>
                 <div>
                     <div>{userName}</div>
@@ -30,14 +30,14 @@ const DialogItem:React.FC<DialogItemType> = ({deleteDialog, dialogId, userPhoto,
     </NavLink>
 
     const deleteDialogRender = <div> {/*вынес отдельно кнопку удаления диалога из диалоглиста*/}
-        <img src={x} alt={"Удалить из своего диалогЛиста"} className={classes.x}
+        <img src={x} alt={"Удалить из своего диалогЛиста"}
              onClick={() => {
                  deleteDialog(dialogId, userId)
              }} title={"Удалить из своего диалогЛиста"}/>
     </div>
 
-    return <div className={userId === dialogUserID ? classes.dialogCurrent : classes.dialog}>
-        <div className={classes.dialogItemGreed}>  {/*разделение фото имени с кнопкой закрытия диалога в диалогЛисте*/}
+    return <div>
+        <div>  {/*разделение фото имени с кнопкой закрытия диалога в диалогЛисте*/}
             <div>
                 {DialogNamePhotoRender} {/*отдельно вынес отрисовку фото и имени пользователя со сменой URL*/}
             </div>

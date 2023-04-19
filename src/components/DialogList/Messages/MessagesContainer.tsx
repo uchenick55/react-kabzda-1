@@ -63,7 +63,7 @@ class MessagesContainer extends React.Component<MessagesContainerPropsType> {
     }
 
     scrollBottom = () => {
-        return ScrollBottom()
+        ScrollBottom()
     }
 
     render() {

@@ -6,7 +6,7 @@ import {MyTextInput} from "../../../common/formikCommon/MyFieldsBS"
 import Button from "react-bootstrap/Button";
 import Image from "react-bootstrap/Image";
 import sendSwg from "../../../../assets/images/swg/send-svg2.svg"
-import classes from "./Dialog.module.css"
+import classes from "./MessagesFormik.module.css"
 
 let myInitialValues = { // начальные зачения форм
     newMessage: "",
@@ -14,8 +14,16 @@ let myInitialValues = { // начальные зачения форм
 let myValidationSchema = Yup.object({ // валидация форм на required, длину и заполнение полей
 })
 
-const DialogFormik = ({sendMessage, scrollBottom}) => { // основная компонента с входным колбэком, чтобы забрать данные с форм
-    const myOnSubmit = (values, {resetForm}) => { // действия по сабмиту
+type DialogFormikType = {
+    sendMessage: (NewMessage: string) =>void,
+    scrollBottom:() =>void
+
+}
+type valuesType = {
+    newMessage:string
+}
+const MessagesFormik:React.FC<DialogFormikType> = ({sendMessage, scrollBottom}) => { // основная компонента с входным колбэком, чтобы забрать данные с форм
+    const myOnSubmit = (values:valuesType, {resetForm}:any) => { // действия по сабмиту
         sendMessage(values.newMessage) // колбек, который принмает результат ввода формы
         resetForm()// сбросить значение формы после ввода
     }
@@ -36,9 +44,11 @@ const DialogFormik = ({sendMessage, scrollBottom}) => { // основная ко
                             <div  className='col-9'>
                                 <MyTextInput // сообщение в MyPostsBS
                                     label=""
+                                    autoFocus={true}
                                     name='newMessage'
                                     type='text'
                                     placeholder='Введите ваше сообщение'
+                                    leftLabelLength={""}
                                    // autoFocus={true}
                                 />
                             </div>
@@ -53,9 +63,6 @@ const DialogFormik = ({sendMessage, scrollBottom}) => { // основная ко
                                            title={'Отправить сообщение'}/>
                                 </Button>
                             </div>
-{/*
-                            <div><Button onClick={()=>{history.back()}}>Prev</Button></div>
-*/}
                         </div>
                         {/* <DisplayFormikState/> {/*отображение всего стейта формика*/}
                     </Form>
@@ -65,5 +72,5 @@ const DialogFormik = ({sendMessage, scrollBottom}) => { // основная ко
     )
 }
 
-export default DialogFormik
+export default MessagesFormik
 

@@ -1,0 +1,60 @@
+.usersListMessagesFixed {
+    position: fixed;
+    top: 3.4rem;
+    left: 0;
+    right: 0;
+    bottom: 0;
+}
+.usersListFixed {
+    position: fixed;
+    left: 0rem;
+    width: 10rem;
+    top:3.4rem;
+    bottom: 1rem;
+    background-color: red;
+
+}
+.MessagesFixed {
+    position: fixed;
+    left: 10rem;
+    right: 0;
+    bottom: 1rem;
+    background-color: #61dafb;
+}
+.messagesHeaderFixed {
+    position: fixed;
+    top: 3.4rem;
+    left: 10rem;
+    right: 0;
+    background-color: rgb(249,249,249);
+    border-bottom: 1px solid var(--color1);
+}
+.messagesMiddleFixed {
+    position: fixed;
+    left: 10rem;
+    right: 0;
+    top: 7rem;
+    bottom: 4.4rem;
+    overflow: auto;
+}
+
+.messagesFooterFixed {
+    position: fixed;
+    left: 10rem;
+    right: 0;
+    bottom: 1rem;
+    background-color: rgb(249,249,249);
+    padding: 0.5rem;
+    border-top: 1px solid var(--color1);
+}
+
+
+.userPhoto {
+    border-radius: 50%;
+    margin: 0.5rem 2rem;
+    width: 2.5rem;
+}
+
+.myLink {
+    color: var(--bs-gray-700);
+}
