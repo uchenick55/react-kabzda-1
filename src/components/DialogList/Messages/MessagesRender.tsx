@@ -6,8 +6,18 @@ import React from "react";
 import Row from "react-bootstrap/Row";
 import Image from "react-bootstrap/Image";
 import {NavLink} from "react-router-dom";
+import {messages2Type, NulableType} from "../../../types/commonTypes";
+import {getProfileType} from "../../api/apiTypes";
 
-const MessagesRender = ({messages2, myId, deleteMessage, sendMessage, scrollBottom, profile}) => {
+type MessagesRenderType = {
+    messages2: NulableType<Array<messages2Type>>, // массив сообщений текущего диалога
+    myId: number, // мой ID (авторизованного пользователя)
+    profile: NulableType<getProfileType>, // профиль просматриваемого пользователя по умолчанию
+    deleteMessage: (messageID:number) =>void,
+    sendMessage: (NewMessage: string) =>void,
+    scrollBottom:() =>void
+}
+const MessagesRender:React.FC<MessagesRenderType> = ({messages2, myId, deleteMessage, sendMessage, scrollBottom, profile}) => {
 
     const messagesProfileRender = <div className={classes.photoFixed}>
         {/*спозиционированный сверху иконку человека, с кем общаюсь*/}

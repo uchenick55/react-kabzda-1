@@ -156,7 +156,7 @@ export let deleteLoginThunkCreator = ():ThunkType => {//санкреатор н�
                 dispatch(authInitialState())// зануление авторизации при логауте
 
                 dispatch(profileInitialState())// зануление профиля при логауте
-                
+
                 dispatch(usersInitialState())// зануление UsersBS при логауте
 
             }, 300)
