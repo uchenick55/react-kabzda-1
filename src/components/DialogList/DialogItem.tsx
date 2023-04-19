@@ -2,10 +2,17 @@ import React from 'react';
 import classes from './DialogList.module.css';
 import {NavLink} from "react-router-dom";
 import x from "../../assets/images/x.png";
-import {PointerCursor} from "../-Dark_light_theme/-globalStyles";
 
+type DialogItemType = {
+    dialogId:number,
+    userPhoto:string,
+    userName:string,
+    userId:number,
+    dialogUserID:number
+    deleteDialog:(dialogId:number,  userId:number)=>void,
 
-const DialogItem = ({deleteDialog, dialogId, userPhoto, userName, userId, dialogUserID}) => {
+}
+const DialogItem:React.FC<DialogItemType> = ({deleteDialog, dialogId, userPhoto, userName, userId, dialogUserID}) => {
 
     const DialogNamePhotoRender = <NavLink to={'/dialogs/' + userId}> {/*навигация на диалог*/}
         {/*отдельно вынес отрисовку фото и имени пользователя со сменой URL*/}
