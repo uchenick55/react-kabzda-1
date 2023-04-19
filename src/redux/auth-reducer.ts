@@ -52,7 +52,7 @@ type ActionTypes = setLoginErrorActionType | setCaptchaURLActionType | authIniti
 friendsInitialStateActionType | usersInitialStateActonType
 
 let initialState = { // стейт по умолчанию для моего профиля
-    myId: null as NulableType<number>, // мой ID по умолчанию
+    myId: 0 as number, // мой ID по умолчанию
     myEmail: "" as string,// мой Email по умолчанию
     myLogin: "" as string,// мой логин по умолчанию
     isAuth: false, // Флаг авторизации

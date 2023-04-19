@@ -81,7 +81,6 @@ class DialogListContainer extends React.Component<DialogListContainerPropsType> 
 
     deleteDialog = (dialogId: number, userId2: number) => {
         this.props.deleteDialogThunkCreator( dialogId, this.props.myId, userId2 )
-        // здесь сменить URL без ID
     }
 
     render() {
@@ -120,7 +119,12 @@ type mapDispatchToPropsType = {
     deleteDialogThunkCreator: (dialogId: number, userId1: number, userId2: number) => void
 }
 export default compose<any>(
-    connect( mapStateToProps,
+    connect<
+        mapStateToPropsType,
+        mapDispatchToPropsType,
+        unknown,
+        GlobalStateType
+        >( mapStateToProps,
         {
             getDialogsThunkCreator,//санкреатор получения диалогов с данными
             setdialogUserID, // экшнкреатор задания списка сообщений в стейт messages2
