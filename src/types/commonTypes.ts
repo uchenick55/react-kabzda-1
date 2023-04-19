@@ -43,3 +43,28 @@ export type tasksDataType = {
     description: JSX.Element[], // описание задачи
     repositoryHref: string // ссылка на репозиторий
 }
+
+
+type DateType = {
+    Day: number
+    Hour: number
+    Minutes: number
+    Month:string
+    Seconds: number
+    Year :number
+}
+
+export type messages2Type = {
+    id: number
+    Date: DateType
+    userId: number
+    message: string
+}
+
+
+export type dialogs2Type = {
+    dialogId: number
+    userId: number
+    userName: string
+    userPhoto: string
+}

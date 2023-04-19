@@ -1,7 +1,7 @@
 import {apiDialogs} from "../components/api/apiLocalStorage";
 import {GlobalStateType} from "./store-redux";
 import {ThunkAction} from "redux-thunk";
-import {NulableType} from "../types/commonTypes";
+import {dialogs2Type, messages2Type, NulableType} from "../types/commonTypes";
 
 const DIALOGS_INITIAL_STATE = "myApp/dialogs-reducer/DIALOGS_INITIAL_STATE";  //константа зануления при логауте
 const SET_MESSAGES = "myApp/dialogs-reducer/SET_MESSAGES";  //константа задания списка сообщений в стейт
@@ -42,29 +42,6 @@ export let getMyDialogList = (myDialogList:Array<dialogs2Type>):getMyDialogListA
 
 type ActionTypes = getMyDialogListActionType | setDialogUserFollowedActionType | setDialogLastUpdateTimeActionType |
     setdialogUserIDActionType | setMessagesActionType | dialogsInitialStateType
-
-type dialogs2Type = {
-  dialogId: number
-  userId: number
-  userName: string
-  userPhoto: string
-}
-
-type DateType = {
-  Day: number
-  Hour: number
-  Minutes: number
-  Month:string
-  Seconds: number
-  Year :number
-}
-
-type messages2Type = {
-  id: number
-  Date: DateType
-  userId: number
-  message: string
-}
 
 let initialState = { // стейт сообщений по умолчанию
   messages2: null as NulableType<Array<messages2Type>>, // сообщения по умолчанию нулевые, но могут быть еще и Array<messages2Type>

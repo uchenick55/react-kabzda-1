@@ -6,8 +6,7 @@ import MessagesContainer from "./Messages/MessagesContainer";
 import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
 
-const DialogList = ({deleteDialog, dialogUserID, getDialogList, dialogs2,
-                     getDialogLastUpdateTime}) => { // основная компонента отрисовки диалогов
+const DialogList = ({getDialogList, getDialogLastUpdateTime}) => { // основная компонента отрисовки диалогов
 
     useEffect(() => { // при очередном ререндере
         const id = setInterval(() => { // задать цикл с интервалом в 1 сек
