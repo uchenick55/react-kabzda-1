@@ -1,5 +1,4 @@
 import {apiProfile} from "../components/api/api";
-import {friendsInitialState, friendsInitialStateActionType} from "../trash/sidebar-reducer";
 import {dialogsInitialState, dialogsInitialStateType} from "./dialogs-reducer";
 import {profileInitialState, profileInitialStateActionType} from "./profile-reducer";
 import {usersInitialState, usersInitialStateActonType} from "./users-reducer";
@@ -48,8 +47,7 @@ export let setLoginError = (loginError: string):setLoginErrorActionType => { // 
 };
 
 type ActionTypes = setLoginErrorActionType | setCaptchaURLActionType | authInitialStateActionType |
-    setAuthDataActionType | setMyProfileActionType | dialogsInitialStateType | profileInitialStateActionType |
-friendsInitialStateActionType | usersInitialStateActonType
+    setAuthDataActionType | setMyProfileActionType | dialogsInitialStateType | profileInitialStateActionType | usersInitialStateActonType
 
 let initialState = { // стейт по умолчанию для моего профиля
     myId: 0 as number, // мой ID по умолчанию
@@ -158,9 +156,7 @@ export let deleteLoginThunkCreator = ():ThunkType => {//санкреатор н�
                 dispatch(authInitialState())// зануление авторизации при логауте
 
                 dispatch(profileInitialState())// зануление профиля при логауте
-
-                dispatch(friendsInitialState())// зануление FriendList при логауте
-
+                
                 dispatch(usersInitialState())// зануление UsersBS при логауте
 
             }, 300)
