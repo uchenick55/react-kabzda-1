@@ -45,7 +45,7 @@ export type tasksDataType = {
 }
 
 
-type DateType = {
+export type DateType = {
     Day: number
     Hour: number
     Minutes: number
