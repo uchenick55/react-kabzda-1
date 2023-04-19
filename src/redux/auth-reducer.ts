@@ -60,9 +60,9 @@ let initialState = { // стейт по умолчанию для моего п�
     captchaURL: "" as string, // URL каптчи после 5 неправильных вводов
     loginError: "" as string, // ошибка авторизации с сервера
 }
-type initialStateType = typeof initialState
-let authReducer = (state:initialStateType = initialState, action:ActionTypes):initialStateType => { // редьюсер авторизации и моего профиля
-    let stateCopy:initialStateType; // объявлениечасти части стейта до изменения редьюсером
+export type initialStateAuthType = typeof initialState
+let authReducer = (state:initialStateAuthType = initialState, action:ActionTypes):initialStateAuthType => { // редьюсер авторизации и моего профиля
+    let stateCopy:initialStateAuthType; // объявлениечасти части стейта до изменения редьюсером
     switch (action.type) {
         case SET_MY_DATA: // экшн задания моих id, email, login
             stateCopy = {

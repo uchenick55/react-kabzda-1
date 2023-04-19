@@ -12,8 +12,7 @@ import {compose} from "redux";
 import {getProfileThunkCreator} from "../../redux/profile-reducer";
 import NavigateToLoginHoc2 from "../hoc/NavigateToLoginHoc2";
 import withRouter2 from "../hoc/withRouter2";
-import {dialogs2Type, messages2Type, NulableType} from "../../types/commonTypes";
-import {getProfileType} from "../api/apiTypes";
+import {messages2Type, NulableType} from "../../types/commonTypes";
 import {GlobalStateType} from "../../redux/store-redux";
 
 type DialogListContainerPropsType = {

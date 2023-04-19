@@ -18,7 +18,7 @@ const DialogList: React.FC<DialogListType> = ({getDialogList, getDialogLastUpdat
     }, [getDialogLastUpdateTime, getDialogList] ) // useEffect без зависимостей
 
     return <MessagesContainer/>
-    {/*отрисовка сообщений*/}
+    //отрисовка сообщений
 
 }
 export default DialogList;

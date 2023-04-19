@@ -7,20 +7,20 @@ import Row from "react-bootstrap/Row";
 import Image from "react-bootstrap/Image";
 import {NavLink} from "react-router-dom";
 
-const MessagesRender = ({messages2, myId, deleteMessage, sendMessage, scrollBottom, profilePage}) => {
+const MessagesRender = ({messages2, myId, deleteMessage, sendMessage, scrollBottom, profile}) => {
 
     const messagesProfileRender = <div className={classes.photoFixed}>
         {/*спозиционированный сверху иконку человека, с кем общаюсь*/}
-        {profilePage.profile &&  // если профиль пользователя уже загружен
-        <NavLink to={`/profile/${profilePage.profile.userId}`} className={classes.myLink} >
+        {profile &&  // если профиль пользователя уже загружен
+        <NavLink to={`/profile/${profile.userId}`} className={classes.myLink} >
             {/*при клике переход на профиль собеседника, ссылка без подчеркивания*/}
             <Image // картинка аватар собеседника
-                src={profilePage.profile.photos.small?profilePage.profile.photos.small:userPhoto}
+                src={profile.photos.small?profile.photos.small:userPhoto}
                 className={classes.userPhoto}
                 title={"Перейти в профиль"}
                 alt={"Перейти в профиль"}
             />
-            <span>{profilePage.profile.fullName}</span>
+            <span>{profile.fullName}</span>
         </NavLink>
         }
     </div>

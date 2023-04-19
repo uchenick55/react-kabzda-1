@@ -2,7 +2,7 @@ import Container from 'react-bootstrap/Container';
 import Navbar from 'react-bootstrap/Navbar';
 import "bootstrap/dist/css/bootstrap.min.css"
 import React, {useState} from "react";
-import goBack from "../../assets/images/swg/go-back2.svg"
+import goBack from "../../assets/images/swg/back-arrow1.svg"
 import swgInfoPic from "../../assets/images/swg/info.svg"
 import classes from './Header.module.css';
 import Image from "react-bootstrap/Image";
