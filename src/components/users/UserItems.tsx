@@ -10,6 +10,7 @@ import DialogPic from "../../assets/images/swg/dialog-svgrepo-com.svg";
 import React from "react";
 import FollowUnfollowButtons2 from "./FollowUnfollowButtons2";
 import {usersType} from "../api/apiTypes";
+import {useLocation} from "react-router";
 
 type UserItemsType = {
     users: Array<usersType>, // Реселектор users- список пользователей в пачке от сервера
@@ -21,12 +22,19 @@ type UserItemsType = {
 }
 const UserItems:React.FC<UserItemsType> = ({users, unfollowAPI, followAPI, followingInProgress, isAuth}) => {
     // отрисовка всех карточек с пользователями
+/*    const location = useLocation()
+    let patch = location.pathname // путь из URL вида /profile
+        .split( "" ) // разделить все на массив ['/', 'd', 'i', 'a', 'l', 'o', 'g', 's', '2', '8', '8', '3', '1',]
+        .filter( i => i !== "/" ) // удалить все символы "/" ['d', 'i', 'a', 'l', 'o', 'g', 's', '2', '8', '8', '3', '1',]
+        .join( "" ) //Склеить в слово dialogs или users
+    patch = patch.replace(/[0-9]/g, '');// удалить все цифры ID пользователя для dialogs
+    console.log(patch)*/
     return <div>
         {
             users.map((u) => { // пробегаем по пользовтелям
                 return (
                     <div key={u.id}
-                         className="my-2 col-12 col-sm-5 col-lg-2 d-inline-block"> {/* "my-2 col-12 col-sm-5 col-lg-2 d-inline-block"размеры карточек в зависимости от размера экрана*/}
+                         className="my-2 col-12 d-inline-block"> {/* my-2 col-12 col-sm-5 col-lg-2 d-inline-block"размеры карточек в зависимости от размера экрана*/}
                         <Card className={classes.myCard}>  {/*оформление*/}
 
                             <Card.Body>

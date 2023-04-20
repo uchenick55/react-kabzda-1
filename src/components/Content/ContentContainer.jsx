@@ -1,10 +1,12 @@
-import React, {Suspense} from "react";
+import React, {Suspense, useEffect} from "react";
 import {Route, Routes} from "react-router-dom";
 import ErrorBoundary from "../common/ErrorBoundary/ErrorBoundary";
 import Tasks from "../Tasks/Tasks";
 import ProfileContainer from "../Profile/ProfileContainer";
 import Home from "../Home/Home";
 import classes from "./ContentContainer.module.css"
+import {useLocation} from "react-router";
+import {setPatch} from "../../redux/app-reducer";
 
 //const ProfileContainer = React.lazy(() => import("../Profile/ProfileContainer"))
 const DialogsContainer = React.lazy(() => import("../DialogList/DialogListContainer"))
@@ -16,7 +18,19 @@ const Rest = React.lazy(() => import("../Rest/Krestiki-Noliki/KrestikiNoliki"))
 const StackInfo = React.lazy(() => import("../Info/StackInfoBS"))
 const FeedBackContainer = React.lazy(() => import("../FeedBack/FeedBackContainer"))
 
-let ContentContainer = () => { // вынес роутинг контента в отдельную компоненту
+let ContentContainer = ({setPatch}) => { // вынес роутинг контента в отдельную компоненту
+
+    const location = useLocation()
+    useEffect(()=>{
+        let patch = location.pathname // путь из URL вида /profile
+            .split( "" ) // разделить все на массив ['/', 'd', 'i', 'a', 'l', 'o', 'g', 's', '2', '8', '8', '3', '1',]
+            .filter( i => i !== "/" ) // удалить все символы "/" ['d', 'i', 'a', 'l', 'o', 'g', 's', '2', '8', '8', '3', '1',]
+            .join( "" ) //Склеить в слово dialogs или users
+        patch = patch.replace(/[0-9]/g, '');// удалить все цифры ID пользователя для dialogs
+        setPatch(patch)
+        // обновить данные пути patch в app-reducer
+    },[location])
+
     return (<div>
         <ErrorBoundary> {/*Локальный обработчик ошибок ContentContainer*/}
             <Suspense fallback={

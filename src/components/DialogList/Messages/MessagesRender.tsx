@@ -8,6 +8,7 @@ import Image from "react-bootstrap/Image";
 import {NavLink} from "react-router-dom";
 import {messages2Type, NulableType} from "../../../types/commonTypes";
 import {getProfileType} from "../../api/apiTypes";
+import UsersContainer from "../../users/UsersContainer";
 
 type MessagesRenderType = {
     messages2: NulableType<Array<messages2Type>>, // массив сообщений текущего диалога
@@ -36,8 +37,8 @@ const MessagesRender: React.FC<MessagesRenderType> = ({messages2, myId, deleteMe
     </div>
 
     return <div className={classes.usersListMessagesFixed}>
-        <div className={classes.usersListFixed}></div>
-        <div className={classes.MessagesFixed}>
+        <div className={classes.usersListCommonFixed}><UsersContainer/></div>
+        <div className={classes.MessagesCommonFixed}>
             <div className={classes.messagesHeaderFixed}>{messagesProfileRender}</div>
             {/*спозиционированная полоска сверку сообщений с иконкой собеседникой и ссылкой на его профиль*/}
 

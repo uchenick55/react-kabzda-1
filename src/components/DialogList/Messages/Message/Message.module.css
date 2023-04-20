@@ -14,11 +14,13 @@
 }
 
 .insideToastMy {
+    position: relative;
     max-width: max-content;
     color: var(--color1);
     background-color: var(--color3);
 }
 .insideToastNotMy {
+    position: relative;
     max-width: max-content;
     color: var(--color3);
     background-color: var(--color1);

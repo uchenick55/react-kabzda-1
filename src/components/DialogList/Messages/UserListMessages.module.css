@@ -4,34 +4,41 @@
     left: 0;
     right: 0;
     bottom: 0;
+    --usersListWidth: 20rem; /* ширина левой колонки usersList*/
+
 }
-.usersListFixed {
+.usersListCommonFixed {
     position: fixed;
     left: 0rem;
-    width: 10rem;
+    width: var(--usersListWidth);
     top:3.4rem;
     bottom: 1rem;
     background-color: red;
 
 }
-.MessagesFixed {
+.MessagesCommonFixed {
     position: fixed;
-    left: 10rem;
+    left: var(--usersListWidth);
     right: 0;
     bottom: 1rem;
     background-color: #61dafb;
 }
+.userPhoto {
+    border-radius: 50%;
+    margin: 0.5rem 2rem;
+    width: 2.5rem;
+}
 .messagesHeaderFixed {
     position: fixed;
     top: 3.4rem;
-    left: 10rem;
+    left: var(--usersListWidth);
     right: 0;
     background-color: rgb(249,249,249);
     border-bottom: 1px solid var(--color1);
 }
 .messagesMiddleFixed {
     position: fixed;
-    left: 10rem;
+    left: var(--usersListWidth);
     right: 0;
     top: 7rem;
     bottom: 4.4rem;
@@ -40,7 +47,7 @@
 
 .messagesFooterFixed {
     position: fixed;
-    left: 10rem;
+    left: var(--usersListWidth);
     right: 0;
     bottom: 1rem;
     background-color: rgb(249,249,249);
@@ -49,11 +56,7 @@
 }
 
 
-.userPhoto {
-    border-radius: 50%;
-    margin: 0.5rem 2rem;
-    width: 2.5rem;
-}
+
 
 .myLink {
     color: var(--bs-gray-700);
