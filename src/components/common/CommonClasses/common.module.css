@@ -9,14 +9,14 @@
 .textMaxWidthCommon {
     overflow: hidden; /* Обрезаем содержимое */
     white-space: nowrap; /* Отменяем перенос текста */
-    background: linear-gradient(to left, transparent 0%, var(--bs-body-color-my) 30%, var(--bs-body-color-my) 100%);
+    /*background: linear-gradient(to left, transparent 0%, var(--bs-body-color-my) 30%, var(--bs-body-color-my) 100%);*/
+    background: var(--bs-body-color-my);
     -webkit-background-clip: text;
     background-clip: text;
-    color: transparent;
 }
 
 .textMaxWidth8rem {
-    max-width: 7rem;
+    max-width: 15rem;
 }
 .textMaxWidth18rem {
     max-width: 18rem;

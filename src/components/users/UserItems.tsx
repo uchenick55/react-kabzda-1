@@ -27,65 +27,62 @@ const UserItems: React.FC<UserItemsType> = ({users, unfollowAPI, followAPI, foll
         patch === "users"  // если путь в адресной строке это users
             ? "my-2 col-12 col-sm-5 col-lg-2 d-inline-block" // в зависимости от разрешения экрана пенять количество столбцов
             : patch === "dialogs" // для страницы диалогов
-                ? "my-2 col-12 d-inline-block" // всегда пользовттьели в одну строку
-                : "" // для других случаев не используется Users пока
+            ? "my-2 col-12 d-inline-block" // всегда пользователи в одну строку
+            : "" // для других случаев не используется Users пока
     {/* my-2 col-12 col-sm-5 col-lg-2 d-inline-block"размеры карточек в зависимости от размера экрана*/
     }
 
     return <div>
         {
             users.map( (u) => { // пробегаем по пользовтелям
-                return (
-                    <div key={u.id}
-                         className={UsersClassName}>
+                return <div key={u.id} className={UsersClassName}>
+                    <NavLink to={'/dialogs/' + u.id}>
                         <Card className={classes.myCard}>  {/*оформление*/}
 
-                            <Card.Body>
-                                <Card.Title
-                                    className={`${commonClasses.textMaxWidthCommon} ${commonClasses.textMaxWidth8rem}`}>{u.name}</Card.Title> {/*максимальная ширина заголовка 8 rem*/}
-                                <Row>
-                                    <Col className={classes.myCol}>
-                                        <NavLink
-                                            to={'/profile/' + u.id}> {/*при нажатии на картинку переход в профиль*/}
-                                            <Image fluid={true}
-                                                   className={classes.userPhoto}
-                                                   src={u.photos.small !== null // или маленькая картинка профиля или заглушка
-                                                       ? u.photos.small
-                                                       : userPhoto}
-                                                   alt={"Перейти в профиль"}
-                                                   title={"Перейти в профиль"}
-                                            />
+                                {/* <Card.Title
+                                    className={`${commonClasses.textMaxWidthCommon} ${commonClasses.textMaxWidth8rem}`}>{u.name}</Card.Title> максимальная ширина заголовка 8 rem*/}
+                                <div className={classes.star}>
+                                    {u.followed
+                                        ? <FollowUnfollowButtons2 u={u} followUnfollowAPICallback={unfollowAPI}
+                                                                  followingInProgress={followingInProgress}
+                                                                  isAuth={isAuth}/>
+                                        : <FollowUnfollowButtons2 u={u} followUnfollowAPICallback={followAPI}
+                                                                  followingInProgress={followingInProgress}
+                                                                  isAuth={isAuth}/>
+                                    }
+                                </div>
+                                <Image fluid={true}
+                                       className={classes.userPhoto}
+                                       src={u.photos.small !== null // или маленькая картинка профиля или заглушка
+                                           ? u.photos.small
+                                           : userPhoto}
+                                       alt={"Перейти в профиль"}
+                                       title={"Перейти в профиль"}
+                                />
+                                <div
+                                    className={`
+                                    ${commonClasses.textMaxWidthCommon} 
+                                    ${commonClasses.textMaxWidth18rem}
+                                    ${classes.name}
+                                    
+                                    `}>
+                                    {u.name &&
+                                    <div>{u.name}</div>} {/*имя */}
+                                </div>
+                                <div
+                                    className={`
+                                    ${commonClasses.textMaxWidthCommon} 
+                                    ${commonClasses.textMaxWidth8rem}
+                                    ${classes.status}
+                                    
+                                    `}>
+                                    {u.status &&
+                                    <div>{u.status}</div>} {/*статус */}
+                                </div>
 
-                                        </NavLink>
-                                    </Col>
-                                    <Col className={classes.myCol}>
-                                        <NavLink to={'/dialogs/' + u.id}>  {/*смена URL при клике на диалог*/}
-                                            <Image fluid={true} src={DialogPic} alt={"Начать диалог"}
-                                                   title={"Начать диалог"} className={classes.myImg}/>
-                                        </NavLink>
-                                    </Col>
-                                    <Col className={classes.myCol}>
-                                        <div>
-                                            {u.followed
-                                                ? <FollowUnfollowButtons2 u={u} followUnfollowAPICallback={unfollowAPI}
-                                                                          followingInProgress={followingInProgress}
-                                                                          isAuth={isAuth}/>
-                                                : <FollowUnfollowButtons2 u={u} followUnfollowAPICallback={followAPI}
-                                                                          followingInProgress={followingInProgress}
-                                                                          isAuth={isAuth}/>
-                                            }
-                                        </div>
-                                    </Col>
-                                </Row>
-
-                                <Row
-                                    className={`${commonClasses.textMaxWidthCommon} ${commonClasses.textMaxWidth8rem}`}>
-                                    {u.status && <div>{u.status}</div>}
-                                </Row>
-                            </Card.Body>
                         </Card>
-                    </div>
-                )
+                    </NavLink>
+                </div>
             } )
         }
     </div>

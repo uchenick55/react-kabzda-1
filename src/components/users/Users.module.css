@@ -1,10 +1,42 @@
 .userPhoto {
-    border-radius: 30%;
-    max-height: 5rem;
+    border-radius: 50%;
+    max-width: 3rem;
+    position: absolute;
+    left: 2rem;
+    top:1rem;
 }
+.name {
+    font-size: 1.2rem;
+    position: absolute;
+    left: 6rem;
+    top: 0.6rem;
+    font-weight: bold;
+    color: #282c34;
+}
+.status{
+    font-size: 0.8rem;
+    position: absolute;
+    left: 6rem;
+    top: 2.3rem;
+    color: rgba(100, 100, 100, 1);
+}
+
+.star {
+    position: absolute;
+    left: 0.3rem;
+    top: 0.3rem;
+    transition: 0.2s ease-in-out;
+    max-width: 1.5rem;
+}
+
+
+.myCard {
+    --bs-card-bg: var(--color3); /*цвет карточек в Users*/
+    height: 5rem;
+}
+
 .preloader {
     background-color: white;
-
 }
 
 .textHeight {
@@ -29,27 +61,9 @@
     max-width: 1rem;
 }
 
-.myCol {
-    --bs-gutter-x: 0.5rem;
-    --bs-gutter-y: 0rem;
-    transition: 0.2s ease-in-out;
-}
 
-.myCol:hover {
+
+.star:hover {
     transform: translate(+0px, -2px);
-}
 
-.myImg {
-    max-height: 5rem;
-}
-
-.myCard {
-    --bs-card-spacer-y: 0rem;
-    --bs-card-spacer-x: 0rem;
-    display: flex;
-    align-items: center;
-    padding: 1rem;
-    margin: 0 1rem;
-    --bs-card-bg: var(--color3); /*цвет карточек в Users*/
-    height: 8rem;
 }

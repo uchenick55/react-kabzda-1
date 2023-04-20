@@ -2,9 +2,9 @@
     position: relative;
     display: flex;
     align-items: center;
-    margin: 0.2rem;
-
+    margin: 0 2rem;
 }
+
 .messageMyId {
     justify-content: right;
 }

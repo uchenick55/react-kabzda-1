@@ -16,7 +16,6 @@ const FollowUnfollowButtons2:React.FC<FollowUnfollowButtonsType> = ({u, followUn
     const starCanBePressed = followingInProgress.some(id => id === u.id)
     return  <span>
                     <Image
-                        className={classes.myImg}
                         fluid={true} // картинка растягивается
                         src={!u.followed ? FollowPic : UnfollowPic} // картинка в зависимости избранное или нет
                         alt={"Добавить в избранное"} // alt

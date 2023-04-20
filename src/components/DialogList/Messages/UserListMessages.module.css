@@ -7,13 +7,16 @@
     --usersListWidth: 25rem; /* ширина левой колонки usersList*/
 
 }
+
 .usersListCommonFixed {
     position: fixed;
     left: 0rem;
     width: var(--usersListWidth);
     top:3.4rem;
     bottom: 1rem;
-    background-color: red;
+    background-color: rgba(100,100,100,0.5);
+    overflow: auto;
+
 
 }
 .MessagesCommonFixed {
