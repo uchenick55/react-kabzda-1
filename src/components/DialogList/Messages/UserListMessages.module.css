@@ -4,7 +4,7 @@
     left: 0;
     right: 0;
     bottom: 0;
-    --usersListWidth: 20rem; /* ширина левой колонки usersList*/
+    --usersListWidth: 25rem; /* ширина левой колонки usersList*/
 
 }
 .usersListCommonFixed {

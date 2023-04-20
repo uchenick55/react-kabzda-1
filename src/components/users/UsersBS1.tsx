@@ -18,6 +18,7 @@ type UsersBSType = {
     onChangeTerm:string,
     onlyFriends: boolean, // селектор получить только моих рузей
     currentRangeLocal: number,
+    patch: string, // страница из адресной строки
     unfollowAPI:(id:number)=>void,
     onPageChanged:(setPage:number)=>void,
     followAPI:(id:number)=>void,
@@ -30,7 +31,7 @@ const UsersBS:React.FC<UsersBSType> = ({
                      totalUsersCount, pageSize, currentPage, onPageChanged, users,
                      followingInProgress, unfollowAPI, isAuth, followAPI,
                      SetTermFunction, onChangeTerm, onChangeTermFunction,
-                     onChangeRangeLocal, currentRangeLocal, setOnlyFriends, onlyFriends // раскукожили все пропсы
+                     onChangeRangeLocal, currentRangeLocal, setOnlyFriends, onlyFriends, patch // раскукожили все пропсы
                  }) => {
 
     const [error, setError] = useState<any>( {message:""})
@@ -70,24 +71,24 @@ const UsersBS:React.FC<UsersBSType> = ({
 
         const UserItemsRender = <Row> {/*отрисовка самих карточек полшьзователей*/}
             <UserItems users={users} unfollowAPI={unfollowAPI} followAPI={followAPI}
-                       followingInProgress={followingInProgress} isAuth={isAuth}/> {/*отрисовка UsersBS*/}
+                       followingInProgress={followingInProgress} isAuth={isAuth} patch={patch}/> {/*отрисовка UsersBS*/}
         </Row>
 
         return <div>
 
             <Container fluid className="d-block justify-content-center">
 
-                <h2 className={commonClasses.pageHeader}>Users</h2> {/*заголовок */}
+                <h2 className={commonClasses.pageHeader}>Чаты</h2> {/*заголовок */}
 
-                {paginationRender}{/*Вывод пагинации вверху страницы */}
+                {patch==="users" && paginationRender}{/*Вывод пагинации вверху страницы  только на странице users*/}
 
                 {InputButtonUsersRenderLocal} {/*вывод инпута и кнопки для поиска юзеров*/}
 
-                {TotalUsersCountRender} {/*вывод количества всех пользователей*/}
+                {patch==="users" && TotalUsersCountRender} {/*вывод количества всех пользователей только на странице users*/}
 
                 {UserItemsRender}{/*отрисовка самих карточек пользователей*/}
 
-                {paginationRender}{/*Вывод пагинации снизу страницы */}
+                {/* {paginationRender}Вывод пагинации снизу страницы */}
 
             </Container>
         </div>

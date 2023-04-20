@@ -24,6 +24,7 @@ type MainProps =  {
     term: string,
     myId: number,
     onlyFriends: boolean, // селектор получить только моих рузей
+    patch: string, // страница из адресной строки
     setCurrentPage:(currentPage: number)=>void,
     getUsersThunkCreator:(currentPage: number, pageSize: number, term: string, friend: boolean, userId: number)=>void,
     followThunkCreator:(userId: number, currentPage: number, pageSize: number, term: string, friend: boolean)=>void,
@@ -101,6 +102,7 @@ class UsersContainer extends React.Component<MainProps, MainState> {
                      onChangeRangeLocal = {this.onChangeRangeLocal}
                      setOnlyFriends={this.props.setOnlyFriends}
                      onlyFriends={this.props.onlyFriends}
+                     patch={this.props.patch}
             />
         </>
     }
@@ -116,6 +118,7 @@ type mapStateToPropsType = {
     term: string,
     myId: NulableType<number>,
     onlyFriends: boolean, // селектор получить только моих рузей
+    patch: string
 }
 let mapStateToProps = (state:GlobalStateType) => {
     return {
@@ -129,6 +132,7 @@ let mapStateToProps = (state:GlobalStateType) => {
         term: state.usersPage.term,
         myId: state.auth.myId,
         onlyFriends: usersSelectorsSimple.getOnlyFriends(state), // селектор получить только моих рузей
+        patch: state.app.patch
     }
 }
 

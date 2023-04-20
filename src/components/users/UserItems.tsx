@@ -14,27 +14,30 @@ import {useLocation} from "react-router";
 
 type UserItemsType = {
     users: Array<usersType>, // Реселектор users- список пользователей в пачке от сервера
-    unfollowAPI:(id:number)=>void,
-    followAPI:(id:number)=>void,
+    patch: string, // страница из адресной строки
+    unfollowAPI: (id: number) => void,
+    followAPI: (id: number) => void,
     followingInProgress: Array<number>, // селектор followingInProgress - массив на кого мы подписались, кнопка неактивна
     isAuth: boolean, // селектор isAuth - флаг авторизации
 
 }
-const UserItems:React.FC<UserItemsType> = ({users, unfollowAPI, followAPI, followingInProgress, isAuth}) => {
+const UserItems: React.FC<UserItemsType> = ({users, unfollowAPI, followAPI, followingInProgress, isAuth, patch}) => {
     // отрисовка всех карточек с пользователями
-/*    const location = useLocation()
-    let patch = location.pathname // путь из URL вида /profile
-        .split( "" ) // разделить все на массив ['/', 'd', 'i', 'a', 'l', 'o', 'g', 's', '2', '8', '8', '3', '1',]
-        .filter( i => i !== "/" ) // удалить все символы "/" ['d', 'i', 'a', 'l', 'o', 'g', 's', '2', '8', '8', '3', '1',]
-        .join( "" ) //Склеить в слово dialogs или users
-    patch = patch.replace(/[0-9]/g, '');// удалить все цифры ID пользователя для dialogs
-    console.log(patch)*/
+    const UsersClassName =
+        patch === "users"  // если путь в адресной строке это users
+            ? "my-2 col-12 col-sm-5 col-lg-2 d-inline-block" // в зависимости от разрешения экрана пенять количество столбцов
+            : patch === "dialogs" // для страницы диалогов
+                ? "my-2 col-12 d-inline-block" // всегда пользовттьели в одну строку
+                : "" // для других случаев не используется Users пока
+    {/* my-2 col-12 col-sm-5 col-lg-2 d-inline-block"размеры карточек в зависимости от размера экрана*/
+    }
+
     return <div>
         {
-            users.map((u) => { // пробегаем по пользовтелям
+            users.map( (u) => { // пробегаем по пользовтелям
                 return (
                     <div key={u.id}
-                         className="my-2 col-12 d-inline-block"> {/* my-2 col-12 col-sm-5 col-lg-2 d-inline-block"размеры карточек в зависимости от размера экрана*/}
+                         className={UsersClassName}>
                         <Card className={classes.myCard}>  {/*оформление*/}
 
                             <Card.Body>
@@ -56,7 +59,7 @@ const UserItems:React.FC<UserItemsType> = ({users, unfollowAPI, followAPI, follo
                                         </NavLink>
                                     </Col>
                                     <Col className={classes.myCol}>
-                                       <NavLink to={'/dialogs/' + u.id}>  {/*смена URL при клике на диалог*/}
+                                        <NavLink to={'/dialogs/' + u.id}>  {/*смена URL при клике на диалог*/}
                                             <Image fluid={true} src={DialogPic} alt={"Начать диалог"}
                                                    title={"Начать диалог"} className={classes.myImg}/>
                                         </NavLink>
@@ -65,11 +68,11 @@ const UserItems:React.FC<UserItemsType> = ({users, unfollowAPI, followAPI, follo
                                         <div>
                                             {u.followed
                                                 ? <FollowUnfollowButtons2 u={u} followUnfollowAPICallback={unfollowAPI}
-                                                                         followingInProgress={followingInProgress}
-                                                                         isAuth={isAuth}/>
+                                                                          followingInProgress={followingInProgress}
+                                                                          isAuth={isAuth}/>
                                                 : <FollowUnfollowButtons2 u={u} followUnfollowAPICallback={followAPI}
-                                                                         followingInProgress={followingInProgress}
-                                                                         isAuth={isAuth}/>
+                                                                          followingInProgress={followingInProgress}
+                                                                          isAuth={isAuth}/>
                                             }
                                         </div>
                                     </Col>
@@ -83,7 +86,7 @@ const UserItems:React.FC<UserItemsType> = ({users, unfollowAPI, followAPI, follo
                         </Card>
                     </div>
                 )
-            })
+            } )
         }
     </div>
 }
