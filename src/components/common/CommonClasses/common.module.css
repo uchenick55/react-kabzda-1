@@ -15,8 +15,8 @@
     background-clip: text;
 }
 
-.textMaxWidth8rem {
-    max-width: 15rem;
+.textMaxWidthShort {
+    max-width: 10rem;
 }
 .textMaxWidth18rem {
     max-width: 18rem;

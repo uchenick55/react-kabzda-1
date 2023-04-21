@@ -3,8 +3,9 @@
     max-width: 3rem;
     position: absolute;
     left: 2rem;
-    top:1rem;
+    top: 1rem;
 }
+
 .name {
     font-size: 1.2rem;
     position: absolute;
@@ -13,7 +14,8 @@
     font-weight: bold;
     color: #282c34;
 }
-.status{
+
+.status {
     font-size: 0.8rem;
     position: absolute;
     left: 6rem;
@@ -31,8 +33,11 @@
 
 
 .myCard {
-    --bs-card-bg: var(--color3); /*цвет карточек в Users*/
+    /*--bs-card-bg: var(--color3); цвет карточек в Users*/
     height: 5rem;
+    position: relative;
+    background-color: var(--color3);
+    border-radius: 0.5rem;
 }
 
 .preloader {
@@ -46,15 +51,9 @@
 .line { /*линия подчеркивания*/
     width: 100px;
     height: 1px;
-    background-color: rgb(206,212,218);
+    background-color: rgb(206, 212, 218);
     margin: auto;
     margin-bottom: 1rem;
-}
-
-.myAlignCenter {
-    display: flex;
-    align-items: center;
-    justify-content: center;
 }
 
 .favImage {
@@ -62,8 +61,10 @@
 }
 
 
-
 .star:hover {
     transform: translate(+0px, -2px);
 
+}
+
+.cardsCenter {
 }

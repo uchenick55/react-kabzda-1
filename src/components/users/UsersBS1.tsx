@@ -69,14 +69,15 @@ const UsersBS:React.FC<UsersBSType> = ({
             <div className={classes.line}/>
         </Row>
 
-        const UserItemsRender = <Row> {/*отрисовка самих карточек полшьзователей*/}
+        const UserItemsRender = <div className={classes.cardsCenter}> {/*отрисовка самих карточек пользователей*/}
             <UserItems users={users} unfollowAPI={unfollowAPI} followAPI={followAPI}
                        followingInProgress={followingInProgress} isAuth={isAuth} patch={patch}/> {/*отрисовка UsersBS*/}
-        </Row>
+        </div>
 
         return <div>
 
-            <Container fluid className="d-block justify-content-center">
+           {/* <Container fluid className="d-block justify-content-center">*/}
+            <Container >
 
                 <h2 className={commonClasses.pageHeader}>Чаты</h2> {/*заголовок */}
 
