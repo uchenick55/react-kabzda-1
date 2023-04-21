@@ -6,6 +6,7 @@ import {ThunkAction} from "redux-thunk";
 const SET_INITIALISED_APP = "myApp/app-reducer/SET_INITIALISED_APP"; //константа инициализации приложения
 const APP_INITIAL_STATE = "myApp/app-reducer/APP_INITIAL_STATE"; //константа зануления при логауте
 const SET_PATCH = "myApp/app-reducer/SET_PATCH"; //константа задания пути в URL
+const SET_PAGE_WIDTH = "myApp/app-reducer/SET_PAGE_WIDTH"; //константа задания ширины окна
 
 type setInitialisedAppType = {type: typeof SET_INITIALISED_APP}
 export let setInitialisedApp = ():setInitialisedAppType => { // экшн креатор  инициализации приложения
@@ -20,14 +21,19 @@ type setPatchActionType = {type: typeof SET_PATCH, patch:string }
 export let setPatch = (patch:string):setPatchActionType => { // экшн зануления при логауте
   return {type: SET_PATCH, patch}
 };
+type setPageWidthActionType = {type: typeof SET_PAGE_WIDTH, PageWidth:number }
+export let setPageWidth = (PageWidth:number):setPageWidthActionType => { // экшн записи ширины экрана
+  return {type: SET_PAGE_WIDTH, PageWidth}
+};
 
-type ActionTypes = appInitialStateActionType | setInitialisedAppType | setPatchActionType
+type ActionTypes = appInitialStateActionType | setInitialisedAppType | setPatchActionType | setPageWidthActionType
 
 type initialStateType = typeof initialState
 
 let initialState = { //стейт по умолчанию для инициализации приложения
   initialisedApp: false, // флаг приложение инициализировано?
-  patch: ""
+  patch: "",
+  PageWidth: 0
 }
 
 let appReducer = (state:initialStateType = initialState, action:ActionTypes):initialStateType => {//редьюсер инициализации приложения
@@ -47,6 +53,13 @@ let appReducer = (state:initialStateType = initialState, action:ActionTypes):ini
         ...state, // копия всего стейта
         patch: action.patch, // смена флага инициализации приложения на true
       }
+      return stateCopy; // возврат копии стейта после изменения
+    case SET_PAGE_WIDTH: // экшн записи ширины экрана
+      stateCopy = {
+        ...state, // копия всего стейта
+        PageWidth: action.PageWidth, // смена флага инициализации приложения на true
+      }
+      console.log(action.PageWidth)
       return stateCopy; // возврат копии стейта после изменения
     default:
       return state; // по умолчанию стейт возврашается неизмененным

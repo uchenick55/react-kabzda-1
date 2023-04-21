@@ -4,7 +4,7 @@ import commonClasses from "./components/common/CommonClasses/common.module.css";
 import {HashRouter} from "react-router-dom";
 import HeaderContainer from "./components/Header/HeaderContainer";
 import {connect} from "react-redux";
-import {initialisedAppThunkCreator, setPatch} from "./redux/app-reducer";
+import {initialisedAppThunkCreator, setPageWidth, setPatch} from "./redux/app-reducer";
 import Preloader from "./components/common/Preloader/Preloader";
 import ContentContainer from "./components/Content/ContentContainer";
 import ErrorBoundary from "./components/common/ErrorBoundary/ErrorBoundary";
@@ -28,7 +28,8 @@ class App extends React.Component { // конвертируем app в клас�
                     <ErrorBoundary> {/*Общий обработчик ошибок во всем приложении*/}
                         <Container className={commonClasses.minwidth}>
                             <HeaderContainer/>  {/*плавающий заголовок*/}
-                            <ContentContainer setPatch={this.props.setPatch}/> {/*страницы контента в зависмости от URL*/}
+                            <ContentContainer setPatch={this.props.setPatch} setPageWidth={this.props.setPageWidth}/>
+                            {/*страницы контента в зависмости от URL*/}
                             <FooterBS/>
                         </Container>
                     </ErrorBoundary>
@@ -48,5 +49,5 @@ const mapStateToProps = (state) => {
     }
 }
 
-export default connect(mapStateToProps, {initialisedAppThunkCreator, setPatch})(App);
+export default connect(mapStateToProps, {initialisedAppThunkCreator, setPatch, setPageWidth})(App);
 // коннектим к app флаг и санки инициализации

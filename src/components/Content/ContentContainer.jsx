@@ -18,10 +18,10 @@ const Rest = React.lazy(() => import("../Rest/Krestiki-Noliki/KrestikiNoliki"))
 const StackInfo = React.lazy(() => import("../Info/StackInfoBS"))
 const FeedBackContainer = React.lazy(() => import("../FeedBack/FeedBackContainer"))
 
-let ContentContainer = ({setPatch}) => { // вынес роутинг контента в отдельную компоненту
+let ContentContainer = ({setPatch, setPageWidth}) => { // вынес роутинг контента в отдельную компоненту
 
     const location = useLocation()
-    useEffect(()=>{
+    useEffect(()=>{ // определение и запись в стор пути из адресной строки бораузера
         let patch = location.pathname // путь из URL вида /profile
             .split( "" ) // разделить все на массив ['/', 'd', 'i', 'a', 'l', 'o', 'g', 's', '2', '8', '8', '3', '1',]
             .filter( i => i !== "/" ) // удалить все символы "/" ['d', 'i', 'a', 'l', 'o', 'g', 's', '2', '8', '8', '3', '1',]
@@ -31,7 +31,20 @@ let ContentContainer = ({setPatch}) => { // вынес роутинг конте
         // обновить данные пути patch в app-reducer
     },[location])
 
+    function setPageWidthLocal() {// изменяем ширину окна
+        const PageWidth1 = document.documentElement.scrollWidth
+        setTimeout(()=>{ // делаем задержку и
+            const PageWidth2 = document.documentElement.scrollWidth // повторно измеряем ширину окна
+            if (PageWidth1===PageWidth2) { // если дина не меняется больше чем время задержки,
+                setPageWidth(PageWidth1) //пушим длину в стор (защита от частого обновления стора)
+            }
+        }, 300)
+    }
+    window.onresize = setPageWidthLocal;
+
+
     return (<div>
+
         <ErrorBoundary> {/*Локальный обработчик ошибок ContentContainer*/}
             <Suspense fallback={
                 <div>Загрузка...</div>}> {/*Оборачивает компоненты, по которым идет Lazy import и выдает fallback на время загрузки*/}
