@@ -19,6 +19,7 @@ type UsersBSType = {
     onlyFriends: boolean, // селектор получить только моих рузей
     currentRangeLocal: number,
     patch: string, // страница из адресной строки
+    PageWidth: number // ширина страницы
     unfollowAPI:(id:number)=>void,
     onPageChanged:(setPage:number)=>void,
     followAPI:(id:number)=>void,
@@ -31,7 +32,8 @@ const UsersBS:React.FC<UsersBSType> = ({
                      totalUsersCount, pageSize, currentPage, onPageChanged, users,
                      followingInProgress, unfollowAPI, isAuth, followAPI,
                      SetTermFunction, onChangeTerm, onChangeTermFunction,
-                     onChangeRangeLocal, currentRangeLocal, setOnlyFriends, onlyFriends, patch // раскукожили все пропсы
+                     onChangeRangeLocal, currentRangeLocal, setOnlyFriends, onlyFriends, patch, PageWidth
+                                           // раскукожили все пропсы
                  }) => {
 
     const [error, setError] = useState<any>( {message:""})
@@ -71,12 +73,12 @@ const UsersBS:React.FC<UsersBSType> = ({
 
         const UserItemsRender = <div className={classes.cardsCenter}> {/*отрисовка самих карточек пользователей*/}
             <UserItems users={users} unfollowAPI={unfollowAPI} followAPI={followAPI}
-                       followingInProgress={followingInProgress} isAuth={isAuth} patch={patch}/> {/*отрисовка UsersBS*/}
+                       followingInProgress={followingInProgress} isAuth={isAuth} patch={patch} PageWidth={PageWidth}/>
+                       {/*отрисовка UsersBS*/}
         </div>
 
         return <div>
 
-           {/* <Container fluid className="d-block justify-content-center">*/}
             <Container >
 
                 <h2 className={commonClasses.pageHeader}>Чаты</h2> {/*заголовок */}

@@ -10,14 +10,17 @@ import {usersType} from "../api/apiTypes";
 type UserItemsType = {
     users: Array<usersType>, // Реселектор users- список пользователей в пачке от сервера
     patch: string, // страница из адресной строки
+    PageWidth: number, // ширина страницы
     unfollowAPI: (id: number) => void,
     followAPI: (id: number) => void,
     followingInProgress: Array<number>, // селектор followingInProgress - массив на кого мы подписались, кнопка неактивна
     isAuth: boolean, // селектор isAuth - флаг авторизации
 
 }
-const UserItems: React.FC<UserItemsType> = ({users, unfollowAPI, followAPI, followingInProgress, isAuth, patch}) => {
+const UserItems: React.FC<UserItemsType> = ({users, unfollowAPI, followAPI, followingInProgress, isAuth, patch, PageWidth}) => {
     // отрисовка всех карточек с пользователями
+    console.log(PageWidth)
+
     const UsersClassName =
         patch === "users"  // если путь в адресной строке это users
             ? "m-1 col-12 col-sm-5 col-lg-3 d-inline-block" // в зависимости от разрешения экрана менять количество столбцов

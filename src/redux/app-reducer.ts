@@ -33,7 +33,7 @@ type initialStateType = typeof initialState
 let initialState = { //стейт по умолчанию для инициализации приложения
   initialisedApp: false, // флаг приложение инициализировано?
   patch: "",
-  PageWidth: 0
+  PageWidth: document.documentElement.scrollWidth
 }
 
 let appReducer = (state:initialStateType = initialState, action:ActionTypes):initialStateType => {//редьюсер инициализации приложения
@@ -59,7 +59,6 @@ let appReducer = (state:initialStateType = initialState, action:ActionTypes):ini
         ...state, // копия всего стейта
         PageWidth: action.PageWidth, // смена флага инициализации приложения на true
       }
-      console.log(action.PageWidth)
       return stateCopy; // возврат копии стейта после изменения
     default:
       return state; // по умолчанию стейт возврашается неизмененным
