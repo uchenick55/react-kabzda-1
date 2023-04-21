@@ -13,14 +13,17 @@ type MessagesRenderType = {
     messages2: NulableType<Array<messages2Type>>, // массив сообщений текущего диалога
     myId: number, // мой ID (авторизованного пользователя)
     profile: NulableType<getProfileType>, // профиль просматриваемого пользователя по умолчанию
+    patch: string,
+    PageWidth: number,
     deleteMessage: (messageID: number) => void,
     sendMessage: (NewMessage: string) => void,
     scrollBottom: () => void
 }
-const MessagesRender: React.FC<MessagesRenderType> = ({messages2, myId, deleteMessage, sendMessage, scrollBottom, profile}) => {
+const MessagesRender: React.FC<MessagesRenderType> = (
+    {messages2, myId, deleteMessage, sendMessage, scrollBottom, profile, patch, PageWidth}) => {
 
     const messagesProfileRender = <div>
-        {/*спозиционированный сверху иконку человека, с кем общаюсь*/}
+        {/*спозиционированная сверху иконка человека, с кем общаюсь*/}
         {profile &&  // если профиль пользователя уже загружен
         <NavLink to={`/profile/${profile.userId}`} className={classes.myLink}>
             {/*при клике переход на профиль собеседника, ссылка без подчеркивания*/}
@@ -34,9 +37,12 @@ const MessagesRender: React.FC<MessagesRenderType> = ({messages2, myId, deleteMe
         </NavLink>
         }
     </div>
+    const isMobile: boolean = patch==="dialogs" && PageWidth <620 // страница dialogs и разрешение низкое
+    return <div className={`${classes.usersListMessagesFixed} ${isMobile?classes.setMobile:classes.setDesktop}`}>
 
-    return <div className={classes.usersListMessagesFixed}>
-        <div className={classes.usersListCommonFixed}><UsersContainer/></div>
+        { !isMobile &&
+            <div className={classes.usersListCommonFixed}><UsersContainer/></div>} {/*отрисовка колонки с пользователя слева от поля сообщений*/}
+
         <div className={classes.MessagesCommonFixed}>
             <div className={classes.messagesHeaderFixed}>{messagesProfileRender}</div>
             {/*спозиционированная полоска сверку сообщений с иконкой собеседникой и ссылкой на его профиль*/}

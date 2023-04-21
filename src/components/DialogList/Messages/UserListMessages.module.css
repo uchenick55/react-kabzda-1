@@ -4,10 +4,13 @@
     left: 0;
     right: 0;
     bottom: 0;
-    --usersListWidth: 25rem; /* ширина левой колонки usersList*/
-
 }
-
+.setDesktop {
+    --usersListWidth: 25rem; /* ширина левой колонки usersList*/
+}
+.setMobile{
+    --usersListWidth: 0; /* ширина левой колонки usersList*/
+}
 .usersListCommonFixed {
     position: fixed;
     left: 0rem;

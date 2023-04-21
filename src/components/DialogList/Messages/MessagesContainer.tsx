@@ -21,6 +21,8 @@ type MessagesContainerPropsType = {
     messages2: NulableType<Array<messages2Type>>, // массив сообщений текущего диалога
     profile: NulableType<getProfileType> , // профиль просматриваемого пользователя по умолчанию
     userId:number,
+    patch: string,
+    PageWidth: number
     sendDialogsThunkCreator: (formDataNewMessage:string, myId:number, MyName:string, MyPhoto:string, userId:number)=>void,
     deleteMessageThunkCreator: (messageID:number, myId:number, userId:number) => void,
     updateDialogListThunkCreator:(userId1:number, userId2:number, Name2:string, Photo2:string)=>void
@@ -73,6 +75,8 @@ class MessagesContainer extends React.Component<MessagesContainerPropsType> {
                 sendMessage={this.sendMessage} // проброс местного метода отправки сообщений
                 scrollBottom={this.scrollBottom}
                 profile={this.props.profile}
+                patch = {this.props.patch}
+                PageWidth = {this.props.PageWidth}
         />
         </div>
     }
@@ -87,6 +91,8 @@ let mapStateToProps = (state:GlobalStateType) => {
         messages2: state.dialogsPage.messages2, // массив сообщений текущего диалога
         profile: state.profilePage.profile, // профиль пользователя для создания dialogList
         profilePage: state.profilePage, // страница профиля пользователя для создания dialogList
+        patch: state.app.patch,
+        PageWidth: state.app.PageWidth
     }
 }
 type mapStateToPropsType = {
@@ -95,7 +101,9 @@ type mapStateToPropsType = {
     dialogUserID: number, // ID пользователя, с кем сейчас идет диалог
     messages2: NulableType<Array<messages2Type>>, // массив сообщений текущего диалога
     profile: NulableType<getProfileType>, // профиль просматриваемого пользователя по умолчанию
-    myProfile: NulableType<getProfileType>
+    myProfile: NulableType<getProfileType>,
+    patch: string,
+    PageWidth: number
 }
 type mapDispatchToPropsType = {
     sendDialogsThunkCreator: (formDataNewMessage:string, myId:number, MyName:string, MyPhoto:string, userId:number)=>void,
