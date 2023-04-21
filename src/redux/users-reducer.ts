@@ -81,7 +81,7 @@ type ActionTypes = setOnlyFriendsActionType | usersInitialStateActonType | needU
 
 let initialState = {
     users: [] as Array<usersType>, // массив пользователей по умолчанию (пока пустой)
-    pageSize: 12, // размер пачки пользователей при загрузке с сервера
+    pageSize: 100, // размер пачки пользователей при загрузке с сервера
     totalUsersCount: 0, // общее количество пользователей по умолчанию
     currentPage: 1, // текущая страница загрузки пользователей по умолчанию
     isFetching: false, // статус загрузки (крутилка)

@@ -6,6 +6,7 @@ import userPhoto from "../../assets/images/no-image3.png";
 import React from "react";
 import FollowUnfollowButtons2 from "./FollowUnfollowButtons2";
 import {usersType} from "../api/apiTypes";
+import './scss/style.scss'
 
 type UserItemsType = {
     users: Array<usersType>, // Реселектор users- список пользователей в пачке от сервера
@@ -19,21 +20,24 @@ type UserItemsType = {
 }
 const UserItems: React.FC<UserItemsType> = ({users, unfollowAPI, followAPI, followingInProgress, isAuth, patch, PageWidth}) => {
     // отрисовка всех карточек с пользователями
-    console.log(PageWidth)
+    console.log( PageWidth )
 
     const UsersClassName =
         patch === "users"  // если путь в адресной строке это users
             ? "m-1 col-12 col-sm-5 col-lg-3 d-inline-block" // в зависимости от разрешения экрана менять количество столбцов
             : patch === "dialogs" // для страницы диалогов
-                ? "m-1 col-12" // всегда пользователи в одну строку
-                : "" // для других случаев не используется Users
+            ? "m-1 col-12" // всегда пользователи в одну строку
+            : "" // для других случаев не используется Users
 
     return <div>
-        {
-            users.map( (u) => { // пробегаем по пользовтелям
-                return <div key={u.id} className={UsersClassName}>
-                    <NavLink to={'/dialogs/' + u.id}>
-                        <div className={classes.myCard}>  {/*оформление*/}
+
+
+        <div id='grid'>
+            {
+                users.map( (u) => { // пробегаем по пользовтелям
+                    return <div key={u.id} className={classes.Relative}>
+                        <NavLink to={'/dialogs/' + u.id} >
+                            <div>
 
                                 <div className={classes.star}>
                                     {u.followed
@@ -53,32 +57,22 @@ const UserItems: React.FC<UserItemsType> = ({users, unfollowAPI, followAPI, foll
                                        alt={"Перейти в профиль"}
                                        title={"Перейти в профиль"}
                                 />
-                                <div
-                                    className={`
-                                    ${commonClasses.textMaxWidthCommon} 
-                                    ${commonClasses.textMaxWidthShort}
-                                    ${classes.name}
-                                    
-                                    `}>
+                                <div className={classes.name + " " + classes.nameStatusCommon}>
                                     {u.name &&
-                                    <div>{u.name}</div>} {/*имя */}
+                                    u.name} {/*имя */}
                                 </div>
-                                <div
-                                    className={`
-                                    ${commonClasses.textMaxWidthCommon} 
-                                    ${commonClasses.textMaxWidthShort}
-                                    ${classes.status}
-                                    
-                                    `}>
+                                <div className={classes.status + " " + classes.nameStatusCommon}>
                                     {u.status &&
-                                    <div>{u.status}</div>} {/*статус */}
+                                    u.status} статус
                                 </div>
 
-                        </div>
-                    </NavLink>
-                </div>
-            } )
-        }
+                            </div>
+                        </NavLink>
+                    </div>
+                } )
+            }
+        </div>
+
     </div>
 }
 

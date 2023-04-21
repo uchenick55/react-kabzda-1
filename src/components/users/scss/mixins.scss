@@ -1,0 +1,19 @@
+@mixin myGrid ($cols,$margin ) {
+  float: left;
+  background-color: var(--color3);
+  border-radius: 0.5rem;
+  margin-right:$margin;
+  margin-bottom:$margin;
+  height: 5rem;
+  width:  (100%)/($cols)-($margin*(-1+ $cols))/($cols);
+
+  @if ($cols==1) {
+    width: 100%;
+}
+  @else {
+    width: (100%)/($cols)-($margin*(-1+ $cols))/($cols);
+  }
+  &:nth-child(#{$cols}n) { // не понял сам, но эта хрень для последнего прямоугольника в ряду сетает margin-right 0
+    margin-right:0px;
+  }
+}

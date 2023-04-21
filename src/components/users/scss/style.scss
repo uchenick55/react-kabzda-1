@@ -1,0 +1,11 @@
+@import "variables";
+@import "mixins";
+
+#grid {
+  width: 100%;
+  height: 5rem;
+  div {
+    @include myGrid($cols: 4, $margin:1%); // задаем на сколько ячеек разбиваем ширину экрана и какой отступ по краям и вниз
+  }
+}
+

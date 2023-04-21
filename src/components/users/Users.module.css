@@ -6,10 +6,14 @@
     top: 1rem;
 }
 
-.name {
-    font-size: 1.2rem;
+.nameStatusCommon {
+    max-height: 1rem;
     position: absolute;
     left: 6rem;
+
+}
+.name {
+    font-size: 1.2rem;
     top: 0.6rem;
     font-weight: bold;
     color: #282c34;
@@ -17,27 +21,18 @@
 
 .status {
     font-size: 0.8rem;
-    position: absolute;
-    left: 6rem;
     top: 2.3rem;
     color: rgba(100, 100, 100, 1);
 }
 
-.star {
-    position: absolute;
-    left: 0.3rem;
-    top: 0.3rem;
-    transition: 0.2s ease-in-out;
-    max-width: 1.5rem;
+.Relative {
+    position: relative;
 }
 
-
 .myCard {
-    /*--bs-card-bg: var(--color3); цвет карточек в Users*/
     height: 5rem;
     position: relative;
     background-color: var(--color3);
-    border-radius: 0.5rem;
 }
 
 .preloader {
@@ -60,9 +55,16 @@
     max-width: 1rem;
 }
 
-
+.star {
+    position: absolute;
+    left: 0.3rem;
+    top: 0.3rem;
+    transition: 0.2s ease-in-out;
+    max-width: 1.5rem;
+    max-height: 1.5rem;
+}
 .star:hover {
-    transform: translate(+0px, -2px);
+    transform: scale(1.1);
 
 }
 
