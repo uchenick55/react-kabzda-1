@@ -7,9 +7,12 @@
 }
 
 .nameStatusCommon {
-    max-height: 1rem;
+    max-height: 2rem;
+    max-width: 10rem;
     position: absolute;
     left: 6rem;
+    overflow: hidden; /* Обрезаем содержимое */
+    white-space: nowrap; /* Отменяем перенос текста */
 
 }
 .name {

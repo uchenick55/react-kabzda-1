@@ -10,9 +10,9 @@
     overflow: hidden; /* Обрезаем содержимое */
     white-space: nowrap; /* Отменяем перенос текста */
     /*background: linear-gradient(to left, transparent 0%, var(--bs-body-color-my) 30%, var(--bs-body-color-my) 100%);*/
-    background: var(--bs-body-color-my);
+ /*   background: var(--bs-body-color-my);
     -webkit-background-clip: text;
-    background-clip: text;
+    background-clip: text;*/
 }
 
 .textMaxWidthShort {

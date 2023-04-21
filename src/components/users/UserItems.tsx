@@ -1,5 +1,4 @@
 import classes from "./Users.module.css";
-import commonClasses from "../common/CommonClasses/common.module.css";
 import {NavLink} from "react-router-dom";
 import Image from "react-bootstrap/Image";
 import userPhoto from "../../assets/images/no-image3.png";
@@ -20,59 +19,67 @@ type UserItemsType = {
 }
 const UserItems: React.FC<UserItemsType> = ({users, unfollowAPI, followAPI, followingInProgress, isAuth, patch, PageWidth}) => {
     // отрисовка всех карточек с пользователями
-    console.log( PageWidth )
+    let gridColsClass:string = ""
+    if (patch==="users") {
+        if (PageWidth<460) {
+            gridColsClass="grid1col"
+        }
+        if (PageWidth>=460 && PageWidth<800 ) {
+            gridColsClass="grid2col"
+        }
+        if (PageWidth>=800 && PageWidth<1200 ) {
+            gridColsClass="grid3col"
+        }
+        if (PageWidth>=1200 && PageWidth<1600 ) {
+            gridColsClass="grid4col"
+        }
+        if (PageWidth>=1600 && PageWidth<2000 ) {
+            gridColsClass="grid5col"
+        }
+        if (PageWidth>=2000) {
+            gridColsClass="grid6col"
+        }
+    }
+    if (patch==="dialogs") {
+        gridColsClass="grid1col"
+    }
 
-    const UsersClassName =
-        patch === "users"  // если путь в адресной строке это users
-            ? "m-1 col-12 col-sm-5 col-lg-3 d-inline-block" // в зависимости от разрешения экрана менять количество столбцов
-            : patch === "dialogs" // для страницы диалогов
-            ? "m-1 col-12" // всегда пользователи в одну строку
-            : "" // для других случаев не используется Users
-
-    return <div>
-
-
-        <div id='grid'>
-            {
-                users.map( (u) => { // пробегаем по пользовтелям
-                    return <div key={u.id} className={classes.Relative}>
-                        <NavLink to={'/dialogs/' + u.id} >
-                            <div>
-
-                                <div className={classes.star}>
-                                    {u.followed
-                                        ? <FollowUnfollowButtons2 u={u} followUnfollowAPICallback={unfollowAPI}
-                                                                  followingInProgress={followingInProgress}
-                                                                  isAuth={isAuth}/>
-                                        : <FollowUnfollowButtons2 u={u} followUnfollowAPICallback={followAPI}
-                                                                  followingInProgress={followingInProgress}
-                                                                  isAuth={isAuth}/>
-                                    }
-                                </div>
-                                <Image fluid={true}
-                                       className={classes.userPhoto}
-                                       src={u.photos.small !== null // или маленькая картинка профиля или заглушка
-                                           ? u.photos.small
-                                           : userPhoto}
-                                       alt={"Перейти в профиль"}
-                                       title={"Перейти в профиль"}
-                                />
-                                <div className={classes.name + " " + classes.nameStatusCommon}>
-                                    {u.name &&
-                                    u.name} {/*имя */}
-                                </div>
-                                <div className={classes.status + " " + classes.nameStatusCommon}>
-                                    {u.status &&
-                                    u.status} статус
-                                </div>
-
-                            </div>
-                        </NavLink>
+        return <div className={gridColsClass}> {/*разбивка данных пользователей на карточки*/}
+        {
+            users.map( (u) => { // пробегаем по пользовтелям
+                return <div key={u.id} className={classes.Relative}>
+                    <div className={classes.star}>
+                        {u.followed
+                            ? <FollowUnfollowButtons2 u={u} followUnfollowAPICallback={unfollowAPI}
+                                                      followingInProgress={followingInProgress}
+                                                      isAuth={isAuth}/>
+                            : <FollowUnfollowButtons2 u={u} followUnfollowAPICallback={followAPI}
+                                                      followingInProgress={followingInProgress}
+                                                      isAuth={isAuth}/>
+                        }
                     </div>
-                } )
-            }
-        </div>
+                    <NavLink to={'/dialogs/' + u.id}>
+                        <div>
 
+                            <Image fluid={true}
+                                   className={classes.userPhoto}
+                                   src={u.photos.small !== null // или маленькая картинка профиля или заглушка
+                                       ? u.photos.small
+                                       : userPhoto}
+                                   alt={"Перейти в профиль"}
+                                   title={"Перейти в профиль"}
+                            />
+                            <div className={classes.name + " " + classes.nameStatusCommon}>
+                                {u.name && u.name} {/*имя */}
+                            </div>
+                            <div className={classes.status + " " + classes.nameStatusCommon}>
+                                {u.status && u.status} {/*статус*/}
+                            </div>
+                        </div>
+                    </NavLink>
+                </div>
+            } )
+        }
     </div>
 }
 
