@@ -11,7 +11,6 @@ import MessagesRender from "./MessagesRender";
 import ScrollBottom from "../../common/CommonClasses/ScrollBottom";
 import {messages2Type, NulableType} from "../../../types/commonTypes";
 import {getProfileType} from "../../api/apiTypes";
-import {initialStateAuthType} from "../../../redux/auth-reducer";
 import {GlobalStateType} from "../../../redux/store-redux";
 
 type MessagesContainerPropsType = {
@@ -37,7 +36,6 @@ class MessagesContainer extends React.Component<MessagesContainerPropsType> {
             return // не реагировать на пустые сообщения
         }
 
-        const profile = this.props.profile // локальный стейт страницы пользователя
         const userName:string = this.props.profile ? this.props.profile.fullName: ""; // получить имя пользователя
         const userPhoto:string = this.props.profile ? this.props.profile.photos.small: ""; // и его фото из стейта
         const myPhoto: string = this.props.myProfile? this.props.myProfile.photos.small:"" // мое фото

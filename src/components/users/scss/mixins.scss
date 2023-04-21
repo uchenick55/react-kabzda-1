@@ -5,7 +5,6 @@
   margin-right:$margin;
   margin-bottom:$margin;
   height: 5rem;
-  width:  (100%)/($cols)-($margin*(-1+ $cols))/($cols);
 
   @if ($cols==1) {
     width: 100%;

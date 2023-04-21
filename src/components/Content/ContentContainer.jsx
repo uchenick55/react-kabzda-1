@@ -6,9 +6,7 @@ import ProfileContainer from "../Profile/ProfileContainer";
 import Home from "../Home/Home";
 import classes from "./ContentContainer.module.css"
 import {useLocation} from "react-router";
-import {setPatch} from "../../redux/app-reducer";
 
-//const ProfileContainer = React.lazy(() => import("../Profile/ProfileContainer"))
 const DialogsContainer = React.lazy(() => import("../DialogList/DialogListContainer"))
 // В случае именного экспорта, оборачиваем компоненту в промежуточную с экспортом по умолчанию, чтобы работал lazy
 const UsersContainer = React.lazy(() => import("../users/UsersContainer"))
@@ -29,7 +27,7 @@ let ContentContainer = ({setPatch, setPageWidth}) => { // вынес роути�
         patch = patch.replace(/[0-9]/g, '');// удалить все цифры ID пользователя для dialogs
         setPatch(patch)
         // обновить данные пути patch в app-reducer
-    },[location])
+    },[location, setPatch])
 
     function setPageWidthLocal() {// изменяем ширину окна
         const PageWidth1 = document.documentElement.scrollWidth

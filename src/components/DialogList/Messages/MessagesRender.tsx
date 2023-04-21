@@ -3,7 +3,6 @@ import userPhoto from "../../../assets/images/no-image3.png";
 import MessagesElements from "./Message/MessagesElements";
 import MessagesFormik from "./MessagesFormik/MessagesFormik";
 import React from "react";
-import Row from "react-bootstrap/Row";
 import Image from "react-bootstrap/Image";
 import {NavLink} from "react-router-dom";
 import {messages2Type, NulableType} from "../../../types/commonTypes";

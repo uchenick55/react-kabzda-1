@@ -1,5 +1,4 @@
 import Image from "react-bootstrap/Image";
-import classes from "./Users.module.css";
 import FollowPic from "../../assets/images/swg/star-.svg";
 import UnfollowPic from "../../assets/images/swg/star+.svg";
 import React from "react";

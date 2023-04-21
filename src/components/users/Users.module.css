@@ -7,14 +7,20 @@
 }
 
 .nameStatusCommon {
-    max-height: 2rem;
-    max-width: 10rem;
     position: absolute;
     left: 6rem;
-    overflow: hidden; /* Обрезаем содержимое */
+     overflow: hidden;  /*Обрезаем содержимое*/
     white-space: nowrap; /* Отменяем перенос текста */
-
 }
+
+.maxWidthcommon {
+    max-width: 8rem;
+}
+.maxWidth1Col {
+    max-width: 15rem;
+}
+
+
 .name {
     font-size: 1.2rem;
     top: 0.6rem;
@@ -71,5 +77,3 @@
 
 }
 
-.cardsCenter {
-}

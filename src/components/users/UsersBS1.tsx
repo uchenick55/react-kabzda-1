@@ -7,6 +7,7 @@ import Row from 'react-bootstrap/Row';
 import commonClasses from "../common/CommonClasses/common.module.css";
 import UserItems from "./UserItems";
 import {usersType} from "../api/apiTypes";
+import "./scss/style.scss"
 
 type UsersBSType = {
     totalUsersCount: number,
@@ -71,7 +72,7 @@ const UsersBS:React.FC<UsersBSType> = ({
             <div className={classes.line}/>
         </Row>
 
-        const UserItemsRender = <div className={classes.cardsCenter}> {/*отрисовка самих карточек пользователей*/}
+        const UserItemsRender = <div className='my-4'> {/*отрисовка самих карточек пользователей*/}
             <UserItems users={users} unfollowAPI={unfollowAPI} followAPI={followAPI}
                        followingInProgress={followingInProgress} isAuth={isAuth} patch={patch} PageWidth={PageWidth}/>
                        {/*отрисовка UsersBS*/}
@@ -79,7 +80,7 @@ const UsersBS:React.FC<UsersBSType> = ({
 
         return <div>
 
-            <Container >
+            <Container  fluid >
 
                 <h2 className={commonClasses.pageHeader}>Чаты</h2> {/*заголовок */}
 

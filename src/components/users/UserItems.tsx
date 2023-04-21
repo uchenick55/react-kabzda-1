@@ -69,12 +69,13 @@ const UserItems: React.FC<UserItemsType> = ({users, unfollowAPI, followAPI, foll
                                    alt={"Перейти в профиль"}
                                    title={"Перейти в профиль"}
                             />
-                            <div className={classes.name + " " + classes.nameStatusCommon}>
+                            {/*склеиваем 2 стиля - общий и для имени, а потом в зависимости от страницы изменяем длину обрезки*/}
+                            <span className={`${classes.nameStatusCommon} ${classes.name} ${patch==="users" ? classes.maxWidthcommon : classes.maxWidth1Col}`}>
                                 {u.name && u.name} {/*имя */}
-                            </div>
-                            <div className={classes.status + " " + classes.nameStatusCommon}>
+                            </span>
+                            <span className={`${classes.nameStatusCommon} ${classes.status} ${patch==="users" ? classes.maxWidthcommon : classes.maxWidth1Col}`}>
                                 {u.status && u.status} {/*статус*/}
-                            </div>
+                            </span>
                         </div>
                     </NavLink>
                 </div>
