@@ -78,7 +78,7 @@ const UsersBS:React.FC<UsersBSType> = ({
                        {/*отрисовка UsersBS*/}
         </div>
 
-        return <div>
+        return <div className={classes.usersOverflowAuto}>
 
             <Container  fluid >
 
