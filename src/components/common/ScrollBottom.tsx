@@ -1,5 +1,5 @@
-
-const ScrollBottom = () => {
+type ScrollBottomType = ()=>void
+const ScrollBottom: ScrollBottomType  = () => {
     const scrollHeight = Math.max(
         document.body.scrollHeight, document.documentElement.scrollHeight,
         document.body.offsetHeight, document.documentElement.offsetHeight,

@@ -8,7 +8,7 @@ import {connect} from "react-redux";
 import {compose} from "redux";
 import withRouter2 from "../../hoc/withRouter2";
 import MessagesRender from "./MessagesRender";
-import ScrollBottom from "../../common/CommonClasses/ScrollBottom";
+import ScrollBottom from "../../common/ScrollBottom";
 import {messages2Type, NulableType} from "../../../types/commonTypes";
 import {getProfileType} from "../../api/apiTypes";
 import {GlobalStateType} from "../../../redux/store-redux";
