@@ -17,8 +17,8 @@ const FeedBack:React.FC<FeedBackType> = ({sendFeedBack, feedBackStatus, setFeedB
     const [show, setShow] = useState(true); // хук задания флага показать ли модальное окно
 
     if (feedBackStatus) { // если статус feedback из BLL не пустой
-        const modalHeader = <div>Спасибо!</div>
-        const modalBody = <div>{feedBackStatus}</div>
+        const modalHeader: JSX.Element = <div>Спасибо!</div>
+        const modalBody: JSX.Element = <div>{feedBackStatus}</div>
         const buttonOnClick = () => {
             setFeedBackStatus("")
         }

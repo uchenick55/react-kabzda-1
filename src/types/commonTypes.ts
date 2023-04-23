@@ -68,3 +68,6 @@ export type dialogs2Type = {
     userName: string
     userPhoto: string
 }
+
+export type modalHeaderType = JSX.Element | string
+export type modalBodyType = JSX.Element | string

@@ -11,7 +11,7 @@ import ModalBS1 from "../common/ModalBS/ModalBS1";
 import InfoContainer from "../Info/InfoContainer";
 import {useLocation} from "react-router";
 import dayNightLight from "../../assets/images/swg/day-night.svg";
-import {NulableType} from "../../types/commonTypes";
+import {modalBodyType, modalHeaderType, NulableType} from "../../types/commonTypes";
 import {getProfileType} from "../api/apiTypes";
 import NavbarDarkExample from "./DropdownNavbarBS";
 import LoginRender from "./LoginRender";
@@ -32,9 +32,10 @@ const HeaderBS: React.FC<HeaderBSType> = ({isAuth, goToMyPage, myProfile, delete
 
     const location = useLocation()
 
-    let modalHeader1;
-    let modalBody;
-    let buttonOnClick;
+    let modalHeader1: modalHeaderType = "";
+    let modalBody:modalBodyType ="";
+    const buttonOnClick = () => {} // доп действия кроме закрытия окна
+
     if (show) {
         modalHeader1 = location.pathname // путь из URL вида /profile
             .toUpperCase() // в верхний регистр /PROFILE
@@ -44,9 +45,7 @@ const HeaderBS: React.FC<HeaderBSType> = ({isAuth, goToMyPage, myProfile, delete
 
         modalBody = <div><InfoContainer/></div>
         // отображение фоконтейнера, контекстнозависимого от URL
-        buttonOnClick = () => { // доп действия кроме закрытия окна
 
-        }
         if (location.pathname === "/") {
             modalHeader1 = "HOME"
         }
