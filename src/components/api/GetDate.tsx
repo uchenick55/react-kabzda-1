@@ -1,4 +1,14 @@
-const GetDate = () => {
+type DataReturn2Type = {
+    "Year": number,
+    "Month": string,
+    "Day": number,
+    "Hour": number,
+    "Minutes": number,
+    "Seconds": number
+};
+type GetDateType = () => DataReturn2Type
+
+const GetDate:GetDateType= () => {
     const Data = new Date();
     const Year = Data.getFullYear();
     const Month = Data.getMonth();
@@ -24,15 +34,13 @@ const GetDate = () => {
         case 11: fMonth="дек."; break;
         default: fMonth=""; break;
     }
-    let DataReturn2 = {
+    return {
         "Year": Year,
         "Month": fMonth,
         "Day": Day,
         "Hour": Hour,
         "Minutes": Minutes,
         "Seconds": Seconds
-    };
-
-    return DataReturn2
+    }
 }
 export default GetDate

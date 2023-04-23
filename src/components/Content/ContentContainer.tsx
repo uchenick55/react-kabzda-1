@@ -2,14 +2,13 @@ import React, {Suspense, useEffect} from "react";
 import {Route, Routes} from "react-router-dom";
 import ErrorBoundary from "../common/ErrorBoundary/ErrorBoundary";
 import Tasks from "../Tasks/Tasks";
-import ProfileContainer from "../Profile/ProfileContainer";
 import Home from "../Home/Home";
 import classes from "./ContentContainer.module.css"
 import {useLocation} from "react-router";
 
-const DialogsContainer = React.lazy(() => import("../DialogList/DialogListContainer"))
-// В случае именного экспорта, оборачиваем компоненту в промежуточную с экспортом по умолчанию, чтобы работал lazy
 const UsersContainer = React.lazy(() => import("../users/UsersContainerFC"))
+const ProfileContainer = React.lazy(() => import("../Profile/ProfileContainer"))
+const DialogsContainer = React.lazy(() => import("../DialogList/DialogListContainer"))
 const LoginContainer = React.lazy(() => import("../Login/LoginContainer"))
 const News = React.lazy(() => import("../News/News"))
 const Rest = React.lazy(() => import("../Rest/Krestiki-Noliki/KrestikiNoliki"))
