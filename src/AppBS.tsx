@@ -66,5 +66,10 @@ type mapDispatchToPropsType = {
     setPageWidth: (PageWidth:number) => void
 }
 
-export default connect(mapStateToProps, {initialisedAppThunkCreator, setPatch, setPageWidth})(AppBS);
+export default connect<
+    mapStateToPropsType,
+    mapDispatchToPropsType,
+    unknown,
+    GlobalStateType
+    >(mapStateToProps, {initialisedAppThunkCreator, setPatch, setPageWidth})(AppBS);
 // коннектим к app флаг и санки инициализации

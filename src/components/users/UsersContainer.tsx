@@ -57,7 +57,6 @@ class UsersContainer extends React.Component<MainProps, MainState> {
     }
     onChangeRangeLocal = (rangeShift:number) => { // rangeShift - смещение диапазона страниц пагинации2
         this.setState({currentRangeLocal: this.state.currentRangeLocal + rangeShift })
-
     }
     SetTermFunction = () => {
         this.props.setTerm(this.state.onChangeTerm) // задание в стейт поискового запроса
@@ -123,7 +122,7 @@ type mapStateToPropsType = {
     patch: string,
     PageWidth: number
 }
-let mapStateToProps = (state:GlobalStateType) => {
+const mapStateToProps = (state:GlobalStateType) => {
     return {
         users: getUsersReselect(state), // Реселектор users- список пользователей в пачке от сервера
         pageSize: usersSelectorsSimple.getPageSize(state),// селектор pageSize - количество пользователей на странице
