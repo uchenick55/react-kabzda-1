@@ -16,7 +16,11 @@ const Rest = React.lazy(() => import("../Rest/Krestiki-Noliki/KrestikiNoliki"))
 const StackInfo = React.lazy(() => import("../Info/StackInfoBS"))
 const FeedBackContainer = React.lazy(() => import("../FeedBack/FeedBackContainer"))
 
-let ContentContainer = ({setPatch, setPageWidth}) => { // вынес роутинг контента в отдельную компоненту
+type ContentContainerType = {
+    setPatch: (patch:string)=>void,
+    setPageWidth: (PageWidth:number) => void
+}
+let ContentContainer: React.FC<ContentContainerType> = ({setPatch, setPageWidth}) => { // вынес роутинг контента в отдельную компоненту
 
     const location = useLocation()
     useEffect(()=>{ // определение и запись в стор пути из адресной строки бораузера
@@ -29,14 +33,14 @@ let ContentContainer = ({setPatch, setPageWidth}) => { // вынес роути�
         // обновить данные пути patch в app-reducer
     },[location, setPatch])
 
-    function setPageWidthLocal() {// изменяем ширину окна
-        const PageWidth1 = document.documentElement.scrollWidth
-        setTimeout(()=>{ // делаем задержку и
-            const PageWidth2 = document.documentElement.scrollWidth // повторно измеряем ширину окна
+    function setPageWidthLocal() { //записываем ширину окна в стор
+        const PageWidth1 = document.documentElement.scrollWidth// изменяем ширину окна сразу
+        setTimeout(()=>{ // делаем задержку
+            const PageWidth2 = document.documentElement.scrollWidth // и повторно измеряем ширину окна
             if (PageWidth1===PageWidth2) { // если дина не меняется больше чем время задержки,
                 setPageWidth(PageWidth1) //пушим длину в стор (защита от частого обновления стора)
             }
-        }, 300)
+        }, 300) // время задержки между измерениями ширины окна
     }
     window.onresize = setPageWidthLocal;
 

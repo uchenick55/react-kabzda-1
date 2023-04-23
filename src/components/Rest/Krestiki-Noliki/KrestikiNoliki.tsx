@@ -117,7 +117,7 @@ type KrestikiNolikiStateType = {
     xIsNext: boolean, // что вводим X или O (true/false)
     history: historyType // массив объектов - истории ходов
 }
-class KrestikiNoliki extends React.Component<null, KrestikiNolikiStateType> {
+class KrestikiNoliki extends React.Component<unknown, KrestikiNolikiStateType> {
     constructor(props:any) {
         super( props );
         this.state = {
