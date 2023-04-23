@@ -22,7 +22,7 @@ type MainProps =  {
     followingInProgress: Array<number>, // селектор followingInProgress - массив на кого мы подписались, кнопка неактивна
     isAuth: boolean, // селектор isAuth - флаг авторизации
     term: string,
-    myId: number,
+    myId: NulableType<number>,
     onlyFriends: boolean, // селектор получить только моих рузей
     patch: string, // страница из адресной строки
     PageWidth: number // ширина страницы
@@ -39,7 +39,7 @@ type MainState = {
     currentRangeLocal: number // текущий диапазон
 }
 class UsersContainer extends React.Component<MainProps, MainState> {
-    constructor(props: any) {
+    constructor(props: MainProps) {
         super(props);
         this.state = {
             onChangeTerm: this.props.term, // задание поискового запроса в локальный стейт обновления поля

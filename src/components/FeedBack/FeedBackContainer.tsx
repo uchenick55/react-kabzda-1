@@ -30,8 +30,7 @@ class FeedBackContainer extends React.Component<FeedBackContainerPropsType> {
 type mapStateToPropsType = {
     feedBackStatus: string
 }
-// если поставить mapStateToPropsType вместо any, появляется ошибка
-let mapStateToProps:any = (state:GlobalStateType) => {
+const mapStateToProps = (state:GlobalStateType) => {
     return {
         feedBackStatus: state.feedback.feedBackStatus // статус отправки сообщения на сервер
     }
