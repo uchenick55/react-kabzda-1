@@ -10,8 +10,16 @@ import ContentContainer from "./components/Content/ContentContainer";
 import ErrorBoundary from "./components/common/ErrorBoundary/ErrorBoundary";
 import Container from "react-bootstrap/Container";
 import FooterBS from "./components/Footer/FooterBS";
+import {GlobalStateType} from "./redux/store-redux";
 
-class App extends React.Component { // конвертируем app в классовую компоненту для жизненного цикла
+type AppBSPropsType = {
+    initialisedApp: boolean,
+    theme: "light" | "dark"
+    initialisedAppThunkCreator: () => void,
+    setPatch: (patch:string) => void,
+    setPageWidth: (PageWidth:number) => void
+}
+class AppBS extends React.Component <AppBSPropsType> { // конвертируем app в классовую компоненту для жизненного цикла
     componentDidMount() {
         this.props.initialisedAppThunkCreator() // запускаем инициализацию приложения
     }
@@ -42,12 +50,21 @@ class App extends React.Component { // конвертируем app в клас�
     }
 }
 
-const mapStateToProps = (state) => {
+const mapStateToProps = (state:GlobalStateType) => {
     return {
         initialisedApp: state.app.initialisedApp, // флаг инициализации приложения
         theme: state.theme.themeBLL, // флаг включения комментариев по телу сайта
     }
 }
+type mapStateToPropsType = {
+    initialisedApp: boolean,
+    theme: "light" | "dark"
+}
+type mapDispatchToPropsType = {
+    initialisedAppThunkCreator: () => void,
+    setPatch: (patch:string) => void,
+    setPageWidth: (PageWidth:number) => void
+}
 
-export default connect(mapStateToProps, {initialisedAppThunkCreator, setPatch, setPageWidth})(App);
+export default connect(mapStateToProps, {initialisedAppThunkCreator, setPatch, setPageWidth})(AppBS);
 // коннектим к app флаг и санки инициализации
