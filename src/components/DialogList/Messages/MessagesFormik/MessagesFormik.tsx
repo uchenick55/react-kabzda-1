@@ -1,7 +1,7 @@
 import React from "react";
 import {Formik, Form} from "formik"; //формик с компонентами и пользовательским хуком
 import * as Yup from 'yup' // валидация форм с помошью сторонней библиотеки Yup
-//import DisplayFormikState from "../../common/formikCommon/DisplayFormikState"
+import DisplayFormikState from "../../../common/formikCommon/DisplayFormikState"
 import {MyTextInput} from "../../../common/formikCommon/MyFieldsBS"
 import Button from "react-bootstrap/Button";
 import Image from "react-bootstrap/Image";
@@ -64,7 +64,7 @@ const MessagesFormik:React.FC<DialogFormikType> = ({sendMessage, scrollBottom}) 
                                 </Button>
                             </div>
                         </div>
-                        {/* <DisplayFormikState/> {/*отображение всего стейта формика*/}
+                         <DisplayFormikState/> {/*отображение всего стейта формика*/}
                     </Form>
                 )}
             </Formik>
