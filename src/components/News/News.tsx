@@ -94,7 +94,7 @@ class News extends React.Component <NewsPropsType, NewsStateType> {
     }
 
     render() {
-        let hn = <div>
+        const hn = <div>
             <h2 className={commonClasses.pageHeader}>Search by HackerNews</h2>
 
             <form>

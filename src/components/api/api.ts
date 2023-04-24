@@ -11,7 +11,7 @@ const instance = axios.create( {
 } );
 
 
-export let apiUsers = { // объект с методами api для USERS и follow/unfollow
+export const apiUsers = { // объект с методами api для USERS и follow/unfollow
     getUsers: async (currentPage: number, pageSize: number, term: string, friend: boolean = false) => {// получить стек пользователей
         const friendLocal = friend ? friend : null
         const response = await instance.get<getUsersType>( `users?count=${pageSize}&page=${currentPage}&term=${term}&friend=${friendLocal}` )
@@ -28,7 +28,7 @@ export let apiUsers = { // объект с методами api для USERS и 
 }
 
 
-export let apiProfile = { // объект с методами api для профайла и авторизации
+export const apiProfile = { // объект с методами api для профайла и авторизации
     getAuthMe: async () => {// запрос "я авторизован?"
         const response = await instance.get<getAuthMeType>( `auth/me` )
         return (response.data) //возврат данных из поля data

@@ -18,7 +18,7 @@ const HomeInfo = React.lazy(() => import("./HomeInfo"))
 
 type InfoContainerTrype = {}
 const InfoContainer: React.FC<InfoContainerTrype> = () => {
-    let info = <div>
+    const info = <div>
         <Suspense fallback={
             <div>Загрузка...</div>}> {/*Оборачивает компоненты, по которым идет Lazy import и выдает fallback на время загрузки*/}
             <Routes> {/*в зависимости от URL подгрузка разного контента*/}

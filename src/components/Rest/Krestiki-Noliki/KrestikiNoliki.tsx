@@ -128,8 +128,8 @@ class KrestikiNoliki extends React.Component<unknown, KrestikiNolikiStateType> {
 
     handleSquare = (i:number) => {
         // обработчик кликов
-        let currentStep = this.state.history.length - 1; // текущий ход в массиве ходов (-1 поскольку счет идет с 0)
-        let squaresNew = this.state.history[currentStep].squaresNew.slice(); // делаем копию текущего массива
+        const currentStep = this.state.history.length - 1; // текущий ход в массиве ходов (-1 поскольку счет идет с 0)
+        const squaresNew = this.state.history[currentStep].squaresNew.slice(); // делаем копию текущего массива
 
         const Winner = calculateWinner( squaresNew ); // попытка определения победитея
 
@@ -158,8 +158,8 @@ class KrestikiNoliki extends React.Component<unknown, KrestikiNolikiStateType> {
     }
 
     render() {
-        let currentStep = this.state.history.length - 1; // текущий ход в массиве ходов (-1 поскольку счет идет с 0)
-        let squaresNew = this.state.history[currentStep].squaresNew.slice(); // делаем копию текущего массива
+        const currentStep = this.state.history.length - 1; // текущий ход в массиве ходов (-1 поскольку счет идет с 0)
+        const squaresNew = this.state.history[currentStep].squaresNew.slice(); // делаем копию текущего массива
         return (
             <div>
                 <h2 className={commonClasses.pageHeader}>Крестики нолики</h2>

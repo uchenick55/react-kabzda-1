@@ -55,7 +55,7 @@ class ProfileContainer extends React.Component<ProfileContainerType> {
 
     putProfile = (putProfile: ProfileType) => { // обновить данные профиля просле правки
         // добавить в данные после изменения формы мой ID для чтения результата обновления с сервера
-        let MyProfile = Object.assign( {}, {userId: this.props.myId}, putProfile );
+        const MyProfile = Object.assign( {}, {userId: this.props.myId}, putProfile );
         this.props.putMyProfileThunkCreator( MyProfile, this.props.myId )// обновить данные профиля просле правки
     }
 

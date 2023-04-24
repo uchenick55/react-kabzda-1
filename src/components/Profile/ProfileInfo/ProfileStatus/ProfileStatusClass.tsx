@@ -28,7 +28,7 @@ class ProfileStatusClass extends React.Component<ProfileStatusClassPropsType, Pr
         }
     }
     onChangeStatus = (event:ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
-        let text = event.target.value; // вынимаем значение введенное в поле ввода input
+        const text = event.target.value; // вынимаем значение введенное в поле ввода input
       //  if (text===null) {text=""}
         this.localStatus.statusTmpInput = text;// присваиваем переменной временного статуса из локального стейта введенное значение в поле
         this.setState({statusTmpInput: text}) // принудительная переотрисовка после смены локального статуса

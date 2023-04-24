@@ -14,19 +14,19 @@ let initialState = {
 
 it("posts.length after ADD POST is correct", ()=>{
   const action = addPostActionCreator("123")
-  let ADD_POST_testResult = profileReducer(initialState, action )
+  const ADD_POST_testResult = profileReducer(initialState, action )
   expect(ADD_POST_testResult.posts.length).toBe(4)
 })
 
 it("Text message after ADD POST is correct", ()=>{
   const action = addPostActionCreator("123")
-  let ADD_POST_testResult = profileReducer(initialState, action )
+  const ADD_POST_testResult = profileReducer(initialState, action )
   expect(ADD_POST_testResult.posts[3].message).toBe("123")
 })
 
 it("posts.length after Delete POST is correct", ()=>{
   const action = deletePostActionCreator(1)
-  let Delete_POST_testResult = profileReducer(initialState, action )
+  const Delete_POST_testResult = profileReducer(initialState, action )
   expect(Delete_POST_testResult.posts.length).toBe(2)
 })
 

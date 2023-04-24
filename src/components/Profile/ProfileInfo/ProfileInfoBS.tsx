@@ -54,28 +54,28 @@ const ProfileInfo: React.FC<ProfileInfoType2> = ({
     if (!profile) { // если профиль еще не загружен
         return <Preloader/> // отобразить предзагрузку
     }
-    let onChangeProfilePhoto = (e:any) => {
+    const onChangeProfilePhoto = (e:any) => {
         setprofilePhoto(e.target.files[0]) // записать в useState выбранный файл фото профиля(временный стейт)
     }
-    let displayClass = showUploadImageButton ? "" : ButtonOverImage.displayNone // класс скрытия/отображения кнопок загрузки поверх картинки профиля
+    const displayClass = showUploadImageButton ? "" : ButtonOverImage.displayNone // класс скрытия/отображения кнопок загрузки поверх картинки профиля
 
-    let profileStatus = <ProfileStatusUseReducer // можно еще использовать ProfileStatusUseState и ProfileStatusClass
+    const profileStatus = <ProfileStatusUseReducer // можно еще использовать ProfileStatusUseState и ProfileStatusClass
         myId={myId} // мой id для модификации статуса
         userId={profile.userId} // id отображаемого пользователя
         status={status} // статус из BLL
         putStatusThunkCreator={putStatusThunkCreator} // санкреатор для обновления сатуса
     />
 
-    let showProfile = !editMode &&
+    const showProfile = !editMode &&
         <ShowProfile profile={profile} setEditMode={setEditMode} userId={userId} myId={myId}/>
 
-    let editProfile = editMode &&
+    const editProfile = editMode &&
         <div>
             <EditProfileFormikBS
                 putProfile={putProfile} setEditMode={setEditMode} profile={profile}
                 editProfileStatus={editProfileStatus} setEditProfileStatus={setEditProfileStatus}/>
         </div>
-    let editMyPhoto = (userId === 0) &&// если мы перешли на свой профиль (в браузере нет ID возле profile)
+    const editMyPhoto = (userId === 0) &&// если мы перешли на свой профиль (в браузере нет ID возле profile)
         <div>
             <form> {/*форма отправки фото профиля на сервер*/}
                 <span><button
@@ -102,7 +102,7 @@ const ProfileInfo: React.FC<ProfileInfoType2> = ({
             </form>
         </div>
 
-    let showUserPhoto = <Image fluid={true}
+    const showUserPhoto = <Image fluid={true}
         alt={"userPhoto"}
         onMouseOver={() => {
             setshowUploadImageButton(true)

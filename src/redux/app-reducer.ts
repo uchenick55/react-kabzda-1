@@ -9,20 +9,20 @@ const SET_PATCH = "myApp/app-reducer/SET_PATCH"; //константа задан
 const SET_PAGE_WIDTH = "myApp/app-reducer/SET_PAGE_WIDTH"; //константа задания ширины окна
 
 type setInitialisedAppType = {type: typeof SET_INITIALISED_APP}
-export let setInitialisedApp = ():setInitialisedAppType => { // экшн креатор  инициализации приложения
+export const setInitialisedApp = ():setInitialisedAppType => { // экшн креатор  инициализации приложения
   return {type: SET_INITIALISED_APP}
 };
 
 type appInitialStateActionType = {type: typeof APP_INITIAL_STATE}
-export let appInitialState = ():appInitialStateActionType => { // экшн зануления при логауте
+export const appInitialState = ():appInitialStateActionType => { // экшн зануления при логауте
   return {type: APP_INITIAL_STATE}
 };
 type setPatchActionType = {type: typeof SET_PATCH, patch:string }
-export let setPatch = (patch:string):setPatchActionType => { // экшн зануления при логауте
+export const setPatch = (patch:string):setPatchActionType => { // экшн зануления при логауте
   return {type: SET_PATCH, patch}
 };
 type setPageWidthActionType = {type: typeof SET_PAGE_WIDTH, PageWidth:number }
-export let setPageWidth = (PageWidth:number):setPageWidthActionType => { // экшн записи ширины экрана
+export const setPageWidth = (PageWidth:number):setPageWidthActionType => { // экшн записи ширины экрана
   return {type: SET_PAGE_WIDTH, PageWidth}
 };
 
@@ -70,7 +70,7 @@ type ThunkType = ThunkAction<
     unknown,    // нет доп параметров
     ActionTypes // все типы ActionCreator
     >
-export let initialisedAppThunkCreator = ():ThunkType => {// санкреатор инициализации приложения
+export const initialisedAppThunkCreator = ():ThunkType => {// санкреатор инициализации приложения
   return (dispatch, getState) => { // санки  инициализации приложения
     const promise1 = dispatch(getAuthMeThunkCreator()) // проверка статуса авторизации
     const promise2 = dispatch(getThemeThunkCreator()) // получение темы

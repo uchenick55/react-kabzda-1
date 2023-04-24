@@ -29,6 +29,6 @@ export const usersSelectorsSimple = { // простой селектор пол�
 
 }
 
-export let getUsersReselect = createSelector(usersSelectorsSimple.getUsersSL, (users) => {
+export const getUsersReselect = createSelector(usersSelectorsSimple.getUsersSL, (users) => {
     return users // имитация сложного селектора через реселект
 })

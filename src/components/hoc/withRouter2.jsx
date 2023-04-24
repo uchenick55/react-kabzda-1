@@ -3,9 +3,9 @@ import {useParams} from "react-router-dom";
 import {connect} from "react-redux";
 
 let withRouter2 = (Children) => {
-    let WithRouter2withProps = (props) => {
-        let aaa = {params: useParams()}
-        let userId=Number(aaa.params['*']);
+    const WithRouter2withProps = (props) => {
+        const aaa = {params: useParams()}
+        const userId=Number(aaa.params['*']);
         return <Children {...props} userId={userId}/>
     }
     return connect(null, null)(WithRouter2withProps)

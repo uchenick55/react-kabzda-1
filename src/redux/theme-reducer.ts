@@ -6,7 +6,7 @@ import {GlobalStateType} from "./store-redux";
 const SET_THEME = "myApp/dark-light-reducer/SET_THEME"; //константа задания темы
 
 type setThemeActionType = {type: typeof SET_THEME, themeUpdate:"light" | "dark"  }
-export let setTheme = (themeUpdate:"light" | "dark"):setThemeActionType => { // экшн задания темы
+export const setTheme = (themeUpdate:"light" | "dark"):setThemeActionType => { // экшн задания темы
   return {type: SET_THEME, themeUpdate }
 };
 
@@ -32,7 +32,7 @@ let themeReducer = (state:initialStateType = initialState, action:ActionTypes):i
   }
 }
 
-export let setThemeThunkCreator = (theme1:"light" | "dark") => {//санкреатор задания темы в LocalStorage
+export const setThemeThunkCreator = (theme1:"light" | "dark") => {//санкреатор задания темы в LocalStorage
   return async (dispatch:Dispatch<ActionTypes>, getState: () => GlobalStateType) => { // санка задания темы в LocalStorage
     const response1 = await apiCommon.putTheme1(theme1)  //записать значение темы в localStorage
     if (response1) {
@@ -41,8 +41,8 @@ export let setThemeThunkCreator = (theme1:"light" | "dark") => {//санкреа
 
   }
 }
-export let getThemeThunkCreator = () => {//санкреатор получения темы из LocalStorage
-  let getThemeThunk = async (dispatch:Dispatch<ActionTypes>, getState: () => GlobalStateType) => { // санка получения темы из LocalStorage
+export const getThemeThunkCreator = () => {//санкреатор получения темы из LocalStorage
+  const getThemeThunk = async (dispatch:Dispatch<ActionTypes>, getState: () => GlobalStateType) => { // санка получения темы из LocalStorage
     const response1 = await apiCommon.getTheme1()  //получить значение темы из localStorage
     if (response1) {
       dispatch(setTheme(response1))  //записать считаное из localStorage значение темы в store

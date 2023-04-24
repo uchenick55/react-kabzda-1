@@ -36,7 +36,7 @@ type TasksType = {
     tasksData: Array<tasksDataType>
 }
 let Tasks: React.FC<TasksType> = ({tasksData}) => {
-    let tasksRender = <div>
+    const tasksRender = <div>
         <Container className={classes.TasksContainer}>
             <h3 className={commonClasses.pageHeader}>Tasks</h3>
             <p>Здесь собраны небольшие работы, не касающиеся социальной сети</p>

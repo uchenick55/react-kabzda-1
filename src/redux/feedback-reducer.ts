@@ -6,7 +6,7 @@ import {GlobalStateType} from "./store-redux";
 const SET_FEED_BACK_STATUS = "myApp/feedback-reducer/SET_FEED_BACK_STATUS"; // константа для задания статуса feedback
 
 type setFeedBackStatusActionType =  {type: typeof SET_FEED_BACK_STATUS, feedBackStatus:string}
-export let setFeedBackStatus = (feedBackStatus:string):setFeedBackStatusActionType => { // экшн креатор задания feedBackStatus
+export const setFeedBackStatus = (feedBackStatus:string):setFeedBackStatusActionType => { // экшн креатор задания feedBackStatus
   return {type: SET_FEED_BACK_STATUS, feedBackStatus}
 };
 
@@ -31,7 +31,7 @@ let feedBackReducer = (state:initialStateType = initialState, action:ActionTypes
   }
 }
 
-export let postFeedBackThunkCreator2 = (data:apiFeedBackDataType) => {// санкреатор отправки фидбека
+export const postFeedBackThunkCreator2 = (data:apiFeedBackDataType) => {// санкреатор отправки фидбека
   return async (dispatch:Dispatch<ActionTypes>, getState: () => GlobalStateType) => { // санка отправки фидбека
     await postFeedBack22(data) //
         .then(() => dispatch(setFeedBackStatus("Скоро мы получим ваше письмо")))// статсус задать в BLL "Скоро мы получим ваше письмо"

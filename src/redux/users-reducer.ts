@@ -8,7 +8,7 @@ import {ResultCodeEnum} from "../components/api/enum";
 const SET_TERM = "myApp/users-reducer/SET_TERM";
 
 type setTermActionType = { type: typeof SET_TERM, term: string }
-export let setTerm = (term: string): setTermActionType => {
+export const setTerm = (term: string): setTermActionType => {
     return {type: SET_TERM, term}
 };
 
@@ -24,7 +24,7 @@ let setUsers = (users: Array<usersType>): setUsersActionType => {
 const SET_CURRENT_PAGE = "myApp/users-reducer/SET_CURRENT_PAGE";
 
 type setCurrentPageActionType = { type: typeof SET_CURRENT_PAGE, currentPage: number }
-export let setCurrentPage = (currentPage: number): setCurrentPageActionType => {
+export const setCurrentPage = (currentPage: number): setCurrentPageActionType => {
     return {type: SET_CURRENT_PAGE, currentPage}
 };
 
@@ -56,21 +56,21 @@ let toggleIsFollowingProgerss = (isFetching: boolean, id: number): toggleIsFollo
 const NEED_UPDATE_FRIENDS = "myApp/users-reducer/NEED_UPDATE_FRIENDS";
 
 type needUpdateFriendsACActionType = { type: typeof NEED_UPDATE_FRIENDS, needUpdateFriends: boolean }
-export let needUpdateFriendsAC = (needUpdateFriends: boolean): needUpdateFriendsACActionType => {
+export const needUpdateFriendsAC = (needUpdateFriends: boolean): needUpdateFriendsACActionType => {
     return {type: NEED_UPDATE_FRIENDS, needUpdateFriends}
 };
 
 const USERS_INITIAL_STATE = "myApp/users-reducer/USERS_INITIAL_STATE";
 
 export type usersInitialStateActonType = { type: typeof USERS_INITIAL_STATE }
-export let usersInitialState = (): usersInitialStateActonType => {
+export const usersInitialState = (): usersInitialStateActonType => {
     return {type: USERS_INITIAL_STATE}
 };
 
 const SET_ONLY_FRIENDS = "myApp/users-reducer/SET_ONLY_FRIENDS";// экшн отображения только моих друзей, или общий список
 
 type setOnlyFriendsActionType = { type: typeof SET_ONLY_FRIENDS, onlyFriends: boolean }
-export let setOnlyFriends = (onlyFriends: boolean): setOnlyFriendsActionType => { // экшн креатор отображения только моих друзей, или общий список
+export const setOnlyFriends = (onlyFriends: boolean): setOnlyFriendsActionType => { // экшн креатор отображения только моих друзей, или общий список
     return {type: SET_ONLY_FRIENDS, onlyFriends}
 };
 
@@ -156,7 +156,7 @@ type ThunkType = ThunkAction<void,    // санка ничего не возвр
     unknown,    // нет доп параметров
     ActionTypes // все типы ActionCreator
     >
-export let getUsersThunkCreator //санкреатор получить пользователей с данными
+export const getUsersThunkCreator //санкреатор получить пользователей с данными
     = (currentPage: number, pageSize: number, term: string, friend: boolean, userId: number): ThunkType => {
 
     return (dispatch, getState) => { // нонейм санка получить пользователей
@@ -203,14 +203,14 @@ const _followUnfollowFlow = ( // общий метод для санкреате
         } )
 }
 
-export let followThunkCreator =
+export const followThunkCreator =
     (userId: number, currentPage: number, pageSize: number, term: string, friend: boolean): ThunkType => {//санкреатор follow с данными
         return (dispatch, getState) => {// санка follow
             _followUnfollowFlow( dispatch, userId, currentPage, pageSize, apiUsers.postFollow.bind( apiUsers ), term, friend );
         }
     }
 
-export let unfollowThunkCreator =
+export const unfollowThunkCreator =
     (userId: number, currentPage: number, pageSize: number, term: string, friend: boolean): ThunkType => {//санкреатор unfollow с данными
         return (dispatch, getState) => {// санка unfollow
             _followUnfollowFlow( dispatch, userId, currentPage, pageSize, apiUsers.deleteFollow.bind( apiUsers ), term, friend );
