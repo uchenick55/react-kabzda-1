@@ -10,7 +10,7 @@ type ProfileType2 = {
     status: string,
     myId: number,
     userId: number,
-    putProfile: ProfileType,
+    putProfile: (putProfile2: ProfileType) =>void,
     putStatusThunkCreator: (statusTmpInput:string, myId:number)=>void,
     uploadImage: (profilePhoto: any)=>void,
     editProfileStatus:Array<string>,
@@ -22,7 +22,7 @@ const Profile: React.FC<ProfileType2> = ({
                      userId, putProfile, editProfileStatus, setEditProfileStatus
                  }) => {
 
-    let ProfileRender = <div className={classes.ProfileRender}>
+    const ProfileRender = <div className={classes.ProfileRender}>
         <ProfileInfo // Отображение данных выбранного пользователя
             profile={profile} // профиль выбранного пользователя
             status={status} // статус из BLL

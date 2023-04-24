@@ -41,7 +41,6 @@ class AppBS extends React.Component <AppBSPropsType> { // конвертируе
                             <FooterBS/>
                         </Container>
                     </ErrorBoundary>
-                    {/*Для масштабирования и чтобы не поехал header, делаем div с шириной 350*/}
                 </div>
 
             </HashRouter>

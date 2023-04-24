@@ -12,7 +12,7 @@ let myValidationSchema = Yup.object({ // валидация форм на requir
 })
 
 type EditProfileFormikType = {
-    putProfile: ProfileType,
+    putProfile: (putProfile2: ProfileType) =>void,
     setEditMode: (editMode: boolean)=> void
     profile: getProfileType,
     editProfileStatus:Array<string>,
@@ -32,7 +32,6 @@ const EditProfileFormik:React.FC<EditProfileFormikType> = (
     }
 
     const myOnSubmit = (values:ProfileType, {resetForm}:any) => { // действия по сабмиту
-        // @ts-ignore
         putProfile(values) // колбек, который принимает результат ввода формы
         resetForm()// сбросить значение формы после ввода
 

@@ -7,7 +7,7 @@ import classes from "./ContentContainer.module.css"
 import {useLocation} from "react-router";
 
 const UsersContainer = React.lazy(() => import("../users/UsersContainerFC"))
-const ProfileContainer = React.lazy(() => import("../Profile/ProfileContainer"))
+const ProfileContainer = React.lazy(() => import("../Profile/ProfileContainerFC"))
 const DialogsContainer = React.lazy(() => import("../DialogList/DialogListContainer"))
 const LoginContainer = React.lazy(() => import("../Login/LoginContainer"))
 const News = React.lazy(() => import("../News/News"))

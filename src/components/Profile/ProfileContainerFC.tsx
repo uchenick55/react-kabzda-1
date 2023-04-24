@@ -1,19 +1,18 @@
-import React from "react";
-import Profile from "./Profile";
+import {getProfileType} from "../api/apiTypes";
+import {ProfileType} from "../../types/commonTypes";
+import {GlobalStateType} from "../../redux/store-redux";
+import {compose} from "redux";
 import {connect} from "react-redux";
 import {
-    getProfileThunkCreator,
-    putMyProfileThunkCreator,
-    putStatusThunkCreator, setEditProfileStatus,
+    getProfileThunkCreator, putMyProfileThunkCreator,
+    putStatusThunkCreator,
+    setEditProfileStatus,
     setprofilePhotoThunkCreator
 } from "../../redux/profile-reducer";
-import {Navigate} from "react-router-dom"
-import {compose} from "redux";
-import NavigateToLoginHoc2 from "../hoc/NavigateToLoginHoc2";
 import withRouter2 from "../hoc/withRouter2";
-import {GlobalStateType} from "../../redux/store-redux";
-import {ProfileType} from "../../types/commonTypes";
-import {getProfileType} from "../api/apiTypes";
+import NavigateToLoginHoc2 from "../hoc/NavigateToLoginHoc2";
+import React, {useEffect} from "react";
+import Profile from "./Profile";
 
 type ProfileContainerType = {
     profile: getProfileType, // весь профиль пользователя
@@ -27,60 +26,40 @@ type ProfileContainerType = {
     putStatusThunkCreator: (statusTmpInput: string, myId: number) => void,// санкреатор обновления моего статуса
     setprofilePhotoThunkCreator: (profilePhoto: any, myId: number) => void,// санкреатор установки фотографии моего профиля
     putMyProfileThunkCreator: (MyProfile: ProfileType, myId: number) => void,
-
 }
 
-class ProfileContainer extends React.Component<ProfileContainerType> {
-    componentDidMount() {
+const ProfileContainerFC:React.FC<ProfileContainerType> = (
+    {profile, myId, status, editProfileStatus, userId, setEditProfileStatus,
+    getProfileThunkCreator,   putStatusThunkCreator, setprofilePhotoThunkCreator,
+    putMyProfileThunkCreator}) => {
 
-        this.props.getProfileThunkCreator( this.props.userId, false, 0 );// обновить профиль в зависомости от ID
+    const uploadImage = (profilePhoto: any) => {
+        setprofilePhotoThunkCreator( profilePhoto, myId )
     }
-
-    componentDidUpdate() {
-        let userId = this.props.userId; // получить локальный userId из URL браузера
-
-        if (userId === 0) {
-            userId = this.props.myId // подставить мой ID если URL профиля пустой
-        }// если кликнули на мой профиль (без ID в URL браузера) то смотрим мой профиль
-        if (userId !== this.props.profile.userId) { // если считаный из URL ID не равен записаному в стейт (смена пользователя)
-            this.props.getProfileThunkCreator( userId, false, 0 ); // обновить профиль в зависомости от ID
-            // здесь сменить setEditMode на false
-        }
-    }
-
-    uploadImage = (profilePhoto: any) => {
-        console.log( profilePhoto )
-        this.props.setprofilePhotoThunkCreator( profilePhoto, this.props.myId )
-    }
-
-    putProfile = (putProfile: ProfileType) => { // обновить данные профиля просле правки
+    const putProfile = (putProfile2: ProfileType) => { // обновить данные профиля просле правки
         // добавить в данные после изменения формы мой ID для чтения результата обновления с сервера
-        let MyProfile = Object.assign( {}, {userId: this.props.myId}, putProfile );
-        this.props.putMyProfileThunkCreator( MyProfile, this.props.myId )// обновить данные профиля просле правки
+        const MyProfile = Object.assign( {}, {userId: myId}, putProfile2 );
+        putMyProfileThunkCreator( MyProfile, myId )// обновить данные профиля просле правки
     }
 
-    render() {
-        if (this.props.userId === this.props.myId) { /*при выборе своего профиля в списке пользователей*/
-            return <Navigate to='../profile'/> /*редирект на страницу без ID в URL*/
-        }
+    useEffect(()=>{
+        getProfileThunkCreator(userId, false, 0 );// обновить профиль в зависомости от ID
+    },[])
 
-        return <Profile
-            profile={this.props.profile} // профиль
-            status={this.props.status} //статус
-            myId={this.props.myId}// мой ID
-            putStatusThunkCreator={this.props.putStatusThunkCreator}
-            uploadImage={this.uploadImage}// загрузка картинки
-            userId={this.props.userId}// id пользователя (может совпадать с myId если смотрим свой профиль)
-            putProfile={this.putProfile}// задание профиля на сервер после ввода данных
-            editProfileStatus={this.props.editProfileStatus}// список ошибок правки формы профиля с сервера
-            setEditProfileStatus={this.props.setEditProfileStatus}// экшн креатор задания ошибки с сервера в стейт после правки профиля
-        />
-    }
+    return <Profile
+        profile={profile} // профиль
+        status={status} //статус
+        myId={myId}// мой ID
+        putStatusThunkCreator={putStatusThunkCreator}
+        uploadImage={uploadImage}// загрузка картинки
+        userId={userId}// id пользователя (может совпадать с myId если смотрим свой профиль)
+        putProfile={putProfile}// задание профиля на сервер после ввода данных
+        editProfileStatus={editProfileStatus}// список ошибок правки формы профиля с сервера
+        setEditProfileStatus={setEditProfileStatus}// экшн креатор задания ошибки с сервера в стейт после правки профиля
+    />
 }
-
 type mapStateToPropsType = {
     profile: getProfileType,
-    isAuth: boolean,
     myId: number, // мой
     status: string, // статус
     editProfileStatus: Array<string>  // список ошибок правки формы профиля с сервера
@@ -89,7 +68,6 @@ type mapStateToPropsType = {
 let mapStateToProps = (state: GlobalStateType) => {
     return {
         profile: state.profilePage.profile as getProfileType,
-        isAuth: state.auth.isAuth as boolean,
         myId: state.auth.myId as number, // мой
         status: state.profilePage.status as string, // статус
         editProfileStatus: state.profilePage.editProfileStatus as Array<string>  // список ошибок правки формы профиля с сервера
@@ -118,19 +96,4 @@ export default compose<any>(
     } ),
     withRouter2,// получить данные ID из URL браузера и добавить в пропсы
     NavigateToLoginHoc2// проверка, залогинен ли я
-)( ProfileContainer )
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+)( ProfileContainerFC )

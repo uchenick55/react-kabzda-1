@@ -21,7 +21,7 @@ type ProfileInfoType2 = {
     status: string,
     myId: number,
     userId: number,
-    putProfile: ProfileType,
+    putProfile: (putProfile2: ProfileType) =>void,
     putStatusThunkCreator: (statusTmpInput:string, myId:number)=>void,
     uploadImage: (profilePhoto: any)=>void,
     editProfileStatus:Array<string>,
