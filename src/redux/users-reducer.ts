@@ -5,81 +5,62 @@ import {Dispatch} from "redux";
 import {usersType} from "../components/api/apiTypes";
 import {ResultCodeEnum} from "../components/api/enum";
 
-const SET_TERM = "myApp/users-reducer/SET_TERM";
+function inferLiteralFromString<T extends string>(arg: T): T {
+    return arg
+}
 
-type setTermActionType = { type: typeof SET_TERM, term: string }
-export const setTerm = (term: string): setTermActionType => {
-    return {type: SET_TERM, term}
+const SET_TERM = "myApp/users-reducer/SET_TERM";
+export const setTerm = (term: string) => {
+    return {type: inferLiteralFromString(SET_TERM), term}
 };
 
 const SET_USERS = "myApp/users-reducer/SET_USERS";
-
-type setUsersActionType = { type: typeof SET_USERS, users: Array<usersType> }
-
-let setUsers = (users: Array<usersType>): setUsersActionType => {
-    return {type: SET_USERS, users}
+const setUsers = (users: Array<usersType>) => {
+    return {type: inferLiteralFromString(SET_USERS), users}
 };
 
-
 const SET_CURRENT_PAGE = "myApp/users-reducer/SET_CURRENT_PAGE";
-
-type setCurrentPageActionType = { type: typeof SET_CURRENT_PAGE, currentPage: number }
-export const setCurrentPage = (currentPage: number): setCurrentPageActionType => {
-    return {type: SET_CURRENT_PAGE, currentPage}
+export const setCurrentPage = (currentPage: number) => {
+    return {type: inferLiteralFromString(SET_CURRENT_PAGE), currentPage}
 };
 
 const TOGGLE_IS_FETCHING = "myApp/users-reducer/TOGGLE_IS_FETCHING";
-
-type toggleIsFetchingActionType = { type: typeof TOGGLE_IS_FETCHING, isFetching: boolean }
-let toggleIsFetching = (isFetching: boolean): toggleIsFetchingActionType => {
-    return {type: TOGGLE_IS_FETCHING, isFetching}
+const toggleIsFetching = (isFetching: boolean) => {
+    return {type: inferLiteralFromString(TOGGLE_IS_FETCHING), isFetching}
 };
 
 const SET_TOTAL_USERS_COUNT = "myApp/users-reducer/SET_TOTAL_USERS_COUNT";
-
-type setUsersTotalCountActionType = { type: typeof SET_TOTAL_USERS_COUNT, totalUsersCount: number }
-let setUsersTotalCount = (totalUsersCount: number): setUsersTotalCountActionType => {
-    return {type: SET_TOTAL_USERS_COUNT, totalUsersCount}
+const setUsersTotalCount = (totalUsersCount: number) => {
+    return {type: inferLiteralFromString(SET_TOTAL_USERS_COUNT), totalUsersCount}
 };
 
 const TOGGLE_IS_FOLLOWING_PROGRESS = "myApp/users-reducer/TOGGLE_IS_FOLLOWING_PROGRESS";
-
-type toggleIsFollowingProgerssActionType = {
-    type: typeof TOGGLE_IS_FOLLOWING_PROGRESS
-    isFetching: boolean
-    id: number
-}
-let toggleIsFollowingProgerss = (isFetching: boolean, id: number): toggleIsFollowingProgerssActionType => {
-    return {type: TOGGLE_IS_FOLLOWING_PROGRESS, isFetching, id}
+const toggleIsFollowingProgerss = (isFetching: boolean, id: number) => {
+    return {type: inferLiteralFromString(TOGGLE_IS_FOLLOWING_PROGRESS), isFetching, id}
 };
 
 const NEED_UPDATE_FRIENDS = "myApp/users-reducer/NEED_UPDATE_FRIENDS";
-
-type needUpdateFriendsACActionType = { type: typeof NEED_UPDATE_FRIENDS, needUpdateFriends: boolean }
-export const needUpdateFriendsAC = (needUpdateFriends: boolean): needUpdateFriendsACActionType => {
-    return {type: NEED_UPDATE_FRIENDS, needUpdateFriends}
+export const needUpdateFriendsAC = (needUpdateFriends: boolean) => {
+    return {type: inferLiteralFromString(NEED_UPDATE_FRIENDS), needUpdateFriends}
 };
 
 const USERS_INITIAL_STATE = "myApp/users-reducer/USERS_INITIAL_STATE";
-
-export type usersInitialStateActonType = { type: typeof USERS_INITIAL_STATE }
-export const usersInitialState = (): usersInitialStateActonType => {
-    return {type: USERS_INITIAL_STATE}
+export const usersInitialState = () => {
+    return {type: inferLiteralFromString(USERS_INITIAL_STATE)}
 };
 
 const SET_ONLY_FRIENDS = "myApp/users-reducer/SET_ONLY_FRIENDS";// экшн отображения только моих друзей, или общий список
-
-type setOnlyFriendsActionType = { type: typeof SET_ONLY_FRIENDS, onlyFriends: boolean }
-export const setOnlyFriends = (onlyFriends: boolean): setOnlyFriendsActionType => { // экшн креатор отображения только моих друзей, или общий список
-    return {type: SET_ONLY_FRIENDS, onlyFriends}
+export const setOnlyFriends = (onlyFriends: boolean) => { // экшн креатор отображения только моих друзей, или общий список
+    return {type: inferLiteralFromString(SET_ONLY_FRIENDS), onlyFriends}
 };
 
 
-type ActionTypes = setOnlyFriendsActionType | usersInitialStateActonType | needUpdateFriendsACActionType |
-    toggleIsFollowingProgerssActionType | setUsersTotalCountActionType | toggleIsFetchingActionType |
-    setCurrentPageActionType | setUsersActionType | setTermActionType
+type ActionTypes =
+    ReturnType<typeof setOnlyFriends> | ReturnType<typeof usersInitialState> | ReturnType<typeof needUpdateFriendsAC> |
+    ReturnType<typeof toggleIsFollowingProgerss> | ReturnType<typeof setUsersTotalCount> | ReturnType<typeof toggleIsFetching> |
+    ReturnType<typeof setCurrentPage> | ReturnType<typeof setUsers> | ReturnType<typeof setTerm>
 
-let initialState = {
+const initialState = {
     users: [] as Array<usersType>, // массив пользователей по умолчанию (пока пустой)
     pageSize: 100, // размер пачки пользователей при загрузке с сервера
     totalUsersCount: 0, // общее количество пользователей по умолчанию
@@ -93,7 +74,7 @@ let initialState = {
 }
 type initialStateType = typeof initialState
 
-let usersReducer = (state: initialStateType = initialState, action: any): initialStateType => {
+const usersReducer = (state: initialStateType = initialState, action: ActionTypes): initialStateType => {
     // типы принимаемые и возвращаемые редьюсером
     let stateCopy: initialStateType; // объявление части стейта до изменения редьюсером
     switch (action.type) {
