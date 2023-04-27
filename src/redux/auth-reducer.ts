@@ -1,5 +1,5 @@
 import {apiProfile} from "../components/api/api";
-import {dialogsInitialState, dialogsInitialStateType} from "./dialogs-reducer";
+import {DIALOGS_INITIAL_STATE, dialogsInitialState} from "./dialogs-reducer";
 import {PROFILE_INITIAL_STATE, profileInitialState} from "./profile-reducer";
 import {USERS_INITIAL_STATE, usersInitialState} from "./users-reducer";
 import {GlobalStateType} from "./store-redux";
@@ -7,50 +7,50 @@ import {ThunkAction} from "redux-thunk";
 import {getProfileType} from "../components/api/apiTypes";
 import {ResultCodeEnum, ResultCodeEnumCaptcha} from "../components/api/enum";
 import {NulableType} from "../types/commonTypes";
+import {inferStringLiteral} from "./acLitirals";
 
+type dialogsInitialStateType = { type: typeof DIALOGS_INITIAL_STATE }
 type profileInitialStateActionType = { type: typeof PROFILE_INITIAL_STATE }
 type usersInitialStateActonType = { type: typeof USERS_INITIAL_STATE }
 
 const SET_MY_DATA = "myApp/auth-reducer/SET_MY_DATA"; // константа для задания базовых данных моего профиля (ID, Email, login, isAuth)
 const AUTH_INITIAL_STATE = "myApp/auth-reducer/AUTH_INITIAL_STATE"; //константа зануления при логауте
 const SET_CAPTCHA_URL = "myApp/auth-reducer/SET_CAPTCHA_URL"; //константа задания URL каптчи
-const SET_LOGIN_ERROR= "myApp/auth-reducer/SET_LOGIN_ERROR"; //константа задания ошибки авторизации
+const SET_LOGIN_ERROR = "myApp/auth-reducer/SET_LOGIN_ERROR"; //константа задания ошибки авторизации
 export const SET_MY_PROFILE = "myApp/auth-reducer/SET_MY_PROFILE"; // константа задания расширенных данных моего профиля
-
-export type setMyProfileActionType = {type: typeof SET_MY_PROFILE, myProfile: getProfileType}
-export const setMyProfile = (myProfile:getProfileType):setMyProfileActionType => { // экшн креатор задания расширенных данных моего профиля
-    return {type: SET_MY_PROFILE, myProfile}
-};
 
 type setAuthDataActionType = {
     type: typeof SET_MY_DATA,
-    id:number,
-    email:string,
-    login:string,
+    id: number,
+    email: string,
+    login: string,
     isAuth: boolean
 }
-export const setAuthData = (id:number, email:string, login:string, isAuth:boolean):setAuthDataActionType => {
-    // экшн креатор задания моих ID, Email, login
-    return {type: SET_MY_DATA, id, email, login, isAuth}
+
+export const setMyProfile = (myProfile: getProfileType) => { // экшн креатор задания расширенных данных моего профиля
+    return {type: inferStringLiteral( SET_MY_PROFILE ), myProfile}
 };
 
-type authInitialStateActionType = {type: typeof AUTH_INITIAL_STATE}
-export const authInitialState = ():authInitialStateActionType => { // экшн креатор зануления при логауте
-    return {type: AUTH_INITIAL_STATE}
+export const setAuthData = (id: number, email: string, login: string, isAuth: boolean): setAuthDataActionType => {
+    return {type: inferStringLiteral( SET_MY_DATA ), id, email, login, isAuth}
 };
 
-type setCaptchaURLActionType = {type: typeof SET_CAPTCHA_URL, captchaURL: string}
-export const setCaptchaURL = (captchaURL:string):setCaptchaURLActionType => { // экшн креатор задания URL каптчи ответа от сервера
-    return {type: SET_CAPTCHA_URL, captchaURL}
+export const authInitialState = () => { // экшн креатор зануления при логауте
+    return {type: inferStringLiteral( AUTH_INITIAL_STATE )}
 };
 
-type setLoginErrorActionType = {type: typeof SET_LOGIN_ERROR, loginError: string}
-export const setLoginError = (loginError: string):setLoginErrorActionType => { // экшн креатор задания ошибки с сервера
-    return {type: SET_LOGIN_ERROR, loginError}
+export const setCaptchaURL = (captchaURL: string) => { // экшн креатор задания URL каптчи ответа от сервера
+    return {type: inferStringLiteral( SET_CAPTCHA_URL ), captchaURL}
 };
 
-type ActionTypes = setLoginErrorActionType | setCaptchaURLActionType | authInitialStateActionType |
-    setAuthDataActionType | setMyProfileActionType | dialogsInitialStateType | profileInitialStateActionType | usersInitialStateActonType
+export const setLoginError = (loginError: string) => { // экшн креатор задания ошибки с сервера
+    return {type: inferStringLiteral( SET_LOGIN_ERROR ), loginError}
+};
+
+type ActionTypes =
+    ReturnType<typeof setMyProfile> | ReturnType<typeof setAuthData> | ReturnType<typeof authInitialState>
+    | ReturnType<typeof setCaptchaURL> | ReturnType<typeof setLoginError> | setAuthDataActionType
+    | dialogsInitialStateType | profileInitialStateActionType | usersInitialStateActonType
 
 let initialState = { // стейт по умолчанию для моего профиля
     myId: 0 as number, // мой ID по умолчанию
@@ -62,8 +62,8 @@ let initialState = { // стейт по умолчанию для моего п�
     loginError: "" as string, // ошибка авторизации с сервера
 }
 export type initialStateAuthType = typeof initialState
-let authReducer = (state:initialStateAuthType = initialState, action:ActionTypes):initialStateAuthType => { // редьюсер авторизации и моего профиля
-    let stateCopy:initialStateAuthType; // объявлениечасти части стейта до изменения редьюсером
+let authReducer = (state: initialStateAuthType = initialState, action: ActionTypes): initialStateAuthType => { // редьюсер авторизации и моего профиля
+    let stateCopy: initialStateAuthType; // объявлениечасти части стейта до изменения редьюсером
     switch (action.type) {
         case SET_MY_DATA: // экшн задания моих id, email, login
             stateCopy = {
@@ -73,7 +73,6 @@ let authReducer = (state:initialStateAuthType = initialState, action:ActionTypes
                 myLogin: action.login,
                 isAuth: action.isAuth,
             }
-
             return stateCopy; // возврат копии стейта после изменения
         case SET_MY_PROFILE: // экшн задания моего расширенного профиля
             stateCopy = {
@@ -102,77 +101,76 @@ let authReducer = (state:initialStateAuthType = initialState, action:ActionTypes
             return state; // по умолчанию стейт возврашается неизмененным
     }
 }
-type ThunkType = ThunkAction<
-    void,    // санка ничего не возвращает
+type ThunkType = ThunkAction<void,    // санка ничего не возвращает
     GlobalStateType,    // глобальный стейт из redux
     unknown,    // нет доп параметров
     ActionTypes // все типы ActionCreator
     >
-export const getAuthMeThunkCreator = ():ThunkType => {//санкреатор я авторизован?. Данных для запроса нет
+export const getAuthMeThunkCreator = (): ThunkType => {//санкреатор я авторизован?. Данных для запроса нет
     return async (dispatch, getState) => {
         const response1 = await apiProfile.getAuthMe() // я авторизован?
         if (response1.resultCode === ResultCodeEnum.Success) { //если неверно ввели логин/пароль 5 раз
-            dispatch(setAuthData(
+            dispatch( setAuthData(
                 response1.data.id, // записать с стейт мой ID
                 response1.data.email, // записать с стейт мой емейл
                 response1.data.login, // записать с стейт мой логин
                 true // отметить что а авторизован
-            ))//задание в стейт текущего пользователя
+            ) )//задание в стейт текущего пользователя
 
-            const response2 = await apiProfile.getProfile(response1.data.id)//получение моих дополнительных данных после авторизации
+            const response2 = await apiProfile.getProfile( response1.data.id )//получение моих дополнительных данных после авторизации
 
-            dispatch(setMyProfile(response2))//задание в стейт моих доп данных
+            dispatch( setMyProfile( response2 ) )//задание в стейт моих доп данных
         }
         if (response1.resultCode !== ResultCodeEnum.Success) { //пользователь не авторизован
-            dispatch(authInitialState()) // запустить зануление стейта
+            dispatch( authInitialState() ) // запустить зануление стейта
         }
     };
 }
 
-export const postLoginThunkCreator = (email:string, password:string, rememberme?:boolean, captcha?:string):ThunkType => {
+export const postLoginThunkCreator = (email: string, password: string, rememberme?: boolean, captcha?: string): ThunkType => {
     //санкреатор на логин
     return async (dispatch, getState) => { // объявление санки на логин
-        const response = await apiProfile.postLogin(email, password, rememberme, captcha) // отправка данных на авторизацию из формы логина
+        const response = await apiProfile.postLogin( email, password, rememberme, captcha ) // отправка данных на авторизацию из формы логина
         if (response.resultCode === ResultCodeEnum.Success) { // если успешная авторизация на сервере
-            dispatch(getAuthMeThunkCreator()) // получить данные с сервера авторизованного пользователя
+            dispatch( getAuthMeThunkCreator() ) // получить данные с сервера авторизованного пользователя
         } else { // если логин или пароль не подошли
             const message =  // определение локальной переменной message - ответ от сервера
                 !response.messages[0] // если ответа от сервера нет
                     ? "no responce from server" // вывести сообщение заглушку
                     : response.messages[0] // иначе вывести ответ от сервера
             if (response.resultCode === ResultCodeEnumCaptcha.CaptchaIsReqiured) { // если ошибка в многократном неправильном вводе логина и пароля
-                dispatch(getCaptchaThunkCreator())
+                dispatch( getCaptchaThunkCreator() )
             }
-            dispatch(setLoginError(message)) // ошибка авторизации для формика
+            dispatch( setLoginError( message ) ) // ошибка авторизации для формика
         }
     };
 }
 
-export const deleteLoginThunkCreator = ():ThunkType => {//санкреатор на логАут
+export const deleteLoginThunkCreator = (): ThunkType => {//санкреатор на логАут
     return async (dispatch, getState) => { // объявление санки на логаут
         const response = await apiProfile.deleteLogin() // отправка запроса на логаут
         if (response.resultCode === ResultCodeEnum.Success) { // если сессия успешно закрыта
-            setTimeout(() => {
+            setTimeout( () => {
 
-                dispatch(dialogsInitialState())// зануление диалогов при логауте
+                dispatch( dialogsInitialState() )// зануление диалогов при логауте
 
-                dispatch(authInitialState())// зануление авторизации при логауте
+                dispatch( authInitialState() )// зануление авторизации при логауте
 
-                dispatch(profileInitialState())// зануление профиля при логауте
+                dispatch( profileInitialState() )// зануление профиля при логауте
 
-                dispatch(usersInitialState())// зануление UsersBS при логауте
+                dispatch( usersInitialState() )// зануление UsersBS при логауте
 
-            }, 300)
+            }, 300 )
         } else {
-            console.log(response.messages) // вывести в консоль сообщение ошибки логаута
+            console.log( response.messages ) // вывести в консоль сообщение ошибки логаута
         }
     };
 }
 
-export const getCaptchaThunkCreator = ():ThunkType => {//санкреатор на получение каптчи
+export const getCaptchaThunkCreator = (): ThunkType => {//санкреатор на получение каптчи
     return async (dispatch, getState) => { // санка на получение каптчи
         const response2 = await apiProfile.getCaptcha() // запрос каптчи
-        dispatch(setCaptchaURL(response2.url)) // получить данные с сервера авторизованного пользователя
+        dispatch( setCaptchaURL( response2.url ) ) // получить данные с сервера авторизованного пользователя
     };
 }
 
