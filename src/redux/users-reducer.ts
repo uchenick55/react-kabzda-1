@@ -4,54 +4,51 @@ import {GlobalStateType} from "./store-redux";
 import {Dispatch} from "redux";
 import {usersType} from "../components/api/apiTypes";
 import {ResultCodeEnum} from "../components/api/enum";
-
-function inferLiteralFromString<T extends string>(arg: T): T {
-    return arg
-}
+import {inferStringLiteral} from "./acLitirals";
 
 const SET_TERM = "myApp/users-reducer/SET_TERM";
 export const setTerm = (term: string) => {
-    return {type: inferLiteralFromString(SET_TERM), term}
+    return {type: inferStringLiteral(SET_TERM), term}
 };
 
 const SET_USERS = "myApp/users-reducer/SET_USERS";
 const setUsers = (users: Array<usersType>) => {
-    return {type: inferLiteralFromString(SET_USERS), users}
+    return {type: inferStringLiteral(SET_USERS), users}
 };
 
 const SET_CURRENT_PAGE = "myApp/users-reducer/SET_CURRENT_PAGE";
 export const setCurrentPage = (currentPage: number) => {
-    return {type: inferLiteralFromString(SET_CURRENT_PAGE), currentPage}
+    return {type: inferStringLiteral(SET_CURRENT_PAGE), currentPage}
 };
 
 const TOGGLE_IS_FETCHING = "myApp/users-reducer/TOGGLE_IS_FETCHING";
 const toggleIsFetching = (isFetching: boolean) => {
-    return {type: inferLiteralFromString(TOGGLE_IS_FETCHING), isFetching}
+    return {type: inferStringLiteral(TOGGLE_IS_FETCHING), isFetching}
 };
 
 const SET_TOTAL_USERS_COUNT = "myApp/users-reducer/SET_TOTAL_USERS_COUNT";
 const setUsersTotalCount = (totalUsersCount: number) => {
-    return {type: inferLiteralFromString(SET_TOTAL_USERS_COUNT), totalUsersCount}
+    return {type: inferStringLiteral(SET_TOTAL_USERS_COUNT), totalUsersCount}
 };
 
 const TOGGLE_IS_FOLLOWING_PROGRESS = "myApp/users-reducer/TOGGLE_IS_FOLLOWING_PROGRESS";
 const toggleIsFollowingProgerss = (isFetching: boolean, id: number) => {
-    return {type: inferLiteralFromString(TOGGLE_IS_FOLLOWING_PROGRESS), isFetching, id}
+    return {type: inferStringLiteral(TOGGLE_IS_FOLLOWING_PROGRESS), isFetching, id}
 };
 
 const NEED_UPDATE_FRIENDS = "myApp/users-reducer/NEED_UPDATE_FRIENDS";
 export const needUpdateFriendsAC = (needUpdateFriends: boolean) => {
-    return {type: inferLiteralFromString(NEED_UPDATE_FRIENDS), needUpdateFriends}
+    return {type: inferStringLiteral(NEED_UPDATE_FRIENDS), needUpdateFriends}
 };
 
 export const USERS_INITIAL_STATE = "myApp/users-reducer/USERS_INITIAL_STATE";
 export const usersInitialState = () => {
-    return {type: inferLiteralFromString(USERS_INITIAL_STATE)}
+    return {type: inferStringLiteral(USERS_INITIAL_STATE)}
 };
 
 const SET_ONLY_FRIENDS = "myApp/users-reducer/SET_ONLY_FRIENDS";// экшн отображения только моих друзей, или общий список
 export const setOnlyFriends = (onlyFriends: boolean) => { // экшн креатор отображения только моих друзей, или общий список
-    return {type: inferLiteralFromString(SET_ONLY_FRIENDS), onlyFriends}
+    return {type: inferStringLiteral(SET_ONLY_FRIENDS), onlyFriends}
 };
 
 
