@@ -1,12 +1,14 @@
 import {apiProfile} from "../components/api/api";
 import {dialogsInitialState, dialogsInitialStateType} from "./dialogs-reducer";
 import {profileInitialState, profileInitialStateActionType} from "./profile-reducer";
-import {usersInitialState, usersInitialStateActonType} from "./users-reducer";
+import {USERS_INITIAL_STATE, usersInitialState} from "./users-reducer";
 import {GlobalStateType} from "./store-redux";
 import {ThunkAction} from "redux-thunk";
 import {getProfileType} from "../components/api/apiTypes";
 import {ResultCodeEnum, ResultCodeEnumCaptcha} from "../components/api/enum";
 import {NulableType} from "../types/commonTypes";
+
+type usersInitialStateActonType = { type: typeof USERS_INITIAL_STATE }
 
 const SET_MY_DATA = "myApp/auth-reducer/SET_MY_DATA"; // константа для задания базовых данных моего профиля (ID, Email, login, isAuth)
 const AUTH_INITIAL_STATE = "myApp/auth-reducer/AUTH_INITIAL_STATE"; //константа зануления при логауте

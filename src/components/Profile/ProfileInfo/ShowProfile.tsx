@@ -18,12 +18,11 @@ const ShowProfile: React.FC<ShowProfileType> = ({profile, setEditMode, userId, m
     return (<div
             className={`${commonClasses.textMaxWidthCommon} ${commonClasses.textMaxWidth18rem}`}>
 
-
-            <h3 >{profile.fullName}</h3>
-            <div ><b>Обо мне</b>: {profile.aboutMe}</div>
-            <div><b>В поиске работы?</b> {profile.lookingForAJob ? "Да" : "Нет"}</div>
-            <div ><b>Описание:</b> {profile.lookingForAJobDescription}</div>
-            <div><b>userId:</b> {profile.userId}</div>
+            <h3 title={profile.fullName}>{profile.fullName}</h3>
+            <div ><b>Обо мне</b>: <span title={profile.aboutMe}> {profile.aboutMe}</span></div>
+            <div><b>В поиске работы?</b> <span title={profile.lookingForAJob ? "Да" : "Нет"}>{profile.lookingForAJob ? "Да" : "Нет"}</span></div>
+            <div ><b>Описание:</b> <span title={profile.lookingForAJobDescription}>{profile.lookingForAJobDescription}</span></div>
+            <div><b>userId:</b> <span title={profile.userId.toString()}>{profile.userId}</span> </div>
 
             <ul>
                 {profile && Object.keys(profile.contacts).map((key1, ind) => { // ключи contacts

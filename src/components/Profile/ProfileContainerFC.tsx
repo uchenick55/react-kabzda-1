@@ -44,7 +44,7 @@ const ProfileContainerFC:React.FC<ProfileContainerType> = (
 
     useEffect(()=>{
         getProfileThunkCreator(userId, false, 0 );// обновить профиль в зависомости от ID
-    },[])
+    },[getProfileThunkCreator, userId])
 
     return <Profile
         profile={profile} // профиль

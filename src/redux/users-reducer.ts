@@ -44,7 +44,7 @@ export const needUpdateFriendsAC = (needUpdateFriends: boolean) => {
     return {type: inferLiteralFromString(NEED_UPDATE_FRIENDS), needUpdateFriends}
 };
 
-const USERS_INITIAL_STATE = "myApp/users-reducer/USERS_INITIAL_STATE";
+export const USERS_INITIAL_STATE = "myApp/users-reducer/USERS_INITIAL_STATE";
 export const usersInitialState = () => {
     return {type: inferLiteralFromString(USERS_INITIAL_STATE)}
 };

@@ -90,6 +90,7 @@ let ProfileStatusUseReducer:React.FC<ProfileStatusUseReducerType> = ({status, us
         return <InputGroup className="my-3" onClick={onClickMethod}> {/*отступ и метод по клику*/}
             <InputGroup.Text id="basic-addon1">Статус:</InputGroup.Text> {/* текст слева от поля*/}
             <Form.Control
+                title={value}
                 onClick={onClickMethod}
                 value={value} // жестко зафиксировали значение поля ввода на временное значение статуса в локальном стейте
                 onChange={(e)=>onChangeStatus(e)} // задание временного локального статуса
