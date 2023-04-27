@@ -1,71 +1,54 @@
 import {apiProfile} from "../components/api/api";
-import {getAuthMeThunkCreator, setMyProfile, setMyProfileActionType} from "./auth-reducer";
+import {getAuthMeThunkCreator, SET_MY_PROFILE, setMyProfile} from "./auth-reducer";
 import {updateDialogListThunkCreator} from "./dialogs-reducer";
 import {NulableType, postsType, ProfileType} from "../types/commonTypes";
 import {ThunkAction} from "redux-thunk";
 import {GlobalStateType} from "./store-redux";
 import {getProfileType} from "../components/api/apiTypes";
 import {ResultCodeEnum} from "../components/api/enum";
+import {inferStringLiteral} from "./acLitirals";
+
+type setMyProfileActionType = { type: typeof SET_MY_PROFILE, myProfile: getProfileType }
 
 const SET_EDIT_PROFILE_ERROR = "myApp/auth-reducer/SET_EDIT_PROFILE_ERROR"; //константа задания ошибки правеки профиля
-
-type setEditProfileStatusActionType = { type: typeof SET_EDIT_PROFILE_ERROR, editProfileStatus: Array<string> }
-export const setEditProfileStatus = (editProfileStatus: Array<string>): setEditProfileStatusActionType => { // экшн креатор задания ошибки с сервера в стейт после правки профиля
-    return {type: SET_EDIT_PROFILE_ERROR, editProfileStatus}
+export const setEditProfileStatus = (editProfileStatus: Array<string>) => { // экшн креатор задания ошибки с сервера в стейт после правки профиля
+    return {type: inferStringLiteral( SET_EDIT_PROFILE_ERROR ), editProfileStatus}
 };
 
 const DELETE_POST = "myApp/profile-reducer/DELETE_POST";// константа удаления новых постов
-
-type deletePostActionCreatorActionType = { type: typeof DELETE_POST, postId: number }
-export const deletePostActionCreator = (postId: number): deletePostActionCreatorActionType => { // экшнкреатор удаления поста по postId
-    return {type: DELETE_POST, postId}
+export const deletePostActionCreator = (postId: number) => { // экшнкреатор удаления поста по postId
+    return {type: inferStringLiteral( DELETE_POST ), postId}
 };
 
 const ADD_POST = "myApp/profile-reducer/ADD-POST";// константа отправки новых постов
-
-type addPostActionCreatorActionType = { type: typeof ADD_POST, newPostData: string }
-export const addPostActionCreator = (newPostData: string): addPostActionCreatorActionType => { // экшнкреатор добавления поста
-    return {type: ADD_POST, newPostData}
+export const addPostActionCreator = (newPostData: string) => { // экшнкреатор добавления поста
+    return {type: inferStringLiteral( ADD_POST ), newPostData}
 };
 
 const SET_USER_PROFILE = "myApp/profile-reducer/SET_USER_PROFILE"; // константа задания в локальный стейт профиля просматриваемого пользователя
-
-type setUserProfileActionType = { type: typeof SET_USER_PROFILE, profile: getProfileType }
-const setUserProfile = (profile: getProfileType): setUserProfileActionType => { // экшнкреатор задания в локальный стейт профиля просматриваемого пользователя
-    return {type: SET_USER_PROFILE, profile}
+const setUserProfile = (profile: getProfileType) => { // экшнкреатор задания в локальный стейт профиля просматриваемого пользователя
+    return {type: inferStringLiteral( SET_USER_PROFILE ), profile}
 };
 
 const SET_STATUS = "myApp/profile-reducer/SET_STATUS" // константа задания моего статуса
-
-type setStatusActionType = { type: typeof SET_STATUS, newStatus: string }
-export const setStatus = (newStatus: string): setStatusActionType => { //экшнкреатор задания моего статуса (после API запроса)
-    return {type: SET_STATUS, newStatus}
+export const setStatus = (newStatus: string) => { //экшнкреатор задания моего статуса (после API запроса)
+    return {type: inferStringLiteral( SET_STATUS ), newStatus}
 };
 
-const PROFILE_INITIAL_STATE = "myApp/profile-reducer/PROFILE_INITIAL_STATE" // константа зануления при логауте
-
-export type profileInitialStateActionType = { type: typeof PROFILE_INITIAL_STATE }
-export const profileInitialState = (): profileInitialStateActionType => { //экшнкреатор зануления при логауте
-    return {type: PROFILE_INITIAL_STATE}
+export const PROFILE_INITIAL_STATE = "myApp/profile-reducer/PROFILE_INITIAL_STATE" // константа зануления при логауте
+export const profileInitialState = () => { //экшнкреатор зануления при логауте
+    return {type: inferStringLiteral( PROFILE_INITIAL_STATE )}
 };
 
 const SET_PROFILE_PHOTO = "myApp/profile-reducer/SET_PROFILE_PHOTO" // константа задания фото профиля
-
-type setProfilePhotoActionType = { type: typeof SET_PROFILE_PHOTO }
-export const setProfilePhoto = (): setProfilePhotoActionType => { //экшнкреатор задания фото профиля
-    return {type: SET_PROFILE_PHOTO}
+export const setProfilePhoto = () => { //экшнкреатор задания фото профиля
+    return {type: inferStringLiteral( SET_PROFILE_PHOTO )}
 };
 
 type ActionTypes =
-    setProfilePhotoActionType
-    | profileInitialStateActionType
-    | setStatusActionType
-    | setUserProfileActionType
-    |
-    addPostActionCreatorActionType
-    | deletePostActionCreatorActionType
-    | setEditProfileStatusActionType
-    | setMyProfileActionType
+    ReturnType<typeof setProfilePhoto> | ReturnType<typeof profileInitialState> | ReturnType<typeof setStatus> |
+    ReturnType<typeof setUserProfile> | ReturnType<typeof addPostActionCreator> |
+    ReturnType<typeof deletePostActionCreator> | ReturnType<typeof setEditProfileStatus> | setMyProfileActionType
 
 let initialState = {
     posts: [// заглушка постов на странице профиля
