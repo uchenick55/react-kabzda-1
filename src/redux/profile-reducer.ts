@@ -6,7 +6,7 @@ import {ThunkAction} from "redux-thunk";
 import {GlobalStateType} from "./store-redux";
 import {getProfileType} from "../components/api/apiTypes";
 import {ResultCodeEnum} from "../components/api/enum";
-import {inferStringLiteral} from "./acLitirals";
+import {inferStringLiteral} from "./inferLiteral";
 
 type setMyProfileActionType = { type: typeof SET_MY_PROFILE, myProfile: getProfileType }
 

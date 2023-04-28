@@ -1,3 +1,6 @@
+// взято из статьи https://habr.com/ru/companies/alfa/articles/452620/
+
+
 function inferLiteral<U, T extends U>(arg: T): T {
     return arg
 }

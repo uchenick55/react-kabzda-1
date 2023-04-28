@@ -4,58 +4,57 @@ import {GlobalStateType} from "./store-redux";
 import {Dispatch} from "redux";
 import {usersType} from "../components/api/apiTypes";
 import {ResultCodeEnum} from "../components/api/enum";
-import {inferStringLiteral} from "./acLitirals";
+import {inferStringLiteral} from "./inferLiteral";
 
 const SET_TERM = "myApp/users-reducer/SET_TERM";
-export const setTerm = (term: string) => {
-    return {type: inferStringLiteral(SET_TERM), term}
-};
-
 const SET_USERS = "myApp/users-reducer/SET_USERS";
-const setUsers = (users: Array<usersType>) => {
-    return {type: inferStringLiteral(SET_USERS), users}
-};
-
 const SET_CURRENT_PAGE = "myApp/users-reducer/SET_CURRENT_PAGE";
-export const setCurrentPage = (currentPage: number) => {
-    return {type: inferStringLiteral(SET_CURRENT_PAGE), currentPage}
-};
-
 const TOGGLE_IS_FETCHING = "myApp/users-reducer/TOGGLE_IS_FETCHING";
-const toggleIsFetching = (isFetching: boolean) => {
-    return {type: inferStringLiteral(TOGGLE_IS_FETCHING), isFetching}
-};
-
 const SET_TOTAL_USERS_COUNT = "myApp/users-reducer/SET_TOTAL_USERS_COUNT";
-const setUsersTotalCount = (totalUsersCount: number) => {
-    return {type: inferStringLiteral(SET_TOTAL_USERS_COUNT), totalUsersCount}
-};
-
 const TOGGLE_IS_FOLLOWING_PROGRESS = "myApp/users-reducer/TOGGLE_IS_FOLLOWING_PROGRESS";
-const toggleIsFollowingProgerss = (isFetching: boolean, id: number) => {
-    return {type: inferStringLiteral(TOGGLE_IS_FOLLOWING_PROGRESS), isFetching, id}
-};
-
 const NEED_UPDATE_FRIENDS = "myApp/users-reducer/NEED_UPDATE_FRIENDS";
-export const needUpdateFriendsAC = (needUpdateFriends: boolean) => {
-    return {type: inferStringLiteral(NEED_UPDATE_FRIENDS), needUpdateFriends}
-};
-
-export const USERS_INITIAL_STATE = "myApp/users-reducer/USERS_INITIAL_STATE";
-export const usersInitialState = () => {
-    return {type: inferStringLiteral(USERS_INITIAL_STATE)}
-};
-
 const SET_ONLY_FRIENDS = "myApp/users-reducer/SET_ONLY_FRIENDS";// экшн отображения только моих друзей, или общий список
-export const setOnlyFriends = (onlyFriends: boolean) => { // экшн креатор отображения только моих друзей, или общий список
-    return {type: inferStringLiteral(SET_ONLY_FRIENDS), onlyFriends}
-};
+export const USERS_INITIAL_STATE = "myApp/users-reducer/USERS_INITIAL_STATE";
+
+export const usersActions = {
+    setTerm: (term: string) => {
+        return {type: inferStringLiteral(SET_TERM), term}
+    },
+    setUsers: (users: Array<usersType>) => {
+        return {type: inferStringLiteral(SET_USERS), users}
+    },
+     setCurrentPage: (currentPage: number) => {
+        return {type: inferStringLiteral(SET_CURRENT_PAGE), currentPage}
+    },
+    toggleIsFetching: (isFetching: boolean) => {
+        return {type: inferStringLiteral(TOGGLE_IS_FETCHING), isFetching}
+    },
+    setUsersTotalCount: (totalUsersCount: number) => {
+        return {type: inferStringLiteral(SET_TOTAL_USERS_COUNT), totalUsersCount}
+    },
+    toggleIsFollowingProgerss: (isFetching: boolean, id: number) => {
+        return {type: inferStringLiteral(TOGGLE_IS_FOLLOWING_PROGRESS), isFetching, id}
+    },
+    needUpdateFriendsAC: (needUpdateFriends: boolean) => {
+        return {type: inferStringLiteral(NEED_UPDATE_FRIENDS), needUpdateFriends}
+    },
+    usersInitialState: () => {
+        return {type: inferStringLiteral(USERS_INITIAL_STATE)}
+    },
+    setOnlyFriends: (onlyFriends: boolean) => { // экшн креатор отображения только моих друзей, или общий список
+        return {type: inferStringLiteral(SET_ONLY_FRIENDS), onlyFriends}
+    }
+}
 
 
 type ActionTypes =
-    ReturnType<typeof setOnlyFriends> | ReturnType<typeof usersInitialState> | ReturnType<typeof needUpdateFriendsAC> |
-    ReturnType<typeof toggleIsFollowingProgerss> | ReturnType<typeof setUsersTotalCount> | ReturnType<typeof toggleIsFetching> |
-    ReturnType<typeof setCurrentPage> | ReturnType<typeof setUsers> | ReturnType<typeof setTerm>
+    ReturnType<typeof usersActions.setOnlyFriends> | ReturnType<typeof usersActions.usersInitialState> |
+    ReturnType<typeof usersActions.needUpdateFriendsAC> | ReturnType<typeof usersActions.toggleIsFollowingProgerss> |
+    ReturnType<typeof usersActions.setUsersTotalCount> | ReturnType<typeof usersActions.toggleIsFetching> |
+    ReturnType<typeof usersActions.setCurrentPage> | ReturnType<typeof usersActions.setUsers> |
+    ReturnType<typeof usersActions.setTerm>
+
+
 
 const initialState = {
     users: [] as Array<usersType>, // массив пользователей по умолчанию (пока пустой)
@@ -138,17 +137,17 @@ export const getUsersThunkCreator //санкреатор получить пол
     = (currentPage: number, pageSize: number, term: string, friend: boolean, userId: number): ThunkType => {
 
     return (dispatch, getState) => { // нонейм санка получить пользователей
-        dispatch( toggleIsFetching( true ) ) //показать крутилку загрузки с сервера
+        dispatch( usersActions.toggleIsFetching( true ) ) //показать крутилку загрузки с сервера
 
         apiUsers.getUsers( currentPage, pageSize, term, friend ) //получить пользователей по текущей странице и размере страницы
             .then( (data) => {
-                dispatch( toggleIsFetching( false ) )  //убрать крутилку загрузки с сервера
-                dispatch( setUsers( data.items ) )//записать в стейт закгруженный стек пользователей
-                dispatch( setUsersTotalCount( data.totalCount ) )//записать в стейт общее количество пользователей
+                dispatch( usersActions.toggleIsFetching( false ) )  //убрать крутилку загрузки с сервера
+                dispatch( usersActions.setUsers( data.items ) )//записать в стейт закгруженный стек пользователей
+                dispatch( usersActions.setUsersTotalCount( data.totalCount ) )//записать в стейт общее количество пользователей
 
                 if (userId) { // если добавление/удаление пользователя в избранное
-                    dispatch( needUpdateFriendsAC( true ) ) // обновить список избранного
-                    dispatch( toggleIsFollowingProgerss( false, userId ) )//убрать ID кнопки пользователя из массива followingInProgress, кнопка раздизаблена
+                    dispatch( usersActions.needUpdateFriendsAC( true ) ) // обновить список избранного
+                    dispatch( usersActions.toggleIsFollowingProgerss( false, userId ) )//убрать ID кнопки пользователя из массива followingInProgress, кнопка раздизаблена
                 }
             } )
     }
@@ -170,7 +169,7 @@ const _followUnfollowFlow = ( // общий метод для санкреате
     term: string,
     friend: boolean
 ) => {
-    dispatch( toggleIsFollowingProgerss( true, userId ) )//внести ID кнопки пользователя в массив followingInProgress от повторного нажатия
+    dispatch( usersActions.toggleIsFollowingProgerss( true, userId ) )//внести ID кнопки пользователя в массив followingInProgress от повторного нажатия
     apiMethod( userId )// подписаться на пользователя // diff apiMethod = postFollow
         .then( (response: responseType) => {
             if (response.resultCode === ResultCodeEnum.Success) {

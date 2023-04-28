@@ -2,7 +2,7 @@ import {apiDialogs} from "../components/api/apiLocalStorage";
 import {GlobalStateType} from "./store-redux";
 import {ThunkAction} from "redux-thunk";
 import {dialogs2Type, messages2Type, NulableType} from "../types/commonTypes";
-import {inferStringLiteral} from "./acLitirals";
+import {inferStringLiteral} from "./inferLiteral";
 
 export const DIALOGS_INITIAL_STATE = "myApp/dialogs-reducer/DIALOGS_INITIAL_STATE";  //константа зануления при логауте
 const SET_MESSAGES = "myApp/dialogs-reducer/SET_MESSAGES";  //константа задания списка сообщений в стейт

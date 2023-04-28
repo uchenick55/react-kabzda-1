@@ -7,7 +7,7 @@ import Image from "react-bootstrap/Image";
 import {NavLink} from "react-router-dom";
 import {messages2Type, NulableType} from "../../../types/commonTypes";
 import {getProfileType} from "../../api/apiTypes";
-import UsersContainer from "../../users/UsersContainer";
+import UsersContainer from "../../users/UsersContainerFC";
 
 type MessagesRenderType = {
     messages2: NulableType<Array<messages2Type>>, // массив сообщений текущего диалога

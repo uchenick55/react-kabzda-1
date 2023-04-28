@@ -2,7 +2,7 @@ import {postFeedBack22} from "../components/api/api";
 import {apiFeedBackDataType} from "../types/commonTypes";
 import {Dispatch} from "redux";
 import {GlobalStateType} from "./store-redux";
-import {inferStringLiteral} from "./acLitirals";
+import {inferStringLiteral} from "./inferLiteral";
 
 const SET_FEED_BACK_STATUS = "myApp/feedback-reducer/SET_FEED_BACK_STATUS"; // константа для задания статуса feedback
 export const setFeedBackStatus = (feedBackStatus:string) => { // экшн креатор задания feedBackStatus

@@ -1,7 +1,7 @@
 import {apiCommon} from "../components/api/apiLocalStorage";
 import {Dispatch} from "redux";
 import {GlobalStateType} from "./store-redux";
-import {inferStringLiteral} from "./acLitirals";
+import {inferStringLiteral} from "./inferLiteral";
 
 const SET_THEME = "myApp/dark-light-reducer/SET_THEME"; //константа задания темы
 

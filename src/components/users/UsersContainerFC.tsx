@@ -2,12 +2,7 @@ import {usersType} from "../api/apiTypes";
 import {GlobalStateType} from "../../redux/store-redux";
 import {getUsersReselect, usersSelectorsSimple} from "./users-selectors";
 import {connect} from "react-redux";
-import {
-    followThunkCreator,
-    getUsersThunkCreator,
-    setCurrentPage, setOnlyFriends, setTerm,
-    unfollowThunkCreator
-} from "../../redux/users-reducer";
+import {followThunkCreator, getUsersThunkCreator, unfollowThunkCreator, usersActions} from "../../redux/users-reducer";
 import React, {ChangeEvent, useEffect, useState} from "react";
 import Preloader from "../common/Preloader/Preloader";
 import UsersBS from "./UsersBS1";
@@ -129,6 +124,10 @@ type mapDispatchToPropsType = {
     setTerm: (term: string) => void,
     setOnlyFriends: (onlyFriends: boolean) => void
 }
+//const [getUsersThunkCreator,  setCurrentPage, setOnlyFriends, setTerm] = usersActions
+const setCurrentPage = usersActions.setCurrentPage
+const setOnlyFriends = usersActions.setOnlyFriends
+const setTerm = usersActions.setTerm
 export default connect<mapStateToPropsType,
     mapDispatchToPropsType,
     unknown,
