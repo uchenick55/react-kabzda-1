@@ -1,25 +1,23 @@
 import {postFeedBack22} from "../components/api/api";
 import {apiFeedBackDataType} from "../types/commonTypes";
 import {Dispatch} from "redux";
-import {GlobalStateType} from "./store-redux";
-import {inferStringLiteral} from "./inferLiteral";
+import {GlobalStateType, InferActionsTypes} from "./store-redux";
+import {ProfileActions} from "./profile-reducer";
 
 const SET_FEED_BACK_STATUS = "myApp/feedback-reducer/SET_FEED_BACK_STATUS"; // константа для задания статуса feedback
 
 export const FeedBackActions = {
   setFeedBackStatus: (feedBackStatus:string) => { // экшн креатор задания feedBackStatus
-    return {type: inferStringLiteral(SET_FEED_BACK_STATUS), feedBackStatus}
+    return {type: SET_FEED_BACK_STATUS, feedBackStatus} as const
   }
 }
-
-
 
 type initialStateType = { feedBackStatus: string }
 let initialState:initialStateType = { //стейт по умолчанию темы
   feedBackStatus: "" // статус отправки сообщения (feedBack) - если не нулевой отображается вместо формы сообщения
 }
 
-type ActionTypes = ReturnType<typeof FeedBackActions.setFeedBackStatus>
+type ActionTypes = InferActionsTypes<typeof FeedBackActions>
 
 let feedBackReducer = (state:initialStateType = initialState, action:ActionTypes):initialStateType => {//редьюсер отправки сообщения
   let stateCopy:initialStateType; // объявлениечасти части стейта до изменения редьюсером

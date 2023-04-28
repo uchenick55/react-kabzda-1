@@ -1,10 +1,9 @@
 import {apiUsers} from "../components/api/api";
 import {ThunkAction} from "redux-thunk";
-import {GlobalStateType} from "./store-redux";
+import {GlobalStateType, InferActionsTypes} from "./store-redux";
 import {Dispatch} from "redux";
 import {usersType} from "../components/api/apiTypes";
 import {ResultCodeEnum} from "../components/api/enum";
-import {inferStringLiteral} from "./inferLiteral";
 
 const SET_TERM = "myApp/users-reducer/SET_TERM";
 const SET_USERS = "myApp/users-reducer/SET_USERS";
@@ -18,42 +17,36 @@ export const USERS_INITIAL_STATE = "myApp/users-reducer/USERS_INITIAL_STATE";
 
 export const UsersActions = {
     setTerm: (term: string) => {
-        return {type: inferStringLiteral(SET_TERM), term}
+        return {type: SET_TERM, term} as const
     },
     setUsers: (users: Array<usersType>) => {
-        return {type: inferStringLiteral(SET_USERS), users}
+        return {type: SET_USERS, users} as const
     },
      setCurrentPage: (currentPage: number) => {
-        return {type: inferStringLiteral(SET_CURRENT_PAGE), currentPage}
+        return {type: SET_CURRENT_PAGE, currentPage} as const
     },
     toggleIsFetching: (isFetching: boolean) => {
-        return {type: inferStringLiteral(TOGGLE_IS_FETCHING), isFetching}
+        return {type: TOGGLE_IS_FETCHING, isFetching} as const
     },
     setUsersTotalCount: (totalUsersCount: number) => {
-        return {type: inferStringLiteral(SET_TOTAL_USERS_COUNT), totalUsersCount}
+        return {type: SET_TOTAL_USERS_COUNT, totalUsersCount} as const
     },
     toggleIsFollowingProgerss: (isFetching: boolean, id: number) => {
-        return {type: inferStringLiteral(TOGGLE_IS_FOLLOWING_PROGRESS), isFetching, id}
+        return {type: TOGGLE_IS_FOLLOWING_PROGRESS, isFetching, id} as const
     },
     needUpdateFriendsAC: (needUpdateFriends: boolean) => {
-        return {type: inferStringLiteral(NEED_UPDATE_FRIENDS), needUpdateFriends}
+        return {type: NEED_UPDATE_FRIENDS, needUpdateFriends} as const
     },
     usersInitialState: () => {
-        return {type: inferStringLiteral(USERS_INITIAL_STATE)}
+        return {type: USERS_INITIAL_STATE} as const
     },
     setOnlyFriends: (onlyFriends: boolean) => { // экшн креатор отображения только моих друзей, или общий список
-        return {type: inferStringLiteral(SET_ONLY_FRIENDS), onlyFriends}
-    }
+        return {type: SET_ONLY_FRIENDS, onlyFriends} as const
+    },
 }
 
 
-type ActionTypes =
-    ReturnType<typeof UsersActions.setOnlyFriends> | ReturnType<typeof UsersActions.usersInitialState> |
-    ReturnType<typeof UsersActions.needUpdateFriendsAC> | ReturnType<typeof UsersActions.toggleIsFollowingProgerss> |
-    ReturnType<typeof UsersActions.setUsersTotalCount> | ReturnType<typeof UsersActions.toggleIsFetching> |
-    ReturnType<typeof UsersActions.setCurrentPage> | ReturnType<typeof UsersActions.setUsers> |
-    ReturnType<typeof UsersActions.setTerm>
-
+type ActionTypes = InferActionsTypes<typeof UsersActions>
 
 
 const initialState = {

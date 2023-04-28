@@ -2,20 +2,18 @@ import {apiProfile} from "../components/api/api";
 import {DIALOGS_INITIAL_STATE, DialogsActions} from "./dialogs-reducer";
 import {PROFILE_INITIAL_STATE, ProfileActions} from "./profile-reducer";
 import {USERS_INITIAL_STATE, UsersActions} from "./users-reducer";
-import {GlobalStateType} from "./store-redux";
+import {GlobalStateType, InferActionsTypes} from "./store-redux";
 import {ThunkAction} from "redux-thunk";
 import {getProfileType} from "../components/api/apiTypes";
 import {ResultCodeEnum, ResultCodeEnumCaptcha} from "../components/api/enum";
 import {NulableType} from "../types/commonTypes";
-import {inferStringLiteral} from "./inferLiteral";
 
 const {usersInitialState} = UsersActions
 
 const {dialogsInitialState} = DialogsActions
 
-//const profileInitialState = ProfileActions.profileInitialState //выдает  ошибку reference Error
 const profileInitialState = () => { //экшнкреатор зануления при логауте
-    return {type: inferStringLiteral( PROFILE_INITIAL_STATE )}
+    return {type: PROFILE_INITIAL_STATE } as const // as const заменяет конструкцию по получению литерала строки из строки
 }
 
 type dialogsInitialStateType = { type: typeof DIALOGS_INITIAL_STATE }
@@ -38,30 +36,27 @@ type setAuthDataActionType = {
 
 export const AuthActions = {
     setMyProfile: (myProfile: getProfileType) => { // экшн креатор задания расширенных данных моего профиля
-        return {type: inferStringLiteral( SET_MY_PROFILE ), myProfile}
+        return {type: SET_MY_PROFILE, myProfile} as const
     },
 
     setAuthData: (id: number, email: string, login: string, isAuth: boolean): setAuthDataActionType => {
-        return {type: inferStringLiteral( SET_MY_DATA ), id, email, login, isAuth}
+        return {type:  SET_MY_DATA , id, email, login, isAuth} as const
     },
 
     authInitialState: () => { // экшн креатор зануления при логауте
-        return {type: inferStringLiteral( AUTH_INITIAL_STATE )}
+        return {type:  AUTH_INITIAL_STATE } as const
     },
 
     setCaptchaURL: (captchaURL: string) => { // экшн креатор задания URL каптчи ответа от сервера
-        return {type: inferStringLiteral( SET_CAPTCHA_URL ), captchaURL}
+        return {type: SET_CAPTCHA_URL, captchaURL} as const
     },
 
     setLoginError: (loginError: string) => { // экшн креатор задания ошибки с сервера
-        return {type: inferStringLiteral( SET_LOGIN_ERROR), loginError}
+        return {type:  SET_LOGIN_ERROR, loginError} as const
     }
 }
 
-type ActionTypes =
-    ReturnType<typeof AuthActions.setMyProfile> | ReturnType<typeof AuthActions.setAuthData> |
-    ReturnType<typeof AuthActions.authInitialState> | ReturnType<typeof AuthActions.setCaptchaURL> |
-    ReturnType<typeof AuthActions.setLoginError> | setAuthDataActionType | dialogsInitialStateType |
+type ActionTypes = InferActionsTypes<typeof AuthActions> | setAuthDataActionType | dialogsInitialStateType |
     profileInitialStateActionType | usersInitialStateActonType
 
 let initialState = { // стейт по умолчанию для моего профиля

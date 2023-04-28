@@ -1,8 +1,7 @@
 import {apiDialogs} from "../components/api/apiLocalStorage";
-import {GlobalStateType} from "./store-redux";
+import {GlobalStateType, InferActionsTypes} from "./store-redux";
 import {ThunkAction} from "redux-thunk";
 import {dialogs2Type, messages2Type, NulableType} from "../types/commonTypes";
-import {inferStringLiteral} from "./inferLiteral";
 
 export const DIALOGS_INITIAL_STATE = "myApp/dialogs-reducer/DIALOGS_INITIAL_STATE";  //константа зануления при логауте
 const SET_MESSAGES = "myApp/dialogs-reducer/SET_MESSAGES";  //константа задания списка сообщений в стейт
@@ -13,38 +12,32 @@ const GET_MY_DIALOG_LIST = "myApp/dialogs-reducer/GET_MY_DIALOG_LIST"; //кон�
 
 export const DialogsActions = {
     dialogsInitialState: () => { // экшнкреатор зануления при логауте
-        return {type: inferStringLiteral( DIALOGS_INITIAL_STATE )}
+        return {type: DIALOGS_INITIAL_STATE} as const
     },
 
     setMessages: (updatedMessages: Array<messages2Type>) => { // экшнкреатор задания списка сообщений в стейт messages2
-        return {type: inferStringLiteral( SET_MESSAGES ), updatedMessages}
+        return {type: SET_MESSAGES, updatedMessages} as const
     },
 
     setdialogUserID: (dialogUserID: number) => { // экшнкреатор задания списка сообщений в стейт messages2
-        return {type: inferStringLiteral( DIALOG_USER_ID ), dialogUserID}
+        return {type: DIALOG_USER_ID, dialogUserID} as const
     },
 
     setDialogLastUpdateTime: (dialogLastUpdateTime: string) => { // экшнкреатор задания последнего времени обновления текущего диалога
-        return {type: inferStringLiteral( DIALOG_LAST_UPDATE_TIME ), dialogLastUpdateTime}
+        return {type: DIALOG_LAST_UPDATE_TIME, dialogLastUpdateTime} as const
     },
 
     setDialogUserFollowed: (dialogUserFollowed: boolean) => { // экшнкреатор задания последнего времени обновления текущего диалога
-        return {type: inferStringLiteral( DIALOG_USER_FOLLOWED ), dialogUserFollowed}
+        return {type: DIALOG_USER_FOLLOWED, dialogUserFollowed} as const
     },
 
     getMyDialogList: (myDialogList: Array<dialogs2Type>) => { // экшнкреатор задания моего диалогЛиста для вывода
-        return {type: inferStringLiteral( GET_MY_DIALOG_LIST ), myDialogList}
+        return {type: GET_MY_DIALOG_LIST, myDialogList} as const
     }
 
 }
 
-type ActionTypes =
-      ReturnType<typeof DialogsActions.dialogsInitialState>
-    | ReturnType<typeof DialogsActions.setMessages>
-    | ReturnType<typeof DialogsActions.setdialogUserID>
-    | ReturnType<typeof DialogsActions.setDialogLastUpdateTime>
-    | ReturnType<typeof DialogsActions.setDialogUserFollowed>
-    | ReturnType<typeof DialogsActions.getMyDialogList>
+type ActionTypes = InferActionsTypes<typeof DialogsActions>
 
 let initialState = { // стейт сообщений по умолчанию
     messages2: null as NulableType<Array<messages2Type>>, // сообщения по умолчанию нулевые, но могут быть еще и Array<messages2Type>

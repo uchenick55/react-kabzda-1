@@ -1,18 +1,17 @@
 import {apiCommon} from "../components/api/apiLocalStorage";
 import {Dispatch} from "redux";
-import {GlobalStateType} from "./store-redux";
-import {inferStringLiteral} from "./inferLiteral";
+import {GlobalStateType, InferActionsTypes} from "./store-redux";
 
 const SET_THEME = "myApp/dark-light-reducer/SET_THEME"; //константа задания темы
 
 export const ThemeActions = {
   setTheme: (themeUpdate:"light" | "dark") => { // экшн задания темы
-    return {type: inferStringLiteral(SET_THEME), themeUpdate }
+    return {type: SET_THEME, themeUpdate } as const
   }
 }
 
 
-type ActionTypes =  ReturnType<typeof ThemeActions.setTheme>
+type ActionTypes =  InferActionsTypes<typeof ThemeActions>
 
 let initialState = { //стейт по умолчанию темы
   themeBLL: "light" as "light" | "dark", // тема в bll по умолчанию

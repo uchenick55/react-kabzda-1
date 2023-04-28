@@ -1,8 +1,8 @@
 import {getAuthMeThunkCreator} from "./auth-reducer";
 import {getThemeThunkCreator} from "./theme-reducer";
-import {GlobalStateType} from "./store-redux";
+import {GlobalStateType, InferActionsTypes} from "./store-redux";
 import {ThunkAction} from "redux-thunk";
-import {inferStringLiteral} from "./inferLiteral";
+import {ProfileActions} from "./profile-reducer";
 
 const SET_INITIALISED_APP = "myApp/app-reducer/SET_INITIALISED_APP"; //константа инициализации приложения
 const APP_INITIAL_STATE = "myApp/app-reducer/APP_INITIAL_STATE"; //константа зануления при логауте
@@ -11,26 +11,23 @@ const SET_PAGE_WIDTH = "myApp/app-reducer/SET_PAGE_WIDTH"; //константа 
 
 export const AppActions = {
     setInitialisedApp: () => { // экшн креатор  инициализации приложения
-        return {type: inferStringLiteral( SET_INITIALISED_APP )}
+        return {type: SET_INITIALISED_APP} as const
     },
 
     appInitialState: () => { // экшн зануления при логауте
-        return {type: inferStringLiteral( APP_INITIAL_STATE )}
+        return {type: APP_INITIAL_STATE} as const
     },
 
     setPatch: (patch: string) => { // экшн зануления при логауте
-        return {type: inferStringLiteral( SET_PATCH ), patch}
+        return {type: SET_PATCH, patch} as const
     },
 
     setPageWidth: (PageWidth: number) => { // экшн записи ширины экрана
-        return {type: inferStringLiteral( SET_PAGE_WIDTH ), PageWidth}
+        return {type: SET_PAGE_WIDTH, PageWidth} as const
     }
-
 }
 
-type ActionTypes =
-    ReturnType<typeof AppActions.setInitialisedApp> | ReturnType<typeof AppActions.appInitialState> |
-    ReturnType<typeof AppActions.setPatch> |    ReturnType<typeof AppActions.setPageWidth>
+type ActionTypes = InferActionsTypes<typeof AppActions>
 
 type initialStateType = typeof initialState
 

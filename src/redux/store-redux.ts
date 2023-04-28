@@ -30,6 +30,10 @@ const store = createStore(reducers, composeEnhancers(
 type reducersType = typeof reducers
 export type GlobalStateType = ReturnType<reducersType> // глобальный тип стейта
 
+//Конструкция, позволяющая автоматически получать общий тип, основываясь на объекте из ActionCreator для каждого редьюсера
+type PropertiesTypes<T> = T extends {[ket: string]:infer U} ? U :never
+export type InferActionsTypes<T extends {[key: string]: (...args:any[])=>any}> = ReturnType<PropertiesTypes<T>>
+
 // @ts-ignore
 window.store = store; // возможность смотреть стор через консоль
 
