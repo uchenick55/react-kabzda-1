@@ -5,16 +5,21 @@ import {GlobalStateType} from "./store-redux";
 import {inferStringLiteral} from "./inferLiteral";
 
 const SET_FEED_BACK_STATUS = "myApp/feedback-reducer/SET_FEED_BACK_STATUS"; // константа для задания статуса feedback
-export const setFeedBackStatus = (feedBackStatus:string) => { // экшн креатор задания feedBackStatus
-  return {type: inferStringLiteral(SET_FEED_BACK_STATUS), feedBackStatus}
-};
+
+export const FeedBackActions = {
+  setFeedBackStatus: (feedBackStatus:string) => { // экшн креатор задания feedBackStatus
+    return {type: inferStringLiteral(SET_FEED_BACK_STATUS), feedBackStatus}
+  }
+}
+
+
 
 type initialStateType = { feedBackStatus: string }
 let initialState:initialStateType = { //стейт по умолчанию темы
   feedBackStatus: "" // статус отправки сообщения (feedBack) - если не нулевой отображается вместо формы сообщения
 }
 
-type ActionTypes = ReturnType<typeof setFeedBackStatus>
+type ActionTypes = ReturnType<typeof FeedBackActions.setFeedBackStatus>
 
 let feedBackReducer = (state:initialStateType = initialState, action:ActionTypes):initialStateType => {//редьюсер отправки сообщения
   let stateCopy:initialStateType; // объявлениечасти части стейта до изменения редьюсером
@@ -33,8 +38,8 @@ let feedBackReducer = (state:initialStateType = initialState, action:ActionTypes
 export const postFeedBackThunkCreator2 = (data:apiFeedBackDataType) => {// санкреатор отправки фидбека
   return async (dispatch:Dispatch<ActionTypes>, getState: () => GlobalStateType) => { // санка отправки фидбека
     await postFeedBack22(data) //
-        .then(() => dispatch(setFeedBackStatus("Скоро мы получим ваше письмо")))// статсус задать в BLL "Скоро мы получим ваше письмо"
-        .catch((err:object) => dispatch(setFeedBackStatus((err.toString()))));// в статус записать ошибку с сервера и задать в BLL
+        .then(() => dispatch(FeedBackActions.setFeedBackStatus("Скоро мы получим ваше письмо")))// статсус задать в BLL "Скоро мы получим ваше письмо"
+        .catch((err:object) => dispatch(FeedBackActions.setFeedBackStatus((err.toString()))));// в статус записать ошибку с сервера и задать в BLL
   };
 }
 

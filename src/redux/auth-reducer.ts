@@ -1,5 +1,5 @@
 import {apiProfile} from "../components/api/api";
-import {DIALOGS_INITIAL_STATE, dialogsInitialState} from "./dialogs-reducer";
+import {DIALOGS_INITIAL_STATE, DialogsActions} from "./dialogs-reducer";
 import {PROFILE_INITIAL_STATE, ProfileActions} from "./profile-reducer";
 import {USERS_INITIAL_STATE, UsersActions} from "./users-reducer";
 import {GlobalStateType} from "./store-redux";
@@ -10,6 +10,8 @@ import {NulableType} from "../types/commonTypes";
 import {inferStringLiteral} from "./inferLiteral";
 
 const usersInitialState = UsersActions.usersInitialState
+
+const dialogsInitialState = DialogsActions.dialogsInitialState
 
 //const profileInitialState = ProfileActions.profileInitialState //выдает  ошибку reference Error
 const profileInitialState = () => { //экшнкреатор зануления при логауте

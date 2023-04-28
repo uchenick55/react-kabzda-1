@@ -4,8 +4,7 @@ import {
     deleteDialogThunkCreator,
     getDialogLastUpdateTimeTnkCrt,
     getDialogsThunkCreator, getMyDialogListThunkCreator,//getFollowThunkCreator,
-    setdialogUserID,
-    setMessages
+    DialogsActions,
 } from "../../redux/dialogs-reducer";
 import {connect} from "react-redux";
 import {compose} from "redux";
@@ -14,6 +13,10 @@ import NavigateToLoginHoc2 from "../hoc/NavigateToLoginHoc2";
 import withRouter2 from "../hoc/withRouter2";
 import {messages2Type, NulableType} from "../../types/commonTypes";
 import {GlobalStateType} from "../../redux/store-redux";
+
+const setdialogUserID = DialogsActions.setdialogUserID
+const setMessages = DialogsActions.setMessages
+
 
 type DialogListContainerPropsType = {
     myId: number, // мой ID (авторизованного пользователя)
