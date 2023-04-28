@@ -16,7 +16,7 @@ const NEED_UPDATE_FRIENDS = "myApp/users-reducer/NEED_UPDATE_FRIENDS";
 const SET_ONLY_FRIENDS = "myApp/users-reducer/SET_ONLY_FRIENDS";// экшн отображения только моих друзей, или общий список
 export const USERS_INITIAL_STATE = "myApp/users-reducer/USERS_INITIAL_STATE";
 
-export const usersActions = {
+export const UsersActions = {
     setTerm: (term: string) => {
         return {type: inferStringLiteral(SET_TERM), term}
     },
@@ -48,11 +48,11 @@ export const usersActions = {
 
 
 type ActionTypes =
-    ReturnType<typeof usersActions.setOnlyFriends> | ReturnType<typeof usersActions.usersInitialState> |
-    ReturnType<typeof usersActions.needUpdateFriendsAC> | ReturnType<typeof usersActions.toggleIsFollowingProgerss> |
-    ReturnType<typeof usersActions.setUsersTotalCount> | ReturnType<typeof usersActions.toggleIsFetching> |
-    ReturnType<typeof usersActions.setCurrentPage> | ReturnType<typeof usersActions.setUsers> |
-    ReturnType<typeof usersActions.setTerm>
+    ReturnType<typeof UsersActions.setOnlyFriends> | ReturnType<typeof UsersActions.usersInitialState> |
+    ReturnType<typeof UsersActions.needUpdateFriendsAC> | ReturnType<typeof UsersActions.toggleIsFollowingProgerss> |
+    ReturnType<typeof UsersActions.setUsersTotalCount> | ReturnType<typeof UsersActions.toggleIsFetching> |
+    ReturnType<typeof UsersActions.setCurrentPage> | ReturnType<typeof UsersActions.setUsers> |
+    ReturnType<typeof UsersActions.setTerm>
 
 
 
@@ -137,17 +137,17 @@ export const getUsersThunkCreator //санкреатор получить пол
     = (currentPage: number, pageSize: number, term: string, friend: boolean, userId: number): ThunkType => {
 
     return (dispatch, getState) => { // нонейм санка получить пользователей
-        dispatch( usersActions.toggleIsFetching( true ) ) //показать крутилку загрузки с сервера
+        dispatch( UsersActions.toggleIsFetching( true ) ) //показать крутилку загрузки с сервера
 
         apiUsers.getUsers( currentPage, pageSize, term, friend ) //получить пользователей по текущей странице и размере страницы
             .then( (data) => {
-                dispatch( usersActions.toggleIsFetching( false ) )  //убрать крутилку загрузки с сервера
-                dispatch( usersActions.setUsers( data.items ) )//записать в стейт закгруженный стек пользователей
-                dispatch( usersActions.setUsersTotalCount( data.totalCount ) )//записать в стейт общее количество пользователей
+                dispatch( UsersActions.toggleIsFetching( false ) )  //убрать крутилку загрузки с сервера
+                dispatch( UsersActions.setUsers( data.items ) )//записать в стейт закгруженный стек пользователей
+                dispatch( UsersActions.setUsersTotalCount( data.totalCount ) )//записать в стейт общее количество пользователей
 
                 if (userId) { // если добавление/удаление пользователя в избранное
-                    dispatch( usersActions.needUpdateFriendsAC( true ) ) // обновить список избранного
-                    dispatch( usersActions.toggleIsFollowingProgerss( false, userId ) )//убрать ID кнопки пользователя из массива followingInProgress, кнопка раздизаблена
+                    dispatch( UsersActions.needUpdateFriendsAC( true ) ) // обновить список избранного
+                    dispatch( UsersActions.toggleIsFollowingProgerss( false, userId ) )//убрать ID кнопки пользователя из массива followingInProgress, кнопка раздизаблена
                 }
             } )
     }
@@ -169,7 +169,7 @@ const _followUnfollowFlow = ( // общий метод для санкреате
     term: string,
     friend: boolean
 ) => {
-    dispatch( usersActions.toggleIsFollowingProgerss( true, userId ) )//внести ID кнопки пользователя в массив followingInProgress от повторного нажатия
+    dispatch( UsersActions.toggleIsFollowingProgerss( true, userId ) )//внести ID кнопки пользователя в массив followingInProgress от повторного нажатия
     apiMethod( userId )// подписаться на пользователя // diff apiMethod = postFollow
         .then( (response: responseType) => {
             if (response.resultCode === ResultCodeEnum.Success) {

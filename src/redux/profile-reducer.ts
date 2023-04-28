@@ -11,36 +11,41 @@ import {inferStringLiteral} from "./inferLiteral";
 type setMyProfileActionType = { type: typeof SET_MY_PROFILE, myProfile: getProfileType }
 
 const SET_EDIT_PROFILE_ERROR = "myApp/auth-reducer/SET_EDIT_PROFILE_ERROR"; //константа задания ошибки правеки профиля
+const DELETE_POST = "myApp/profile-reducer/DELETE_POST";// константа удаления новых постов
+const ADD_POST = "myApp/profile-reducer/ADD-POST";// константа отправки новых постов
+const SET_USER_PROFILE = "myApp/profile-reducer/SET_USER_PROFILE"; // константа задания в локальный стейт профиля просматриваемого пользователя
+const SET_STATUS = "myApp/profile-reducer/SET_STATUS" // константа задания моего статуса
+export const PROFILE_INITIAL_STATE = "myApp/profile-reducer/PROFILE_INITIAL_STATE" // константа зануления при логауте
+const SET_PROFILE_PHOTO = "myApp/profile-reducer/SET_PROFILE_PHOTO" // константа задания фото профиля
+
+const ProfileActions = {
+
+}
+
 export const setEditProfileStatus = (editProfileStatus: Array<string>) => { // экшн креатор задания ошибки с сервера в стейт после правки профиля
     return {type: inferStringLiteral( SET_EDIT_PROFILE_ERROR ), editProfileStatus}
 };
 
-const DELETE_POST = "myApp/profile-reducer/DELETE_POST";// константа удаления новых постов
 export const deletePostActionCreator = (postId: number) => { // экшнкреатор удаления поста по postId
     return {type: inferStringLiteral( DELETE_POST ), postId}
 };
 
-const ADD_POST = "myApp/profile-reducer/ADD-POST";// константа отправки новых постов
 export const addPostActionCreator = (newPostData: string) => { // экшнкреатор добавления поста
     return {type: inferStringLiteral( ADD_POST ), newPostData}
 };
 
-const SET_USER_PROFILE = "myApp/profile-reducer/SET_USER_PROFILE"; // константа задания в локальный стейт профиля просматриваемого пользователя
 const setUserProfile = (profile: getProfileType) => { // экшнкреатор задания в локальный стейт профиля просматриваемого пользователя
     return {type: inferStringLiteral( SET_USER_PROFILE ), profile}
 };
 
-const SET_STATUS = "myApp/profile-reducer/SET_STATUS" // константа задания моего статуса
 export const setStatus = (newStatus: string) => { //экшнкреатор задания моего статуса (после API запроса)
     return {type: inferStringLiteral( SET_STATUS ), newStatus}
 };
 
-export const PROFILE_INITIAL_STATE = "myApp/profile-reducer/PROFILE_INITIAL_STATE" // константа зануления при логауте
 export const profileInitialState = () => { //экшнкреатор зануления при логауте
     return {type: inferStringLiteral( PROFILE_INITIAL_STATE )}
 };
 
-const SET_PROFILE_PHOTO = "myApp/profile-reducer/SET_PROFILE_PHOTO" // константа задания фото профиля
 export const setProfilePhoto = () => { //экшнкреатор задания фото профиля
     return {type: inferStringLiteral( SET_PROFILE_PHOTO )}
 };

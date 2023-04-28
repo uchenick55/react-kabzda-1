@@ -5,11 +5,14 @@ import {inferStringLiteral} from "./inferLiteral";
 
 const SET_THEME = "myApp/dark-light-reducer/SET_THEME"; //константа задания темы
 
-export const setTheme = (themeUpdate:"light" | "dark") => { // экшн задания темы
-  return {type: inferStringLiteral(SET_THEME), themeUpdate }
-};
+export const ThemeActions = {
+  setTheme: (themeUpdate:"light" | "dark") => { // экшн задания темы
+    return {type: inferStringLiteral(SET_THEME), themeUpdate }
+  }
+}
 
-type ActionTypes =  ReturnType<typeof setTheme>
+
+type ActionTypes =  ReturnType<typeof ThemeActions.setTheme>
 
 let initialState = { //стейт по умолчанию темы
   themeBLL: "light" as "light" | "dark", // тема в bll по умолчанию
@@ -34,7 +37,7 @@ export const setThemeThunkCreator = (theme1:"light" | "dark") => {//санкре
   return async (dispatch:Dispatch<ActionTypes>, getState: () => GlobalStateType) => { // санка задания темы в LocalStorage
     const response1 = await apiCommon.putTheme1(theme1)  //записать значение темы в localStorage
     if (response1) {
-      dispatch(setTheme(response1))  //записать считаное из localStorage значение темы в store
+      dispatch(ThemeActions.setTheme(response1))  //записать считаное из localStorage значение темы в store
     }
 
   }
@@ -43,7 +46,7 @@ export const getThemeThunkCreator = () => {//санкреатор получен
   const getThemeThunk = async (dispatch:Dispatch<ActionTypes>, getState: () => GlobalStateType) => { // санка получения темы из LocalStorage
     const response1 = await apiCommon.getTheme1()  //получить значение темы из localStorage
     if (response1) {
-      dispatch(setTheme(response1))  //записать считаное из localStorage значение темы в store
+      dispatch(ThemeActions.setTheme(response1))  //записать считаное из localStorage значение темы в store
     }
 
   }

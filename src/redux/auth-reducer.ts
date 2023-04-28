@@ -1,7 +1,7 @@
 import {apiProfile} from "../components/api/api";
 import {DIALOGS_INITIAL_STATE, dialogsInitialState} from "./dialogs-reducer";
 import {PROFILE_INITIAL_STATE, profileInitialState} from "./profile-reducer";
-import {USERS_INITIAL_STATE, usersActions} from "./users-reducer";
+import {USERS_INITIAL_STATE, UsersActions} from "./users-reducer";
 import {GlobalStateType} from "./store-redux";
 import {ThunkAction} from "redux-thunk";
 import {getProfileType} from "../components/api/apiTypes";
@@ -9,7 +9,7 @@ import {ResultCodeEnum, ResultCodeEnumCaptcha} from "../components/api/enum";
 import {NulableType} from "../types/commonTypes";
 import {inferStringLiteral} from "./inferLiteral";
 
-const usersInitialState = usersActions.usersInitialState
+const usersInitialState = UsersActions.usersInitialState
 
 type dialogsInitialStateType = { type: typeof DIALOGS_INITIAL_STATE }
 type profileInitialStateActionType = { type: typeof PROFILE_INITIAL_STATE }
