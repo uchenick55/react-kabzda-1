@@ -36,30 +36,33 @@ type setAuthDataActionType = {
     isAuth: boolean
 }
 
-export const setMyProfile = (myProfile: getProfileType) => { // экшн креатор задания расширенных данных моего профиля
-    return {type: inferStringLiteral( SET_MY_PROFILE ), myProfile}
-};
+export const AuthActions = {
+    setMyProfile: (myProfile: getProfileType) => { // экшн креатор задания расширенных данных моего профиля
+        return {type: inferStringLiteral( SET_MY_PROFILE ), myProfile}
+    },
 
-export const setAuthData = (id: number, email: string, login: string, isAuth: boolean): setAuthDataActionType => {
-    return {type: inferStringLiteral( SET_MY_DATA ), id, email, login, isAuth}
-};
+    setAuthData: (id: number, email: string, login: string, isAuth: boolean): setAuthDataActionType => {
+        return {type: inferStringLiteral( SET_MY_DATA ), id, email, login, isAuth}
+    },
 
-export const authInitialState = () => { // экшн креатор зануления при логауте
-    return {type: inferStringLiteral( AUTH_INITIAL_STATE )}
-};
+    authInitialState: () => { // экшн креатор зануления при логауте
+        return {type: inferStringLiteral( AUTH_INITIAL_STATE )}
+    },
 
-export const setCaptchaURL = (captchaURL: string) => { // экшн креатор задания URL каптчи ответа от сервера
-    return {type: inferStringLiteral( SET_CAPTCHA_URL ), captchaURL}
-};
+    setCaptchaURL: (captchaURL: string) => { // экшн креатор задания URL каптчи ответа от сервера
+        return {type: inferStringLiteral( SET_CAPTCHA_URL ), captchaURL}
+    },
 
-export const setLoginError = (loginError: string) => { // экшн креатор задания ошибки с сервера
-    return {type: inferStringLiteral( SET_LOGIN_ERROR ), loginError}
-};
+    setLoginError: (loginError: string) => { // экшн креатор задания ошибки с сервера
+        return {type: inferStringLiteral( SET_LOGIN_ERROR), loginError}
+    }
+}
 
 type ActionTypes =
-    ReturnType<typeof setMyProfile> | ReturnType<typeof setAuthData> | ReturnType<typeof authInitialState>
-    | ReturnType<typeof setCaptchaURL> | ReturnType<typeof setLoginError> | setAuthDataActionType
-    | dialogsInitialStateType | profileInitialStateActionType | usersInitialStateActonType
+    ReturnType<typeof AuthActions.setMyProfile> | ReturnType<typeof AuthActions.setAuthData> |
+    ReturnType<typeof AuthActions.authInitialState> | ReturnType<typeof AuthActions.setCaptchaURL> |
+    ReturnType<typeof AuthActions.setLoginError> | setAuthDataActionType | dialogsInitialStateType |
+    profileInitialStateActionType | usersInitialStateActonType
 
 let initialState = { // стейт по умолчанию для моего профиля
     myId: 0 as number, // мой ID по умолчанию
@@ -119,7 +122,7 @@ export const getAuthMeThunkCreator = (): ThunkType => {//санкреатор я
     return async (dispatch, getState) => {
         const response1 = await apiProfile.getAuthMe() // я авторизован?
         if (response1.resultCode === ResultCodeEnum.Success) { //если неверно ввели логин/пароль 5 раз
-            dispatch( setAuthData(
+            dispatch( AuthActions.setAuthData(
                 response1.data.id, // записать с стейт мой ID
                 response1.data.email, // записать с стейт мой емейл
                 response1.data.login, // записать с стейт мой логин
@@ -128,10 +131,10 @@ export const getAuthMeThunkCreator = (): ThunkType => {//санкреатор я
 
             const response2 = await apiProfile.getProfile( response1.data.id )//получение моих дополнительных данных после авторизации
 
-            dispatch( setMyProfile( response2 ) )//задание в стейт моих доп данных
+            dispatch( AuthActions.setMyProfile( response2 ) )//задание в стейт моих доп данных
         }
         if (response1.resultCode !== ResultCodeEnum.Success) { //пользователь не авторизован
-            dispatch( authInitialState() ) // запустить зануление стейта
+            dispatch( AuthActions.authInitialState() ) // запустить зануление стейта
         }
     };
 }
@@ -150,7 +153,7 @@ export const postLoginThunkCreator = (email: string, password: string, rememberm
             if (response.resultCode === ResultCodeEnumCaptcha.CaptchaIsReqiured) { // если ошибка в многократном неправильном вводе логина и пароля
                 dispatch( getCaptchaThunkCreator() )
             }
-            dispatch( setLoginError( message ) ) // ошибка авторизации для формика
+            dispatch( AuthActions.setLoginError( message ) ) // ошибка авторизации для формика
         }
     };
 }
@@ -163,7 +166,7 @@ export const deleteLoginThunkCreator = (): ThunkType => {//санкреатор 
 
                 dispatch( dialogsInitialState() )// зануление диалогов при логауте
 
-                dispatch( authInitialState() )// зануление авторизации при логауте
+                dispatch( AuthActions.authInitialState() )// зануление авторизации при логауте
 
                 dispatch( profileInitialState() )// зануление профиля при логауте
 
@@ -179,7 +182,7 @@ export const deleteLoginThunkCreator = (): ThunkType => {//санкреатор 
 export const getCaptchaThunkCreator = (): ThunkType => {//санкреатор на получение каптчи
     return async (dispatch, getState) => { // санка на получение каптчи
         const response2 = await apiProfile.getCaptcha() // запрос каптчи
-        dispatch( setCaptchaURL( response2.url ) ) // получить данные с сервера авторизованного пользователя
+        dispatch( AuthActions.setCaptchaURL( response2.url ) ) // получить данные с сервера авторизованного пользователя
     };
 }
 

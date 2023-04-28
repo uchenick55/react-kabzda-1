@@ -1,5 +1,5 @@
 import {apiProfile} from "../components/api/api";
-import {getAuthMeThunkCreator, SET_MY_PROFILE, setMyProfile} from "./auth-reducer";
+import {AuthActions, getAuthMeThunkCreator, SET_MY_PROFILE} from "./auth-reducer";
 import {updateDialogListThunkCreator} from "./dialogs-reducer";
 import {NulableType, postsType, ProfileType} from "../types/commonTypes";
 import {ThunkAction} from "redux-thunk";
@@ -7,6 +7,8 @@ import {GlobalStateType} from "./store-redux";
 import {getProfileType} from "../components/api/apiTypes";
 import {ResultCodeEnum} from "../components/api/enum";
 import {inferStringLiteral} from "./inferLiteral";
+
+const setMyProfile = AuthActions.setMyProfile
 
 type setMyProfileActionType = { type: typeof SET_MY_PROFILE, myProfile: getProfileType }
 
@@ -19,7 +21,7 @@ export const PROFILE_INITIAL_STATE = "myApp/profile-reducer/PROFILE_INITIAL_STAT
 const SET_PROFILE_PHOTO = "myApp/profile-reducer/SET_PROFILE_PHOTO" // константа задания фото профиля
 
 export const ProfileActions = {
-     setEditProfileStatus: (editProfileStatus: Array<string>) => { // экшн креатор задания ошибки с сервера в стейт после правки профиля
+    setEditProfileStatus: (editProfileStatus: Array<string>) => { // экшн креатор задания ошибки с сервера в стейт после правки профиля
         return {type: inferStringLiteral( SET_EDIT_PROFILE_ERROR ), editProfileStatus}
     },
 
@@ -46,9 +48,7 @@ export const ProfileActions = {
     setProfilePhoto: () => { //экшнкреатор задания фото профиля
         return {type: inferStringLiteral( SET_PROFILE_PHOTO )}
     }
-
 }
-
 
 type ActionTypes =
     ReturnType<typeof ProfileActions.setProfilePhoto> | ReturnType<typeof ProfileActions.profileInitialState> |

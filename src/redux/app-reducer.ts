@@ -9,6 +9,7 @@ const APP_INITIAL_STATE = "myApp/app-reducer/APP_INITIAL_STATE"; //конста�
 const SET_PATCH = "myApp/app-reducer/SET_PATCH"; //константа задания пути в URL
 const SET_PAGE_WIDTH = "myApp/app-reducer/SET_PAGE_WIDTH"; //константа задания ширины окна
 
+
 export const setInitialisedApp = () => { // экшн креатор  инициализации приложения
     return {type: inferStringLiteral( SET_INITIALISED_APP )}
 };
