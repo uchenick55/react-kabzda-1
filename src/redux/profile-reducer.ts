@@ -18,42 +18,43 @@ const SET_STATUS = "myApp/profile-reducer/SET_STATUS" // константа за
 export const PROFILE_INITIAL_STATE = "myApp/profile-reducer/PROFILE_INITIAL_STATE" // константа зануления при логауте
 const SET_PROFILE_PHOTO = "myApp/profile-reducer/SET_PROFILE_PHOTO" // константа задания фото профиля
 
-const ProfileActions = {
+export const ProfileActions = {
+     setEditProfileStatus: (editProfileStatus: Array<string>) => { // экшн креатор задания ошибки с сервера в стейт после правки профиля
+        return {type: inferStringLiteral( SET_EDIT_PROFILE_ERROR ), editProfileStatus}
+    },
+
+    deletePostActionCreator: (postId: number) => { // экшнкреатор удаления поста по postId
+        return {type: inferStringLiteral( DELETE_POST ), postId}
+    },
+
+    addPostActionCreator: (newPostData: string) => { // экшнкреатор добавления поста
+        return {type: inferStringLiteral( ADD_POST ), newPostData}
+    },
+
+    setUserProfile: (profile: getProfileType) => { // экшнкреатор задания в локальный стейт профиля просматриваемого пользователя
+        return {type: inferStringLiteral( SET_USER_PROFILE ), profile}
+    },
+
+    setStatus: (newStatus: string) => { //экшнкреатор задания моего статуса (после API запроса)
+        return {type: inferStringLiteral( SET_STATUS ), newStatus}
+    },
+
+    profileInitialState: () => { //экшнкреатор зануления при логауте
+        return {type: inferStringLiteral( PROFILE_INITIAL_STATE )}
+    },
+
+    setProfilePhoto: () => { //экшнкреатор задания фото профиля
+        return {type: inferStringLiteral( SET_PROFILE_PHOTO )}
+    }
 
 }
 
-export const setEditProfileStatus = (editProfileStatus: Array<string>) => { // экшн креатор задания ошибки с сервера в стейт после правки профиля
-    return {type: inferStringLiteral( SET_EDIT_PROFILE_ERROR ), editProfileStatus}
-};
-
-export const deletePostActionCreator = (postId: number) => { // экшнкреатор удаления поста по postId
-    return {type: inferStringLiteral( DELETE_POST ), postId}
-};
-
-export const addPostActionCreator = (newPostData: string) => { // экшнкреатор добавления поста
-    return {type: inferStringLiteral( ADD_POST ), newPostData}
-};
-
-const setUserProfile = (profile: getProfileType) => { // экшнкреатор задания в локальный стейт профиля просматриваемого пользователя
-    return {type: inferStringLiteral( SET_USER_PROFILE ), profile}
-};
-
-export const setStatus = (newStatus: string) => { //экшнкреатор задания моего статуса (после API запроса)
-    return {type: inferStringLiteral( SET_STATUS ), newStatus}
-};
-
-export const profileInitialState = () => { //экшнкреатор зануления при логауте
-    return {type: inferStringLiteral( PROFILE_INITIAL_STATE )}
-};
-
-export const setProfilePhoto = () => { //экшнкреатор задания фото профиля
-    return {type: inferStringLiteral( SET_PROFILE_PHOTO )}
-};
 
 type ActionTypes =
-    ReturnType<typeof setProfilePhoto> | ReturnType<typeof profileInitialState> | ReturnType<typeof setStatus> |
-    ReturnType<typeof setUserProfile> | ReturnType<typeof addPostActionCreator> |
-    ReturnType<typeof deletePostActionCreator> | ReturnType<typeof setEditProfileStatus> | setMyProfileActionType
+    ReturnType<typeof ProfileActions.setProfilePhoto> | ReturnType<typeof ProfileActions.profileInitialState> |
+    ReturnType<typeof ProfileActions.setStatus> | ReturnType<typeof ProfileActions.setUserProfile> |
+    ReturnType<typeof ProfileActions.addPostActionCreator> | ReturnType<typeof ProfileActions.deletePostActionCreator> |
+    ReturnType<typeof ProfileActions.setEditProfileStatus> | setMyProfileActionType
 
 let initialState = {
     posts: [// заглушка постов на странице профиля
@@ -126,7 +127,7 @@ type ThunkType = ThunkAction<void,    // санка ничего не возвр
 export const getProfileThunkCreator = (userId: number, shouldUpdateDialogList: boolean, myId: number): ThunkType => { // санкреатор на получение профиля выбранного пользователя
     return async (dispatch, getState) => { // нонейм санка на получение профиля выбранного пользователя
         const CommonPart = (response: getProfileType, userId: number) => { // общая часть для задания статуса профиля и получения статуса
-            dispatch( setUserProfile( response ) ) // задание полных данных в профиль
+            dispatch( ProfileActions.setUserProfile( response ) ) // задание полных данных в профиль
             dispatch( getStatusThunkCreator( userId ) ) // запрос моего статуса
             if (shouldUpdateDialogList) {// проверка нужно ли обновить диалоглист
                 dispatch( updateDialogListThunkCreator( myId, response.userId, response.fullName, response.photos.small ) ) // обновление длиалоглиста
@@ -150,7 +151,7 @@ export const getProfileThunkCreator = (userId: number, shouldUpdateDialogList: b
 export const getStatusThunkCreator = (userId: number): ThunkType => {  // санкреатор запроса статуса выбранного пользователя
     return async (dispatch, getState) => { // нонейм санка запроса статуса выбранного пользователя
         const response = await apiProfile.getStatus( userId ) // api запрос получение статуса по userId
-        dispatch( setStatus( response ) ) // задание статуса в локальный стейт с последующей переотрисовкой
+        dispatch( ProfileActions.setStatus( response ) ) // задание статуса в локальный стейт с последующей переотрисовкой
     }
 }
 export const putStatusThunkCreator = (statusTmpInput: string, myId: number): ThunkType => { // санкреатор обновления моего статуса
@@ -178,13 +179,13 @@ export const putMyProfileThunkCreator = (MyProfile: ProfileType, myId: number): 
             const response2 = await apiProfile.getProfile( myId )//получение моих дополнительных данных после записи на сервер
             dispatch( setMyProfile( response2 ) )//задание в стейт моих доп данных
             dispatch( getProfileThunkCreator( myId, false, 0 ) )
-            dispatch( setEditProfileStatus( ["Edited successfully!"] ) ) // отправить данные ошибки в стейт
+            dispatch( ProfileActions.setEditProfileStatus( ["Edited successfully!"] ) ) // отправить данные ошибки в стейт
         } else { // если пришла ошибка с сервера ввода формы правки профиля
             const message =  // определение локальной переменной message - ответ от сервера
                 response.messages && response.messages.length !== 0  // если response.messages емсть и их длина не равна 0
                     ? response.messages //  вывести ответ от сервера
                     : ["no responce from server"] // иначе вывести сообщение заглушку
-            dispatch( setEditProfileStatus( message ) ) // отправить данные ошибки в стейт
+            dispatch( ProfileActions.setEditProfileStatus( message ) ) // отправить данные ошибки в стейт
         }
     }
 }

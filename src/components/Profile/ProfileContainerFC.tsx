@@ -6,13 +6,16 @@ import {connect} from "react-redux";
 import {
     getProfileThunkCreator, putMyProfileThunkCreator,
     putStatusThunkCreator,
-    setEditProfileStatus,
+    ProfileActions,
     setprofilePhotoThunkCreator
 } from "../../redux/profile-reducer";
 import withRouter2 from "../hoc/withRouter2";
 import NavigateToLoginHoc2 from "../hoc/NavigateToLoginHoc2";
 import React, {useEffect} from "react";
 import Profile from "./Profile";
+
+const setEditProfileStatus = ProfileActions.setEditProfileStatus
+
 
 type ProfileContainerType = {
     profile: getProfileType, // весь профиль пользователя

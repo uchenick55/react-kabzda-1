@@ -1,5 +1,5 @@
 import MyPostsBS from "./MyPostsBS";
-import {addPostActionCreator} from "../../../redux/profile-reducer";
+import {ProfileActions} from "../../../redux/profile-reducer";
 import {connect} from "react-redux";
 import React from "react";
 import {postsType} from "../../../types/commonTypes";
@@ -31,7 +31,7 @@ type mapDispatchToPropsType = {
 type mapStateToPropsType = {
     posts: Array<postsType>
 }
-
+const addPostActionCreator = ProfileActions.addPostActionCreator
 export default connect<mapStateToPropsType, // тип mapStateToProps
     mapDispatchToPropsType, // тип mapDispatchToProps
     unknown, // тип входящих пропсов от родителя

@@ -1,6 +1,6 @@
 import {apiProfile} from "../components/api/api";
 import {DIALOGS_INITIAL_STATE, dialogsInitialState} from "./dialogs-reducer";
-import {PROFILE_INITIAL_STATE, profileInitialState} from "./profile-reducer";
+import {PROFILE_INITIAL_STATE, ProfileActions} from "./profile-reducer";
 import {USERS_INITIAL_STATE, UsersActions} from "./users-reducer";
 import {GlobalStateType} from "./store-redux";
 import {ThunkAction} from "redux-thunk";
@@ -10,6 +10,11 @@ import {NulableType} from "../types/commonTypes";
 import {inferStringLiteral} from "./inferLiteral";
 
 const usersInitialState = UsersActions.usersInitialState
+
+//const profileInitialState = ProfileActions.profileInitialState //выдает  ошибку reference Error
+const profileInitialState = () => { //экшнкреатор зануления при логауте
+    return {type: inferStringLiteral( PROFILE_INITIAL_STATE )}
+}
 
 type dialogsInitialStateType = { type: typeof DIALOGS_INITIAL_STATE }
 type profileInitialStateActionType = { type: typeof PROFILE_INITIAL_STATE }
