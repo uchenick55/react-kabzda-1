@@ -4,13 +4,15 @@ import commonClasses from "./components/common/CommonClasses/common.module.css";
 import {HashRouter} from "react-router-dom";
 import HeaderContainer from "./components/Header/HeaderContainer";
 import {connect} from "react-redux";
-import {initialisedAppThunkCreator, setPageWidth, setPatch} from "./redux/app-reducer";
+import {AppActions, initialisedAppThunkCreator} from "./redux/app-reducer";
 import Preloader from "./components/common/Preloader/Preloader";
 import ContentContainer from "./components/Content/ContentContainer";
 import ErrorBoundary from "./components/common/ErrorBoundary/ErrorBoundary";
 import Container from "react-bootstrap/Container";
 import FooterBS from "./components/Footer/FooterBS";
 import {GlobalStateType} from "./redux/store-redux";
+
+const {setPageWidth, setPatch} = AppActions // деструктуризация методов ActionCreator из объекта
 
 type AppBSPropsType = {
     initialisedApp: boolean,

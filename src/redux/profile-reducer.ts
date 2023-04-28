@@ -8,7 +8,7 @@ import {getProfileType} from "../components/api/apiTypes";
 import {ResultCodeEnum} from "../components/api/enum";
 import {inferStringLiteral} from "./inferLiteral";
 
-const setMyProfile = AuthActions.setMyProfile
+const {setMyProfile} = AuthActions
 
 type setMyProfileActionType = { type: typeof SET_MY_PROFILE, myProfile: getProfileType }
 

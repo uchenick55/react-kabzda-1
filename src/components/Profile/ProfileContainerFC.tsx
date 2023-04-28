@@ -14,8 +14,7 @@ import NavigateToLoginHoc2 from "../hoc/NavigateToLoginHoc2";
 import React, {useEffect} from "react";
 import Profile from "./Profile";
 
-const setEditProfileStatus = ProfileActions.setEditProfileStatus
-
+const {setEditProfileStatus} = ProfileActions
 
 type ProfileContainerType = {
     profile: getProfileType, // весь профиль пользователя

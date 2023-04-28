@@ -9,9 +9,9 @@ import {ResultCodeEnum, ResultCodeEnumCaptcha} from "../components/api/enum";
 import {NulableType} from "../types/commonTypes";
 import {inferStringLiteral} from "./inferLiteral";
 
-const usersInitialState = UsersActions.usersInitialState
+const {usersInitialState} = UsersActions
 
-const dialogsInitialState = DialogsActions.dialogsInitialState
+const {dialogsInitialState} = DialogsActions
 
 //const profileInitialState = ProfileActions.profileInitialState //выдает  ошибку reference Error
 const profileInitialState = () => { //экшнкреатор зануления при логауте

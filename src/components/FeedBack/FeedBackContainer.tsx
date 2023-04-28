@@ -5,7 +5,7 @@ import FeedBack from "./FeedBackBS";
 import {GlobalStateType} from "../../redux/store-redux";
 import {apiFeedBackDataType} from "../../types/commonTypes";
 
-const setFeedBackStatus = FeedBackActions.setFeedBackStatus
+const {setFeedBackStatus} = FeedBackActions
 
 type FeedBackContainerPropsType = {
     feedBackStatus: string

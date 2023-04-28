@@ -9,26 +9,28 @@ const APP_INITIAL_STATE = "myApp/app-reducer/APP_INITIAL_STATE"; //конста�
 const SET_PATCH = "myApp/app-reducer/SET_PATCH"; //константа задания пути в URL
 const SET_PAGE_WIDTH = "myApp/app-reducer/SET_PAGE_WIDTH"; //константа задания ширины окна
 
+export const AppActions = {
+    setInitialisedApp: () => { // экшн креатор  инициализации приложения
+        return {type: inferStringLiteral( SET_INITIALISED_APP )}
+    },
 
-export const setInitialisedApp = () => { // экшн креатор  инициализации приложения
-    return {type: inferStringLiteral( SET_INITIALISED_APP )}
-};
+    appInitialState: () => { // экшн зануления при логауте
+        return {type: inferStringLiteral( APP_INITIAL_STATE )}
+    },
 
-export const appInitialState = () => { // экшн зануления при логауте
-    return {type: inferStringLiteral( APP_INITIAL_STATE )}
-};
+    setPatch: (patch: string) => { // экшн зануления при логауте
+        return {type: inferStringLiteral( SET_PATCH ), patch}
+    },
 
-export const setPatch = (patch: string) => { // экшн зануления при логауте
-    return {type: inferStringLiteral( SET_PATCH ), patch}
-};
+    setPageWidth: (PageWidth: number) => { // экшн записи ширины экрана
+        return {type: inferStringLiteral( SET_PAGE_WIDTH ), PageWidth}
+    }
 
-export const setPageWidth = (PageWidth: number) => { // экшн записи ширины экрана
-    return {type: inferStringLiteral( SET_PAGE_WIDTH ), PageWidth}
-};
+}
 
 type ActionTypes =
-    ReturnType<typeof setInitialisedApp> | ReturnType<typeof appInitialState> | ReturnType<typeof setPatch> |
-    ReturnType<typeof setPageWidth>
+    ReturnType<typeof AppActions.setInitialisedApp> | ReturnType<typeof AppActions.appInitialState> |
+    ReturnType<typeof AppActions.setPatch> |    ReturnType<typeof AppActions.setPageWidth>
 
 type initialStateType = typeof initialState
 
@@ -77,7 +79,7 @@ export const initialisedAppThunkCreator = (): ThunkType => {// санкреат�
         const promise2 = dispatch( getThemeThunkCreator() ) // получение темы
         Promise.all( [promise1, promise2] ) // если все промисы зарезолвились
             .then( () => {
-                dispatch( setInitialisedApp() ) // смена флага инициализации на true
+                dispatch( AppActions.setInitialisedApp() ) // смена флага инициализации на true
             } )
     };
 }

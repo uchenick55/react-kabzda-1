@@ -124,10 +124,9 @@ type mapDispatchToPropsType = {
     setTerm: (term: string) => void,
     setOnlyFriends: (onlyFriends: boolean) => void
 }
-//const [getUsersThunkCreator,  setCurrentPage, setOnlyFriends, setTerm] = UsersActions
-const setCurrentPage = UsersActions.setCurrentPage
-const setOnlyFriends = UsersActions.setOnlyFriends
-const setTerm = UsersActions.setTerm
+
+const {setCurrentPage, setOnlyFriends, setTerm} = UsersActions // деструктуризация методов ActionCreator
+
 export default connect<mapStateToPropsType,
     mapDispatchToPropsType,
     unknown,
