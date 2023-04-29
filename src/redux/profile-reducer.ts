@@ -49,7 +49,7 @@ export const ProfileActions = {
     }
 }
 
-type ActionTypes = InferActionsTypes<typeof ProfileActions> | setMyProfileActionType
+type ProfileActionTypes = InferActionsTypes<typeof ProfileActions> | setMyProfileActionType
 
 let initialState = {
     posts: [// заглушка постов на странице профиля
@@ -63,7 +63,7 @@ let initialState = {
 
 type initialStateType = typeof initialState
 
-export const profileReducer = (state: initialStateType = initialState, action: ActionTypes): initialStateType => { // редьюсер профиля
+export const profileReducer = (state: initialStateType = initialState, action: ProfileActionTypes): initialStateType => { // редьюсер профиля
     let stateCopy: initialStateType; // объявлениечасти части стейта до изменения редьюсером
     switch (action.type) {
         case SET_USER_PROFILE: // задание в локальный стейт профиля просматриваемого пользователя
@@ -115,7 +115,7 @@ export const profileReducer = (state: initialStateType = initialState, action: A
 type ThunkType = ThunkAction<void,    // санка ничего не возвращает
     GlobalStateType,    // глобальный стейт из redux
     unknown,    // нет доп параметров
-    ActionTypes // все типы ActionCreator
+    ProfileActionTypes // все типы ActionCreator
     >
 
 

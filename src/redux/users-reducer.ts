@@ -46,7 +46,7 @@ export const UsersActions = {
 }
 
 
-type ActionTypes = InferActionsTypes<typeof UsersActions>
+type UsersActionTypes = InferActionsTypes<typeof UsersActions>
 
 
 const initialState = {
@@ -63,7 +63,7 @@ const initialState = {
 }
 type initialStateType = typeof initialState
 
-const usersReducer = (state: initialStateType = initialState, action: ActionTypes): initialStateType => {
+const usersReducer = (state: initialStateType = initialState, action: UsersActionTypes): initialStateType => {
     // типы принимаемые и возвращаемые редьюсером
     let stateCopy: initialStateType; // объявление части стейта до изменения редьюсером
     switch (action.type) {
@@ -124,7 +124,7 @@ const usersReducer = (state: initialStateType = initialState, action: ActionType
 type ThunkType = ThunkAction<void,    // санка ничего не возвращает
     GlobalStateType,    // глобальный стейт из redux
     unknown,    // нет доп параметров
-    ActionTypes // все типы ActionCreator
+    UsersActionTypes // все типы ActionCreator
     >
 export const getUsersThunkCreator //санкреатор получить пользователей с данными
     = (currentPage: number, pageSize: number, term: string, friend: boolean, userId: number): ThunkType => {
@@ -154,7 +154,7 @@ type responseType = {
 }
 
 const _followUnfollowFlow = ( // общий метод для санкреатеров followThunkCreator/unfollowThunkCreator
-    dispatch: Dispatch<ActionTypes>,
+    dispatch: Dispatch<UsersActionTypes>,
     userId: number,
     currentPage: number,
     pageSize: number,

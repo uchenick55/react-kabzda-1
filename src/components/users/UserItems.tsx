@@ -41,7 +41,8 @@ const UserItems: React.FC<UserItemsType> = ({users, unfollowAPI, followAPI, foll
         }
     }
     if (patch==="dialogs") {
-        gridColsClass="grid1col" +" "+ "paddingTop55"
+        // eslint-disable-next-line
+        gridColsClass="grid1col" +" "+ "paddingTop55" // условие отступа сверху списка пользователей только на странице dialogs
     }
 
         return <div className={gridColsClass}> {/*разбивка данных пользователей на карточки*/}

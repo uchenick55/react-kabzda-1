@@ -11,14 +11,14 @@ export const ThemeActions = {
 }
 
 
-type ActionTypes =  InferActionsTypes<typeof ThemeActions>
+type ThemeActionTypes =  InferActionsTypes<typeof ThemeActions>
 
 let initialState = { //стейт по умолчанию темы
   themeBLL: "light" as "light" | "dark", // тема в bll по умолчанию
 }
 type initialStateType = typeof initialState
 
-let themeReducer = (state:initialStateType = initialState, action:ActionTypes):initialStateType => {//редьюсер задания темы
+let themeReducer = (state:initialStateType = initialState, action:ThemeActionTypes):initialStateType => {//редьюсер задания темы
   let stateCopy:initialStateType; // объявлениечасти части стейта до изменения редьюсером
   switch (action.type) {
     case SET_THEME: // кейс задания темы
@@ -33,7 +33,7 @@ let themeReducer = (state:initialStateType = initialState, action:ActionTypes):i
 }
 
 export const setThemeThunkCreator = (theme1:"light" | "dark") => {//санкреатор задания темы в LocalStorage
-  return async (dispatch:Dispatch<ActionTypes>, getState: () => GlobalStateType) => { // санка задания темы в LocalStorage
+  return async (dispatch:Dispatch<ThemeActionTypes>, getState: () => GlobalStateType) => { // санка задания темы в LocalStorage
     const response1 = await apiCommon.putTheme1(theme1)  //записать значение темы в localStorage
     if (response1) {
       dispatch(ThemeActions.setTheme(response1))  //записать считаное из localStorage значение темы в store
@@ -42,7 +42,7 @@ export const setThemeThunkCreator = (theme1:"light" | "dark") => {//санкре
   }
 }
 export const getThemeThunkCreator = () => {//санкреатор получения темы из LocalStorage
-  const getThemeThunk = async (dispatch:Dispatch<ActionTypes>, getState: () => GlobalStateType) => { // санка получения темы из LocalStorage
+  const getThemeThunk = async (dispatch:Dispatch<ThemeActionTypes>, getState: () => GlobalStateType) => { // санка получения темы из LocalStorage
     const response1 = await apiCommon.getTheme1()  //получить значение темы из localStorage
     if (response1) {
       dispatch(ThemeActions.setTheme(response1))  //записать считаное из localStorage значение темы в store

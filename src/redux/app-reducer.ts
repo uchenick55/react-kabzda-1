@@ -26,7 +26,7 @@ export const AppActions = {
     }
 }
 
-type ActionTypes = InferActionsTypes<typeof AppActions>
+type AppActionTypes = InferActionsTypes<typeof AppActions>
 
 type initialStateType = typeof initialState
 
@@ -36,7 +36,7 @@ let initialState = { //стейт по умолчанию для инициал�
     PageWidth: document.documentElement.scrollWidth // ширина страницы по умолчанию
 }
 
-let appReducer = (state: initialStateType = initialState, action: ActionTypes): initialStateType => {//редьюсер инициализации приложения
+let appReducer = (state: initialStateType = initialState, action: AppActionTypes): initialStateType => {//редьюсер инициализации приложения
     let stateCopy: initialStateType; // объявлениечасти части стейта до изменения редьюсером
     switch (action.type) {
         case SET_INITIALISED_APP: // экшн инициализации приложения
@@ -67,7 +67,7 @@ let appReducer = (state: initialStateType = initialState, action: ActionTypes): 
 type ThunkType = ThunkAction<void,    // санка ничего не возвращает
     GlobalStateType,    // глобальный стейт из redux
     unknown,    // нет доп параметров
-    ActionTypes // все типы ActionCreator
+    AppActionTypes // все типы ActionCreator
     >
 export const initialisedAppThunkCreator = (): ThunkType => {// санкреатор инициализации приложения
     return (dispatch, getState) => { // санки  инициализации приложения

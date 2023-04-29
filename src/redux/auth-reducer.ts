@@ -56,7 +56,7 @@ export const AuthActions = {
     }
 }
 
-type ActionTypes = InferActionsTypes<typeof AuthActions> | setAuthDataActionType | dialogsInitialStateType |
+type AuthActionTypes = InferActionsTypes<typeof AuthActions> | setAuthDataActionType | dialogsInitialStateType |
     profileInitialStateActionType | usersInitialStateActonType
 
 let initialState = { // стейт по умолчанию для моего профиля
@@ -69,7 +69,7 @@ let initialState = { // стейт по умолчанию для моего п�
     loginError: "" as string, // ошибка авторизации с сервера
 }
 export type initialStateAuthType = typeof initialState
-let authReducer = (state: initialStateAuthType = initialState, action: ActionTypes): initialStateAuthType => { // редьюсер авторизации и моего профиля
+let authReducer = (state: initialStateAuthType = initialState, action: AuthActionTypes): initialStateAuthType => { // редьюсер авторизации и моего профиля
     let stateCopy: initialStateAuthType; // объявлениечасти части стейта до изменения редьюсером
     switch (action.type) {
         case SET_MY_DATA: // экшн задания моих id, email, login
@@ -111,7 +111,7 @@ let authReducer = (state: initialStateAuthType = initialState, action: ActionTyp
 type ThunkType = ThunkAction<void,    // санка ничего не возвращает
     GlobalStateType,    // глобальный стейт из redux
     unknown,    // нет доп параметров
-    ActionTypes // все типы ActionCreator
+    AuthActionTypes // все типы ActionCreator
     >
 export const getAuthMeThunkCreator = (): ThunkType => {//санкреатор я авторизован?. Данных для запроса нет
     return async (dispatch, getState) => {

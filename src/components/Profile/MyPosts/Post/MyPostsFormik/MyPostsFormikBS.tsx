@@ -43,7 +43,7 @@ const MyPostsFormik:React.FC<MyPostsFormikType> = ({addPost}) => { // основ
                                 label="Пост"
                                 autoFocus={false}
                                 name='newPost'
-                                type='textarea'
+                                type='text'
                                 placeholder='Введите ваше сообщение'
                                 leftLabelLength={""}
                             />

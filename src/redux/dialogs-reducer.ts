@@ -37,7 +37,7 @@ export const DialogsActions = {
 
 }
 
-type ActionTypes = InferActionsTypes<typeof DialogsActions>
+type DialogsActionTypes = InferActionsTypes<typeof DialogsActions>
 
 let initialState = { // стейт сообщений по умолчанию
     messages2: null as NulableType<Array<messages2Type>>, // сообщения по умолчанию нулевые, но могут быть еще и Array<messages2Type>
@@ -49,7 +49,7 @@ let initialState = { // стейт сообщений по умолчанию
 
 type initialStateType = typeof initialState
 
-let dialogsReducer = (state: initialStateType = initialState, action: ActionTypes): initialStateType => { // редьюсер диалогов
+let dialogsReducer = (state: initialStateType = initialState, action: DialogsActionTypes): initialStateType => { // редьюсер диалогов
     let stateCopy: initialStateType; // объявлениечасти части стейта до изменения редьюсером
     switch (action.type) {
         case DIALOGS_INITIAL_STATE: // экшн отправки сообщений по данным из формы диалогов
@@ -95,7 +95,7 @@ let dialogsReducer = (state: initialStateType = initialState, action: ActionType
 type ThunkType = ThunkAction<void,    // санка ничего не возвращает
     GlobalStateType,    // глобальный стейт из redux
     unknown,    // нет доп параметров
-    ActionTypes // все типы ActionCreator
+    DialogsActionTypes // все типы ActionCreator
     >
 
 export const getDialogsThunkCreator = (myId: number, userId: number): ThunkType => {//санкреатор получения диалогов с данными
