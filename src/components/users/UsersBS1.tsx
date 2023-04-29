@@ -81,14 +81,17 @@ const UsersBS:React.FC<UsersBSType> = ({
         return <div className={classes.usersOverflowAuto}>
 
             <Container  fluid >
+                <div className={patch==="users"?classes.usersHeaderUsersPage:classes.usersHeaderDialogsPage}>
+                    <h2 className={commonClasses.pageHeader}>Чаты</h2> {/*заголовок */}
 
-                <h2 className={commonClasses.pageHeader}>Чаты</h2> {/*заголовок */}
+                    {patch==="users" && paginationRender}{/*Вывод пагинации вверху страницы  только на странице users*/}
 
-                {patch==="users" && paginationRender}{/*Вывод пагинации вверху страницы  только на странице users*/}
+                    {InputButtonUsersRenderLocal} {/*вывод инпута и кнопки для поиска юзеров*/}
 
-                {InputButtonUsersRenderLocal} {/*вывод инпута и кнопки для поиска юзеров*/}
+                    {patch==="users" && TotalUsersCountRender} {/*вывод количества всех пользователей только на странице users*/}
 
-                {patch==="users" && TotalUsersCountRender} {/*вывод количества всех пользователей только на странице users*/}
+
+                </div>
 
                 {UserItemsRender}{/*отрисовка самих карточек пользователей*/}
 
