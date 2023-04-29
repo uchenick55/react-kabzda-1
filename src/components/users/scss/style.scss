@@ -5,8 +5,11 @@
   margin-bottom: $myMargin;
   padding-bottom: $myPadding;
 }
-.grid1col {
+.paddingTop55{
   padding-top: 5.5rem;
+
+}
+.grid1col {
   div {
     @include myGrid($cols: 1, $margin:1%); // задаем на сколько ячеек разбиваем ширину экрана и какой отступ по краям и вниз
   }

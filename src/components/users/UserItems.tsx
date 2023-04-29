@@ -41,7 +41,7 @@ const UserItems: React.FC<UserItemsType> = ({users, unfollowAPI, followAPI, foll
         }
     }
     if (patch==="dialogs") {
-        gridColsClass="grid1col"
+        gridColsClass="grid1col" +" "+ "paddingTop55"
     }
 
         return <div className={gridColsClass}> {/*разбивка данных пользователей на карточки*/}

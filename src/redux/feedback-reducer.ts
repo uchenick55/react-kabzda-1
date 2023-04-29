@@ -2,7 +2,6 @@ import {postFeedBack22} from "../components/api/api";
 import {apiFeedBackDataType} from "../types/commonTypes";
 import {Dispatch} from "redux";
 import {GlobalStateType, InferActionsTypes} from "./store-redux";
-import {ProfileActions} from "./profile-reducer";
 
 const SET_FEED_BACK_STATUS = "myApp/feedback-reducer/SET_FEED_BACK_STATUS"; // константа для задания статуса feedback
 

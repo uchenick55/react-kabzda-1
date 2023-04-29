@@ -1,6 +1,6 @@
 import {apiProfile} from "../components/api/api";
 import {DIALOGS_INITIAL_STATE, DialogsActions} from "./dialogs-reducer";
-import {PROFILE_INITIAL_STATE, ProfileActions} from "./profile-reducer";
+import {PROFILE_INITIAL_STATE} from "./profile-reducer";
 import {USERS_INITIAL_STATE, UsersActions} from "./users-reducer";
 import {GlobalStateType, InferActionsTypes} from "./store-redux";
 import {ThunkAction} from "redux-thunk";

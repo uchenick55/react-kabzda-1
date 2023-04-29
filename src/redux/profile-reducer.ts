@@ -6,7 +6,6 @@ import {ThunkAction} from "redux-thunk";
 import {GlobalStateType, InferActionsTypes} from "./store-redux";
 import {getProfileType} from "../components/api/apiTypes";
 import {ResultCodeEnum} from "../components/api/enum";
-import {UsersActions} from "./users-reducer";
 
 const {setMyProfile} = AuthActions
 
