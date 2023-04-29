@@ -1,15 +1,11 @@
 import {apiProfile} from "../components/api/api";
-import {AuthActions, getAuthMeThunkCreator, SET_MY_PROFILE} from "./auth-reducer";
+import {AuthActions, getAuthMeThunkCreator} from "./auth-reducer";
 import {updateDialogListThunkCreator} from "./dialogs-reducer";
 import {NulableType, postsType, ProfileType} from "../types/commonTypes";
 import {ThunkAction} from "redux-thunk";
 import {GlobalStateType, InferActionsTypes} from "./store-redux";
 import {getProfileType} from "../components/api/apiTypes";
 import {ResultCodeEnum} from "../components/api/enum";
-
-const {setMyProfile} = AuthActions
-
-type setMyProfileActionType = { type: typeof SET_MY_PROFILE, myProfile: getProfileType }
 
 const SET_EDIT_PROFILE_ERROR = "myApp/auth-reducer/SET_EDIT_PROFILE_ERROR"; //константа задания ошибки правеки профиля
 const DELETE_POST = "myApp/profile-reducer/DELETE_POST";// константа удаления новых постов
@@ -45,11 +41,11 @@ export const ProfileActions = {
     },
 
     setProfilePhoto: () => { //экшнкреатор задания фото профиля
-        return {type: SET_PROFILE_PHOTO } as const
+        return {type: SET_PROFILE_PHOTO} as const
     }
 }
 
-type ProfileActionTypes = InferActionsTypes<typeof ProfileActions> | setMyProfileActionType
+type ProfileActionTypes = InferActionsTypes<typeof ProfileActions> | InferActionsTypes<typeof AuthActions>
 
 let initialState = {
     posts: [// заглушка постов на странице профиля
@@ -172,7 +168,7 @@ export const putMyProfileThunkCreator = (MyProfile: ProfileType, myId: number): 
         const response = await apiProfile.putMyProfileData( MyProfile ) // отправка нового статуса на сервер
         if (response.resultCode === ResultCodeEnum.Success) { // если успешное обновление профиля на сервере
             const response2 = await apiProfile.getProfile( myId )//получение моих дополнительных данных после записи на сервер
-            dispatch( setMyProfile( response2 ) )//задание в стейт моих доп данных
+            dispatch( AuthActions.setMyProfile( response2 ) )//задание в стейт моих доп данных
             dispatch( getProfileThunkCreator( myId, false, 0 ) )
             dispatch( ProfileActions.setEditProfileStatus( ["Edited successfully!"] ) ) // отправить данные ошибки в стейт
         } else { // если пришла ошибка с сервера ввода формы правки профиля

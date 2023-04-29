@@ -13,7 +13,7 @@ const SET_TOTAL_USERS_COUNT = "myApp/users-reducer/SET_TOTAL_USERS_COUNT";
 const TOGGLE_IS_FOLLOWING_PROGRESS = "myApp/users-reducer/TOGGLE_IS_FOLLOWING_PROGRESS";
 const NEED_UPDATE_FRIENDS = "myApp/users-reducer/NEED_UPDATE_FRIENDS";
 const SET_ONLY_FRIENDS = "myApp/users-reducer/SET_ONLY_FRIENDS";// экшн отображения только моих друзей, или общий список
-export const USERS_INITIAL_STATE = "myApp/users-reducer/USERS_INITIAL_STATE";
+const USERS_INITIAL_STATE = "myApp/users-reducer/USERS_INITIAL_STATE";
 
 export const UsersActions = {
     setTerm: (term: string) => {
@@ -22,7 +22,7 @@ export const UsersActions = {
     setUsers: (users: Array<usersType>) => {
         return {type: SET_USERS, users} as const
     },
-     setCurrentPage: (currentPage: number) => {
+    setCurrentPage: (currentPage: number) => {
         return {type: SET_CURRENT_PAGE, currentPage} as const
     },
     toggleIsFetching: (isFetching: boolean) => {
@@ -44,7 +44,6 @@ export const UsersActions = {
         return {type: SET_ONLY_FRIENDS, onlyFriends} as const
     },
 }
-
 
 type UsersActionTypes = InferActionsTypes<typeof UsersActions>
 

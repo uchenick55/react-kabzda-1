@@ -1,30 +1,18 @@
 import {apiProfile} from "../components/api/api";
-import {DIALOGS_INITIAL_STATE, DialogsActions} from "./dialogs-reducer";
-import {PROFILE_INITIAL_STATE} from "./profile-reducer";
-import {USERS_INITIAL_STATE, UsersActions} from "./users-reducer";
+import {DialogsActions} from "./dialogs-reducer";
+import {ProfileActions} from "./profile-reducer";
+import {UsersActions} from "./users-reducer";
 import {GlobalStateType, InferActionsTypes} from "./store-redux";
 import {ThunkAction} from "redux-thunk";
 import {getProfileType} from "../components/api/apiTypes";
 import {ResultCodeEnum, ResultCodeEnumCaptcha} from "../components/api/enum";
 import {NulableType} from "../types/commonTypes";
 
-const {usersInitialState} = UsersActions
-
-const {dialogsInitialState} = DialogsActions
-
-const profileInitialState = () => { //экшнкреатор зануления при логауте
-    return {type: PROFILE_INITIAL_STATE } as const // as const заменяет конструкцию по получению литерала строки из строки
-}
-
-type dialogsInitialStateType = { type: typeof DIALOGS_INITIAL_STATE }
-type profileInitialStateActionType = { type: typeof PROFILE_INITIAL_STATE }
-type usersInitialStateActonType = { type: typeof USERS_INITIAL_STATE }
-
 const SET_MY_DATA = "myApp/auth-reducer/SET_MY_DATA"; // константа для задания базовых данных моего профиля (ID, Email, login, isAuth)
 const AUTH_INITIAL_STATE = "myApp/auth-reducer/AUTH_INITIAL_STATE"; //константа зануления при логауте
 const SET_CAPTCHA_URL = "myApp/auth-reducer/SET_CAPTCHA_URL"; //константа задания URL каптчи
 const SET_LOGIN_ERROR = "myApp/auth-reducer/SET_LOGIN_ERROR"; //константа задания ошибки авторизации
-export const SET_MY_PROFILE = "myApp/auth-reducer/SET_MY_PROFILE"; // константа задания расширенных данных моего профиля
+const SET_MY_PROFILE = "myApp/auth-reducer/SET_MY_PROFILE"; // константа задания расширенных данных моего профиля
 
 type setAuthDataActionType = {
     type: typeof SET_MY_DATA,
@@ -40,11 +28,11 @@ export const AuthActions = {
     },
 
     setAuthData: (id: number, email: string, login: string, isAuth: boolean): setAuthDataActionType => {
-        return {type:  SET_MY_DATA , id, email, login, isAuth} as const
+        return {type: SET_MY_DATA, id, email, login, isAuth} as const
     },
 
     authInitialState: () => { // экшн креатор зануления при логауте
-        return {type:  AUTH_INITIAL_STATE } as const
+        return {type: AUTH_INITIAL_STATE} as const
     },
 
     setCaptchaURL: (captchaURL: string) => { // экшн креатор задания URL каптчи ответа от сервера
@@ -52,12 +40,15 @@ export const AuthActions = {
     },
 
     setLoginError: (loginError: string) => { // экшн креатор задания ошибки с сервера
-        return {type:  SET_LOGIN_ERROR, loginError} as const
+        return {type: SET_LOGIN_ERROR, loginError} as const
     }
 }
 
-type AuthActionTypes = InferActionsTypes<typeof AuthActions> | setAuthDataActionType | dialogsInitialStateType |
-    profileInitialStateActionType | usersInitialStateActonType
+type AuthActionTypes =
+    InferActionsTypes<typeof AuthActions> |
+    InferActionsTypes<typeof DialogsActions> |
+    InferActionsTypes<typeof ProfileActions> |
+    InferActionsTypes<typeof UsersActions>
 
 let initialState = { // стейт по умолчанию для моего профиля
     myId: 0 as number, // мой ID по умолчанию
@@ -159,13 +150,13 @@ export const deleteLoginThunkCreator = (): ThunkType => {//санкреатор 
         if (response.resultCode === ResultCodeEnum.Success) { // если сессия успешно закрыта
             setTimeout( () => {
 
-                dispatch( dialogsInitialState() )// зануление диалогов при логауте
+                dispatch( DialogsActions.dialogsInitialState() )// зануление диалогов при логауте
 
                 dispatch( AuthActions.authInitialState() )// зануление авторизации при логауте
 
-                dispatch( profileInitialState() )// зануление профиля при логауте
+                dispatch( ProfileActions.profileInitialState() )// зануление профиля при логауте
 
-                dispatch( usersInitialState() )// зануление UsersBS при логауте
+                dispatch( UsersActions.usersInitialState() )// зануление UsersBS при логауте
 
             }, 300 )
         } else {
