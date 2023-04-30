@@ -94,6 +94,58 @@ export const apiProfile = { // объект с методами api для пр�
     },
 }
 
+export const apiDialog2 = {
+/*
+    putStatus: async (statusTmpInput: string) => { // отправка моего статуса
+        const response = await instance.put<commRespType>( `/profile/status/`, {status: statusTmpInput} )
+        return (response.data) //возврат данных из поля data
+    },
+    */
+
+}
+//putDialogStart  | dialogs/{userId} - начать диалог, собеседник поднимается вверх??
+
+//getDialogMessages | dialogs/{userId}/messages - получить список сообщений по id пользователя
+// userId - (number) - user id of your friend
+// page (number,default 1) number of requested portion
+// count (number, default 10) size of requestedPortion
+
+// postDialogMessage| dialogs/{userId}/messages - отправить новое сообщение диалога
+/*URI Parameters:
+    userId - (number) - user id of your friend
+required params:
+    body - (string) - your message to friend
+пример из выше: const response = await instance.get<getProfileType>( `profile/` + userId )
+        return (response.data) //возврат данных из поля data
+    */
+
+
+// getDialogMessageIdViewed | dialogs/messages/{messageId}/viewed - проверить, было ли прочитано сообщение по его Id
+/*
+URI Parameters:
+    messageId- (number) - user message ID*/
+
+// postDialogMessageIdToSpam | dialogs/messages/{messageId}/spam - пометить сообщение как спам
+/*URI Parameters:
+    messageId- (number) - message ID to spam*/
+
+// deleteDialogMessageId | dialogs/messages/{messageId} - удалить сообщение (только у себя)
+/*URI Parameters:
+messageId- (number) - message ID to delete*/
+
+// putDialogMessageIdRestore | dialogs/messages/{messageId}/restore - восстановить сообщение из спама и удаленных
+/*URI Parameters:
+    messageId- (number) - message ID to restore*/
+
+// getDialogMessage dialogs/{userId}/messages/new?newerThen={date} - вернуть сообщения новее определенной даты
+/*URI Parameters:
+    userId- (number) - user id of your friend
+date - (string) - desired date (string in date format)*/
+
+// getDailogUnreadMessages - dialogs/messages/new/count - список новых сообщений
+
+
+
 type postFeedBack2Type = (data: apiFeedBackDataType) => any
 
 export const postFeedBack22:postFeedBack2Type = async (data) => {// отправить письмо

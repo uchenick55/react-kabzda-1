@@ -45,16 +45,7 @@ export type getCaptchaType = {
     url: string
 }
 
-
-
-export type commonResponseType = {
-    resultCode: ResultCodeEnum | ResultCodeEnumCaptcha
-    messages: Array<string>,
-    fieldsErrors: Array<string>,
-    data: object
-}
-
-//Общий тип возвращаемый
+//Общий возвращаемый тип на ряд запросов - дженерик
 export type commRespType<D={}, RC = ResultCodeEnum > = {
     resultCode: RC // 0 успешный ответ, 1 ошибка, 10 - каптча. Все определяется Enum
     messages: Array<string>,
