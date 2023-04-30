@@ -12,7 +12,7 @@ const DELETE_POST = "myApp/profile-reducer/DELETE_POST";// константа у
 const ADD_POST = "myApp/profile-reducer/ADD-POST";// константа отправки новых постов
 const SET_USER_PROFILE = "myApp/profile-reducer/SET_USER_PROFILE"; // константа задания в локальный стейт профиля просматриваемого пользователя
 const SET_STATUS = "myApp/profile-reducer/SET_STATUS" // константа задания моего статуса
-export const PROFILE_INITIAL_STATE = "myApp/profile-reducer/PROFILE_INITIAL_STATE" // константа зануления при логауте
+const PROFILE_INITIAL_STATE = "myApp/profile-reducer/PROFILE_INITIAL_STATE" // константа зануления при логауте
 const SET_PROFILE_PHOTO = "myApp/profile-reducer/SET_PROFILE_PHOTO" // константа задания фото профиля
 
 export const ProfileActions = {
@@ -153,7 +153,7 @@ export const putStatusThunkCreator = (statusTmpInput: string, myId: number): Thu
         }
     }
 }
-export const setprofilePhotoThunkCreator = (profilePhoto: any, myId: number): ThunkType => { // санкреатор установки фотографии моего профиля
+export const setprofilePhotoThunkCreator = (profilePhoto: File, myId: number): ThunkType => { // санкреатор установки фотографии моего профиля
     return async (dispatch, getState) => { // нонеййм санка установки фотографии моего профиля
         const response = await apiProfile.putPhoto( profilePhoto ) // отправка нового фото на сервер
         if (response.resultCode === ResultCodeEnum.Success) { // если успешное обновление статуса с сервера

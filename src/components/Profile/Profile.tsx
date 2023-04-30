@@ -12,7 +12,7 @@ type ProfileType2 = {
     userId: number,
     putProfile: (putProfile2: ProfileType) =>void,
     putStatusThunkCreator: (statusTmpInput:string, myId:number)=>void,
-    uploadImage: (profilePhoto: any)=>void,
+    uploadImage: (profilePhoto: File)=>void,
     editProfileStatus:Array<string>,
     setEditProfileStatus: (editProfileStatus: Array<string>)=> void
 }

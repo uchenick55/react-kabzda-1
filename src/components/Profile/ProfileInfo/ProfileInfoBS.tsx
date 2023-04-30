@@ -15,47 +15,46 @@ import {ProfileType} from "../../../types/commonTypes";
 import ShowProfile from "./ShowProfile";
 
 
-
 type ProfileInfoType2 = {
     profile: getProfileType,
     status: string,
     myId: number,
     userId: number,
-    putProfile: (putProfile2: ProfileType) =>void,
-    putStatusThunkCreator: (statusTmpInput:string, myId:number)=>void,
-    uploadImage: (profilePhoto: any)=>void,
-    editProfileStatus:Array<string>,
-    setEditProfileStatus: (editProfileStatus: Array<string>)=> void
+    putProfile: (putProfile2: ProfileType) => void,
+    putStatusThunkCreator: (statusTmpInput: string, myId: number) => void,
+    uploadImage: (profilePhoto: File) => void,
+    editProfileStatus: Array<string>,
+    setEditProfileStatus: (editProfileStatus: Array<string>) => void
 }
 
 const ProfileInfo: React.FC<ProfileInfoType2> = ({
-                         profile, myId, status, putStatusThunkCreator, uploadImage,
-                         userId, putProfile, editProfileStatus, setEditProfileStatus
-                     }) => {
+                                                     profile, myId, status, putStatusThunkCreator, uploadImage,
+                                                     userId, putProfile, editProfileStatus, setEditProfileStatus
+                                                 }) => {
 
-    const [profilePhoto, setprofilePhoto] = useState(userPhoto1) // useState для временного хранения фото пользователя
-    const [editMode, setEditMode] = useState<boolean>(false) // флаг режима редактирования профиля
-    const [showUploadImageButton, setshowUploadImageButton] = useState(false) // флаг показать ли кнопку загрузки изображения
+    const [profilePhoto, setprofilePhoto] = useState<File>() // useState для временного хранения фото пользователя
+    const [editMode, setEditMode] = useState<boolean>( false ) // флаг режима редактирования профиля
+    const [showUploadImageButton, setshowUploadImageButton] = useState( false ) // флаг показать ли кнопку загрузки изображения
 
     const editedSuccessfully = editProfileStatus.length > 0 // если сообщение об ошибке/обновлении существует
         && editProfileStatus[0] === "Edited successfully!" // и успешный статус обновления с сервера
 
-    useEffect(() => {
+    useEffect( () => {
         if (editedSuccessfully) { // если успешно обновлен профиль на сервере
-            setEditMode(false) // закрыть режим редактирования профиля
+            setEditMode( false ) // закрыть режим редактирования профиля
             // желательно здесь сделать прокрутку до верха профиля
-            setTimeout(() => {
-                setEditProfileStatus([]) // убирание сообщения ответа от сервера по таймеру
-            }, 2000)
+            setTimeout( () => {
+                setEditProfileStatus( [] ) // убирание сообщения ответа от сервера по таймеру
+            }, 2000 )
         }
-    }, [editProfileStatus, editedSuccessfully, setEditProfileStatus]) // переключение режима редактирования зависит от ответа с сервера
+    }, [editProfileStatus, editedSuccessfully, setEditProfileStatus] ) // переключение режима редактирования зависит от ответа с сервера
 
 
     if (!profile) { // если профиль еще не загружен
         return <Preloader/> // отобразить предзагрузку
     }
-    const onChangeProfilePhoto = (e:any) => {
-        setprofilePhoto(e.target.files[0]) // записать в useState выбранный файл фото профиля(временный стейт)
+    const onChangeProfilePhoto = (e: React.ChangeEvent<HTMLInputElement>) => {
+        e.currentTarget.files !== null && setprofilePhoto( e.currentTarget.files[0] ) // записать в useState выбранный файл фото профиля(временный стейт)
     }
     const displayClass = showUploadImageButton ? "" : ButtonOverImage.displayNone // класс скрытия/отображения кнопок загрузки поверх картинки профиля
 
@@ -81,44 +80,44 @@ const ProfileInfo: React.FC<ProfileInfoType2> = ({
                 <span><button
                     className={ButtonOverImage.btn1 + " " + displayClass} // двойной класс - сама кнопка загрузки + класс скрыть/показать при наведении
                     onMouseOver={() => {
-                        setshowUploadImageButton(true)
+                        setshowUploadImageButton( true )
                     }} // при наведении сменить флаг  setshowUploadImageButton на true (показать кнопку)
                     onMouseOut={() => {
-                        setshowUploadImageButton(false)
+                        setshowUploadImageButton( false )
                     }}// при убирании мышки сменить флаг  setshowUploadImageButton на false (скрыть кнопку)
                     onClick={() => { //
-                        uploadImage(profilePhoto)
+                        profilePhoto && uploadImage( profilePhoto )
                     }}>Загрузить</button></span> {/*По клику отправить файл на сервер*/}
                 <span>
                     <input
                         className={ButtonOverImage.btn2 + " " + displayClass} // двойной класс - сама кнопка загрузки + класс скрыть/показать при наведении
                         onMouseOver={() => {
-                            setshowUploadImageButton(true)
+                            setshowUploadImageButton( true )
                         }} // при наведении сменить флаг  setshowUploadImageButton на true (показать кнопку)
                         onMouseOut={() => {
-                            setshowUploadImageButton(false)
+                            setshowUploadImageButton( false )
                         }}// при убирании мышки сменить флаг  setshowUploadImageButton на false (скрыть кнопку)
                         type="file" onChange={onChangeProfilePhoto}/></span> {/*загрузить файл*/}
             </form>
         </div>
 
     const showUserPhoto = <Image fluid={true}
-        alt={"userPhoto"}
-        onMouseOver={() => {
-            setshowUploadImageButton(true)
-        }} // при поя
-        onMouseOut={() => {
-            setshowUploadImageButton(false)
-        }}
-        className={`${ButtonOverImage.profilePhotoIMG} ${userId === 0 && showUploadImageButton ? ButtonOverImage.ImgHover : ""}`}
+                                 alt={"userPhoto"}
+                                 onMouseOver={() => {
+                                     setshowUploadImageButton( true )
+                                 }} // при поя
+                                 onMouseOut={() => {
+                                     setshowUploadImageButton( false )
+                                 }}
+                                 className={`${ButtonOverImage.profilePhotoIMG} ${userId === 0 && showUploadImageButton ? ButtonOverImage.ImgHover : ""}`}
         // если это мой профиль (userId === 0) и мышкой навели на картинку, добавить ImgHover класс (альтернатива псевдокласса :hover)
-        src={profile.photos.large ? profile.photos.large : userPhoto1}/>
+                                 src={profile.photos.large ? profile.photos.large : userPhoto1}/>
 
     return <div>
         <Container fluid="sm">
             <h2 className={commonClasses.pageHeader}>Profile</h2> {/*Заголовок*/}
 
-            <Row >
+            <Row>
                 <Col xs={12} md={5} className={ButtonOverImage.container}>
                     {showUserPhoto} {/*показать фото пользователя*/}
                     {editMyPhoto} {/* сменить фото, если это мой профиль*/}
@@ -133,9 +132,9 @@ const ProfileInfo: React.FC<ProfileInfoType2> = ({
                 Если не саксесфулли, то выводим ошибки и не закрываем редактирование*/}
                     <div>
                         {editedSuccessfully // если успешно обновлен профиль на сервере
-                            && <div>
-                                {editProfileStatus[0]} {/* вывести сообщение успешного обновления*/}
-                            </div>
+                        && <div>
+                            {editProfileStatus[0]} {/* вывести сообщение успешного обновления*/}
+                        </div>
                         }
                     </div>
                     <div>

@@ -26,7 +26,7 @@ type ProfileContainerType = {
     setEditProfileStatus: (editProfileStatus: Array<string>) => void,// экшн креатор задания ошибки с сервера в стейт после правки профиля
     getProfileThunkCreator: (userId: number, shouldUpdateDialogList: boolean, myId: number) => void,// санкреатор на получение профиля выбранного пользователя
     putStatusThunkCreator: (statusTmpInput: string, myId: number) => void,// санкреатор обновления моего статуса
-    setprofilePhotoThunkCreator: (profilePhoto: any, myId: number) => void,// санкреатор установки фотографии моего профиля
+    setprofilePhotoThunkCreator: (profilePhoto: File, myId: number) => void,// санкреатор установки фотографии моего профиля
     putMyProfileThunkCreator: (MyProfile: ProfileType, myId: number) => void,
 }
 
@@ -35,7 +35,7 @@ const ProfileContainerFC:React.FC<ProfileContainerType> = (
     getProfileThunkCreator,   putStatusThunkCreator, setprofilePhotoThunkCreator,
     putMyProfileThunkCreator}) => {
 
-    const uploadImage = (profilePhoto: any) => {
+    const uploadImage = (profilePhoto: File) => {
         setprofilePhotoThunkCreator( profilePhoto, myId )
     }
     const putProfile = (putProfile2: ProfileType) => { // обновить данные профиля просле правки
@@ -80,7 +80,7 @@ type mapDispatchToPropsType = {
     setEditProfileStatus: (editProfileStatus: Array<string>) => void,// экшн креатор задания ошибки с сервера в стейт после правки профиля
     getProfileThunkCreator: (userId: number, shouldUpdateDialogList: boolean, myId: number) => void,// санкреатор на получение профиля выбранного пользователя
     putStatusThunkCreator: (statusTmpInput: string, myId: number) => void,// санкреатор обновления моего статуса
-    setprofilePhotoThunkCreator: (profilePhoto: any, myId: number) => void,// санкреатор установки фотографии моего профиля
+    setprofilePhotoThunkCreator: (profilePhoto: File, myId: number) => void,// санкреатор установки фотографии моего профиля
     putMyProfileThunkCreator: (MyProfile: ProfileType, myId: number) => void,
 }
 

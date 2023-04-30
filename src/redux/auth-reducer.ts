@@ -99,7 +99,8 @@ let authReducer = (state: initialStateAuthType = initialState, action: AuthActio
             return state; // по умолчанию стейт возврашается неизмененным
     }
 }
-type ThunkType = ThunkAction<void,    // санка ничего не возвращает
+type ThunkType = ThunkAction<
+    void,    // санка ничего не возвращает
     GlobalStateType,    // глобальный стейт из redux
     unknown,    // нет доп параметров
     AuthActionTypes // все типы ActionCreator

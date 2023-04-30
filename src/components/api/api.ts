@@ -58,7 +58,7 @@ export const apiProfile = { // объект с методами api для пр�
         const response = await instance.delete<commonResponseType>( `/auth/login` )
         return (response.data) //возврат данных из поля data
     },
-    putPhoto: async (profilePhoto: any) => { // отправка фото пользователя
+    putPhoto: async (profilePhoto: File) => { // отправка фото пользователя
 
         const data = new FormData() // создаем новый объект
         data.append( 'image', profilePhoto ) // добавляем в созданный объект загруженое фото
