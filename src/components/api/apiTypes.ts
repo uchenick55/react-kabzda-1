@@ -1,14 +1,5 @@
 import {ResultCodeEnum, ResultCodeEnumCaptcha} from "./enum";
 
-export type getAuthMeType = {
-    resultCode: number,
-    messages: Array<string>,
-    data: {
-        id: number,
-        email: string,
-        login: string
-    }
-}
 export type getProfileType = {
     aboutMe: string,
     userId: number
@@ -50,6 +41,11 @@ export type getUsersType = {
     items: Array<usersType>,
     totalCount: number
 }
+export type getCaptchaType = {
+    url: string
+}
+
+
 
 export type commonResponseType = {
     resultCode: ResultCodeEnum | ResultCodeEnumCaptcha
@@ -58,7 +54,11 @@ export type commonResponseType = {
     data: object
 }
 
-export type getCaptchaType = {
-    url: string
-}
+//Общий тип возвращаемый
+export type commRespType<D={}, RC = ResultCodeEnum > = {
+    resultCode: RC // 0 успешный ответ, 1 ошибка, 10 - каптча. Все определяется Enum
+    messages: Array<string>,
+    data: D // возможны разные варианты ответа объекта data
+    fieldsErrors: Array<string>,
 
+}

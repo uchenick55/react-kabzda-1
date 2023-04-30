@@ -1,6 +1,12 @@
 import axios from "axios";
 import {apiFeedBackDataType, ProfileType} from "../../types/commonTypes";
-import {commonResponseType, getAuthMeType, getCaptchaType, getProfileType, getUsersType} from "./apiTypes";
+import {
+    commRespType,
+    getCaptchaType,
+    getProfileType,
+    getUsersType
+} from "./apiTypes";
+import {ResultCodeEnum, ResultCodeEnumCaptcha} from "./enum";
 
 const instance = axios.create( {
     baseURL: 'https://social-network.samuraijs.com/api/1.0/',
@@ -18,19 +24,25 @@ export const apiUsers = { // объект с методами api для USERS �
         return (response.data) //возврат данных из поля data
     },
     postFollow: async (userId: number) => {// подписаться на выбранного пользователя
-        const response = await instance.post<commonResponseType>( `follow/${userId}` )
+        const response = await instance.post<commRespType>( `follow/${userId}` )
         return (response.data) //возврат данных из поля data
     },
     deleteFollow: async (userId: number) => {// отписаться от выбранного пользователя
-        const response = await instance.delete<commonResponseType>( `follow/${userId}` )
+        const response = await instance.delete<commRespType>( `follow/${userId}` )
         return (response.data) //возврат данных из поля data
     }
 }
 
+type DataType1 = {
+    id: number,
+    email: string,
+    login: string
+}
+type resultCodeLogin = ResultCodeEnum | ResultCodeEnumCaptcha
 
 export const apiProfile = { // объект с методами api для профайла и авторизации
     getAuthMe: async () => {// запрос "я авторизован?"
-        const response = await instance.get<getAuthMeType>( `auth/me` )
+        const response = await instance.get<commRespType<DataType1>>( `auth/me` )
         return (response.data) //возврат данных из поля data
     },
     getProfile: async (userId: number) => {// получить данные профиля выбранного пользователя по userId
@@ -42,11 +54,11 @@ export const apiProfile = { // объект с методами api для пр�
         return (response.data) //возврат данных из поля data
     },
     putStatus: async (statusTmpInput: string) => { // отправка моего статуса
-        const response = await instance.put<commonResponseType>( `/profile/status/`, {status: statusTmpInput} )
+        const response = await instance.put<commRespType>( `/profile/status/`, {status: statusTmpInput} )
         return (response.data) //возврат данных из поля data
     },
     postLogin: async (email: string, password: string, rememberme?: boolean, captcha?: string) => { //авторизация на сервере по  данным из login формы
-        const response = await instance.post<commonResponseType>( `/auth/login`, {
+        const response = await instance.post<commRespType<{ userId: string }, resultCodeLogin> >( `/auth/login`, {
             email: email,
             password: password,
             rememberme: rememberme,
@@ -55,7 +67,7 @@ export const apiProfile = { // объект с методами api для пр�
         return (response.data) //возврат данных из поля data
     },
     deleteLogin: async () => { // логаут текущего пользователя
-        const response = await instance.delete<commonResponseType>( `/auth/login` )
+        const response = await instance.delete<commRespType>( `/auth/login` )
         return (response.data) //возврат данных из поля data
     },
     putPhoto: async (profilePhoto: File) => { // отправка фото пользователя
@@ -67,12 +79,12 @@ export const apiProfile = { // объект с методами api для пр�
                 'content-type': 'multipart/form-data' // задаем тип отправляемых данных
             }
         }
-        const response = await instance.put<commonResponseType>( `/profile/photo`, data, config ) // отправка фото на сервер
+        const response = await instance.put<commRespType>( `/profile/photo`, data, config ) // отправка фото на сервер
         return (response.data) //возврат данных из поля data
     },
 
     putMyProfileData: async (MyProfile: ProfileType) => { // отправка новых данных профиля пользователя на сервер
-        const response = await instance.put<commonResponseType>( `/profile`, MyProfile ) //
+        const response = await instance.put<commRespType>( `/profile`, MyProfile ) //
         return (response.data) //ответ от сервера
     },
 
