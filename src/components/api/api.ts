@@ -96,8 +96,8 @@ export const apiProfile = { // объект с методами api для пр�
 
 export const apiDialog2 = {
 
-    putDialogStart: async (userId: number) => { // отправка моего статуса
-        const response = await instance.put<any>( `dialogs/${userId}` )
+    putDialog2Start: async (userId: number) => { // отправка моего статуса
+        const response = await instance.put<commRespType>( `dialogs/${userId}` )
         return (response.data) //возврат данных из поля data
     },
 
@@ -106,14 +106,14 @@ export const apiDialog2 = {
 //27045 evgeniysazonov1983@googlemail.com
 //25528 evgeniysazonov1983@gmail.com
 
-//putDialogStart  | dialogs/{userId} - начать диалог, собеседник поднимается вверх??
+//putDialog2Start  | dialogs/{userId} - начать диалог, собеседник поднимается вверх??
 
-//getDialogMessages | dialogs/{userId}/messages - получить список сообщений по id пользователя
+//getDialog2Messages | dialogs/{userId}/messages - получить список сообщений по id пользователя
 // userId - (number) - user id of your friend
 // page (number,default 1) number of requested portion
 // count (number, default 10) size of requestedPortion
 
-// postDialogMessage| dialogs/{userId}/messages - отправить новое сообщение диалога
+// postDialog2Message| dialogs/{userId}/messages - отправить новое сообщение диалога
 /*URI Parameters:
     userId - (number) - user id of your friend
 required params:
@@ -123,29 +123,29 @@ required params:
     */
 
 
-// getDialogMessageIdViewed | dialogs/messages/{messageId}/viewed - проверить, было ли прочитано сообщение по его Id
+// getDialog2MessageIdViewed | dialogs/messages/{messageId}/viewed - проверить, было ли прочитано сообщение по его Id
 /*
 URI Parameters:
     messageId- (number) - user message ID*/
 
-// postDialogMessageIdToSpam | dialogs/messages/{messageId}/spam - пометить сообщение как спам
+// postDialog2MessageIdToSpam | dialogs/messages/{messageId}/spam - пометить сообщение как спам
 /*URI Parameters:
     messageId- (number) - message ID to spam*/
 
-// deleteDialogMessageId | dialogs/messages/{messageId} - удалить сообщение (только у себя)
+// deleteDialog2MessageId | dialogs/messages/{messageId} - удалить сообщение (только у себя)
 /*URI Parameters:
 messageId- (number) - message ID to delete*/
 
-// putDialogMessageIdRestore | dialogs/messages/{messageId}/restore - восстановить сообщение из спама и удаленных
+// putDialog2MessageIdRestore | dialogs/messages/{messageId}/restore - восстановить сообщение из спама и удаленных
 /*URI Parameters:
     messageId- (number) - message ID to restore*/
 
-// getDialogMessage dialogs/{userId}/messages/new?newerThen={date} - вернуть сообщения новее определенной даты
+// getDialog2Message dialogs/{userId}/messages/new?newerThen={date} - вернуть сообщения новее определенной даты
 /*URI Parameters:
     userId- (number) - user id of your friend
 date - (string) - desired date (string in date format)*/
 
-// getDailogUnreadMessages - dialogs/messages/new/count - список новых сообщений
+// getDailog2UnreadMessages - dialogs/messages/new/count - список новых сообщений
 
 
 
