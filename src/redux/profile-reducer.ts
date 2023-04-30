@@ -1,7 +1,7 @@
 import {apiProfile} from "../components/api/api";
 import {AuthActions, getAuthMeThunkCreator} from "./auth-reducer";
 import {updateDialogListThunkCreator} from "./dialogs-reducer";
-import {NulableType, postsType, ProfileType} from "../types/commonTypes";
+import {ComThunkTp, NulableType, postsType, ProfileType} from "../types/commonTypes";
 import {ThunkAction} from "redux-thunk";
 import {GlobalStateType, InferActionsTypes} from "./store-redux";
 import {getProfileType} from "../components/api/apiTypes";
@@ -108,14 +108,7 @@ export const profileReducer = (state: initialStateType = initialState, action: P
     }
 }
 
-type ThunkType = ThunkAction<void,    // санка ничего не возвращает
-    GlobalStateType,    // глобальный стейт из redux
-    unknown,    // нет доп параметров
-    ProfileActionTypes // все типы ActionCreator
-    >
-
-
-export const getProfileThunkCreator = (userId: number, shouldUpdateDialogList: boolean, myId: number): ThunkType => { // санкреатор на получение профиля выбранного пользователя
+export const getProfileThunkCreator = (userId: number, shouldUpdateDialogList: boolean, myId: number): ComThunkTp<ProfileActionTypes> => { // санкреатор на получение профиля выбранного пользователя
     return async (dispatch, getState) => { // нонейм санка на получение профиля выбранного пользователя
         const CommonPart = (response: getProfileType, userId: number) => { // общая часть для задания статуса профиля и получения статуса
             dispatch( ProfileActions.setUserProfile( response ) ) // задание полных данных в профиль
@@ -139,13 +132,13 @@ export const getProfileThunkCreator = (userId: number, shouldUpdateDialogList: b
     }
 }
 
-export const getStatusThunkCreator = (userId: number): ThunkType => {  // санкреатор запроса статуса выбранного пользователя
+export const getStatusThunkCreator = (userId: number): ComThunkTp<ProfileActionTypes> => {  // санкреатор запроса статуса выбранного пользователя
     return async (dispatch, getState) => { // нонейм санка запроса статуса выбранного пользователя
         const response = await apiProfile.getStatus( userId ) // api запрос получение статуса по userId
         dispatch( ProfileActions.setStatus( response ) ) // задание статуса в локальный стейт с последующей переотрисовкой
     }
 }
-export const putStatusThunkCreator = (statusTmpInput: string, myId: number): ThunkType => { // санкреатор обновления моего статуса
+export const putStatusThunkCreator = (statusTmpInput: string, myId: number): ComThunkTp<ProfileActionTypes> => { // санкреатор обновления моего статуса
     return async (dispatch, getState) => { // нонеййм санка обновления моего статуса
         const response = await apiProfile.putStatus( statusTmpInput ) // отправка нового статуса на сервер
         if (response.resultCode === ResultCodeEnum.Success) { // если успешное обновление статуса с сервера
@@ -153,7 +146,7 @@ export const putStatusThunkCreator = (statusTmpInput: string, myId: number): Thu
         }
     }
 }
-export const setprofilePhotoThunkCreator = (profilePhoto: File, myId: number): ThunkType => { // санкреатор установки фотографии моего профиля
+export const setprofilePhotoThunkCreator = (profilePhoto: File, myId: number): ComThunkTp<ProfileActionTypes> => { // санкреатор установки фотографии моего профиля
     return async (dispatch, getState) => { // нонеййм санка установки фотографии моего профиля
         const response = await apiProfile.putPhoto( profilePhoto ) // отправка нового фото на сервер
         if (response.resultCode === ResultCodeEnum.Success) { // если успешное обновление статуса с сервера
@@ -163,7 +156,7 @@ export const setprofilePhotoThunkCreator = (profilePhoto: File, myId: number): T
     }
 }
 
-export const putMyProfileThunkCreator = (MyProfile: ProfileType, myId: number): ThunkType => { // санкреатор установки моего профиля myProfile
+export const putMyProfileThunkCreator = (MyProfile: ProfileType, myId: number): ComThunkTp<ProfileActionTypes> => { // санкреатор установки моего профиля myProfile
     return async (dispatch, getState) => { // нонеййм санка установки моего профиля myProfile
         const response = await apiProfile.putMyProfileData( MyProfile ) // отправка нового статуса на сервер
         if (response.resultCode === ResultCodeEnum.Success) { // если успешное обновление профиля на сервере
@@ -180,7 +173,6 @@ export const putMyProfileThunkCreator = (MyProfile: ProfileType, myId: number): 
         }
     }
 }
-
 
 export default profileReducer;
 

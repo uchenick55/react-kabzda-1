@@ -2,6 +2,7 @@ import {getAuthMeThunkCreator} from "./auth-reducer";
 import {getThemeThunkCreator} from "./theme-reducer";
 import {GlobalStateType, InferActionsTypes} from "./store-redux";
 import {ThunkAction} from "redux-thunk";
+import {ComThunkTp} from "../types/commonTypes";
 
 const SET_INITIALISED_APP = "myApp/app-reducer/SET_INITIALISED_APP"; //константа инициализации приложения
 const APP_INITIAL_STATE = "myApp/app-reducer/APP_INITIAL_STATE"; //константа зануления при логауте
@@ -64,12 +65,8 @@ let appReducer = (state: initialStateType = initialState, action: AppActionTypes
             return state; // по умолчанию стейт возврашается неизмененным
     }
 }
-type ThunkType = ThunkAction<void,    // санка ничего не возвращает
-    GlobalStateType,    // глобальный стейт из redux
-    unknown,    // нет доп параметров
-    AppActionTypes // все типы ActionCreator
-    >
-export const initialisedAppThunkCreator = (): ThunkType => {// санкреатор инициализации приложения
+
+export const initialisedAppThunkCreator = (): ComThunkTp<AppActionTypes> => {// санкреатор инициализации приложения
     return (dispatch, getState) => { // санки  инициализации приложения
         const promise1 = dispatch( getAuthMeThunkCreator() ) // проверка статуса авторизации
         const promise2 = dispatch( getThemeThunkCreator() ) // получение темы

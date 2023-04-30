@@ -1,7 +1,7 @@
 import {apiDialogs} from "../components/api/apiLocalStorage";
 import {GlobalStateType, InferActionsTypes} from "./store-redux";
 import {ThunkAction} from "redux-thunk";
-import {dialogs2Type, messages2Type, NulableType} from "../types/commonTypes";
+import {ComThunkTp, dialogs2Type, messages2Type, NulableType} from "../types/commonTypes";
 
 const DIALOGS_INITIAL_STATE = "myApp/dialogs-reducer/DIALOGS_INITIAL_STATE";  //константа зануления при логауте
 const SET_MESSAGES = "myApp/dialogs-reducer/SET_MESSAGES";  //константа задания списка сообщений в стейт
@@ -92,34 +92,29 @@ let dialogsReducer = (state: initialStateType = initialState, action: DialogsAct
             return state;
     }
 }
-type ThunkType = ThunkAction<void,    // санка ничего не возвращает
-    GlobalStateType,    // глобальный стейт из redux
-    unknown,    // нет доп параметров
-    DialogsActionTypes // все типы ActionCreator
-    >
 
-export const getDialogsThunkCreator = (myId: number, userId: number): ThunkType => {//санкреатор получения диалогов с данными
+export const getDialogsThunkCreator = (myId: number, userId: number): ComThunkTp<DialogsActionTypes> => {//санкреатор получения диалогов с данными
     return async (dispatch, getState) => {// санка получения сообщений диалога
         const updatedMessages = await apiDialogs.getDialog( myId, userId )
         dispatch( DialogsActions.setMessages( updatedMessages ) )
     }
 }
 export const sendDialogsThunkCreator =
-    (formDataNewMessage: string, myId: number, MyName: string, MyPhoto: string, userId: number): ThunkType => {//санкреатор отправки нового сообщения в диалог
+    (formDataNewMessage: string, myId: number, MyName: string, MyPhoto: string, userId: number): ComThunkTp<DialogsActionTypes> => {//санкреатор отправки нового сообщения в диалог
         return async (dispatch, getState) => {// санка отправки нового сообщения в диалог
             const updatedMessages = await apiDialogs.postDialog( formDataNewMessage, myId, MyName, MyPhoto, userId )
             dispatch( DialogsActions.setMessages( updatedMessages ) )
         }
     }
 
-export const getDialogLastUpdateTimeTnkCrt = (myId: number, userId: number): ThunkType => {//санкреатор получения диалогов с данными
+export const getDialogLastUpdateTimeTnkCrt = (myId: number, userId: number): ComThunkTp<DialogsActionTypes> => {//санкреатор получения диалогов с данными
     return async (dispatch, getState) => {// санка получения сообщений диалога
         const dialogLastUpdateTime = await apiDialogs.getUpdateTime( myId, userId ) // запросить время обновления текущего диалога
         dispatch( DialogsActions.setDialogLastUpdateTime( dialogLastUpdateTime ) ) // отправить в BLL время последнего обновления текущего диалога
     }
 }
 
-export const deleteMessageThunkCreator = (messageID: number, myId: number, userId: number): ThunkType => {//санкреатор удаления сообщения из далога
+export const deleteMessageThunkCreator = (messageID: number, myId: number, userId: number): ComThunkTp<DialogsActionTypes> => {//санкреатор удаления сообщения из далога
     return async (dispatch, getState) => {// санка удаления сообщения из далога
         const dialogAfterDeleteMessage = await apiDialogs.deleteMessage( messageID, myId, userId ) // удалить сообщение на стороне сервера и запросить обновленные данные
         dispatch( DialogsActions.setMessages( dialogAfterDeleteMessage ) )// записать в стейт обновленный список сообщений
@@ -127,7 +122,7 @@ export const deleteMessageThunkCreator = (messageID: number, myId: number, userI
 }
 
 
-export const getMyDialogListThunkCreator = (myId: number): ThunkType => {//санкреатор получения моего диалогЛиста
+export const getMyDialogListThunkCreator = (myId: number): ComThunkTp<DialogsActionTypes> => {//санкреатор получения моего диалогЛиста
     return async (dispatch, getState) => {// санка
         const myDialogList = await apiDialogs.getDialogListMyID( myId ) // получение моего диалогЛиста
         dispatch( DialogsActions.getMyDialogList( myDialogList ) )// записать в стейт мой диалоглист
@@ -135,13 +130,13 @@ export const getMyDialogListThunkCreator = (myId: number): ThunkType => {//са�
 }
 
 //updateDialogListThunkCreator(myId, response.userId, response.fullName, response.photos.small
-export const updateDialogListThunkCreator = (userId1: number, userId2: number, Name2: string, Photo2: string): ThunkType => {
+export const updateDialogListThunkCreator = (userId1: number, userId2: number, Name2: string, Photo2: string): ComThunkTp<DialogsActionTypes> => {
     //санкреатор обновления диалогЛиста (моего когда я пишу кому то сообщение) - запись в localStorage.
     return async (dispatch, getState) => {// санка
         await apiDialogs.updateDialogListUserId( userId1, userId2, Name2, Photo2 ) // получение моего диалогЛиста
     }
 }
-export const deleteDialogThunkCreator = (dialogId: number, userId1: number, userId2: number): ThunkType => {
+export const deleteDialogThunkCreator = (dialogId: number, userId1: number, userId2: number): ComThunkTp<DialogsActionTypes> => {
     //санкреатор удаления диалога из диалогЛиста
     return async (dispatch, getState) => {// санка
         await apiDialogs.deleteDialog( dialogId, userId1, userId2 ) // получение моего диалогЛиста после удаления диалога

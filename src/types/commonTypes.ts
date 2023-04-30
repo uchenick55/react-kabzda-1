@@ -1,4 +1,6 @@
-
+import {Action} from "redux";
+import {ThunkAction} from "redux-thunk";
+import {GlobalStateType} from "../redux/store-redux";
 
 
 export type postsType = {
@@ -21,9 +23,8 @@ export type ProfileType = {
         website: string,
         youtube: string
     }
-  //  userId: number
+    //  userId: number
 }
-
 
 
 export type apiFeedBackDataType = {
@@ -49,9 +50,9 @@ export type DateType = {
     Day: number
     Hour: number
     Minutes: number
-    Month:string
+    Month: string
     Seconds: number
-    Year :number
+    Year: number
 }
 
 export type messages2Type = {
@@ -71,3 +72,11 @@ export type dialogs2Type = {
 
 export type modalHeaderType = JSX.Element | string
 export type modalBodyType = JSX.Element | string
+
+
+export type ComThunkTp<A extends Action> = ThunkAction<
+    void,    // санка ничего не возвращает
+    GlobalStateType,    // глобальный стейт из redux
+    unknown,    // нет доп параметров
+    A // все типы ActionCreator
+    >

@@ -1,9 +1,10 @@
 import {apiUsers} from "../components/api/api";
 import {ThunkAction} from "redux-thunk";
 import {GlobalStateType, InferActionsTypes} from "./store-redux";
-import {Dispatch} from "redux";
+import {Action, Dispatch} from "redux";
 import {usersType} from "../components/api/apiTypes";
 import {ResultCodeEnum} from "../components/api/enum";
+import {ComThunkTp} from "../types/commonTypes";
 
 const SET_TERM = "myApp/users-reducer/SET_TERM";
 const SET_USERS = "myApp/users-reducer/SET_USERS";
@@ -120,13 +121,9 @@ const usersReducer = (state: initialStateType = initialState, action: UsersActio
             return state;
     }
 }
-type ThunkType = ThunkAction<void,    // санка ничего не возвращает
-    GlobalStateType,    // глобальный стейт из redux
-    unknown,    // нет доп параметров
-    UsersActionTypes // все типы ActionCreator
-    >
+
 export const getUsersThunkCreator //санкреатор получить пользователей с данными
-    = (currentPage: number, pageSize: number, term: string, friend: boolean, userId: number): ThunkType => {
+    = (currentPage: number, pageSize: number, term: string, friend: boolean, userId: number): ComThunkTp<UsersActionTypes> => {
 
     return (dispatch, getState) => { // нонейм санка получить пользователей
         dispatch( UsersActions.toggleIsFetching( true ) ) //показать крутилку загрузки с сервера
@@ -173,14 +170,14 @@ const _followUnfollowFlow = ( // общий метод для санкреате
 }
 
 export const followThunkCreator =
-    (userId: number, currentPage: number, pageSize: number, term: string, friend: boolean): ThunkType => {//санкреатор follow с данными
+    (userId: number, currentPage: number, pageSize: number, term: string, friend: boolean): ComThunkTp<UsersActionTypes> => {//санкреатор follow с данными
         return (dispatch, getState) => {// санка follow
             _followUnfollowFlow( dispatch, userId, currentPage, pageSize, apiUsers.postFollow.bind( apiUsers ), term, friend );
         }
     }
 
 export const unfollowThunkCreator =
-    (userId: number, currentPage: number, pageSize: number, term: string, friend: boolean): ThunkType => {//санкреатор unfollow с данными
+    (userId: number, currentPage: number, pageSize: number, term: string, friend: boolean): ComThunkTp<UsersActionTypes> => {//санкреатор unfollow с данными
         return (dispatch, getState) => {// санка unfollow
             _followUnfollowFlow( dispatch, userId, currentPage, pageSize, apiUsers.deleteFollow.bind( apiUsers ), term, friend );
         }

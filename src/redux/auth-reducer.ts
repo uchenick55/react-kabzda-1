@@ -6,7 +6,7 @@ import {GlobalStateType, InferActionsTypes} from "./store-redux";
 import {ThunkAction} from "redux-thunk";
 import {getProfileType} from "../components/api/apiTypes";
 import {ResultCodeEnum, ResultCodeEnumCaptcha} from "../components/api/enum";
-import {NulableType} from "../types/commonTypes";
+import {ComThunkTp, NulableType} from "../types/commonTypes";
 
 const SET_MY_DATA = "myApp/auth-reducer/SET_MY_DATA"; // константа для задания базовых данных моего профиля (ID, Email, login, isAuth)
 const AUTH_INITIAL_STATE = "myApp/auth-reducer/AUTH_INITIAL_STATE"; //константа зануления при логауте
@@ -99,13 +99,8 @@ let authReducer = (state: initialStateAuthType = initialState, action: AuthActio
             return state; // по умолчанию стейт возврашается неизмененным
     }
 }
-type ThunkType = ThunkAction<
-    void,    // санка ничего не возвращает
-    GlobalStateType,    // глобальный стейт из redux
-    unknown,    // нет доп параметров
-    AuthActionTypes // все типы ActionCreator
-    >
-export const getAuthMeThunkCreator = (): ThunkType => {//санкреатор я авторизован?. Данных для запроса нет
+
+export const getAuthMeThunkCreator = (): ComThunkTp<AuthActionTypes> => {//санкреатор я авторизован?. Данных для запроса нет
     return async (dispatch, getState) => {
         const response1 = await apiProfile.getAuthMe() // я авторизован?
         if (response1.resultCode === ResultCodeEnum.Success) { //если неверно ввели логин/пароль 5 раз
@@ -126,7 +121,7 @@ export const getAuthMeThunkCreator = (): ThunkType => {//санкреатор я
     };
 }
 
-export const postLoginThunkCreator = (email: string, password: string, rememberme?: boolean, captcha?: string): ThunkType => {
+export const postLoginThunkCreator = (email: string, password: string, rememberme?: boolean, captcha?: string): ComThunkTp<AuthActionTypes> => {
     //санкреатор на логин
     return async (dispatch, getState) => { // объявление санки на логин
         const response = await apiProfile.postLogin( email, password, rememberme, captcha ) // отправка данных на авторизацию из формы логина
@@ -145,7 +140,7 @@ export const postLoginThunkCreator = (email: string, password: string, rememberm
     };
 }
 
-export const deleteLoginThunkCreator = (): ThunkType => {//санкреатор на логАут
+export const deleteLoginThunkCreator = (): ComThunkTp<AuthActionTypes> => {//санкреатор на логАут
     return async (dispatch, getState) => { // объявление санки на логаут
         const response = await apiProfile.deleteLogin() // отправка запроса на логаут
         if (response.resultCode === ResultCodeEnum.Success) { // если сессия успешно закрыта
@@ -166,7 +161,7 @@ export const deleteLoginThunkCreator = (): ThunkType => {//санкреатор 
     };
 }
 
-export const getCaptchaThunkCreator = (): ThunkType => {//санкреатор на получение каптчи
+export const getCaptchaThunkCreator = (): ComThunkTp<AuthActionTypes> => {//санкреатор на получение каптчи
     return async (dispatch, getState) => { // санка на получение каптчи
         const response2 = await apiProfile.getCaptcha() // запрос каптчи
         dispatch( AuthActions.setCaptchaURL( response2.url ) ) // получить данные с сервера авторизованного пользователя
