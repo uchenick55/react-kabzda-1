@@ -2,7 +2,7 @@ import axios from "axios";
 import {apiFeedBackDataType, ProfileType} from "../../types/commonTypes";
 import {
     commRespType,
-    getCaptchaType,
+    getCaptchaType, getDialog2MessagesType,
     getProfileType,
     getUsersType
 } from "./apiTypes";
@@ -58,7 +58,7 @@ export const apiProfile = { // объект с методами api для пр�
         return (response.data) //возврат данных из поля data
     },
     postLogin: async (email: string, password: string, rememberme?: boolean, captcha?: string) => { //авторизация на сервере по  данным из login формы
-        const response = await instance.post<commRespType<{ userId: string }, resultCodeLogin> >( `/auth/login`, {
+        const response = await instance.post<commRespType<{ userId: string }, resultCodeLogin>>( `/auth/login`, {
             email: email,
             password: password,
             rememberme: rememberme,
@@ -96,9 +96,18 @@ export const apiProfile = { // объект с методами api для пр�
 
 export const apiDialog2 = {
 
-    putDialog2Start: async (userId: number) => { // отправка моего статуса
+    putDialog2Start: async (userId: number) => { // начало диалога с пользователем по его ID
         const response = await instance.put<commRespType>( `dialogs/${userId}` )
         return (response.data) //возврат данных из поля data
+        //putDialog2Start  | dialogs/{userId} - начать диалог, собеседник поднимается вверх??
+    },
+    getDialog2Messages: async (userId: number, page:number, count:number) => { // получить список сообщений по id пользователя
+        const response = await instance.get<getDialog2MessagesType>( `dialogs?${userId}&${page}&${count}` )
+        return (response.data) //возврат данных из поля data
+        //getDialog2Messages | dialogs/{userId}/messages - получить список сообщений по id пользователя
+        // userId - (number) - user id of your friend
+        // page (number,default 1) number of requested portion
+        // count (number, default 10) size of requestedPortion
     },
 
 }
@@ -106,12 +115,6 @@ export const apiDialog2 = {
 //27045 evgeniysazonov1983@googlemail.com
 //25528 evgeniysazonov1983@gmail.com
 
-//putDialog2Start  | dialogs/{userId} - начать диалог, собеседник поднимается вверх??
-
-//getDialog2Messages | dialogs/{userId}/messages - получить список сообщений по id пользователя
-// userId - (number) - user id of your friend
-// page (number,default 1) number of requested portion
-// count (number, default 10) size of requestedPortion
 
 // postDialog2Message| dialogs/{userId}/messages - отправить новое сообщение диалога
 /*URI Parameters:
@@ -148,10 +151,9 @@ date - (string) - desired date (string in date format)*/
 // getDailog2UnreadMessages - dialogs/messages/new/count - список новых сообщений
 
 
-
 type postFeedBack2Type = (data: apiFeedBackDataType) => any
 
-export const postFeedBack22:postFeedBack2Type = async (data) => {// отправить письмо
+export const postFeedBack22: postFeedBack2Type = async (data) => {// отправить письмо
 
     const FORM_ENDPOINT = "https://public.herotofu.com/v1/e595a3c0-83b2-11ed-b38f-a1ed22f366b1";// конечная точка
     const response = await fetch( FORM_ENDPOINT, {
