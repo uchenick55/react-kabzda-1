@@ -95,14 +95,17 @@ export const apiProfile = { // объект с методами api для пр�
 }
 
 export const apiDialog2 = {
-/*
-    putStatus: async (statusTmpInput: string) => { // отправка моего статуса
-        const response = await instance.put<commRespType>( `/profile/status/`, {status: statusTmpInput} )
+
+    putDialogStart: async (userId: number) => { // отправка моего статуса
+        const response = await instance.put<any>( `dialogs/${userId}` )
         return (response.data) //возврат данных из поля data
     },
-    */
 
 }
+
+//27045 evgeniysazonov1983@googlemail.com
+//25528 evgeniysazonov1983@gmail.com
+
 //putDialogStart  | dialogs/{userId} - начать диалог, собеседник поднимается вверх??
 
 //getDialogMessages | dialogs/{userId}/messages - получить список сообщений по id пользователя

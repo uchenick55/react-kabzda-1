@@ -50,7 +50,7 @@ type AuthActionTypes =
     InferActionsTypes<typeof ProfileActions> |
     InferActionsTypes<typeof UsersActions>
 
-let initialState = { // стейт по умолчанию для моего профиля
+const initialState = { // стейт по умолчанию для моего профиля
     myId: 0 as number, // мой ID по умолчанию
     myEmail: "" as string,// мой Email по умолчанию
     myLogin: "" as string,// мой логин по умолчанию
@@ -59,8 +59,8 @@ let initialState = { // стейт по умолчанию для моего п�
     captchaURL: "" as string, // URL каптчи после 5 неправильных вводов
     loginError: "" as string, // ошибка авторизации с сервера
 }
-export type initialStateAuthType = typeof initialState
-let authReducer = (state: initialStateAuthType = initialState, action: AuthActionTypes): initialStateAuthType => { // редьюсер авторизации и моего профиля
+type initialStateAuthType = typeof initialState
+const authReducer = (state: initialStateAuthType = initialState, action: AuthActionTypes): initialStateAuthType => { // редьюсер авторизации и моего профиля
     let stateCopy: initialStateAuthType; // объявлениечасти части стейта до изменения редьюсером
     switch (action.type) {
         case SET_MY_DATA: // экшн задания моих id, email, login
