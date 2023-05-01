@@ -4,7 +4,7 @@ import {
     commRespType,
     getCaptchaType, getDialog2MessagesType,
     getProfileType,
-    getUsersType
+    getUsersType, sendMessageType
 } from "./apiTypes";
 import {ResultCodeEnum, ResultCodeEnumCaptcha} from "./enum";
 
@@ -96,18 +96,35 @@ export const apiProfile = { // объект с методами api для пр�
 
 export const apiDialog2 = {
 
-    putDialog2Start: async (userId: number) => { // начало диалога с пользователем по его ID
+    putDialog2Start: async (userId: number) => {
         const response = await instance.put<commRespType>( `dialogs/${userId}` )
-        return (response.data) //возврат данных из поля data
+        return (response.data)  // начало диалога с пользователем по его ID
         //putDialog2Start  | dialogs/{userId} - начать диалог, собеседник поднимается вверх??
     },
-    getDialog2Messages: async (userId: number, page:number, count:number) => { // получить список сообщений по id пользователя
+    getDialog2Messages: async (userId: number, page: number, count: number) => { // получить список сообщений по id пользователя
         const response = await instance.get<getDialog2MessagesType>( `dialogs?${userId}&${page}&${count}` )
-        return (response.data) //возврат данных из поля data
-        //getDialog2Messages | dialogs/{userId}/messages - получить список сообщений по id пользователя
+        return (response.data) //- получить список сообщений по id пользователя
+        //getDialog2Messages | dialogs/{userId}/messages
         // userId - (number) - user id of your friend
         // page (number,default 1) number of requested portion
         // count (number, default 10) size of requestedPortion
+    },
+    postDialog2Message: async (userId: number, body: string) => {
+        const response = await instance.post<commRespType<sendMessageType>>( `dialogs/${userId}/messages`, {body: body} )
+        return (response.data) // - отправить сообщение пользователю
+        //postDialog2Message | dialogs / {userId}/messages
+        //- отправить новое сообщение диалога
+        // RI Parameters:
+        //     userId - (number) - user id of your friend
+        // required params:
+        //    body - (string) - your message to friend
+    },
+    getDialog2MessageIdViewed: async (messageId: string) => {
+        const response = await instance.get<boolean>( `dialogs/messages/${messageId}/viewed` )
+        return (response) //- проверить, было ли прочитано сообщение по Id сообщения
+        // getDialog2MessageIdViewed | dialogs/messages/{messageId}/viewed
+        //URI Parameters:
+        //    messageId- (number) - user message ID
     },
 
 }
@@ -115,21 +132,6 @@ export const apiDialog2 = {
 //27045 evgeniysazonov1983@googlemail.com
 //25528 evgeniysazonov1983@gmail.com
 
-
-// postDialog2Message| dialogs/{userId}/messages - отправить новое сообщение диалога
-/*URI Parameters:
-    userId - (number) - user id of your friend
-required params:
-    body - (string) - your message to friend
-пример из выше: const response = await instance.get<getProfileType>( `profile/` + userId )
-        return (response.data) //возврат данных из поля data
-    */
-
-
-// getDialog2MessageIdViewed | dialogs/messages/{messageId}/viewed - проверить, было ли прочитано сообщение по его Id
-/*
-URI Parameters:
-    messageId- (number) - user message ID*/
 
 // postDialog2MessageIdToSpam | dialogs/messages/{messageId}/spam - пометить сообщение как спам
 /*URI Parameters:

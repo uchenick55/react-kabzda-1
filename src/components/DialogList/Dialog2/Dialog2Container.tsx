@@ -1,19 +1,29 @@
 import React, {useEffect} from "react";
 import {connect} from "react-redux";
 import {GlobalStateType} from "../../../redux/store-redux";
-import {getDialog2MessagesActionCreator, putDialog2StartActionCreator} from "../../../redux/dialog2-reducer";
+import {
+    getDialog2MessageIdViewedThCr,
+    getDialog2MessagesThCr,
+    postDialog2MessageThCr,
+    putDialog2StartThCr
+} from "../../../redux/dialog2-reducer";
 
 type DialogContainerType = {
-    putDialog2StartActionCreator: (currentDialogId:number) => void,
-    getDialog2MessagesActionCreator: (userId: number, page:number, count:number) => void,
+    putDialog2StartThCr: (currentDialogId:number) => void,
+    getDialog2MessagesThCr: (userId: number, page:number, count:number) => void,
+    postDialog2MessageThCr: (userId: number, body:string) => void,
+    getDialog2MessageIdViewedThCr: (messageId: string) => void,
 
 }
 const Dialog2Container:React.FC<DialogContainerType> = (
-    {putDialog2StartActionCreator, getDialog2MessagesActionCreator}
+    {putDialog2StartThCr, getDialog2MessagesThCr, postDialog2MessageThCr,
+        getDialog2MessageIdViewedThCr}
     ) => {
     useEffect(()=>{
-       // putDialog2StartActionCreator(27045)
-        getDialog2MessagesActionCreator(27045, 1, 10)
+       // putDialog2StartThCr(27045)
+        //postDialog2MessageThCr(27045, "555")
+        //getDialog2MessagesThCr(25528, 1, 10)
+        getDialog2MessageIdViewedThCr("cde7821a-6981-4f49-8b12-faf681cb1621")
     },[])
     return <div>
         123
@@ -28,8 +38,10 @@ type mapStateToPropsType = {
 
 }
 type mapDispatchToPropsType = {
-    putDialog2StartActionCreator: (currentDialogId:number) => void,
-    getDialog2MessagesActionCreator: (userId: number, page:number, count:number) => void,
+    putDialog2StartThCr: (currentDialogId:number) => void,
+    getDialog2MessagesThCr: (userId: number, page:number, count:number) => void,
+    postDialog2MessageThCr: (userId: number, body:string) => void,
+    getDialog2MessageIdViewedThCr: (messageId: string) => void,
 }
 export default connect<
     mapStateToPropsType,
@@ -37,5 +49,6 @@ export default connect<
     unknown,
     GlobalStateType
     >(mapStateToProps,{
-    putDialog2StartActionCreator, getDialog2MessagesActionCreator
+    putDialog2StartThCr, getDialog2MessagesThCr, postDialog2MessageThCr,
+    getDialog2MessageIdViewedThCr
 })(Dialog2Container)

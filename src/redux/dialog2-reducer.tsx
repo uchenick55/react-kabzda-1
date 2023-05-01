@@ -10,7 +10,7 @@ export const Dialod2Actions = {
     setCurrentDialogId: (currentDialogId: number) => {
         return {type: CURRENT_DIALOG_ID, currentDialogId} as const
     },
-    setNewMessagesById: (NewMessagesById: getDialog2MessagesType) => {
+    getNewMessagesByUserId: (NewMessagesById: getDialog2MessagesType) => {
         return {type: SET_NEW_MESSAGES_BY_ID, NewMessagesById} as const
     }
 }
@@ -44,18 +44,32 @@ const Dialog2Reducer = (state: initialStateDialog2Type = initialState, action: D
     }
 }
 
-export const putDialog2StartActionCreator = (currentDialogId: number): ComThunkTp<Dialog2ActionsTypes> => {
-    return async (dispatch, getState) => {
+type ThType = ComThunkTp<Dialog2ActionsTypes> // тип, выведенный из общего типа санок сс учетом локального типа AC
+
+export const putDialog2StartThCr = (currentDialogId: number): ThType => {
+    return async (dispatch, getState) => {// начало диалога с пользователем по его ID
         const response = await apiDialog2.putDialog2Start( currentDialogId )
         if (response.resultCode === 0) {
             dispatch( Dialod2Actions.setCurrentDialogId( currentDialogId ) )
         }
     }
 }
-export const getDialog2MessagesActionCreator = (userId: number, page: number = 1, count: number = 10): ComThunkTp<Dialog2ActionsTypes> => {
-    return async (dispatch, getState) => {
+export const getDialog2MessagesThCr = (userId: number, page: number = 1, count: number = 10): ThType => {
+    return async (dispatch, getState) => {//- получить список сообщений по id пользователя
         const response = await apiDialog2.getDialog2Messages( userId, page, count )
-        dispatch( Dialod2Actions.setNewMessagesById( response ) )
+        dispatch( Dialod2Actions.getNewMessagesByUserId( response ) )
+    }
+}
+export const postDialog2MessageThCr = (userId: number, body: string): ThType => {
+    return async (dispatch, getState) => {// - отправить сообщение пользователю
+        const response = await apiDialog2.postDialog2Message( userId, body )
+       // console.log(response.data)
+    }
+}
+export const getDialog2MessageIdViewedThCr = (messageId: string): ThType => {
+    return async (dispatch, getState) => {//- проверить, было ли прочитано сообщение по Id сообщения
+        const response = await apiDialog2.getDialog2MessageIdViewed(messageId)
+        //console.log(response) // boolean
     }
 }
 
