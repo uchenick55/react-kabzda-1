@@ -118,12 +118,12 @@ export const apiDialog2 = {
 
     putDialog2Start: async (userId: number) => {
         const response = await instance.put<commRespType>( `dialogs/${userId}` )
-        return (response.data)  // начало диалога с пользователем по его ID
+        return (response)  // начало диалога с пользователем по его ID
         //putDialog2Start  | dialogs/{userId} - начать диалог, собеседник поднимается вверх??
     },
     getDialog2Messages: async (userId: number, page: number, count: number) => { // получить список сообщений по id пользователя
         const response = await instance.get<getDialog2MessagesType>( `dialogs?${userId}&${page}&${count}` )
-        return (response.data) //- получить список сообщений по id пользователя
+        return (response) //- получить список сообщений по id пользователя
         //getDialog2Messages | dialogs/{userId}/messages
         // userId - (number) - user id of your friend
         // page (number,default 1) number of requested portion
@@ -131,7 +131,7 @@ export const apiDialog2 = {
     },
     postDialog2Message: async (userId: number, body: string) => {
         const response = await instance.post<commRespType<sendMessageType>>( `dialogs/${userId}/messages`, {body: body} )
-        return (response.data) // - отправить сообщение пользователю
+        return (response) // - отправить сообщение пользователю
         //postDialog2Message | dialogs / {userId}/messages
         //- отправить новое сообщение диалога
         // RI Parameters:
@@ -148,34 +148,36 @@ export const apiDialog2 = {
     },
     postDialog2MessageIdToSpam: async (messageId: string) => {
         const response = await instance.post<commRespType>( `dialogs/messages/${messageId}/spam` )
-        return (response.data) // - отправить сообщение пользователю
-        //postDialog2Message | dialogs / {userId}/messages
-        //- отправить новое сообщение диалога
-        // RI Parameters:
-        //     userId - (number) - user id of your friend
-        // required params:
-        //    body - (string) - your message to friend
+        return (response) // - пометить сообщение как спам
+        // postDialog2MessageIdToSpam | dialogs/messages/{messageId}/spam
+        //URI Parameters:
+         //   messageId- (number) - message ID to spam
+    },
+    deleteDialog2MessageId: async (messageId: string) => {
+        const response = await instance.delete<boolean>( `dialogs/messages/${messageId}` )
+        return (response) //- удалить сообщение (только у себя) по ID сообщения
+        // deleteDialog2MessageId | dialogs/messages/{messageId}
+        //URI Parameters:
+        // messageId- (number) - message ID to delete
+    },
+    putDialog2MessageIdRestore: async (messageId: string) => {
+        const response = await instance.put<commRespType>( `dialogs/messages/${messageId}/restore` )
+        return (response) // - восстановить сообщение из спама и удаленных
+        // putDialog2MessageIdRestore | dialogs/messages/{messageId}/restore
+        //URI Parameters:
+        // messageId- (number) - message ID to restore
+    },
+    getDialog2MessagesNewerThen: async (userId: number, date:string) => {
+        const response = await instance.get<Array<sendMessageType>>( `dialogs/${userId}/messages/new?newerThen=${date}` )
+        return (response) // - вернуть сообщения новее определенной даты
+        // getDialog2MessagesNewerThen | dialogs/{userId}/messages/new?newerThen={date}
+        //URI Parameters:
+        //    userId- (number) - user id of your friend
+        //date - (string) - desired date (string in date format)*/
     },
 
 }
 
-
-// postDialog2MessageIdToSpam | dialogs/messages/{messageId}/spam - пометить сообщение как спам
-/*URI Parameters:
-    messageId- (number) - message ID to spam*/
-
-// deleteDialog2MessageId | dialogs/messages/{messageId} - удалить сообщение (только у себя)
-/*URI Parameters:
-messageId- (number) - message ID to delete*/
-
-// putDialog2MessageIdRestore | dialogs/messages/{messageId}/restore - восстановить сообщение из спама и удаленных
-/*URI Parameters:
-    messageId- (number) - message ID to restore*/
-
-// getDialog2Message dialogs/{userId}/messages/new?newerThen={date} - вернуть сообщения новее определенной даты
-/*URI Parameters:
-    userId- (number) - user id of your friend
-date - (string) - desired date (string in date format)*/
 
 // getDailog2UnreadMessages - dialogs/messages/new/count - список новых сообщений
 

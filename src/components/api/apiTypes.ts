@@ -83,3 +83,4 @@ export type sendMessageType = {
     "isSpam": boolean//false,
     "distributionId": number//null
 }
+
