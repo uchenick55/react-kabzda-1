@@ -94,6 +94,26 @@ export const apiProfile = { // объект с методами api для пр�
     },
 }
 
+
+
+
+type postFeedBack2Type = (data: apiFeedBackDataType) => any
+
+export const postFeedBack22: postFeedBack2Type = async (data) => {// отправить письмо
+
+    const FORM_ENDPOINT = "https://public.herotofu.com/v1/e595a3c0-83b2-11ed-b38f-a1ed22f366b1";// конечная точка
+    const response = await fetch( FORM_ENDPOINT, {
+        method: "POST", // метод отправить
+        headers: {
+            Accept: "application/json",
+            "Content-Type": "application/json", // тип отправления
+        },
+        body: JSON.stringify( data ),
+    } )
+    return (response) //возврат данных из поля data
+
+}
+
 export const apiDialog2 = {
 
     putDialog2Start: async (userId: number) => {
@@ -126,11 +146,18 @@ export const apiDialog2 = {
         //URI Parameters:
         //    messageId- (number) - user message ID
     },
+    postDialog2MessageIdToSpam: async (messageId: string) => {
+        const response = await instance.post<commRespType>( `dialogs/messages/${messageId}/spam` )
+        return (response.data) // - отправить сообщение пользователю
+        //postDialog2Message | dialogs / {userId}/messages
+        //- отправить новое сообщение диалога
+        // RI Parameters:
+        //     userId - (number) - user id of your friend
+        // required params:
+        //    body - (string) - your message to friend
+    },
 
 }
-
-//27045 evgeniysazonov1983@googlemail.com
-//25528 evgeniysazonov1983@gmail.com
 
 
 // postDialog2MessageIdToSpam | dialogs/messages/{messageId}/spam - пометить сообщение как спам
@@ -153,19 +180,5 @@ date - (string) - desired date (string in date format)*/
 // getDailog2UnreadMessages - dialogs/messages/new/count - список новых сообщений
 
 
-type postFeedBack2Type = (data: apiFeedBackDataType) => any
-
-export const postFeedBack22: postFeedBack2Type = async (data) => {// отправить письмо
-
-    const FORM_ENDPOINT = "https://public.herotofu.com/v1/e595a3c0-83b2-11ed-b38f-a1ed22f366b1";// конечная точка
-    const response = await fetch( FORM_ENDPOINT, {
-        method: "POST", // метод отправить
-        headers: {
-            Accept: "application/json",
-            "Content-Type": "application/json", // тип отправления
-        },
-        body: JSON.stringify( data ),
-    } )
-    return (response) //возврат данных из поля data
-
-}
+//27045 evgeniysazonov1983@googlemail.com
+//25528 evgeniysazonov1983@gmail.com
