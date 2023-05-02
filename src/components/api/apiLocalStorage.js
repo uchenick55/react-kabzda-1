@@ -1,4 +1,4 @@
-import GetDate from "./GetDate";
+import GetDate from "../common/ErrorBoundary/GetDate";
 
 export const apiDialogs = { // объект с методами api для DialogList
   _setMessages2LS: (Dialog_2, myId, userId) => { // метод отправки измененного диалога в LocalStorage и считывания его же

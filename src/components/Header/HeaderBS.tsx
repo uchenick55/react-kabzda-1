@@ -93,6 +93,7 @@ const HeaderBS: React.FC<HeaderBSType> = ({isAuth, goToMyPage, myProfile, delete
     />
 
     const dropDownRender = <NavbarDarkExample/>
+
     return (
         <Navbar collapseOnSelect variant="dark" bg="dark" fixed="top" className={classes.myHeader1}>
             <Container fluid className='text-uppercase'> {/*контейнер, текст большими буквами */}

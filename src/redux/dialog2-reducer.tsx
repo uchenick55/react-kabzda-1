@@ -1,13 +1,13 @@
 import {InferActionsTypes} from "./store-redux";
 import {ComThunkTp} from "../types/commonTypes";
 import {apiDialog2} from "../components/api/api";
-import {getDialog2MessagesType} from "../components/api/apiTypes";
+import {getDialog2AllType} from "../components/api/apiTypes";
 
 const AAA = "myApp/dialog2-reducer/AAA";
 
 export const Dialod2Actions = {
 
-    getNewMessagesByUserId: (NewMessagesById: getDialog2MessagesType) => {
+    getNewMessagesByUserId: (NewMessagesById: getDialog2AllType) => {
         return {type: AAA, NewMessagesById} as const
     }
 }
@@ -40,11 +40,11 @@ export const putDialog2StartThCr = (currentDialogId: number): ThType => {
         console.log( response )
     }
 }
-export const getDialog2MessagesThCr = (userId: number, page: number = 1, count: number = 10): ThType => {
-    console.log( "getDialog2MessagesThCr" )
+export const getDialog2AllThCr = (userId: number, page: number = 1, count: number = 10): ThType => {
+    console.log( "getDialog2AllThCr" )
 
     return async (dispatch, getState) => {//- получить список сообщений по id пользователя
-        const response = await apiDialog2.getDialog2Messages( userId, page, count )
+        const response = await apiDialog2.getDialog2All( userId, page, count )
         console.log( response )
 
     }
@@ -85,9 +85,16 @@ export const putDialog2MessageIdRestoreThCr = (messageId: string): ThType => {
     }
 }
 export const getDialog2MessagesNewerThenThCr = (userId: number, date: string): ThType => {
-    console.log( "getDialog2MessageThCr" )
-    return async (dispatch, getState) => {//
+    console.log( "getDialog2MessagesNewerThenThCr" )
+    return async (dispatch, getState) => {// - вернуть сообщения новее определенной даты
         const response = await apiDialog2.getDialog2MessagesNewerThen( userId, date )
+        console.log( response ) //
+    }
+}
+export const getDailog2UnreadMessagesThCr = (): ThType => {
+    console.log( "getDailog2UnreadMessagesThCr" )
+    return async (dispatch, getState) => {// - вернуть количество непрочтенных сообщений
+        const response = await apiDialog2.getDailog2UnreadMessages()
         console.log( response ) //
     }
 }

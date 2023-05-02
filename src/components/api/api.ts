@@ -2,7 +2,7 @@ import axios from "axios";
 import {apiFeedBackDataType, ProfileType} from "../../types/commonTypes";
 import {
     commRespType,
-    getCaptchaType, getDialog2MessagesType,
+    getCaptchaType, getDialog2AllType,
     getProfileType,
     getUsersType, sendMessageType
 } from "./apiTypes";
@@ -118,20 +118,20 @@ export const apiDialog2 = {
 
     putDialog2Start: async (userId: number) => {
         const response = await instance.put<commRespType>( `dialogs/${userId}` )
-        return (response)  // начало диалога с пользователем по его ID
+        return (response.data)  // начало диалога с пользователем по его ID
         //putDialog2Start  | dialogs/{userId} - начать диалог, собеседник поднимается вверх??
     },
-    getDialog2Messages: async (userId: number, page: number, count: number) => { // получить список сообщений по id пользователя
-        const response = await instance.get<getDialog2MessagesType>( `dialogs?${userId}&${page}&${count}` )
-        return (response) //- получить список сообщений по id пользователя
-        //getDialog2Messages | dialogs/{userId}/messages
+    getDialog2All: async (userId: number, page: number, count: number) => { // получить список сообщений по id пользователя
+        const response = await instance.get<getDialog2AllType>( `dialogs?${userId}&${page}&${count}` )
+        return (response.data) //- получить список сообщений по id пользователя
+        //getDialog2All | dialogs/{userId}/messages
         // userId - (number) - user id of your friend
         // page (number,default 1) number of requested portion
         // count (number, default 10) size of requestedPortion
     },
     postDialog2Message: async (userId: number, body: string) => {
         const response = await instance.post<commRespType<sendMessageType>>( `dialogs/${userId}/messages`, {body: body} )
-        return (response) // - отправить сообщение пользователю
+        return (response.data) // - отправить сообщение пользователю
         //postDialog2Message | dialogs / {userId}/messages
         //- отправить новое сообщение диалога
         // RI Parameters:
@@ -141,46 +141,46 @@ export const apiDialog2 = {
     },
     getDialog2MessageIdViewed: async (messageId: string) => {
         const response = await instance.get<boolean>( `dialogs/messages/${messageId}/viewed` )
-        return (response) //- проверить, было ли прочитано сообщение по Id сообщения
+        return (response.data) //- проверить, было ли прочитано сообщение по Id сообщения
         // getDialog2MessageIdViewed | dialogs/messages/{messageId}/viewed
         //URI Parameters:
         //    messageId- (number) - user message ID
     },
     postDialog2MessageIdToSpam: async (messageId: string) => {
         const response = await instance.post<commRespType>( `dialogs/messages/${messageId}/spam` )
-        return (response) // - пометить сообщение как спам
+        return (response.data) // - пометить сообщение как спам
         // postDialog2MessageIdToSpam | dialogs/messages/{messageId}/spam
         //URI Parameters:
          //   messageId- (number) - message ID to spam
     },
     deleteDialog2MessageId: async (messageId: string) => {
         const response = await instance.delete<boolean>( `dialogs/messages/${messageId}` )
-        return (response) //- удалить сообщение (только у себя) по ID сообщения
+        return (response.data) //- удалить сообщение (только у себя) по ID сообщения
         // deleteDialog2MessageId | dialogs/messages/{messageId}
         //URI Parameters:
         // messageId- (number) - message ID to delete
     },
     putDialog2MessageIdRestore: async (messageId: string) => {
         const response = await instance.put<commRespType>( `dialogs/messages/${messageId}/restore` )
-        return (response) // - восстановить сообщение из спама и удаленных
+        return (response.data) // - восстановить сообщение из спама и удаленных
         // putDialog2MessageIdRestore | dialogs/messages/{messageId}/restore
         //URI Parameters:
         // messageId- (number) - message ID to restore
     },
     getDialog2MessagesNewerThen: async (userId: number, date:string) => {
         const response = await instance.get<Array<sendMessageType>>( `dialogs/${userId}/messages/new?newerThen=${date}` )
-        return (response) // - вернуть сообщения новее определенной даты
+        return (response.data) // - вернуть сообщения новее определенной даты
         // getDialog2MessagesNewerThen | dialogs/{userId}/messages/new?newerThen={date}
         //URI Parameters:
         //    userId- (number) - user id of your friend
         //date - (string) - desired date (string in date format)*/
     },
+    getDailog2UnreadMessages: async () => {
+        const response = await instance.get<number>( `dialogs/messages/new/count` )
+        return (response.data) // - вернуть количество непрочтенных сообщений
 
+    },
 }
-
-
-// getDailog2UnreadMessages - dialogs/messages/new/count - список новых сообщений
-
 
 //27045 evgeniysazonov1983@googlemail.com
 //25528 evgeniysazonov1983@gmail.com

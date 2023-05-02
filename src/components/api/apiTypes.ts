@@ -66,7 +66,7 @@ export type newMessagesItem = {
     }
 }
 
-export type getDialog2MessagesType = Array<newMessagesItem>
+export type getDialog2AllType = Array<newMessagesItem>
 
 export type sendMessageType = {
     "id": string// "cde7821a-6981-4f49-8b12-faf681cb1621",
