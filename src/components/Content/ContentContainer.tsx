@@ -9,7 +9,7 @@ import {useLocation} from "react-router";
 const UsersContainer = React.lazy(() => import("../users/UsersContainerFC"))
 const ProfileContainer = React.lazy(() => import("../Profile/ProfileContainerFC"))
 const DialogsContainer = React.lazy(() => import("../DialogList/DialogListContainer"))
-const Dialog2Container = React.lazy(() => import("../DialogList/Dialog2/Dialog2Container"))
+const Dialog2Container = React.lazy(() => import("../common/Dialog2Messages2/Dialog2Messages2Container"))
 const LoginContainer = React.lazy(() => import("../Login/LoginContainer"))
 const News = React.lazy(() => import("../News/News"))
 const Rest = React.lazy(() => import("../Rest/Krestiki-Noliki/KrestikiNoliki"))
@@ -56,7 +56,8 @@ let ContentContainer: React.FC<ContentContainerType> = ({setPatch, setPageWidth}
                         <Route path='/mystack/*' element={<StackInfo/>}/> {/*Общие Комментарии*/}
                         <Route path='/profile/*' element={<ProfileContainer/>}/> {/*Профиль*/}
                         <Route path='/dialogs/*' element={<DialogsContainer/>}/> {/*Диалоги*/}
-                        <Route path='/dialog2/*' element={<Dialog2Container/>}/> {/*Диалоги*/}
+                        <Route path='/dialog/*' element={<Dialog2Container/>}/> {/*Диалоги*/}
+                        <Route path='/messages/*' element={<Dialog2Container/>}/> {/*Диалоги*/}
                         <Route path='/users/*' element={<UsersContainer/>}/> {/*Поиск по UsersBS*/}
                         <Route path='/login/*' element={<LoginContainer/>}/> {/*Логин*/}
                         <Route path='/news/*' element={<News/>}/> {/*Поиск по новостям hn algonia*/}

@@ -34,7 +34,9 @@ type initialStateType = typeof initialState
 let initialState = { //стейт по умолчанию для инициализации приложения
     initialisedApp: false, // флаг приложение инициализировано?
     patch: "", // название страницы из URL
-    PageWidth: document.documentElement.scrollWidth // ширина страницы по умолчанию
+    PageWidth: document.documentElement.scrollWidth, // ширина страницы по умолчанию
+    MobileWidth: 620,
+
 }
 
 let appReducer = (state: initialStateType = initialState, action: AppActionTypes): initialStateType => {//редьюсер инициализации приложения
