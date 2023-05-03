@@ -14,7 +14,7 @@ const DropdownNavbarBS:React.FC<DropdownNavbarBSType> = () => {
                 <NavDropdown.Item href="#/mystack">My Stack</NavDropdown.Item>
                 <NavDropdown.Item href="#/profile">Profile</NavDropdown.Item>
                 <NavDropdown.Item href="#/users">Users</NavDropdown.Item>
-                <NavDropdown.Item href="#/dialog">Dialog</NavDropdown.Item>
+                <NavDropdown.Item href="#/dialog2">Dialog2</NavDropdown.Item>
                 <NavDropdown.Item href="#/feedback">FeedBack</NavDropdown.Item>
                 <NavDropdown.Item href="#/tasks">Tasks</NavDropdown.Item>
             </NavDropdown>

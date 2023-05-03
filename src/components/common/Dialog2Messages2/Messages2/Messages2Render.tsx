@@ -8,7 +8,7 @@ type Dialog2RenderType = {
 }
 const Messages2Render: React.FC<Dialog2RenderType> = ({PageWidth, MobileWidth, patch}) => {
     return <div>
-        {patch === "dialog" && PageWidth > MobileWidth && <div
+        {patch === "dialog2" && PageWidth > MobileWidth && <div
             //- предложение выбрать диалог
             // эта часть отображается только на странице dialog и только в десктопной версии
             //  Fixed все остальное поле справа.

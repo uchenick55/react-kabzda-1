@@ -13,12 +13,12 @@ export const ThemeActions = {
 
 type ThemeActionTypes = InferActionsTypes<typeof ThemeActions>
 
-let initialState = { //стейт по умолчанию темы
+const initialState = { //стейт по умолчанию темы
     themeBLL: "light" as "light" | "dark", // тема в bll по умолчанию
 }
 type initialStateType = typeof initialState
 
-let themeReducer = (state: initialStateType = initialState, action: ThemeActionTypes): initialStateType => {//редьюсер задания темы
+const themeReducer = (state: initialStateType = initialState, action: ThemeActionTypes): initialStateType => {//редьюсер задания темы
     let stateCopy: initialStateType; // объявлениечасти части стейта до изменения редьюсером
     switch (action.type) {
         case SET_THEME: // кейс задания темы
