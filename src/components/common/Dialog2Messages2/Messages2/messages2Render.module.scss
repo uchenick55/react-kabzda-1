@@ -1,0 +1,43 @@
+.Fixed {
+    position: fixed;
+}
+
+.messages2NameAndProfileLink {
+    background: #282c34;
+    top: var(--HeaderHeight);
+    height: 4rem;
+    right: 0;
+}
+
+.messages2ChooseDialog {
+    background: green;
+    left: var(--dialog2ListWidth);
+    top: 3.5rem;
+    bottom: 1rem;
+    right: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.messages2RenderMessages {
+    background: #555555 ;
+    top: 7.5rem;
+    bottom: 4.5rem;
+    right: 0;
+}
+
+.messages2PrintMessage {
+    background: #999999;
+    height: 3.5rem;
+    bottom: var(--FooterHeight);
+    right: 0;
+}
+
+.MobileMessagesLeft {
+    left: 0;
+}
+
+.DesktopMessagesLeft {
+    left: var(--dialog2ListWidth);
+}
+

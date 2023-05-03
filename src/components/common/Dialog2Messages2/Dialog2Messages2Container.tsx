@@ -8,7 +8,7 @@ import {
     postDialog2MessageThCr, putDialog2MessageIdRestoreThCr,
     putDialog2StartThCr, getDailog2UnreadMessagesThCr
 } from "../../../redux/dialog2-reducer";
-import Dialog2Messages2 from "./Dialog2Messages2";
+import Dialog2Messages2Common from "./Dialog2Messages2Common";
 
 type DialogContainerType = {
     patch: string,
@@ -46,7 +46,7 @@ const Dialog2Messages2Container:React.FC<DialogContainerType> = (
         // getDailog2UnreadMessagesThCr() // - вернуть количество непрочтенных сообщений
     },[])
     return <div>
-        <Dialog2Messages2 patch={patch} PageWidth={PageWidth} MobileWidth={MobileWidth}/>
+        <Dialog2Messages2Common patch={patch} PageWidth={PageWidth} MobileWidth={MobileWidth}/>
 
     </div>
 }
