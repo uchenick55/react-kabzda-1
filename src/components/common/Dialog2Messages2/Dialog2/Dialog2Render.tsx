@@ -38,7 +38,7 @@ const Dialog2Render: React.FC<Dialog2RenderType> = (
                         hasRendered.push(id)
                         return <Dialog2Item
                             key={id} userName={userName} hasNewMessages={hasNewMessages} photos={photos}
-                            lastDialogActivityDate={lastDialogActivityDate} newMessagesCount={newMessagesCount}  />
+                            lastDialogActivityDate={lastDialogActivityDate} newMessagesCount={newMessagesCount} id={id} />
                     })}
 
                     {/*список диалогов с фильтрацией по имени из заголовка. */}
