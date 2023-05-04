@@ -24,10 +24,10 @@ type DialogContainerType = {
     getDialog2AllThCr: (userId: number, page: number, count: number) => void,// получить список всех диалогов
 
     putDialog2StartThCr: (currentDialogId: number) => void,
-    postDialog2MessageThCr: (userId: number, body: string) => void,
+    postDialog2MessageThCr: (userId: number, body: string, date:string) => void,
     getDialog2MessageIdViewedThCr: (messageId: string) => void,
     postDialog2MessageIdToSpamThCr: (messageId: string) => void,
-    deleteDialog2MessageIdThCr: (messageId: string) => void,
+    deleteDialog2MessageIdThCr: (messageId: string, userId: number, date: string) => void,
     putDialog2MessageIdRestoreThCr: (messageId: string) => void,
     getDialog2MessagesNewerThenThCr: (userId: number, date: string) => void,
     getDailog2UnreadMessagesThCr: () => void,
@@ -46,8 +46,8 @@ const Dialog2Messages2Container: React.FC<DialogContainerType> = (
     // 25528  | 27045 | 1079
     useEffect( () => {
         console.log( userId )
-        getDialog2MessagesNewerThenThCr( userId, "2022-04-30T19:10:31.843" ) // получить все сообщения от указанного ID пользователя новее чем указанная дата
-    }, [userId, MessagesNewerThen.length] )
+        Msg2GetAllDialogs() // получить все сообщения от указанного ID пользователя новее чем указанная дата
+    }, [userId] )
     useEffect( () => { // при загрузке получить список всех диалогов
         getDialog2AllThCr( 9999999999, 1, 10 ) // получить список всех диалогов
 
@@ -59,10 +59,10 @@ const Dialog2Messages2Container: React.FC<DialogContainerType> = (
     }, [] )
 
     const Msg2DeleteMessage = (message2Id:string) => {
-        deleteDialog2MessageIdThCr(message2Id) // - удалить сообщение (только у себя) по ID сообщения
+        deleteDialog2MessageIdThCr(message2Id, userId, "2022-04-30T19:10:31.843") // - удалить сообщение (только у себя) по ID сообщения
     }
     const Msg2SendMessage = (messageBody:string) => {
-        postDialog2MessageThCr(userId, messageBody)// отправить сообщение указав ID пользователя
+        postDialog2MessageThCr(userId, messageBody, "2022-04-30T19:10:31.843")// отправить сообщение указав ID пользователя
     }
     const Msg2GetAllDialogs = () => {
         getDialog2MessagesNewerThenThCr( userId, "2022-04-30T19:10:31.843" ) // получить все сообщения от указанного ID пользователя новее чем указанная дата
@@ -95,10 +95,10 @@ type mapStateToPropsType = {
 type mapDispatchToPropsType = {
     putDialog2StartThCr: (currentDialogId: number) => void,
     getDialog2AllThCr: (userId: number, page: number, count: number) => void,
-    postDialog2MessageThCr: (userId: number, body: string) => void,
+    postDialog2MessageThCr: (userId: number, body: string, date:string) => void,
     getDialog2MessageIdViewedThCr: (messageId: string) => void,
     postDialog2MessageIdToSpamThCr: (messageId: string) => void,
-    deleteDialog2MessageIdThCr: (messageId: string) => void,
+    deleteDialog2MessageIdThCr: (messageId: string, userId: number, date: string) => void,
     putDialog2MessageIdRestoreThCr: (messageId: string) => void,
     getDialog2MessagesNewerThenThCr: (userId: number, date: string) => void,
     getDailog2UnreadMessagesThCr: () => void,

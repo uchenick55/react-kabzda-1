@@ -62,12 +62,12 @@ export const getDialog2AllThCr = (userId: number, page: number = 1, count: numbe
         dispatch(Dialog2Actions.getDialog2AllAC(response))
     }
 }
-export const postDialog2MessageThCr = (userId: number, body: string): ThType => {
+export const postDialog2MessageThCr = (userId: number, body: string, date: string): ThType => {
     console.log( "postDialog2MessageThCr" )
     return async (dispatch, getState) => {// - отправить сообщение пользователю
         const response = await apiDialog2.postDialog2Message( userId, body )
         if (response.resultCode===ResultCodeEnum.Success) {
-            getDialog2MessagesNewerThenThCr( userId, "2022-04-30T19:10:31.843" ) // получить все сообщения от указанного ID пользователя новее чем указанная дата
+           dispatch(getDialog2MessagesNewerThenThCr( userId, date)) // получить все сообщения от указанного ID пользователя новее чем указанная дата
         }
         console.log( response )
     }
@@ -86,13 +86,13 @@ export const postDialog2MessageIdToSpamThCr = (messageId: string): ThType => {
         console.log( response )
     }
 }
-export const deleteDialog2MessageIdThCr = (messageId: string): ThType => {
+export const deleteDialog2MessageIdThCr = (messageId: string, userId: number, date: string): ThType => {
     console.log( "deleteDialog2MessageIdThCr" )
     return async (dispatch, getState) => {//- удалить сообщение (только у себя) по ID сообщения
         const response = await apiDialog2.deleteDialog2MessageId( messageId )
         if (response.resultCode === ResultCodeEnum.Success) {
             console.log("Сообщение удалено" )
-
+           dispatch( getDialog2MessagesNewerThenThCr (userId, date))
         }
     }
 }
