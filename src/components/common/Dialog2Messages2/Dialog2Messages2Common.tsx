@@ -12,19 +12,21 @@ type Dialog2RenderType = {
     Dialog2All: getDialog2AllType, // список всех диалогов для левой колонки
     MessagesNewerThen: Array<sendMessageType> // сообщения выбранного диалога, новее заданной даты
     Msg2DeleteMessage: (message2Id: string) => void // удаление сообщения по его id
+    Msg2SendMessage: (messageBody:string) => void // отправить сообщение указанному пользователю
 }
 
 
 
 const Dialog2Messages2Common: React.FC<Dialog2RenderType> = (
-    {patch, PageWidth, MobileWidth, Dialog2All, MessagesNewerThen, Msg2DeleteMessage}
+    {patch, PageWidth, MobileWidth, Dialog2All, MessagesNewerThen, Msg2DeleteMessage, Msg2SendMessage}
     ) => {
     return <div className={classesCommon.dialog2Messages2Common}>
         {/*Отрисовка поля диалогов*/}
         <Dialog2Render PageWidth={PageWidth} MobileWidth={MobileWidth} patch={patch} Dialog2All={Dialog2All}/>
 
         <Messages2Render PageWidth={PageWidth} MobileWidth={MobileWidth} patch={patch}
-                         MessagesNewerThen={MessagesNewerThen} Msg2DeleteMessage={Msg2DeleteMessage}/>
+                         MessagesNewerThen={MessagesNewerThen} Msg2DeleteMessage={Msg2DeleteMessage}
+                         Msg2SendMessage={Msg2SendMessage}/>
 
     </div>
 }

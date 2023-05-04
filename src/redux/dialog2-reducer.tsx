@@ -2,6 +2,7 @@ import {InferActionsTypes} from "./store-redux";
 import {ComThunkTp} from "../types/commonTypes";
 import {apiDialog2} from "../components/api/api";
 import {getDialog2AllType, sendMessageType} from "../components/api/apiTypes";
+import {ResultCodeEnum} from "../components/api/enum";
 
 const DIALOG2_ACTIONS = "myApp/dialog2-reducer/DIALOG2_ACTIONS";
 const SET_MESSAGES_NEWER_THEN = "myApp/dialog2-reducer/SET_MESSAGES_NEWER_THEN";
@@ -65,6 +66,9 @@ export const postDialog2MessageThCr = (userId: number, body: string): ThType => 
     console.log( "postDialog2MessageThCr" )
     return async (dispatch, getState) => {// - отправить сообщение пользователю
         const response = await apiDialog2.postDialog2Message( userId, body )
+        if (response.resultCode===ResultCodeEnum.Success) {
+            getDialog2MessagesNewerThenThCr( userId, "2022-04-30T19:10:31.843" ) // получить все сообщения от указанного ID пользователя новее чем указанная дата
+        }
         console.log( response )
     }
 }
@@ -86,7 +90,10 @@ export const deleteDialog2MessageIdThCr = (messageId: string): ThType => {
     console.log( "deleteDialog2MessageIdThCr" )
     return async (dispatch, getState) => {//- удалить сообщение (только у себя) по ID сообщения
         const response = await apiDialog2.deleteDialog2MessageId( messageId )
-        console.log( response )
+        if (response.resultCode === ResultCodeEnum.Success) {
+            console.log("Сообщение удалено" )
+
+        }
     }
 }
 export const putDialog2MessageIdRestoreThCr = (messageId: string): ThType => {

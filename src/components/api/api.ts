@@ -154,7 +154,7 @@ export const apiDialog2 = {
          //   messageId- (number) - message ID to spam
     },
     deleteDialog2MessageId: async (messageId: string) => {
-        const response = await instance.delete<boolean>( `dialogs/messages/${messageId}` )
+        const response = await instance.delete<commRespType>( `dialogs/messages/${messageId}` )
         return (response.data) //- удалить сообщение (только у себя) по ID сообщения
         // deleteDialog2MessageId | dialogs/messages/{messageId}
         //URI Parameters:

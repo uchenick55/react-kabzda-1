@@ -47,24 +47,31 @@ const Dialog2Messages2Container: React.FC<DialogContainerType> = (
     useEffect( () => {
         console.log( userId )
         getDialog2MessagesNewerThenThCr( userId, "2022-04-30T19:10:31.843" ) // получить все сообщения от указанного ID пользователя новее чем указанная дата
-    }, [userId] )
-    useEffect( () => {
+    }, [userId, MessagesNewerThen.length] )
+    useEffect( () => { // при загрузке получить список всех диалогов
         getDialog2AllThCr( 9999999999, 1, 10 ) // получить список всех диалогов
 
         //putDialog2StartThCr(1079)
-        // postDialog2MessageThCr(27045, "to 27045_3")// отправить сообщение указав ID пользователя
         //  getDialog2MessageIdViewedThCr("84ac68ee-73d0-43c4-82bb-0fd0273d4808") // проверить прочитано ли сообщение по его ID
         // postDialog2MessageIdToSpamThCr("cde7821a-6981-4f49-8b12-faf681cb1621") // пометить как спам сообщение по его ID
         // putDialog2MessageIdRestoreThCr("cde7821a-6981-4f49-8b12-faf681cb1621") // - восстановить сообщение из спама и удаленных
         // getDailog2UnreadMessagesThCr() // - вернуть количество непрочтенных сообщений
     }, [] )
+
     const Msg2DeleteMessage = (message2Id:string) => {
         deleteDialog2MessageIdThCr(message2Id) // - удалить сообщение (только у себя) по ID сообщения
     }
+    const Msg2SendMessage = (messageBody:string) => {
+        postDialog2MessageThCr(userId, messageBody)// отправить сообщение указав ID пользователя
+    }
+    const Msg2GetAllDialogs = () => {
+        getDialog2MessagesNewerThenThCr( userId, "2022-04-30T19:10:31.843" ) // получить все сообщения от указанного ID пользователя новее чем указанная дата
+    }
+
     return <div>
         <Dialog2Messages2Common
             patch={patch} PageWidth={PageWidth} MobileWidth={MobileWidth} Dialog2All={Dialog2All}
-            MessagesNewerThen={MessagesNewerThen} Msg2DeleteMessage={Msg2DeleteMessage}
+            MessagesNewerThen={MessagesNewerThen} Msg2DeleteMessage={Msg2DeleteMessage} Msg2SendMessage={Msg2SendMessage}
         />
 
     </div>
