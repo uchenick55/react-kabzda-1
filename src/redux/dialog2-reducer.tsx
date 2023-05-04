@@ -48,7 +48,7 @@ export const getDialog2AllThCr = (userId: number, page: number = 1, count: numbe
 
     return async (dispatch, getState) => {//- получить список диалогов по id пользователя
         const response = await apiDialog2.getDialog2All( userId, page, count )
-        console.log( response )
+       // console.log( response )
         dispatch(Dialog2Actions.getDialog2AllAC(response))
     }
 }

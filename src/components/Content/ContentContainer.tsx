@@ -35,7 +35,7 @@ let ContentContainer: React.FC<ContentContainerType> = ({setPatch, setPageWidth}
         }
 
         const Bbb: string = Aaa.join( "" ) // итоговый путь
-        console.log( Bbb )
+       // console.log( Bbb )
         setPatch( Bbb )
         // обновить данные пути patch в app-reducer
     }, [location, setPatch] )
