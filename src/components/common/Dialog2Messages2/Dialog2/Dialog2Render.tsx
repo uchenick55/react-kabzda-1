@@ -1,12 +1,17 @@
 import React from "react";
 import classes from "./dialog2Render.module.css"
+import {getDialog2AllType} from "../../../api/apiTypes";
+import Dialog2Item from "./Dialog2Item";
 
 type Dialog2RenderType = {
-    PageWidth: number
-    MobileWidth: number
-    patch: string
+    patch: string,// имя страницы из URL
+    PageWidth: number, // ширина страницы
+    MobileWidth: number, // ширина страницы, считающаяся мобильной версткой
+    Dialog2All: getDialog2AllType, // список всех диалогов для левой колонки
 }
-const Dialog2Render: React.FC<Dialog2RenderType> = ({PageWidth, MobileWidth, patch}) => {
+const Dialog2Render: React.FC<Dialog2RenderType> = (
+    {PageWidth, MobileWidth, patch, Dialog2All}
+    ) => {
     return <div>
         { // Компонента Dialog2Render отрисовывается на странице dialog всегда.
             // На странице messages только при десктопной версии
@@ -23,7 +28,13 @@ const Dialog2Render: React.FC<Dialog2RenderType> = ({PageWidth, MobileWidth, pat
                 <div // Fixed слева внизу + прокрутка. Поле остается на странице dialog2 всегда
                     className={`${classes.Fixed} ${classes.dialog2ListCommon} ${PageWidth < MobileWidth ? classes.MobileDialogWidth : classes.DesktopDialogWidth}`}
                 >
-                    список диалогов
+                    {Dialog2All.map(d2=>{
+                        const {id, userName, hasNewMessages, lastDialogActivityDate, newMessagesCount, photos} = d2
+                        return <Dialog2Item
+                            key={id} userName={userName} hasNewMessages={hasNewMessages} photos={photos}
+                            lastDialogActivityDate={lastDialogActivityDate} newMessagesCount={newMessagesCount}  />
+                    })}
+
                     {/*список диалогов с фильтрацией по имени из заголовка. */}
                 </div>
             </div>}

@@ -11,10 +11,11 @@
 }
 
 .dialog2ListCommon {
-    background: darkcyan;
     left: 0;
     top: 8.5rem;
     bottom: 1rem;
+    overflow: auto;
+
 }
 .MobileDialogWidth {
     width: 100%;
@@ -22,4 +23,38 @@
 
 .DesktopDialogWidth {
     width: var(--dialog2ListWidth);
+}
+
+.Dialog2ItemCardExt {
+    height: 5rem;
+    width: 100%;
+    position: relative;
+
+}
+.Dialog2ItemCardInt {
+    background-color: var(--color3);
+    position: absolute;
+    left: 0.5rem;
+    right: 0.5rem;
+    top: 0.5rem;
+    bottom: 0;
+    border-radius: 0.5rem;
+
+}
+.Dialog2ItemCardInt:hover {
+    background-color: var(--color3_hover);
+}
+
+.Dialog2ItemCardName {
+    position: absolute;
+    left: 10rem;
+    top: 0.5rem;
+}
+.Dialog2ItemCardPhoto {
+    position: absolute;
+    left: 2rem;
+    top: 0.7rem;
+    width: 3rem;
+    height: 3rem;
+    border-radius: 40%;
 }

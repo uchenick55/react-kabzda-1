@@ -54,33 +54,33 @@ export type commRespType<D={}, RC = ResultCodeEnum > = {
 
 }
 export type newMessagesItem = {
-    "id": number, //27045
-    "userName": string, //"evgeniysazonov"
-    "hasNewMessages": boolean,
-    "lastDialogActivityDate": string, //"2023-04-30T19:10:31.843"
-    "lastUserActivityDate": string, //"2023-04-30T10:34:17.757"
-    "newMessagesCount": number, //0
-    "photos": {
-        "small": string,// "https://social-network.samuraijs.com/activecontent/images/users/27045/user-small.jpg?v=1",
-        "large": string// "https://social-network.samuraijs.com/activecontent/images/users/27045/user.jpg?v=1"
+    id: number, //27045
+    userName: string, //"evgeniysazonov"
+    hasNewMessages: boolean,
+    lastDialogActivityDate: string, //"2023-04-30T19:10:31.843"
+    lastUserActivityDate: string, //"2023-04-30T10:34:17.757"
+    newMessagesCount: number, //0
+    photos: {
+        small: string,// "https://social-network.samuraijs.com/activecontent/images/users/27045/user-small.jpg?v=1",
+        large: string// "https://social-network.samuraijs.com/activecontent/images/users/27045/user.jpg?v=1"
     }
 }
 
 export type getDialog2AllType = Array<newMessagesItem>
 
 export type sendMessageType = {
-    "id": string// "cde7821a-6981-4f49-8b12-faf681cb1621",
-    "body": string// "555",
-    "translatedBody": null,
-    "addedAt": string// "2023-05-01T07:13:00.54",
-    "senderId":number// 25528,
-    "senderName":string// "evgeniysazonov1983",
-    "recipientId": number//27045,
-    "recipientName":string// "evgeniysazonov",
-    "viewed": boolean// false,
-    "deletedBySender":boolean//false,
-    "deletedByRecipient":boolean //false,
-    "isSpam": boolean//false,
-    "distributionId": number//null
+    id: string// "cde7821a-6981-4f49-8b12-faf681cb1621",
+    body: string// "555",
+    translatedBody: null,
+    addedAt: string// "2023-05-01T07:13:00.54",
+    senderId:number// 25528,
+    senderName:string// "evgeniysazonov1983",
+    recipientId: number//27045,
+    recipientName:string// "evgeniysazonov",
+    viewed: boolean// false,
+    deletedBySender:boolean//false,
+    deletedByRecipient:boolean //false,
+    isSpam: boolean//false,
+    distributionId: number//null
 }
 

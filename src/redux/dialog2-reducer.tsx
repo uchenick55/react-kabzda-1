@@ -3,18 +3,20 @@ import {ComThunkTp} from "../types/commonTypes";
 import {apiDialog2} from "../components/api/api";
 import {getDialog2AllType} from "../components/api/apiTypes";
 
-const AAA = "myApp/dialog2-reducer/AAA";
+const DIALOG2_ACTIONS = "myApp/dialog2-reducer/DIALOG2_ACTIONS";
 
-export const Dialod2Actions = {
+export const Dialog2Actions = {
 
-    getNewMessagesByUserId: (NewMessagesById: getDialog2AllType) => {
-        return {type: AAA, NewMessagesById} as const
+    getDialog2AllAC: (Dialog2All: getDialog2AllType) => {
+        return {type: DIALOG2_ACTIONS, Dialog2All} as const
     }
 }
 
-type Dialog2ActionsTypes = InferActionsTypes<typeof Dialod2Actions>
+type Dialog2ActionsTypes = InferActionsTypes<typeof Dialog2Actions>
 
-const initialState = {}
+const initialState = {
+    Dialog2All: [] as getDialog2AllType
+}
 
 type initialStateDialog2Type = typeof initialState
 
@@ -22,9 +24,10 @@ const Dialog2Reducer = (state: initialStateDialog2Type = initialState, action: D
     let stateCopy: initialStateDialog2Type // объявлениечасти части стейта до изменения редьюсером
     switch (action.type) {
 
-        case AAA:
+        case DIALOG2_ACTIONS:
             stateCopy = {
                 ...state,
+                Dialog2All: action.Dialog2All
             }
             return stateCopy
         default:
@@ -43,10 +46,10 @@ export const putDialog2StartThCr = (currentDialogId: number): ThType => {
 export const getDialog2AllThCr = (userId: number, page: number = 1, count: number = 10): ThType => {
     console.log( "getDialog2AllThCr" )
 
-    return async (dispatch, getState) => {//- получить список сообщений по id пользователя
+    return async (dispatch, getState) => {//- получить список диалогов по id пользователя
         const response = await apiDialog2.getDialog2All( userId, page, count )
         console.log( response )
-
+        dispatch(Dialog2Actions.getDialog2AllAC(response))
     }
 }
 export const postDialog2MessageThCr = (userId: number, body: string): ThType => {
