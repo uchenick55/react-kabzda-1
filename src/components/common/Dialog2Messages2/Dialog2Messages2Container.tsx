@@ -41,12 +41,12 @@ const Dialog2Messages2Container:React.FC<DialogContainerType> = (
         getDialog2AllThCr(9999999999, 1, 10) // получить список всех диалогов
 
         //putDialog2StartThCr(1079)
-        //postDialog2MessageThCr(25528, "to 25528_2")// отправить сообщение указав ID пользователя
+        //postDialog2MessageThCr(27045, "to 27045_3")// отправить сообщение указав ID пользователя
         //  getDialog2MessageIdViewedThCr("84ac68ee-73d0-43c4-82bb-0fd0273d4808") // проверить прочитано ли сообщение по его ID
         // postDialog2MessageIdToSpamThCr("cde7821a-6981-4f49-8b12-faf681cb1621") // пометить как спам сообщение по его ID
-        // deleteDialog2MessageIdThCr("cde7821a-6981-4f49-8b12-faf681cb1621") // - удалить сообщение (только у себя) по ID сообщения
+        // deleteDialog2MessageIdThCr("69751d6f-8624-4867-83ac-999b1ff5f651") // - удалить сообщение (только у себя) по ID сообщения
         // putDialog2MessageIdRestoreThCr("cde7821a-6981-4f49-8b12-faf681cb1621") // - восстановить сообщение из спама и удаленных
-        //getDialog2MessagesNewerThenThCr(27045, "2023-04-30T19:10:31.843") // получить все сообщения от указанного ID пользователя новее чем указанная дата
+        //getDialog2MessagesNewerThenThCr(25528, "2023-04-30T19:10:31.843") // получить все сообщения от указанного ID пользователя новее чем указанная дата
         // getDailog2UnreadMessagesThCr() // - вернуть количество непрочтенных сообщений
     },[])
     return <div>
