@@ -47,14 +47,28 @@
 
 .Dialog2ItemCardName {
     position: absolute;
-    left: 10rem;
+    left: 7rem;
     top: 0.5rem;
 }
 .Dialog2ItemCardPhoto {
     position: absolute;
-    left: 2rem;
+    left: 1.5rem;
     top: 0.7rem;
     width: 3rem;
     height: 3rem;
     border-radius: 40%;
+}
+
+.Dialog2ItemCardNewMsgCnt {
+    position: absolute;
+    right: 0.3rem;
+    top: 0.3rem;
+    width: 1.5rem;
+    height: 1.5rem;
+    background-color: var(--color4);
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 0.8rem;
 }

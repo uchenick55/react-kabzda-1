@@ -16,8 +16,9 @@ const Dialog2Item: React.FC<Dialog2ItemType> = (
     {userName, hasNewMessages, photos, lastDialogActivityDate, newMessagesCount}) => {
     return <div className={classes.Dialog2ItemCardExt}>
         <div className={classes.Dialog2ItemCardInt}>
-            <div className={classes.Dialog2ItemCardName}>{userName}</div>
-            <img src={photos.small?photos.small:userPhoto} className={classes.Dialog2ItemCardPhoto} alt="CardPhoto"/>
+            <div className={classes.Dialog2ItemCardName}>{userName}</div> {/*Имя пользователя*/}
+            {newMessagesCount>0 && <div className={classes.Dialog2ItemCardNewMsgCnt}>{newMessagesCount}</div>} {/*вывод количества новых сообщений*/}
+            <img src={photos.small?photos.small:userPhoto} className={classes.Dialog2ItemCardPhoto} alt="CardPhoto"/> {/*Фото*/}
         </div>
     </div>
 }
