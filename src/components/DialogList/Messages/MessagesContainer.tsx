@@ -4,7 +4,7 @@ import {
     sendDialogsThunkCreator,
     updateDialogListThunkCreator
 } from "../../../redux/dialogs-reducer";
-import {connect} from "react-redux";
+import {connect} from "react-redux";6+9
 import {compose} from "redux";
 import withRouter2 from "../../hoc/withRouter2";
 import MessagesRender from "./MessagesRender";

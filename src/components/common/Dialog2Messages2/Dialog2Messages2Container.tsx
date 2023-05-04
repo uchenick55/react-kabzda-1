@@ -9,7 +9,7 @@ import {
     putDialog2StartThCr, getDailog2UnreadMessagesThCr
 } from "../../../redux/dialog2-reducer";
 import Dialog2Messages2Common from "./Dialog2Messages2Common";
-import {getDialog2AllType} from "../../api/apiTypes";
+import {getDialog2AllType, sendMessageType} from "../../api/apiTypes";
 import {compose} from "redux";
 import withRouter2 from "../../hoc/withRouter2";
 
@@ -18,7 +18,9 @@ type DialogContainerType = {
     PageWidth: number, // ширина страницы
     MobileWidth: number, // ширина страницы, считающаяся мобильной версткой
     Dialog2All: getDialog2AllType, // список всех диалогов для левой колонки
-    userId: number
+    userId: number, // id пользователя из URL (withRouter2)
+    MessagesNewerThen: Array<sendMessageType> // сообщения выбранного диалога, новее заданной даты
+
     getDialog2AllThCr: (userId: number, page: number, count: number) => void,// получить список всех диалогов
 
     putDialog2StartThCr: (currentDialogId: number) => void,
@@ -36,7 +38,7 @@ const Dialog2Messages2Container: React.FC<DialogContainerType> = (
         putDialog2StartThCr, getDialog2AllThCr, postDialog2MessageThCr,
         getDialog2MessageIdViewedThCr, postDialog2MessageIdToSpamThCr, deleteDialog2MessageIdThCr,
         putDialog2MessageIdRestoreThCr, getDialog2MessagesNewerThenThCr, getDailog2UnreadMessagesThCr,
-        patch, PageWidth, MobileWidth, Dialog2All, userId
+        patch, PageWidth, MobileWidth, Dialog2All, userId, MessagesNewerThen
     }
 ) => {
     //cde7821a-6981-4f49-8b12-faf681cb1621 от "555"
@@ -53,13 +55,16 @@ const Dialog2Messages2Container: React.FC<DialogContainerType> = (
         // postDialog2MessageThCr(27045, "to 27045_3")// отправить сообщение указав ID пользователя
         //  getDialog2MessageIdViewedThCr("84ac68ee-73d0-43c4-82bb-0fd0273d4808") // проверить прочитано ли сообщение по его ID
         // postDialog2MessageIdToSpamThCr("cde7821a-6981-4f49-8b12-faf681cb1621") // пометить как спам сообщение по его ID
-        // deleteDialog2MessageIdThCr("69751d6f-8624-4867-83ac-999b1ff5f651") // - удалить сообщение (только у себя) по ID сообщения
         // putDialog2MessageIdRestoreThCr("cde7821a-6981-4f49-8b12-faf681cb1621") // - восстановить сообщение из спама и удаленных
         // getDailog2UnreadMessagesThCr() // - вернуть количество непрочтенных сообщений
     }, [] )
+    const Msg2DeleteMessage = (message2Id:string) => {
+        deleteDialog2MessageIdThCr(message2Id) // - удалить сообщение (только у себя) по ID сообщения
+    }
     return <div>
         <Dialog2Messages2Common
             patch={patch} PageWidth={PageWidth} MobileWidth={MobileWidth} Dialog2All={Dialog2All}
+            MessagesNewerThen={MessagesNewerThen} Msg2DeleteMessage={Msg2DeleteMessage}
         />
 
     </div>
@@ -69,7 +74,8 @@ const mapStateToProps = (state: GlobalStateType) => {
         patch: state.app.patch,
         PageWidth: state.app.PageWidth,
         MobileWidth: state.app.MobileWidth,
-        Dialog2All: state.dialog2.Dialog2All
+        Dialog2All: state.dialog2.Dialog2All,
+        MessagesNewerThen: state.dialog2.MessagesNewerThen,
     }
 }
 type mapStateToPropsType = {
@@ -77,7 +83,7 @@ type mapStateToPropsType = {
     PageWidth: number,
     MobileWidth: number,
     Dialog2All: getDialog2AllType,
-
+    MessagesNewerThen: Array<sendMessageType>
 }
 type mapDispatchToPropsType = {
     putDialog2StartThCr: (currentDialogId: number) => void,

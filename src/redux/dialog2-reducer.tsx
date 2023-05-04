@@ -1,21 +1,26 @@
 import {InferActionsTypes} from "./store-redux";
 import {ComThunkTp} from "../types/commonTypes";
 import {apiDialog2} from "../components/api/api";
-import {getDialog2AllType} from "../components/api/apiTypes";
+import {getDialog2AllType, sendMessageType} from "../components/api/apiTypes";
 
 const DIALOG2_ACTIONS = "myApp/dialog2-reducer/DIALOG2_ACTIONS";
+const SET_MESSAGES_NEWER_THEN = "myApp/dialog2-reducer/SET_MESSAGES_NEWER_THEN";
 
 export const Dialog2Actions = {
 
     getDialog2AllAC: (Dialog2All: getDialog2AllType) => {
         return {type: DIALOG2_ACTIONS, Dialog2All} as const
+    },
+    setMessagesNewerThen: (MessagesNewerThen: Array<sendMessageType>) => {
+        return {type: SET_MESSAGES_NEWER_THEN, MessagesNewerThen} as const
     }
 }
 
 type Dialog2ActionsTypes = InferActionsTypes<typeof Dialog2Actions>
 
 const initialState = {
-    Dialog2All: [] as getDialog2AllType
+    Dialog2All: [] as getDialog2AllType,
+    MessagesNewerThen: [] as Array<sendMessageType>
 }
 
 type initialStateDialog2Type = typeof initialState
@@ -23,11 +28,16 @@ type initialStateDialog2Type = typeof initialState
 const Dialog2Reducer = (state: initialStateDialog2Type = initialState, action: Dialog2ActionsTypes): initialStateDialog2Type => {
     let stateCopy: initialStateDialog2Type // объявлениечасти части стейта до изменения редьюсером
     switch (action.type) {
-
-        case DIALOG2_ACTIONS:
+        case DIALOG2_ACTIONS: // список всех диалогов
             stateCopy = {
                 ...state,
                 Dialog2All: action.Dialog2All
+            }
+            return stateCopy
+        case SET_MESSAGES_NEWER_THEN: // сообщения по выбранному диалогу новее определенной даты
+            stateCopy = {
+                ...state,
+                MessagesNewerThen: action.MessagesNewerThen
             }
             return stateCopy
         default:
@@ -44,8 +54,7 @@ export const putDialog2StartThCr = (currentDialogId: number): ThType => {
     }
 }
 export const getDialog2AllThCr = (userId: number, page: number = 1, count: number = 10): ThType => {
-    console.log( "getDialog2AllThCr" )
-
+   // console.log( "getDialog2AllThCr" )
     return async (dispatch, getState) => {//- получить список диалогов по id пользователя
         const response = await apiDialog2.getDialog2All( userId, page, count )
        // console.log( response )
@@ -88,10 +97,10 @@ export const putDialog2MessageIdRestoreThCr = (messageId: string): ThType => {
     }
 }
 export const getDialog2MessagesNewerThenThCr = (userId: number, date: string): ThType => {
-    console.log( "getDialog2MessagesNewerThenThCr" )
+   // console.log( "getDialog2MessagesNewerThenThCr" )
     return async (dispatch, getState) => {// - вернуть сообщения новее определенной даты
         const response = await apiDialog2.getDialog2MessagesNewerThen( userId, date )
-        console.log( response ) //
+        dispatch(Dialog2Actions.setMessagesNewerThen(response))
     }
 }
 export const getDailog2UnreadMessagesThCr = (): ThType => {
