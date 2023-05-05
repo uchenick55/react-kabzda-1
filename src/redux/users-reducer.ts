@@ -1,7 +1,6 @@
 import {apiUsers} from "../components/api/api";
-import {ThunkAction} from "redux-thunk";
-import {GlobalStateType, InferActionsTypes} from "./store-redux";
-import {Action, Dispatch} from "redux";
+import {InferActionsTypes} from "./store-redux";
+import {Dispatch} from "redux";
 import {usersType} from "../components/api/apiTypes";
 import {ResultCodeEnum} from "../components/api/enum";
 import {ComThunkTp} from "../types/commonTypes";

@@ -2,10 +2,10 @@ import React from "react";
 import {Formik, Form} from "formik"; //формик с компонентами и пользовательским хуком
 import * as Yup from 'yup' // валидация форм с помошью сторонней библиотеки Yup
 //import DisplayFormikState from "../../../common/formikCommon/DisplayFormikState"
-import {MyTextInput} from "../../../common/formikCommon/MyFieldsBS"
+import {MyTextInput} from "../../common/formikCommon/MyFieldsBS"
 import Button from "react-bootstrap/Button";
 import Image from "react-bootstrap/Image";
-import sendSwg from "../../../../assets/images/swg/send-svg2.svg"
+import sendSwg from "../../../assets/images/swg/send-svg2.svg"
 import classes from "./MessagesFormik.module.css"
 
 let myInitialValues = { // начальные зачения форм

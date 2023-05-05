@@ -1,6 +1,6 @@
-import React, {useState} from "react";
+import React from "react";
 import classes from "./dialog2Render.module.css"
-import {getDialog2AllType} from "../../../api/apiTypes";
+import {getDialog2AllType} from "../../api/apiTypes";
 import Dialog2Item from "./Dialog2Item";
 
 type Dialog2RenderType = {
@@ -16,7 +16,7 @@ const Dialog2Render: React.FC<Dialog2RenderType> = (
     return <div>
         { // Компонента Dialog2Render отрисовывается на странице dialog всегда.
             // На странице messages только при десктопной версии
-            (patch === "messages" && PageWidth > MobileWidth || patch === "dialog2")
+            ((patch === "messages" && PageWidth > MobileWidth) || (patch === "dialog2"))
             && <div>
                 <div  //Fixed слева вверху.
                     // Поле остается на странице dialog2 всегда.
@@ -33,7 +33,7 @@ const Dialog2Render: React.FC<Dialog2RenderType> = (
                         const {id, userName, hasNewMessages, lastDialogActivityDate, newMessagesCount, photos} = d2
                         if (hasRendered.includes(id)) { //был глюк с записью двух одинаковых диалогов на сервер.
                             // Исправил проверкой, что уже отрисовано
-                            return
+                            return <div/>
                         }
                         hasRendered.push(id)
                         return <Dialog2Item

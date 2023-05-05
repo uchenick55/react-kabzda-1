@@ -1,7 +1,6 @@
 import {getAuthMeThunkCreator} from "./auth-reducer";
 import {getThemeThunkCreator} from "./theme-reducer";
-import {GlobalStateType, InferActionsTypes} from "./store-redux";
-import {ThunkAction} from "redux-thunk";
+import { InferActionsTypes} from "./store-redux";
 import {ComThunkTp} from "../types/commonTypes";
 
 const SET_INITIALISED_APP = "myApp/app-reducer/SET_INITIALISED_APP"; //константа инициализации приложения

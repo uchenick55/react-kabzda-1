@@ -2,8 +2,7 @@ import {apiProfile} from "../components/api/api";
 import {AuthActions, getAuthMeThunkCreator} from "./auth-reducer";
 import {updateDialogListThunkCreator} from "./dialogs-reducer";
 import {ComThunkTp, NulableType, postsType, ProfileType} from "../types/commonTypes";
-import {ThunkAction} from "redux-thunk";
-import {GlobalStateType, InferActionsTypes} from "./store-redux";
+import {InferActionsTypes} from "./store-redux";
 import {getProfileType} from "../components/api/apiTypes";
 import {ResultCodeEnum} from "../components/api/enum";
 

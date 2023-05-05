@@ -1,6 +1,5 @@
 import {apiDialogs} from "../components/api/apiLocalStorage";
-import {GlobalStateType, InferActionsTypes} from "./store-redux";
-import {ThunkAction} from "redux-thunk";
+import { InferActionsTypes} from "./store-redux";
 import {ComThunkTp, dialogs2Type, messages2Type, NulableType} from "../types/commonTypes";
 
 const DIALOGS_INITIAL_STATE = "myApp/dialogs-reducer/DIALOGS_INITIAL_STATE";  //константа зануления при логауте

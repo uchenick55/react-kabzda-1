@@ -1,6 +1,6 @@
 import React from "react";
 import classes from "./dialog2Render.module.css"
-import userPhoto from "../../../../assets/images/no-image3.png";
+import userPhoto from "../../../assets/images/no-image3.png";
 import {NavLink} from "react-router-dom";
 
 type Dialog2ItemType = {

@@ -1,6 +1,6 @@
 import React from "react";
 import classes from "./messages2Render.module.scss"
-import {getDialog2AllType, sendMessageType} from "../../../api/apiTypes";
+import {getDialog2AllType, sendMessageType} from "../../api/apiTypes";
 import Messages2Item from "./Messages2Item";
 import Msg2SendMessageRender from "./Msg2SendMessageRender";
 import Msg2HeaderNamePhoto from "./Msg2HeaderNamePhoto";
