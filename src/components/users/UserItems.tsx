@@ -59,7 +59,7 @@ const UserItems: React.FC<UserItemsType> = ({users, unfollowAPI, followAPI, foll
                                                       isAuth={isAuth}/>
                         }
                     </div>
-                    <NavLink to={'/dialogs/' + u.id}>
+                    <NavLink to={'/messages/' + u.id}>
                         <div>
 
                             <Image fluid={true}

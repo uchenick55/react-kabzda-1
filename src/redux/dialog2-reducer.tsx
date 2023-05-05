@@ -57,7 +57,7 @@ type ThType = ComThunkTp<Dialog2ActionsTypes> // тип, выведенный и
 export const putDialog2StartThCr = (currentDialogId: number): ThType => {
     return async (dispatch, getState) => {// начало диалога с пользователем по его ID
         const response = await apiDialog2.putDialog2Start( currentDialogId )
-        console.log( response )
+       // console.log( response )
     }
 }
 export const getDialog2AllThCr = (userId: number, page: number = 1, count: number = 10): ThType => {

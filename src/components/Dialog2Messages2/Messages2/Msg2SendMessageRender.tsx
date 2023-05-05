@@ -70,5 +70,5 @@ const Msg2SendMessageRender:React.FC<DialogFormikType> = ({Msg2SendMessage}) => 
     )
 }
 
-export default Msg2SendMessageRender
+export default React.memo(Msg2SendMessageRender)
 

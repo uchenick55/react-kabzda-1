@@ -9,6 +9,7 @@ type Dialog2RenderType = {
     patch: string,// имя страницы из URL
     PageWidth: number, // ширина страницы
     MobileWidth: number, // ширина страницы, считающаяся мобильной версткой
+    userId: number, // id пользователя из URL
     Dialog2All: getDialog2AllType, // список всех диалогов для левой колонки
     MessagesNewerThen: Array<sendMessageType> // сообщения выбранного диалога, новее заданной даты
     Msg2DeleteMessage: (message2Id: string) => void // удаление сообщения по его id
@@ -16,7 +17,7 @@ type Dialog2RenderType = {
 }
 
 const Dialog2Messages2Common: React.FC<Dialog2RenderType> = (
-    {patch, PageWidth, MobileWidth, Dialog2All, MessagesNewerThen, Msg2DeleteMessage, Msg2SendMessage}
+    {patch, PageWidth, MobileWidth, Dialog2All, MessagesNewerThen, Msg2DeleteMessage, Msg2SendMessage, userId}
     ) => {
     return <div className={classesCommon.dialog2Messages2Common}>
         {/*Отрисовка поля диалогов*/}
@@ -24,7 +25,7 @@ const Dialog2Messages2Common: React.FC<Dialog2RenderType> = (
 
         <Messages2Render PageWidth={PageWidth} MobileWidth={MobileWidth} patch={patch}
                          MessagesNewerThen={MessagesNewerThen} Msg2DeleteMessage={Msg2DeleteMessage}
-                         Msg2SendMessage={Msg2SendMessage} Dialog2All={Dialog2All}/>
+                         Msg2SendMessage={Msg2SendMessage} Dialog2All={Dialog2All} userId={userId}/>
     </div>
 }
 export default Dialog2Messages2Common

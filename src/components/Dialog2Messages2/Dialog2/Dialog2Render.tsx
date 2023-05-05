@@ -47,4 +47,4 @@ const Dialog2Render: React.FC<Dialog2RenderType> = (
 
     </div>
 }
-export default Dialog2Render
+export default React.memo(Dialog2Render)

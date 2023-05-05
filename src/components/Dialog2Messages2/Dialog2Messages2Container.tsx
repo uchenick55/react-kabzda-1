@@ -12,6 +12,7 @@ import Dialog2Messages2Common from "./Dialog2Messages2Common";
 import {getDialog2AllType, sendMessageType} from "../api/apiTypes";
 import {compose} from "redux";
 import withRouter2 from "../hoc/withRouter2";
+import NavigateToLoginHoc2 from "../hoc/NavigateToLoginHoc2";
 
 type DialogContainerType = {
     patch: string,// имя страницы из URL
@@ -44,37 +45,40 @@ const Dialog2Messages2Container: React.FC<DialogContainerType> = (
     //cde7821a-6981-4f49-8b12-faf681cb1621 от "555"
     // 84ac68ee-73d0-43c4-82bb-0fd0273d4808 (привет андрей)
     // 25528  | 27045 | 1079
-    const Msg2GetAllDialogs = useCallback( // убираем зацикленность при ререндере
+    const localGetAllMessagesNewerThen = useCallback( // убираем зацикленность при ререндере
         () => {
-            console.log( "Msg2GetAllDialogs" )
+            console.log( "localGetAllMessagesNewerThen" )
             getDialog2MessagesNewerThenThCr( userId, "2022-04-30T19:10:31.843" ) // получить все сообщения от указанного ID пользователя новее чем указанная дата
         }
         , [userId, getDialog2MessagesNewerThenThCr] )
     const Msg2DeleteMessage = (message2Id: string) => {
         // deleteDialog2MessageIdThCr(message2Id, userId, "2022-04-30T19:10:31.843") // - удалить сообщение (только у себя) по ID сообщения
     }
-    const Msg2SendMessage = (messageBody: string) => {
+    const Msg2SendMessage = useCallback((messageBody: string) => {
         postDialog2MessageThCr( userId, messageBody, "2022-04-30T19:10:31.843" )// отправить сообщение указав ID пользователя
-    }
+    },[])
     useEffect( () => {
-        console.log( "useEffect Msg2GetAllDialogs" )
-        Msg2GetAllDialogs() // получить все сообщения от указанного ID пользователя новее чем указанная дата
-    }, [userId, Msg2GetAllDialogs] )
+        console.log( "useEffect localGetAllMessagesNewerThen" )
+        localGetAllMessagesNewerThen() // получить все сообщения от указанного ID пользователя новее чем указанная дата
+    }, [userId] )
     useEffect( () => { // при загрузке получить список всех диалогов
         getDialog2AllThCr( 9999999999, 1, 10 ) // получить список всех диалогов
 
-        //putDialog2StartThCr(1079)
         //  getDialog2MessageIdViewedThCr("84ac68ee-73d0-43c4-82bb-0fd0273d4808") // проверить прочитано ли сообщение по его ID
         // postDialog2MessageIdToSpamThCr("cde7821a-6981-4f49-8b12-faf681cb1621") // пометить как спам сообщение по его ID
         // putDialog2MessageIdRestoreThCr("cde7821a-6981-4f49-8b12-faf681cb1621") // - восстановить сообщение из спама и удаленных
         // getDailog2UnreadMessagesThCr() // - вернуть количество непрочтенных сообщений
     }, [MessagesNewerThen, getDialog2AllThCr] )
 
+    useEffect(()=>{ // при переходе на страницу messages однократно начать диалог с userId из Url
+        console.log("putDialog2StartThCr(userId)")
+        putDialog2StartThCr(userId)
+    },[])
     return <div>
         <Dialog2Messages2Common
             patch={patch} PageWidth={PageWidth} MobileWidth={MobileWidth} Dialog2All={Dialog2All}
             MessagesNewerThen={MessagesNewerThen} Msg2DeleteMessage={Msg2DeleteMessage}
-            Msg2SendMessage={Msg2SendMessage}
+            Msg2SendMessage={Msg2SendMessage} userId={userId}
         />
 
     </div>
@@ -118,6 +122,7 @@ export default compose<any>(
             putDialog2MessageIdRestoreThCr, getDialog2MessagesNewerThenThCr, getDailog2UnreadMessagesThCr
         }
     ),
-    withRouter2// получить данные ID из URL браузера и добавить в пропсы
+    withRouter2,// получить данные ID из URL браузера и добавить в пропсы
+    NavigateToLoginHoc2
 )
 ( Dialog2Messages2Container );

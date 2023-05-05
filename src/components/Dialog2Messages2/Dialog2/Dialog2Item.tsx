@@ -16,6 +16,7 @@ type Dialog2ItemType = {
 }
 const Dialog2Item: React.FC<Dialog2ItemType> = (
     {userName, hasNewMessages, photos, lastDialogActivityDate, newMessagesCount, id}) => {
+    //console.log("Dialog2Item")
     return <div className={classes.Dialog2ItemCardExt}>
         <NavLink to={'/messages/' + id}>
             <div className={classes.Dialog2ItemCardInt}>
@@ -31,4 +32,4 @@ const Dialog2Item: React.FC<Dialog2ItemType> = (
         </NavLink>
     </div>
 }
-export default Dialog2Item
+export default React.memo(Dialog2Item)

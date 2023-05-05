@@ -9,6 +9,7 @@ type Dialog2RenderType = {
     patch: string,// имя страницы из URL
     PageWidth: number, // ширина страницы
     MobileWidth: number, // ширина страницы, считающаяся мобильной версткой
+    userId: number, // id пользователя из URL
     MessagesNewerThen: Array<sendMessageType> // сообщения выбранного диалога, новее заданной даты
     Msg2DeleteMessage: (message2Id: string) => void // удаление сообщения по его id
     Msg2SendMessage: (messageBody: string) => void // отправить сообщение указанному пользователю
@@ -16,7 +17,7 @@ type Dialog2RenderType = {
 
 }
 const Messages2Render: React.FC<Dialog2RenderType> = (
-    {PageWidth, MobileWidth, patch, MessagesNewerThen, Msg2DeleteMessage, Msg2SendMessage, Dialog2All}) => {
+    {PageWidth, MobileWidth, patch, MessagesNewerThen, Msg2DeleteMessage, Msg2SendMessage, Dialog2All, userId}) => {
 
     return <div>
         {patch === "dialog2" && PageWidth > MobileWidth && <div
@@ -35,7 +36,7 @@ const Messages2Render: React.FC<Dialog2RenderType> = (
                 className={`${classes.Fixed} ${classes.messages2NameAndProfileLink} ${PageWidth < MobileWidth ?
                     classes.MobileMessagesLeft : classes.DesktopMessagesLeft}`}
             >
-                <Msg2HeaderNamePhoto Dialog2All={Dialog2All} />
+                <Msg2HeaderNamePhoto Dialog2All={Dialog2All} userId={userId} />
 
             </div>
             <div //fixed справа вверху - имя собеседника и ссылка картинка на его профиль

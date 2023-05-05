@@ -14,10 +14,12 @@ type Messages2ItemType = {
 }
 const Messages2Item: React.FC<Messages2ItemType> = (
     {id, body, Msg2DeleteMessage, addedAt, senderId, senderName, recipientId, recipientName, viewed })=>{
+    console.log("Messages2Item")
     return <div>
         <div onClick={()=>{
             Msg2DeleteMessage(id)
         }}>{body}</div>
     </div>
 }
-export default Messages2Item
+//React.memo(
+export default React.memo(Messages2Item)
