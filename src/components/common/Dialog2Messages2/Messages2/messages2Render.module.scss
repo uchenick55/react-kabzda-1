@@ -1,15 +1,16 @@
-.Fixed {
+.Fixed { /* фиксация полей - общая часть */
     position: fixed;
 }
 
-.messages2NameAndProfileLink {
+.messages2NameAndProfileLink {/* поле отображения фото собеседника и ссылки на его профиль */
     background: #282c34;
     top: var(--HeaderHeight);
     height: 4rem;
     right: 0;
+    z-index: 100;
 }
 
-.messages2ChooseDialog {
+.messages2ChooseDialog { /*предложение выбрать диалог на странице dialogs2 вместо поля сообщений */
     background: green;
     left: var(--dialog2ListWidth);
     top: 3.5rem;
@@ -19,25 +20,25 @@
     justify-content: center;
     align-items: center;
 }
-.messages2RenderMessages {
+.messages2RenderMessages {/* поле отрисовки самих сообщений*/
     background: #555555 ;
     top: 7.5rem;
     bottom: 4.5rem;
     right: 0;
+    overflow: auto;
 }
 
-.messages2PrintMessage {
+.messages2PrintMessage { /*поле печати новых сообщений */
     background: #999999;
     height: 3.5rem;
     bottom: var(--FooterHeight);
     right: 0;
 }
 
-.MobileMessagesLeft {
+.MobileMessagesLeft { /* отступ слева для сообщений на мобильных устройствах*/
     left: 0;
 }
 
-.DesktopMessagesLeft {
+.DesktopMessagesLeft { /* отступ слева для сообщений на десктопе*/
     left: var(--dialog2ListWidth);
 }
-

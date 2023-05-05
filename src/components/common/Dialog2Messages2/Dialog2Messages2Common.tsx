@@ -15,8 +15,6 @@ type Dialog2RenderType = {
     Msg2SendMessage: (messageBody:string) => void // отправить сообщение указанному пользователю
 }
 
-
-
 const Dialog2Messages2Common: React.FC<Dialog2RenderType> = (
     {patch, PageWidth, MobileWidth, Dialog2All, MessagesNewerThen, Msg2DeleteMessage, Msg2SendMessage}
     ) => {
@@ -27,7 +25,6 @@ const Dialog2Messages2Common: React.FC<Dialog2RenderType> = (
         <Messages2Render PageWidth={PageWidth} MobileWidth={MobileWidth} patch={patch}
                          MessagesNewerThen={MessagesNewerThen} Msg2DeleteMessage={Msg2DeleteMessage}
                          Msg2SendMessage={Msg2SendMessage}/>
-
     </div>
 }
 export default Dialog2Messages2Common

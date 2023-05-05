@@ -56,10 +56,10 @@ const Dialog2Messages2Container: React.FC<DialogContainerType> = (
         // postDialog2MessageIdToSpamThCr("cde7821a-6981-4f49-8b12-faf681cb1621") // пометить как спам сообщение по его ID
         // putDialog2MessageIdRestoreThCr("cde7821a-6981-4f49-8b12-faf681cb1621") // - восстановить сообщение из спама и удаленных
         // getDailog2UnreadMessagesThCr() // - вернуть количество непрочтенных сообщений
-    }, [] )
+    }, [MessagesNewerThen] )
 
     const Msg2DeleteMessage = (message2Id:string) => {
-        deleteDialog2MessageIdThCr(message2Id, userId, "2022-04-30T19:10:31.843") // - удалить сообщение (только у себя) по ID сообщения
+       // deleteDialog2MessageIdThCr(message2Id, userId, "2022-04-30T19:10:31.843") // - удалить сообщение (только у себя) по ID сообщения
     }
     const Msg2SendMessage = (messageBody:string) => {
         postDialog2MessageThCr(userId, messageBody, "2022-04-30T19:10:31.843")// отправить сообщение указав ID пользователя
