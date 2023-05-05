@@ -24,7 +24,7 @@ const Dialog2Messages2Common: React.FC<Dialog2RenderType> = (
 
         <Messages2Render PageWidth={PageWidth} MobileWidth={MobileWidth} patch={patch}
                          MessagesNewerThen={MessagesNewerThen} Msg2DeleteMessage={Msg2DeleteMessage}
-                         Msg2SendMessage={Msg2SendMessage}/>
+                         Msg2SendMessage={Msg2SendMessage} Dialog2All={Dialog2All}/>
     </div>
 }
 export default Dialog2Messages2Common
