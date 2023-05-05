@@ -6,6 +6,7 @@ import {InferActionsTypes} from "./store-redux";
 import {getProfileType} from "../components/api/apiTypes";
 import {ResultCodeEnum, ResultCodeEnumCaptcha} from "../components/api/enum";
 import {ComThunkTp, NulableType} from "../types/commonTypes";
+import {Dialog2Actions} from "./dialog2-reducer";
 
 const SET_MY_DATA = "myApp/auth-reducer/SET_MY_DATA"; // константа для задания базовых данных моего профиля (ID, Email, login, isAuth)
 const AUTH_INITIAL_STATE = "myApp/auth-reducer/AUTH_INITIAL_STATE"; //константа зануления при логауте
@@ -47,7 +48,8 @@ type AuthActionTypes =
     InferActionsTypes<typeof AuthActions> |
     InferActionsTypes<typeof DialogsActions> |
     InferActionsTypes<typeof ProfileActions> |
-    InferActionsTypes<typeof UsersActions>
+    InferActionsTypes<typeof UsersActions> |
+    InferActionsTypes<typeof Dialog2Actions>
 
 const initialState = { // стейт по умолчанию для моего профиля
     myId: 0 as number, // мой ID по умолчанию
@@ -152,6 +154,8 @@ export const deleteLoginThunkCreator = (): ComThunkTp<AuthActionTypes> => {//с�
                 dispatch( ProfileActions.profileInitialState() )// зануление профиля при логауте
 
                 dispatch( UsersActions.usersInitialState() )// зануление UsersBS при логауте
+
+                dispatch( Dialog2Actions.setDialog2InitialState() )// зануление Dialog2 при логауте
 
             }, 300 )
         } else {

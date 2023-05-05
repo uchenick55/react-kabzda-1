@@ -6,6 +6,7 @@ import {ResultCodeEnum} from "../components/api/enum";
 
 const DIALOG2_ACTIONS = "myApp/dialog2-reducer/DIALOG2_ACTIONS";
 const SET_MESSAGES_NEWER_THEN = "myApp/dialog2-reducer/SET_MESSAGES_NEWER_THEN";
+const SET_DIALOG2_INITIALSTATE = "myApp/dialog2-reducer/SET_DIALOG2_INITIALSTATE";
 
 export const Dialog2Actions = {
 
@@ -14,6 +15,9 @@ export const Dialog2Actions = {
     },
     setMessagesNewerThen: (MessagesNewerThen: Array<sendMessageType>) => {
         return {type: SET_MESSAGES_NEWER_THEN, MessagesNewerThen} as const
+    },
+    setDialog2InitialState: () => {
+        return {type: SET_DIALOG2_INITIALSTATE} as const
     }
 }
 
@@ -41,6 +45,8 @@ const Dialog2Reducer = (state: initialStateDialog2Type = initialState, action: D
                 MessagesNewerThen: action.MessagesNewerThen
             }
             return stateCopy
+        case SET_DIALOG2_INITIALSTATE: // занулить стейт при логауте
+            return initialState
         default:
             return state
     }
