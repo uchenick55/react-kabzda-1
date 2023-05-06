@@ -1,12 +1,14 @@
 import {InferActionsTypes} from "./store-redux";
 import {ComThunkTp} from "../types/commonTypes";
 import {apiDialog2} from "../components/api/api";
-import {getDialog2AllType, sendMessageType} from "../components/api/apiTypes";
+import {getDialog2AllType, newMessagesItem, sendMessageType} from "../components/api/apiTypes";
 import {ResultCodeEnum} from "../components/api/enum";
 
 const DIALOG2_ACTIONS = "myApp/dialog2-reducer/DIALOG2_ACTIONS";
 const SET_MESSAGES_NEWER_THEN = "myApp/dialog2-reducer/SET_MESSAGES_NEWER_THEN";
 const SET_DIALOG2_INITIALSTATE = "myApp/dialog2-reducer/SET_DIALOG2_INITIALSTATE";
+const SET_D2_USERID = "myApp/dialog2-reducer/SET_D2_USERID";
+const SET_D2_ITEM = "myApp/dialog2-reducer/SET_D2_ITEM";
 
 export const Dialog2Actions = {
 
@@ -18,6 +20,12 @@ export const Dialog2Actions = {
     },
     setDialog2InitialState: () => {
         return {type: SET_DIALOG2_INITIALSTATE} as const
+    },
+    setD2UserId: (d2UserId:number) => {
+        return {type: SET_D2_USERID, d2UserId} as const
+    },
+    setD2Item: (d2UserId:number) => {
+        return {type: SET_D2_ITEM, d2UserId} as const
     }
 }
 
@@ -25,7 +33,9 @@ type Dialog2ActionsTypes = InferActionsTypes<typeof Dialog2Actions>
 
 const initialState = {
     Dialog2All: [] as getDialog2AllType,
-    MessagesNewerThen: [] as Array<sendMessageType>
+    MessagesNewerThen: [] as Array<sendMessageType>,
+    d2UserId: 0,
+    D2Item: {} as newMessagesItem
 }
 
 type initialStateDialog2Type = typeof initialState
@@ -47,6 +57,18 @@ const Dialog2Reducer = (state: initialStateDialog2Type = initialState, action: D
             return stateCopy
         case SET_DIALOG2_INITIALSTATE: // занулить стейт при логауте
             return initialState
+        case SET_D2_USERID: // установить id текущего диалога
+            stateCopy = {
+                ...state,
+                d2UserId: action.d2UserId
+            }
+            return stateCopy
+        case SET_D2_ITEM: // отфильтровать DialogItem из Dialog2All
+            stateCopy = {
+                ...state,
+                D2Item: state.Dialog2All.filter(d2=>d2.id===action.d2UserId)[0]
+            }
+            return stateCopy
         default:
             return state
     }

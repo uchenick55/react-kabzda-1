@@ -2,7 +2,7 @@ import React from "react";
 import classesCommon from "./dialog2Messages2Common.module.scss";
 import Dialog2Render from "./Dialog2/Dialog2Render";
 import Messages2Render from "./Messages2/Messages2Render";
-import {getDialog2AllType, sendMessageType} from "../api/apiTypes";
+import {getDialog2AllType, newMessagesItem, sendMessageType} from "../api/apiTypes";
 
 
 type Dialog2RenderType = {
@@ -14,10 +14,12 @@ type Dialog2RenderType = {
     MessagesNewerThen: Array<sendMessageType> // сообщения выбранного диалога, новее заданной даты
     Msg2DeleteMessage: (message2Id: string) => void // удаление сообщения по его id
     Msg2SendMessage: (messageBody:string) => void // отправить сообщение указанному пользователю
+    D2Item: newMessagesItem // отфильтрованый  из Dialog2All выбранный пользователь по userId
+
 }
 
 const Dialog2Messages2Common: React.FC<Dialog2RenderType> = (
-    {patch, PageWidth, MobileWidth, Dialog2All, MessagesNewerThen, Msg2DeleteMessage, Msg2SendMessage, userId}
+    {patch, PageWidth, MobileWidth, Dialog2All, MessagesNewerThen, Msg2DeleteMessage, Msg2SendMessage, userId, D2Item}
     ) => {
     return <div className={classesCommon.dialog2Messages2Common}>
         {/*Отрисовка поля диалогов*/}
@@ -25,7 +27,7 @@ const Dialog2Messages2Common: React.FC<Dialog2RenderType> = (
 
         <Messages2Render PageWidth={PageWidth} MobileWidth={MobileWidth} patch={patch}
                          MessagesNewerThen={MessagesNewerThen} Msg2DeleteMessage={Msg2DeleteMessage}
-                         Msg2SendMessage={Msg2SendMessage} Dialog2All={Dialog2All} userId={userId}/>
+                         Msg2SendMessage={Msg2SendMessage} Dialog2All={Dialog2All} userId={userId} D2Item={D2Item}/>
     </div>
 }
 export default Dialog2Messages2Common

@@ -1,6 +1,6 @@
 import React from "react";
 import classes from "./messages2Render.module.scss"
-import {getDialog2AllType, sendMessageType} from "../../api/apiTypes";
+import {getDialog2AllType, newMessagesItem, sendMessageType} from "../../api/apiTypes";
 import Messages2Item from "./Messages2Item";
 import Msg2SendMessageRender from "./Msg2SendMessageRender";
 import Msg2HeaderNamePhoto from "./Msg2HeaderNamePhoto";
@@ -14,10 +14,11 @@ type Dialog2RenderType = {
     Msg2DeleteMessage: (message2Id: string) => void // удаление сообщения по его id
     Msg2SendMessage: (messageBody: string) => void // отправить сообщение указанному пользователю
     Dialog2All: getDialog2AllType, // список всех диалогов для левой колонки
+    D2Item: newMessagesItem // отфильтрованый  из Dialog2All выбранный пользователь по userId
 
 }
 const Messages2Render: React.FC<Dialog2RenderType> = (
-    {PageWidth, MobileWidth, patch, MessagesNewerThen, Msg2DeleteMessage, Msg2SendMessage, Dialog2All, userId}) => {
+    {PageWidth, MobileWidth, patch, MessagesNewerThen, Msg2DeleteMessage, Msg2SendMessage, Dialog2All, userId, D2Item}) => {
 
     return <div>
         {patch === "dialog2" && PageWidth > MobileWidth && <div
@@ -36,7 +37,7 @@ const Messages2Render: React.FC<Dialog2RenderType> = (
                 className={`${classes.Fixed} ${classes.messages2NameAndProfileLink} ${PageWidth < MobileWidth ?
                     classes.MobileMessagesLeft : classes.DesktopMessagesLeft}`}
             >
-                <Msg2HeaderNamePhoto Dialog2All={Dialog2All} userId={userId} />
+                <Msg2HeaderNamePhoto Dialog2All={Dialog2All} userId={userId} D2Item={D2Item} />
 
             </div>
             <div //fixed справа вверху - имя собеседника и ссылка картинка на его профиль
