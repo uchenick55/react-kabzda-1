@@ -14,6 +14,7 @@ const Msg2HeaderNamePhoto:React.FC<Msg2HeaderNamePhotoType> = ({Dialog2All, user
     return <div>
         {D2Item && <div>
             <div className={classes.Msg2HeaderName}>{D2Item && D2Item.userName}</div>
+            <div className={classes.Msg2Headerid}>{D2Item && D2Item.id}</div>
             <img className={classes.Msg2HeaderPhoto} src={photoSrc} alt="photoSrc"/>
             <div className={classes.Msg2HeaderActivityDate} >Был(а): {" "}
                 {D2Item && D2Item.lastUserActivityDate && D2Item.lastUserActivityDate.slice(0, 10)}

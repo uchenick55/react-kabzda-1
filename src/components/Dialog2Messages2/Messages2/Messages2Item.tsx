@@ -16,9 +16,11 @@ const Messages2Item: React.FC<Messages2ItemType> = (
     {id, body, Msg2DeleteMessage, addedAt, senderId, senderName, recipientId, recipientName, viewed })=>{
     console.log("Messages2Item")
     return <div>
-        <div onClick={()=>{
+        <span onClick={()=>{
             Msg2DeleteMessage(id)
-        }}>{body}</div>
+        }}>{body}</span> {"- "}
+        <span>{recipientId}</span>
+
     </div>
 }
 //React.memo(
