@@ -1,4 +1,4 @@
-import React from "react";
+import React, {useEffect} from "react";
 import classes from "./messages2Render.module.scss"
 import {getDialog2AllType, newMessagesItem, sendMessageType} from "../../api/apiTypes";
 import Messages2Item from "./Messages2Item";
@@ -20,6 +20,11 @@ type Dialog2RenderType = {
 const Messages2Render: React.FC<Dialog2RenderType> = (
     {PageWidth, MobileWidth, patch, MessagesNewerThen, Msg2DeleteMessage, Msg2SendMessage, Dialog2All, userId, D2Item}) => {
 
+    const secondBlock = document.querySelector( '.second-block' ) // ссылка на прокрутку вниз
+    useEffect( () => {
+        secondBlock && secondBlock.scrollIntoView( true )
+    }, [MessagesNewerThen] ) // при обновлении списка сообщений - прокрутка вниз
+
     return <div>
         {patch === "dialog2" && PageWidth > MobileWidth && <div
             //- предложение выбрать диалог.Fixed все остальное поле справа.
@@ -37,7 +42,7 @@ const Messages2Render: React.FC<Dialog2RenderType> = (
                 className={`${classes.Fixed} ${classes.messages2NameAndProfileLink} ${PageWidth < MobileWidth ?
                     classes.MobileMessagesLeft : classes.DesktopMessagesLeft}`}
             >
-                <Msg2HeaderNamePhoto Dialog2All={Dialog2All} userId={userId} D2Item={D2Item} />
+                <Msg2HeaderNamePhoto Dialog2All={Dialog2All} userId={userId} D2Item={D2Item}/>
 
             </div>
             <div //fixed справа вверху - имя собеседника и ссылка картинка на его профиль
@@ -48,7 +53,7 @@ const Messages2Render: React.FC<Dialog2RenderType> = (
                 {MessagesNewerThen.map( m2 => { // отрисовка всех сообщений
                     const {
                         id, body, addedAt, senderId, senderName, recipientId, recipientName, viewed,
-                      //  deletedBySender, deletedByRecipient, isSpam
+                        //  deletedBySender, deletedByRecipient, isSpam
                     } = m2
                     return <Messages2Item key={id} id={id} body={body} Msg2DeleteMessage={Msg2DeleteMessage}
                                           addedAt={addedAt} senderId={senderId}
@@ -56,7 +61,7 @@ const Messages2Render: React.FC<Dialog2RenderType> = (
                                           recipientName={recipientName} viewed={viewed}
                     />
                 } )}
-
+                <div className="second-block"></div> {/* метка прокуртки сообщений при каждом обновлении списка сообщений*/}
             </div>
             <div//fixed справа вверху - имя собеседника и ссылка картинка на его профиль
                 // отображается всегда на странице messages
