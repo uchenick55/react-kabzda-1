@@ -63,25 +63,35 @@ const Dialog2Messages2Container: React.FC<DialogContainerType> = (
     },[userId])
 
     useEffect(()=>{
-        console.log("Отфильтровать setD2Item при смене d2UserId")
-        setD2Item(d2UserId) // отфильтровать из стейта Dialog2All по d2UserId чтобы получить D2Item
-    },[d2UserId])
+        if (d2UserId!==0) {
+            console.log("Отфильтровать setD2Item при смене d2UserId")
+            setD2Item(d2UserId) // отфильтровать из стейта Dialog2All по d2UserId чтобы получить D2Item
+        }
+    },[d2UserId, setD2Item])
+
     useEffect(()=>{
         if (!D2Item ) {
             console.log("Отфильтровать setD2Item если !D2Item")
             setD2Item(d2UserId) // отфильтровать из стейта Dialog2All по d2UserId чтобы получить D2Item
         }
-    },[D2Item, d2UserId, Dialog2All, setD2Item])
+    },[D2Item, d2UserId,Dialog2All, setD2Item])
 
-    useEffect( () => { // при загрузке получить список всех диалогов
-        console.log("useEffect получить диалоглист при смене d2UserId")
-        getDialog2AllThCr( d2UserId, 1, 10 ) // получить список всех диалогов
-    }, [] )
+    useEffect( () => {
+        if (patch === "dialog2") {
+            console.log("useEffect получить список всех диалогов при загрузке страницы dialog")
+            getDialog2AllThCr( d2UserId, 1, 10 )
+        }
+    }, [patch] )
 
     useEffect(()=>{
         console.log("useEffect получить сообщения при смене d2UserId")
-        getDialog2MessagesNewerThenThCr( d2UserId, "2022-04-30T19:10:31.843" ) // получить все сообщения от указанного ID пользователя новее чем указанная дата
+        getDialog2MessagesNewerThenThCr( d2UserId, "2022-04-30T19:10:31.843" )
     },[d2UserId])
+
+    useEffect(()=>{
+        console.log("useEffect начать диалог при прямой ссылке и первой загрузке")
+        putDialog2StartThCr(userId)
+    },[])
 
 
     //  getDialog2MessageIdViewedThCr("84ac68ee-73d0-43c4-82bb-0fd0273d4808") // проверить прочитано ли сообщение по его ID
