@@ -50,9 +50,9 @@ const Dialog2Messages2Container: React.FC<DialogContainerType> = (
     // 84ac68ee-73d0-43c4-82bb-0fd0273d4808 (привет андрей)
     // 25528  | 27045 | 1079
 
-    const Msg2DeleteMessage = (message2Id: string) => {
-         deleteDialog2MessageIdThCr(message2Id, d2UserId, "2022-04-30T19:10:31.843") // - удалить сообщение (только у себя) по ID сообщения
-    }
+    const Msg2DeleteMessage = useCallback((message2Id: string) => {
+        deleteDialog2MessageIdThCr(message2Id, d2UserId, "2022-04-30T19:10:31.843") // - удалить сообщение (только у себя) по ID сообщения
+    },[d2UserId])
     const Msg2SendMessage = (messageBody: string) => {
         postDialog2MessageThCr( d2UserId, messageBody, "2022-04-30T19:10:31.843" )// отправить сообщение указав ID пользователя
     }

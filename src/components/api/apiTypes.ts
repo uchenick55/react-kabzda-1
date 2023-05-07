@@ -48,7 +48,7 @@ export type getCaptchaType = {
 //Общий возвращаемый тип на ряд запросов - дженерик
 export type commRespType<D={}, RC = ResultCodeEnum > = {
     resultCode: RC // 0 успешный ответ, 1 ошибка, 10 - каптча. Все определяется Enum
-    messages: Array<string>,
+    messages: ApiErrorMsgType,
     data: D // возможны разные варианты ответа объекта data
     fieldsErrors: Array<string>,
 
@@ -84,3 +84,4 @@ export type sendMessageType = {
     distributionId: number//null
 }
 
+export type ApiErrorMsgType = Array<string>
