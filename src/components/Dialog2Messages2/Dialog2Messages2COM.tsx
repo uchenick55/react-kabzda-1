@@ -1,5 +1,5 @@
 import React from "react";
-import classesCommon from "./dialog2Messages2Common.module.scss";
+import classesCommon from "./dialog2Messages2COM.module.scss";
 import Dialog2Render from "./Dialog2/Dialog2Render";
 import Messages2Render from "./Messages2/Messages2Render";
 import {getDialog2AllType, newMessagesItem, sendMessageType} from "../api/apiTypes";
@@ -12,14 +12,15 @@ type Dialog2RenderType = {
     userId: number, // id пользователя из URL
     Dialog2All: getDialog2AllType, // список всех диалогов для левой колонки
     MessagesNewerThen: Array<sendMessageType> // сообщения выбранного диалога, новее заданной даты
+    D2Item: newMessagesItem, // отфильтрованый  из Dialog2All выбранный пользователь по userId
     Msg2DeleteMessage: (message2Id: string) => void // удаление сообщения по его id
     Msg2SendMessage: (messageBody:string) => void // отправить сообщение указанному пользователю
-    D2Item: newMessagesItem // отфильтрованый  из Dialog2All выбранный пользователь по userId
-
+    MSG2ScrollBottom: () => void // колбек прокрутки вниз сообщений после отправки нового сообщения
 }
 
-const Dialog2Messages2Common: React.FC<Dialog2RenderType> = (
-    {patch, PageWidth, MobileWidth, Dialog2All, MessagesNewerThen, Msg2DeleteMessage, Msg2SendMessage, userId, D2Item}
+const Dialog2Messages2COM: React.FC<Dialog2RenderType> = (
+    {patch, PageWidth, MobileWidth, Dialog2All, MessagesNewerThen, Msg2DeleteMessage, Msg2SendMessage, userId,
+        D2Item, MSG2ScrollBottom}
     ) => {
     return <div className={classesCommon.dialog2Messages2Common}>
         {/*Отрисовка поля диалогов*/}
@@ -27,7 +28,9 @@ const Dialog2Messages2Common: React.FC<Dialog2RenderType> = (
 
         <Messages2Render PageWidth={PageWidth} MobileWidth={MobileWidth} patch={patch}
                          MessagesNewerThen={MessagesNewerThen} Msg2DeleteMessage={Msg2DeleteMessage}
-                         Msg2SendMessage={Msg2SendMessage} Dialog2All={Dialog2All} userId={userId} D2Item={D2Item}/>
+                         Msg2SendMessage={Msg2SendMessage} Dialog2All={Dialog2All} userId={userId} D2Item={D2Item}
+                         MSG2ScrollBottom={MSG2ScrollBottom}
+        />
     </div>
 }
-export default Dialog2Messages2Common
+export default Dialog2Messages2COM

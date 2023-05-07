@@ -8,7 +8,7 @@ import {
     postDialog2MessageThCr, putDialog2MessageIdRestoreThCr,
     putDialog2StartThCr, getDailog2UnreadMessagesThCr, Dialog2Actions
 } from "../../redux/dialog2-reducer";
-import Dialog2Messages2Common from "./Dialog2Messages2Common";
+import Dialog2Messages2COM from "./Dialog2Messages2COM";
 import {getDialog2AllType, newMessagesItem, sendMessageType} from "../api/apiTypes";
 import {compose} from "redux";
 import withRouter2 from "../hoc/withRouter2";
@@ -99,6 +99,16 @@ const Dialog2Messages2Container: React.FC<DialogContainerType> = (
         }
     },[])
 
+    const secondBlock = document.querySelector( '.second-block' ) // ссылка на прокрутку вниз
+
+/*    useEffect( () => {
+        secondBlock && secondBlock.scrollIntoView( true )
+    }, [MessagesNewerThen] ) // при обновлении списка сообщений - прокрутка вниз.*/
+
+    const MSG2ScrollBottom = () => {
+        secondBlock && secondBlock.scrollIntoView( true )
+    }
+    //Сама метка className="second-block" находится в дочерней Messages2Render
 
     //  getDialog2MessageIdViewedThCr("84ac68ee-73d0-43c4-82bb-0fd0273d4808") // проверить прочитано ли сообщение по его ID
     // postDialog2MessageIdToSpamThCr("cde7821a-6981-4f49-8b12-faf681cb1621") // пометить как спам сообщение по его ID
@@ -106,10 +116,10 @@ const Dialog2Messages2Container: React.FC<DialogContainerType> = (
     // getDailog2UnreadMessagesThCr() // - вернуть количество непрочтенных сообщений
     // putDialog2StartThCr(userId)
     return <div>
-        <Dialog2Messages2Common
+        <Dialog2Messages2COM
             patch={patch} PageWidth={PageWidth} MobileWidth={MobileWidth} Dialog2All={Dialog2All}
             MessagesNewerThen={MessagesNewerThen} Msg2DeleteMessage={Msg2DeleteMessage}
-            Msg2SendMessage={Msg2SendMessage} userId={userId} D2Item={D2Item}
+            Msg2SendMessage={Msg2SendMessage} userId={userId} D2Item={D2Item} MSG2ScrollBottom={MSG2ScrollBottom}
         />
 
     </div>

@@ -11,19 +11,16 @@ type Dialog2RenderType = {
     MobileWidth: number, // ширина страницы, считающаяся мобильной версткой
     userId: number, // id пользователя из URL
     MessagesNewerThen: Array<sendMessageType> // сообщения выбранного диалога, новее заданной даты
-    Msg2DeleteMessage: (message2Id: string) => void // удаление сообщения по его id
-    Msg2SendMessage: (messageBody: string) => void // отправить сообщение указанному пользователю
     Dialog2All: getDialog2AllType, // список всех диалогов для левой колонки
     D2Item: newMessagesItem // отфильтрованый  из Dialog2All выбранный пользователь по userId
+    Msg2DeleteMessage: (message2Id: string) => void // удаление сообщения по его id
+    Msg2SendMessage: (messageBody: string) => void // отправить сообщение указанному пользователю
+    MSG2ScrollBottom: () => void // колбек прокрутки вниз сообщений после отправки нового сообщения
 
 }
 const Messages2Render: React.FC<Dialog2RenderType> = (
-    {PageWidth, MobileWidth, patch, MessagesNewerThen, Msg2DeleteMessage, Msg2SendMessage, Dialog2All, userId, D2Item}) => {
-
-    const secondBlock = document.querySelector( '.second-block' ) // ссылка на прокрутку вниз
-    useEffect( () => {
-        secondBlock && secondBlock.scrollIntoView( true )
-    }, [MessagesNewerThen] ) // при обновлении списка сообщений - прокрутка вниз
+    {PageWidth, MobileWidth, patch, MessagesNewerThen, Msg2DeleteMessage, Msg2SendMessage, Dialog2All, userId,
+        D2Item, MSG2ScrollBottom}) => {
 
     return <div>
         {patch === "dialog2" && PageWidth > MobileWidth && <div
@@ -61,6 +58,7 @@ const Messages2Render: React.FC<Dialog2RenderType> = (
                                           recipientName={recipientName} viewed={viewed}
                     />
                 } )}
+                <br/>
                 <div className="second-block"></div> {/* метка прокуртки сообщений при каждом обновлении списка сообщений*/}
             </div>
             <div//fixed справа вверху - имя собеседника и ссылка картинка на его профиль
@@ -68,7 +66,7 @@ const Messages2Render: React.FC<Dialog2RenderType> = (
                 className={`${classes.Fixed} ${classes.messages2PrintMessage} ${PageWidth < MobileWidth ?
                     classes.MobileMessagesLeft : classes.DesktopMessagesLeft}`}
             >
-                <Msg2SendMessageRender Msg2SendMessage={Msg2SendMessage}/>
+                <Msg2SendMessageRender Msg2SendMessage={Msg2SendMessage} MSG2ScrollBottom={MSG2ScrollBottom}/>
             </div>
         </div>
         }

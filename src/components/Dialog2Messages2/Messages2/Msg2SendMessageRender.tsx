@@ -16,15 +16,17 @@ let myValidationSchema = Yup.object({ // валидация форм на requir
 
 type DialogFormikType = {
     Msg2SendMessage: (messageBody: string) =>void,
+    MSG2ScrollBottom: () => void // колбек прокрутки вниз сообщений после отправки нового сообщения
 
 }
 type valuesType = {
     newMessage:string
 }
-const Msg2SendMessageRender:React.FC<DialogFormikType> = ({Msg2SendMessage}) => { // основная компонента с входным колбэком, чтобы забрать данные с форм
+const Msg2SendMessageRender:React.FC<DialogFormikType> = ({Msg2SendMessage, MSG2ScrollBottom}) => { // основная компонента с входным колбэком, чтобы забрать данные с форм
     const myOnSubmit = (values:valuesType, {resetForm}:any) => { // действия по сабмиту
         Msg2SendMessage(values.newMessage) // колбек, который принмает результат ввода формы
         resetForm()// сбросить значение формы после ввода
+        MSG2ScrollBottom()
     }
 
     return (
