@@ -101,17 +101,22 @@ export const postDialog2MessageThCr = (userId: number, body: string, date: strin
     }
 }
 export const getDialog2MessageIdViewedThCr = (messageId: string): ThType => {
-    console.log( "getDialog2MessageIdViewedThCr" )
     return async (dispatch, getState) => {//- проверить, было ли прочитано сообщение по Id сообщения
         const response = await apiDialog2.getDialog2MessageIdViewed( messageId )
-        console.log( response ) // boolean
+        if (response.status===200) {
+            console.log( "сообщение было прочитано" )
+            console.log( response.data ) // boolean
+
+        }
     }
 }
 export const postDialog2MessageIdToSpamThCr = (messageId: string): ThType => {
     console.log( "postDialog2MessageIdToSpamThCr" )
     return async (dispatch, getState) => {// - пометить сообщение как спам
         const response = await apiDialog2.postDialog2MessageIdToSpam( messageId )
-        console.log( response )
+        if (response.resultCode===ResultCodeEnum.Success) {
+            console.log("Сообщение помечено как спам:", messageId )
+        }
     }
 }
 export const deleteDialog2MessageIdThCr = (messageId: string, userId: number, date: string): ThType => {
@@ -128,7 +133,9 @@ export const putDialog2MessageIdRestoreThCr = (messageId: string): ThType => {
     console.log( "putDialog2MessageIdRestoreThCr" )
     return async (dispatch, getState) => {//  - восстановить сообщение из спама и удаленных
         const response = await apiDialog2.putDialog2MessageIdRestore( messageId )
-        console.log( response )
+        if (response.resultCode===ResultCodeEnum.Success) {
+            console.log("Сообщение восстановлено из спама")
+        }
     }
 }
 export const getDialog2MessagesNewerThenThCr = (userId: number, date: string): ThType => {

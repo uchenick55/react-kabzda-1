@@ -141,7 +141,7 @@ export const apiDialog2 = {
     },
     getDialog2MessageIdViewed: async (messageId: string) => {
         const response = await instance.get<boolean>( `dialogs/messages/${messageId}/viewed` )
-        return (response.data) //- проверить, было ли прочитано сообщение по Id сообщения
+        return (response) //- проверить, было ли прочитано сообщение по Id сообщения
         // getDialog2MessageIdViewed | dialogs/messages/{messageId}/viewed
         //URI Parameters:
         //    messageId- (number) - user message ID

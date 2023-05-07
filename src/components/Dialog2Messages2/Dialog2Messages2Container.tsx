@@ -66,6 +66,12 @@ const Dialog2Messages2Container: React.FC<DialogContainerType> = (
         console.log("Отфильтровать setD2Item при смене d2UserId")
         setD2Item(d2UserId) // отфильтровать из стейта Dialog2All по d2UserId чтобы получить D2Item
     },[d2UserId])
+    useEffect(()=>{
+        if (!D2Item ) {
+            console.log("Отфильтровать setD2Item если !D2Item")
+            setD2Item(d2UserId) // отфильтровать из стейта Dialog2All по d2UserId чтобы получить D2Item
+        }
+    },[D2Item, d2UserId, Dialog2All, setD2Item])
 
     useEffect( () => { // при загрузке получить список всех диалогов
         console.log("useEffect получить диалоглист при смене d2UserId")
@@ -77,22 +83,12 @@ const Dialog2Messages2Container: React.FC<DialogContainerType> = (
         getDialog2MessagesNewerThenThCr( d2UserId, "2022-04-30T19:10:31.843" ) // получить все сообщения от указанного ID пользователя новее чем указанная дата
     },[d2UserId])
 
-/*
-    useEffect( () => {
-        console.log( "useEffect localGetAllMessagesNewerThen" )
-        localGetAllMessagesNewerThen() // получить все сообщения от указанного ID пользователя новее чем указанная дата
-    }, [d2UserId] )
-*/
-
 
     //  getDialog2MessageIdViewedThCr("84ac68ee-73d0-43c4-82bb-0fd0273d4808") // проверить прочитано ли сообщение по его ID
     // postDialog2MessageIdToSpamThCr("cde7821a-6981-4f49-8b12-faf681cb1621") // пометить как спам сообщение по его ID
-    // putDialog2MessageIdRestoreThCr("cde7821a-6981-4f49-8b12-faf681cb1621") // - восстановить сообщение из спама и удаленных
+    // putDialog2MessageIdRestoreThCr("826de61e-76e6-4fe4-b9c9-5bee8fc16d12") // - восстановить сообщение из спама и удаленных
     // getDailog2UnreadMessagesThCr() // - вернуть количество непрочтенных сообщений
-    // useEffect(()=>{ // при переходе на страницу messages однократно начать диалог с userId из Url
-    //     console.log("putDialog2StartThCr(userId)")
-    //     putDialog2StartThCr(userId)
-    // },[])
+    // putDialog2StartThCr(userId)
     return <div>
         <Dialog2Messages2Common
             patch={patch} PageWidth={PageWidth} MobileWidth={MobileWidth} Dialog2All={Dialog2All}
