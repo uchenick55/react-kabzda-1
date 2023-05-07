@@ -58,12 +58,14 @@ const Dialog2Messages2Container: React.FC<DialogContainerType> = (
     }
 
     useEffect(()=>{
-        console.log("записать из URL в стейт userId")
-        setD2UserId(userId) // записать из URL в стейт userId
+        if (userId!==0) {
+            console.log("записать из URL в стейт userId")
+            setD2UserId(userId) // записать из URL в стейт userId
+        }
     },[userId])
 
     useEffect(()=>{
-        if (d2UserId!==0) {
+        if (d2UserId!==0 && (D2Item.id!==d2UserId)) {
             console.log("Отфильтровать setD2Item при смене d2UserId")
             setD2Item(d2UserId) // отфильтровать из стейта Dialog2All по d2UserId чтобы получить D2Item
         }
@@ -84,13 +86,17 @@ const Dialog2Messages2Container: React.FC<DialogContainerType> = (
     }, [patch] )
 
     useEffect(()=>{
-        console.log("useEffect получить сообщения при смене d2UserId")
-        getDialog2MessagesNewerThenThCr( d2UserId, "2022-04-30T19:10:31.843" )
-    },[d2UserId])
+        if (patch==="messages") {
+            console.log("useEffect получить сообщения при смене d2UserId")
+            getDialog2MessagesNewerThenThCr( d2UserId, "2022-04-30T19:10:31.843" )
+        }
+    },[d2UserId, patch])
 
     useEffect(()=>{
-        console.log("useEffect начать диалог при прямой ссылке и первой загрузке")
-        putDialog2StartThCr(userId)
+        if (patch==="messages") {
+            console.log("useEffect начать диалог при прямой ссылке и первой загрузке")
+            putDialog2StartThCr(userId)
+        }
     },[])
 
 

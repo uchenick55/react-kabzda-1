@@ -80,6 +80,7 @@ export const putDialog2StartThCr = (currentDialogId: number): ThType => {
     return async (dispatch, getState) => {// начало диалога с пользователем по его ID
         const response = await apiDialog2.putDialog2Start( currentDialogId )
         if (response.resultCode===ResultCodeEnum.Success) {
+            console.log("начало диалога с пользователем по его ID, запускаем получение диалоглиста")
             dispatch(getDialog2AllThCr(currentDialogId))
         }
     }
@@ -97,7 +98,8 @@ export const postDialog2MessageThCr = (userId: number, body: string, date: strin
     return async (dispatch, getState) => {// - отправить сообщение пользователю
         const response = await apiDialog2.postDialog2Message( userId, body )
         if (response.resultCode===ResultCodeEnum.Success) {
-           dispatch(getDialog2MessagesNewerThenThCr( userId, date)) // получить все сообщения от указанного ID пользователя новее чем указанная дата
+            console.log("Отправили сообщение, запускаем получение новых сообщений")
+            dispatch(getDialog2MessagesNewerThenThCr( userId, date)) // получить все сообщения от указанного ID пользователя новее чем указанная дата
         }
         console.log( response )
     }
@@ -126,7 +128,7 @@ export const deleteDialog2MessageIdThCr = (messageId: string, userId: number, da
     return async (dispatch, getState) => {//- удалить сообщение (только у себя) по ID сообщения
         const response = await apiDialog2.deleteDialog2MessageId( messageId )
         if (response.resultCode === ResultCodeEnum.Success) {
-            console.log("Сообщение удалено" )
+            console.log("Сообщение удалено. Запускаем получение новых сообщений" )
            dispatch( getDialog2MessagesNewerThenThCr (userId, date))
         }
     }
