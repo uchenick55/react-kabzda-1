@@ -40,8 +40,9 @@ export const Dialog2Actions = {
 
 type Dialog2ActionsTypes = InferActionsTypes<typeof Dialog2Actions>
 export type MarkersType = {
-    firstUploaded: boolean,
-    dialogId: number
+    straightFirstUploaded: boolean,
+    dialogId: number,
+    Dialog2FirstUploaded: boolean
 }
 const initialState = {
     Dialog2All: [] as getDialog2AllType,
@@ -50,8 +51,9 @@ const initialState = {
     D2Item: {} as newMessagesItem,
     ApiErrorMsg: [] as ApiErrorMsgType,
     Markers: {
-        firstUploaded: false,
-        dialogId: 0
+        straightFirstUploaded: false,
+        dialogId: 0,
+        Dialog2FirstUploaded: false
     } as MarkersType
 }
 
