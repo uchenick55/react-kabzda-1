@@ -10,6 +10,7 @@ const SET_DIALOG2_INITIALSTATE = "myApp/dialog2-reducer/SET_DIALOG2_INITIALSTATE
 const SET_D2_USERID = "myApp/dialog2-reducer/SET_D2_USERID";
 const SET_D2_ITEM = "myApp/dialog2-reducer/SET_D2_ITEM";
 const SET_API_ERROR_MSG = "myApp/dialog2-reducer/SET_API_ERROR_MSG";
+const SET_MARKERS = "myApp/dialog2-reducer/SET_MARKERS";
 
 export const Dialog2Actions = {
 
@@ -30,17 +31,28 @@ export const Dialog2Actions = {
     },
     setApiErrorMsg: (ApiErrorMsg: Array<string>) => {
         return {type: SET_API_ERROR_MSG, ApiErrorMsg} as const
+    },
+    setMarkers: (Markers: MarkersType) => {
+        return {type: SET_MARKERS, Markers} as const
     }
+
 }
 
 type Dialog2ActionsTypes = InferActionsTypes<typeof Dialog2Actions>
-
+export type MarkersType = {
+    firstUploaded: boolean,
+    dialogId: number
+}
 const initialState = {
     Dialog2All: [] as getDialog2AllType,
     MessagesNewerThen: [] as Array<sendMessageType>,
     d2UserId: 0,
     D2Item: {} as newMessagesItem,
-    ApiErrorMsg: [] as ApiErrorMsgType
+    ApiErrorMsg: [] as ApiErrorMsgType,
+    Markers: {
+        firstUploaded: false,
+        dialogId: 0
+    } as MarkersType
 }
 
 type initialStateDialog2Type = typeof initialState
@@ -80,6 +92,12 @@ const Dialog2Reducer = (state: initialStateDialog2Type = initialState, action: D
                 ApiErrorMsg: action.ApiErrorMsg
             }
             return stateCopy
+        case SET_MARKERS: // записать вспомогательные маркеры
+            stateCopy = {
+                ...state,
+                Markers: action.Markers
+            }
+            return stateCopy
         default:
             return state
     }
@@ -103,7 +121,6 @@ export const getDialog2AllThCr = (userId: number, page: number = 1, count: numbe
     // console.log( "getDialog2AllThCr" )
     return async (dispatch, getState) => {//- получить список диалогов по id пользователя
         const response = await apiDialog2.getDialog2All( userId, page, count )
-        // console.log( response )
         dispatch( Dialog2Actions.getDialog2AllAC( response ) ) /* получить диалоглист*/
         dispatch(Dialog2Actions.setD2Item(response[0])) /*отфильтровать D2Item для шапки*/
     }

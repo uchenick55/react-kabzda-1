@@ -6,7 +6,7 @@ import {
     getDialog2MessageIdViewedThCr, getDialog2MessagesNewerThenThCr,
     getDialog2AllThCr, postDialog2MessageIdToSpamThCr,
     postDialog2MessageThCr, putDialog2MessageIdRestoreThCr,
-    putDialog2StartThCr, getDailog2UnreadMessagesThCr, Dialog2Actions
+    putDialog2StartThCr, getDailog2UnreadMessagesThCr, Dialog2Actions, MarkersType
 } from "../../redux/dialog2-reducer";
 import Dialog2Messages2COM from "./Dialog2Messages2COM";
 import {getDialog2AllType, newMessagesItem, sendMessageType} from "../api/apiTypes";
@@ -23,9 +23,12 @@ type DialogContainerType = {
     MessagesNewerThen: Array<sendMessageType> // сообщения выбранного диалога, новее заданной даты
     d2UserId: number // ID пользователя, записанный в стейт из URL
     D2Item: newMessagesItem // отфильтрованый  из Dialog2All выбранный пользователь по userId
+    Markers: MarkersType
 
     getDialog2AllThCr: (userId: number, page: number, count: number) => void,// получить список всех диалогов
     setD2UserId: (userId:number) => void, // задать userId из URL в стейт
+    setMarkers: (Markers: MarkersType) => void // задать вспомогательные маркеры
+    setD2Item: (D2Item: newMessagesItem) => void // задать D2Item (шапку сообщений)
 
     putDialog2StartThCr: (currentDialogId: number) => void,
     postDialog2MessageThCr: (userId: number, body: string, date: string) => void,
@@ -42,7 +45,8 @@ const Dialog2Messages2Container: React.FC<DialogContainerType> = (
         putDialog2StartThCr, getDialog2AllThCr, postDialog2MessageThCr,
         getDialog2MessageIdViewedThCr, postDialog2MessageIdToSpamThCr, deleteDialog2MessageIdThCr,
         putDialog2MessageIdRestoreThCr, getDialog2MessagesNewerThenThCr, getDailog2UnreadMessagesThCr,
-        patch, PageWidth, MobileWidth, Dialog2All, userId, MessagesNewerThen, setD2UserId, d2UserId, D2Item
+        patch, PageWidth, MobileWidth, Dialog2All, userId, MessagesNewerThen, setD2UserId, d2UserId, D2Item,
+        Markers, setMarkers, setD2Item
     }
 ) => {
     //cde7821a-6981-4f49-8b12-faf681cb1621 от "555"
@@ -54,6 +58,14 @@ const Dialog2Messages2Container: React.FC<DialogContainerType> = (
     },[userId])
     const Msg2SendMessage = (messageBody: string) => {
         postDialog2MessageThCr( userId, messageBody, "2022-04-30T19:10:31.843" )// отправить сообщение указав ID пользователя
+        if (Markers.dialogId!==userId) {
+            putDialog2StartThCr(userId) // начать диалог
+            setMarkers({
+                ...Markers,
+                dialogId: userId
+            })
+
+        }
     }
 
     // getDialog2AllThCr( userId, 1, 10 )
@@ -64,15 +76,22 @@ const Dialog2Messages2Container: React.FC<DialogContainerType> = (
     // putDialog2MessageIdRestoreThCr("826de61e-76e6-4fe4-b9c9-5bee8fc16d12") // - восстановить сообщение из спама и удаленных
     // getDailog2UnreadMessagesThCr() // - вернуть количество непрочтенных сообщений
     useEffect(()=>{
-        if (userId!==0) {
-            console.log("начать диалог по непустому userId")
+        if (userId!==0 && !Markers.firstUploaded) {
+            console.log("начать диалог по непустому userId ")
             putDialog2StartThCr(userId) // начать диалог
+            setMarkers({
+                ...Markers,
+                firstUploaded: true
+            })
         }
     },[userId])
     useEffect(()=>{
         if (userId!==0) {
             console.log("получить сообщения при смене userId")
             getDialog2MessagesNewerThenThCr( userId, "2022-04-30T19:10:31.843" )
+
+            const D2ItemLocal: newMessagesItem = Dialog2All.filter(d2=>d2.id===userId)[0]
+            setD2Item(D2ItemLocal)
         }
     },[userId])
 
@@ -101,7 +120,8 @@ const mapStateToProps = (state: GlobalStateType) => {
         Dialog2All: state.dialog2.Dialog2All,
         MessagesNewerThen: state.dialog2.MessagesNewerThen,
         d2UserId: state.dialog2.d2UserId,
-        D2Item: state.dialog2.D2Item
+        D2Item: state.dialog2.D2Item,
+        Markers: state.dialog2.Markers
     }
 }
 type mapStateToPropsType = {
@@ -111,7 +131,8 @@ type mapStateToPropsType = {
     Dialog2All: getDialog2AllType,
     MessagesNewerThen: Array<sendMessageType>,
     d2UserId: number,
-    D2Item: newMessagesItem
+    D2Item: newMessagesItem,
+    Markers: MarkersType
 
 }
 type mapDispatchToPropsType = {
@@ -125,8 +146,10 @@ type mapDispatchToPropsType = {
     getDialog2MessagesNewerThenThCr: (userId: number, date: string) => void,
     getDailog2UnreadMessagesThCr: () => void,
     setD2UserId: (userId:number) => void,
+    setMarkers: (Markers: MarkersType) => void,
+    setD2Item: (D2Item: newMessagesItem) => void
 }
-const {setD2UserId} = Dialog2Actions // получить экшены
+const {setD2UserId, setMarkers, setD2Item} = Dialog2Actions // получить экшены
 
 export default compose<any>(
     connect<mapStateToPropsType,
@@ -137,7 +160,7 @@ export default compose<any>(
             putDialog2StartThCr, getDialog2AllThCr, postDialog2MessageThCr,
             getDialog2MessageIdViewedThCr, postDialog2MessageIdToSpamThCr, deleteDialog2MessageIdThCr,
             putDialog2MessageIdRestoreThCr, getDialog2MessagesNewerThenThCr, getDailog2UnreadMessagesThCr,
-            setD2UserId
+            setD2UserId, setMarkers, setD2Item
         }
     ),
     withRouter2,// получить данные ID из URL браузера и добавить в пропсы

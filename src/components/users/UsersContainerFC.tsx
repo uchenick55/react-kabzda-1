@@ -6,6 +6,7 @@ import {followThunkCreator, getUsersThunkCreator, unfollowThunkCreator, UsersAct
 import React, {ChangeEvent, useEffect, useState} from "react";
 import Preloader from "../common/Preloader/Preloader";
 import UsersBS from "./UsersBS1";
+import {Dialog2Actions} from "../../redux/dialog2-reducer";
 
 type MainProps = {
     users: Array<usersType>, // Реселектор users- список пользователей в пачке от сервера
@@ -24,13 +25,16 @@ type MainProps = {
     followThunkCreator: (userId: number, currentPage: number, pageSize: number, term: string, friend: boolean) => void,
     unfollowThunkCreator: (userId: number, currentPage: number, pageSize: number, term: string, friend: boolean) => void,
     setTerm: (term: string) => void,
-    setOnlyFriends: (onlyFriends: boolean) => void
+    setOnlyFriends: (onlyFriends: boolean) => void,
+    setDialog2InitialState: () => void // занулить весь dialog2 стейт при переходе на страницу users
+
 }
 const UsersContainerFC: React.FC<MainProps> = (
     {
         users, pageSize, totalUsersCount, currentPage, isFetching, followingInProgress,
         isAuth, term, onlyFriends, patch, PageWidth, setCurrentPage,
-        getUsersThunkCreator, followThunkCreator, unfollowThunkCreator, setTerm, setOnlyFriends
+        getUsersThunkCreator, followThunkCreator, unfollowThunkCreator, setTerm, setOnlyFriends,
+        setDialog2InitialState
     }
 ) => {
     const [onChangeTerm, setOnChangeTerm] = useState<string>( term ) // локальный стейт значения поля ввода input Users
@@ -63,6 +67,10 @@ const UsersContainerFC: React.FC<MainProps> = (
         setCurrentRangeLocal( 1 ) // перевод диапазона пагинации2 на 1 (сброс)
         getUsersThunkCreator( 1, pageSize, term, onlyFriends, 0 );// получение списка пользователей с поисковым запросом (переключение на 1 страницу)
     }, [term, onlyFriends, getUsersThunkCreator, pageSize, setCurrentPage] )
+
+    useEffect(()=>{
+        setDialog2InitialState()
+    }, [])
 
     return <> {/*использование фрагмента вместо div/span*/}
         {isFetching && <Preloader/>}
@@ -122,16 +130,17 @@ type mapDispatchToPropsType = {
     followThunkCreator: (userId: number, currentPage: number, pageSize: number, term: string, friend: boolean) => void,
     unfollowThunkCreator: (userId: number, currentPage: number, pageSize: number, term: string, friend: boolean) => void,
     setTerm: (term: string) => void,
-    setOnlyFriends: (onlyFriends: boolean) => void
+    setOnlyFriends: (onlyFriends: boolean) => void,
+    setDialog2InitialState: () => void
 }
 
 const {setCurrentPage, setOnlyFriends, setTerm} = UsersActions // деструктуризация методов ActionCreator
-
+const {setDialog2InitialState} = Dialog2Actions// деструктуризация методов ActionCreator
 export default connect<mapStateToPropsType,
     mapDispatchToPropsType,
     unknown,
     GlobalStateType>( mapStateToProps,
     {
         setCurrentPage, getUsersThunkCreator, followThunkCreator,
-        unfollowThunkCreator, setTerm, setOnlyFriends
+        unfollowThunkCreator, setTerm, setOnlyFriends, setDialog2InitialState
     } )( UsersContainerFC );
