@@ -25,8 +25,7 @@ type DialogContainerType = {
     D2Item: newMessagesItem // отфильтрованый  из Dialog2All выбранный пользователь по userId
 
     getDialog2AllThCr: (userId: number, page: number, count: number) => void,// получить список всех диалогов
-    setD2UserId: (d2UserId:number) => void, // задать userId из URL в стейт
-    setD2Item: (d2UserId:number) => void, // задать и отфильтровать из Dialog2All выбранного пользователя по userId
+    setD2UserId: (userId:number) => void, // задать userId из URL в стейт
 
     putDialog2StartThCr: (currentDialogId: number) => void,
     postDialog2MessageThCr: (userId: number, body: string, date: string) => void,
@@ -43,7 +42,7 @@ const Dialog2Messages2Container: React.FC<DialogContainerType> = (
         putDialog2StartThCr, getDialog2AllThCr, postDialog2MessageThCr,
         getDialog2MessageIdViewedThCr, postDialog2MessageIdToSpamThCr, deleteDialog2MessageIdThCr,
         putDialog2MessageIdRestoreThCr, getDialog2MessagesNewerThenThCr, getDailog2UnreadMessagesThCr,
-        patch, PageWidth, MobileWidth, Dialog2All, userId, MessagesNewerThen, setD2UserId, d2UserId, setD2Item, D2Item
+        patch, PageWidth, MobileWidth, Dialog2All, userId, MessagesNewerThen, setD2UserId, d2UserId, D2Item
     }
 ) => {
     //cde7821a-6981-4f49-8b12-faf681cb1621 от "555"
@@ -51,70 +50,40 @@ const Dialog2Messages2Container: React.FC<DialogContainerType> = (
     // 25528  | 27045 | 1079
 
     const Msg2DeleteMessage = useCallback((message2Id: string) => {
-        deleteDialog2MessageIdThCr(message2Id, d2UserId, "2022-04-30T19:10:31.843") // - удалить сообщение (только у себя) по ID сообщения
-    },[d2UserId])
+        deleteDialog2MessageIdThCr(message2Id, userId, "2022-04-30T19:10:31.843") // - удалить сообщение (только у себя) по ID сообщения
+    },[userId])
     const Msg2SendMessage = (messageBody: string) => {
-        postDialog2MessageThCr( d2UserId, messageBody, "2022-04-30T19:10:31.843" )// отправить сообщение указав ID пользователя
+        postDialog2MessageThCr( userId, messageBody, "2022-04-30T19:10:31.843" )// отправить сообщение указав ID пользователя
     }
 
+    // getDialog2AllThCr( userId, 1, 10 )
+    //
+    //
+    // getDialog2MessageIdViewedThCr("84ac68ee-73d0-43c4-82bb-0fd0273d4808") // проверить прочитано ли сообщение по его ID
+    // postDialog2MessageIdToSpamThCr("cde7821a-6981-4f49-8b12-faf681cb1621") // пометить как спам сообщение по его ID
+    // putDialog2MessageIdRestoreThCr("826de61e-76e6-4fe4-b9c9-5bee8fc16d12") // - восстановить сообщение из спама и удаленных
+    // getDailog2UnreadMessagesThCr() // - вернуть количество непрочтенных сообщений
     useEffect(()=>{
         if (userId!==0) {
-            console.log("записать из URL в стейт userId")
-            setD2UserId(userId) // записать из URL в стейт userId
+            console.log("начать диалог по непустому userId")
+            putDialog2StartThCr(userId) // начать диалог
+        }
+    },[userId])
+    useEffect(()=>{
+        if (userId!==0) {
+            console.log("получить сообщения при смене userId")
+            getDialog2MessagesNewerThenThCr( userId, "2022-04-30T19:10:31.843" )
         }
     },[userId])
 
-    useEffect(()=>{
-        if (d2UserId!==0 && (D2Item.id!==d2UserId)) {
-            console.log("Отфильтровать setD2Item при смене d2UserId")
-            setD2Item(d2UserId) // отфильтровать из стейта Dialog2All по d2UserId чтобы получить D2Item
-        }
-    },[d2UserId, setD2Item])
-
-    useEffect(()=>{
-        if (!D2Item ) {
-            console.log("Отфильтровать setD2Item если !D2Item")
-            setD2Item(d2UserId) // отфильтровать из стейта Dialog2All по d2UserId чтобы получить D2Item
-        }
-    },[D2Item, d2UserId,Dialog2All, setD2Item])
-
-    useEffect( () => {
-        if (patch === "dialog2") {
-            console.log("useEffect получить список всех диалогов при загрузке страницы dialog")
-            getDialog2AllThCr( d2UserId, 1, 10 )
-        }
-    }, [patch] )
-
-    useEffect(()=>{
-        if (patch==="messages") {
-            console.log("useEffect получить сообщения при смене d2UserId")
-            getDialog2MessagesNewerThenThCr( d2UserId, "2022-04-30T19:10:31.843" )
-        }
-    },[d2UserId, patch])
-
-    useEffect(()=>{
-        if (patch==="messages") {
-            console.log("useEffect начать диалог при прямой ссылке и первой загрузке")
-            putDialog2StartThCr(userId)
-        }
-    },[])
 
     const secondBlock = document.querySelector( '.second-block' ) // ссылка на прокрутку вниз
-
-/*    useEffect( () => {
-        secondBlock && secondBlock.scrollIntoView( true )
-    }, [MessagesNewerThen] ) // при обновлении списка сообщений - прокрутка вниз.*/
 
     const MSG2ScrollBottom = () => {
         secondBlock && secondBlock.scrollIntoView( true )
     }
     //Сама метка className="second-block" находится в дочерней Messages2Render
 
-    //  getDialog2MessageIdViewedThCr("84ac68ee-73d0-43c4-82bb-0fd0273d4808") // проверить прочитано ли сообщение по его ID
-    // postDialog2MessageIdToSpamThCr("cde7821a-6981-4f49-8b12-faf681cb1621") // пометить как спам сообщение по его ID
-    // putDialog2MessageIdRestoreThCr("826de61e-76e6-4fe4-b9c9-5bee8fc16d12") // - восстановить сообщение из спама и удаленных
-    // getDailog2UnreadMessagesThCr() // - вернуть количество непрочтенных сообщений
-    // putDialog2StartThCr(userId)
     return <div>
         <Dialog2Messages2COM
             patch={patch} PageWidth={PageWidth} MobileWidth={MobileWidth} Dialog2All={Dialog2All}
@@ -155,10 +124,9 @@ type mapDispatchToPropsType = {
     putDialog2MessageIdRestoreThCr: (messageId: string) => void,
     getDialog2MessagesNewerThenThCr: (userId: number, date: string) => void,
     getDailog2UnreadMessagesThCr: () => void,
-    setD2UserId: (d2UserId:number) => void,
-    setD2Item: (d2UserId:number) => void,
+    setD2UserId: (userId:number) => void,
 }
-const {setD2UserId, setD2Item} = Dialog2Actions // получить экшены
+const {setD2UserId} = Dialog2Actions // получить экшены
 
 export default compose<any>(
     connect<mapStateToPropsType,
@@ -169,7 +137,7 @@ export default compose<any>(
             putDialog2StartThCr, getDialog2AllThCr, postDialog2MessageThCr,
             getDialog2MessageIdViewedThCr, postDialog2MessageIdToSpamThCr, deleteDialog2MessageIdThCr,
             putDialog2MessageIdRestoreThCr, getDialog2MessagesNewerThenThCr, getDailog2UnreadMessagesThCr,
-            setD2UserId, setD2Item
+            setD2UserId
         }
     ),
     withRouter2,// получить данные ID из URL браузера и добавить в пропсы

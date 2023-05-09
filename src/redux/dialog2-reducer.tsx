@@ -25,8 +25,8 @@ export const Dialog2Actions = {
     setD2UserId: (d2UserId: number) => {
         return {type: SET_D2_USERID, d2UserId} as const
     },
-    setD2Item: (d2UserId: number) => {
-        return {type: SET_D2_ITEM, d2UserId} as const
+    setD2Item: (D2Item: newMessagesItem) => {
+        return {type: SET_D2_ITEM, D2Item} as const
     },
     setApiErrorMsg: (ApiErrorMsg: Array<string>) => {
         return {type: SET_API_ERROR_MSG, ApiErrorMsg} as const
@@ -71,7 +71,7 @@ const Dialog2Reducer = (state: initialStateDialog2Type = initialState, action: D
         case SET_D2_ITEM: // отфильтровать DialogItem из Dialog2All
             stateCopy = {
                 ...state,
-                D2Item: state.Dialog2All.filter( d2 => d2.id === action.d2UserId )[0]
+                D2Item: action.D2Item
             }
             return stateCopy
         case SET_API_ERROR_MSG: // записать ошибку с сервера в стейт
@@ -91,7 +91,7 @@ export const putDialog2StartThCr = (currentDialogId: number): ThType => {
     return async (dispatch, getState) => {// начало диалога с пользователем по его ID
         const response = await apiDialog2.putDialog2Start( currentDialogId )
         if (response.resultCode === ResultCodeEnum.Success) {
-            console.log( "начало диалога с пользователем по его ID, запускаем получение диалоглиста" )
+            console.log( "Диалог с пользователем по его ID начат. Запускаем получение диалоглиста" )
             dispatch( getDialog2AllThCr( currentDialogId ) )
         }
         if (response.resultCode === ResultCodeEnum.Error) {
@@ -104,7 +104,8 @@ export const getDialog2AllThCr = (userId: number, page: number = 1, count: numbe
     return async (dispatch, getState) => {//- получить список диалогов по id пользователя
         const response = await apiDialog2.getDialog2All( userId, page, count )
         // console.log( response )
-        dispatch( Dialog2Actions.getDialog2AllAC( response ) )
+        dispatch( Dialog2Actions.getDialog2AllAC( response ) ) /* получить диалоглист*/
+        dispatch(Dialog2Actions.setD2Item(response[0])) /*отфильтровать D2Item для шапки*/
     }
 }
 export const postDialog2MessageThCr = (userId: number, body: string, date: string): ThType => {
