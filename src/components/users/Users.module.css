@@ -79,6 +79,7 @@
 
 .usersOverflowAuto {
     overflow: auto;
+
 }
 .usersHeaderDialogsPage { /*одна колонка в сообщениях*/
     position: fixed;

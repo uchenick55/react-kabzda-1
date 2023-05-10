@@ -58,7 +58,6 @@ const Messages2Render: React.FC<Dialog2RenderType> = (
                                           recipientName={recipientName} viewed={viewed}
                     />
                 } )}
-                <br/>
                 <div className="second-block"></div> {/* метка прокуртки сообщений при каждом обновлении списка сообщений*/}
             </div>
             <div//fixed справа вверху - имя собеседника и ссылка картинка на его профиль

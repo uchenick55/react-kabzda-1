@@ -26,7 +26,7 @@ const Msg2SendMessageRender:React.FC<DialogFormikType> = ({Msg2SendMessage, MSG2
     const myOnSubmit = (values:valuesType, {resetForm}:any) => { // действия по сабмиту
         Msg2SendMessage(values.newMessage) // колбек, который принмает результат ввода формы
         resetForm()// сбросить значение формы после ввода
-        MSG2ScrollBottom()
+      //  MSG2ScrollBottom()
     }
 
     return (

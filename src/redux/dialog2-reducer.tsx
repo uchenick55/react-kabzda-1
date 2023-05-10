@@ -42,7 +42,8 @@ type Dialog2ActionsTypes = InferActionsTypes<typeof Dialog2Actions>
 export type MarkersType = {
     straightFirstUploaded: boolean,
     dialogId: number,
-    Dialog2FirstUploaded: boolean
+    Dialog2FirstUploaded: boolean,
+    needToScrollBottom: boolean
 }
 const initialState = {
     Dialog2All: [] as getDialog2AllType,
@@ -53,7 +54,8 @@ const initialState = {
     Markers: {
         straightFirstUploaded: false,
         dialogId: 0,
-        Dialog2FirstUploaded: false
+        Dialog2FirstUploaded: false,
+        needToScrollBottom: false
     } as MarkersType
 }
 
@@ -127,13 +129,17 @@ export const getDialog2AllThCr = (userId: number, page: number = 1, count: numbe
         dispatch(Dialog2Actions.setD2Item(response[0])) /*отфильтровать D2Item для шапки*/
     }
 }
-export const postDialog2MessageThCr = (userId: number, body: string, date: string): ThType => {
+export const postDialog2MessageThCr = (userId: number, body: string, date: string, Markers: MarkersType): ThType => {
     console.log( "postDialog2MessageThCr" )
     return async (dispatch, getState) => {// - отправить сообщение пользователю
         const response = await apiDialog2.postDialog2Message( userId, body )
         if (response.resultCode === ResultCodeEnum.Success) {
             console.log( "Отправили сообщение, запускаем получение новых сообщений" )
             dispatch( getDialog2MessagesNewerThenThCr( userId, date ) ) // получить все сообщения от указанного ID пользователя новее чем указанная дата
+            dispatch( Dialog2Actions.setMarkers({
+                    ...Markers, needToScrollBottom: true // взводим маркер что нежна прокрутка вниз
+                } )
+            )
         }
         if (response.resultCode === ResultCodeEnum.Error) {
             dispatch( Dialog2Actions.setApiErrorMsg( response.messages ) )

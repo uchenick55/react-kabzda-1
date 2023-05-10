@@ -32,7 +32,7 @@ type DialogContainerType = {
     getDialog2AllAC: (Dialog2All: getDialog2AllType) => void, // изменить локально данные в диалоглис
 
     putDialog2StartThCr: (currentDialogId: number) => void,
-    postDialog2MessageThCr: (userId: number, body: string, date: string) => void,
+    postDialog2MessageThCr: (userId: number, body: string, date: string, Markers: MarkersType) => void,
     getDialog2MessageIdViewedThCr: (messageId: string) => void,
     postDialog2MessageIdToSpamThCr: (messageId: string) => void,
     deleteDialog2MessageIdThCr: (messageId: string, userId: number, date: string) => void,
@@ -54,11 +54,12 @@ const Dialog2Messages2Container: React.FC<DialogContainerType> = (
     // 84ac68ee-73d0-43c4-82bb-0fd0273d4808 (привет андрей)
     // 25528  | 27045 | 1079
 
-    const Msg2DeleteMessage = useCallback( (message2Id: string) => {
-        deleteDialog2MessageIdThCr( message2Id, userId, "2022-04-30T19:10:31.843" ) // - удалить сообщение (только у себя) по ID сообщения
+    const Msg2DeleteMessage = useCallback( (message2Id: string) => {// - удалить сообщение (только у себя) по ID сообщения
+        deleteDialog2MessageIdThCr( message2Id, userId, "2022-04-30T19:10:31.843" )
     }, [userId] )
+
     const Msg2SendMessage = (messageBody: string) => {
-        postDialog2MessageThCr( userId, messageBody, "2022-04-30T19:10:31.843" )// отправить сообщение указав ID пользователя
+        postDialog2MessageThCr( userId, messageBody, "2022-04-30T19:10:31.843" , Markers)// отправить сообщение указав ID пользователя
         if (Markers.dialogId !== userId) { //Если мы еще не начали диалог с пользователем, и отправили сообщение
             putDialog2StartThCr( userId ) // инициировать диалог
             setMarkers( { // маркер пометить, что диалог начался
@@ -69,7 +70,9 @@ const Dialog2Messages2Container: React.FC<DialogContainerType> = (
     }
 
     useEffect( () => {
-            if (D2Item && D2Item.newMessagesCount > 0) {         //если маркер непрочтенных сообщений больше нуля
+            // через интервал времени при выборе диалога с новыми сообщениями локально пометить сообщение
+            // как прочитаное. При следующем получении данных с сервера, все синхронизируется
+            if (D2Item && D2Item.newMessagesCount > 0) {  //если маркер непрочтенных сообщений больше нуля
                 setTimeout( () => { // делаем таймер паузу пока сообщение не исчезнет
                     const Dialog2AllLocal2: getDialog2AllType = [];
                     Dialog2All.forEach( dd => {
@@ -81,13 +84,8 @@ const Dialog2Messages2Container: React.FC<DialogContainerType> = (
                     } )
                     console.log( "таймер закончился" )
                     getDialog2AllAC( Dialog2AllLocal2 )
-                    //локально пометить сообщение как прочитаное. При следующем получении данных с сервера,
-                    //все синхронизируется
                 }, 1000 )
             }
-
-            //запускаем setTimeOut допустим на пару секунд.
-            // потом получаем еще раз диалоглис
         },
         [D2Item] )
 
@@ -123,6 +121,14 @@ const Dialog2Messages2Container: React.FC<DialogContainerType> = (
         }
     }, [userId, patch] )
 
+    useEffect(()=>{
+        if (Markers.needToScrollBottom) {
+            MSG2ScrollBottom() // прокручиваем список сообщений вниз
+            setMarkers({
+                ...Markers, needToScrollBottom: false // ставим маркер - прокручивать вниз не нужно
+            } )
+        }
+    }, [Markers])
 
     const secondBlock = document.querySelector( '.second-block' ) // ссылка на прокрутку вниз
 
@@ -166,7 +172,7 @@ type mapStateToPropsType = {
 type mapDispatchToPropsType = {
     putDialog2StartThCr: (currentDialogId: number) => void,
     getDialog2AllThCr: (userId: number, page: number, count: number) => void,
-    postDialog2MessageThCr: (userId: number, body: string, date: string) => void,
+    postDialog2MessageThCr: (userId: number, body: string, date: string, Markers: MarkersType) => void,
     getDialog2MessageIdViewedThCr: (messageId: string) => void,
     postDialog2MessageIdToSpamThCr: (messageId: string) => void,
     deleteDialog2MessageIdThCr: (messageId: string, userId: number, date: string) => void,
