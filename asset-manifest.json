@@ -1,7 +1,7 @@
 {
   "files": {
     "main.css": "/react-kabzda-1/static/css/main.20279e7d.css",
-    "main.js": "/react-kabzda-1/static/js/main.c1233cb4.js",
+    "main.js": "/react-kabzda-1/static/js/main.79c3a522.js",
     "static/js/279.410135ee.chunk.js": "/react-kabzda-1/static/js/279.410135ee.chunk.js",
     "static/js/718.42e4c603.chunk.js": "/react-kabzda-1/static/js/718.42e4c603.chunk.js",
     "static/js/801.4a619e18.chunk.js": "/react-kabzda-1/static/js/801.4a619e18.chunk.js",
@@ -11,12 +11,12 @@
     "static/js/850.a44cb244.chunk.js": "/react-kabzda-1/static/js/850.a44cb244.chunk.js",
     "static/js/85.939cd1ae.chunk.js": "/react-kabzda-1/static/js/85.939cd1ae.chunk.js",
     "static/js/48.939cf463.chunk.js": "/react-kabzda-1/static/js/48.939cf463.chunk.js",
-    "static/css/853.30950324.chunk.css": "/react-kabzda-1/static/css/853.30950324.chunk.css",
+    "static/css/853.5cb45d6a.chunk.css": "/react-kabzda-1/static/css/853.5cb45d6a.chunk.css",
     "static/css/634.25bd3107.chunk.css": "/react-kabzda-1/static/css/634.25bd3107.chunk.css",
     "static/js/634.b0d72d16.chunk.js": "/react-kabzda-1/static/js/634.b0d72d16.chunk.js",
-    "static/css/799.d5de795d.chunk.css": "/react-kabzda-1/static/css/799.d5de795d.chunk.css",
+    "static/css/799.0a99ae9f.chunk.css": "/react-kabzda-1/static/css/799.0a99ae9f.chunk.css",
     "static/js/799.1d887ec2.chunk.js": "/react-kabzda-1/static/js/799.1d887ec2.chunk.js",
-    "static/css/569.5d584dfa.chunk.css": "/react-kabzda-1/static/css/569.5d584dfa.chunk.css",
+    "static/css/569.5d419ec6.chunk.css": "/react-kabzda-1/static/css/569.5d419ec6.chunk.css",
     "static/js/569.515d3adc.chunk.js": "/react-kabzda-1/static/js/569.515d3adc.chunk.js",
     "static/css/650.b0bb87f3.chunk.css": "/react-kabzda-1/static/css/650.b0bb87f3.chunk.css",
     "static/js/650.41b428f0.chunk.js": "/react-kabzda-1/static/js/650.41b428f0.chunk.js",
@@ -50,7 +50,7 @@
     "static/media/logout2.svg": "/react-kabzda-1/static/media/logout2.354ba8f19f0bbf866016da247c41bb5c.svg",
     "index.html": "/react-kabzda-1/index.html",
     "main.20279e7d.css.map": "/react-kabzda-1/static/css/main.20279e7d.css.map",
-    "main.c1233cb4.js.map": "/react-kabzda-1/static/js/main.c1233cb4.js.map",
+    "main.79c3a522.js.map": "/react-kabzda-1/static/js/main.79c3a522.js.map",
     "279.410135ee.chunk.js.map": "/react-kabzda-1/static/js/279.410135ee.chunk.js.map",
     "718.42e4c603.chunk.js.map": "/react-kabzda-1/static/js/718.42e4c603.chunk.js.map",
     "801.4a619e18.chunk.js.map": "/react-kabzda-1/static/js/801.4a619e18.chunk.js.map",
@@ -60,12 +60,12 @@
     "850.a44cb244.chunk.js.map": "/react-kabzda-1/static/js/850.a44cb244.chunk.js.map",
     "85.939cd1ae.chunk.js.map": "/react-kabzda-1/static/js/85.939cd1ae.chunk.js.map",
     "48.939cf463.chunk.js.map": "/react-kabzda-1/static/js/48.939cf463.chunk.js.map",
-    "853.30950324.chunk.css.map": "/react-kabzda-1/static/css/853.30950324.chunk.css.map",
+    "853.5cb45d6a.chunk.css.map": "/react-kabzda-1/static/css/853.5cb45d6a.chunk.css.map",
     "634.25bd3107.chunk.css.map": "/react-kabzda-1/static/css/634.25bd3107.chunk.css.map",
     "634.b0d72d16.chunk.js.map": "/react-kabzda-1/static/js/634.b0d72d16.chunk.js.map",
-    "799.d5de795d.chunk.css.map": "/react-kabzda-1/static/css/799.d5de795d.chunk.css.map",
+    "799.0a99ae9f.chunk.css.map": "/react-kabzda-1/static/css/799.0a99ae9f.chunk.css.map",
     "799.1d887ec2.chunk.js.map": "/react-kabzda-1/static/js/799.1d887ec2.chunk.js.map",
-    "569.5d584dfa.chunk.css.map": "/react-kabzda-1/static/css/569.5d584dfa.chunk.css.map",
+    "569.5d419ec6.chunk.css.map": "/react-kabzda-1/static/css/569.5d419ec6.chunk.css.map",
     "569.515d3adc.chunk.js.map": "/react-kabzda-1/static/js/569.515d3adc.chunk.js.map",
     "650.b0bb87f3.chunk.css.map": "/react-kabzda-1/static/css/650.b0bb87f3.chunk.css.map",
     "650.41b428f0.chunk.js.map": "/react-kabzda-1/static/js/650.41b428f0.chunk.js.map",
@@ -82,6 +82,6 @@
   },
   "entrypoints": [
     "static/css/main.20279e7d.css",
-    "static/js/main.c1233cb4.js"
+    "static/js/main.79c3a522.js"
   ]
 }
