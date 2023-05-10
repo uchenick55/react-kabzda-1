@@ -40,10 +40,10 @@ export const Dialog2Actions = {
 
 type Dialog2ActionsTypes = InferActionsTypes<typeof Dialog2Actions>
 export type MarkersType = {
-    straightFirstUploaded: boolean,
-    dialogId: number,
-    Dialog2FirstUploaded: boolean,
-    needToScrollBottom: boolean
+    straightFirstUploaded: boolean, // является ли эта загрузка прямой по ссылке, (или F5)
+    dialogId: number, // маркер id диалога
+    Dialog2FirstUploaded: boolean, // маркер первой загрузки
+    needToScrollBottom: boolean // нужно ли прокрутить список сообщений
 }
 const initialState = {
     Dialog2All: [] as getDialog2AllType,
@@ -73,7 +73,8 @@ const Dialog2Reducer = (state: initialStateDialog2Type = initialState, action: D
         case SET_MESSAGES_NEWER_THEN: // сообщения по выбранному диалогу новее определенной даты
             stateCopy = {
                 ...state,
-                MessagesNewerThen: action.MessagesNewerThen
+                MessagesNewerThen: action.MessagesNewerThen,
+                Markers: {...state.Markers, needToScrollBottom: true}
             }
             return stateCopy
         case SET_DIALOG2_INITIALSTATE: // занулить стейт при логауте
@@ -136,10 +137,6 @@ export const postDialog2MessageThCr = (userId: number, body: string, date: strin
         if (response.resultCode === ResultCodeEnum.Success) {
             console.log( "Отправили сообщение, запускаем получение новых сообщений" )
             dispatch( getDialog2MessagesNewerThenThCr( userId, date ) ) // получить все сообщения от указанного ID пользователя новее чем указанная дата
-            dispatch( Dialog2Actions.setMarkers({
-                    ...Markers, needToScrollBottom: true // взводим маркер что нежна прокрутка вниз
-                } )
-            )
         }
         if (response.resultCode === ResultCodeEnum.Error) {
             dispatch( Dialog2Actions.setApiErrorMsg( response.messages ) )
