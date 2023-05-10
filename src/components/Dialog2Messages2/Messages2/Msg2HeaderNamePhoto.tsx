@@ -1,16 +1,15 @@
 import React from "react";
-import {getDialog2AllType, newMessagesItem} from "../../api/apiTypes";
+import {newMessagesItem} from "../../api/apiTypes";
 import classes from "./messages2Render.module.scss"
 import userPhoto from "../../../assets/images/no-image3.png";
 import {NavLink} from "react-router-dom";
 
 type Msg2HeaderNamePhotoType = {
-    Dialog2All: getDialog2AllType, // список всех диалогов для левой колонки
     userId: number, // id пользователя из URL
     D2Item: newMessagesItem // отфильтрованый  из Dialog2All выбранный пользователь по userId
 
 }
-const Msg2HeaderNamePhoto: React.FC<Msg2HeaderNamePhotoType> = ({Dialog2All, userId, D2Item}) => {
+const Msg2HeaderNamePhoto: React.FC<Msg2HeaderNamePhotoType> = ({userId, D2Item}) => {
     const photoSrc = D2Item && D2Item.photos && D2Item.photos.small ? D2Item.photos.small : userPhoto // фото с сервера или заглушка
     return <div>
         {D2Item && <div>

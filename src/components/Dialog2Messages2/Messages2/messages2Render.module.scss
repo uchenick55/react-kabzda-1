@@ -70,3 +70,16 @@
     font-size: 0.8rem;
     color: var(--color3)
 }
+
+.myIdMessage {
+    display: flex;
+    justify-content: left;
+    align-items: center;
+}
+
+.NOTmyIdMessage {
+    display: flex;
+    justify-content: right;
+    align-items: center;
+}
+

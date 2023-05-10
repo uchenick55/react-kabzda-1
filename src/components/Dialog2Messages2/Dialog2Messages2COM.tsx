@@ -16,11 +16,13 @@ type Dialog2RenderType = {
     Msg2DeleteMessage: (message2Id: string) => void // удаление сообщения по его id
     Msg2SendMessage: (messageBody:string) => void // отправить сообщение указанному пользователю
     MSG2ScrollBottom: () => void // колбек прокрутки вниз сообщений после отправки нового сообщения
+    myId: number // номер моего id
+
 }
 
 const Dialog2Messages2COM: React.FC<Dialog2RenderType> = (
     {patch, PageWidth, MobileWidth, Dialog2All, MessagesNewerThen, Msg2DeleteMessage, Msg2SendMessage, userId,
-        D2Item, MSG2ScrollBottom}
+        D2Item, MSG2ScrollBottom, myId}
     ) => {
     return <div className={classesCommon.dialog2Messages2Common}>
         {/*Отрисовка поля диалогов*/}
@@ -28,8 +30,8 @@ const Dialog2Messages2COM: React.FC<Dialog2RenderType> = (
 
         <Messages2Render PageWidth={PageWidth} MobileWidth={MobileWidth} patch={patch}
                          MessagesNewerThen={MessagesNewerThen} Msg2DeleteMessage={Msg2DeleteMessage}
-                         Msg2SendMessage={Msg2SendMessage} Dialog2All={Dialog2All} userId={userId} D2Item={D2Item}
-                         MSG2ScrollBottom={MSG2ScrollBottom}
+                         Msg2SendMessage={Msg2SendMessage} userId={userId} D2Item={D2Item}
+                         MSG2ScrollBottom={MSG2ScrollBottom} myId={myId}
         />
     </div>
 }

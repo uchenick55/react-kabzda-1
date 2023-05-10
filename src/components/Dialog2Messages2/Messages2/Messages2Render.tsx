@@ -1,6 +1,6 @@
-import React, {useEffect} from "react";
+import React from "react";
 import classes from "./messages2Render.module.scss"
-import {getDialog2AllType, newMessagesItem, sendMessageType} from "../../api/apiTypes";
+import {newMessagesItem, sendMessageType} from "../../api/apiTypes";
 import Messages2Item from "./Messages2Item";
 import Msg2SendMessageRender from "./Msg2SendMessageRender";
 import Msg2HeaderNamePhoto from "./Msg2HeaderNamePhoto";
@@ -11,16 +11,16 @@ type Dialog2RenderType = {
     MobileWidth: number, // ширина страницы, считающаяся мобильной версткой
     userId: number, // id пользователя из URL
     MessagesNewerThen: Array<sendMessageType> // сообщения выбранного диалога, новее заданной даты
-    Dialog2All: getDialog2AllType, // список всех диалогов для левой колонки
     D2Item: newMessagesItem // отфильтрованый  из Dialog2All выбранный пользователь по userId
     Msg2DeleteMessage: (message2Id: string) => void // удаление сообщения по его id
     Msg2SendMessage: (messageBody: string) => void // отправить сообщение указанному пользователю
     MSG2ScrollBottom: () => void // колбек прокрутки вниз сообщений после отправки нового сообщения
+    myId: number // номер моего id
 
 }
 const Messages2Render: React.FC<Dialog2RenderType> = (
-    {PageWidth, MobileWidth, patch, MessagesNewerThen, Msg2DeleteMessage, Msg2SendMessage, Dialog2All, userId,
-        D2Item, MSG2ScrollBottom}) => {
+    {PageWidth, MobileWidth, patch, MessagesNewerThen, Msg2DeleteMessage, Msg2SendMessage, userId,
+        D2Item, MSG2ScrollBottom, myId}) => {
 
     return <div>
         {patch === "dialog2" && PageWidth > MobileWidth && <div
@@ -39,7 +39,7 @@ const Messages2Render: React.FC<Dialog2RenderType> = (
                 className={`${classes.Fixed} ${classes.messages2NameAndProfileLink} ${PageWidth < MobileWidth ?
                     classes.MobileMessagesLeft : classes.DesktopMessagesLeft}`}
             >
-                <Msg2HeaderNamePhoto Dialog2All={Dialog2All} userId={userId} D2Item={D2Item}/>
+                <Msg2HeaderNamePhoto userId={userId} D2Item={D2Item}/>
 
             </div>
             <div //fixed справа вверху - имя собеседника и ссылка картинка на его профиль
@@ -55,7 +55,7 @@ const Messages2Render: React.FC<Dialog2RenderType> = (
                     return <Messages2Item key={id} id={id} body={body} Msg2DeleteMessage={Msg2DeleteMessage}
                                           addedAt={addedAt} senderId={senderId}
                                           senderName={senderName} recipientId={recipientId}
-                                          recipientName={recipientName} viewed={viewed}
+                                          recipientName={recipientName} viewed={viewed} myId={myId}
                     />
                 } )}
                 <div className="second-block"></div> {/* метка прокуртки сообщений при каждом обновлении списка сообщений*/}

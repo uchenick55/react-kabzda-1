@@ -21,9 +21,9 @@ type DialogContainerType = {
     Dialog2All: getDialog2AllType, // список всех диалогов для левой колонки
     userId: number, // id пользователя из URL (withRouter2)
     MessagesNewerThen: Array<sendMessageType> // сообщения выбранного диалога, новее заданной даты
-    d2UserId: number // ID пользователя, записанный в стейт из URL
     D2Item: newMessagesItem // отфильтрованый  из Dialog2All выбранный пользователь по userId
-    Markers: MarkersType
+    Markers: MarkersType//вспомогательные маркеры
+    myId: number // номер моего id
 
     getDialog2AllThCr: (userId: number, page: number, count: number) => void,// получить список всех диалогов
     setD2UserId: (userId: number) => void, // задать userId из URL в стейт
@@ -46,8 +46,8 @@ const Dialog2Messages2Container: React.FC<DialogContainerType> = (
         putDialog2StartThCr, getDialog2AllThCr, postDialog2MessageThCr,
         getDialog2MessageIdViewedThCr, postDialog2MessageIdToSpamThCr, deleteDialog2MessageIdThCr,
         putDialog2MessageIdRestoreThCr, getDialog2MessagesNewerThenThCr, getDailog2UnreadMessagesThCr,
-        patch, PageWidth, MobileWidth, Dialog2All, userId, MessagesNewerThen, setD2UserId, d2UserId, D2Item,
-        Markers, setMarkers, setD2Item, getDialog2AllAC
+        patch, PageWidth, MobileWidth, Dialog2All, userId, MessagesNewerThen, setD2UserId, D2Item,
+        Markers, setMarkers, setD2Item, getDialog2AllAC, myId
     }
 ) => {
     //cde7821a-6981-4f49-8b12-faf681cb1621 от "555"
@@ -142,6 +142,7 @@ const Dialog2Messages2Container: React.FC<DialogContainerType> = (
             patch={patch} PageWidth={PageWidth} MobileWidth={MobileWidth} Dialog2All={Dialog2All}
             MessagesNewerThen={MessagesNewerThen} Msg2DeleteMessage={Msg2DeleteMessage}
             Msg2SendMessage={Msg2SendMessage} userId={userId} D2Item={D2Item} MSG2ScrollBottom={MSG2ScrollBottom}
+            myId={myId}
         />
 
     </div>
@@ -153,9 +154,9 @@ const mapStateToProps = (state: GlobalStateType) => {
         MobileWidth: state.app.MobileWidth,
         Dialog2All: state.dialog2.Dialog2All,
         MessagesNewerThen: state.dialog2.MessagesNewerThen,
-        d2UserId: state.dialog2.d2UserId,
         D2Item: state.dialog2.D2Item,
-        Markers: state.dialog2.Markers
+        Markers: state.dialog2.Markers,
+        myId: state.auth.myId
     }
 }
 type mapStateToPropsType = {
@@ -164,9 +165,9 @@ type mapStateToPropsType = {
     MobileWidth: number,
     Dialog2All: getDialog2AllType,
     MessagesNewerThen: Array<sendMessageType>,
-    d2UserId: number,
     D2Item: newMessagesItem,
-    Markers: MarkersType
+    Markers: MarkersType,
+    myId: number
 
 }
 type mapDispatchToPropsType = {
