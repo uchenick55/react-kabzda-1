@@ -17,10 +17,10 @@ type Messages2ItemType = {
 const Messages2Item: React.FC<Messages2ItemType> = (
     {id, body, Msg2DeleteMessage, addedAt, senderId, senderName, recipientId, recipientName, viewed, myId}) => {
     console.log( "Messages2Item" )
-    return <div>
-        <span className={myId===senderId?classes.NOTmyIdMessage: classes.myIdMessage} onClick={() => {
+    return <div className={`${classes.myIdNotMyIdMsg2ComExt} ${myId===senderId?classes.myIdMessageExt: classes.NOTmyIdMessageExt}`}>
+        <div className={`${classes.myIdNotMyIdMsg2ComInt} ${myId===senderId?classes.myIdMessageInt: classes.NOTmyIdMessageInt}`}  onClick={() => {
             Msg2DeleteMessage( id )
-        }}>{body}- {" "} {senderId}</span>
+        }}>{body}</div>
 
     </div>
 }

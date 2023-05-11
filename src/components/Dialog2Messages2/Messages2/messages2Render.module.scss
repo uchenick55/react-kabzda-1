@@ -71,15 +71,33 @@
     color: var(--color3)
 }
 
-.myIdMessage {
+.myIdNotMyIdMsg2ComExt {
     display: flex;
-    justify-content: left;
     align-items: center;
+    position: relative;
 }
 
-.NOTmyIdMessage {
-    display: flex;
+.myIdMessageExt {
     justify-content: right;
-    align-items: center;
+}
+
+.NOTmyIdMessageExt {
+    justify-content: left;
+}
+.myIdNotMyIdMsg2ComInt {
+    padding: 0.5rem;
+    border-radius: 0.3rem;
+    margin: 0.3rem;
+}
+
+.myIdMessageInt {
+    background-color: var(--color4);
+    margin-left: 5rem;
+}
+
+.NOTmyIdMessageInt {
+    background-color: var(--color2);
+    margin-right: 5rem;
+
 }
 
