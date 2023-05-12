@@ -42,7 +42,7 @@
 
 }
 .Dialog2ItemCardInt:hover { /*наведение на карточку*/
-    background-color: var(--color3_hover);
+    background-color: var(--color3_);
     cursor: pointer;
 }
 

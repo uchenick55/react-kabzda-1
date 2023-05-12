@@ -85,14 +85,17 @@
     justify-content: left;
 }
 .myIdNotMyIdMsg2ComInt {
-    padding: 0.5rem;
+    padding: 0.5rem 2rem 0.5rem 0.5rem;
     border-radius: 0.3rem;
     margin: 0.3rem;
+    position: relative;
+
 }
 
 .myIdMessageInt {
     background-color: var(--color4);
     margin-left: 5rem;
+
 }
 
 .NOTmyIdMessageInt {
@@ -101,3 +104,23 @@
 
 }
 
+.Msg2DropDownMenuCommon {
+    position: absolute;
+    right: 0.1rem;
+    top: 0;
+
+}
+
+.Msg2DropDownMenuInt{
+    background-color: var(--color4_);
+    border-color: var(--color3);
+    --bs-btn-padding-x: 0.5rem;
+    --bs-btn-padding-y: 0;
+    --bs-btn-active-bg: var(--color2);
+}
+
+.Msg2DropDownMenuInt:hover {
+    background-color: var(--color4);
+    border-color: var(--color3);
+
+}

@@ -16,12 +16,16 @@
 
 .light{
     --color1:  var(--bs-gray-800);
+    --color1_:  var(--bs-gray-700);
     --color2: var(--bs-gray-100);
+    --color2: var(--bs-gray-200);
     --color3: var(--bs-gray-300);// фон карточек users и сообщений в диалоге
-    --color3_hover: var(--bs-gray-400);// фон карточек users и сообщений в диалоге
+    --color3_: var(--bs-gray-400);// фон карточек users и сообщений в диалоге
 
     --color4: rgb(174,174,175);// фон usersHeader над списком пользователей
+    --color4_: rgb(154,154,155);// фон usersHeader над списком пользователей
     --color5: rgb(180, 184, 192);// фон Msg2HeaderNamePhoto
+    --color5_: rgb(160, 164, 162);// фон Msg2HeaderNamePhoto
 
     /*================================*/
     --opacity1: 1; //  прозрачность для пагинации в светлом режиме (не устанавливается)
@@ -29,12 +33,16 @@
 }
 .dark {
     --color1: var(--bs-gray-100);
+    --color1_: var(--bs-gray-200);
     --color2: var(--bs-gray-800);
+    --color2_: var(--bs-gray-700);
     --color3:  var(--bs-gray-600);// фон карточек users и сообщений в диалоге
-    --color3_hover: var(--bs-gray-500);// фон карточек users и сообщений в диалоге
+    --color3_:  var(--bs-gray-500);// фон карточек users и сообщений в диалоге
 
     --color4: rgb(76,79,82);// фон usersHeader над списком пользователей
+    --color4_: rgb(96,99,102);// фон usersHeader над списком пользователей
     --color5: rgb(40, 44, 52);// фон Msg2HeaderNamePhoto
+    --color5_: rgb(60, 64, 72);// фон Msg2HeaderNamePhoto
 
     --opacity1: 0.25; // прозрачность для пагинации в темном режиме
 

@@ -1,5 +1,6 @@
 import React from "react";
 import classes from "./messages2Render.module.scss"
+import Msg2DropDownMenu from "./Msg2DropDownMenu";
 
 type Messages2ItemType = {
     id: string// "cde7821a-6981-4f49-8b12-faf681cb1621",
@@ -17,12 +18,18 @@ type Messages2ItemType = {
 const Messages2Item: React.FC<Messages2ItemType> = (
     {id, body, Msg2DeleteMessage, addedAt, senderId, senderName, recipientId, recipientName, viewed, myId}) => {
     console.log( "Messages2Item" )
-    return <div className={`${classes.myIdNotMyIdMsg2ComExt} ${myId===senderId?classes.myIdMessageExt: classes.NOTmyIdMessageExt}`}>
-        <div className={`${classes.myIdNotMyIdMsg2ComInt} ${myId===senderId?classes.myIdMessageInt: classes.NOTmyIdMessageInt}`}  onClick={() => {
-            Msg2DeleteMessage( id )
-        }}>{body}</div>
+    return <div
+        className={`${classes.myIdNotMyIdMsg2ComExt} ${myId === senderId ? classes.myIdMessageExt : classes.NOTmyIdMessageExt}`}>
+        <div
+            className={`${classes.myIdNotMyIdMsg2ComInt} ${myId === senderId ? classes.myIdMessageInt : classes.NOTmyIdMessageInt}`}>{body}
+            <div className={classes.Msg2DropDownMenuCommon}><Msg2DropDownMenu Msg2DeleteMessage={Msg2DeleteMessage} id={id}/></div>
 
+        </div>
     </div>
 }
 //React.memo(
 export default React.memo( Messages2Item )
+/*
+onClick={() => {
+    Msg2DeleteMessage( id )
+}}*/
