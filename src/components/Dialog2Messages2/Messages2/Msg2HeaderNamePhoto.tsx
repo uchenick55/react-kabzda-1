@@ -14,7 +14,6 @@ const Msg2HeaderNamePhoto: React.FC<Msg2HeaderNamePhotoType> = ({userId, D2Item}
     return <div>
         {D2Item && <div>
             <div className={classes.Msg2HeaderName}>{D2Item && D2Item.userName}</div>
-            <div className={classes.Msg2Headerid}>{D2Item && D2Item.id}</div>
             <NavLink to={'/profile/' + userId}>
                 <img className={classes.Msg2HeaderPhoto} src={photoSrc} alt="photoSrc"/>
             </NavLink>

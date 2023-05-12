@@ -17,7 +17,7 @@ const Msg2DropDownMenu: React.FC<Msg2DropDownMenuType> = ({Msg2DeleteMessage, id
                         `${isMyMessage ? classes.Msg2DropDownMenuIntMy : classes.Msg2DropDownMenuIntNotMy} 
                          ${classes.Msg2DropDownMenuIntCommon}`}>
                     </Dropdown.Toggle>
-                    <Dropdown.Menu>
+                    <Dropdown.Menu className={classes.Msg2DropDownItems}>
                         <Dropdown.Item eventKey="1" onClick={() => {
                             Msg2DeleteMessage( id ) // удалить сообщение по его id
                         }}>Удалить</Dropdown.Item>

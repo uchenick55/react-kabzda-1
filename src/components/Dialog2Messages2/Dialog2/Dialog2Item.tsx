@@ -21,7 +21,6 @@ const Dialog2Item: React.FC<Dialog2ItemType> = (
         <NavLink to={'/messages/' + id}>
             <div className={classes.Dialog2ItemCardInt}>
                 <div className={classes.Dialog2ItemCardName}>{userName}</div>   {/*Имя пользователя*/}
-                <div className={classes.Dialog2ItemCardId}>{id}</div>   {/*Имя пользователя*/}
                 {hasNewMessages && <div
                     className={classes.Dialog2ItemCardNewMsgCnt}>{newMessagesCount}</div>} {/*вывод количества новых сообщений*/}
                 <img src={photos.small ? photos.small : userPhoto} className={classes.Dialog2ItemCardPhoto}

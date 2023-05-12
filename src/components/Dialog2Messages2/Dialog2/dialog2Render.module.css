@@ -52,12 +52,7 @@
     top: 0.5rem;
     color: var(--color1)
 }
-.Dialog2ItemCardId { /*id на карточке*/
-    position: absolute;
-    right: 2rem;
-    top: 0.5rem;
-    color: var(--color1)
-}
+
 .Dialog2ItemCardPhoto { /*фотка на карточке*/
     position: absolute;
     left: 1.5rem;

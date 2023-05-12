@@ -1,4 +1,4 @@
-import React from "react";
+import React, {useState} from "react";
 import classes from "./messages2Render.module.scss"
 import Msg2DropDownMenu from "./Msg2DropDownMenu";
 
@@ -17,16 +17,26 @@ type Messages2ItemType = {
 }
 const Messages2Item: React.FC<Messages2ItemType> = (
     {id, body, Msg2DeleteMessage, addedAt, senderId, senderName, recipientId, recipientName, viewed, myId}) => {
-    console.log( "Messages2Item" )
 
-    const isMyMessage:boolean = myId === senderId ? true: false // индикатор, что мое сообщение
-
+    const isMyMessage: boolean = myId === senderId ? true : false // индикатор, что мое сообщение
+    const [IdMsg2DropDowShowed, setIdMsg2DropDowShowed] = useState<string>( "" ) // показать ли контекстное меню
     return <div
         className={`${classes.myIdNotMyIdMsg2ComExt} ${isMyMessage ? classes.myIdMessageExt : classes.NOTmyIdMessageExt}`}>
         <div
-            className={`${classes.myIdNotMyIdMsg2ComInt} ${isMyMessage ? classes.myIdMessageInt : classes.NOTmyIdMessageInt}`}>{body}
+            className={
+                `${classes.myIdNotMyIdMsg2ComInt} ${isMyMessage ? classes.myIdMessageInt : classes.NOTmyIdMessageInt}`}
+            onMouseOver={() => { // при наведении на сообщение, записываем в локальный стейт id сообщения
+                setIdMsg2DropDowShowed( id )
+            }}
+            onMouseLeave={() => {
+                setIdMsg2DropDowShowed( "" ) // при убирании мышки с сообщения, очищаем id локльного стейта нведенного сообщения
+            }}
+        >
+            {body}
             <div className={classes.Msg2DropDownMenuExt}>
-                <Msg2DropDownMenu Msg2DeleteMessage={Msg2DeleteMessage} id={id} isMyMessage = {isMyMessage}/>
+
+                { IdMsg2DropDowShowed===id &&  // отрисовываем dropDown в сообщения толлько для локального IdMsg2DropDowShowed
+                <Msg2DropDownMenu Msg2DeleteMessage={Msg2DeleteMessage} id={id} isMyMessage={isMyMessage}/>}
             </div>
         </div>
     </div>

@@ -50,11 +50,7 @@
     left: 6rem;
     top: 0.5rem;
 }
-.Msg2Headerid { /* id в шапке сообщений */
-    position: absolute;
-    left: 15rem;
-    top: 0.5rem;
-}
+
 .Msg2HeaderPhoto { /* фото в шапке сообщений*/
     position: absolute;
     left: 1.5rem;
@@ -146,4 +142,10 @@
 }
 .Msg2DropDownMenuIntNotMy:hover {
     color: var(--color4);
+}
+
+.Msg2DropDownItems {
+    --bs-dropdown-bg: var(--color7);
+    --bs-dropdown-link-color: var(--color1);
+    --bs-dropdown-border-color: var(--color4)
 }
