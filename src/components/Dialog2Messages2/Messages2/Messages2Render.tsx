@@ -19,9 +19,10 @@ type Dialog2RenderType = {
 
 }
 const Messages2Render: React.FC<Dialog2RenderType> = (
-    {PageWidth, MobileWidth, patch, MessagesNewerThen, Msg2DeleteMessage, Msg2SendMessage, userId,
-        D2Item, MSG2ScrollBottom, myId}) => {
-
+    {
+        PageWidth, MobileWidth, patch, MessagesNewerThen, Msg2DeleteMessage, Msg2SendMessage, userId,
+        D2Item, MSG2ScrollBottom, myId
+    }) => {
     return <div>
         {patch === "dialog2" && PageWidth > MobileWidth && <div
             //- предложение выбрать диалог.Fixed все остальное поле справа.
@@ -58,7 +59,8 @@ const Messages2Render: React.FC<Dialog2RenderType> = (
                                           recipientName={recipientName} viewed={viewed} myId={myId}
                     />
                 } )}
-                <div className="second-block"></div> {/* метка прокуртки сообщений при каждом обновлении списка сообщений*/}
+                <div className="second-block"></div>
+                {/* метка прокуртки сообщений при каждом обновлении списка сообщений*/}
             </div>
             <div//fixed справа вверху - имя собеседника и ссылка картинка на его профиль
                 // отображается всегда на странице messages

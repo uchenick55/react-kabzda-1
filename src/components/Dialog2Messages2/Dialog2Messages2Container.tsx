@@ -35,7 +35,7 @@ type DialogContainerType = {
     postDialog2MessageThCr: (userId: number, body: string, date: string, Markers: MarkersType) => void,
     getDialog2MessageIdViewedThCr: (messageId: string) => void,
     postDialog2MessageIdToSpamThCr: (messageId: string) => void,
-    deleteDialog2MessageIdThCr: (messageId: string, userId: number, date: string) => void,
+    deleteDialog2MessageIdThCr: (messageId: string, userId: number, date: string, MessagesNewerThen: Array<sendMessageType>) => void,
     putDialog2MessageIdRestoreThCr: (messageId: string) => void,
     getDialog2MessagesNewerThenThCr: (userId: number, date: string) => void,
     getDailog2UnreadMessagesThCr: () => void,
@@ -55,11 +55,11 @@ const Dialog2Messages2Container: React.FC<DialogContainerType> = (
     // 25528  | 27045 | 1079
 
     const Msg2DeleteMessage = useCallback( (message2Id: string) => {// - удалить сообщение (только у себя) по ID сообщения
-        deleteDialog2MessageIdThCr( message2Id, userId, "2022-04-30T19:10:31.843" )
-    }, [userId] )
+        deleteDialog2MessageIdThCr( message2Id, userId, "2022-04-30T19:10:31.843" , MessagesNewerThen)
+    }, [userId, MessagesNewerThen] )
 
     const Msg2SendMessage = (messageBody: string) => {
-        postDialog2MessageThCr( userId, messageBody, "2022-04-30T19:10:31.843" , Markers)// отправить сообщение указав ID пользователя
+        postDialog2MessageThCr( userId, messageBody, "2022-04-30T19:10:31.843", Markers )// отправить сообщение указав ID пользователя
         if (Markers.dialogId !== userId) { //Если мы еще не начали диалог с пользователем, и отправили сообщение
             putDialog2StartThCr( userId ) // инициировать диалог
             setMarkers( { // маркер пометить, что диалог начался
@@ -121,14 +121,14 @@ const Dialog2Messages2Container: React.FC<DialogContainerType> = (
         }
     }, [userId, patch] )
 
-    useEffect(()=>{
+    useEffect( () => {
         if (Markers.needToScrollBottom) {
             MSG2ScrollBottom() // прокручиваем список сообщений вниз
-            setMarkers({
+            setMarkers( {
                 ...Markers, needToScrollBottom: false // ставим маркер - прокручивать вниз не нужно
             } )
         }
-    }, [Markers])
+    }, [Markers] )
 
     const secondBlock = document.querySelector( '.second-block' ) // ссылка на прокрутку вниз
 
@@ -176,7 +176,7 @@ type mapDispatchToPropsType = {
     postDialog2MessageThCr: (userId: number, body: string, date: string, Markers: MarkersType) => void,
     getDialog2MessageIdViewedThCr: (messageId: string) => void,
     postDialog2MessageIdToSpamThCr: (messageId: string) => void,
-    deleteDialog2MessageIdThCr: (messageId: string, userId: number, date: string) => void,
+    deleteDialog2MessageIdThCr: (messageId: string, userId: number, date: string, MessagesNewerThen: Array<sendMessageType>) => void,
     putDialog2MessageIdRestoreThCr: (messageId: string) => void,
     getDialog2MessagesNewerThenThCr: (userId: number, date: string) => void,
     getDailog2UnreadMessagesThCr: () => void,

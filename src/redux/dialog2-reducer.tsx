@@ -49,7 +49,7 @@ const initialState = {
     Dialog2All: [] as getDialog2AllType,
     MessagesNewerThen: [] as Array<sendMessageType>,
     d2UserId: 0,
-    D2Item: {} as newMessagesItem,
+        D2Item: {} as newMessagesItem,
     ApiErrorMsg: [] as ApiErrorMsgType,
     Markers: {
         straightFirstUploaded: false,
@@ -162,13 +162,21 @@ export const postDialog2MessageIdToSpamThCr = (messageId: string): ThType => {
         }
     }
 }
-export const deleteDialog2MessageIdThCr = (messageId: string, userId: number, date: string): ThType => {
+export const deleteDialog2MessageIdThCr =
+    (messageId: string, userId: number, date: string, MessagesNewerThen: Array<sendMessageType>): ThType => {
     console.log( "deleteDialog2MessageIdThCr" )
     return async (dispatch, getState) => {//- удалить сообщение (только у себя) по ID сообщения
         const response = await apiDialog2.deleteDialog2MessageId( messageId )
         if (response.resultCode === ResultCodeEnum.Success) {
-            console.log( "Сообщение удалено. Запускаем получение новых сообщений" )
-            dispatch( getDialog2MessagesNewerThenThCr( userId, date ) )
+            console.log( "Сообщение удалено на сервере" )
+            const MessagesNewerThenLocal:Array<sendMessageType> = JSON.parse( JSON.stringify(MessagesNewerThen)) // полная копия сообщений
+            MessagesNewerThenLocal.forEach(m2=>{
+                if (m2.id===messageId) { // если совпадает id удаленного сообщения с перебираемым id сообщения
+                    m2.deletedBySender=true // помечаем удаленное сообщение в локальном стейте как удаленное отправителем
+                }
+            })
+            console.log( "Локально помечаем сообщение как удаленное" )
+            dispatch( Dialog2Actions.setMessagesNewerThen( MessagesNewerThenLocal ) ) // пушим измененные сообщения в стейт
         }
         if (response.resultCode === ResultCodeEnum.Error) {
             dispatch( Dialog2Actions.setApiErrorMsg( response.messages ) )

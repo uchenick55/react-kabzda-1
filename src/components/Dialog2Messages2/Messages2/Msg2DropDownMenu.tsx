@@ -1,6 +1,7 @@
 import Dropdown from 'react-bootstrap/Dropdown';
 import classes from "./messages2Render.module.scss"
 import React from "react";
+import dustBin from "../../../assets/images/swg/dust-bin1.svg"
 
 type Msg2DropDownMenuType = {
     id: string
@@ -18,15 +19,21 @@ const Msg2DropDownMenu: React.FC<Msg2DropDownMenuType> = ({Msg2DeleteMessage, id
                          ${classes.Msg2DropDownMenuIntCommon}`}>
                     </Dropdown.Toggle>
                     <Dropdown.Menu className={classes.Msg2DropDownItems}>
-                        <Dropdown.Item eventKey="1" onClick={() => {
+                        <Dropdown.Item className={classes.positionRelative} eventKey="1" onClick={() => {
                             Msg2DeleteMessage( id ) // удалить сообщение по его id
-                        }}>Удалить</Dropdown.Item>
-                        <Dropdown.Item eventKey="2">Another action</Dropdown.Item>
-                        <Dropdown.Item eventKey="3"> Active Item </Dropdown.Item>
+                        }}>
+
+                            <div className={classes.DropdownItem}>Удалить у меня</div>
+                            <img src={dustBin} className={classes.dustBin} alt="Удалить у меня"/>
+                        </Dropdown.Item>
+                        <Dropdown.Item  className={classes.positionRelative} eventKey="2">
+
+                            Another action</Dropdown.Item>
+                        <Dropdown.Item  className={classes.positionRelative} eventKey="3"> Active Item </Dropdown.Item>
                         <Dropdown.Divider/>
-                        <Dropdown.Item eventKey="4">Separated link</Dropdown.Item>
+                        <Dropdown.Item  className={classes.positionRelative} eventKey="4">Separated link</Dropdown.Item>
                     </Dropdown.Menu>
-                </Dropdown>{' '}
+                </Dropdown>
             </div>
         </>
     );

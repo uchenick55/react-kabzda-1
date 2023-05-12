@@ -35,7 +35,7 @@ const Messages2Item: React.FC<Messages2ItemType> = (
             {body}
             <div className={classes.Msg2DropDownMenuExt}>
 
-                { IdMsg2DropDowShowed===id &&  // отрисовываем dropDown в сообщения толлько для локального IdMsg2DropDowShowed
+                {  //IdMsg2DropDowShowed===id &&  отрисовываем dropDown в сообщения толлько для локального IdMsg2DropDowShowed
                 <Msg2DropDownMenu Msg2DeleteMessage={Msg2DeleteMessage} id={id} isMyMessage={isMyMessage}/>}
             </div>
         </div>
