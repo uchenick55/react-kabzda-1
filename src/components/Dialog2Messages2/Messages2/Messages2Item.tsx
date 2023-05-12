@@ -18,12 +18,16 @@ type Messages2ItemType = {
 const Messages2Item: React.FC<Messages2ItemType> = (
     {id, body, Msg2DeleteMessage, addedAt, senderId, senderName, recipientId, recipientName, viewed, myId}) => {
     console.log( "Messages2Item" )
-    return <div
-        className={`${classes.myIdNotMyIdMsg2ComExt} ${myId === senderId ? classes.myIdMessageExt : classes.NOTmyIdMessageExt}`}>
-        <div
-            className={`${classes.myIdNotMyIdMsg2ComInt} ${myId === senderId ? classes.myIdMessageInt : classes.NOTmyIdMessageInt}`}>{body}
-            <div className={classes.Msg2DropDownMenuCommon}><Msg2DropDownMenu Msg2DeleteMessage={Msg2DeleteMessage} id={id}/></div>
 
+    const isMyMessage:boolean = myId === senderId ? true: false // индикатор, что мое сообщение
+
+    return <div
+        className={`${classes.myIdNotMyIdMsg2ComExt} ${isMyMessage ? classes.myIdMessageExt : classes.NOTmyIdMessageExt}`}>
+        <div
+            className={`${classes.myIdNotMyIdMsg2ComInt} ${isMyMessage ? classes.myIdMessageInt : classes.NOTmyIdMessageInt}`}>{body}
+            <div className={classes.Msg2DropDownMenuExt}>
+                <Msg2DropDownMenu Msg2DeleteMessage={Msg2DeleteMessage} id={id} isMyMessage = {isMyMessage}/>
+            </div>
         </div>
     </div>
 }

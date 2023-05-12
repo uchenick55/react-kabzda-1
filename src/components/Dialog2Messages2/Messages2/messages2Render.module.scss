@@ -45,17 +45,17 @@
     left: var(--dialog2ListWidth);
 }
 
-.Msg2HeaderName {
+.Msg2HeaderName { /* имя в шапке сообщений*/
     position: absolute;
     left: 6rem;
     top: 0.5rem;
 }
-.Msg2Headerid {
+.Msg2Headerid { /* id в шапке сообщений */
     position: absolute;
     left: 15rem;
     top: 0.5rem;
 }
-.Msg2HeaderPhoto {
+.Msg2HeaderPhoto { /* фото в шапке сообщений*/
     position: absolute;
     left: 1.5rem;
     width: 3rem;
@@ -63,7 +63,7 @@
     top: 0.5rem;
 }
 
-.Msg2HeaderActivityDate {
+.Msg2HeaderActivityDate { /* дата активности в шапке сообщений */
     position: absolute;
     left: 6rem;
     top: 2rem;
@@ -71,20 +71,20 @@
     color: var(--color3)
 }
 
-.myIdNotMyIdMsg2ComExt {
+.myIdNotMyIdMsg2ComExt { /* общая часть тела сообщений - внешний контейнер*/
     display: flex;
     align-items: center;
     position: relative;
 }
 
-.myIdMessageExt {
+.myIdMessageExt { /* для моих сообщений - внешний контейнер*/
     justify-content: right;
 }
 
-.NOTmyIdMessageExt {
+.NOTmyIdMessageExt {/* для сообщений собеседника - внешний контейнер*/
     justify-content: left;
 }
-.myIdNotMyIdMsg2ComInt {
+.myIdNotMyIdMsg2ComInt { /* общая часть тела сообщений - внутренний контейнер*/
     padding: 0.5rem 2rem 0.5rem 0.5rem;
     border-radius: 0.3rem;
     margin: 0.3rem;
@@ -92,35 +92,58 @@
 
 }
 
-.myIdMessageInt {
+.myIdMessageInt { /* для моих сообщений - внутренний контейнер*/
     background-color: var(--color4);
     margin-left: 5rem;
 
 }
 
-.NOTmyIdMessageInt {
+.NOTmyIdMessageInt { /* для сообщений собеседника - внутренний контейнер*/
     background-color: var(--color2);
     margin-right: 5rem;
 
 }
 
-.Msg2DropDownMenuCommon {
+.Msg2DropDownMenuExt {  /* контесксное меню в каждом сообщении - внешний контейнер */
     position: absolute;
-    right: 0.1rem;
-    top: 0;
+    right: 0.6rem;
+    top: 0.4rem;
 
 }
 
-.Msg2DropDownMenuInt{
-    background-color: var(--color4_);
-    border-color: var(--color3);
-    --bs-btn-padding-x: 0.5rem;
+.Msg2DropDownMenuIntCommon{/* контесксное меню в каждом сообщении - внутренний контейнер */
+    background-color: var(--color6_transparent);
+    border-color: var(--color6_transparent);
+    --bs-btn-padding-x: 0rem;
     --bs-btn-padding-y: 0;
-    --bs-btn-active-bg: var(--color2);
+    height: 0.7rem;
+    --bs-btn-active-border-color: var(--color6_transparent);
+    --bs-btn-active-bg: var(--color6_transparent);
+    transform: scale(2);
+    display: flex;
+    align-items: center;
+    border-radius: 0.1rem;
 }
 
-.Msg2DropDownMenuInt:hover {
-    background-color: var(--color4);
-    border-color: var(--color3);
+.Msg2DropDownMenuIntCommon:hover { /* контесксное меню в каждом сообщении - внешний контейнер */
+    background-color: var(--color6_transparent);
+    border-color: var(--color6_transparent);
+    --bs-btn-hover-bg: var(--color6_transparent);
+    --bs-btn-hover-border-color: var(--color6_transparent);
+}
 
+.Msg2DropDownMenuIntMy {
+    color: var(--color2);
+    --bs-btn-active-color:  var(--color2);
+}
+.Msg2DropDownMenuIntMy:hover {
+    color: var(--color2);
+}
+.Msg2DropDownMenuIntNotMy {
+    color: var(--color4);
+    --bs-btn-active-color:  var(--color4);
+
+}
+.Msg2DropDownMenuIntNotMy:hover {
+    color: var(--color4);
 }
