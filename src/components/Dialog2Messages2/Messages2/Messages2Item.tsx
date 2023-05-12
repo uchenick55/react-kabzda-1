@@ -11,12 +11,13 @@ type Messages2ItemType = {
     recipientId: number//27045,
     recipientName: string// "evgeniysazonov",
     viewed: boolean// false,
-    Msg2DeleteMessage: (message2Id: string) => void // удаление сообщения по его id
     myId: number // номер моего id
+    Msg2DeleteMessage: (message2Id: string) => void // удаление сообщения по его id
+    Msg2MarkAsSpam: (message2Id: string)=> void // пометить сообщение как спам
 
 }
 const Messages2Item: React.FC<Messages2ItemType> = (
-    {id, body, Msg2DeleteMessage, addedAt, senderId, senderName, recipientId, recipientName, viewed, myId}) => {
+    {id, body, Msg2DeleteMessage, addedAt, senderId, senderName, recipientId, recipientName, viewed, myId, Msg2MarkAsSpam}) => {
 
     const isMyMessage: boolean = myId === senderId ? true : false // индикатор, что мое сообщение
     const [IdMsg2DropDowShowed, setIdMsg2DropDowShowed] = useState<string>( "" ) // показать ли контекстное меню
@@ -36,7 +37,10 @@ const Messages2Item: React.FC<Messages2ItemType> = (
             <div className={classes.Msg2DropDownMenuExt}>
 
                 {  //IdMsg2DropDowShowed===id &&  отрисовываем dropDown в сообщения толлько для локального IdMsg2DropDowShowed
-                <Msg2DropDownMenu Msg2DeleteMessage={Msg2DeleteMessage} id={id} isMyMessage={isMyMessage}/>}
+                <Msg2DropDownMenu Msg2DeleteMessage={Msg2DeleteMessage} id={id} isMyMessage={isMyMessage}
+                                  Msg2MarkAsSpam={Msg2MarkAsSpam}
+
+                />}
             </div>
         </div>
     </div>

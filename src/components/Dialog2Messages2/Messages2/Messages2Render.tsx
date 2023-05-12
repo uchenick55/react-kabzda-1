@@ -12,16 +12,17 @@ type Dialog2RenderType = {
     userId: number, // id пользователя из URL
     MessagesNewerThen: Array<sendMessageType> // сообщения выбранного диалога, новее заданной даты
     D2Item: newMessagesItem // отфильтрованый  из Dialog2All выбранный пользователь по userId
+    myId: number // номер моего id
     Msg2DeleteMessage: (message2Id: string) => void // удаление сообщения по его id
     Msg2SendMessage: (messageBody: string) => void // отправить сообщение указанному пользователю
     MSG2ScrollBottom: () => void // колбек прокрутки вниз сообщений после отправки нового сообщения
-    myId: number // номер моего id
+    Msg2MarkAsSpam: (message2Id: string)=> void // пометить сообщение как спам
 
 }
 const Messages2Render: React.FC<Dialog2RenderType> = (
     {
         PageWidth, MobileWidth, patch, MessagesNewerThen, Msg2DeleteMessage, Msg2SendMessage, userId,
-        D2Item, MSG2ScrollBottom, myId
+        D2Item, MSG2ScrollBottom, myId, Msg2MarkAsSpam
     }) => {
     return <div>
         {patch === "dialog2" && PageWidth > MobileWidth && <div
@@ -57,6 +58,7 @@ const Messages2Render: React.FC<Dialog2RenderType> = (
                                           addedAt={addedAt} senderId={senderId}
                                           senderName={senderName} recipientId={recipientId}
                                           recipientName={recipientName} viewed={viewed} myId={myId}
+                                          Msg2MarkAsSpam={Msg2MarkAsSpam}
                     />
                 } )}
                 <div className="second-block"></div>

@@ -13,16 +13,16 @@ type Dialog2RenderType = {
     Dialog2All: getDialog2AllType, // список всех диалогов для левой колонки
     MessagesNewerThen: Array<sendMessageType> // сообщения выбранного диалога, новее заданной даты
     D2Item: newMessagesItem, // отфильтрованый  из Dialog2All выбранный пользователь по userId
+    myId: number // номер моего id
     Msg2DeleteMessage: (message2Id: string) => void // удаление сообщения по его id
     Msg2SendMessage: (messageBody:string) => void // отправить сообщение указанному пользователю
     MSG2ScrollBottom: () => void // колбек прокрутки вниз сообщений после отправки нового сообщения
-    myId: number // номер моего id
-
+    Msg2MarkAsSpam: (message2Id: string)=> void // пометить сообщение как спам
 }
 
 const Dialog2Messages2COM: React.FC<Dialog2RenderType> = (
     {patch, PageWidth, MobileWidth, Dialog2All, MessagesNewerThen, Msg2DeleteMessage, Msg2SendMessage, userId,
-        D2Item, MSG2ScrollBottom, myId}
+        D2Item, MSG2ScrollBottom, myId, Msg2MarkAsSpam}
     ) => {
     return <div className={classesCommon.dialog2Messages2Common}>
         {/*Отрисовка поля диалогов*/}
@@ -31,7 +31,7 @@ const Dialog2Messages2COM: React.FC<Dialog2RenderType> = (
         <Messages2Render PageWidth={PageWidth} MobileWidth={MobileWidth} patch={patch}
                          MessagesNewerThen={MessagesNewerThen} Msg2DeleteMessage={Msg2DeleteMessage}
                          Msg2SendMessage={Msg2SendMessage} userId={userId} D2Item={D2Item}
-                         MSG2ScrollBottom={MSG2ScrollBottom} myId={myId}
+                         MSG2ScrollBottom={MSG2ScrollBottom} myId={myId} Msg2MarkAsSpam={Msg2MarkAsSpam}
         />
     </div>
 }
