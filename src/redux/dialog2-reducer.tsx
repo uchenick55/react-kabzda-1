@@ -17,8 +17,8 @@ export const Dialog2Actions = {
     getDialog2AllAC: (Dialog2All: getDialog2AllType) => {
         return {type: DIALOG2_ACTIONS, Dialog2All} as const
     },
-    setMessagesNewerThen: (MessagesNewerThen: Array<sendMessageType>) => {
-        return {type: SET_MESSAGES_NEWER_THEN, MessagesNewerThen} as const
+    setMessagesNewerThen: (MessagesNewerThen: Array<sendMessageType>, needToScrollBottom:boolean) => {
+        return {type: SET_MESSAGES_NEWER_THEN, MessagesNewerThen, needToScrollBottom} as const
     },
     setDialog2InitialState: () => {
         return {type: SET_DIALOG2_INITIALSTATE} as const
@@ -74,7 +74,7 @@ const Dialog2Reducer = (state: initialStateDialog2Type = initialState, action: D
             stateCopy = {
                 ...state,
                 MessagesNewerThen: action.MessagesNewerThen,
-                Markers: {...state.Markers, needToScrollBottom: true}
+                Markers: {...state.Markers,  needToScrollBottom: action.needToScrollBottom}
             }
             return stateCopy
         case SET_DIALOG2_INITIALSTATE: // занулить стейт при логауте
@@ -179,7 +179,8 @@ export const postDialog2MessageIdToSpamThCr = (messageId: string, MessagesNewerT
             console.log( "Сообщение помечено как спам:", messageId )
 
             dispatch( Dialog2Actions.setMessagesNewerThen(
-                setDeleteSpamToMessagesNewerThen( MessagesNewerThen, messageId, "spam" )
+                setDeleteSpamToMessagesNewerThen( MessagesNewerThen, messageId, "spam" ),
+                false
             ) ) // помечаем сообщение в локальном стейте как спам
 
         }
@@ -197,7 +198,8 @@ export const deleteDialog2MessageIdThCr =
                 console.log( "Сообщение удалено на сервере" )
 
                 dispatch( Dialog2Actions.setMessagesNewerThen(
-                    setDeleteSpamToMessagesNewerThen( MessagesNewerThen, messageId, "delete" )
+                    setDeleteSpamToMessagesNewerThen( MessagesNewerThen, messageId, "delete" ),
+                    false
                 ) ) // помечаем сообщение в локальном стейте как удаленное
             }
             if (response.resultCode === ResultCodeEnum.Error) {
@@ -213,7 +215,8 @@ export const putDialog2MessageIdRestoreThCr = (messageId: string, MessagesNewerT
             console.log( "Сообщение восстановлено из спама" )
 
             dispatch( Dialog2Actions.setMessagesNewerThen(
-                setDeleteSpamToMessagesNewerThen( MessagesNewerThen, messageId, "restore" )
+                setDeleteSpamToMessagesNewerThen( MessagesNewerThen, messageId, "restore" ),
+                false
             ) ) // помечаем сообщение в локальном стейте как удаленное
 
 
@@ -227,7 +230,7 @@ export const getDialog2MessagesNewerThenThCr = (userId: number, date: string): T
     // console.log( "getDialog2MessagesNewerThenThCr" )
     return async (dispatch, getState) => {// - вернуть сообщения новее определенной даты
         const response = await apiDialog2.getDialog2MessagesNewerThen( userId, date )
-        dispatch( Dialog2Actions.setMessagesNewerThen( response ) )
+        dispatch( Dialog2Actions.setMessagesNewerThen( response, true ) )
     }
 }
 export const getDailog2UnreadMessagesThCr = (): ThType => {

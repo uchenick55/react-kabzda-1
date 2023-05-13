@@ -15,7 +15,6 @@ type Dialog2RenderType = {
     myId: number // номер моего id
     Msg2DeleteMessage: (message2Id: string) => void // удаление сообщения по его id
     Msg2SendMessage: (messageBody: string) => void // отправить сообщение указанному пользователю
-    MSG2ScrollBottom: () => void // колбек прокрутки вниз сообщений после отправки нового сообщения
     Msg2MarkAsSpam: (message2Id: string)=> void // пометить сообщение как спам
     Msg2Restore:  (message2Id: string)=> void // восстановить сообщение из спама и удаленных
 
@@ -23,7 +22,7 @@ type Dialog2RenderType = {
 const Messages2Render: React.FC<Dialog2RenderType> = (
     {
         PageWidth, MobileWidth, patch, MessagesNewerThen, Msg2DeleteMessage, Msg2SendMessage, userId,
-        D2Item, MSG2ScrollBottom, myId, Msg2MarkAsSpam, Msg2Restore
+        D2Item, myId, Msg2MarkAsSpam, Msg2Restore
     }) => {
     return <div>
         {patch === "dialog2" && PageWidth > MobileWidth && <div
@@ -68,7 +67,7 @@ const Messages2Render: React.FC<Dialog2RenderType> = (
                 className={`${classes.Fixed} ${classes.messages2PrintMessage} ${PageWidth < MobileWidth ?
                     classes.MobileMessagesLeft : classes.DesktopMessagesLeft}`}
             >
-                <Msg2SendMessageRender Msg2SendMessage={Msg2SendMessage} MSG2ScrollBottom={MSG2ScrollBottom}/>
+                <Msg2SendMessageRender Msg2SendMessage={Msg2SendMessage}/>
             </div>
         </div>
         }

@@ -146,7 +146,7 @@ const Dialog2Messages2Container: React.FC<DialogContainerType> = (
         <Dialog2Messages2COM
             patch={patch} PageWidth={PageWidth} MobileWidth={MobileWidth} Dialog2All={Dialog2All}
             MessagesNewerThen={MessagesNewerThen} Msg2DeleteMessage={Msg2DeleteMessage}
-            Msg2SendMessage={Msg2SendMessage} userId={userId} D2Item={D2Item} MSG2ScrollBottom={MSG2ScrollBottom}
+            Msg2SendMessage={Msg2SendMessage} userId={userId} D2Item={D2Item}
             myId={myId} Msg2MarkAsSpam={Msg2MarkAsSpam} Msg2Restore={Msg2Restore}
         />
 
