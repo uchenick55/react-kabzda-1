@@ -151,7 +151,7 @@ export const getDialog2MessageIdViewedThCr = (messageId: string): ThType => {
     }
 }
 const setDeleteSpamToMessagesNewerThen =
-    (MessagesNewerThen: Array<sendMessageType>, messageId: string, SPAM_DELETE: "spam" | "delete") => {
+    (MessagesNewerThen: Array<sendMessageType>, messageId: string, SPAM_DELETE: "spam" | "delete"| "restore") => {
         const MessagesNewerThenLocal: Array<sendMessageType> = JSON.parse( JSON.stringify( MessagesNewerThen ) ) // полная копия сообщений
         MessagesNewerThenLocal.forEach( m2 => {
             if (m2.id === messageId) { // если совпадает id удаленного сообщения с перебираемым id сообщения
@@ -161,6 +161,10 @@ const setDeleteSpamToMessagesNewerThen =
                 if (SPAM_DELETE === "spam") {
                     m2.isSpam = true
                 } // помечаем сообщение в локальном стейте как спам
+                if (SPAM_DELETE === "restore") {
+                    m2.deletedBySender = false
+                    m2.isSpam = false
+                } // восстановить сообщение из удаленных и / или спама
             }
         } )
         console.log( "Локально помечаем сообщение как", SPAM_DELETE )
@@ -201,12 +205,18 @@ export const deleteDialog2MessageIdThCr =
             }
         }
     }
-export const putDialog2MessageIdRestoreThCr = (messageId: string): ThType => {
+export const putDialog2MessageIdRestoreThCr = (messageId: string, MessagesNewerThen: Array<sendMessageType>): ThType => {
     console.log( "putDialog2MessageIdRestoreThCr" )
     return async (dispatch, getState) => {//  - восстановить сообщение из спама и удаленных
         const response = await apiDialog2.putDialog2MessageIdRestore( messageId )
         if (response.resultCode === ResultCodeEnum.Success) {
             console.log( "Сообщение восстановлено из спама" )
+
+            dispatch( Dialog2Actions.setMessagesNewerThen(
+                setDeleteSpamToMessagesNewerThen( MessagesNewerThen, messageId, "restore" )
+            ) ) // помечаем сообщение в локальном стейте как удаленное
+
+
         }
         if (response.resultCode === ResultCodeEnum.Error) {
             dispatch( Dialog2Actions.setApiErrorMsg( response.messages ) )

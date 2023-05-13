@@ -17,12 +17,13 @@ type Dialog2RenderType = {
     Msg2SendMessage: (messageBody: string) => void // отправить сообщение указанному пользователю
     MSG2ScrollBottom: () => void // колбек прокрутки вниз сообщений после отправки нового сообщения
     Msg2MarkAsSpam: (message2Id: string)=> void // пометить сообщение как спам
+    Msg2Restore:  (message2Id: string)=> void // восстановить сообщение из спама и удаленных
 
 }
 const Messages2Render: React.FC<Dialog2RenderType> = (
     {
         PageWidth, MobileWidth, patch, MessagesNewerThen, Msg2DeleteMessage, Msg2SendMessage, userId,
-        D2Item, MSG2ScrollBottom, myId, Msg2MarkAsSpam
+        D2Item, MSG2ScrollBottom, myId, Msg2MarkAsSpam, Msg2Restore
     }) => {
     return <div>
         {patch === "dialog2" && PageWidth > MobileWidth && <div
@@ -51,12 +52,12 @@ const Messages2Render: React.FC<Dialog2RenderType> = (
             >
                 {MessagesNewerThen.map( m2 => { // отрисовка всех сообщений
                     const {
-                        id, body, addedAt, senderId, senderName, recipientId, recipientName, viewed,
-                        //  deletedBySender, deletedByRecipient, isSpam
+                        id, body, addedAt, senderId, deletedBySender, isSpam
                     } = m2
                     return <Messages2Item key={id} id={id} body={body} Msg2DeleteMessage={Msg2DeleteMessage}
                                           addedAt={addedAt} senderId={senderId} myId={myId}
-                                          Msg2MarkAsSpam={Msg2MarkAsSpam}
+                                          Msg2MarkAsSpam={Msg2MarkAsSpam} Msg2Restore={Msg2Restore}
+                                          deletedBySender={deletedBySender} isSpam={isSpam}
                     />
                 } )}
                 <div className="second-block"></div>

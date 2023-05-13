@@ -2,16 +2,19 @@ import Dropdown from 'react-bootstrap/Dropdown';
 import classes from "./messages2Render.module.scss"
 import React from "react";
 import dustBin from "../../../assets/images/swg/dust-bin2.svg"
-import spam from "../../../assets/images/swg/spam2.svg"
+import Spam from "../../../assets/images/swg/spam1.svg"
+import Restore from "../../../assets/images/swg/restore1.svg"
 
 type Msg2DropDownMenuType = {
     id: string
     isMyMessage: boolean // индикатор, мое ли это сообщение
     Msg2DeleteMessage: (message2Id: string) => void // удаление сообщения по его id
     Msg2MarkAsSpam: (message2Id: string)=> void // пометить сообщение как спам
+    Msg2Restore:  (message2Id: string)=> void // восстановить сообщение из спама и удаленных
 
 }
-const Msg2DropDownMenu: React.FC<Msg2DropDownMenuType> = ({Msg2DeleteMessage, id, isMyMessage, Msg2MarkAsSpam}) => {
+const Msg2DropDownMenu: React.FC<Msg2DropDownMenuType> = (
+    {Msg2DeleteMessage, id, isMyMessage, Msg2MarkAsSpam, Msg2Restore}) => {
     return (
         <>
             <div>
@@ -28,11 +31,17 @@ const Msg2DropDownMenu: React.FC<Msg2DropDownMenuType> = ({Msg2DeleteMessage, id
                             <div className={classes.DropdownItem}>Удалить у меня</div>
                             <img src={dustBin} className={classes.imgDelete} alt="Удалить у меня"/>
                         </Dropdown.Item>
-                        <Dropdown.Item className={classes.positionRelative} eventKey="2" onClick={() => {
+                        {!isMyMessage && <Dropdown.Item className={classes.positionRelative} eventKey="2" onClick={() => {
                             Msg2MarkAsSpam( id ) // пометить сообщение как спам по его id
                         }}>
                             <div className={classes.DropdownItem}>В спам</div>
-                            <img src={spam} className={classes.imgSpam} alt="В спам"/>
+                            <img src={Spam} className={classes.imgSpam} alt="В спам"/>
+                        </Dropdown.Item>}
+                       <Dropdown.Item className={classes.positionRelative} eventKey="3" onClick={() => {
+                           Msg2Restore( id ) // восстановить сообщение из спама и удаленных
+                        }}>
+                            <div className={classes.DropdownItem}>Восстановить</div>
+                            <img src={Restore} className={classes.imgRestore} alt="Восстановить"/>
                         </Dropdown.Item>
                     </Dropdown.Menu>
                 </Dropdown>

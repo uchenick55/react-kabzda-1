@@ -18,11 +18,12 @@ type Dialog2RenderType = {
     Msg2SendMessage: (messageBody:string) => void // отправить сообщение указанному пользователю
     MSG2ScrollBottom: () => void // колбек прокрутки вниз сообщений после отправки нового сообщения
     Msg2MarkAsSpam: (message2Id: string)=> void // пометить сообщение как спам
+    Msg2Restore:  (message2Id: string)=> void // восстановить сообщение из спама и удаленных
 }
 
 const Dialog2Messages2COM: React.FC<Dialog2RenderType> = (
     {patch, PageWidth, MobileWidth, Dialog2All, MessagesNewerThen, Msg2DeleteMessage, Msg2SendMessage, userId,
-        D2Item, MSG2ScrollBottom, myId, Msg2MarkAsSpam}
+        D2Item, MSG2ScrollBottom, myId, Msg2MarkAsSpam, Msg2Restore}
     ) => {
     return <div className={classesCommon.dialog2Messages2Common}>
         {/*Отрисовка поля диалогов*/}
@@ -32,6 +33,7 @@ const Dialog2Messages2COM: React.FC<Dialog2RenderType> = (
                          MessagesNewerThen={MessagesNewerThen} Msg2DeleteMessage={Msg2DeleteMessage}
                          Msg2SendMessage={Msg2SendMessage} userId={userId} D2Item={D2Item}
                          MSG2ScrollBottom={MSG2ScrollBottom} myId={myId} Msg2MarkAsSpam={Msg2MarkAsSpam}
+                         Msg2Restore={Msg2Restore}
         />
     </div>
 }

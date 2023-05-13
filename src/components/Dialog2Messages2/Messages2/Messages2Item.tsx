@@ -1,6 +1,8 @@
 import React, {useState} from "react";
 import classes from "./messages2Render.module.scss"
 import Msg2DropDownMenu from "./Msg2DropDownMenu";
+import dustBin from "../../../assets/images/swg/dust-bin2.svg"
+import Spam from "../../../assets/images/swg/spam1.svg"
 
 type Messages2ItemType = {
     id: string// "cde7821a-6981-4f49-8b12-faf681cb1621",
@@ -8,12 +10,15 @@ type Messages2ItemType = {
     addedAt: string// "2023-05-01T07:13:00.54",
     senderId: number// 25528,
     myId: number // номер моего id
+    deletedBySender: boolean // помечено, удалено отправителем
+    isSpam: boolean // помечено как спам
     Msg2DeleteMessage: (message2Id: string) => void // удаление сообщения по его id
     Msg2MarkAsSpam: (message2Id: string)=> void // пометить сообщение как спам
+    Msg2Restore:  (message2Id: string)=> void // восстановить сообщение из спама и удаленных
 
 }
 const Messages2Item: React.FC<Messages2ItemType> = (
-    {id, body, Msg2DeleteMessage, addedAt, senderId, myId, Msg2MarkAsSpam}) => {
+    {id, body, Msg2DeleteMessage, addedAt, senderId, myId, Msg2MarkAsSpam, Msg2Restore, deletedBySender, isSpam}) => {
 
     const isMyMessage: boolean = myId === senderId ? true : false // индикатор, что мое сообщение
     const [IdMsg2DropDowShowed, setIdMsg2DropDowShowed] = useState<string>( "" ) // показать ли контекстное меню
@@ -29,14 +34,24 @@ const Messages2Item: React.FC<Messages2ItemType> = (
                 setIdMsg2DropDowShowed( "" ) // при убирании мышки с сообщения, очищаем id локльного стейта нведенного сообщения
             }}
         >
-            <div>{body}</div>
+            {deletedBySender
+                ? <div //если помечено как удаленное, отобразит текст удаления и картинку корзины
+                >
+                    <img className={classes.Msg2DeletedPic} src={dustBin} alt=""/>
+                    <div className={classes.Msg2DeletedText}> это сообщение удалено </div>
+                </div>
+                : <div className={classes.Msg2Body}>{body}</div>//тело сообщения
+            }
             <div className={`${classes.Msg2ItemAdedAtCommon} ${isMyMessage?classes.ColorMy:classes.ColorNotMy}`}>{addedAt.slice( 11, 16 )}</div>
             {/*Время*/}
+            {isSpam && <img className={classes.Msg2SpamPic} src={Spam} alt=""/>
+
+            }
             <div className={classes.Msg2DropDownMenuExt}>
 
-                {  IdMsg2DropDowShowed===id && // отрисовываем dropDown в сообщения толлько для локального IdMsg2DropDowShowed
+                {  IdMsg2DropDowShowed===id && // отрисовываем dropDown в сообщения только для локального IdMsg2DropDowShowed
                 <Msg2DropDownMenu Msg2DeleteMessage={Msg2DeleteMessage} id={id} isMyMessage={isMyMessage}
-                                  Msg2MarkAsSpam={Msg2MarkAsSpam}
+                                  Msg2MarkAsSpam={Msg2MarkAsSpam} Msg2Restore={Msg2Restore}
 
                 />}
             </div>

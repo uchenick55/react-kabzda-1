@@ -36,7 +36,7 @@ type DialogContainerType = {
     getDialog2MessageIdViewedThCr: (messageId: string) => void,
     postDialog2MessageIdToSpamThCr: (messageId: string, MessagesNewerThen: Array<sendMessageType>) => void,
     deleteDialog2MessageIdThCr: (messageId: string, userId: number, date: string, MessagesNewerThen: Array<sendMessageType>) => void,
-    putDialog2MessageIdRestoreThCr: (messageId: string) => void,
+    putDialog2MessageIdRestoreThCr: (messageId: string, MessagesNewerThen: Array<sendMessageType>) => void,
     getDialog2MessagesNewerThenThCr: (userId: number, date: string) => void,
     getDailog2UnreadMessagesThCr: () => void,
 
@@ -60,6 +60,9 @@ const Dialog2Messages2Container: React.FC<DialogContainerType> = (
 
     const Msg2MarkAsSpam = (message2Id: string) => {// - пометить сообщение как спам по ID сообщения
          postDialog2MessageIdToSpamThCr(message2Id, MessagesNewerThen)
+    }
+    const Msg2Restore = (message2Id: string) => {// - пометить сообщение как спам по ID сообщения
+         putDialog2MessageIdRestoreThCr(message2Id, MessagesNewerThen) // - восстановить сообщение из спама и удаленных
     }
 
     const Msg2SendMessage = (messageBody: string) => {
@@ -94,7 +97,6 @@ const Dialog2Messages2Container: React.FC<DialogContainerType> = (
         [D2Item] )
 
     // getDialog2MessageIdViewedThCr("84ac68ee-73d0-43c4-82bb-0fd0273d4808") // проверить прочитано ли сообщение по его ID
-    // putDialog2MessageIdRestoreThCr("826de61e-76e6-4fe4-b9c9-5bee8fc16d12") // - восстановить сообщение из спама и удаленных
     // getDailog2UnreadMessagesThCr() // - вернуть количество непрочтенных сообщений
     useEffect( () => {
         if (userId !== 0 && !Markers.straightFirstUploaded) {
@@ -145,7 +147,7 @@ const Dialog2Messages2Container: React.FC<DialogContainerType> = (
             patch={patch} PageWidth={PageWidth} MobileWidth={MobileWidth} Dialog2All={Dialog2All}
             MessagesNewerThen={MessagesNewerThen} Msg2DeleteMessage={Msg2DeleteMessage}
             Msg2SendMessage={Msg2SendMessage} userId={userId} D2Item={D2Item} MSG2ScrollBottom={MSG2ScrollBottom}
-            myId={myId} Msg2MarkAsSpam={Msg2MarkAsSpam}
+            myId={myId} Msg2MarkAsSpam={Msg2MarkAsSpam} Msg2Restore={Msg2Restore}
         />
 
     </div>
@@ -180,7 +182,7 @@ type mapDispatchToPropsType = {
     getDialog2MessageIdViewedThCr: (messageId: string) => void,
     postDialog2MessageIdToSpamThCr: (messageId: string, MessagesNewerThen: Array<sendMessageType>) => void,
     deleteDialog2MessageIdThCr: (messageId: string, userId: number, date: string, MessagesNewerThen: Array<sendMessageType>) => void,
-    putDialog2MessageIdRestoreThCr: (messageId: string) => void,
+    putDialog2MessageIdRestoreThCr: (messageId: string, MessagesNewerThen: Array<sendMessageType>) => void,
     getDialog2MessagesNewerThenThCr: (userId: number, date: string) => void,
     getDailog2UnreadMessagesThCr: () => void,
     setD2UserId: (userId: number) => void,

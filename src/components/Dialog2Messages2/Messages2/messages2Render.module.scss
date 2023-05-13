@@ -103,7 +103,7 @@
 .Msg2DropDownMenuExt {  /* контесксное меню в каждом сообщении - внешний контейнер */
     position: absolute;
     right: 0.6rem;
-    top: 0.4rem;
+    top: 0.5rem;
 
 }
 
@@ -177,6 +177,14 @@
     top: 0.5rem;
     left: 0.4rem;
 }
+.imgRestore {
+    transform: scale(1.3);
+    position: absolute;
+    width: 1rem;
+    height: 1rem;
+    top: 0.5rem;
+    left: 0.5rem;
+}
 
 .Msg2ItemAdedAtCommon { /*общие войства времени для сообщений*/
     position: absolute;
@@ -191,4 +199,32 @@
 }
 .ColorNotMy { /*цвет времени для сообщений собеседника*/
     color: var(--color4)
+}
+
+.Msg2DeletedText { /*текст - "это сообщение удалено"*/
+    font-style: italic;
+    opacity: 0.7;
+    padding-left: 1rem;
+}
+.Msg2DeletedPic { /*картинка рядом с текстом - "это сообщение удалено"*/
+    position: absolute;
+    width: 0.9rem;
+    height: 0.9rem;
+    top: 0.8rem;
+    left: 0.4rem;
+    opacity: 0.7;
+
+}
+
+.Msg2SpamPic {
+    position: absolute;
+    width: 1.4rem;
+    height: 1.4rem;
+    top: -0.6rem;
+    left: -0.1rem;
+}
+
+.Msg2Body { /*само сообщение в списке сообщений */
+    position: relative;
+    top: -0.1rem;
 }
