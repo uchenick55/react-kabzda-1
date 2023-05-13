@@ -55,9 +55,7 @@ const Messages2Render: React.FC<Dialog2RenderType> = (
                         //  deletedBySender, deletedByRecipient, isSpam
                     } = m2
                     return <Messages2Item key={id} id={id} body={body} Msg2DeleteMessage={Msg2DeleteMessage}
-                                          addedAt={addedAt} senderId={senderId}
-                                          senderName={senderName} recipientId={recipientId}
-                                          recipientName={recipientName} viewed={viewed} myId={myId}
+                                          addedAt={addedAt} senderId={senderId} myId={myId}
                                           Msg2MarkAsSpam={Msg2MarkAsSpam}
                     />
                 } )}

@@ -7,17 +7,13 @@ type Messages2ItemType = {
     body: string// "555",
     addedAt: string// "2023-05-01T07:13:00.54",
     senderId: number// 25528,
-    senderName: string// "evgeniysazonov1983",
-    recipientId: number//27045,
-    recipientName: string// "evgeniysazonov",
-    viewed: boolean// false,
     myId: number // номер моего id
     Msg2DeleteMessage: (message2Id: string) => void // удаление сообщения по его id
     Msg2MarkAsSpam: (message2Id: string)=> void // пометить сообщение как спам
 
 }
 const Messages2Item: React.FC<Messages2ItemType> = (
-    {id, body, Msg2DeleteMessage, addedAt, senderId, senderName, recipientId, recipientName, viewed, myId, Msg2MarkAsSpam}) => {
+    {id, body, Msg2DeleteMessage, addedAt, senderId, myId, Msg2MarkAsSpam}) => {
 
     const isMyMessage: boolean = myId === senderId ? true : false // индикатор, что мое сообщение
     const [IdMsg2DropDowShowed, setIdMsg2DropDowShowed] = useState<string>( "" ) // показать ли контекстное меню
@@ -33,10 +29,12 @@ const Messages2Item: React.FC<Messages2ItemType> = (
                 setIdMsg2DropDowShowed( "" ) // при убирании мышки с сообщения, очищаем id локльного стейта нведенного сообщения
             }}
         >
-            {body}
+            <div>{body}</div>
+            <div className={`${classes.Msg2ItemAdedAtCommon} ${isMyMessage?classes.ColorMy:classes.ColorNotMy}`}>{addedAt.slice( 11, 16 )}</div>
+            {/*Время*/}
             <div className={classes.Msg2DropDownMenuExt}>
 
-                {  //IdMsg2DropDowShowed===id &&  отрисовываем dropDown в сообщения толлько для локального IdMsg2DropDowShowed
+                {  IdMsg2DropDowShowed===id && // отрисовываем dropDown в сообщения толлько для локального IdMsg2DropDowShowed
                 <Msg2DropDownMenu Msg2DeleteMessage={Msg2DeleteMessage} id={id} isMyMessage={isMyMessage}
                                   Msg2MarkAsSpam={Msg2MarkAsSpam}
 

@@ -177,3 +177,18 @@
     top: 0.5rem;
     left: 0.4rem;
 }
+
+.Msg2ItemAdedAtCommon { /*общие войства времени для сообщений*/
+    position: absolute;
+    font-size: 0.7rem;
+    right: 0.2rem;
+    bottom: 0rem;
+    color: var(--color4)
+}
+
+.ColorMy { /*цвет времени для моих сообщений*/
+    color: var(--color3)
+}
+.ColorNotMy { /*цвет времени для сообщений собеседника*/
+    color: var(--color4)
+}

@@ -25,7 +25,7 @@ const Dialog2Item: React.FC<Dialog2ItemType> = (
                     className={classes.Dialog2ItemCardNewMsgCnt}>{newMessagesCount}</div>} {/*вывод количества новых сообщений*/}
                 <img src={photos.small ? photos.small : userPhoto} className={classes.Dialog2ItemCardPhoto}
                      alt="CardPhoto"/> {/*Фото*/}
-                <div className={classes.Dialog2ItemCardMsgTime}>{lastDialogActivityDate.slice( 11, 16 )}</div>
+                <div className={classes.Dialog2ItemCardMsgTime}>{lastDialogActivityDate.slice( 0, 16 )}</div>
                 {/*Время*/}
             </div>
         </NavLink>
