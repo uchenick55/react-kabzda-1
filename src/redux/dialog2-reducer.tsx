@@ -146,8 +146,7 @@ export const postDialog2MessageThCr = (userId: number, body: string, date: strin
 export const getDialog2MessageIdViewedThCr = (messageId: string): ThType => {
     return async (dispatch, getState) => {//- проверить, было ли прочитано сообщение по Id сообщения
         const response = await apiDialog2.getDialog2MessageIdViewed( messageId )
-        console.log( "сообщение помечено как прочитаное" )
-        // console.log( response.data ) // boolean
+        console.log( "проверить, было ли прочитано сообщение по Id сообщения", response.data )
     }
 }
 const setDeleteSpamToMessagesNewerThen =

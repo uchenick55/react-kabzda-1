@@ -52,6 +52,7 @@ const Messages2Item: React.FC<Messages2ItemType> = (
                 {  IdMsg2DropDowShowed===id && // отрисовываем dropDown в сообщения только для локального IdMsg2DropDowShowed
                 <Msg2DropDownMenu Msg2DeleteMessage={Msg2DeleteMessage} id={id} isMyMessage={isMyMessage}
                                   Msg2MarkAsSpam={Msg2MarkAsSpam} Msg2Restore={Msg2Restore}
+                                  deletedBySender={deletedBySender} isSpam={isSpam}
 
                 />}
             </div>

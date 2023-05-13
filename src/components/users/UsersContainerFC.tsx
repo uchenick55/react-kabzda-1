@@ -70,7 +70,7 @@ const UsersContainerFC: React.FC<MainProps> = (
 
     useEffect(()=>{
         setDialog2InitialState()
-    }, [])
+    }, [setDialog2InitialState])
 
     return <> {/*использование фрагмента вместо div/span*/}
         {isFetching && <Preloader/>}

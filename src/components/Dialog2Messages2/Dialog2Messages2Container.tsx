@@ -56,7 +56,7 @@ const Dialog2Messages2Container: React.FC<DialogContainerType> = (
 
     const Msg2DeleteMessage = useCallback( (message2Id: string) => {// - удалить сообщение (только у себя) по ID сообщения
         deleteDialog2MessageIdThCr( message2Id, userId, "2022-04-30T19:10:31.843" , MessagesNewerThen)
-    }, [userId, MessagesNewerThen] )
+    }, [userId, MessagesNewerThen, deleteDialog2MessageIdThCr] )
 
     const Msg2MarkAsSpam = (message2Id: string) => {// - пометить сообщение как спам по ID сообщения
          postDialog2MessageIdToSpamThCr(message2Id, MessagesNewerThen)
@@ -75,6 +75,12 @@ const Dialog2Messages2Container: React.FC<DialogContainerType> = (
             } )
         }
     }
+    const secondBlock = document.querySelector( '.second-block' ) // ссылка на прокрутку вниз
+
+    const MSG2ScrollBottom =useCallback( () => {
+        secondBlock && secondBlock.scrollIntoView( true )
+    },[secondBlock])
+    //Сама метка className="second-block" находится в дочерней Messages2Render
 
     useEffect( () => {
             // через интервал времени при выборе диалога с новыми сообщениями локально пометить сообщение
@@ -94,7 +100,7 @@ const Dialog2Messages2Container: React.FC<DialogContainerType> = (
                 }, 1000 )
             }
         },
-        [D2Item] )
+        [D2Item, Dialog2All, getDialog2AllAC, userId] )
 
     // getDialog2MessageIdViewedThCr("84ac68ee-73d0-43c4-82bb-0fd0273d4808") // проверить прочитано ли сообщение по его ID
     // getDailog2UnreadMessagesThCr() // - вернуть количество непрочтенных сообщений
@@ -106,7 +112,8 @@ const Dialog2Messages2Container: React.FC<DialogContainerType> = (
                 ...Markers, straightFirstUploaded: true
             } )
         }
-    }, [userId] )
+    }, [userId, Markers, putDialog2StartThCr, setMarkers] )
+
     useEffect( () => {
         if (userId !== 0) {
             console.log( "получить сообщения при смене userId" )
@@ -115,7 +122,8 @@ const Dialog2Messages2Container: React.FC<DialogContainerType> = (
             const D2ItemLocal: newMessagesItem = Dialog2All.filter( d2 => d2.id === userId )[0]
             setD2Item( D2ItemLocal )
         }
-    }, [userId] )
+    }, [userId, Dialog2All, getDialog2MessagesNewerThenThCr, setD2Item] )
+
     useEffect( () => {
         if (patch === "dialog2" && !Markers.Dialog2FirstUploaded) {
             console.log( "Единичное получение списка диалогов на странице dialog2" )
@@ -124,7 +132,7 @@ const Dialog2Messages2Container: React.FC<DialogContainerType> = (
                 ...Markers, Dialog2FirstUploaded: true
             } )
         }
-    }, [userId, patch] )
+    }, [userId, patch, Markers, getDialog2AllThCr, setMarkers] )
 
     useEffect( () => {
         if (Markers.needToScrollBottom) {
@@ -133,14 +141,7 @@ const Dialog2Messages2Container: React.FC<DialogContainerType> = (
                 ...Markers, needToScrollBottom: false // ставим маркер - прокручивать вниз не нужно
             } )
         }
-    }, [Markers] )
-
-    const secondBlock = document.querySelector( '.second-block' ) // ссылка на прокрутку вниз
-
-    const MSG2ScrollBottom = () => {
-        secondBlock && secondBlock.scrollIntoView( true )
-    }
-    //Сама метка className="second-block" находится в дочерней Messages2Render
+    }, [Markers, MSG2ScrollBottom, setMarkers] )
 
     return <div>
         <Dialog2Messages2COM
