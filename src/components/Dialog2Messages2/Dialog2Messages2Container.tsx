@@ -127,7 +127,7 @@ const Dialog2Messages2Container: React.FC<DialogContainerType> = (
             const D2ItemLocal: newMessagesItem = Dialog2All.filter( d2 => d2.id === userId )[0]
             setD2Item( D2ItemLocal )
         }
-    }, [userId, Dialog2All, getDialog2MessagesNewerThenThCr, setD2Item] )
+    }, [userId, Dialog2All, getDialog2MessagesNewerThenThCr, setD2Item, MessagesNewerThen] )
 
     useEffect( () => {
         if (patch === "dialog2" && !Markers.Dialog2FirstUploaded) {

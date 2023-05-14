@@ -3,7 +3,7 @@ import classes from "./messages2Render.module.scss"
 import Msg2DropDownMenu from "./Msg2DropDownMenu";
 import dustBin from "../../../assets/images/swg/dust-bin2.svg"
 import Spam from "../../../assets/images/swg/spam1.svg"
-import GetDate, {DataReturn2Type} from "../../common/ErrorBoundary/GetDate";
+import GetDate from "../../common/ErrorBoundary/GetDate";
 
 type Messages2ItemType = {
     id: string// "cde7821a-6981-4f49-8b12-faf681cb1621",

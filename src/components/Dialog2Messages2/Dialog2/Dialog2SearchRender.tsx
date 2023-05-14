@@ -1,12 +1,12 @@
-import React, {useState} from "react";
+import React from "react";
 import classes from "./dialog2Render.module.css"
 import MagnifyingGlass from "../../../assets/images/swg/magnifying-glass.svg"
 
-type Dialog2SearchRender = {
+type Dialog2SearchRenderType = {
     SearchValue: string // поисковый запрос в списке диалогов
     setSearchValue: (SearchValue:string)=>void // функция обновления локального стейта поиска в списке диалогов
 }
-const Dialog2SearchRender: React.FC<Dialog2SearchRender> = ({SearchValue, setSearchValue})=>{
+const Dialog2SearchRender: React.FC<Dialog2SearchRenderType> = ({SearchValue, setSearchValue})=>{
     return <div>
         <input
             placeholder={"Поиск"}
