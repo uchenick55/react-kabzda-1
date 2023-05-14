@@ -13,7 +13,6 @@ type Msg2HeaderNamePhotoType = {
 const Msg2HeaderNamePhoto: React.FC<Msg2HeaderNamePhotoType> = ({userId, D2Item}) => {
     const photoSrc = D2Item && D2Item.photos && D2Item.photos.small ? D2Item.photos.small : userPhoto // фото с сервера или заглушка
     const DateLocal = GetDate(D2Item && D2Item.lastUserActivityDate) // получаем дату последнего сообщения
-    console.log(DateLocal)
     return <div>
         {D2Item && <div>
             <div className={classes.Msg2HeaderName}>{D2Item && D2Item.userName}</div>

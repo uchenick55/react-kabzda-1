@@ -2,6 +2,7 @@ import React from "react";
 import classes from "./dialog2Render.module.css"
 import userPhoto from "../../../assets/images/no-image3.png";
 import {NavLink} from "react-router-dom";
+import GetDate from "../../common/ErrorBoundary/GetDate";
 
 type Dialog2ItemType = {
     userName: string, //"evgeniysazonov"
@@ -16,7 +17,7 @@ type Dialog2ItemType = {
 }
 const Dialog2Item: React.FC<Dialog2ItemType> = (
     {userName, hasNewMessages, photos, lastDialogActivityDate, newMessagesCount, id}) => {
-    //console.log("Dialog2Item")
+    const DateLocal = GetDate(lastDialogActivityDate) // получаем дату последнего сообщения
     return <div className={classes.Dialog2ItemCardExt}>
         <NavLink to={'/messages/' + id}>
             <div className={classes.Dialog2ItemCardInt}>
@@ -25,7 +26,13 @@ const Dialog2Item: React.FC<Dialog2ItemType> = (
                     className={classes.Dialog2ItemCardNewMsgCnt}>{newMessagesCount}</div>} {/*вывод количества новых сообщений*/}
                 <img src={photos.small ? photos.small : userPhoto} className={classes.Dialog2ItemCardPhoto}
                      alt="CardPhoto"/> {/*Фото*/}
-                <div className={classes.Dialog2ItemCardMsgTime}>{lastDialogActivityDate.slice( 0, 16 )}</div>
+                <div className={classes.Dialog2ItemCardMsgTime}>{
+
+                    DateLocal.isToday
+                        ? <span> {DateLocal.Hour }:{DateLocal.Minutes}</span>
+                        : <span> {DateLocal.Day } {DateLocal.Month} {DateLocal.Year}</span>
+
+                }</div>
                 {/*Время*/}
             </div>
         </NavLink>
