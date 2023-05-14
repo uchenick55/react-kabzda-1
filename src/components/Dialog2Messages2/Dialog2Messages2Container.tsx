@@ -117,7 +117,7 @@ const Dialog2Messages2Container: React.FC<DialogContainerType> = (
     useEffect( () => { // получаем новые сообщения если
         if (userId !== 0 && (MessagesNewerThen.length===0 || // userId не равен нулю, и список сообщений пустой
             (MessagesNewerThen.length>0 && // или список сообщений может быть не пустым
-                (MessagesNewerThen[0].senderId!==userId && MessagesNewerThen[0].recipientId!==userId) // но эти сообщения мы еще не загружали   
+                (MessagesNewerThen[0].senderId!==userId && MessagesNewerThen[0].recipientId!==userId) // но эти сообщения мы еще не загружали
             )
         )) {
 

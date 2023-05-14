@@ -2,20 +2,16 @@
     position: fixed;
 }
 
-.dialog2HeaderCommon { /* шапка списка диалогов*/
-    background: maroon;
-    left: 0;
-    top: 3.5rem;
-    height: 5rem;
-}
 
-.dialog2ListCommon {   /* список диалогов, общее*/
+
+.dialog2ListCommon { /* список диалогов, общее*/
     left: 0;
-    top: 8.5rem;
+    top: 7.5rem;
     bottom: 1rem;
     overflow: auto;
     padding-bottom: 0.5rem;
 }
+
 .MobileDialogWidth { /* ширина диалогов на мобильных устройствах*/
     width: 100%;
 }
@@ -24,14 +20,15 @@
     width: var(--dialog2ListWidth); /* ширина диалогов на десктопах*/
 }
 
-.Dialog2ItemCardExt {  /*внешние общие стили карточки списка диалогов*/
+.Dialog2ItemCardExt { /*внешние общие стили карточки списка диалогов*/
     height: 5rem;
     width: 100%;
     position: relative;
 
 
 }
-.Dialog2ItemCardInt {  /*общие внутренние стили карточки*/
+
+.Dialog2ItemCardInt { /*общие внутренние стили карточки*/
     background-color: var(--color3);
     position: absolute;
     left: 0.5rem;
@@ -41,6 +38,7 @@
     border-radius: 0.5rem;
 
 }
+
 .Dialog2ItemCardInt:hover { /*наведение на карточку*/
     background-color: var(--color3_);
     cursor: pointer;
@@ -77,6 +75,7 @@
     color: var(--color1);
 
 }
+
 .Dialog2ItemCardMsgTime { /*время на карточке*/
     position: absolute;
     right: 0.3rem;
@@ -84,3 +83,33 @@
     color: var(--color4);
     font-size: 0.8rem;
 }
+
+
+.dialog2HeaderCommon { /* шапка списка диалогов*/
+    left: 0;
+    background: var(--color2);
+    top: var(--HeaderHeight);
+    height: 4rem;
+    z-index: 100;
+}
+.Dialog2SearchInput { /* стиль input поиска над dialogList*/
+    position: fixed;
+    left: 1rem;
+    top: 4.5rem;
+    width: 18rem;
+    border: 1px solid rgba(229,229,229,1);
+    border-bottom: 2px solid rgb(0,120,84);
+    border-radius: 0.2rem;
+    padding-left: 0.5rem;
+    outline:none;
+}
+
+.MagnifyingGlass { /*лупа в поле поиска*/
+    position: fixed;
+    z-index: 150;
+    width: 1rem;
+    height: 1rem;
+    left: 17.5rem;
+    top: 4.9rem;
+}
+

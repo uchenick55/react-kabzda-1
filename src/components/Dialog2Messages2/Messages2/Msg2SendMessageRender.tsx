@@ -6,7 +6,7 @@ import {MyTextInput} from "../../common/formikCommon/MyFieldsBS"
 import Button from "react-bootstrap/Button";
 import Image from "react-bootstrap/Image";
 import sendSwg from "../../../assets/images/swg/send-svg2.svg"
-import classes from "./MessagesFormik.module.css"
+import classes from "./Msg2SendMessageRender.module.css"
 
 let myInitialValues = { // начальные зачения форм
     newMessage: "",

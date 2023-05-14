@@ -1,7 +1,8 @@
-import React from "react";
+import React, {useState} from "react";
 import classes from "./dialog2Render.module.css"
 import {getDialog2AllType} from "../../api/apiTypes";
 import Dialog2Item from "./Dialog2Item";
+import Dialog2SearchRender from "./Dialog2SearchRender";
 
 type Dialog2RenderType = {
     patch: string,// имя страницы из URL
@@ -12,6 +13,10 @@ type Dialog2RenderType = {
 const Dialog2Render: React.FC<Dialog2RenderType> = (
     {PageWidth, MobileWidth, patch, Dialog2All}
     ) => {
+    const [SearchValue, setSearchValue] = useState<string>("") // локальный стейт поискового запроса в диалогах
+    const Dialog2AllFiltered:getDialog2AllType = Dialog2All &&  Dialog2All.filter(d2=>{ //если список диалогов есть,
+       return d2.userName.toLowerCase().includes(SearchValue.toLowerCase()) // фильтруем по поисковому запросу
+    })
     const hasRendered: Array<number> = [] // массив, какие диалоги в списке уже были отрисованы
     return <div>
         { // Компонента Dialog2Render отрисовывается на странице dialog всегда.
@@ -24,12 +29,12 @@ const Dialog2Render: React.FC<Dialog2RenderType> = (
                     className={`${classes.Fixed} ${classes.dialog2HeaderCommon} ${PageWidth < MobileWidth ? classes.MobileDialogWidth : classes.DesktopDialogWidth}`}
                     /*поиск по именам списка диалогов, с задержкой после ввода, без кнопки отправить*/
 
-                > поиск, без кнопки отправить, с задержкой после ввода.
+                > <Dialog2SearchRender SearchValue={SearchValue} setSearchValue={setSearchValue}/>
                 </div>
                 <div // Fixed слева внизу + прокрутка. Поле остается на странице dialog2 всегда
                     className={`${classes.Fixed} ${classes.dialog2ListCommon} ${PageWidth < MobileWidth ? classes.MobileDialogWidth : classes.DesktopDialogWidth}`}
                 >
-                    {Dialog2All.map(d2=>{
+                    {Dialog2AllFiltered.map(d2=>{
                         const {id, userName, hasNewMessages, lastDialogActivityDate, newMessagesCount, photos} = d2
                         if (hasRendered.includes(id)) { //был глюк с записью двух одинаковых диалогов на сервер.
                             // Исправил проверкой, что уже отрисовано
