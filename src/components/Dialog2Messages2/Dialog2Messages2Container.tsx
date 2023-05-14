@@ -114,9 +114,14 @@ const Dialog2Messages2Container: React.FC<DialogContainerType> = (
         }
     }, [userId, Markers, putDialog2StartThCr, setMarkers] )
 
-    useEffect( () => {
-        if (userId !== 0) {
-            console.log( "получить сообщения при смене userId" )
+    useEffect( () => { // получаем новые сообщения если
+        if (userId !== 0 && (MessagesNewerThen.length===0 || // userId не равен нулю, и список сообщений пустой
+            (MessagesNewerThen.length>0 && // или список сообщений может быть не пустым
+                (MessagesNewerThen[0].senderId!==userId && MessagesNewerThen[0].recipientId!==userId) // но эти сообщения мы еще не загружали   
+            )
+        )) {
+
+            console.log( "получить сообщения при смене userId", userId )
             getDialog2MessagesNewerThenThCr( userId, "2022-04-30T19:10:31.843" )
 
             const D2ItemLocal: newMessagesItem = Dialog2All.filter( d2 => d2.id === userId )[0]
