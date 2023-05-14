@@ -3,6 +3,7 @@ import classes from "./messages2Render.module.scss"
 import Msg2DropDownMenu from "./Msg2DropDownMenu";
 import dustBin from "../../../assets/images/swg/dust-bin2.svg"
 import Spam from "../../../assets/images/swg/spam1.svg"
+import GetDate, {DataReturn2Type} from "../../common/ErrorBoundary/GetDate";
 
 type Messages2ItemType = {
     id: string// "cde7821a-6981-4f49-8b12-faf681cb1621",
@@ -19,6 +20,8 @@ type Messages2ItemType = {
 }
 const Messages2Item: React.FC<Messages2ItemType> = (
     {id, body, Msg2DeleteMessage, addedAt, senderId, myId, Msg2MarkAsSpam, Msg2Restore, deletedBySender, isSpam}) => {
+
+    const DateLocal = GetDate(addedAt) // получаем часы, минуты из текстовой даты добавления
 
     const isMyMessage: boolean = myId === senderId ? true : false // индикатор, что мое сообщение
     const [IdMsg2DropDowShowed, setIdMsg2DropDowShowed] = useState<string>( "" ) // показать ли контекстное меню
@@ -42,7 +45,9 @@ const Messages2Item: React.FC<Messages2ItemType> = (
                 </div>
                 : <div className={classes.Msg2Body}>{body}</div>//тело сообщения
             }
-            <div className={`${classes.Msg2ItemAdedAtCommon} ${isMyMessage?classes.ColorMy:classes.ColorNotMy}`}>{addedAt.slice( 11, 16 )}</div>
+            <div className={`${classes.Msg2ItemAdedAtCommon} ${isMyMessage?classes.ColorMy:classes.ColorNotMy}`}>
+                {DateLocal.Hour}:{DateLocal.Minutes}
+            </div>
             {/*Время*/}
             {isSpam && <img className={classes.Msg2SpamPic} src={Spam} alt=""/>
 
