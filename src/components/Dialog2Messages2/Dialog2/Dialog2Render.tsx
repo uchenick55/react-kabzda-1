@@ -12,12 +12,11 @@ type Dialog2RenderType = {
 }
 const Dialog2Render: React.FC<Dialog2RenderType> = (
     {PageWidth, MobileWidth, patch, Dialog2All}
-    ) => {
-    const [SearchValue, setSearchValue] = useState<string>("") // локальный стейт поискового запроса в диалогах
-    const Dialog2AllFiltered:getDialog2AllType = Dialog2All &&  Dialog2All.filter(d2=>{ //если список диалогов есть,
-       return d2.userName.toLowerCase().includes(SearchValue.toLowerCase()) // фильтруем по поисковому запросу
-    })
-    const hasRendered: Array<number> = [] // массив, какие диалоги в списке уже были отрисованы
+) => {
+    const [SearchValue, setSearchValue] = useState<string>( "" ) // локальный стейт поискового запроса в диалогах
+    const Dialog2AllFiltered: getDialog2AllType = Dialog2All && Dialog2All.filter( d2 => { //если список диалогов есть,
+        return d2.userName.toLowerCase().includes( SearchValue.toLowerCase() ) // фильтруем по поисковому запросу
+    } )
     return <div>
         { // Компонента Dialog2Render отрисовывается на странице dialog всегда.
             // На странице messages только при десктопной версии
@@ -29,27 +28,22 @@ const Dialog2Render: React.FC<Dialog2RenderType> = (
                     className={`${classes.Fixed} ${classes.dialog2HeaderCommon} ${PageWidth < MobileWidth ? classes.MobileDialogWidth : classes.DesktopDialogWidth}`}
                     /*поиск по именам списка диалогов, с задержкой после ввода, без кнопки отправить*/
 
-                > <Dialog2SearchRender SearchValue={SearchValue} setSearchValue={setSearchValue}/>
+                ><Dialog2SearchRender SearchValue={SearchValue} setSearchValue={setSearchValue}/>
                 </div>
                 <div // Fixed слева внизу + прокрутка. Поле остается на странице dialog2 всегда
                     className={`${classes.Fixed} ${classes.dialog2ListCommon} ${PageWidth < MobileWidth ? classes.MobileDialogWidth : classes.DesktopDialogWidth}`}
                 >
-                    {Dialog2AllFiltered.map(d2=>{
+                    {Dialog2AllFiltered.map( d2 => {
                         const {id, userName, hasNewMessages, lastDialogActivityDate, newMessagesCount, photos} = d2
-                        if (hasRendered.includes(id)) { //был глюк с записью двух одинаковых диалогов на сервер.
-                            // Исправил проверкой, что уже отрисовано
-                            return <div/>
-                        }
-                        hasRendered.push(id)
                         return <Dialog2Item
                             key={id} userName={userName} hasNewMessages={hasNewMessages} photos={photos}
-                            lastDialogActivityDate={lastDialogActivityDate} newMessagesCount={newMessagesCount} id={id} />
-                    })}
-
+                            lastDialogActivityDate={lastDialogActivityDate} newMessagesCount={newMessagesCount}
+                            id={id}/>
+                    } )}
                     {/*список диалогов с фильтрацией по имени из заголовка. */}
                 </div>
             </div>}
 
     </div>
 }
-export default React.memo(Dialog2Render)
+export default React.memo( Dialog2Render )

@@ -65,9 +65,17 @@ const Dialog2Reducer = (state: initialStateDialog2Type = initialState, action: D
     let stateCopy: initialStateDialog2Type // объявлениечасти части стейта до изменения редьюсером
     switch (action.type) {
         case DIALOG2_ACTIONS: // список всех диалогов
+            const Dialog2AllLocal:getDialog2AllType = []
+            const listUniqueDialog2Id: Array<number> = []
+            action.Dialog2All.forEach(d2=>{
+                if (!listUniqueDialog2Id.includes(d2.id)) {
+                    listUniqueDialog2Id.push(d2.id)
+                    Dialog2AllLocal.push(d2)
+                }
+            })
             stateCopy = {
                 ...state,
-                Dialog2All: action.Dialog2All
+                Dialog2All: Dialog2AllLocal
             }
             return stateCopy
         case SET_MESSAGES_NEWER_THEN: // сообщения по выбранному диалогу новее определенной даты
