@@ -118,7 +118,7 @@ type mapDispatchToPropsType = {
     getMyDialogListThunkCreator: (myId: number) => void,
     deleteDialogThunkCreator: (dialogId: number, userId1: number, userId2: number) => void
 }
-export default compose<any>(
+export default compose<React.ComponentType>(
     connect<
         mapStateToPropsType,
         mapDispatchToPropsType,

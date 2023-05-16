@@ -84,7 +84,7 @@ type mapDispatchToPropsType = {
     putMyProfileThunkCreator: (MyProfile: ProfileType, myId: number) => void,
 }
 
-export default compose<any>(
+export default compose<React.ComponentType>(
     connect<mapStateToPropsType, // тип mapStateToProps
         mapDispatchToPropsType, // тип mapDispatchToProps
         unknown, // тип входящих пропсов от родителя

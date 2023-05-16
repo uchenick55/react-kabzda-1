@@ -110,7 +110,7 @@ type mapDispatchToPropsType = {
     deleteMessageThunkCreator: (messageID:number, myId:number, userId:number) => void
     updateDialogListThunkCreator:(userId1:number, userId2:number, Name2:string, Photo2:string)=>void
 }
-export default compose<any>(
+export default compose<React.ComponentType>(
     connect<
         mapStateToPropsType,
         mapDispatchToPropsType,

@@ -14,40 +14,17 @@ import {compose} from "redux";
 import withRouter2 from "../hoc/withRouter2";
 import NavigateToLoginHoc2 from "../hoc/NavigateToLoginHoc2";
 
-type DialogContainerType = {
-    patch: string,// имя страницы из URL
-    PageWidth: number, // ширина страницы
-    MobileWidth: number, // ширина страницы, считающаяся мобильной версткой
-    Dialog2All: getDialog2AllType, // список всех диалогов для левой колонки
+type OwnPropsType = {
     userId: number, // id пользователя из URL (withRouter2)
-    MessagesNewerThen: Array<sendMessageType> // сообщения выбранного диалога, новее заданной даты
-    D2Item: newMessagesItem // отфильтрованый  из Dialog2All выбранный пользователь по userId
-    Markers: MarkersType//вспомогательные маркеры
-    myId: number // номер моего id
-
-    getDialog2AllThCr: (userId: number, page: number, count: number) => void,// получить список всех диалогов
-    setD2UserId: (userId: number) => void, // задать userId из URL в стейт
-    setMarkers: (Markers: MarkersType) => void // задать вспомогательные маркеры
-    setD2Item: (D2Item: newMessagesItem) => void // задать D2Item (шапку сообщений)
-    getDialog2AllAC: (Dialog2All: getDialog2AllType) => void, // изменить локально данные в диалоглис
-
-    putDialog2StartThCr: (currentDialogId: number) => void,
-    postDialog2MessageThCr: (userId: number, body: string, date: string, Markers: MarkersType) => void,
-    getDialog2MessageIdViewedThCr: (messageId: string) => void,
-    postDialog2MessageIdToSpamThCr: (messageId: string, MessagesNewerThen: Array<sendMessageType>) => void,
-    deleteDialog2MessageIdThCr: (messageId: string, userId: number, date: string, MessagesNewerThen: Array<sendMessageType>) => void,
-    putDialog2MessageIdRestoreThCr: (messageId: string, MessagesNewerThen: Array<sendMessageType>) => void,
-    getDialog2MessagesNewerThenThCr: (userId: number, date: string) => void,
-    getDailog2UnreadMessagesThCr: () => void,
-
 }
-const Dialog2Messages2Container: React.FC<DialogContainerType> = (
+
+const Dialog2Messages2Container: React.FC<mapStateToPropsType & mapDispatchToPropsType & OwnPropsType> = (
     {
         putDialog2StartThCr, getDialog2AllThCr, postDialog2MessageThCr,
         getDialog2MessageIdViewedThCr, postDialog2MessageIdToSpamThCr, deleteDialog2MessageIdThCr,
         putDialog2MessageIdRestoreThCr, getDialog2MessagesNewerThenThCr, getDailog2UnreadMessagesThCr,
-        patch, PageWidth, MobileWidth, Dialog2All, userId, MessagesNewerThen, setD2UserId, D2Item,
-        Markers, setMarkers, setD2Item, getDialog2AllAC, myId
+        patch, PageWidth, MobileWidth, Dialog2All, userId, MessagesNewerThen, D2Item,
+        Markers, setMarkers, getDialog2AllAC, myId, setD2Item
     }
 ) => {
     //cde7821a-6981-4f49-8b12-faf681cb1621 от "555"
@@ -55,14 +32,14 @@ const Dialog2Messages2Container: React.FC<DialogContainerType> = (
     // 25528  | 27045 | 1079
 
     const Msg2DeleteMessage = useCallback( (message2Id: string) => {// - удалить сообщение (только у себя) по ID сообщения
-        deleteDialog2MessageIdThCr( message2Id, userId, "2022-04-30T19:10:31.843" , MessagesNewerThen)
+        deleteDialog2MessageIdThCr( message2Id, userId, "2022-04-30T19:10:31.843", MessagesNewerThen )
     }, [userId, MessagesNewerThen, deleteDialog2MessageIdThCr] )
 
     const Msg2MarkAsSpam = (message2Id: string) => {// - пометить сообщение как спам по ID сообщения
-         postDialog2MessageIdToSpamThCr(message2Id, MessagesNewerThen)
+        postDialog2MessageIdToSpamThCr( message2Id, MessagesNewerThen )
     }
     const Msg2Restore = (message2Id: string) => {// - пометить сообщение как спам по ID сообщения
-         putDialog2MessageIdRestoreThCr(message2Id, MessagesNewerThen) // - восстановить сообщение из спама и удаленных
+        putDialog2MessageIdRestoreThCr( message2Id, MessagesNewerThen ) // - восстановить сообщение из спама и удаленных
     }
 
     const Msg2SendMessage = (messageBody: string) => {
@@ -77,9 +54,9 @@ const Dialog2Messages2Container: React.FC<DialogContainerType> = (
     }
     const secondBlock = document.querySelector( '.second-block' ) // ссылка на прокрутку вниз
 
-    const MSG2ScrollBottom =useCallback( () => {
+    const MSG2ScrollBottom = useCallback( () => {
         secondBlock && secondBlock.scrollIntoView( true )
-    },[secondBlock])
+    }, [secondBlock] )
     //Сама метка className="second-block" находится в дочерней Messages2Render
 
     useEffect( () => {
@@ -107,17 +84,17 @@ const Dialog2Messages2Container: React.FC<DialogContainerType> = (
     useEffect( () => {
         if (userId !== 0 && !Markers.straightFirstUploaded) {
             console.log( "начать диалог по непустому userId " )
-            putDialog2StartThCr( userId ) // начать диалог
+            putDialog2StartThCr( userId )
             setMarkers( {
-                ...Markers, straightFirstUploaded: true
+                ...Markers, straightFirstUploaded: true // задать маркер прямой загрузки в true
             } )
         }
     }, [userId, Markers, putDialog2StartThCr, setMarkers] )
 
     useEffect( () => { // получаем новые сообщения если
-        if (userId !== 0 && (MessagesNewerThen.length===0 || // userId не равен нулю, и список сообщений пустой
-            (MessagesNewerThen.length>0 && // или список сообщений может быть не пустым
-                (MessagesNewerThen[0].senderId!==userId && MessagesNewerThen[0].recipientId!==userId) // но эти сообщения мы еще не загружали
+        if (userId !== 0 && (MessagesNewerThen.length === 0 || // userId не равен нулю, и список сообщений пустой
+            (MessagesNewerThen.length > 0 && // или список сообщений может быть не пустым
+                (MessagesNewerThen[0].senderId !== userId && MessagesNewerThen[0].recipientId !== userId) // но эти сообщения мы еще не загружали
             )
         )) {
 
@@ -125,19 +102,19 @@ const Dialog2Messages2Container: React.FC<DialogContainerType> = (
             getDialog2MessagesNewerThenThCr( userId, "2022-04-30T19:10:31.843" )
 
             const D2ItemLocal: newMessagesItem = Dialog2All.filter( d2 => d2.id === userId )[0]
-            setD2Item( D2ItemLocal )
+            setD2Item( D2ItemLocal ) // отфильтрровать d2Item
         }
     }, [userId, Dialog2All, getDialog2MessagesNewerThenThCr, setD2Item] )
 
     useEffect( () => {
-        if (patch === "dialog2" && !Markers.Dialog2FirstUploaded) {
+        if (patch === "dialog2" && !Markers.Dialog2FirstUploaded && myId) {
             console.log( "Единичное получение списка диалогов на странице dialog2" )
-            getDialog2AllThCr( 25528, 1, 10 )
+            getDialog2AllThCr( myId, 1, 10 )
             setMarkers( {
                 ...Markers, Dialog2FirstUploaded: true
             } )
         }
-    }, [userId, patch, Markers, getDialog2AllThCr, setMarkers] )
+    }, [userId, patch, Markers, getDialog2AllThCr, setMarkers, myId] )
 
     useEffect( () => {
         if (Markers.needToScrollBottom) {
@@ -155,50 +132,40 @@ const Dialog2Messages2Container: React.FC<DialogContainerType> = (
             Msg2SendMessage={Msg2SendMessage} userId={userId} D2Item={D2Item}
             myId={myId} Msg2MarkAsSpam={Msg2MarkAsSpam} Msg2Restore={Msg2Restore}
         />
-
     </div>
 }
 const mapStateToProps = (state: GlobalStateType) => {
     return {
-        patch: state.app.patch,
-        PageWidth: state.app.PageWidth,
-        MobileWidth: state.app.MobileWidth,
-        Dialog2All: state.dialog2.Dialog2All,
-        MessagesNewerThen: state.dialog2.MessagesNewerThen,
-        D2Item: state.dialog2.D2Item,
-        Markers: state.dialog2.Markers,
-        myId: state.auth.myId
+        patch: state.app.patch as string,// имя страницы из URL
+        PageWidth: state.app.PageWidth as number,// ширина страницы
+        MobileWidth: state.app.MobileWidth as number,// ширина страницы, считающаяся мобильной версткой
+        Dialog2All: state.dialog2.Dialog2All as getDialog2AllType,// список всех диалогов для левой колонки
+        MessagesNewerThen: state.dialog2.MessagesNewerThen as Array<sendMessageType>,// сообщения выбранного диалога, новее заданной даты
+        D2Item: state.dialog2.D2Item as newMessagesItem,// отфильтрованый  из Dialog2All выбранный пользователь по userId
+        Markers: state.dialog2.Markers as MarkersType,//вспомогательные маркеры
+        myId: state.auth.myId as number// номер моего id
     }
 }
-type mapStateToPropsType = {
-    patch: string,
-    PageWidth: number,
-    MobileWidth: number,
-    Dialog2All: getDialog2AllType,
-    MessagesNewerThen: Array<sendMessageType>,
-    D2Item: newMessagesItem,
-    Markers: MarkersType,
-    myId: number
 
-}
+type mapStateToPropsType = ReturnType<typeof mapStateToProps>
+
 type mapDispatchToPropsType = {
-    putDialog2StartThCr: (currentDialogId: number) => void,
-    getDialog2AllThCr: (userId: number, page: number, count: number) => void,
-    postDialog2MessageThCr: (userId: number, body: string, date: string, Markers: MarkersType) => void,
-    getDialog2MessageIdViewedThCr: (messageId: string) => void,
-    postDialog2MessageIdToSpamThCr: (messageId: string, MessagesNewerThen: Array<sendMessageType>) => void,
-    deleteDialog2MessageIdThCr: (messageId: string, userId: number, date: string, MessagesNewerThen: Array<sendMessageType>) => void,
-    putDialog2MessageIdRestoreThCr: (messageId: string, MessagesNewerThen: Array<sendMessageType>) => void,
-    getDialog2MessagesNewerThenThCr: (userId: number, date: string) => void,
-    getDailog2UnreadMessagesThCr: () => void,
-    setD2UserId: (userId: number) => void,
-    setMarkers: (Markers: MarkersType) => void,
-    setD2Item: (D2Item: newMessagesItem) => void,
-    getDialog2AllAC: (Dialog2All: getDialog2AllType) => void,
+    getDialog2AllThCr: (userId: number, page: number, count: number) => void,// получить список всех диалогов
+    setMarkers: (Markers: MarkersType) => void // задать вспомогательные маркеры
+    getDialog2AllAC: (Dialog2All: getDialog2AllType) => void, //- получить список диалогов по id пользователя
+    putDialog2StartThCr: (currentDialogId: number) => void,// начало диалога с пользователем по его ID
+    postDialog2MessageThCr: (userId: number, body: string, date: string, Markers: MarkersType) => void,// - отправить сообщение пользователю
+    postDialog2MessageIdToSpamThCr: (messageId: string, MessagesNewerThen: Array<sendMessageType>) => void,// - пометить сообщение как спам
+    deleteDialog2MessageIdThCr: (messageId: string, userId: number, date: string, MessagesNewerThen: Array<sendMessageType>) => void,//- удалить сообщение (только у себя) по ID сообщения
+    putDialog2MessageIdRestoreThCr: (messageId: string, MessagesNewerThen: Array<sendMessageType>) => void,//  - восстановить сообщение из спама и удаленных
+    getDialog2MessagesNewerThenThCr: (userId: number, date: string) => void,// получить все сообщения от указанного ID пользователя новее чем указанная дата
+    setD2Item: (D2Item: newMessagesItem) => void // задать D2Item (шапку сообщений)
+    getDialog2MessageIdViewedThCr: (messageId: string) => void,//- проверить, было ли прочитано сообщение по Id сообщения
+    getDailog2UnreadMessagesThCr: () => void, // вернуть количество непрочтенных сообщений
 }
-const {setD2UserId, setMarkers, setD2Item, getDialog2AllAC} = Dialog2Actions // получить экшены
+const {setMarkers, setD2Item, getDialog2AllAC} = Dialog2Actions // получить экшены
 
-export default compose<any>(
+export default compose<React.ComponentType>(
     connect<mapStateToPropsType,
         mapDispatchToPropsType,
         unknown,
@@ -207,7 +174,7 @@ export default compose<any>(
             putDialog2StartThCr, getDialog2AllThCr, postDialog2MessageThCr,
             getDialog2MessageIdViewedThCr, postDialog2MessageIdToSpamThCr, deleteDialog2MessageIdThCr,
             putDialog2MessageIdRestoreThCr, getDialog2MessagesNewerThenThCr, getDailog2UnreadMessagesThCr,
-            setD2UserId, setMarkers, setD2Item, getDialog2AllAC
+            setMarkers, getDialog2AllAC, setD2Item
         }
     ),
     withRouter2,// получить данные ID из URL браузера и добавить в пропсы

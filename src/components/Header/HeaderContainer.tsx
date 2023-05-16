@@ -70,7 +70,7 @@ type mapDispatchToPropsType = {
     deleteLoginThunkCreator: () => void,
     setThemeThunkCreator: (themeBLL: "light" | "dark") => void
 }
-export default compose<any>(
+export default compose<React.ComponentType>(
     connect<mapStateToPropsType, mapDispatchToPropsType, unknown, GlobalStateType>
         // @ts-ignore
         ( mapStateToProps,

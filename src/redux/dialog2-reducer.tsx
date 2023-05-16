@@ -7,7 +7,6 @@ import {ResultCodeEnum} from "../components/api/enum";
 const DIALOG2_ACTIONS = "myApp/dialog2-reducer/DIALOG2_ACTIONS";
 const SET_MESSAGES_NEWER_THEN = "myApp/dialog2-reducer/SET_MESSAGES_NEWER_THEN";
 const SET_DIALOG2_INITIALSTATE = "myApp/dialog2-reducer/SET_DIALOG2_INITIALSTATE";
-const SET_D2_USERID = "myApp/dialog2-reducer/SET_D2_USERID";
 const SET_D2_ITEM = "myApp/dialog2-reducer/SET_D2_ITEM";
 const SET_API_ERROR_MSG = "myApp/dialog2-reducer/SET_API_ERROR_MSG";
 const SET_MARKERS = "myApp/dialog2-reducer/SET_MARKERS";
@@ -22,9 +21,6 @@ export const Dialog2Actions = {
     },
     setDialog2InitialState: () => {
         return {type: SET_DIALOG2_INITIALSTATE} as const
-    },
-    setD2UserId: (d2UserId: number) => {
-        return {type: SET_D2_USERID, d2UserId} as const
     },
     setD2Item: (D2Item: newMessagesItem) => {
         return {type: SET_D2_ITEM, D2Item} as const
@@ -87,12 +83,6 @@ const Dialog2Reducer = (state: initialStateDialog2Type = initialState, action: D
             return stateCopy
         case SET_DIALOG2_INITIALSTATE: // занулить стейт при логауте
             return initialState
-        case SET_D2_USERID: // установить id текущего диалога
-            stateCopy = {
-                ...state,
-                d2UserId: action.d2UserId
-            }
-            return stateCopy
         case SET_D2_ITEM: // отфильтровать DialogItem из Dialog2All
             stateCopy = {
                 ...state,
@@ -131,11 +121,9 @@ export const putDialog2StartThCr = (currentDialogId: number): ThType => {
     }
 }
 export const getDialog2AllThCr = (userId: number, page: number = 1, count: number = 10): ThType => {
-    // console.log( "getDialog2AllThCr" )
     return async (dispatch, getState) => {//- получить список диалогов по id пользователя
         const response = await apiDialog2.getDialog2All( userId, page, count )
         dispatch( Dialog2Actions.getDialog2AllAC( response ) ) /* получить диалоглист*/
-        dispatch( Dialog2Actions.setD2Item( response[0] ) ) /*отфильтровать D2Item для шапки*/
     }
 }
 export const postDialog2MessageThCr = (userId: number, body: string, date: string, Markers: MarkersType): ThType => {
