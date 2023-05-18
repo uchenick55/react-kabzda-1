@@ -40,7 +40,6 @@ export type MarkersType = {
     dialogId: number, // маркер id диалога
     Dialog2FirstUploaded: boolean, // маркер первой загрузки
     needToScrollBottom: boolean // нужно ли прокрутить список сообщений
-    HasMsg2Requestd: boolean // флаг, запрашивали ли мы список сообщений по новому id
 }
 const initialState = {
     Dialog2All: [] as getDialog2AllType,
@@ -52,8 +51,7 @@ const initialState = {
         straightFirstUploaded: false,
         dialogId: 0,
         Dialog2FirstUploaded: false,
-        needToScrollBottom: false,
-        HasMsg2Requestd: false
+        needToScrollBottom: false
     } as MarkersType
 }
 
@@ -126,7 +124,7 @@ export const getDialog2AllThCr = (userId: number, page: number = 1, count: numbe
     return async (dispatch, getState) => {//- получить список диалогов по id пользователя
         const response = await apiDialog2.getDialog2All( userId, page, count )
         dispatch( Dialog2Actions.getDialog2AllAC( response ) ) /* получить диалоглист*/
-        dispatch( Dialog2Actions.setD2Item( response[0] ) ) /*отфильтровать d2Item при прямой загрузке*/
+        dispatch( Dialog2Actions.setD2Item( response[0] ) ) /*отфильтровать d2Item */
 
 
     }

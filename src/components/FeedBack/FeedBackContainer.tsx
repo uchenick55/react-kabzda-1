@@ -7,23 +7,21 @@ import {apiFeedBackDataType} from "../../types/commonTypes";
 
 const {setFeedBackStatus} = FeedBackActions
 
-class FeedBackContainer extends React.Component<mapStateToPropsType & mapDispatchToPropsType> {
+const FeedBackContainer:React.FC<mapStateToPropsType & mapDispatchToPropsType> = (
+    {postFeedBackThunkCreator2, feedBackStatus, setFeedBackStatus}) => {
 
-    sendFeedBack = (data:apiFeedBackDataType) => {
-        this.props.postFeedBackThunkCreator2(data)// отправка фидбека из api
+    const sendFeedBack = (data:apiFeedBackDataType) => {
+        postFeedBackThunkCreator2(data)// отправка фидбека из api
     }
 
-    render () {
-        return <div>
-            <FeedBack
-                sendFeedBack={this.sendFeedBack} // колбек отправки сообщения из контейнера
-                feedBackStatus={this.props.feedBackStatus} // фидбэк статус из BLL
-                setFeedBackStatus={this.props.setFeedBackStatus} // задать статус (обнулить для отправки нового сообщения)
-            />
-        </div>
-    }
+    return <div>
+        <FeedBack
+            sendFeedBack={sendFeedBack} // колбек отправки сообщения из контейнера
+            feedBackStatus={feedBackStatus} // фидбэк статус из BLL
+            setFeedBackStatus={setFeedBackStatus} // задать статус (обнулить для отправки нового сообщения)
+        />
+    </div>
 }
-
 
 const mapStateToProps = (state:GlobalStateType) => {
     return {

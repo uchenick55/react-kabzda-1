@@ -18,7 +18,7 @@ class LoginContainer extends React.Component<mapStateToPropsType & mapDispatchTo
 
     render() {
         if (this.props.isAuth) { // условие что я авторизован
-            return <Navigate to='../profile'/>; // редирект на страницу Profile
+            return <Navigate to='../dialog2'/>; // редирект на страницу Profile
         }
 
         return (
