@@ -40,6 +40,7 @@ export type MarkersType = {
     dialogId: number, // маркер id диалога
     Dialog2FirstUploaded: boolean, // маркер первой загрузки
     needToScrollBottom: boolean // нужно ли прокрутить список сообщений
+    HasMsg2Requestd: boolean // флаг, запрашивали ли мы список сообщений по новому id
 }
 const initialState = {
     Dialog2All: [] as getDialog2AllType,
@@ -51,7 +52,8 @@ const initialState = {
         straightFirstUploaded: false,
         dialogId: 0,
         Dialog2FirstUploaded: false,
-        needToScrollBottom: false
+        needToScrollBottom: false,
+        HasMsg2Requestd: false
     } as MarkersType
 }
 
