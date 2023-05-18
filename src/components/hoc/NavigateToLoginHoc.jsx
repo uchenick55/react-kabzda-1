@@ -2,7 +2,6 @@ import React from "react";
 import {connect} from "react-redux";
 import {Navigate} from "react-router-dom";
 
-
 let mapStateToProps = (state) => {
     return {
         isAuth: state.auth.isAuth, // текущий флаг авторизации
@@ -10,19 +9,11 @@ let mapStateToProps = (state) => {
 }
 
 let NavigateToLoginHoc = (Component) => {
-    class NavigateToLoginHocWithAuth extends React.Component {
-        componentDidUpdate(prevProps) {
-            console.log('Текущие пропсы: ', this.props);
-            console.log('Предыдущие пропсы: ', prevProps);
+    const NavigateToLoginHocWithAuth = ({isAuth, ...props}) => {
+        if (!isAuth) {
+            return <Navigate to='../login'/>;
         }
-
-        render() {
-            if (!this.props.isAuth) {
-                return <Navigate to='../login'/>;
-            }
-            return <Component {...this.props}/>;
-
-        }
+        return <Component {...props}/>;
     }
 
     return connect(mapStateToProps, null)(NavigateToLoginHocWithAuth);

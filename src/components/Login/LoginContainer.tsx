@@ -5,35 +5,35 @@ import {getCaptchaThunkCreator, postLoginThunkCreator} from "../../redux/auth-re
 import {Navigate} from "react-router-dom";
 import {GlobalStateType} from "../../redux/store-redux";
 
-class LoginContainer extends React.Component<mapStateToPropsType & mapDispatchToPropsType> {
+const LoginContainer: React.FC<mapStateToPropsType & mapDispatchToPropsType> = (
+    {postLoginThunkCreator, captchaURL, getCaptchaThunkCreator, isAuth, loginError}) => {
 
-    postLogin = (values: { email:string, password:string, rememberme?:boolean, captcha?:string }) => { // email, password, rememberme берем из формы login
-        //метод для проброса дальше целевой компоненты для вызова postLoginThunkCreator (авторизация на сервере)
-        this.props.postLoginThunkCreator( values.email, values.password, values.rememberme, values.captcha );
+    const postLogin = (values: { email: string, password: string, rememberme?: boolean, captcha?: string }) => {
+        // email, password, rememberme берем из формы login
+        //функция для проброса дальше целевой компоненты для вызова postLoginThunkCreator (авторизация на сервере)
+        postLoginThunkCreator( values.email, values.password, values.rememberme, values.captcha );
     }
 
-    updateCaptcha = () => {
-        this.props.getCaptchaThunkCreator()
+    const updateCaptcha = () => {
+        getCaptchaThunkCreator()
     }
 
-    render() {
-        if (this.props.isAuth) { // условие что я авторизован
-            return <Navigate to='../dialog2'/>; // редирект на страницу Profile
-        }
-
-        return (
-            <div>
-                <Login postLogin={this.postLogin}
-                       captchaURL={this.props.captchaURL}
-                       updateCaptcha={this.updateCaptcha}
-                       loginError={this.props.loginError}
-                /> {/*Возврат целевой компоненты*/}
-            </div>
-        )
+    if (isAuth) { // условие что я авторизован
+        return <Navigate to='../dialog2'/>; // редирект на страницу Profile
     }
+
+    return (
+        <div>
+            <Login postLogin={postLogin}
+                   captchaURL={captchaURL}
+                   updateCaptcha={updateCaptcha}
+                   loginError={loginError}
+            /> {/*Возврат целевой компоненты*/}
+        </div>
+    )
 }
 
-let mapStateToProps = (state:GlobalStateType) => { // флаги isAuth - "я авторизован?"
+let mapStateToProps = (state: GlobalStateType) => { // флаги isAuth - "я авторизован?"
     return {
         isAuth: state.auth.isAuth as boolean, // флаг авторизации
         captchaURL: state.auth.captchaURL as string, // URL каптчи при неправильном вводе 5 раз логина
@@ -43,10 +43,11 @@ let mapStateToProps = (state:GlobalStateType) => { // флаги isAuth - "я а
 type mapStateToPropsType = ReturnType<typeof mapStateToProps>
 
 type mapDispatchToPropsType = {
-    postLoginThunkCreator:(email:string, password:string, rememberme?:boolean, captcha?:string)=>void, // отправить данные логина
+    postLoginThunkCreator: (email: string, password: string, rememberme?: boolean, captcha?: string) => void, // отправить данные логина
     getCaptchaThunkCreator: () => void // получить каптчу
 }
 
-export default connect<
-    mapStateToPropsType, mapDispatchToPropsType, unknown, GlobalStateType
-    >( mapStateToProps, {postLoginThunkCreator, getCaptchaThunkCreator } )( LoginContainer )
+export default connect<mapStateToPropsType, mapDispatchToPropsType, unknown, GlobalStateType>( mapStateToProps, {
+    postLoginThunkCreator,
+    getCaptchaThunkCreator
+} )( LoginContainer )
