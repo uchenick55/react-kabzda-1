@@ -8,28 +8,7 @@ import Preloader from "../common/Preloader/Preloader";
 import UsersBS from "./UsersBS1";
 import {Dialog2Actions} from "../../redux/dialog2-reducer";
 
-type MainProps = {
-    users: Array<usersType>, // Реселектор users- список пользователей в пачке от сервера
-    pageSize: number,// селектор pageSize - количество пользователей на странице
-    totalUsersCount: number, // селектор totalUsersCount - общее число пользователей с сервера
-    currentPage: number,// селектор currentPage - текущая страница пачки пользователей с сервера
-    isFetching: boolean, // селектор isFetching - показать крутилку при загрузке страницы
-    followingInProgress: Array<number>, // селектор followingInProgress - массив на кого мы подписались, кнопка неактивна
-    isAuth: boolean, // селектор isAuth - флаг авторизации
-    term: string,
-    onlyFriends: boolean, // селектор получить только моих рузей
-    patch: string, // страница из адресной строки
-    PageWidth: number // ширина страницы
-    setCurrentPage: (currentPage: number) => void,
-    getUsersThunkCreator: (currentPage: number, pageSize: number, term: string, friend: boolean, userId: number) => void,
-    followThunkCreator: (userId: number, currentPage: number, pageSize: number, term: string, friend: boolean) => void,
-    unfollowThunkCreator: (userId: number, currentPage: number, pageSize: number, term: string, friend: boolean) => void,
-    setTerm: (term: string) => void,
-    setOnlyFriends: (onlyFriends: boolean) => void,
-    setDialog2InitialState: () => void // занулить весь dialog2 стейт при переходе на страницу users
-
-}
-const UsersContainerFC: React.FC<MainProps> = (
+const UsersContainerFC: React.FC<mapStateToPropsType & mapDispatchToPropsType> = (
     {
         users, pageSize, totalUsersCount, currentPage, isFetching, followingInProgress,
         isAuth, term, onlyFriends, patch, PageWidth, setCurrentPage,
@@ -96,46 +75,37 @@ const UsersContainerFC: React.FC<MainProps> = (
     </>
 }
 
-type mapStateToPropsType = {
-    users: Array<usersType>, // Реселектор users- список пользователей в пачке от сервера
-    pageSize: number,// селектор pageSize - количество пользователей на странице
-    totalUsersCount: number, // селектор totalUsersCount - общее число пользователей с сервера
-    currentPage: number,// селектор currentPage - текущая страница пачки пользователей с сервера
-    isFetching: boolean, // селектор isFetching - показать крутилку при загрузке страницы
-    followingInProgress: Array<number>, // селектор followingInProgress - массив на кого мы подписались, кнопка неактивна
-    isAuth: boolean, // селектор isAuth - флаг авторизации
-    term: string,
-    onlyFriends: boolean, // селектор получить только моих рузей
-    patch: string,
-    PageWidth: number
-}
 const mapStateToProps = (state: GlobalStateType) => {
     return {
-        users: getUsersReselect( state ), // Реселектор users- список пользователей в пачке от сервера
-        pageSize: usersSelectorsSimple.getPageSize( state ),// селектор pageSize - количество пользователей на странице
-        totalUsersCount: usersSelectorsSimple.getTotalUsersCount( state ), // селектор totalUsersCount - общее число пользователей с сервера
-        currentPage: usersSelectorsSimple.getCurrentPage( state ),// селектор currentPage - текущая страница пачки пользователей с сервера
-        isFetching: usersSelectorsSimple.getIsFetching( state ), // селектор isFetching - показать крутилку при загрузке страницы
-        followingInProgress: usersSelectorsSimple.getFollowingInProgress( state ), // селектор followingInProgress - массив на кого мы подписались, кнопка неактивна
-        isAuth: usersSelectorsSimple.getIsAuth( state ), // селектор isAuth - флаг авторизации
-        term: state.usersPage.term,
-        onlyFriends: usersSelectorsSimple.getOnlyFriends( state ), // селектор получить только моих рузей
-        patch: state.app.patch, // страница из URL
-        PageWidth: state.app.PageWidth, // ширина страницы
+        users: getUsersReselect( state ) as Array<usersType>, // Реселектор users- список пользователей в пачке от сервера
+        pageSize: usersSelectorsSimple.getPageSize( state ) as number,// селектор pageSize - количество пользователей на странице
+        totalUsersCount: usersSelectorsSimple.getTotalUsersCount( state ) as number, // селектор totalUsersCount - общее число пользователей с сервера
+        currentPage: usersSelectorsSimple.getCurrentPage( state ) as number,// селектор currentPage - текущая страница пачки пользователей с сервера
+        isFetching: usersSelectorsSimple.getIsFetching( state ) as boolean, // селектор isFetching - показать крутилку при загрузке страницы
+        followingInProgress: usersSelectorsSimple.getFollowingInProgress( state ) as Array<number>, // селектор followingInProgress - массив на кого мы подписались, кнопка неактивна
+        isAuth: usersSelectorsSimple.getIsAuth( state ) as boolean, // селектор isAuth - флаг авторизации
+        term: state.usersPage.term as string, // поисковый запрос среди users
+        onlyFriends: usersSelectorsSimple.getOnlyFriends( state ) as boolean, // селектор получить только моих рузей
+        patch: state.app.patch as string, // страница из URL
+        PageWidth: state.app.PageWidth as number, // ширина страницы
     }
 }
+type mapStateToPropsType = ReturnType<typeof mapStateToProps>
+
 type mapDispatchToPropsType = {
-    setCurrentPage: (currentPage: number) => void,
-    getUsersThunkCreator: (currentPage: number, pageSize: number, term: string, friend: boolean, userId: number) => void,
-    followThunkCreator: (userId: number, currentPage: number, pageSize: number, term: string, friend: boolean) => void,
-    unfollowThunkCreator: (userId: number, currentPage: number, pageSize: number, term: string, friend: boolean) => void,
-    setTerm: (term: string) => void,
-    setOnlyFriends: (onlyFriends: boolean) => void,
-    setDialog2InitialState: () => void
+    setCurrentPage: (currentPage: number) => void, // задать текущую страницу пользователей
+    getUsersThunkCreator: (currentPage: number, pageSize: number, term: string, friend: boolean, userId: number) => void, // получить пользователей
+    followThunkCreator: (userId: number, currentPage: number, pageSize: number, term: string, friend: boolean) => void, // друг
+    unfollowThunkCreator: (userId: number, currentPage: number, pageSize: number, term: string, friend: boolean) => void, // не друг
+    setTerm: (term: string) => void, // задать поисковый запрос в стейт
+    setOnlyFriends: (onlyFriends: boolean) => void, // поставить флаг - только друзья
+    setDialog2InitialState: () => void // занулить весь dialog2 стейт при переходе на страницу users
 }
 
 const {setCurrentPage, setOnlyFriends, setTerm} = UsersActions // деструктуризация методов ActionCreator
+
 const {setDialog2InitialState} = Dialog2Actions// деструктуризация методов ActionCreator
+
 export default connect<mapStateToPropsType,
     mapDispatchToPropsType,
     unknown,
