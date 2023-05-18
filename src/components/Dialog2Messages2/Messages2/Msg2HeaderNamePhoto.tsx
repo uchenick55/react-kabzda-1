@@ -22,7 +22,7 @@ const Msg2HeaderNamePhoto: React.FC<Msg2HeaderNamePhotoType> = ({userId, D2Item}
             <div className={classes.Msg2HeaderActivityDate}>Был(а): {" "}
                 {D2Item &&  DateLocal.isToday
                     ? <span> сегодня в {DateLocal.Hour }:{DateLocal.Minutes}</span>
-                    : <span> {DateLocal.Day } {DateLocal.Month} {DateLocal.Year}</span>
+                    : <span> {DateLocal.Day }.{DateLocal.Month}.{DateLocal.Year}</span>
                 }
             </div>
         </div>}

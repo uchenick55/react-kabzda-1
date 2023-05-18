@@ -1,5 +1,4 @@
 import {apiProfile} from "../components/api/api";
-import {DialogsActions} from "./dialogs-reducer";
 import {ProfileActions} from "./profile-reducer";
 import {UsersActions} from "./users-reducer";
 import {InferActionsTypes} from "./store-redux";
@@ -46,7 +45,6 @@ export const AuthActions = {
 
 type AuthActionTypes =
     InferActionsTypes<typeof AuthActions> |
-    InferActionsTypes<typeof DialogsActions> |
     InferActionsTypes<typeof ProfileActions> |
     InferActionsTypes<typeof UsersActions> |
     InferActionsTypes<typeof Dialog2Actions>
@@ -146,8 +144,6 @@ export const deleteLoginThunkCreator = (): ComThunkTp<AuthActionTypes> => {//с�
         const response = await apiProfile.deleteLogin() // отправка запроса на логаут
         if (response.resultCode === ResultCodeEnum.Success) { // если сессия успешно закрыта
             setTimeout( () => {
-
-                dispatch( DialogsActions.dialogsInitialState() )// зануление диалогов при логауте
 
                 dispatch( AuthActions.authInitialState() )// зануление авторизации при логауте
 

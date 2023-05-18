@@ -1,6 +1,5 @@
 import {apiProfile} from "../components/api/api";
 import {AuthActions, getAuthMeThunkCreator} from "./auth-reducer";
-import {updateDialogListThunkCreator} from "./dialogs-reducer";
 import {ComThunkTp, NulableType, postsType, ProfileType} from "../types/commonTypes";
 import {InferActionsTypes} from "./store-redux";
 import {getProfileType} from "../components/api/apiTypes";
@@ -112,9 +111,6 @@ export const getProfileThunkCreator = (userId: number, shouldUpdateDialogList: b
         const CommonPart = (response: getProfileType, userId: number) => { // общая часть для задания статуса профиля и получения статуса
             dispatch( ProfileActions.setUserProfile( response ) ) // задание полных данных в профиль
             dispatch( getStatusThunkCreator( userId ) ) // запрос моего статуса
-            if (shouldUpdateDialogList) {// проверка нужно ли обновить диалоглист
-                dispatch( updateDialogListThunkCreator( myId, response.userId, response.fullName, response.photos.small ) ) // обновление длиалоглиста
-            }
         }
 
         if (!userId) { // если userId не задан в URL (переход на страницу моего профиля не подставляет ID в браузере)

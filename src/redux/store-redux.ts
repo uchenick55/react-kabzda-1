@@ -1,7 +1,6 @@
 import {applyMiddleware, combineReducers, compose, createStore} from "redux";
 import thunkMiddleWare from 'redux-thunk'; // thunkMiddleWare позволяет диспатчить санки помимо экшенов дл обновления стейта
 import profileReducer from "./profile-reducer";
-import dialogsReducer from "./dialogs-reducer";
 import usersReducer from "./users-reducer";
 import authReducer from "./auth-reducer";
 import appReducer from "./app-reducer";
@@ -12,7 +11,6 @@ import dialod2Reducer from "./dialog2-reducer"
 
 let reducers = combineReducers({ // объединяем стейт редьюсеров в один объект store
     profilePage: profileReducer, // стейт профиля
-    dialogsPage: dialogsReducer, // стейт диалогов
     usersPage: usersReducer, // стейт страницы пользователей
     auth: authReducer, // стейт текущего пользователя
     app: appReducer, // стейт инициализации приложения
