@@ -16,21 +16,11 @@ import Profile from "./Profile";
 
 const {setEditProfileStatus} = ProfileActions
 
-type ProfileContainerType = {
-    profile: getProfileType, // весь профиль пользователя
-    isAuth: boolean, // авторизация прошла?
-    myId: number, // мой ID
-    status: string, // статус
-    editProfileStatus: Array<string>  // список ошибок правки формы профиля с сервера
+type OwnPropsType = {
     userId: number // id пользователя
-    setEditProfileStatus: (editProfileStatus: Array<string>) => void,// экшн креатор задания ошибки с сервера в стейт после правки профиля
-    getProfileThunkCreator: (userId: number, shouldUpdateDialogList: boolean, myId: number) => void,// санкреатор на получение профиля выбранного пользователя
-    putStatusThunkCreator: (statusTmpInput: string, myId: number) => void,// санкреатор обновления моего статуса
-    setprofilePhotoThunkCreator: (profilePhoto: File, myId: number) => void,// санкреатор установки фотографии моего профиля
-    putMyProfileThunkCreator: (MyProfile: ProfileType, myId: number) => void,
 }
 
-const ProfileContainerFC:React.FC<ProfileContainerType> = (
+const ProfileContainerFC:React.FC<mapStateToPropsType & mapDispatchToPropsType & OwnPropsType> = (
     {profile, myId, status, editProfileStatus, userId, setEditProfileStatus,
     getProfileThunkCreator,   putStatusThunkCreator, setprofilePhotoThunkCreator,
     putMyProfileThunkCreator}) => {
@@ -60,12 +50,7 @@ const ProfileContainerFC:React.FC<ProfileContainerType> = (
         setEditProfileStatus={setEditProfileStatus}// экшн креатор задания ошибки с сервера в стейт после правки профиля
     />
 }
-type mapStateToPropsType = {
-    profile: getProfileType,
-    myId: number, // мой
-    status: string, // статус
-    editProfileStatus: Array<string>  // список ошибок правки формы профиля с сервера
-}
+type mapStateToPropsType = ReturnType<typeof mapStateToProps>
 
 let mapStateToProps = (state: GlobalStateType) => {
     return {
@@ -81,13 +66,13 @@ type mapDispatchToPropsType = {
     getProfileThunkCreator: (userId: number, shouldUpdateDialogList: boolean, myId: number) => void,// санкреатор на получение профиля выбранного пользователя
     putStatusThunkCreator: (statusTmpInput: string, myId: number) => void,// санкреатор обновления моего статуса
     setprofilePhotoThunkCreator: (profilePhoto: File, myId: number) => void,// санкреатор установки фотографии моего профиля
-    putMyProfileThunkCreator: (MyProfile: ProfileType, myId: number) => void,
+    putMyProfileThunkCreator: (MyProfile: ProfileType, myId: number) => void,// санкреатор установки моего профиля myProfile
 }
 
 export default compose<React.ComponentType>(
     connect<mapStateToPropsType, // тип mapStateToProps
         mapDispatchToPropsType, // тип mapDispatchToProps
-        unknown, // тип входящих пропсов от родителя
+        OwnPropsType, // тип входящих пропсов от родителя
         GlobalStateType // глобальный стейт из стора
         >( mapStateToProps, {
         setEditProfileStatus,// экшн креатор задания ошибки с сервера в стейт после правки профиля

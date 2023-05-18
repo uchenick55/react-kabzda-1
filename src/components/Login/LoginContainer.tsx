@@ -5,14 +5,7 @@ import {getCaptchaThunkCreator, postLoginThunkCreator} from "../../redux/auth-re
 import {Navigate} from "react-router-dom";
 import {GlobalStateType} from "../../redux/store-redux";
 
-type LoginContainerPropsType = {
-    isAuth: boolean
-    captchaURL: string, // URL каптчи после 5 неправильных вводов
-    loginError: string // ошибка авторизации
-    postLoginThunkCreator:(email:string, password:string, rememberme?:boolean, captcha?:string)=>void,
-    getCaptchaThunkCreator: () => void
-}
-class LoginContainer extends React.Component<LoginContainerPropsType> {
+class LoginContainer extends React.Component<mapStateToPropsType & mapDispatchToPropsType> {
 
     postLogin = (values: { email:string, password:string, rememberme?:boolean, captcha?:string }) => { // email, password, rememberme берем из формы login
         //метод для проброса дальше целевой компоненты для вызова postLoginThunkCreator (авторизация на сервере)
@@ -39,23 +32,19 @@ class LoginContainer extends React.Component<LoginContainerPropsType> {
         )
     }
 }
-type mapStateToPropsType = {
-    isAuth: boolean
-    captchaURL: string, // URL каптчи после 5 неправильных вводов
-    loginError: string // ошибка авторизации
-}
 
 let mapStateToProps = (state:GlobalStateType) => { // флаги isAuth - "я авторизован?"
     return {
-        isAuth: state.auth.isAuth,
-        captchaURL: state.auth.captchaURL, // URL каптчи при неправильном вводе 5 раз логина
-        loginError: state.auth.loginError // ошибка авторизации
+        isAuth: state.auth.isAuth as boolean, // флаг авторизации
+        captchaURL: state.auth.captchaURL as string, // URL каптчи при неправильном вводе 5 раз логина
+        loginError: state.auth.loginError as string, // ошибка авторизации
     }
 }
-type mapDispatchToPropsType = {
-    postLoginThunkCreator:(email:string, password:string, rememberme?:boolean, captcha?:string)=>void,
-    getCaptchaThunkCreator: () => void
+type mapStateToPropsType = ReturnType<typeof mapStateToProps>
 
+type mapDispatchToPropsType = {
+    postLoginThunkCreator:(email:string, password:string, rememberme?:boolean, captcha?:string)=>void, // отправить данные логина
+    getCaptchaThunkCreator: () => void // получить каптчу
 }
 
 export default connect<

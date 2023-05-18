@@ -7,36 +7,34 @@ import {GlobalStateType} from "../../../redux/store-redux";
 
 const {addPostActionCreator} = ProfileActions
 
-type MyPostsContainerType = {
+type ownPropsType = {
     userId: number,
-    posts: Array<postsType>,
-    addPostActionCreator: (newPostData: string) => void
 }
-const MyPostsContainer: React.FC<MyPostsContainerType> = ({posts, addPostActionCreator, userId}) => {
 
-    type addPostType = (newPostData: string) => void
-    const addPost: addPostType = (newPostData: string) => {
-        addPostActionCreator( newPostData )
+const MyPostsContainer: React.FC<mapStateToPropsType & mapDispatchToPropsType & ownPropsType> =
+    ({posts, addPostActionCreator, userId}) => {
+
+        type addPostType = (newPostData: string) => void
+        const addPost: addPostType = (newPostData: string) => {
+            addPostActionCreator( newPostData )
+        }
+        return <MyPostsBS userId={userId} posts={posts} addPost={addPost}/>
     }
-    return <MyPostsBS userId={userId} posts={posts} addPost={addPost}/>
-}
 
 let mapStateToProps = (state: GlobalStateType) => {
     return {
-        posts: state.profilePage.posts,
+        posts: state.profilePage.posts as Array<postsType>, // мои посты (пока заглушка)
     }
 }
 type mapDispatchToPropsType = {
     addPostActionCreator: (newPostData: string) => void
 }
 
-type mapStateToPropsType = {
-    posts: Array<postsType>
-}
+type mapStateToPropsType = ReturnType<typeof mapStateToProps>
 
 export default connect<mapStateToPropsType, // тип mapStateToProps
     mapDispatchToPropsType, // тип mapDispatchToProps
-    unknown, // тип входящих пропсов от родителя
+    ownPropsType, // тип входящих пропсов от родителя
     GlobalStateType // глобальный стейт из стора
     >( mapStateToProps, {addPostActionCreator} )( MyPostsContainer );
 
