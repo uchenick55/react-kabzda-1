@@ -7,12 +7,7 @@ import {apiFeedBackDataType} from "../../types/commonTypes";
 
 const {setFeedBackStatus} = FeedBackActions
 
-type FeedBackContainerPropsType = {
-    feedBackStatus: string
-    postFeedBackThunkCreator2: (data:apiFeedBackDataType) =>void
-    setFeedBackStatus:(feedBackStatus:string)=>void
-}
-class FeedBackContainer extends React.Component<FeedBackContainerPropsType> {
+class FeedBackContainer extends React.Component<mapStateToPropsType & mapDispatchToPropsType> {
 
     sendFeedBack = (data:apiFeedBackDataType) => {
         this.props.postFeedBackThunkCreator2(data)// отправка фидбека из api
@@ -29,19 +24,18 @@ class FeedBackContainer extends React.Component<FeedBackContainerPropsType> {
     }
 }
 
-type mapStateToPropsType = {
-    feedBackStatus: string
-}
+
 const mapStateToProps = (state:GlobalStateType) => {
     return {
         feedBackStatus: state.feedback.feedBackStatus // статус отправки сообщения на сервер
     }
 }
+type mapStateToPropsType = ReturnType<typeof mapStateToProps>
+
 type mapDispatchToPropsType = {
     postFeedBackThunkCreator2: (data:apiFeedBackDataType) =>void
     setFeedBackStatus:(feedBackStatus:string)=>void
 }
-
 
 export default connect<
     mapStateToPropsType,

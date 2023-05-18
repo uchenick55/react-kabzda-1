@@ -14,14 +14,7 @@ import {GlobalStateType} from "./redux/store-redux";
 
 const {setPageWidth, setPatch} = AppActions // деструктуризация методов ActionCreator из объекта
 
-type AppBSPropsType = {
-    initialisedApp: boolean,
-    theme: "light" | "dark"
-    initialisedAppThunkCreator: () => void,
-    setPatch: (patch:string) => void,
-    setPageWidth: (PageWidth:number) => void
-}
-class AppBS extends React.Component <AppBSPropsType> { // конвертируем app в классовую компоненту для жизненного цикла
+class AppBS extends React.Component <mapStateToPropsType & mapDispatchToPropsType> { // конвертируем app в классовую компоненту для жизненного цикла
     componentDidMount() {
         this.props.initialisedAppThunkCreator() // запускаем инициализацию приложения
     }
@@ -57,10 +50,8 @@ const mapStateToProps = (state:GlobalStateType) => {
         theme: state.theme.themeBLL, // флаг включения комментариев по телу сайта
     }
 }
-type mapStateToPropsType = {
-    initialisedApp: boolean,
-    theme: "light" | "dark"
-}
+type mapStateToPropsType = ReturnType<typeof mapStateToProps>
+
 type mapDispatchToPropsType = {
     initialisedAppThunkCreator: () => void,
     setPatch: (patch:string) => void,

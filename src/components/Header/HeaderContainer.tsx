@@ -10,18 +10,7 @@ import {NulableType} from "../../types/commonTypes";
 import {getProfileType} from "../api/apiTypes";
 import {GlobalStateType} from "../../redux/store-redux";
 
-type HeaderContainerPropsType = {
-    myLogin: string,// мой логин по умолчанию
-    myId: number, // мой ID по умолчанию
-    isAuth: boolean, // Флаг авторизации
-    myProfile: NulableType<getProfileType>, // мой расширенный профиль по умолчанию
-    themeBLL: "light" | "dark", // тема в bll по умолчанию
-    getProfileThunkCreator: (userId: number, shouldUpdateDialogList: boolean, myId: number) => void,
-    deleteLoginThunkCreator: () => void,
-    setThemeThunkCreator: (themeBLL: "light" | "dark") => void
-}
-
-class HeaderContainer extends React.Component<HeaderContainerPropsType, null> {
+class HeaderContainer extends React.Component<mapStateToPropsType & mapDispatchToPropsType> {
 
     setTheme1 = () => {
         const themeBLL = this.props.themeBLL === "light" ? "dark" : "light" //берем значение темы из стора
@@ -48,23 +37,17 @@ class HeaderContainer extends React.Component<HeaderContainerPropsType, null> {
     }
 }
 
-type mapStateToPropsType = {
-    myLogin: string,// мой логин по умолчанию
-    myId: NulableType<number>, // мой ID по умолчанию
-    isAuth: boolean, // Флаг авторизации
-    myProfile: NulableType<getProfileType>, // мой расширенный профиль по умолчанию
-    themeBLL: "light" | "dark", // тема в bll по умолчанию
-
-}
 let mapStateToProps = (state: GlobalStateType) => {
     return {
-        myLogin: state.auth.myLogin,
-        myId: state.auth.myId,
-        isAuth: state.auth.isAuth,
-        myProfile: state.auth.myProfile,
-        themeBLL: state.theme.themeBLL,
+        myLogin: state.auth.myLogin as string,// мой логин по умолчанию
+        myId: state.auth.myId as number, // мой ID по умолчанию
+        isAuth: state.auth.isAuth as boolean, // Флаг авторизации
+        myProfile: state.auth.myProfile as NulableType<getProfileType>, // мой расширенный профиль по умолчанию
+        themeBLL: state.theme.themeBLL as "light" | "dark", // тема в bll по умолчанию,
     }
 }
+type mapStateToPropsType = ReturnType<typeof mapStateToProps>
+
 type mapDispatchToPropsType = {
     getProfileThunkCreator: (userId: number, shouldUpdateDialogList: boolean, myId: number) => void,
     deleteLoginThunkCreator: () => void,
