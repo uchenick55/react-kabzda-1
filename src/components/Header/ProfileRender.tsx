@@ -8,10 +8,8 @@ import {getProfileType} from "../api/apiTypes";
 type ProfileRenderType = {
     isAuth: boolean, // Флаг авторизации
     myProfile: NulableType<getProfileType>, // мой расширенный профиль по умолчанию
-    goToMyPage: () => void
-
 }
-const ProfileRender: React.FC<ProfileRenderType> = ({isAuth, goToMyPage, myProfile}) => {
+const ProfileRender: React.FC<ProfileRenderType> = ({isAuth, myProfile}) => {
 
     type UserPhotoType = {
         src: typeof userPhoto
@@ -21,7 +19,7 @@ const ProfileRender: React.FC<ProfileRenderType> = ({isAuth, goToMyPage, myProfi
 
     return <span> {/*блок отрисовки профиля в header и ссылки logout*/}
         {
-            isAuth && <span onClick={goToMyPage}> <NavLink to={`/profile/`}>
+            isAuth && <span > <NavLink to={`/profile/`}>
                             {!myProfile
                                 ? <UserPhoto src={userPhoto}/> // просто заглушка если нет моего профиля
                                 : <span>

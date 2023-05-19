@@ -11,7 +11,8 @@
 }
 
 .messages2ChooseDialog { /*предложение выбрать диалог на странице dialogs2 вместо поля сообщений */
-    background: green;
+    background: var(--color3);
+    color: var(--color1);
     left: var(--dialog2ListWidth);
     top: 3.5rem;
     bottom: 1rem;
@@ -19,6 +20,7 @@
     display: flex;
     justify-content: center;
     align-items: center;
+    transition: 0.5s ease-in-out;
 }
 .messages2RenderMessages {/* поле отрисовки самих сообщений*/
     background: var(--color3);

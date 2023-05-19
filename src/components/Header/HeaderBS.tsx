@@ -19,13 +19,12 @@ import ProfileRender from "./ProfileRender";
 
 type HeaderBSType = {
     isAuth: boolean, // Флаг авторизации
-    goToMyPage: () => void,
     myProfile: NulableType<getProfileType>, // мой расширенный профиль по умолчанию
     deleteLogin: () => void,
     setTheme1: () => void,
 
 }
-const HeaderBS: React.FC<HeaderBSType> = ({isAuth, goToMyPage, myProfile, deleteLogin, setTheme1}) => {
+const HeaderBS: React.FC<HeaderBSType> = ({isAuth, myProfile, deleteLogin, setTheme1}) => {
     const navigate = useNavigate(); // хук для навигации по страницам (кнопка назад)
 
     const [show, setShow] = useState<boolean>( false ); // хук задания флага показать ли модальное Info
@@ -82,13 +81,11 @@ const HeaderBS: React.FC<HeaderBSType> = ({isAuth, goToMyPage, myProfile, delete
     const loginRender = <LoginRender
         // отрисовка иконки логина со ссылкой на профиль и кнопки логаут
         isAuth={isAuth}
-        goToMyPage={goToMyPage}
         deleteLogin={deleteLogin}
     />
     const profileRender = <ProfileRender
-        // отрисовка иконки логина со ссылкой на профиль и кнопки логаут
+        // отрисовка иконки профиля
         isAuth={isAuth}
-        goToMyPage={goToMyPage}
         myProfile={myProfile}
     />
 

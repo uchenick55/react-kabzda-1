@@ -10,36 +10,31 @@ import {NulableType} from "../../types/commonTypes";
 import {getProfileType} from "../api/apiTypes";
 import {GlobalStateType} from "../../redux/store-redux";
 
-class HeaderContainer extends React.Component<mapStateToPropsType & mapDispatchToPropsType> {
+const HeaderContainer: React.FC<mapStateToPropsType & mapDispatchToPropsType> = (
+    {themeBLL, isAuth, myId, deleteLoginThunkCreator, getProfileThunkCreator, myProfile, setThemeThunkCreator}) => {
 
-    setTheme1 = () => {
-        const themeBLL = this.props.themeBLL === "light" ? "dark" : "light" //берем значение темы из стора
-        this.props.setThemeThunkCreator( themeBLL ) // вызов смены темы
+    const setTheme1 = () => {
+
+        const themeBLL1:"light" | "dark" = themeBLL === "light" ? "dark" : "light" //инверсия темы при вызове
+        setThemeThunkCreator( themeBLL1 ) // вызов смены темы
     }
 
-    deleteLogin = () => {
-        this.props.deleteLoginThunkCreator()// логаут текущего пользователя
+    const deleteLogin = () => {
+        deleteLoginThunkCreator()// логаут текущего пользователя
     }
 
-    goToMyPage = () => {
-        getProfileThunkCreator( this.props.myId, false, 0 ); //получить профиль по моему ID
-    }
-
-    render() {
-        return <ErrorBoundary> {/*Локальный обработчик ошибок Header*/}
-            <Header
-                {...this.props}
-                deleteLogin={this.deleteLogin}
-                goToMyPage={this.goToMyPage}
-                setTheme1={this.setTheme1} // задание темы1
-            /> {/*отрисовка целевой компоненты*/}
-        </ErrorBoundary>
-    }
+    return <ErrorBoundary> {/*Локальный обработчик ошибок Header*/}
+        <Header
+            isAuth={isAuth}
+            myProfile={myProfile}
+            deleteLogin={deleteLogin}
+            setTheme1={setTheme1} // задание темы1
+        /> {/*отрисовка целевой компоненты*/}
+    </ErrorBoundary>
 }
 
 let mapStateToProps = (state: GlobalStateType) => {
     return {
-        myLogin: state.auth.myLogin as string,// мой логин по умолчанию
         myId: state.auth.myId as number, // мой ID по умолчанию
         isAuth: state.auth.isAuth as boolean, // Флаг авторизации
         myProfile: state.auth.myProfile as NulableType<getProfileType>, // мой расширенный профиль по умолчанию

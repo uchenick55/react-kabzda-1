@@ -91,6 +91,8 @@
     top: var(--HeaderHeight);
     height: 4rem;
     z-index: 100;
+    transition: 0.5s ease-in-out;
+
 }
 .Dialog2SearchInput { /* стиль input поиска над dialogList*/
     position: fixed;
