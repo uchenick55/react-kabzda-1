@@ -1,4 +1,4 @@
-import React from "react";
+import React, {useState} from "react";
 import "./krestiki-noliki.css";
 import commonClasses from "../../common/CommonClasses/common.module.css";
 import Button from "react-bootstrap/Button";
@@ -24,72 +24,68 @@ const Square: React.FC<SquareType> = ({value, handleSquare, i}) => {
     );
 };
 type squaresType = Array<"X" | "O" | null> // пропсами передаем вглубь текущий массив клеток
-type historyType = [
-    {
-        "squaresNew": squaresType
-    }
-]
+
+const XisNextnitialState = true // начальное значение кто ходит
+const HistoryInitialState = [{squaresNew: Array( 9 ).fill( null )}] // начальное значение массива History
 
 type BoardPropsType = {
-    squares:squaresType // пропсами передаем вглубь текущий массив клеток
+    squares: squaresType // пропсами передаем вглубь текущий массив клеток
     xIsNext: boolean// статус кто ходит
-    handleSquare:(i: number) => void // обработчик кликов
-    history:historyType
+    handleSquare: (i: number) => void // обработчик кликов
+    history: typeof HistoryInitialState
 }
 
-class Board extends React.Component<BoardPropsType> {
+const Board: React.FC<BoardPropsType> = ({squares, xIsNext, handleSquare, history}) => {
     // все игровое поле из 9 клеток
-    renderSquare(i:number) {
+    const renderSquare = (i: number) => {
         // обращение к отрисовке отдельной клетки Square
         return (
             <Square // отрисовать Square отдельную клетку
-                value={this.props.squares[i]} // значение X, O или пусто (null)
-                handleSquare={this.props.handleSquare} // обработчик кликов по кнопке, пришел сверху из пропсов
+                value={squares[i]} // значение X, O или пусто (null)
+                handleSquare={handleSquare} // обработчик кликов по кнопке, пришел сверху из пропсов
                 i={i} // номер текущей клетки
             />
         );
     }
 
-    render() {
-        let status; // существует переменная status
-        const Winner = calculateWinner( this.props.squares ); // проверка, появился ли победитель
-        if (this.props.history.length < 10) {
-            status = this.props.xIsNext ? "Сейчас ходит: X " : "Сейчас ходит: O ";
-            // задать статусу кто ходит следующим X или O
-        }
-        if (Winner) {// определен победитель
-            status = "Победитель: " + Winner; // вывести победителя
-        }
-        if (this.props.history.length >= 10 && !Winner) {
-            status = "Ничья"; // заполнены все клетки и нет победителя
-        }
-        return (
-            <div>
-                <div className="status">{status}</div>
-                {/*вывести статус в отрисовке*/}
-                <div className="board-row">
-                    {this.renderSquare( 0 )} {/*задание 3 клеток с порядковым номером i*/}
-                    {this.renderSquare( 1 )}
-                    {this.renderSquare( 2 )}
-                </div>
-                <div className="board-row">
-                    {/*перенос строки, задание еще 3 клеток*/}
-                    {this.renderSquare( 3 )}
-                    {this.renderSquare( 4 )}
-                    {this.renderSquare( 5 )}
-                </div>
-                <div className="board-row">
-                    {/*перенос строки, задание еще 3 клеток*/}
-                    {this.renderSquare( 6 )}
-                    {this.renderSquare( 7 )}
-                    {this.renderSquare( 8 )}
-                </div>
-            </div>
-        );
+    let status; // существует переменная status
+    const Winner = calculateWinner( squares ); // проверка, появился ли победитель
+    if (history.length < 10) {
+        status = xIsNext ? "Сейчас ходит: X " : "Сейчас ходит: O ";
+        // задать статусу кто ходит следующим X или O
     }
+    if (Winner) {// определен победитель
+        status = "Победитель: " + Winner; // вывести победителя
+    }
+    if (history.length >= 10 && !Winner) {
+        status = "Ничья"; // заполнены все клетки и нет победителя
+    }
+    return (
+        <div>
+            <div className="status">{status}</div>
+            {/*вывести статус в отрисовке*/}
+            <div className="board-row">
+                {renderSquare( 0 )} {/*задание 3 клеток с порядковым номером i*/}
+                {renderSquare( 1 )}
+                {renderSquare( 2 )}
+            </div>
+            <div className="board-row">
+                {/*перенос строки, задание еще 3 клеток*/}
+                {renderSquare( 3 )}
+                {renderSquare( 4 )}
+                {renderSquare( 5 )}
+            </div>
+            <div className="board-row">
+                {/*перенос строки, задание еще 3 клеток*/}
+                {renderSquare( 6 )}
+                {renderSquare( 7 )}
+                {renderSquare( 8 )}
+            </div>
+        </div>
+    );
 }
 
-function calculateWinner(squares:squaresType) {
+function calculateWinner(squares: squaresType) {
     // функция определения победителя (squares - весь текущий массив клеток)
     const lines = [
         [0, 1, 2], // задание комбинаций a, b, c при которых определяется победитель
@@ -113,23 +109,16 @@ function calculateWinner(squares:squaresType) {
     return null; // если комбинации победы не совпадают, победитель не определен
 }
 
-type KrestikiNolikiStateType = {
-    xIsNext: boolean, // что вводим X или O (true/false)
-    history: historyType // массив объектов - истории ходов
-}
-class KrestikiNoliki extends React.Component<unknown, KrestikiNolikiStateType> {
-    constructor(props:unknown) {
-        super( props );
-        this.state = {
-            xIsNext: true, // что вводим X или O (true/false)
-            history: [{squaresNew: Array( 9 ).fill( null )}] // массив объектов - истории ходов
-        };
-    }
+const KrestikiNoliki: React.FC = () => {
 
-    handleSquare = (i:number) => {
+    const [history, setHistory] = useState<typeof HistoryInitialState>( HistoryInitialState )// массив объектов - истории ходов
+
+    const [xIsNext, setXisNext] = useState<boolean>( XisNextnitialState ) // что вводим X или O (true/false)
+
+    const handleSquare = (i: number) => {
         // обработчик кликов
-        const currentStep = this.state.history.length - 1; // текущий ход в массиве ходов (-1 поскольку счет идет с 0)
-        const squaresNew = this.state.history[currentStep].squaresNew.slice(); // делаем копию текущего массива
+        const currentStep = history.length - 1; // текущий ход в массиве ходов (-1 поскольку счет идет с 0)
+        const squaresNew = history[currentStep].squaresNew.slice(); // делаем копию текущего массива
 
         const Winner = calculateWinner( squaresNew ); // попытка определения победитея
 
@@ -137,47 +126,40 @@ class KrestikiNoliki extends React.Component<unknown, KrestikiNolikiStateType> {
             //если текущая кнопка ранее была заполнена, или победитель уже определен
             return; // ничего не делаем
         }
-        squaresNew[i] = this.state.xIsNext ? "X" : "O";
+        squaresNew[i] = xIsNext ? "X" : "O";
         // заносим в массив текущего хода X или O в зависимости от xIsNext
-        this.setState( {xIsNext: !this.state.xIsNext} );
-        // передаем ход следующему игроку
+        setXisNext( !xIsNext );  // передаем ход следующему игроку
 
-        const historyNew2 = this.state.history.concat( {squaresNew} );
+        const historyNew2 = history.concat( {squaresNew} );
         // добавить в локальный массив historyNew2 данные из основного массива history и новый массив squaresNew
 
-       // @ts-ignore
-        this.setState( {history: historyNew2} ); // внести в history обновленный  historyNew2
+        setHistory( historyNew2 )
     };
 
-    newGame = () => {
-        this.setState( {
-            xIsNext: true,
-            history: [{squaresNew: Array( 9 ).fill( null )}]
-        } );
-
+    const newGame = () => { // нажатие кнопки "новая игра"
+        setXisNext( XisNextnitialState ) // начальное значение кто ходит
+        setHistory( HistoryInitialState )// начальное значение массива истории
     }
 
-    render() {
-        const currentStep = this.state.history.length - 1; // текущий ход в массиве ходов (-1 поскольку счет идет с 0)
-        const squaresNew = this.state.history[currentStep].squaresNew.slice(); // делаем копию текущего массива
-        return (
+    const currentStep = history.length - 1; // текущий ход в массиве ходов (-1 поскольку счет идет с 0)
+    const squaresNew = history[currentStep].squaresNew.slice(); // делаем копию текущего массива
+    return (
+        <div>
+            <h2 className={commonClasses.pageHeader}>Крестики нолики</h2>
             <div>
-                <h2 className={commonClasses.pageHeader}>Крестики нолики</h2>
-                <div>
-                    <Board
-                        squares={squaresNew} // пропсами передаем вглубь текущий массив клеток
-                        xIsNext={this.state.xIsNext} // статус кто ходит
-                        handleSquare={this.handleSquare} // обработчик кликов
-                        history={this.state.history}
-                    />
+                <Board
+                    squares={squaresNew} // пропсами передаем вглубь текущий массив клеток
+                    xIsNext={xIsNext} // статус кто ходит
+                    handleSquare={handleSquare} // обработчик кликов
+                    history={history}
+                />
 
-                </div>
-                <div>
-                    <Button className="new-game-button" onClick={this.newGame}>Начать заново</Button>
-                </div>
             </div>
-        );
-    }
+            <div>
+                <Button className="new-game-button" onClick={newGame}>Начать заново</Button>
+            </div>
+        </div>
+    );
 }
 
 export default KrestikiNoliki;
