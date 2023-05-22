@@ -6,6 +6,13 @@
     align-items: center;
     text-transform: uppercase;
 }
+
+.center {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
 .textMaxWidthCommon {
     overflow: hidden; /* Обрезаем содержимое */
     white-space: nowrap; /* Отменяем перенос текста */

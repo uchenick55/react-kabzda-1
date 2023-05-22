@@ -146,7 +146,7 @@ const KrestikiNoliki: React.FC = () => {
     return (
         <div>
             <h2 className={commonClasses.pageHeader}>Крестики нолики</h2>
-            <div>
+            <div className={commonClasses.center}>
                 <Board
                     squares={squaresNew} // пропсами передаем вглубь текущий массив клеток
                     xIsNext={xIsNext} // статус кто ходит
@@ -155,7 +155,7 @@ const KrestikiNoliki: React.FC = () => {
                 />
 
             </div>
-            <div>
+            <div className={commonClasses.center}>
                 <Button className="new-game-button" onClick={newGame}>Начать заново</Button>
             </div>
         </div>
