@@ -24,6 +24,7 @@ const IndexInfo:React.FC<IndexInfoType> = () => {
                 <li>Выпадающее меню, модальное окно и пр.;</li>
                 <li>Tasks - примеры решения понравившихся задач:</li>
                 <ol>
+                    <li>Поиск по GitHub репозиториям;</li>
                     <li>Игра сапер (react + Typescript);</li>
                     <li>Калькулятор обмена криптовалют (react + Typescript);</li>
                     <li>Поиск сортировка, фильтрация и контекстное меню;</li>

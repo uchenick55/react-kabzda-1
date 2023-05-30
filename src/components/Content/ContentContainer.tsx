@@ -5,6 +5,7 @@ import Tasks from "../Tasks/Tasks";
 import Home from "../Home/Home";
 import classes from "./ContentContainer.module.css"
 import {useLocation} from "react-router";
+import {BreadCrumbs} from "../BreadCrumbs/BreadCrumbs";
 
 const UsersContainer = React.lazy( () => import("../users/UsersContainerFC") )
 const ProfileContainer = React.lazy( () => import("../Profile/ProfileContainerFC") )
@@ -56,6 +57,7 @@ let ContentContainer: React.FC<ContentContainerType> = ({setPatch, setPageWidth}
         <ErrorBoundary> {/*Локальный обработчик ошибок ContentContainer*/}
             <Suspense fallback={
                 <div>Загрузка...</div>}> {/*Оборачивает компоненты, по которым идет Lazy import и выдает fallback на время загрузки*/}
+                <BreadCrumbs/>
                 <div className={classes.contentContainer}>
                     <Routes> {/*в зависимости от URL подгрузка разного контента*/}
                         <Route path='' element={<Home/>}/> {/*Общие Комментарии*/}

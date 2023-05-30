@@ -2,7 +2,7 @@ import React from "react";
 import classes from "./dialog2Render.module.css"
 import userPhoto from "../../../assets/images/no-image3.png";
 import {NavLink} from "react-router-dom";
-import GetDate from "../../common/ErrorBoundary/GetDate";
+import GetDate from "../../common/GetDate";
 
 type Dialog2ItemType = {
     userName: string, //"evgeniysazonov"

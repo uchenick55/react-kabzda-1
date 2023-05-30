@@ -31,6 +31,8 @@ const mapStateToProps = (state:GlobalStateType) => {
 type mapStateToPropsType = ReturnType<typeof mapStateToProps>
 
 type mapDispatchToPropsType = {
+
+
     postFeedBackThunkCreator2: (data:apiFeedBackDataType) =>void
     setFeedBackStatus:(feedBackStatus:string)=>void
 }
