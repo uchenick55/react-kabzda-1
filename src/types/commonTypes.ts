@@ -43,6 +43,7 @@ export type tasksDataType = {
     altTitle: string, // альтернатива картинке
     description: JSX.Element[], // описание задачи
     repositoryHref: string // ссылка на репозиторий
+    usedTech: string // список использованных технологий
 }
 
 
