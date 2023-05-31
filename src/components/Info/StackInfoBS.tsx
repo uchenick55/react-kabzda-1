@@ -17,7 +17,7 @@ const StackInfoBS:React.FC<StackInfoBSType> = () => {
                 lazy/Suspense/ ErrorBoundary/namedExport, selector, BrowserRouter/HashRouter
                 (NavLink/Navigate/ Routes/Route), Lifting State Up, top-down (unidirectional) flow, props.children, fragment, JSX, React.createElement </p>
             <p>BLL (Redux): store, state, reducer, callback, dispatch, action (type), action creator, case/switch,
-                thunk/thunkCreator, thunkMiddleWare, redux-ducks. </p>
+                thunk/thunkCreator, thunkMiddleWare, redux-ducks, useSelector. </p>
             <p>DAL (API): ajax, axios, get, post, put, delete, async/await, .then/.catch.        </p>
             <p>JS: try/catch/finally, setTimeout/setInterval, Object.keys/values/ hasOwnProperty,  Math.ceil/floor, new Date(), JSON.stringify, deep/shallow copy, closure, map, filter, some, find, sort, reduce, forEach, slice, splice, split, join, includes, Array.from, reverse etc. </p>
             <p>Typescript: primitive, typeof, commonType/import, selector, Array/Object, reducer, thunk, connect(MSTP, MDTP, globalStateType), function, event, FC, useState, generic  </p>

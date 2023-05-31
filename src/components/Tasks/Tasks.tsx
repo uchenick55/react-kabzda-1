@@ -3,7 +3,7 @@ import classes from "./Tasks.module.css"
 import commonClasses from "../common/CommonClasses/common.module.css";
 import Image from "react-bootstrap/Image";
 import Container from "react-bootstrap/Container";
-import {connect} from "react-redux";
+import {connect, useSelector} from "react-redux";
 import {tasksDataType} from "../../types/commonTypes";
 import {GlobalStateType} from "../../redux/store-redux";
 import Accordion from "react-bootstrap/Accordion";
@@ -48,16 +48,16 @@ const TasksCommon2: React.FC<TasksCommon2Type> = (
     </div>
 }
 
-type TasksType = {
-    tasksData: Array<tasksDataType>
-}
-let Tasks: React.FC<TasksType> = ({tasksData}) => {
+const Tasks: React.FC = () => {
+    // получаем данные из стейта вместо mapStateToProps
+    const tasksData1: Array<tasksDataType> = useSelector((state: GlobalStateType) => state.tasks.tasksData)
+
     const tasksRender = <div>
         <Container className={classes.TasksContainer}>
             <h3 className={commonClasses.pageHeader}>Tasks</h3>
             <p>Здесь собраны небольшие работы, не касающиеся социальной сети</p>
 
-            {tasksData.map( (t, index) => { // проходим каждый элемент в исходном массиве
+            {tasksData1.map( (t, index) => { // проходим каждый элемент в исходном массиве
                 return <TasksCommon2
                     key={index} TaskHeader={t.TaskHeader} imgSrc={t.imgSrc} altTitle={t.altTitle}
                     description={t.description} repositoryHref={t.repositoryHref} taskLink={t.taskLink}
@@ -71,10 +71,5 @@ let Tasks: React.FC<TasksType> = ({tasksData}) => {
     </div>
 }
 
-const mapStateToProps = (state: GlobalStateType) => {
-    return {
-        tasksData: state.tasks.tasksData
-    }
-}
-export default connect( mapStateToProps, null )( Tasks )
+export default Tasks
 
