@@ -43,7 +43,7 @@ export const AuthActions = {
     }
 }
 
-type AuthActionTypes =
+export type AuthActionTypes =
     InferActionsTypes<typeof AuthActions> |
     InferActionsTypes<typeof ProfileActions> |
     InferActionsTypes<typeof UsersActions> |

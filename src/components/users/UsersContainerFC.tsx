@@ -1,7 +1,7 @@
 import {usersType} from "../api/apiTypes";
 import {GlobalStateType} from "../../redux/store-redux";
 import {getUsersReselect, usersSelectorsSimple} from "./users-selectors";
-import {connect} from "react-redux";
+import {connect, useDispatch} from "react-redux";
 import {followThunkCreator, getUsersThunkCreator, unfollowThunkCreator, UsersActions} from "../../redux/users-reducer";
 import React, {ChangeEvent, useEffect, useState} from "react";
 import Preloader from "../common/Preloader/Preloader";
@@ -16,6 +16,10 @@ const UsersContainerFC: React.FC<mapStateToPropsType & mapDispatchToPropsType> =
         setDialog2InitialState
     }
 ) => {
+
+    const dispatch = useDispatch()
+
+
     const [onChangeTerm, setOnChangeTerm] = useState<string>( term ) // локальный стейт значения поля ввода input Users
     const [currentRangeLocal, setCurrentRangeLocal] = useState<number>( 1 ) // диапазон страниц пагинации
     const onPageChanged = (setPage: number) => {
