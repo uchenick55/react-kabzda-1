@@ -6,6 +6,7 @@ import InputGroup from 'react-bootstrap/InputGroup'
 import Image from "react-bootstrap/Image";
 import favImage from "../../assets/images/swg/star+.svg"
 import classes from './Users.module.css'
+import {useDispatch} from "react-redux";
 
 type InputButtonUsersRenderType = {
     onChangeTerm:string,
@@ -16,6 +17,8 @@ type InputButtonUsersRenderType = {
     setOnlyFriends:(onlyFriends: boolean)=>void,
 }
 const InputButtonUsersRender:React.FC<InputButtonUsersRenderType> = ({onChangeTerm, onChangeTermFunction, SetTermFunction, handleClick, setOnlyFriends, onlyFriends}) => {
+    const dispatch = useDispatch()
+
     return <div>
         <Form>
             <Stack direction="horizontal" gap={3} className="mx-1">
@@ -25,7 +28,7 @@ const InputButtonUsersRender:React.FC<InputButtonUsersRenderType> = ({onChangeTe
                         checked={onlyFriends}
                         onChange={(event:MouseEvent)=>{
                             // @ts-ignore
-                            event && event.target && setOnlyFriends(event.target.checked)}}
+                            event && event.target && dispatch( setOnlyFriends(event.target.checked))}}
                     />
 
                     <Form.Control
