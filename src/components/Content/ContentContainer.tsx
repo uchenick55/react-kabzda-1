@@ -6,6 +6,9 @@ import Home from "../Home/Home";
 import classes from "./ContentContainer.module.css"
 import {useLocation} from "react-router";
 import {BreadCrumbs} from "../BreadCrumbs/BreadCrumbs";
+import {useDispatch} from "react-redux";
+import type {} from 'redux-thunk/extend-redux';
+import {AppDispatch} from "../../redux/store-redux";
 
 const UsersContainer = React.lazy( () => import("../users/UsersContainerFC") )
 const ProfileContainer = React.lazy( () => import("../Profile/ProfileContainerFC") )
@@ -22,6 +25,8 @@ type ContentContainerType = {
 }
 let ContentContainer: React.FC<ContentContainerType> = ({setPatch, setPageWidth}) => { // вынес роутинг контента в отдельную компоненту
 
+    const dispatch = useDispatch<AppDispatch>();
+
     const location = useLocation()
     useEffect( () => { // определение и запись в стор пути из адресной строки бораузера
         const patch2 = location.pathname // путь из URL вида /profile
@@ -35,8 +40,7 @@ let ContentContainer: React.FC<ContentContainerType> = ({setPatch, setPageWidth}
         }
 
         const Bbb: string = Aaa.join( "" ) // итоговый путь
-       // console.log( Bbb )
-        setPatch( Bbb )
+        dispatch( setPatch( Bbb ))
         // обновить данные пути patch в app-reducer
     }, [location, setPatch] )
 
@@ -45,7 +49,7 @@ let ContentContainer: React.FC<ContentContainerType> = ({setPatch, setPageWidth}
         setTimeout( () => { // делаем задержку
             const PageWidth2 = document.documentElement.scrollWidth // и повторно измеряем ширину окна
             if (PageWidth1 === PageWidth2) { // если дина не меняется больше чем время задержки,
-                setPageWidth( PageWidth1 ) //пушим длину в стор (защита от частого обновления стора)
+               dispatch(setPageWidth( PageWidth1 )) //пушим длину в стор (защита от частого обновления стора)
             }
         }, 300 ) // время задержки между измерениями ширины окна
     }

@@ -46,4 +46,6 @@ export type InferActionsTypes<T extends {[key:string]: (...args: any) => any} > 
 // @ts-ignore
 window.store = store; // возможность смотреть стор через консоль
 
+export type AppDispatch = typeof store.dispatch;
+
 export default store

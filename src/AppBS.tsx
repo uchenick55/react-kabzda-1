@@ -3,22 +3,27 @@ import './theme.scss';
 import commonClasses from "./components/common/CommonClasses/common.module.css";
 import {HashRouter} from "react-router-dom";
 import HeaderContainer from "./components/Header/HeaderContainer";
-import {connect} from "react-redux";
+import {useDispatch, useSelector} from "react-redux";
+import type {} from 'redux-thunk/extend-redux';
 import {AppActions, initialisedAppThunkCreator} from "./redux/app-reducer";
 import Preloader from "./components/common/Preloader/Preloader";
 import ContentContainer from "./components/Content/ContentContainer";
 import ErrorBoundary from "./components/common/ErrorBoundary/ErrorBoundary";
 import Container from "react-bootstrap/Container";
 import FooterBS from "./components/Footer/FooterBS";
-import {GlobalStateType} from "./redux/store-redux";
+import {AppDispatch, GlobalStateType} from "./redux/store-redux";
 
-const {setPageWidth, setPatch} = AppActions // деструктуризация методов ActionCreator из объекта
+const AppBS: React.FC = ({}) => {
 
-const AppBS: React.FC<mapStateToPropsType & mapDispatchToPropsType> = (
-    {initialisedAppThunkCreator, setPageWidth, setPatch, theme, initialisedApp}) => {
+    const theme:"light" | "dark" = useSelector((state:GlobalStateType) =>state.theme.themeBLL )
+    const initialisedApp:boolean = useSelector((state:GlobalStateType) =>state.app.initialisedApp )
 
-    useEffect( () => {
-        initialisedAppThunkCreator() // запускаем инициализацию приложения
+    const dispatch = useDispatch<AppDispatch>();
+
+    const {setPatch, setPageWidth} = AppActions
+
+        useEffect( () => {
+            dispatch( initialisedAppThunkCreator()) // запускаем инициализацию приложения
 
     }, [] )
     if (!initialisedApp) { // если приложение еще не инициализировано
@@ -40,23 +45,5 @@ const AppBS: React.FC<mapStateToPropsType & mapDispatchToPropsType> = (
         </HashRouter>
     );
 }
-
-const mapStateToProps = (state: GlobalStateType) => {
-    return {
-        initialisedApp: state.app.initialisedApp, // флаг инициализации приложения
-        theme: state.theme.themeBLL, // флаг включения комментариев по телу сайта
-    }
-}
-type mapStateToPropsType = ReturnType<typeof mapStateToProps>
-
-type mapDispatchToPropsType = {
-    initialisedAppThunkCreator: () => void,
-    setPatch: (patch: string) => void,
-    setPageWidth: (PageWidth: number) => void
-}
-
-export default connect<mapStateToPropsType,
-    mapDispatchToPropsType,
-    unknown,
-    GlobalStateType>( mapStateToProps, {initialisedAppThunkCreator, setPatch, setPageWidth} )( AppBS );
+export default  AppBS;
 // коннектим к app флаг и санки инициализации
