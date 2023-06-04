@@ -18,7 +18,7 @@ let initialState = { //стейт по умолчанию темы
         {
             TaskHeader: <>Поиск по GitHub репозиториям</>,
             imgSrc: Ghlist,
-            taskLink: "https:uchenick55.github.io/github-repository-search/",
+            taskLink: "https://uchenick55.github.io/github-repository-search/",
             altTitle: "Игра сапер",
             description: [
                 <>
@@ -104,12 +104,12 @@ let initialState = { //стейт по умолчанию темы
                 </>
             ],
             usedTech: "React + redux + TS + GraphQl + PlayWright",
-            repositoryHref: "https:github.com/uchenick55/github-repository-search"
+            repositoryHref: "https://github.com/uchenick55/github-repository-search"
         },
          {
              TaskHeader: <>Игра сапер (React + Typescript)</>,
              imgSrc: Saper,
-             taskLink: "https:uchenick55.github.io/saper-ts/",
+             taskLink: "https://uchenick55.github.io/saper-ts/",
              altTitle: "Игра сапер",
              description: [
                  <>
@@ -135,12 +135,12 @@ let initialState = { //стейт по умолчанию темы
                  </>
              ],
              usedTech: "React + redux + TS",
-             repositoryHref: "https:github.com/uchenick55/saper-ts"
+             repositoryHref: "https://github.com/uchenick55/saper-ts"
          },
          {
              TaskHeader: <>Калькулятор обмена криптовалют <br/> (на Typescript)</>,
              imgSrc: CryptoCalculator,
-             taskLink: "https:uchenick55.github.io/bestchange/",
+             taskLink: "https://uchenick55.github.io/bestchange/",
              altTitle: "крипто-калькулятор",
              description: [
                  <>
@@ -163,12 +163,12 @@ let initialState = { //стейт по умолчанию темы
                  </>
              ],
              usedTech: "React + redux + TS + RestAPI",
-             repositoryHref: "https:github.com/uchenick55/bestchange"
+             repositoryHref: "https://github.com/uchenick55/bestchange"
          },
          {
              TaskHeader: "Поиск, сортировка и фильтрация",
              imgSrc: FilterSort,
-             taskLink: "https:uchenick55.github.io/supplydirector-web-page-test/#/app/profile",
+             taskLink: "https://uchenick55.github.io/supplydirector-web-page-test/#/app/profile",
              altTitle: "Поиск, сортировка и фильтрация",
              description: [
                  <>
@@ -183,12 +183,12 @@ let initialState = { //стейт по умолчанию темы
                  </>
              ],
              usedTech: "React + redux",
-             repositoryHref: "https:github.com/uchenick55/supplydirector-web-page-test.git"
+             repositoryHref: "https://github.com/uchenick55/supplydirector-web-page-test.git"
          },
          {
              TaskHeader: "Комбинации чисел",
              imgSrc: combinationChisel,
-             taskLink: "https:uchenick55.github.io/lhtask1/",
+             taskLink: "https://uchenick55.github.io/lhtask1/",
              altTitle: "Комбинации чисел",
              description: [
                  <>
@@ -203,12 +203,12 @@ let initialState = { //стейт по умолчанию темы
                  </>
              ],
              usedTech: "React + redux",
-             repositoryHref: "https:github.com/uchenick55/lhtask1.git"
+             repositoryHref: "https://github.com/uchenick55/lhtask1.git"
          },
          {
              TaskHeader: "Пример bootstrap сайта на чистом HTML+CSS",
              imgSrc: bootstrapImg,
-             taskLink: "https:uchenick55.github.io/bootstraphtmlcss/",
+             taskLink: "https://uchenick55.github.io/bootstraphtmlcss/",
              altTitle: "Пример bootstrap сайта на чистом HTML+CSS",
              description: [
                  <>
@@ -218,12 +218,12 @@ let initialState = { //стейт по умолчанию темы
                  </>
              ],
              usedTech: "HTML+CSS",
-             repositoryHref: "https:github.com/uchenick55/bootstraphtmlcss"
+             repositoryHref: "https://github.com/uchenick55/bootstraphtmlcss"
          },
          {
              TaskHeader: "Игра крестики-нолики",
              imgSrc: krestikiNoliki,
-               taskLink: "https:uchenick55.github.io/react-kabzda-1/#/rest",
+               taskLink: "https://uchenick55.github.io/react-kabzda-1/#/rest",
              altTitle: "Игра крестики-нолики",
              description: [
                  <>
@@ -231,12 +231,12 @@ let initialState = { //стейт по умолчанию темы
                  </>
              ],
              usedTech: "React",
-             repositoryHref: "https:github.com/uchenick55/react-kabzda-1/tree/main2/src/components/Rest/Krestiki-Noliki"
+             repositoryHref: "https://github.com/uchenick55/react-kabzda-1/tree/main2/src/components/Rest/Krestiki-Noliki"
          },
          {
              TaskHeader: "Страница поиска новостей",
              imgSrc: news,
-             taskLink: "https:uchenick55.github.io/react-kabzda-1/#/news",
+             taskLink: "https://uchenick55.github.io/react-kabzda-1/#/news",
              altTitle: "Страница поиска новостей",
              description: [
                  <>
@@ -244,7 +244,7 @@ let initialState = { //стейт по умолчанию темы
                  </>
              ],
              usedTech: "React + redux",
-             repositoryHref: "https:github.com/uchenick55/react-kabzda-1/tree/main2/src/components/News"
+             repositoryHref: "https://github.com/uchenick55/react-kabzda-1/tree/main2/src/components/News"
          },
     ]
 }

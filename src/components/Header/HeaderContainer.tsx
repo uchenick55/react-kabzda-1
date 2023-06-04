@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useMemo} from 'react';
 import Header from "./HeaderBS";
 import {connect} from "react-redux";
 import {deleteLoginThunkCreator} from "../../redux/auth-reducer";
@@ -26,7 +26,7 @@ const HeaderContainer: React.FC<mapStateToPropsType & mapDispatchToPropsType> = 
     return <ErrorBoundary> {/*Локальный обработчик ошибок Header*/}
         <Header
             isAuth={isAuth}
-            myProfile={myProfile}
+            myProfile={useMemo(()=>myProfile,[]) }
             deleteLogin={deleteLogin}
             setTheme1={setTheme1} // задание темы1
         /> {/*отрисовка целевой компоненты*/}

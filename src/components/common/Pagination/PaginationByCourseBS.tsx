@@ -1,4 +1,4 @@
-import React from "react";
+import React, {memo, useMemo} from "react";
 import "bootstrap/dist/css/bootstrap.min.css"
 import Pagination from 'react-bootstrap/Pagination';
 import classes from "./Pagination.module.css"
@@ -11,7 +11,7 @@ type PaginationByCourseType = {
     onChangeRangeLocal:(rangeShift:number) =>void,
 
 }
-const PaginationByCourse:React.FC<PaginationByCourseType> = ({
+const PaginationByCourse:React.FC<PaginationByCourseType> = memo( ({
                               totalUsersCount, // общее число пользователей на сервере
                               pageSize, // количество пользователей на одной странице
                               currentPage, // текущая страница пагинации
@@ -51,12 +51,12 @@ const PaginationByCourse:React.FC<PaginationByCourseType> = ({
         }
     };
 
-    const renderSlicedPages = slicedPages2.map((p) => { // мапинг отобранного массива
+    const renderSlicedPages = useMemo(()=>slicedPages2.map((p) => { // мапинг отобранного массива
         return (
             <Pagination.Item // пагинация бутстрапа
                 active={p === currentPage} // акттивная страница
                 key={p} // ключ - страница
-                 onClick={() => { // по клику
+                onClick={() => { // по клику
                     onPageChanged(p); // смена текущей старницы на кликнутую
                 }}
             >
@@ -64,7 +64,7 @@ const PaginationByCourse:React.FC<PaginationByCourseType> = ({
             </Pagination.Item>
 
         );
-    })
+    }), [slicedPages2] )
 
     return (
         <div className={classes.pagination}>
@@ -75,6 +75,6 @@ const PaginationByCourse:React.FC<PaginationByCourseType> = ({
             </Pagination>
         </div>
     );
-};
+});
 
 export default PaginationByCourse;

@@ -20,8 +20,14 @@ let reducers = combineReducers({ // объединяем стейт редьюс
     dialog2: dialod2Reducer // стейт диалог2
 });
 
-// @ts-ignore
+declare global {
+    interface Window {
+        __REDUX_DEVTOOLS_EXTENSION_COMPOSE__?: typeof compose;
+    }
+}
+
 const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
+
 
 const store = createStore(reducers, composeEnhancers(
   applyMiddleware(thunkMiddleWare)
@@ -49,3 +55,4 @@ window.store = store; // возможность смотреть стор чер
 export type AppDispatch = typeof store.dispatch;
 
 export default store
+

@@ -1,12 +1,9 @@
 import Navbar from 'react-bootstrap/Navbar';
 import NavDropdown from 'react-bootstrap/NavDropdown';
-import React from "react";
+import React, {memo} from "react";
 import classes from './Header.module.css';
 
-type DropdownNavbarBSType = {
-
-}
-const DropdownNavbarBS:React.FC<DropdownNavbarBSType> = () => {
+const DropdownNavbarBS:React.FC = memo( () => {
     return (
         <Navbar variant="dark" bg="dark" expand="lg">
             <NavDropdown title="Pages" className={classes.NavDropdown}>
@@ -20,6 +17,6 @@ const DropdownNavbarBS:React.FC<DropdownNavbarBSType> = () => {
             </NavDropdown>
         </Navbar>
     );
-}
+})
 
 export default DropdownNavbarBS;

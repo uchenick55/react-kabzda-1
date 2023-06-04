@@ -2,7 +2,7 @@ import classes from "./Users.module.css";
 import {NavLink} from "react-router-dom";
 import Image from "react-bootstrap/Image";
 import userPhoto from "../../assets/images/no-image3.png";
-import React from "react";
+import React, {memo} from "react";
 import FollowUnfollowButtons2 from "./FollowUnfollowButtons2";
 import {usersType} from "../api/apiTypes";
 import './scss/style.scss'
@@ -17,7 +17,7 @@ type UserItemsType = {
     isAuth: boolean, // селектор isAuth - флаг авторизации
 
 }
-const UserItems: React.FC<UserItemsType> = ({users, unfollowAPI, followAPI, followingInProgress, isAuth, patch, PageWidth}) => {
+const UserItems: React.FC<UserItemsType> = memo( ({users, unfollowAPI, followAPI, followingInProgress, isAuth, patch, PageWidth}) => {
     // отрисовка всех карточек с пользователями
     let gridColsClass:string = ""
     if (patch==="users") {
@@ -83,6 +83,6 @@ const UserItems: React.FC<UserItemsType> = ({users, unfollowAPI, followAPI, foll
             } )
         }
     </div>
-}
+})
 
 export default UserItems
