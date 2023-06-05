@@ -1,7 +1,7 @@
 import Image from "react-bootstrap/Image";
 import FollowPic from "../../assets/images/swg/star-.svg";
 import UnfollowPic from "../../assets/images/swg/star+.svg";
-import React from "react";
+import React, {memo} from "react";
 import {usersType} from "../api/apiTypes";
 
 type FollowUnfollowButtonsType = {
@@ -10,11 +10,13 @@ type FollowUnfollowButtonsType = {
     followingInProgress: Array<number>, // селектор followingInProgress - массив на кого мы подписались, кнопка неактивна
     isAuth: boolean, // селектор isAuth - флаг авторизации
 }
-const FollowUnfollowButtons2:React.FC<FollowUnfollowButtonsType> = ({u, followUnfollowAPICallback, followingInProgress, isAuth}) => { // унификация нажатия кнопки Follow/Unfollow
+const Trash_FollowUnfollowButtons2:React.FC<FollowUnfollowButtonsType> = memo (({u, followUnfollowAPICallback, followingInProgress, isAuth}) => { // унификация нажатия кнопки Follow/Unfollow
     // отрисовка кнопки follow/unfollow (друг/недруг) в виде звездочки на кнопке
     const starCanBePressed = followingInProgress.some(id => id === u.id)
+    const ImageLocal = memo(Image)
     return  <span>
-                    <Image
+
+                    <ImageLocal
                         fluid={true} // картинка растягивается
                         src={!u.followed ? FollowPic : UnfollowPic} // картинка в зависимости избранное или нет
                         alt={"Добавить в избранное"} // alt
@@ -28,6 +30,6 @@ const FollowUnfollowButtons2:React.FC<FollowUnfollowButtonsType> = ({u, followUn
                         }}
                     />
                 </span>
-}
+})
 
-export default FollowUnfollowButtons2
+export default Trash_FollowUnfollowButtons2

@@ -1,8 +1,7 @@
 import React from "react";
 
-type LoginInfoShortType = {}
-const LoginInfoShort:React.FC<LoginInfoShortType> = () => {
-    return (<div>
+const LoginInfoShort:React.FC = () => {
+    return <div>
         Страницы Profile и Dialogs доступны только после авторизации.
         <p>Данные для тестового входа:</p>
         <p>Аккаунт 1: Email: evgeniysazonov1983@gmail.com <br/>
@@ -14,7 +13,7 @@ const LoginInfoShort:React.FC<LoginInfoShortType> = () => {
         <p>В случае проблем с авторизацией, попробуйте сначала войти по указанным парам логин/пароль на <br/>
             <a href="https://social-network.samuraijs.com/">https://social-network.samuraijs.com/</a>
         </p>
-    </div>)
+    </div>
 }
 
 export default LoginInfoShort

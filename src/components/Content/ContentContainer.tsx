@@ -1,4 +1,4 @@
-import React, {Suspense, useEffect} from "react";
+import React, {memo, Suspense, useEffect} from "react";
 import {Route, Routes} from "react-router-dom";
 import ErrorBoundary from "../common/ErrorBoundary/ErrorBoundary";
 import Tasks from "../Tasks/Tasks";
@@ -23,7 +23,7 @@ type ContentContainerType = {
     setPatch: (patch: string) => void,
     setPageWidth: (PageWidth: number) => void
 }
-let ContentContainer: React.FC<ContentContainerType> = ({setPatch, setPageWidth}) => { // вынес роутинг контента в отдельную компоненту
+let ContentContainer: React.FC<ContentContainerType> = memo( ({setPatch, setPageWidth}) => { // вынес роутинг контента в отдельную компоненту
 
     const dispatch = useDispatch<AppDispatch>();
 
@@ -80,5 +80,5 @@ let ContentContainer: React.FC<ContentContainerType> = ({setPatch, setPageWidth}
             </Suspense>
         </ErrorBoundary>
     </div>)
-}
+})
 export default ContentContainer

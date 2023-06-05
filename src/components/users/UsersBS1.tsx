@@ -1,4 +1,4 @@
-import React, {ChangeEvent, useState} from "react";
+import React, {ChangeEvent, memo, useMemo, useState} from "react";
 import classes from "./Users.module.css";
 import PaginationByCourse from "../common/Pagination/PaginationByCourseBS";
 import InputButtonUsersRender from "./InputButtonRender";
@@ -29,13 +29,14 @@ type UsersBSType = {
     onChangeRangeLocal:(rangeShift:number) =>void,
     setOnlyFriends:(onlyFriends: boolean)=>void,
 }
-const UsersBS:React.FC<UsersBSType> = ({
+const UsersBS:React.FC<UsersBSType> = memo( ({
                      totalUsersCount, pageSize, currentPage, onPageChanged, users,
                      followingInProgress, unfollowAPI, isAuth, followAPI,
                      SetTermFunction, onChangeTerm, onChangeTermFunction,
                      onChangeRangeLocal, currentRangeLocal, setOnlyFriends, onlyFriends, patch, PageWidth
                                            // раскукожили все пропсы
                  }) => {
+    const usersMemo:Array<usersType> = useMemo(()=>users,[users])
 
     const [error, setError] = useState<any>( {message:""})
     if (error.message) {
@@ -106,7 +107,7 @@ const UsersBS:React.FC<UsersBSType> = ({
         // console.log("try/catch -UsersBS.jsx выполнен! ") действие после прохождения try/catch
     }
 
-}
+})
 
 export default UsersBS
 

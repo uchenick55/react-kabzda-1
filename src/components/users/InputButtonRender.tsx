@@ -1,4 +1,4 @@
-import React, {ChangeEvent} from "react";
+import React, {ChangeEvent, memo} from "react";
 import Stack from "react-bootstrap/Stack";
 import Form from 'react-bootstrap/Form';
 import Button from "react-bootstrap/Button";
@@ -16,7 +16,7 @@ type InputButtonUsersRenderType = {
     handleClick:(event: React.MouseEvent<HTMLButtonElement, MouseEvent>) => void,
     setOnlyFriends:(onlyFriends: boolean)=>void,
 }
-const InputButtonUsersRender:React.FC<InputButtonUsersRenderType> = ({onChangeTerm, onChangeTermFunction, SetTermFunction, handleClick, setOnlyFriends, onlyFriends}) => {
+const InputButtonUsersRender:React.FC<InputButtonUsersRenderType> = memo( ({onChangeTerm, onChangeTermFunction, SetTermFunction, handleClick, setOnlyFriends, onlyFriends}) => {
     const dispatch = useDispatch()
 
     return <div>
@@ -37,7 +37,7 @@ const InputButtonUsersRender:React.FC<InputButtonUsersRenderType> = ({onChangeTe
                         onChange={(event) => {// по изменению поля получить значение
                             onChangeTermFunction(event)
                         }}
-                        onBlur={SetTermFunction}// задать в локальный стейт значение поиска при потере фокуса
+                        //onBlur={SetTermFunction}// задать в локальный стейт значение поиска при потере фокуса
                         placeholder={"find users..."} // пояснение поля ввода
                         //autoFocus
                     /> {/*сразу фокусировка на поле ввода */}
@@ -50,5 +50,5 @@ const InputButtonUsersRender:React.FC<InputButtonUsersRenderType> = ({onChangeTe
             </Stack>
         </Form>
     </div>
-}
+})
 export default InputButtonUsersRender

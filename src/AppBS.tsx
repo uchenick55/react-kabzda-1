@@ -1,4 +1,4 @@
-import React, {useEffect} from "react";
+import React, {memo, useEffect} from "react";
 import './theme.scss';
 import commonClasses from "./components/common/CommonClasses/common.module.css";
 import {HashRouter} from "react-router-dom";
@@ -13,7 +13,7 @@ import Container from "react-bootstrap/Container";
 import FooterBS from "./components/Footer/FooterBS";
 import {AppDispatch, GlobalStateType} from "./redux/store-redux";
 
-const AppBS: React.FC = ({}) => {
+const AppBS: React.FC = memo(({}) => {
 
     const theme:"light" | "dark" = useSelector((state:GlobalStateType) =>state.theme.themeBLL )
     const initialisedApp:boolean = useSelector((state:GlobalStateType) =>state.app.initialisedApp )
@@ -44,6 +44,6 @@ const AppBS: React.FC = ({}) => {
             </div>
         </HashRouter>
     );
-}
+})
 export default  AppBS;
 // коннектим к app флаг и санки инициализации
