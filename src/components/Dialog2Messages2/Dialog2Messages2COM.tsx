@@ -1,4 +1,4 @@
-import React from "react";
+import React, {memo} from "react";
 import classesCommon from "./dialog2Messages2COM.module.scss";
 import Dialog2Render from "./Dialog2/Dialog2Render";
 import Messages2Render from "./Messages2/Messages2Render";
@@ -20,10 +20,11 @@ type Dialog2RenderType = {
     Msg2Restore:  (message2Id: string)=> void // восстановить сообщение из спама и удаленных
 }
 
-const Dialog2Messages2COM: React.FC<Dialog2RenderType> = (
+const Dialog2Messages2COM: React.FC<Dialog2RenderType> = memo( (
     {patch, PageWidth, MobileWidth, Dialog2All, MessagesNewerThen, Msg2DeleteMessage, Msg2SendMessage, userId,
         D2Item, myId, Msg2MarkAsSpam, Msg2Restore}
     ) => {
+    console.log("Dialog2Messages2COM")
     return <div className={classesCommon.dialog2Messages2Common}>
         {/*Отрисовка поля диалогов*/}
         <Dialog2Render PageWidth={PageWidth} MobileWidth={MobileWidth} patch={patch} Dialog2All={Dialog2All}/>
@@ -35,5 +36,5 @@ const Dialog2Messages2COM: React.FC<Dialog2RenderType> = (
                          Msg2Restore={Msg2Restore}
         />
     </div>
-}
+})
 export default Dialog2Messages2COM

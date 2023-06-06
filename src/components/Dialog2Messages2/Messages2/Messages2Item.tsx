@@ -1,4 +1,4 @@
-import React, {useState} from "react";
+import React, {memo, useState} from "react";
 import classes from "./messages2Render.module.scss"
 import Msg2DropDownMenu from "./Msg2DropDownMenu";
 import dustBin from "../../../assets/images/swg/dust-bin2.svg"
@@ -19,12 +19,12 @@ type Messages2ItemType = {
     Msg2Restore: (message2Id: string) => void // восстановить сообщение из спама и удаленных
 
 }
-const Messages2Item: React.FC<Messages2ItemType> = (
+const Messages2Item: React.FC<Messages2ItemType> = memo (   (
     {
         id, body, Msg2DeleteMessage, addedAt, senderId, myId, Msg2MarkAsSpam, Msg2Restore, deletedBySender,
         isSpam, addedAtPrev
     }) => {
-
+    console.log("Элемент сообщений")
     const DateLocal = GetDate( addedAt ) // дата из текста со смещением + 3 часа
     const PrevDateLocal = GetDate( addedAtPrev ) // предыдущая дата из текста со смещением + 3 часа
 
@@ -81,10 +81,5 @@ const Messages2Item: React.FC<Messages2ItemType> = (
             </div>
         </div>
     </div>
-}
-//React.memo(
-export default React.memo( Messages2Item )
-/*
-onClick={() => {
-    Msg2DeleteMessage( id )
-}}*/
+})
+export default Messages2Item

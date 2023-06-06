@@ -1,4 +1,4 @@
-import React from "react";
+import React, {memo} from "react";
 import classes from "./dialog2Render.module.css"
 import userPhoto from "../../../assets/images/no-image3.png";
 import {NavLink} from "react-router-dom";
@@ -9,14 +9,12 @@ type Dialog2ItemType = {
     hasNewMessages: boolean,
     lastDialogActivityDate: string, //"2023-04-30T19:10:31.843"
     newMessagesCount: number, //0
-    photos: {
-        small: string,// "https://social-network.samuraijs.com/activecontent/images/users/27045/user-small.jpg?v=1",
-        large: string// "https://social-network.samuraijs.com/activecontent/images/users/27045/user.jpg?v=1"
-    },
+    photosSmall: string,// "https://social-network.samuraijs.com/activecontent/images/users/27045/user-small.jpg?v=1",
     id: number
 }
-const Dialog2Item: React.FC<Dialog2ItemType> = (
-    {userName, hasNewMessages, photos, lastDialogActivityDate, newMessagesCount, id}) => {
+const Dialog2Item: React.FC<Dialog2ItemType> = memo ( (
+    {userName, hasNewMessages, photosSmall, lastDialogActivityDate, newMessagesCount, id}) => {
+    console.log("Dialog2Item")
     const DateLocal = GetDate(lastDialogActivityDate) // получаем дату последнего сообщения
     return <div className={classes.Dialog2ItemCardExt}>
         <NavLink to={'/messages/' + id}>
@@ -24,7 +22,7 @@ const Dialog2Item: React.FC<Dialog2ItemType> = (
                 <div className={classes.Dialog2ItemCardName}>{userName}</div>   {/*Имя пользователя*/}
                 {hasNewMessages && <div
                     className={classes.Dialog2ItemCardNewMsgCnt}>{newMessagesCount}</div>} {/*вывод количества новых сообщений*/}
-                <img src={photos.small ? photos.small : userPhoto} className={classes.Dialog2ItemCardPhoto}
+                <img src={photosSmall ? photosSmall : userPhoto} className={classes.Dialog2ItemCardPhoto}
                      alt="CardPhoto"/> {/*Фото*/}
                 <div className={classes.Dialog2ItemCardMsgTime}>{
 
@@ -37,5 +35,5 @@ const Dialog2Item: React.FC<Dialog2ItemType> = (
             </div>
         </NavLink>
     </div>
-}
-export default React.memo(Dialog2Item)
+})
+export default Dialog2Item

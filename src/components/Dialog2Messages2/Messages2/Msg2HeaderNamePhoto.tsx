@@ -1,4 +1,4 @@
-import React from "react";
+import React, {memo} from "react";
 import {newMessagesItem} from "../../api/apiTypes";
 import classes from "./messages2Render.module.scss"
 import userPhoto from "../../../assets/images/no-image3.png";
@@ -10,7 +10,8 @@ type Msg2HeaderNamePhotoType = {
     D2Item: newMessagesItem // отфильтрованый  из Dialog2All выбранный пользователь по userId
 
 }
-const Msg2HeaderNamePhoto: React.FC<Msg2HeaderNamePhotoType> = ({userId, D2Item}) => {
+const Msg2HeaderNamePhoto: React.FC<Msg2HeaderNamePhotoType> = memo ( ({userId, D2Item}) => {
+    console.log("Header сообщений")
     const photoSrc = D2Item && D2Item.photos && D2Item.photos.small ? D2Item.photos.small : userPhoto // фото с сервера или заглушка
     const DateLocal = GetDate(D2Item && D2Item.lastUserActivityDate) // получаем дату последнего сообщения
     return <div>
@@ -27,5 +28,5 @@ const Msg2HeaderNamePhoto: React.FC<Msg2HeaderNamePhotoType> = ({userId, D2Item}
             </div>
         </div>}
     </div>
-}
-export default React.memo( Msg2HeaderNamePhoto ) // сокращаем число ререндеров
+})
+export default  Msg2HeaderNamePhoto // сокращаем число ререндеров

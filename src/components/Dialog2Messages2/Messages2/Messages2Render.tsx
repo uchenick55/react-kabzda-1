@@ -1,4 +1,4 @@
-import React from "react";
+import React, {memo, useCallback} from "react";
 import classes from "./messages2Render.module.scss"
 import {newMessagesItem, sendMessageType} from "../../api/apiTypes";
 import Messages2Item from "./Messages2Item";
@@ -10,20 +10,25 @@ type Dialog2RenderType = {
     PageWidth: number, // ширина страницы
     MobileWidth: number, // ширина страницы, считающаяся мобильной версткой
     userId: number, // id пользователя из URL
+    myId: number // номер моего id
+
     MessagesNewerThen: Array<sendMessageType> // сообщения выбранного диалога, новее заданной даты
     D2Item: newMessagesItem // отфильтрованый  из Dialog2All выбранный пользователь по userId
-    myId: number // номер моего id
+
     Msg2DeleteMessage: (message2Id: string) => void // удаление сообщения по его id
     Msg2SendMessage: (messageBody: string) => void // отправить сообщение указанному пользователю
     Msg2MarkAsSpam: (message2Id: string)=> void // пометить сообщение как спам
     Msg2Restore:  (message2Id: string)=> void // восстановить сообщение из спама и удаленных
 
 }
-const Messages2Render: React.FC<Dialog2RenderType> = (
+const Messages2Render: React.FC<Dialog2RenderType> = memo( (
     {
         PageWidth, MobileWidth, patch, MessagesNewerThen, Msg2DeleteMessage, Msg2SendMessage, userId,
         D2Item, myId, Msg2MarkAsSpam, Msg2Restore
     }) => {
+    console.log("Messages2Render")
+
+  //  const Msg2SendMessageMemo = useCallback(Msg2SendMessage, [])
     return <div>
         {patch === "dialog2" && PageWidth > MobileWidth && <div
             //- предложение выбрать диалог.Fixed все остальное поле справа.
@@ -77,5 +82,5 @@ const Messages2Render: React.FC<Dialog2RenderType> = (
 
     </div>
 
-}
+})
 export default Messages2Render

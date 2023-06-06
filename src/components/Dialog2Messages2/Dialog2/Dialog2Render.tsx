@@ -35,8 +35,9 @@ const Dialog2Render: React.FC<Dialog2RenderType> = (
                 >
                     {Dialog2AllFiltered.map( d2 => {
                         const {id, userName, hasNewMessages, lastDialogActivityDate, newMessagesCount, photos} = d2
+                        const photosSmall = photos.small
                         return <Dialog2Item
-                            key={id} userName={userName} hasNewMessages={hasNewMessages} photos={photos}
+                            key={id} userName={userName} hasNewMessages={hasNewMessages} photosSmall={photosSmall}
                             lastDialogActivityDate={lastDialogActivityDate} newMessagesCount={newMessagesCount}
                             id={id}/>
                     } )}

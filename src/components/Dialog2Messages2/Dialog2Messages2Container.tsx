@@ -1,4 +1,4 @@
-import React, {useCallback, useEffect} from "react";
+import React, {useCallback, useEffect, useMemo} from "react";
 import {connect, useDispatch, useSelector} from "react-redux";
 import {GlobalStateType} from "../../redux/store-redux";
 import {
@@ -37,14 +37,15 @@ const Dialog2Messages2Container: React.FC<OwnPropsType> = ({userId}) => {
         dispatch( deleteDialog2MessageIdThCr( message2Id, userId, "2022-04-30T19:10:31.843", MessagesNewerThen ) )
     }, [userId, MessagesNewerThen, deleteDialog2MessageIdThCr] )
 
-    const Msg2MarkAsSpam = (message2Id: string) => {// - пометить сообщение как спам по ID сообщения
+    const Msg2MarkAsSpam = useCallback( (message2Id: string) => {// - пометить сообщение как спам по ID сообщения
         dispatch( postDialog2MessageIdToSpamThCr( message2Id, MessagesNewerThen ) )
-    }
-    const Msg2Restore = (message2Id: string) => {// - восстановить сообщение из спама и Deleted ID сообщения
-        dispatch( putDialog2MessageIdRestoreThCr( message2Id, MessagesNewerThen ) ) // - восстановить сообщение из спама и удаленных
-    }
+    },[postDialog2MessageIdToSpamThCr, MessagesNewerThen])
 
-    const Msg2SendMessage = (messageBody: string) => {
+    const Msg2Restore = useCallback( (message2Id: string) => {// - восстановить сообщение из спама и Deleted ID сообщения
+        dispatch( putDialog2MessageIdRestoreThCr( message2Id, MessagesNewerThen ) ) // - восстановить сообщение из спама и удаленных
+    }, [putDialog2MessageIdRestoreThCr, MessagesNewerThen])
+
+    const Msg2SendMessage = useCallback((messageBody: string) => {
         dispatch( postDialog2MessageThCr( userId, messageBody, "2022-04-30T19:10:31.843", Markers ) )// отправить сообщение указав ID пользователя
         if (Markers.dialogId !== userId) { //Если мы еще не начали диалог с пользователем, и отправили сообщение
             dispatch( putDialog2StartThCr( userId ) ) // инициировать диалог
@@ -53,7 +54,8 @@ const Dialog2Messages2Container: React.FC<OwnPropsType> = ({userId}) => {
                 dialogId: userId
             } ) )
         }
-    }
+    },[])
+
     const secondBlock = document.querySelector( '.second-block' ) // ссылка на прокрутку вниз
 
     const MSG2ScrollBottom = useCallback( () => {
@@ -129,9 +131,13 @@ const Dialog2Messages2Container: React.FC<OwnPropsType> = ({userId}) => {
 
     return <div>
         <Dialog2Messages2COM
-            patch={patch} PageWidth={PageWidth} MobileWidth={MobileWidth} Dialog2All={Dialog2All}
-            MessagesNewerThen={MessagesNewerThen} Msg2DeleteMessage={Msg2DeleteMessage}
-            Msg2SendMessage={Msg2SendMessage} userId={userId} D2Item={D2Item}
+            Dialog2All={useMemo(()=>Dialog2All,[Dialog2All]) }
+            MessagesNewerThen={useMemo(()=>MessagesNewerThen,[MessagesNewerThen])}
+            D2Item={useMemo(()=>D2Item,[D2Item])}
+
+            patch={patch} PageWidth={PageWidth} MobileWidth={MobileWidth}
+            Msg2DeleteMessage={Msg2DeleteMessage}
+            Msg2SendMessage={Msg2SendMessage} userId={userId}
             myId={myId} Msg2MarkAsSpam={Msg2MarkAsSpam} Msg2Restore={Msg2Restore}
         />
     </div>
