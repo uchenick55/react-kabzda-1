@@ -1,12 +1,11 @@
 import React, {useCallback, useEffect, useMemo} from "react";
-import {connect, useDispatch, useSelector} from "react-redux";
+import {useDispatch, useSelector} from "react-redux";
 import {GlobalStateType} from "../../redux/store-redux";
 import {
-    deleteDialog2MessageIdThCr,
     Dialog2Actions, MarkersType,
     getDialog2AllThCr, getDialog2MessagesNewerThenThCr,
-    postDialog2MessageIdToSpamThCr, postDialog2MessageThCr,
-    putDialog2MessageIdRestoreThCr, putDialog2StartThCr
+    postDialog2MessageThCr,
+    putDialog2StartThCr
 } from "../../redux/dialog2-reducer";
 import Dialog2Messages2COM from "./Dialog2Messages2COM";
 import {getDialog2AllType, newMessagesItem, sendMessageType} from "../api/apiTypes";
@@ -32,18 +31,6 @@ const Dialog2Messages2Container: React.FC<OwnPropsType> = ({userId}) => {
     const {setMarkers, setD2Item, getDialog2AllAC, setd2Userid} = Dialog2Actions // получить экшены
 
     const dispatch = useDispatch()
-
-    const Msg2DeleteMessage = useCallback( (message2Id: string) => {// - удалить сообщение (только у себя) по ID сообщения
-        dispatch( deleteDialog2MessageIdThCr( message2Id ) )
-    }, [deleteDialog2MessageIdThCr] )
-
-    const Msg2MarkAsSpam = useCallback( (message2Id: string) => {// - пометить сообщение как спам по ID сообщения
-        dispatch( postDialog2MessageIdToSpamThCr( message2Id ) )
-    },[postDialog2MessageIdToSpamThCr, MessagesNewerThen])
-
-    const Msg2Restore = useCallback( (message2Id: string) => {// - восстановить сообщение из спама и Deleted ID сообщения
-        dispatch( putDialog2MessageIdRestoreThCr( message2Id ) ) // - восстановить сообщение из спама и удаленных
-    }, [putDialog2MessageIdRestoreThCr])
 
     const Msg2SendMessage = useCallback((messageBody: string) => {
         dispatch( postDialog2MessageThCr( userId, messageBody, "2022-04-30T19:10:31.843", Markers ) )// отправить сообщение указав ID пользователя
@@ -141,9 +128,8 @@ const Dialog2Messages2Container: React.FC<OwnPropsType> = ({userId}) => {
             D2Item={useMemo(()=>D2Item,[D2Item])}
 
             patch={patch} PageWidth={PageWidth} MobileWidth={MobileWidth}
-            Msg2DeleteMessage={Msg2DeleteMessage}
             Msg2SendMessage={Msg2SendMessage} userId={userId}
-            myId={myId} Msg2MarkAsSpam={Msg2MarkAsSpam} Msg2Restore={Msg2Restore}
+            myId={myId}
         />
     </div>
 }

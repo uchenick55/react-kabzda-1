@@ -14,26 +14,20 @@ type Dialog2RenderType = {
     MessagesNewerThen: Array<sendMessageType> // сообщения выбранного диалога, новее заданной даты
     D2Item: newMessagesItem, // отфильтрованый  из Dialog2All выбранный пользователь по userId
     myId: number // номер моего id
-    Msg2DeleteMessage: (message2Id: string) => void // удаление сообщения по его id
     Msg2SendMessage: (messageBody:string) => void // отправить сообщение указанному пользователю
-    Msg2MarkAsSpam: (message2Id: string)=> void // пометить сообщение как спам
-    Msg2Restore:  (message2Id: string)=> void // восстановить сообщение из спама и удаленных
-}
+ }
 
 const Dialog2Messages2COM: React.FC<Dialog2RenderType> = memo( (
-    {patch, PageWidth, MobileWidth, Dialog2All, MessagesNewerThen, Msg2DeleteMessage, Msg2SendMessage, userId,
-        D2Item, myId, Msg2MarkAsSpam, Msg2Restore}
+    {patch, PageWidth, MobileWidth, Dialog2All, MessagesNewerThen, Msg2SendMessage, userId,
+        D2Item, myId}
     ) => {
-    console.log("Dialog2Messages2COM")
     return <div className={classesCommon.dialog2Messages2Common}>
         {/*Отрисовка поля диалогов*/}
         <Dialog2Render PageWidth={PageWidth} MobileWidth={MobileWidth} patch={patch} Dialog2All={Dialog2All}/>
 
         <Messages2Render PageWidth={PageWidth} MobileWidth={MobileWidth} patch={patch}
-                         MessagesNewerThen={MessagesNewerThen} Msg2DeleteMessage={Msg2DeleteMessage}
-                         Msg2SendMessage={Msg2SendMessage} userId={userId} D2Item={D2Item}
-                         myId={myId} Msg2MarkAsSpam={Msg2MarkAsSpam}
-                         Msg2Restore={Msg2Restore}
+                         MessagesNewerThen={MessagesNewerThen} Msg2SendMessage={Msg2SendMessage}
+                         userId={userId} D2Item={D2Item} myId={myId}
         />
     </div>
 })

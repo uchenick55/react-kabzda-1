@@ -15,18 +15,14 @@ type Dialog2RenderType = {
     MessagesNewerThen: Array<sendMessageType> // сообщения выбранного диалога, новее заданной даты
     D2Item: newMessagesItem // отфильтрованый  из Dialog2All выбранный пользователь по userId
 
-    Msg2DeleteMessage: (message2Id: string) => void // удаление сообщения по его id
     Msg2SendMessage: (messageBody: string) => void // отправить сообщение указанному пользователю
-    Msg2MarkAsSpam: (message2Id: string)=> void // пометить сообщение как спам
-    Msg2Restore:  (message2Id: string)=> void // восстановить сообщение из спама и удаленных
 
 }
 const Messages2Render: React.FC<Dialog2RenderType> = memo( (
     {
-        PageWidth, MobileWidth, patch, MessagesNewerThen, Msg2DeleteMessage, Msg2SendMessage, userId,
-        D2Item, myId, Msg2MarkAsSpam, Msg2Restore
+        PageWidth, MobileWidth, patch, MessagesNewerThen, Msg2SendMessage, userId,
+        D2Item, myId
     }) => {
-    console.log("Messages2Render")
 
   //  const Msg2SendMessageMemo = useCallback(Msg2SendMessage, [])
     return <div>

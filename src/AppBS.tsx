@@ -20,12 +20,10 @@ const AppBS: React.FC = memo(({}) => {
 
     const dispatch = useDispatch<AppDispatch>();
 
-    const {setPatch, setPageWidth} = AppActions
-
         useEffect( () => {
             dispatch( initialisedAppThunkCreator()) // запускаем инициализацию приложения
-
     }, [] )
+
     if (!initialisedApp) { // если приложение еще не инициализировано
         return <Preloader/> // показать статус загрузки
     }
@@ -36,7 +34,7 @@ const AppBS: React.FC = memo(({}) => {
                 <ErrorBoundary> {/*Общий обработчик ошибок во всем приложении*/}
                     <Container className={commonClasses.minwidth}>
                         <HeaderContainer/> {/*плавающий заголовок*/}
-                        <ContentContainer setPatch={setPatch} setPageWidth={setPageWidth}/>
+                        <ContentContainer/>
                         {/*страницы контента в зависмости от URL*/}
                         <FooterBS/>
                     </Container>

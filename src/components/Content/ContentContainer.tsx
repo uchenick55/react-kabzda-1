@@ -6,9 +6,10 @@ import Home from "../Home/Home";
 import classes from "./ContentContainer.module.css"
 import {useLocation} from "react-router";
 import {BreadCrumbs} from "../BreadCrumbs/BreadCrumbs";
-import {useDispatch} from "react-redux";
+import {useDispatch, useSelector} from "react-redux";
 import type {} from 'redux-thunk/extend-redux';
-import {AppDispatch} from "../../redux/store-redux";
+import {AppDispatch, GlobalStateType} from "../../redux/store-redux";
+import {AppActions} from "../../redux/app-reducer";
 
 const UsersContainer = React.lazy( () => import("../users/UsersContainerFC") )
 const ProfileContainer = React.lazy( () => import("../Profile/ProfileContainerFC") )
@@ -19,11 +20,10 @@ const Rest = React.lazy( () => import("../Rest/Krestiki-Noliki/KrestikiNoliki") 
 const StackInfo = React.lazy( () => import("../Info/StackInfoBS") )
 const FeedBackContainer = React.lazy( () => import("../FeedBack/FeedBackContainer") )
 
-type ContentContainerType = {
-    setPatch: (patch: string) => void,
-    setPageWidth: (PageWidth: number) => void
-}
-let ContentContainer: React.FC<ContentContainerType> = memo( ({setPatch, setPageWidth}) => { // вынес роутинг контента в отдельную компоненту
+let ContentContainer: React.FC = memo( () => { // вынес роутинг контента в отдельную компоненту
+
+    const {setPatch, setPageWidth} = AppActions
+    const Patch: string = useSelector((state:GlobalStateType) => state.app.patch)
 
     const dispatch = useDispatch<AppDispatch>();
 
@@ -39,9 +39,12 @@ let ContentContainer: React.FC<ContentContainerType> = memo( ({setPatch, setPage
             Aaa.push( patch2[i] ) // добавляем элементы в массив
         }
 
-        const Bbb: string = Aaa.join( "" ) // итоговый путь
-        dispatch( setPatch( Bbb ))
-        // обновить данные пути patch в app-reducer
+        const UpdatedPatch: string = Aaa.join( "" ) // итоговый путь
+        if (Patch!== UpdatedPatch) {
+            dispatch( setPatch( UpdatedPatch ))
+            // обновить данные пути patch в app-reducer
+        }
+
     }, [location, setPatch] )
 
     const setPageWidthLocal  = () => { //записываем ширину окна в стор
