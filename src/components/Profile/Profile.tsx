@@ -1,12 +1,12 @@
-import React from 'react';
+import React, {memo} from 'react';
 import classes from './Profile.module.css'
 import ProfileInfo from "./ProfileInfo/ProfileInfoBS";
 import MyPostsContainer from "./MyPosts/MyPostsContainer";
 import {getProfileType} from "../api/apiTypes";
-import {ProfileType} from "../../types/commonTypes";
+import {NulableType, ProfileType} from "../../types/commonTypes";
 
 type ProfileType2 = {
-    profile: getProfileType,
+    profile: NulableType<getProfileType>,
     status: string,
     myId: number,
     userId: number,
@@ -17,7 +17,7 @@ type ProfileType2 = {
     setEditProfileStatus: (editProfileStatus: Array<string>)=> void
 }
 
-const Profile: React.FC<ProfileType2> = ({
+const Profile: React.FC<ProfileType2> = memo( ({
                      profile, status, myId, putStatusThunkCreator, uploadImage,
                      userId, putProfile, editProfileStatus, setEditProfileStatus
                  }) => {
@@ -43,5 +43,5 @@ const Profile: React.FC<ProfileType2> = ({
             userId={userId} // id выбранного пользователя, берется из URL
         />
     </div>
-}
+})
 export default Profile;

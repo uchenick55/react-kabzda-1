@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from 'react';
+import React, {memo, useEffect, useState} from 'react';
 import ButtonOverImage from '../../common/CommonClasses/ButtonOverImage.module.css'
 import Preloader from "../../common/Preloader/Preloader";
 import ProfileStatusUseReducer from "./ProfileStatus/ProfileStatusUseReducer"; //ProfileStatusClass | ProfileStatusUseState
@@ -11,12 +11,12 @@ import Container from "react-bootstrap/Container";
 import Image from 'react-bootstrap/Image'
 import commonClasses from "../../common/CommonClasses/common.module.css";
 import {getProfileType} from "../../api/apiTypes";
-import {ProfileType} from "../../../types/commonTypes";
+import {NulableType, ProfileType} from "../../../types/commonTypes";
 import ShowProfile from "./ShowProfile";
 
 
 type ProfileInfoType2 = {
-    profile: getProfileType,
+    profile: NulableType<getProfileType>,
     status: string,
     myId: number,
     userId: number,
@@ -27,7 +27,7 @@ type ProfileInfoType2 = {
     setEditProfileStatus: (editProfileStatus: Array<string>) => void
 }
 
-const ProfileInfo: React.FC<ProfileInfoType2> = ({
+const ProfileInfo: React.FC<ProfileInfoType2> = memo( ({
                                                      profile, myId, status, putStatusThunkCreator, uploadImage,
                                                      userId, putProfile, editProfileStatus, setEditProfileStatus
                                                  }) => {
@@ -144,5 +144,5 @@ const ProfileInfo: React.FC<ProfileInfoType2> = ({
             </Row>
         </Container>
     </div>
-}
+})
 export default ProfileInfo;

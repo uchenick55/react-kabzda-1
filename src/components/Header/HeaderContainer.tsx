@@ -1,4 +1,4 @@
-import React, {useMemo} from 'react';
+import React, {useCallback, useMemo} from 'react';
 import Header from "./HeaderBS";
 import {connect} from "react-redux";
 import {deleteLoginThunkCreator} from "../../redux/auth-reducer";
@@ -13,22 +13,23 @@ import {GlobalStateType} from "../../redux/store-redux";
 const HeaderContainer: React.FC<mapStateToPropsType & mapDispatchToPropsType> = (
     {themeBLL, isAuth, myId, deleteLoginThunkCreator, getProfileThunkCreator, myProfile, setThemeThunkCreator}) => {
 
-    const setTheme1 = () => {
+    const setTheme1 = useCallback(() => {
 
         const themeBLL1:"light" | "dark" = themeBLL === "light" ? "dark" : "light" //инверсия темы при вызове
         setThemeThunkCreator( themeBLL1 ) // вызов смены темы
-    }
+    },[themeBLL])
 
-    const deleteLogin = () => {
+    const deleteLogin = useCallback (() => {
         deleteLoginThunkCreator()// логаут текущего пользователя
-    }
+    },[])
 
     return <ErrorBoundary> {/*Локальный обработчик ошибок Header*/}
         <Header
             isAuth={isAuth}
-            myProfile={useMemo(()=>myProfile,[]) }
+            myProfile={useMemo(()=>myProfile,[myProfile]) }
             deleteLogin={deleteLogin}
             setTheme1={setTheme1} // задание темы1
+            themeBLL={themeBLL}
         /> {/*отрисовка целевой компоненты*/}
     </ErrorBoundary>
 }

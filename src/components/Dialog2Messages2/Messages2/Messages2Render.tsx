@@ -24,7 +24,6 @@ const Messages2Render: React.FC<Dialog2RenderType> = memo( (
         D2Item, myId
     }) => {
 
-  //  const Msg2SendMessageMemo = useCallback(Msg2SendMessage, [])
     return <div>
         {patch === "dialog2" && PageWidth > MobileWidth && <div
             //- предложение выбрать диалог.Fixed все остальное поле справа.

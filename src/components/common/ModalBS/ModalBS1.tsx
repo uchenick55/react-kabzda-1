@@ -1,17 +1,17 @@
-import React from 'react';
+import React, {memo} from 'react';
 import Button from 'react-bootstrap/Button';
 import Modal from 'react-bootstrap/Modal';
 import {modalBodyType, modalHeaderType} from "../../../types/commonTypes";
 
 type ModalBS1Type = {
     show: boolean,// флаг показывать ли модальное окно
-    setShow: (show: boolean)=>void, // изменение флага show (будет ли показано модальное окно)
+    buttonName: string // текст, отображаемый на кнопке
     modalHeader: modalHeaderType,// JSX элемент заголовка модального окна
     modalBody: modalBodyType, // JSX элемент тела модального окна
+    setShow: (show: boolean)=>void, // изменение флага show (будет ли показано модальное окно)
     buttonOnClick: () => void, // событие при клике на кнопку модального окна
-    buttonName: string // текст, отображаемый на кнопке
 }
-const ModalBS1:React.FC<ModalBS1Type> = ({show, setShow, modalHeader, modalBody, buttonOnClick, buttonName}) => {
+const ModalBS1:React.FC<ModalBS1Type> = memo ( ({show, setShow, modalHeader, modalBody, buttonOnClick, buttonName}) => {
 
     const localAction = () => {
         setShow(false)
@@ -33,6 +33,6 @@ const ModalBS1:React.FC<ModalBS1Type> = ({show, setShow, modalHeader, modalBody,
             </Modal>
         </>
     );
-}
+})
 
 export default ModalBS1

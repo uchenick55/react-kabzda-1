@@ -2,12 +2,10 @@ import React, {memo} from "react";
 import {Formik, Form} from "formik"; //формик с компонентами и пользовательским хуком
 import * as Yup from 'yup' // валидация форм с помошью сторонней библиотеки Yup
 //import DisplayFormikState from "../../../common/formikCommon/DisplayFormikState"
-import {MyTextInput} from "../../common/formikCommon/MyFieldsBS"
 import Button from "react-bootstrap/Button";
-import Image from "react-bootstrap/Image";
 import sendSwg from "../../../assets/images/swg/send-svg2.svg"
 import classes from "./Msg2SendMessageRender.module.css"
-import {ButtonMemo, FormMemo, ImageMemo, MyTextInputMemo} from "../../common/BootstrapMemo/BootstrapMemo";
+import {ImageMemo, MyTextInputMemo} from "../../common/BootstrapMemo/BootstrapMemo";
 
 let myInitialValues = { // начальные зачения форм
     newMessage: "",
@@ -39,7 +37,7 @@ const Msg2SendMessageRender: React.FC<DialogFormikType> = memo (({Msg2SendMessag
                   handleReset,// обнуление полей
                   values,
               }) => ( // обертка для вывода значений ввода в любом месте формы паралельно (или в итоге)
-                <FormMemo>
+                <Form>
                     <div className='d-flex d-inline-block justify-content-center align-items-center'>
                         <div className='col-9'>
                             <MyTextInputMemo // сообщение в MyPostsBS
@@ -62,7 +60,7 @@ const Msg2SendMessageRender: React.FC<DialogFormikType> = memo (({Msg2SendMessag
                         </Button>
                     </div>
                     {/*   <DisplayFormikState/> {/*отображение всего стейта формика*/}
-                </FormMemo>
+                </Form>
             )}
         </Formik>
     </div>

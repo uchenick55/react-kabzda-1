@@ -4,7 +4,7 @@ import React, {memo} from "react";
 import classes from './Header.module.css';
 
 const DropdownNavbarBS:React.FC = memo( () => {
-    return (
+    return  <div>
         <Navbar variant="dark" bg="dark" expand="lg">
             <NavDropdown title="Pages" className={classes.NavDropdown}>
                 <NavDropdown.Item href="#/">Home</NavDropdown.Item>
@@ -16,7 +16,7 @@ const DropdownNavbarBS:React.FC = memo( () => {
                 <NavDropdown.Item href="#/tasks">Tasks</NavDropdown.Item>
             </NavDropdown>
         </Navbar>
-    );
+    </div>
 })
 
 export default DropdownNavbarBS;
