@@ -179,7 +179,7 @@ const setDeleteSpamToMessagesNewerThen =
         return MessagesNewerThenLocal
     }
 
-export const postDialog2MessageIdToSpamThCr = (messageId: string, MessagesNewerThen: Array<sendMessageType>): ThType => {
+export const postDialog2MessageIdToSpamThCr = (messageId: string): ThType => {
     console.log( "postDialog2MessageIdToSpamThCr" )
     return async (dispatch, getState) => {// - пометить сообщение как спам
         const response = await apiDialog2.postDialog2MessageIdToSpam( messageId )
@@ -187,7 +187,7 @@ export const postDialog2MessageIdToSpamThCr = (messageId: string, MessagesNewerT
             console.log( "Сообщение помечено как спам:", messageId )
 
             dispatch( Dialog2Actions.setMessagesNewerThen(
-                setDeleteSpamToMessagesNewerThen( MessagesNewerThen, messageId, "spam" ),
+                setDeleteSpamToMessagesNewerThen( getState().dialog2.MessagesNewerThen, messageId, "spam" ),
                 false
             ) ) // помечаем сообщение в локальном стейте как спам
 
@@ -198,7 +198,7 @@ export const postDialog2MessageIdToSpamThCr = (messageId: string, MessagesNewerT
     }
 }
 export const deleteDialog2MessageIdThCr =
-    (messageId: string, userId: number, date: string): ThType => {
+    (messageId: string): ThType => {
         console.log( "deleteDialog2MessageIdThCr" )
         return async (dispatch, getState) => {//- удалить сообщение (только у себя) по ID сообщения
             const response = await apiDialog2.deleteDialog2MessageId( messageId )
@@ -215,7 +215,7 @@ export const deleteDialog2MessageIdThCr =
             }
         }
     }
-export const putDialog2MessageIdRestoreThCr = (messageId: string, MessagesNewerThen: Array<sendMessageType>): ThType => {
+export const putDialog2MessageIdRestoreThCr = (messageId: string): ThType => {
     console.log( "putDialog2MessageIdRestoreThCr" )
     return async (dispatch, getState) => {//  - восстановить сообщение из спама и удаленных
         const response = await apiDialog2.putDialog2MessageIdRestore( messageId )
@@ -223,7 +223,7 @@ export const putDialog2MessageIdRestoreThCr = (messageId: string, MessagesNewerT
             console.log( "Сообщение восстановлено из спама" )
 
             dispatch( Dialog2Actions.setMessagesNewerThen(
-                setDeleteSpamToMessagesNewerThen( MessagesNewerThen, messageId, "restore" ),
+                setDeleteSpamToMessagesNewerThen( getState().dialog2.MessagesNewerThen, messageId, "restore" ),
                 false
             ) ) // помечаем сообщение в локальном стейте как удаленное
 

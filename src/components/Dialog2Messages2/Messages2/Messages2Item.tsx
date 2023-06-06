@@ -14,14 +14,11 @@ type Messages2ItemType = {
     myId: number // номер моего id
     deletedBySender: boolean // помечено, удалено отправителем
     isSpam: boolean // помечено как спам
-    Msg2DeleteMessage: (message2Id: string) => void // удаление сообщения по его id
-    Msg2MarkAsSpam: (message2Id: string) => void // пометить сообщение как спам
-    Msg2Restore: (message2Id: string) => void // восстановить сообщение из спама и удаленных
 
 }
 const Messages2Item: React.FC<Messages2ItemType> = memo (   (
     {
-        id, body, Msg2DeleteMessage, addedAt, senderId, myId, Msg2MarkAsSpam, Msg2Restore, deletedBySender,
+        id, body, addedAt, senderId, myId, deletedBySender,
         isSpam, addedAtPrev
     }) => {
     console.log("Messages2Item")
@@ -72,8 +69,7 @@ const Messages2Item: React.FC<Messages2ItemType> = memo (   (
                 <div className={classes.Msg2DropDownMenuExt}>
 
                     {IdMsg2DropDowShowed === id && // отрисовываем dropDown в сообщения только для локального IdMsg2DropDowShowed
-                    <Msg2DropDownMenu Msg2DeleteMessage={Msg2DeleteMessage} id={id} isMyMessage={isMyMessage}
-                                      Msg2MarkAsSpam={Msg2MarkAsSpam} Msg2Restore={Msg2Restore}
+                    <Msg2DropDownMenu  id={id} isMyMessage={isMyMessage}
                                       deletedBySender={deletedBySender} isSpam={isSpam}
 
                     />}

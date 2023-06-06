@@ -61,9 +61,8 @@ const Messages2Render: React.FC<Dialog2RenderType> = memo( (
                     const addedAtPrev = Ind>0
                         ?   Arr[Ind-1].addedAt // дата добавления предыдущего сообщения
                         :   ""
-                    return <Messages2Item key={id} id={id} body={body} Msg2DeleteMessage={Msg2DeleteMessage}
+                    return <Messages2Item key={id} id={id} body={body}
                                           addedAt={addedAt} senderId={senderId} myId={myId}
-                                          Msg2MarkAsSpam={Msg2MarkAsSpam} Msg2Restore={Msg2Restore}
                                           deletedBySender={deletedBySender} isSpam={isSpam}  addedAtPrev={addedAtPrev}
                     />
                 } )}

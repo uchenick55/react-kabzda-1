@@ -34,16 +34,16 @@ const Dialog2Messages2Container: React.FC<OwnPropsType> = ({userId}) => {
     const dispatch = useDispatch()
 
     const Msg2DeleteMessage = useCallback( (message2Id: string) => {// - удалить сообщение (только у себя) по ID сообщения
-        dispatch( deleteDialog2MessageIdThCr( message2Id, userId, "2022-04-30T19:10:31.843" ) )
-    }, [userId, MessagesNewerThen, deleteDialog2MessageIdThCr] )
+        dispatch( deleteDialog2MessageIdThCr( message2Id ) )
+    }, [deleteDialog2MessageIdThCr] )
 
     const Msg2MarkAsSpam = useCallback( (message2Id: string) => {// - пометить сообщение как спам по ID сообщения
-        dispatch( postDialog2MessageIdToSpamThCr( message2Id, MessagesNewerThen ) )
+        dispatch( postDialog2MessageIdToSpamThCr( message2Id ) )
     },[postDialog2MessageIdToSpamThCr, MessagesNewerThen])
 
     const Msg2Restore = useCallback( (message2Id: string) => {// - восстановить сообщение из спама и Deleted ID сообщения
-        dispatch( putDialog2MessageIdRestoreThCr( message2Id, MessagesNewerThen ) ) // - восстановить сообщение из спама и удаленных
-    }, [putDialog2MessageIdRestoreThCr, MessagesNewerThen])
+        dispatch( putDialog2MessageIdRestoreThCr( message2Id ) ) // - восстановить сообщение из спама и удаленных
+    }, [putDialog2MessageIdRestoreThCr])
 
     const Msg2SendMessage = useCallback((messageBody: string) => {
         dispatch( postDialog2MessageThCr( userId, messageBody, "2022-04-30T19:10:31.843", Markers ) )// отправить сообщение указав ID пользователя
@@ -64,7 +64,7 @@ const Dialog2Messages2Container: React.FC<OwnPropsType> = ({userId}) => {
     //Сама метка className="second-block" находится в дочерней Messages2Render
 
     useEffect(()=>{
-       dispatch(setd2Userid(userId))
+       dispatch(setd2Userid(userId)) // задание userId из URL в стейт
         console.log("setd2Userid(userId)")
     },[userId])
 
