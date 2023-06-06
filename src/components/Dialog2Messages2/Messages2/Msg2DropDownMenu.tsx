@@ -1,6 +1,6 @@
 import Dropdown from 'react-bootstrap/Dropdown';
 import classes from "./messages2Render.module.scss"
-import React from "react";
+import React, {memo} from "react";
 import dustBin from "../../../assets/images/swg/dust-bin2.svg"
 import Spam from "../../../assets/images/swg/spam1.svg"
 import Restore from "../../../assets/images/swg/restore1.svg"
@@ -15,8 +15,9 @@ type Msg2DropDownMenuType = {
     Msg2Restore:  (message2Id: string)=> void // восстановить сообщение из спама и удаленных
 
 }
-const Msg2DropDownMenu: React.FC<Msg2DropDownMenuType> = (
+const Msg2DropDownMenu: React.FC<Msg2DropDownMenuType> = memo( (
     {Msg2DeleteMessage, id, isMyMessage, Msg2MarkAsSpam, Msg2Restore, deletedBySender, isSpam}) => {
+    console.log("Msg2DropDownMenu")
     return (
         <>
             <div>
@@ -50,6 +51,6 @@ const Msg2DropDownMenu: React.FC<Msg2DropDownMenuType> = (
             </div>
         </>
     );
-}
+})
 
 export default Msg2DropDownMenu;

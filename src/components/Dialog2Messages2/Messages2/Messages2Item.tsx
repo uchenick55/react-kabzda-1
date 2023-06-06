@@ -24,7 +24,7 @@ const Messages2Item: React.FC<Messages2ItemType> = memo (   (
         id, body, Msg2DeleteMessage, addedAt, senderId, myId, Msg2MarkAsSpam, Msg2Restore, deletedBySender,
         isSpam, addedAtPrev
     }) => {
-    console.log("Элемент сообщений")
+    console.log("Messages2Item")
     const DateLocal = GetDate( addedAt ) // дата из текста со смещением + 3 часа
     const PrevDateLocal = GetDate( addedAtPrev ) // предыдущая дата из текста со смещением + 3 часа
 

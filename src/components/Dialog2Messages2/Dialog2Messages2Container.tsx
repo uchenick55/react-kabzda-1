@@ -29,12 +29,12 @@ const Dialog2Messages2Container: React.FC<OwnPropsType> = ({userId}) => {
     const PageWidth: number = useSelector( (state: GlobalStateType) => state.app.PageWidth )// ширина страницы
     const MobileWidth: number = useSelector( (state: GlobalStateType) => state.app.MobileWidth )// ширина страницы, считающаяся мобильной версткой
 
-    const {setMarkers, setD2Item, getDialog2AllAC} = Dialog2Actions // получить экшены
+    const {setMarkers, setD2Item, getDialog2AllAC, setd2Userid} = Dialog2Actions // получить экшены
 
     const dispatch = useDispatch()
 
     const Msg2DeleteMessage = useCallback( (message2Id: string) => {// - удалить сообщение (только у себя) по ID сообщения
-        dispatch( deleteDialog2MessageIdThCr( message2Id, userId, "2022-04-30T19:10:31.843", MessagesNewerThen ) )
+        dispatch( deleteDialog2MessageIdThCr( message2Id, userId, "2022-04-30T19:10:31.843" ) )
     }, [userId, MessagesNewerThen, deleteDialog2MessageIdThCr] )
 
     const Msg2MarkAsSpam = useCallback( (message2Id: string) => {// - пометить сообщение как спам по ID сообщения
@@ -62,6 +62,11 @@ const Dialog2Messages2Container: React.FC<OwnPropsType> = ({userId}) => {
         secondBlock && secondBlock.scrollIntoView( true )
     }, [secondBlock] )
     //Сама метка className="second-block" находится в дочерней Messages2Render
+
+    useEffect(()=>{
+       dispatch(setd2Userid(userId))
+        console.log("setd2Userid(userId)")
+    },[userId])
 
     useEffect( () => {
             // через интервал времени при выборе диалога с новыми сообщениями локально пометить сообщение

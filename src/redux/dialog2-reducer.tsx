@@ -10,6 +10,7 @@ const SET_DIALOG2_INITIALSTATE = "myApp/dialog2-reducer/SET_DIALOG2_INITIALSTATE
 const SET_D2_ITEM = "myApp/dialog2-reducer/SET_D2_ITEM";
 const SET_API_ERROR_MSG = "myApp/dialog2-reducer/SET_API_ERROR_MSG";
 const SET_MARKERS = "myApp/dialog2-reducer/SET_MARKERS";
+const SET_D2_USERID = "myApp/dialog2-reducer/SET_D2_USERID";
 
 export const Dialog2Actions = {
 
@@ -30,6 +31,9 @@ export const Dialog2Actions = {
     },
     setMarkers: (Markers: MarkersType) => {
         return {type: SET_MARKERS, Markers} as const
+    },
+    setd2Userid: (userId: number) => {
+        return {type: SET_D2_USERID, userId} as const
     }
 
 }
@@ -44,7 +48,7 @@ export type MarkersType = {
 const initialState = {
     Dialog2All: [] as getDialog2AllType,
     MessagesNewerThen: [] as Array<sendMessageType>,
-    d2UserId: 0,
+    D2UserId: 0,
     D2Item: {} as newMessagesItem,
     ApiErrorMsg: [] as ApiErrorMsgType,
     Markers: {
@@ -99,6 +103,12 @@ const Dialog2Reducer = (state: initialStateDialog2Type = initialState, action: D
             stateCopy = {
                 ...state,
                 Markers: action.Markers
+            }
+            return stateCopy
+        case SET_D2_USERID: // записать d2UserId из URL в стейт
+            stateCopy = {
+                ...state,
+                D2UserId: action.userId
             }
             return stateCopy
         default:
@@ -188,7 +198,7 @@ export const postDialog2MessageIdToSpamThCr = (messageId: string, MessagesNewerT
     }
 }
 export const deleteDialog2MessageIdThCr =
-    (messageId: string, userId: number, date: string, MessagesNewerThen: Array<sendMessageType>): ThType => {
+    (messageId: string, userId: number, date: string): ThType => {
         console.log( "deleteDialog2MessageIdThCr" )
         return async (dispatch, getState) => {//- удалить сообщение (только у себя) по ID сообщения
             const response = await apiDialog2.deleteDialog2MessageId( messageId )
@@ -196,7 +206,7 @@ export const deleteDialog2MessageIdThCr =
                 console.log( "Сообщение удалено на сервере" )
 
                 dispatch( Dialog2Actions.setMessagesNewerThen(
-                    setDeleteSpamToMessagesNewerThen( MessagesNewerThen, messageId, "delete" ),
+                    setDeleteSpamToMessagesNewerThen( getState().dialog2.MessagesNewerThen, messageId, "delete" ),
                     false
                 ) ) // помечаем сообщение в локальном стейте как удаленное
             }
