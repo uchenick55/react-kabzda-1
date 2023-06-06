@@ -17,12 +17,14 @@ type InputButtonUsersRenderType = {
     setOnlyFriends:(onlyFriends: boolean)=>void,
 }
 const InputButtonUsersRender:React.FC<InputButtonUsersRenderType> = memo( ({onChangeTerm, onChangeTermFunction, SetTermFunction, handleClick, setOnlyFriends, onlyFriends}) => {
+    console.log("InputButtonUsersRender")
     const dispatch = useDispatch()
-
+    const InputGroupMemo = memo(InputGroup)
+    const ButtonMemo = memo(Button)
     return <div>
         <Form>
             <Stack direction="horizontal" gap={3} className="mx-1">
-                <InputGroup>
+                <InputGroupMemo>
                     <InputGroup.Text><Image fluid={true} src={favImage} className={classes.favImage}/></InputGroup.Text>
                     <InputGroup.Checkbox
                         checked={onlyFriends}
@@ -39,13 +41,13 @@ const InputButtonUsersRender:React.FC<InputButtonUsersRenderType> = memo( ({onCh
                         }}
                         //onBlur={SetTermFunction}// задать в локальный стейт значение поиска при потере фокуса
                         placeholder={"find users..."} // пояснение поля ввода
-                        //autoFocus
+                        autoFocus
                     /> {/*сразу фокусировка на поле ввода */}
-                </InputGroup>
+                </InputGroupMemo>
 
                 <div className="vr"/> {/*разделитель поля поиска и кнопки поиска*/}
-                <Button
-                    onClick={handleClick} type="submit">Find</Button>
+                <ButtonMemo
+                    onClick={handleClick} type="submit">Find</ButtonMemo>
                 {/* кнопка с обработчиком клика. type="submit" дает нажатие на Enter*/}
             </Stack>
         </Form>

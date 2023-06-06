@@ -3,7 +3,7 @@ import {GlobalStateType} from "../../redux/store-redux";
 import {getUsersReselect, usersSelectorsSimple} from "./users-selectors";
 import {useDispatch, useSelector} from "react-redux";
 import {followThunkCreator, getUsersThunkCreator, unfollowThunkCreator, UsersActions} from "../../redux/users-reducer";
-import React, {ChangeEvent, useEffect, useState} from "react";
+import React, {ChangeEvent, useCallback, useEffect, useMemo, useState} from "react";
 import Preloader from "../common/Preloader/Preloader";
 import UsersBS from "./UsersBS1";
 import {Dialog2Actions} from "../../redux/dialog2-reducer";
@@ -31,25 +31,31 @@ const UsersContainerFC: React.FC = ({}) => {
     const [onChangeTerm, setOnChangeTerm] = useState<string>( term ) // локальный стейт значения поля ввода input Users
     const [currentRangeLocal, setCurrentRangeLocal] = useState<number>( 1 ) // диапазон страниц пагинации
 
-    const onPageChanged = (setPage: number) => {
+    const onPageChanged = useCallback( (setPage: number) => {
         dispatch( setCurrentPage( setPage ) );
         dispatch( getUsersThunkCreator( setPage, pageSize, term, onlyFriends, 0 ) );
-    }
-    const followAPI = (id: number) => {
+    },[setCurrentPage, getUsersThunkCreator, pageSize, term, onlyFriends])
+
+    const followAPI = useCallback((id: number) => {
         dispatch( followThunkCreator( id, currentPage, pageSize, term, onlyFriends ) )
-    }
-    const unfollowAPI = (id: number) => {
+    },[followThunkCreator, currentPage, pageSize, term, onlyFriends])
+
+    const unfollowAPI = useCallback((id: number) => {
         dispatch( unfollowThunkCreator( id, currentPage, pageSize, term, onlyFriends ) )
-    }
-    const SetTermFunction = () => {
+    }, [unfollowThunkCreator, currentPage, pageSize, term, onlyFriends])
+
+    const SetTermFunction = useCallback(  () => {
         dispatch( setTerm( onChangeTerm ) ) // задание в стейт поискового запроса
-    }
-    const onChangeTermFunction = (event: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+    },[setTerm, onChangeTerm])
+
+    const onChangeTermFunction = useCallback ((event: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
         setOnChangeTerm( event.currentTarget.value ) // задание значения поиска при изменении поля
-    }
-    const onChangeRangeLocal = (rangeShift: number) => { // rangeShift - смещение диапазона страниц пагинации2
+    },[setOnChangeTerm])
+
+    const onChangeRangeLocal = useCallback ( (rangeShift: number) => { // rangeShift - смещение диапазона страниц пагинации2
         setCurrentRangeLocal( currentRangeLocal + rangeShift )
-    }
+    }, [setCurrentRangeLocal, currentRangeLocal])
+
     useEffect( () => {
         dispatch( getUsersThunkCreator( currentPage, pageSize, term, onlyFriends, 0 ) );
     }, [currentPage, getUsersThunkCreator, onlyFriends, pageSize, term] )
@@ -66,24 +72,28 @@ const UsersContainerFC: React.FC = ({}) => {
 
     return <> {/*использование фрагмента вместо div/span*/}
         {isFetching && <Preloader/>}
-        <UsersBS onPageChanged={onPageChanged}
-                 totalUsersCount={totalUsersCount}
-                 pageSize={pageSize}
-                 currentPage={currentPage}
-                 users={users}
-                 unfollowAPI={unfollowAPI}
-                 followAPI={followAPI}
-                 followingInProgress={followingInProgress}
-                 isAuth={isAuth}
-                 SetTermFunction={SetTermFunction}
-                 onChangeTerm={onChangeTerm}
-                 onChangeTermFunction={onChangeTermFunction}
-                 currentRangeLocal={currentRangeLocal}
-                 onChangeRangeLocal={onChangeRangeLocal}
-                 setOnlyFriends={setOnlyFriends}
-                 onlyFriends={onlyFriends}
-                 patch={patch}
-                 PageWidth={PageWidth}
+        <UsersBS
+            onlyFriends={onlyFriends}
+            patch={patch}
+            PageWidth={PageWidth}
+            pageSize={pageSize}
+            totalUsersCount={totalUsersCount}
+            currentPage={currentPage}
+            isAuth={isAuth}
+            onChangeTerm={onChangeTerm}
+            currentRangeLocal={currentRangeLocal}
+
+            users={useMemo(()=>users,[users])}
+            followingInProgress={useMemo(()=>followingInProgress,[followingInProgress])}
+
+            onPageChanged={onPageChanged }
+            unfollowAPI={unfollowAPI}
+            followAPI={followAPI}
+            SetTermFunction={SetTermFunction}
+            onChangeTermFunction={onChangeTermFunction}
+            onChangeRangeLocal={onChangeRangeLocal}
+            setOnlyFriends={setOnlyFriends}
+
         />
     </>
 }

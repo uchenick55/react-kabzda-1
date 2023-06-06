@@ -1,9 +1,7 @@
-import React, {ChangeEvent, memo, useMemo, useState} from "react";
+import React, {ChangeEvent, memo, useCallback, useState} from "react";
 import classes from "./Users.module.css";
 import PaginationByCourse from "../common/Pagination/PaginationByCourseBS";
 import InputButtonUsersRender from "./InputButtonRender";
-import Container from 'react-bootstrap/Container';
-import Row from 'react-bootstrap/Row';
 import commonClasses from "../common/CommonClasses/common.module.css";
 import UserItems from "./UserItems";
 import {usersType} from "../api/apiTypes";
@@ -36,20 +34,19 @@ const UsersBS:React.FC<UsersBSType> = memo( ({
                      onChangeRangeLocal, currentRangeLocal, setOnlyFriends, onlyFriends, patch, PageWidth
                                            // раскукожили все пропсы
                  }) => {
-    const usersMemo:Array<usersType> = useMemo(()=>users,[users])
 
     const [error, setError] = useState<any>( {message:""})
+    const handleClick = useCallback ((e:any) => { // обработка клика по кнопке
+        e.preventDefault(); // отменить отправку формы по умолчанию с кнопки
+        SetTermFunction() // задать в стейт значения поиска после сабмита
+    },[])
+
     if (error.message) {
         return error.message
     }
     try {
 
-        const handleClick = (e:any) => { // обработка клика по кнопке
-            e.preventDefault(); // отменить отправку формы по умолчанию с кнопки
-            SetTermFunction() // задать в стейт значения поиска после сабмита
-        }
-
-        const paginationRender = <Row className="mt-3"> {/*Вывод пагинации*/}
+        const paginationRender = <div className="mt-3"> {/*Вывод пагинации*/}
             <PaginationByCourse
                 totalUsersCount={totalUsersCount} pageSize={pageSize}
                 currentPage={currentPage}
@@ -57,21 +54,23 @@ const UsersBS:React.FC<UsersBSType> = memo( ({
                 currentRangeLocal={currentRangeLocal}
                 onChangeRangeLocal={onChangeRangeLocal}
             />
-        </Row>
+        </div>
 
         const InputButtonUsersRenderLocal = <InputButtonUsersRender //вывод инпута и кнопки для поиска юзеров
             onChangeTerm={onChangeTerm}
+            onlyFriends={onlyFriends}
+
             onChangeTermFunction={onChangeTermFunction}
             SetTermFunction={SetTermFunction}
-            handleClick={handleClick}
             setOnlyFriends={setOnlyFriends}
-            onlyFriends={onlyFriends}
+            handleClick={handleClick}
+
         />
 
-        const TotalUsersCountRender = <Row> {/*вывод количества всех пользователей*/}
+        const TotalUsersCountRender = <div> {/*вывод количества всех пользователей*/}
             <div className="d-flex justify-content-center opacity-50 mt-2 "> Total: {totalUsersCount}</div>
             <div className={classes.line}/>
-        </Row>
+        </div>
 
         const UserItemsRender = <div className='my-4'> {/*отрисовка самих карточек пользователей*/}
             <UserItems users={users} unfollowAPI={unfollowAPI} followAPI={followAPI}
@@ -81,7 +80,7 @@ const UsersBS:React.FC<UsersBSType> = memo( ({
 
         return <div className={classes.usersOverflowAuto}>
 
-            <Container  fluid >
+            <div >
                 <div className={patch==="users"?classes.usersHeaderUsersPage:classes.usersHeaderDialogsPage}>
                     <h2 className={commonClasses.pageHeader}>Чаты</h2> {/*заголовок */}
 
@@ -98,7 +97,7 @@ const UsersBS:React.FC<UsersBSType> = memo( ({
 
                 {/* {paginationRender}Вывод пагинации снизу страницы */}
 
-            </Container>
+            </div>
         </div>
 
     } catch (error) {

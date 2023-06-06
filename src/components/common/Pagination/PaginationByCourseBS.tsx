@@ -19,6 +19,7 @@ const PaginationByCourse:React.FC<PaginationByCourseType> = memo( ({
                               currentRangeLocal,
                               onChangeRangeLocal
                           }) => {
+    console.log("PaginationByCourse")
     const PortionSize:number = 6 // количество отображаемых страниц из всего массива
     // currentRange - текущий диапазон. Он в PortionSize меньше PagesCount
     //setCurrentRange - изменение currentRange по клику на кнопку
@@ -50,10 +51,11 @@ const PaginationByCourse:React.FC<PaginationByCourseType> = memo( ({
             onChangeRangeLocal(+1) // увеличиваем  диапазон на 1
         }
     };
+    const PaginationItemMemo = memo(Pagination.Item)
 
     const renderSlicedPages = useMemo(()=>slicedPages2.map((p) => { // мапинг отобранного массива
         return (
-            <Pagination.Item // пагинация бутстрапа
+            <PaginationItemMemo // пагинация бутстрапа
                 active={p === currentPage} // акттивная страница
                 key={p} // ключ - страница
                 onClick={() => { // по клику
@@ -61,7 +63,7 @@ const PaginationByCourse:React.FC<PaginationByCourseType> = memo( ({
                 }}
             >
                 {p} {/*отрисовать номер страницы в пагинации*/}
-            </Pagination.Item>
+            </PaginationItemMemo>
 
         );
     }), [slicedPages2] )
