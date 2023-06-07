@@ -45,7 +45,7 @@ let mapStateToProps = (state: GlobalStateType) => {
 type mapStateToPropsType = ReturnType<typeof mapStateToProps>
 
 type mapDispatchToPropsType = {
-    getProfileThunkCreator: (userId: number, shouldUpdateDialogList: boolean, myId: number) => void,
+    getProfileThunkCreator: (userId: number) => void,
     deleteLoginThunkCreator: () => void,
     setThemeThunkCreator: (themeBLL: "light" | "dark") => void
 }

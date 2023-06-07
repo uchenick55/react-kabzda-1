@@ -1,9 +1,10 @@
 import {apiProfile} from "../components/api/api";
-import {AuthActions, getAuthMeThunkCreator} from "./auth-reducer";
+import {AuthActions} from "./auth-reducer";
 import {ComThunkTp, NulableType, postsType, ProfileType} from "../types/commonTypes";
 import {InferActionsTypes} from "./store-redux";
 import {getProfileType} from "../components/api/apiTypes";
 import {ResultCodeEnum} from "../components/api/enum";
+import {AppActions} from "./app-reducer";
 
 const SET_EDIT_PROFILE_ERROR = "myApp/auth-reducer/SET_EDIT_PROFILE_ERROR"; //константа задания ошибки правеки профиля
 const DELETE_POST = "myApp/profile-reducer/DELETE_POST";// константа удаления новых постов
@@ -44,6 +45,7 @@ export const ProfileActions = {
 }
 
 type ProfileActionTypes = InferActionsTypes<typeof ProfileActions> | InferActionsTypes<typeof AuthActions>
+    | InferActionsTypes<typeof AppActions>
 
 let initialState = {
     posts: [// заглушка постов на странице профиля
@@ -106,24 +108,16 @@ export const profileReducer = (state: initialStateType = initialState, action: P
     }
 }
 
-export const getProfileThunkCreator = (userId: number, shouldUpdateDialogList: boolean, myId: number): ComThunkTp<ProfileActionTypes> => { // санкреатор на получение профиля выбранного пользователя
+export const getProfileThunkCreator = (userId: number): ComThunkTp<ProfileActionTypes> => { // санкреатор на получение профиля выбранного пользователя
     return async (dispatch, getState) => { // нонейм санка на получение профиля выбранного пользователя
-        const CommonPart = (response: getProfileType, userId: number) => { // общая часть для задания статуса профиля и получения статуса
-            dispatch( ProfileActions.setUserProfile( response ) ) // задание полных данных в профиль
-            dispatch( getStatusThunkCreator( userId ) ) // запрос моего статуса
-        }
+        dispatch( AppActions.toggleIsFetching( true ) ) //показать крутилку загрузки с сервера
 
-        if (!userId) { // если userId не задан в URL (переход на страницу моего профиля не подставляет ID в браузере)
-            const response = await apiProfile.getAuthMe() // запрос на сервер "я авторизован?" чтобы получить мой ID (авторизованного пользователя)
-            if (response.resultCode === ResultCodeEnum.Success) { // успешное получение с сервера данных о моем ID
-                userId = response.data.id; // задание моего ID в userId
-                const response2 = await apiProfile.getProfile( userId ) // получение полных данных о моем профиле
-                CommonPart( response2, userId )  // общая часть для задания статуса профиля и получения статуса
-            }
-        } else { // если userId задан в URL
-            const response = await apiProfile.getProfile( userId ) //
-            CommonPart( response, userId ) // общая часть для задания статуса профиля и получения статуса
-        }
+        const IdLocal = !userId? getState().auth.myId : userId // если userId не задан в URL (переход на страницу моего профиля не подставляет ID в браузере)
+        const response = await apiProfile.getProfile( IdLocal) // получение полных данных о моем профиле
+
+        dispatch( ProfileActions.setUserProfile( response ) ) // задание полных данных в профиль
+        !getState().profilePage.status && dispatch( getStatusThunkCreator( IdLocal ) ) // запрос моего статуса, если его нет
+        dispatch( AppActions.toggleIsFetching( false ) ) //убрать крутилку загрузки с сервера
     }
 }
 
@@ -143,10 +137,10 @@ export const putStatusThunkCreator = (statusTmpInput: string, myId?: number): Co
 }
 export const setprofilePhotoThunkCreator = (profilePhoto: File, myId: number): ComThunkTp<ProfileActionTypes> => { // санкреатор установки фотографии моего профиля
     return async (dispatch, getState) => { // нонеййм санка установки фотографии моего профиля
+        dispatch( AppActions.toggleIsFetching( true ) ) //показать крутилку загрузки с сервера
         const response = await apiProfile.putPhoto( profilePhoto ) // отправка нового фото на сервер
         if (response.resultCode === ResultCodeEnum.Success) { // если успешное обновление статуса с сервера
-            dispatch( getProfileThunkCreator( myId, false, 0 ) );// перезапрашиваем данные профиля после обновления фото
-            dispatch( getAuthMeThunkCreator() ) // обновить данные моего профиля (header photo) при обновлении фото
+            dispatch (getProfileThunkCreator(myId)) // получить данные о профиле с новым фото
         }
     }
 }
@@ -157,7 +151,7 @@ export const putMyProfileThunkCreator = (MyProfile: ProfileType, myId: number): 
         if (response.resultCode === ResultCodeEnum.Success) { // если успешное обновление профиля на сервере
             const response2 = await apiProfile.getProfile( myId )//получение моих дополнительных данных после записи на сервер
             dispatch( AuthActions.setMyProfile( response2 ) )//задание в стейт моих доп данных
-            dispatch( getProfileThunkCreator( myId, false, 0 ) )
+            dispatch( getProfileThunkCreator( myId ) )
             dispatch( ProfileActions.setEditProfileStatus( ["Edited successfully!"] ) ) // отправить данные ошибки в стейт
         } else { // если пришла ошибка с сервера ввода формы правки профиля
             const message =  // определение локальной переменной message - ответ от сервера

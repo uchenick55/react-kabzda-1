@@ -88,7 +88,7 @@ const ProfileInfo: React.FC<ProfileInfoType2> = memo( ({
     const showUserPhoto = <div className={classes.toCenter}>
         <Image fluid={true}
                alt={"userPhoto"}
-               className={`${ButtonOverImage.profilePhotoIMG} ${userId === 0 && showUploadImageButton ? ButtonOverImage.ImgHover : ""}`}
+               className={`${ButtonOverImage.profilePhotoIMG} `}
             // если это мой профиль (userId === 0) и мышкой навели на картинку, добавить ImgHover класс (альтернатива псевдокласса :hover)
                src={profile.photos.large ? profile.photos.large : userPhoto1}/>
     </div>

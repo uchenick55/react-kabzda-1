@@ -7,6 +7,7 @@ const SET_INITIALISED_APP = "myApp/app-reducer/SET_INITIALISED_APP"; //конс�
 const APP_INITIAL_STATE = "myApp/app-reducer/APP_INITIAL_STATE"; //константа зануления при логауте
 const SET_PATCH = "myApp/app-reducer/SET_PATCH"; //константа задания пути в URL
 const SET_PAGE_WIDTH = "myApp/app-reducer/SET_PAGE_WIDTH"; //константа задания ширины окна
+const TOGGLE_IS_FETCHING = "myApp/users-reducer/TOGGLE_IS_FETCHING";
 
 export const AppActions = {
     setInitialisedApp: () => { // экшн креатор  инициализации приложения
@@ -23,7 +24,10 @@ export const AppActions = {
 
     setPageWidth: (PageWidth: number) => { // экшн записи ширины экрана
         return {type: SET_PAGE_WIDTH, PageWidth} as const
-    }
+    },
+    toggleIsFetching: (isFetching: boolean) => {
+        return {type: TOGGLE_IS_FETCHING, isFetching} as const
+    },
 }
 
 type AppActionTypes = InferActionsTypes<typeof AppActions>
@@ -35,6 +39,7 @@ let initialState = { //стейт по умолчанию для инициал�
     patch: "", // название страницы из URL
     PageWidth: document.documentElement.scrollWidth, // ширина страницы по умолчанию
     MobileWidth: 620,
+    isFetching: false, // статус загрузки (крутилка)
 
 }
 
@@ -54,6 +59,12 @@ let appReducer = (state: initialStateType = initialState, action: AppActionTypes
             stateCopy = {
                 ...state, // копия всего стейта
                 patch: action.patch, // смена флага инициализации приложения на true
+            }
+            return stateCopy; // возврат копии стейта после изменения
+        case TOGGLE_IS_FETCHING:
+            stateCopy = {
+                ...state,
+                isFetching: action.isFetching
             }
             return stateCopy; // возврат копии стейта после изменения
         case SET_PAGE_WIDTH: // экшн записи ширины экрана

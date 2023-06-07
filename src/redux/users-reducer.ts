@@ -4,6 +4,7 @@ import {Dispatch} from "redux";
 import {usersType} from "../components/api/apiTypes";
 import {ResultCodeEnum} from "../components/api/enum";
 import {ComThunkTp} from "../types/commonTypes";
+import {AppActions} from "./app-reducer";
 
 const SET_TERM = "myApp/users-reducer/SET_TERM";
 const SET_USERS = "myApp/users-reducer/SET_USERS";
@@ -25,9 +26,6 @@ export const UsersActions = {
     setCurrentPage: (currentPage: number) => {
         return {type: SET_CURRENT_PAGE, currentPage} as const
     },
-    toggleIsFetching: (isFetching: boolean) => {
-        return {type: TOGGLE_IS_FETCHING, isFetching} as const
-    },
     setUsersTotalCount: (totalUsersCount: number) => {
         return {type: SET_TOTAL_USERS_COUNT, totalUsersCount} as const
     },
@@ -45,8 +43,7 @@ export const UsersActions = {
     },
 }
 
-type UsersActionTypes = InferActionsTypes<typeof UsersActions>
-
+type UsersActionTypes = InferActionsTypes<typeof UsersActions> | InferActionsTypes<typeof AppActions>
 
 const initialState = {
     users: [] as Array<usersType>, // массив пользователей по умолчанию (пока пустой)
@@ -125,11 +122,11 @@ export const getUsersThunkCreator //санкреатор получить пол
     = (currentPage: number, pageSize: number, term: string, friend: boolean, userId: number): ComThunkTp<UsersActionTypes> => {
 
     return (dispatch, getState) => { // нонейм санка получить пользователей
-        dispatch( UsersActions.toggleIsFetching( true ) ) //показать крутилку загрузки с сервера
+        dispatch( AppActions.toggleIsFetching( true ) ) //показать крутилку загрузки с сервера
 
         apiUsers.getUsers( currentPage, pageSize, term, friend ) //получить пользователей по текущей странице и размере страницы
             .then( (data) => {
-                dispatch( UsersActions.toggleIsFetching( false ) )  //убрать крутилку загрузки с сервера
+                dispatch( AppActions.toggleIsFetching( false ) )  //убрать крутилку загрузки с сервера
                 dispatch( UsersActions.setUsers( data.items ) )//записать в стейт закгруженный стек пользователей
                 dispatch( UsersActions.setUsersTotalCount( data.totalCount ) )//записать в стейт общее количество пользователей
 
