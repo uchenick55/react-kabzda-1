@@ -4,7 +4,7 @@ type ProfileStatusClassPropsType = {
     myId:number, // мой id для модификации статуса
     userId: number, // id отображаемого пользователя
     status:string, // статус из BLL
-    putStatusThunkCreator: (statusTmpInput:string, myId:number)=>void, // санкреатор для обновления сатуса
+    putStatusThunkCreator: (statusTmpInput:string)=>void, // санкреатор для обновления сатуса
 }
 
 type ProfileStatusClassStateType = {
@@ -34,9 +34,9 @@ class ProfileStatusClass extends React.Component<ProfileStatusClassPropsType, Pr
         this.setState({statusTmpInput: text}) // принудительная переотрисовка после смены локального статуса
     }
     setMyStatus = () => { // действия после двойного клика по полю input статуса или вводу Enter
-        const {putStatusThunkCreator, myId} = this.props;
+        const {putStatusThunkCreator} = this.props;
         this.localStatus.modifyStatus = false // переключение с поля ввода статуса на простой текст
-        putStatusThunkCreator(this.localStatus.statusTmpInput, myId) // санкреатор на обновление статуса на сервере
+        putStatusThunkCreator(this.localStatus.statusTmpInput) // санкреатор на обновление статуса на сервере
         this.setState({modifyStatus: false}) // принудительная переотрисовка после смены локального статуса
     }
     checkEnterPressed = (event: React.KeyboardEvent) => { // проверка нажатия Enter

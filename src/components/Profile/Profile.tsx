@@ -11,13 +11,13 @@ type ProfileType2 = {
     myId: number,
     userId: number,
     putProfile: (putProfile2: ProfileType) =>void,
-    putStatusThunkCreator: (statusTmpInput:string, myId:number)=>void,
+    putStatusThunkCreator: (statusTmpInput:string)=>void,
     uploadImage: (profilePhoto: File)=>void,
     editProfileStatus:Array<string>,
     setEditProfileStatus: (editProfileStatus: Array<string>)=> void
 }
 
-const Profile: React.FC<ProfileType2> = memo( ({
+const Profile: React.FC<ProfileType2> = ( ({
                      profile, status, myId, putStatusThunkCreator, uploadImage,
                      userId, putProfile, editProfileStatus, setEditProfileStatus
                  }) => {

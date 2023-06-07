@@ -8,7 +8,7 @@ type ProfileStatusUseReducerType = {
     myId:number, // мой id для модификации статуса
     userId: number, // id отображаемого пользователя
     status:string, // статус из BLL
-    putStatusThunkCreator: (statusTmpInput:string, myId:number)=>void, // санкреатор для обновления сатуса
+    putStatusThunkCreator: (statusTmpInput:string)=>void, // санкреатор для обновления сатуса
 }
 let ProfileStatusUseReducer:React.FC<ProfileStatusUseReducerType> = ({status, userId, myId, putStatusThunkCreator}) => {
     const initialState = {
@@ -65,7 +65,7 @@ let ProfileStatusUseReducer:React.FC<ProfileStatusUseReducerType> = ({status, us
     const setMyStatus = () => { // действия после двойного клика по полю input статуса или вводу Enter
         dispatch({type: SET_MODIFY_STATUS_FALSE})// смена текстового отображения статуса на поле input
 
-        putStatusThunkCreator(localState.statusTmpInput2, myId)// санкреатор на обновление статуса на сервере
+        putStatusThunkCreator(localState.statusTmpInput2)// санкреатор на обновление статуса на сервере
     }
     const onChangeStatus = (event:ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
         const text = event.target.value;// вынимаем значение введенное в поле ввода input

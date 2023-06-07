@@ -133,11 +133,11 @@ export const getStatusThunkCreator = (userId: number): ComThunkTp<ProfileActionT
         dispatch( ProfileActions.setStatus( response ) ) // задание статуса в локальный стейт с последующей переотрисовкой
     }
 }
-export const putStatusThunkCreator = (statusTmpInput: string, myId: number): ComThunkTp<ProfileActionTypes> => { // санкреатор обновления моего статуса
+export const putStatusThunkCreator = (statusTmpInput: string, myId?: number): ComThunkTp<ProfileActionTypes> => { // санкреатор обновления моего статуса
     return async (dispatch, getState) => { // нонеййм санка обновления моего статуса
         const response = await apiProfile.putStatus( statusTmpInput ) // отправка нового статуса на сервер
         if (response.resultCode === ResultCodeEnum.Success) { // если успешное обновление статуса с сервера
-            dispatch( getStatusThunkCreator( myId ) )// получение нового статуса с сервера после обновления
+            dispatch( getStatusThunkCreator( getState().auth.myId ) )// получение нового статуса с сервера после обновления
         }
     }
 }

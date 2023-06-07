@@ -31,6 +31,11 @@ const ProfileContainerFC:React.FC<OwnPropsType> = ( {userId}) => {
     const uploadImage = (profilePhoto: File) => {
         dispatch( setprofilePhotoThunkCreator( profilePhoto, myId ))
     }
+
+    const putStatusThunkCreatorLocal = (status:string) => {
+        dispatch(putStatusThunkCreator(status))
+    }
+
     const putProfile =(putProfile2: ProfileType) => { // обновить данные профиля просле правки
         // добавить в данные после изменения формы мой ID для чтения результата обновления с сервера
         const MyProfile = Object.assign( {}, {userId: myId}, putProfile2 );
@@ -51,7 +56,7 @@ const ProfileContainerFC:React.FC<OwnPropsType> = ( {userId}) => {
 
         putProfile={useCallback(putProfile,[]) }// задание профиля на сервер после ввода данных
         uploadImage={useCallback(uploadImage,[]) }// загрузка картинки
-        putStatusThunkCreator={useCallback(putStatusThunkCreator,[]) }
+        putStatusThunkCreator={useCallback(putStatusThunkCreatorLocal,[])}
         setEditProfileStatus={ useCallback(setEditProfileStatus,[]) }// экшн креатор задания ошибки с сервера в стейт после правки профиля
     />
 }

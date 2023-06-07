@@ -4,7 +4,7 @@ type ProfileStatusUseStateType = {
     myId:number, // мой id для модификации статуса
     userId: number, // id отображаемого пользователя
     status:string, // статус из BLL
-    putStatusThunkCreator: (statusTmpInput:string, myId:number)=>void, // санкреатор для обновления сатуса
+    putStatusThunkCreator: (statusTmpInput:string)=>void, // санкреатор для обновления сатуса
 }
 
 
@@ -20,7 +20,7 @@ let ProfileStatusUseState:React.FC<ProfileStatusUseStateType> = ({userId, myId, 
     }
     const setMyStatus = () => { // действия после двойного клика по полю input статуса или вводу Enter
         setModifyStatus(false) // переключение с поля ввода статуса на простой текст
-        putStatusThunkCreator(statusTmpInput, myId)
+        putStatusThunkCreator(statusTmpInput)
     }
     const onChangeStatus = (event:ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
         const text = event.currentTarget.value;// вынимаем значение введенное в поле ввода input
