@@ -1,6 +1,7 @@
 .rounded {
     border-radius: 50%;
 }
+
 .myHeaderWH1 {
     height: 40px;
     width: 40px;
@@ -15,9 +16,17 @@
     transform: scale(1.1) translate(+0px, 0px);
 }
 
+.myHeaderWH1:active {
+    transform: scale(1.2) translate(+0px, 0px);
+}
+
 .myHeader1 {
     border-bottom: 1px solid var(--color1);
 }
+
 .NavDropdown {
     color: white;
+}
+.NavDropdown:active {
+    transform: scale(1.05) translate(+0px, 0px);
 }
