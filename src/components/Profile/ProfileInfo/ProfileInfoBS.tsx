@@ -16,7 +16,6 @@ import ShowProfile from "./ShowProfile";
 import Form from 'react-bootstrap/Form';
 import classes from "../Profile.module.css"
 
-
 type ProfileInfoType2 = {
     profile: NulableType<getProfileType>,
     status: string,
@@ -34,11 +33,9 @@ const ProfileInfo: React.FC<ProfileInfoType2> = memo( ({
                                                            userId, putProfile, editProfileStatus, setEditProfileStatus
                                                        }) => {
     console.log( "ProfileInfo" )
-    const [profilePhoto, setprofilePhoto] = useState<File>() // useState для временного хранения фото пользователя
     const [editMode, setEditMode] = useState<boolean>( false ) // флаг режима редактирования профиля
-    const [showUploadImageButton, setshowUploadImageButton] = useState( false ) // флаг показать ли кнопку загрузки изображения
 
-    const editedSuccessfully = editProfileStatus.length > 0 // если сообщение об ошибке/обновлении существует
+    const editedSuccessfully: boolean = editProfileStatus.length > 0 // если сообщение об ошибке/обновлении существует
         && editProfileStatus[0] === "Edited successfully!" // и успешный статус обновления с сервера
 
     useEffect( () => {
@@ -55,10 +52,6 @@ const ProfileInfo: React.FC<ProfileInfoType2> = memo( ({
     if (!profile) { // если профиль еще не загружен
         return <Preloader/> // отобразить предзагрузку
     }
-    const onChangeProfilePhoto = (e: React.ChangeEvent<HTMLInputElement>) => {
-        e.currentTarget.files !== null && setprofilePhoto( e.currentTarget.files[0] ) // записать в useState выбранный файл фото профиля(временный стейт)
-    }
-    const displayClass = showUploadImageButton ? "" : ButtonOverImage.displayNone // класс скрытия/отображения кнопок загрузки поверх картинки профиля
 
     const profileStatus = <ProfileStatusUseReducer // можно еще использовать ProfileStatusUseState и ProfileStatusClass
         myId={myId} // мой id для модификации статуса
@@ -67,17 +60,14 @@ const ProfileInfo: React.FC<ProfileInfoType2> = memo( ({
         putStatusThunkCreator={putStatusThunkCreator} // санкреатор для обновления сатуса
     />
 
-    const showProfile = !editMode &&
-        <ShowProfile profile={profile} setEditMode={setEditMode} userId={userId} myId={myId}/>
+    const showProfile =  <ShowProfile profile={profile} setEditMode={setEditMode} userId={userId} myId={myId}/>
 
-    const editProfile = editMode &&
-        <div>
-            <EditProfileFormikBS
+    const editProfile =  <EditProfileFormikBS
                 putProfile={putProfile} setEditMode={setEditMode} profile={profile}
                 editProfileStatus={editProfileStatus} setEditProfileStatus={setEditProfileStatus}/>
-        </div>
-    const onChangeLocal = (e:any) => {
-        uploadImage(e.target.files[0])// загрузка файла картинки на сервер
+
+    const onChangeLocal = (e: any) => {
+        uploadImage( e.target.files[0] )// загрузка файла картинки на сервер
     }
     const editMyPhoto = (userId === 0) &&// если мы перешли на свой профиль (в браузере нет ID возле profile)
         <div className={classes.toCenter}>
@@ -103,24 +93,22 @@ const ProfileInfo: React.FC<ProfileInfoType2> = memo( ({
                     {editMyPhoto} {/* сменить фото, если это мой профиль*/}
 
                 </Col>
-                <Col xs={12} md={7}>
-                    {showProfile} {/*показать профиль*/}
-                    {editProfile} {/*редактировать профиль*/}
-
-                    {/*{editProfileStatus} {/*статус обновления профиля (успешно/ошибки)*/}
-                    {/*Если длина больше нуля, то выводим сообщение.
-                Если сообщение sucessully, то закрываем режим редактирования, выводим успех редактирования и по сеттаймауту зануляем стейт с ошибками
-                Если не саксесфулли, то выводим ошибки и не закрываем редактирование*/}
-                    <div>
+                <Col xs={12} md={7} >
+                    {!editMode && <div className={classes.posRelative}>
+                        {showProfile} {/*показать профиль*/}
                         {editedSuccessfully // если успешно обновлен профиль на сервере
-                        && <div>
+                        && <div className={classes.editProfileStatus}>
                             {editProfileStatus[0]} {/* вывести сообщение успешного обновления*/}
                         </div>
                         }
-                    </div>
-                    <div>
-                        {profileStatus} {/*отображение моего статуса*/}
-                    </div>
+                    </div>}
+
+                    {editMode && editProfile} {/*редактировать профиль*/}
+
+                    {/* Если длина больше нуля, то выводим сообщение.
+                        Если сообщение sucessully, то закрываем режим редактирования, выводим успех редактирования и по сеттаймауту зануляем стейт с ошибками
+                        Если не саксесфулли, то выводим ошибки и не закрываем редактирование*/}
+                    {profileStatus} {/*отображение моего статуса*/}
                 </Col>
             </Row>
         </Container>
