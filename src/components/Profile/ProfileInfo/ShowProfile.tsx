@@ -1,5 +1,5 @@
 import {getProfileType} from "../../api/apiTypes";
-import React from "react";
+import React, {memo} from "react";
 import commonClasses from "../../common/CommonClasses/common.module.css";
 import Button from "react-bootstrap/Button";
 import Contact from "./Contact";
@@ -11,7 +11,7 @@ type ShowProfileType = {
     myId: number
 }
 
-const ShowProfile: React.FC<ShowProfileType> = ({profile, setEditMode, userId, myId}) => {
+const ShowProfile: React.FC<ShowProfileType> =memo( ({profile, setEditMode, userId, myId}) => {
     // вынес отдельно отображение профиля
 
 
@@ -40,6 +40,6 @@ const ShowProfile: React.FC<ShowProfileType> = ({profile, setEditMode, userId, m
 
         </div>
     )
-}
+})
 
 export default ShowProfile

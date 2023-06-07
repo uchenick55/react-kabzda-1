@@ -17,7 +17,7 @@ type ProfileType2 = {
     setEditProfileStatus: (editProfileStatus: Array<string>)=> void
 }
 
-const Profile: React.FC<ProfileType2> = ( ({
+const Profile: React.FC<ProfileType2> = memo ( ({
                      profile, status, myId, putStatusThunkCreator, uploadImage,
                      userId, putProfile, editProfileStatus, setEditProfileStatus
                  }) => {

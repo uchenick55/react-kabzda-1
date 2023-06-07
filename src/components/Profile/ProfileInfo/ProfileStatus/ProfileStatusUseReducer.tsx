@@ -1,4 +1,4 @@
-import React, {ChangeEvent, useReducer} from "react";
+import React, {ChangeEvent, memo, useReducer} from "react";
 import "bootstrap/dist/css/bootstrap.min.css"
 import InputGroup from 'react-bootstrap/InputGroup';
 import Form from 'react-bootstrap/Form';
@@ -10,7 +10,7 @@ type ProfileStatusUseReducerType = {
     status:string, // статус из BLL
     putStatusThunkCreator: (statusTmpInput:string)=>void, // санкреатор для обновления сатуса
 }
-let ProfileStatusUseReducer:React.FC<ProfileStatusUseReducerType> = ({status, userId, myId, putStatusThunkCreator}) => {
+let ProfileStatusUseReducer:React.FC<ProfileStatusUseReducerType> = memo( ({status, userId, myId, putStatusThunkCreator}) => {
     const initialState = {
         modifyStatus2: false,// локальная переменная-флаг модификации статуса
         statusTmpInput2: "" // локальный статус до отправки на сервер (поле input)
@@ -108,7 +108,7 @@ let ProfileStatusUseReducer:React.FC<ProfileStatusUseReducerType> = ({status, us
             : <CommonInputGroup isDisabled={false} onClickMethod={setMyStatus} value={localState.statusTmpInput2}/>
         }
     </div>)
-}
+})
 export default ProfileStatusUseReducer
 
 

@@ -6,4 +6,13 @@
     color: green;
 }
 
+.toCenter {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.FileUploadInt {
+width: 90%;
+margin: 1rem;
+}
 

@@ -13,6 +13,8 @@ import commonClasses from "../../common/CommonClasses/common.module.css";
 import {getProfileType} from "../../api/apiTypes";
 import {NulableType, ProfileType} from "../../../types/commonTypes";
 import ShowProfile from "./ShowProfile";
+import Form from 'react-bootstrap/Form';
+import classes from "../Profile.module.css"
 
 
 type ProfileInfoType2 = {
@@ -28,10 +30,10 @@ type ProfileInfoType2 = {
 }
 
 const ProfileInfo: React.FC<ProfileInfoType2> = memo( ({
-                                                     profile, myId, status, putStatusThunkCreator, uploadImage,
-                                                     userId, putProfile, editProfileStatus, setEditProfileStatus
-                                                 }) => {
-
+                                                           profile, myId, status, putStatusThunkCreator, uploadImage,
+                                                           userId, putProfile, editProfileStatus, setEditProfileStatus
+                                                       }) => {
+    console.log( "ProfileInfo" )
     const [profilePhoto, setprofilePhoto] = useState<File>() // useState для временного хранения фото пользователя
     const [editMode, setEditMode] = useState<boolean>( false ) // флаг режима редактирования профиля
     const [showUploadImageButton, setshowUploadImageButton] = useState( false ) // флаг показать ли кнопку загрузки изображения
@@ -74,44 +76,22 @@ const ProfileInfo: React.FC<ProfileInfoType2> = memo( ({
                 putProfile={putProfile} setEditMode={setEditMode} profile={profile}
                 editProfileStatus={editProfileStatus} setEditProfileStatus={setEditProfileStatus}/>
         </div>
+    const onChangeLocal = (e:any) => {
+        uploadImage(e.target.files[0])// загрузка файла картинки на сервер
+    }
     const editMyPhoto = (userId === 0) &&// если мы перешли на свой профиль (в браузере нет ID возле profile)
-        <div>
-            <form> {/*форма отправки фото профиля на сервер*/}
-                <span><button
-                    className={ButtonOverImage.btn1 + " " + displayClass} // двойной класс - сама кнопка загрузки + класс скрыть/показать при наведении
-                    onMouseOver={() => {
-                        setshowUploadImageButton( true )
-                    }} // при наведении сменить флаг  setshowUploadImageButton на true (показать кнопку)
-                    onMouseOut={() => {
-                        setshowUploadImageButton( false )
-                    }}// при убирании мышки сменить флаг  setshowUploadImageButton на false (скрыть кнопку)
-                    onClick={() => { //
-                        profilePhoto && uploadImage( profilePhoto )
-                    }}>Загрузить</button></span> {/*По клику отправить файл на сервер*/}
-                <span>
-                    <input
-                        className={ButtonOverImage.btn2 + " " + displayClass} // двойной класс - сама кнопка загрузки + класс скрыть/показать при наведении
-                        onMouseOver={() => {
-                            setshowUploadImageButton( true )
-                        }} // при наведении сменить флаг  setshowUploadImageButton на true (показать кнопку)
-                        onMouseOut={() => {
-                            setshowUploadImageButton( false )
-                        }}// при убирании мышки сменить флаг  setshowUploadImageButton на false (скрыть кнопку)
-                        type="file" onChange={onChangeProfilePhoto}/></span> {/*загрузить файл*/}
-            </form>
+        <div className={classes.toCenter}>
+            <Form.Control type="file" onChange={onChangeLocal} className={classes.FileUploadInt}/>
         </div>
 
-    const showUserPhoto = <Image fluid={true}
-                                 alt={"userPhoto"}
-                                 onMouseOver={() => {
-                                     setshowUploadImageButton( true )
-                                 }} // при поя
-                                 onMouseOut={() => {
-                                     setshowUploadImageButton( false )
-                                 }}
-                                 className={`${ButtonOverImage.profilePhotoIMG} ${userId === 0 && showUploadImageButton ? ButtonOverImage.ImgHover : ""}`}
-        // если это мой профиль (userId === 0) и мышкой навели на картинку, добавить ImgHover класс (альтернатива псевдокласса :hover)
-                                 src={profile.photos.large ? profile.photos.large : userPhoto1}/>
+
+    const showUserPhoto = <div className={classes.toCenter}>
+        <Image fluid={true}
+               alt={"userPhoto"}
+               className={`${ButtonOverImage.profilePhotoIMG} ${userId === 0 && showUploadImageButton ? ButtonOverImage.ImgHover : ""}`}
+            // если это мой профиль (userId === 0) и мышкой навели на картинку, добавить ImgHover класс (альтернатива псевдокласса :hover)
+               src={profile.photos.large ? profile.photos.large : userPhoto1}/>
+    </div>
 
     return <div>
         <Container fluid="sm">
@@ -121,6 +101,7 @@ const ProfileInfo: React.FC<ProfileInfoType2> = memo( ({
                 <Col xs={12} md={5} className={ButtonOverImage.container}>
                     {showUserPhoto} {/*показать фото пользователя*/}
                     {editMyPhoto} {/* сменить фото, если это мой профиль*/}
+
                 </Col>
                 <Col xs={12} md={7}>
                     {showProfile} {/*показать профиль*/}
@@ -144,5 +125,5 @@ const ProfileInfo: React.FC<ProfileInfoType2> = memo( ({
             </Row>
         </Container>
     </div>
-})
+} )
 export default ProfileInfo;
