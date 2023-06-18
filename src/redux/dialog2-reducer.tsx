@@ -131,21 +131,21 @@ export const putDialog2StartThCr = (currentDialogId: number): ThType => {
     }
 }
 export const getDialog2AllThCr = (userId: number, page: number = 1, count: number = 10): ThType => {
-    return async (dispatch, getState) => {//- получить список диалогов по id пользователя
+    return async (dispatch, getState) => {//- получить список сообщений по id пользователя
         const response = await apiDialog2.getDialog2All( userId, page, count )
         dispatch( Dialog2Actions.getDialog2AllAC( response ) ) /* получить диалоглист*/
+        console.log("getDialog2AllThCr => setD2Item")
         dispatch( Dialog2Actions.setD2Item( response[0] ) ) /*отфильтровать d2Item */
-
 
     }
 }
-export const postDialog2MessageThCr = (userId: number, body: string, date: string, Markers: MarkersType): ThType => {
+export const postDialog2MessageThCr = ( body: string, date: string): ThType => {
     console.log( "postDialog2MessageThCr" )
     return async (dispatch, getState) => {// - отправить сообщение пользователю
-        const response = await apiDialog2.postDialog2Message( userId, body )
+        const response = await apiDialog2.postDialog2Message( getState().dialog2.D2UserId, body )
         if (response.resultCode === ResultCodeEnum.Success) {
             console.log( "Отправили сообщение, запускаем получение новых сообщений" )
-            dispatch( getDialog2MessagesNewerThenThCr( userId, date ) ) // получить все сообщения от указанного ID пользователя новее чем указанная дата
+            dispatch( getDialog2MessagesNewerThenThCr( getState().dialog2.D2UserId, date ) ) // получить все сообщения от указанного ID пользователя новее чем указанная дата
         }
         if (response.resultCode === ResultCodeEnum.Error) {
             dispatch( Dialog2Actions.setApiErrorMsg( response.messages ) )

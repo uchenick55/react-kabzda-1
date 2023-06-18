@@ -5,7 +5,6 @@ import Tasks from "../Tasks/Tasks";
 import Home from "../Home/Home";
 import classes from "./ContentContainer.module.css"
 import {useLocation} from "react-router";
-import {BreadCrumbs} from "../BreadCrumbs/BreadCrumbs";
 import {useDispatch, useSelector} from "react-redux";
 import type {} from 'redux-thunk/extend-redux';
 import {AppDispatch, GlobalStateType} from "../../redux/store-redux";
@@ -45,7 +44,7 @@ let ContentContainer: React.FC = memo( () => { // вынес роутинг ко
             // обновить данные пути patch в app-reducer
         }
 
-    }, [location, setPatch] )
+    }, [location, setPatch, dispatch, Patch] )
 
     const setPageWidthLocal  = () => { //записываем ширину окна в стор
         const PageWidth1 = document.documentElement.scrollWidth// изменяем ширину окна сразу
@@ -64,7 +63,6 @@ let ContentContainer: React.FC = memo( () => { // вынес роутинг ко
         <ErrorBoundary> {/*Локальный обработчик ошибок ContentContainer*/}
             <Suspense fallback={
                 <div>Загрузка...</div>}> {/*Оборачивает компоненты, по которым идет Lazy import и выдает fallback на время загрузки*/}
-                <BreadCrumbs/>
                 <div className={classes.contentContainer}>
                     <Routes> {/*в зависимости от URL подгрузка разного контента*/}
                         <Route path='' element={<Home/>}/> {/*Общие Комментарии*/}
@@ -72,7 +70,7 @@ let ContentContainer: React.FC = memo( () => { // вынес роутинг ко
                         <Route path='/profile/*' element={<ProfileContainer/>}/> {/*Профиль*/}
                         <Route path='/dialog2/*' element={<Dialog2Container/>}/> {/*Диалоги*/}
                         <Route path='/messages/*' element={<Dialog2Container/>}/> {/*Диалоги*/}
-                        <Route path='/users/*' element={<UsersContainer/>}/> {/*Поиск по UsersBS*/}
+                        <Route path='/users/*' element={<UsersContainer/>}/> {/*Поиск по Users*/}
                         <Route path='/login/*' element={<LoginContainer/>}/> {/*Логин*/}
                         <Route path='/news/*' element={<News/>}/> {/*Поиск по новостям hn algonia*/}
                         <Route path='/rest/*' element={<Rest/>}/> {/*Страница отдыха*/}

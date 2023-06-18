@@ -12,7 +12,6 @@ const SET_CURRENT_PAGE = "myApp/users-reducer/SET_CURRENT_PAGE";
 const TOGGLE_IS_FETCHING = "myApp/users-reducer/TOGGLE_IS_FETCHING";
 const SET_TOTAL_USERS_COUNT = "myApp/users-reducer/SET_TOTAL_USERS_COUNT";
 const TOGGLE_IS_FOLLOWING_PROGRESS = "myApp/users-reducer/TOGGLE_IS_FOLLOWING_PROGRESS";
-const NEED_UPDATE_FRIENDS = "myApp/users-reducer/NEED_UPDATE_FRIENDS";
 const SET_ONLY_FRIENDS = "myApp/users-reducer/SET_ONLY_FRIENDS";// экшн отображения только моих друзей, или общий список
 const USERS_INITIAL_STATE = "myApp/users-reducer/USERS_INITIAL_STATE";
 
@@ -32,9 +31,6 @@ export const UsersActions = {
     toggleIsFollowingProgerss: (isFetching: boolean, id: number) => {
         return {type: TOGGLE_IS_FOLLOWING_PROGRESS, isFetching, id} as const
     },
-    needUpdateFriendsAC: (needUpdateFriends: boolean) => {
-        return {type: NEED_UPDATE_FRIENDS, needUpdateFriends} as const
-    },
     usersInitialState: () => {
         return {type: USERS_INITIAL_STATE} as const
     },
@@ -53,7 +49,6 @@ const initialState = {
     isFetching: false, // статус загрузки (крутилка)
     followingInProgress: [] as Array<number>, // массив тех пользователей, которые в процессе follow/unfollow для disable button
     term: "", // поисковый запрос среди пользователей
-    needUpdateFriends: false, // флаг, что список друзей изменился, нужно обновить
     onlyFriends: false
     , // получить список только моих друзей
 }
@@ -98,12 +93,6 @@ const usersReducer = (state: initialStateType = initialState, action: UsersActio
                 isFetching: action.isFetching
             }
             return stateCopy; // вернуть копию стейта
-        case NEED_UPDATE_FRIENDS:
-            stateCopy = {
-                ...state,
-                needUpdateFriends: action.needUpdateFriends
-            }
-            return stateCopy; // вернуть копию стейта
         case USERS_INITIAL_STATE:
             stateCopy = initialState // занулить стейт до инициализационного
             return stateCopy; // вернуть копию стейта
@@ -119,19 +108,20 @@ const usersReducer = (state: initialStateType = initialState, action: UsersActio
 }
 
 export const getUsersThunkCreator //санкреатор получить пользователей с данными
-    = (currentPage: number, pageSize: number, term: string, friend: boolean, userId: number): ComThunkTp<UsersActionTypes> => {
+    = (currentPage: number = 1, userId?: number): ComThunkTp<UsersActionTypes> => {
 
     return (dispatch, getState) => { // нонейм санка получить пользователей
         dispatch( AppActions.toggleIsFetching( true ) ) //показать крутилку загрузки с сервера
 
-        apiUsers.getUsers( currentPage, pageSize, term, friend ) //получить пользователей по текущей странице и размере страницы
+        const {pageSize, term, onlyFriends} = getState().usersPage
+
+        apiUsers.getUsers( currentPage, pageSize, term, onlyFriends ) //получить пользователей по текущей странице и размере страницы
             .then( (data) => {
                 dispatch( AppActions.toggleIsFetching( false ) )  //убрать крутилку загрузки с сервера
                 dispatch( UsersActions.setUsers( data.items ) )//записать в стейт закгруженный стек пользователей
                 dispatch( UsersActions.setUsersTotalCount( data.totalCount ) )//записать в стейт общее количество пользователей
 
                 if (userId) { // если добавление/удаление пользователя в избранное
-                    dispatch( UsersActions.needUpdateFriendsAC( true ) ) // обновить список избранного
                     dispatch( UsersActions.toggleIsFollowingProgerss( false, userId ) )//убрать ID кнопки пользователя из массива followingInProgress, кнопка раздизаблена
                 }
             } )
@@ -149,33 +139,29 @@ const _followUnfollowFlow = ( // общий метод для санкреате
     dispatch: Dispatch<UsersActionTypes>,
     userId: number,
     currentPage: number,
-    pageSize: number,
     apiMethod: any,// (userId:number)=>,
-    term: string,
-    friend: boolean
 ) => {
     dispatch( UsersActions.toggleIsFollowingProgerss( true, userId ) )//внести ID кнопки пользователя в массив followingInProgress от повторного нажатия
     apiMethod( userId )// подписаться на пользователя // diff apiMethod = postFollow
         .then( (response: responseType) => {
             if (response.resultCode === ResultCodeEnum.Success) {
-                // @ts-ignore
-                dispatch( getUsersThunkCreator( currentPage, pageSize, term, friend, userId ) )
+                dispatch( getUsersThunkCreator( currentPage, userId ) )
                 // получить список пользователей после добавления/удаления из избранного
             }
         } )
 }
 
 export const followThunkCreator =
-    (userId: number, currentPage: number, pageSize: number, term: string, friend: boolean): ComThunkTp<UsersActionTypes> => {//санкреатор follow с данными
+    (userId: number, currentPage: number): ComThunkTp<UsersActionTypes> => {//санкреатор follow с данными
         return (dispatch, getState) => {// санка follow
-            _followUnfollowFlow( dispatch, userId, currentPage, pageSize, apiUsers.postFollow.bind( apiUsers ), term, friend );
+            _followUnfollowFlow( dispatch, userId, currentPage, apiUsers.postFollow.bind( apiUsers ) );
         }
     }
 
 export const unfollowThunkCreator =
-    (userId: number, currentPage: number, pageSize: number, term: string, friend: boolean): ComThunkTp<UsersActionTypes> => {//санкреатор unfollow с данными
+    (userId: number, currentPage: number): ComThunkTp<UsersActionTypes> => {//санкреатор unfollow с данными
         return (dispatch, getState) => {// санка unfollow
-            _followUnfollowFlow( dispatch, userId, currentPage, pageSize, apiUsers.deleteFollow.bind( apiUsers ), term, friend );
+            _followUnfollowFlow( dispatch, userId, currentPage, apiUsers.deleteFollow.bind( apiUsers ) );
         }
     }
 export default usersReducer;

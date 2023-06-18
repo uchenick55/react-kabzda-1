@@ -13,16 +13,14 @@ import {GlobalStateType} from "../../redux/store-redux";
 const HeaderContainer: React.FC<mapStateToPropsType & mapDispatchToPropsType> = (
     {themeBLL, isAuth, myId, deleteLoginThunkCreator, getProfileThunkCreator, myProfile, setThemeThunkCreator}) => {
 
-    const setTheme1 = useCallback(() => {
-
+    const setTheme1 = () => {
         const themeBLL1:"light" | "dark" = themeBLL === "light" ? "dark" : "light" //инверсия темы при вызове
         setThemeThunkCreator( themeBLL1 ) // вызов смены темы
-    },[themeBLL])
+    }
 
-    const deleteLogin = useCallback (() => {
+    const deleteLogin = () => {
         deleteLoginThunkCreator()// логаут текущего пользователя
-    },[])
-
+    }
     return <ErrorBoundary> {/*Локальный обработчик ошибок Header*/}
         <Header
             isAuth={isAuth}

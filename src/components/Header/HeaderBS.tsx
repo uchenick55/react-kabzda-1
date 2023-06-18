@@ -1,12 +1,12 @@
 import Container from 'react-bootstrap/Container';
 import Navbar from 'react-bootstrap/Navbar';
 import "bootstrap/dist/css/bootstrap.min.css"
-import React, {memo, useCallback, useMemo, useState} from "react";
+import React, {memo, useMemo, useState} from "react";
 import goBack from "../../assets/images/swg/back-arrow1.svg"
 import swgInfoPic from "../../assets/images/swg/info.svg"
 import classes from './Header.module.css';
 import Image from "react-bootstrap/Image";
-import {NavLink, useNavigate} from 'react-router-dom';
+import {useNavigate} from 'react-router-dom';
 import ModalBS1 from "../common/ModalBS/ModalBS1";
 import InfoContainer from "../Info/InfoContainer";
 import {useLocation} from "react-router";
@@ -60,13 +60,13 @@ const HeaderBS: React.FC<HeaderBSType> = memo( ({isAuth, myProfile, deleteLogin,
     const goBackRender = useMemo( () => <ImageMemo fluid={true} src={goBack} className={classes.myHeaderWH1}
                                                alt={"go back"} title={"go back"}
                                                onClick={() => navigate( -1 )} // при клике перейти назад по истории
-    />, [] )
+    />, [navigate] )
 
     /* Переключатель день/ночь */
     const dayNightRender = useMemo( () => <ImageMemo fluid={true} src={dayNightLight} className={classes.myHeaderWH1}
                                                  onClick={setTheme1} // по клику вызвать themeTogglerLocal
                                                  alt="Switch Theme" title="Switch Theme" // альтернативный текст
-    />, [themeBLL] )
+    />, [themeBLL, setTheme1] )
 
     /* иконка активатор модального окна с контекстной подсказкой для данной страницы*/
     const infoRender = useMemo( () => <Image fluid={true} src={swgInfoPic} className={classes.myHeaderWH1}

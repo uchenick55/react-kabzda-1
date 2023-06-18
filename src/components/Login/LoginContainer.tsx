@@ -6,7 +6,7 @@ import {getCaptchaThunkCreator, postLoginThunkCreator} from "../../redux/auth-re
 import {Navigate} from "react-router-dom";
 import {GlobalStateType} from "../../redux/store-redux";
 
-const LoginContainer: React.FC = ({}) => {
+const LoginContainer: React.FC = () => {
 
     const dispatch = useDispatch()
 

@@ -182,5 +182,13 @@ export const apiDialog2 = {
     },
 }
 
+export const apiTasks = {  // получить новости для tasks
+    getNews: async (query: string) => {
+        const response = await axios.get( `https://hn.algolia.com/api/v1/search?query=${query}` )
+        return (response.data.hits)  // вернуть данные news
+    }
+}
+
+
 //27045 evgeniysazonov1983@googlemail.com
 //25528 evgeniysazonov1983@gmail.com

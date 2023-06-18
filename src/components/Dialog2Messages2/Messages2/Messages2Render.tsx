@@ -1,4 +1,4 @@
-import React, {memo, useCallback} from "react";
+import React, {memo} from "react";
 import classes from "./messages2Render.module.scss"
 import {newMessagesItem, sendMessageType} from "../../api/apiTypes";
 import Messages2Item from "./Messages2Item";

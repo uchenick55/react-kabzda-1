@@ -2,7 +2,7 @@ import {getProfileType} from "../api/apiTypes";
 import {NulableType, ProfileType} from "../../types/commonTypes";
 import {GlobalStateType} from "../../redux/store-redux";
 import {compose} from "redux";
-import {connect, useDispatch, useSelector} from "react-redux";
+import {useDispatch, useSelector} from "react-redux";
 import {
     getProfileThunkCreator,
     ProfileActions, putMyProfileThunkCreator, putStatusThunkCreator, setprofilePhotoThunkCreator
@@ -22,7 +22,6 @@ const ProfileContainerFC: React.FC<OwnPropsType> = ({userId}) => {
     const profile: NulableType<getProfileType> = useSelector( (state: GlobalStateType) => state.profilePage.profile )
     const editProfileStatus: Array<string> = useSelector( (state: GlobalStateType) => state.profilePage.editProfileStatus )
     const isFetching: boolean = useSelector( (state: GlobalStateType) => state.app.isFetching )
-
 
     const myId: number = useSelector( (state: GlobalStateType) => state.auth.myId )
     const status: string = useSelector( (state: GlobalStateType) => state.profilePage.status )
@@ -50,7 +49,7 @@ const ProfileContainerFC: React.FC<OwnPropsType> = ({userId}) => {
 
     useEffect( () => {
         dispatch( getProfileThunkCreator( userId ) );// обновить профиль в зависомости от ID
-    }, [getProfileThunkCreator, userId] )
+    }, [userId, dispatch] )
 
     return <div>
         {isFetching && <Preloader/>}
@@ -62,10 +61,10 @@ const ProfileContainerFC: React.FC<OwnPropsType> = ({userId}) => {
             profile={useMemo( () => profile, [profile] )} // профиль
             editProfileStatus={useMemo( () => editProfileStatus, [editProfileStatus] )}// список ошибок правки формы профиля с сервера
 
-            putProfile={useCallback( putProfile, [] )}// задание профиля на сервер после ввода данных
-            uploadImage={useCallback( uploadImage, [] )}// загрузка картинки
-            putStatusThunkCreator={useCallback( putStatusThunkCreatorLocal, [] )}
-            setEditProfileStatus={useCallback( setEditProfileStatusLocal, [] )}// экшн креатор задания ошибки с сервера в стейт после правки профиля
+            putProfile={useCallback( putProfile, [dispatch, myId] )}// задание профиля на сервер после ввода данных
+            uploadImage={useCallback( uploadImage, [dispatch] )}// загрузка картинки
+            putStatusThunkCreator={useCallback( putStatusThunkCreatorLocal, [dispatch] )}
+            setEditProfileStatus={useCallback( setEditProfileStatusLocal, [dispatch] )}// экшн креатор задания ошибки с сервера в стейт после правки профиля
         />
     </div>
 }

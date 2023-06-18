@@ -81,3 +81,40 @@ export type ComThunkTp<A extends Action> = ThunkAction<
     unknown,    // нет доп параметров
     A // все типы ActionCreator
     >
+
+export type HitsItemType = {
+    "created_at": string,
+    "title": string,
+    "url": string,
+    "author": string,
+    "points": number,
+    "story_text": null | string,
+    "comment_text": string,
+    "num_comments": number,
+    "story_id": null | number,
+    "story_title": null | string,
+    "story_url": null | string,
+    "parent_id": null | number,
+    "created_at_i": number,
+    "relevancy_score": number,
+    "_tags": Array<string>,
+    "objectID": any,
+    "_highlightResult": {
+        "title": {
+            "value": JSX.Element,
+            "matchLevel": string,
+            "fullyHighlighted": boolean,
+            "matchedWords": Array<string>
+        },
+        "url": {
+            "value": string,
+            "matchLevel": string,
+            "matchedWords": []
+        },
+        "author": {
+            "value": string,
+            "matchLevel": string,
+            "matchedWords": []
+        }
+    }
+}

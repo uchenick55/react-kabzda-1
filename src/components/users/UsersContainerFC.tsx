@@ -1,102 +1,71 @@
-import {usersType} from "../api/apiTypes";
 import {GlobalStateType} from "../../redux/store-redux";
-import {getUsersReselect, usersSelectorsSimple} from "./users-selectors";
+import {usersSelectorsSimple} from "./users-selectors";
 import {useDispatch, useSelector} from "react-redux";
-import {followThunkCreator, getUsersThunkCreator, unfollowThunkCreator, UsersActions} from "../../redux/users-reducer";
-import React, {ChangeEvent, useCallback, useEffect, useMemo, useState} from "react";
+import {getUsersThunkCreator, UsersActions} from "../../redux/users-reducer";
+import React, {useEffect, useMemo} from "react";
 import Preloader from "../common/Preloader/Preloader";
-import UsersBS from "./UsersBS1";
+import classes from "./Users.module.css";
+import commonClasses from "../common/CommonClasses/common.module.css";
+import PaginationContainer from "../common/Pagination/PaginationContainer";
+import InputButtonContainer from "./InputButton/InputButtonCont";
+import UserItemsContainer from "./UserItems/UserItemsContainer";
 import {Dialog2Actions} from "../../redux/dialog2-reducer";
 
-const UsersContainerFC: React.FC = ({}) => {
+const UsersContainerFC: React.FC = () => {
 
-    const users: Array<usersType> = useSelector( getUsersReselect )// Реселектор users- список пользователей в пачке от сервера
-    const pageSize: number = useSelector( usersSelectorsSimple.getPageSize )// селектор pageSize - количество пользователей на странице
+    const {setDialog2InitialState} = Dialog2Actions
+
     const totalUsersCount: number = useSelector( usersSelectorsSimple.getTotalUsersCount )// селектор totalUsersCount - общее число пользователей с сервера
-    const currentPage: number = useSelector( usersSelectorsSimple.getCurrentPage )// селектор currentPage - текущая страница пачки пользователей с сервера
     const isFetching: boolean = useSelector( usersSelectorsSimple.getIsFetching )// селектор isFetching - показать крутилку при загрузке страницы
-    const followingInProgress: Array<number> = useSelector( usersSelectorsSimple.getFollowingInProgress )// селектор followingInProgress - массив на кого мы подписались, кнопка неактивна
-    const isAuth: boolean = useSelector( usersSelectorsSimple.getIsAuth )// селектор isAuth - флаг авторизации
-    const onlyFriends: boolean = useSelector( usersSelectorsSimple.getOnlyFriends )// селектор получить только моих рузей
-    const term: string = useSelector( (state: GlobalStateType) => state.usersPage.term )// поисковый запрос среди users
     const patch: string = useSelector( (state: GlobalStateType) => state.app.patch )// страница из URL
-    const PageWidth: number = useSelector( (state: GlobalStateType) => state.app.PageWidth ) // ширина страницы
 
     const dispatch = useDispatch()
 
-    const {setCurrentPage, setOnlyFriends, setTerm} = UsersActions // деструктуризация методов ActionCreator
+    const {setCurrentPage} = UsersActions // деструктуризация методов ActionCreator
 
-    const {setDialog2InitialState} = Dialog2Actions// деструктуризация методов ActionCreator
-
-    const [onChangeTerm, setOnChangeTerm] = useState<string>( term ) // локальный стейт значения поля ввода input Users
-    const [currentRangeLocal, setCurrentRangeLocal] = useState<number>( 1 ) // диапазон страниц пагинации
-
-    const onPageChanged = useCallback( (setPage: number) => {
-        dispatch( setCurrentPage( setPage ) );
-        dispatch( getUsersThunkCreator( setPage, pageSize, term, onlyFriends, 0 ) );
-    },[setCurrentPage, getUsersThunkCreator, pageSize, term, onlyFriends])
-
-    const followAPI = useCallback((id: number) => {
-        dispatch( followThunkCreator( id, currentPage, pageSize, term, onlyFriends ) )
-    },[followThunkCreator, currentPage, pageSize, term, onlyFriends])
-
-    const unfollowAPI = useCallback((id: number) => {
-        dispatch( unfollowThunkCreator( id, currentPage, pageSize, term, onlyFriends ) )
-    }, [unfollowThunkCreator, currentPage, pageSize, term, onlyFriends])
-
-    const SetTermFunction = useCallback(  () => {
-        dispatch( setTerm( onChangeTerm ) ) // задание в стейт поискового запроса
-    },[setTerm, onChangeTerm])
-
-    const onChangeTermFunction = useCallback ((event: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
-        setOnChangeTerm( event.currentTarget.value ) // задание значения поиска при изменении поля
-    },[setOnChangeTerm])
-
-    const onChangeRangeLocal = useCallback ( (rangeShift: number) => { // rangeShift - смещение диапазона страниц пагинации2
-        setCurrentRangeLocal( currentRangeLocal + rangeShift )
-    }, [setCurrentRangeLocal, currentRangeLocal])
-
-    useEffect( () => {
-        dispatch( getUsersThunkCreator( currentPage, pageSize, term, onlyFriends, 0 ) );
-    }, [currentPage, getUsersThunkCreator, onlyFriends, pageSize, term] )
-
-    useEffect( () => {
+    useEffect( () => { // при первой загрузке получить пользователей
         dispatch( setCurrentPage( 1 ) )// задание в стейт текущей страницы
-        setCurrentRangeLocal( 1 ) // перевод диапазона пагинации2 на 1 (сброс)
-        dispatch( getUsersThunkCreator( 1, pageSize, term, onlyFriends, 0 ) );// получение списка пользователей с поисковым запросом (переключение на 1 страницу)
-    }, [term, onlyFriends, getUsersThunkCreator, pageSize, setCurrentPage] )
+        // setCurrentRangeLocal( 1 ) // перевод диапазона пагинации2 на 1 (сброс)
+        dispatch( getUsersThunkCreator() );// получение списка пользователей (переключение на 1 страницу)
+    }, [getUsersThunkCreator, setCurrentPage, dispatch] )
 
     useEffect( () => {
         dispatch( setDialog2InitialState() ) // при переключении со страницы диалогов, занулить стейт диалогов
-    }, [setDialog2InitialState] )
+    }, [setDialog2InitialState, dispatch] )
 
-    return <> {/*использование фрагмента вместо div/span*/}
-        {isFetching && <Preloader/>}
-        <UsersBS
-            onlyFriends={onlyFriends}
-            patch={patch}
-            PageWidth={PageWidth}
-            pageSize={pageSize}
-            totalUsersCount={totalUsersCount}
-            currentPage={currentPage}
-            isAuth={isAuth}
-            onChangeTerm={onChangeTerm}
-            currentRangeLocal={currentRangeLocal}
+    const totalUsersCountRender = <div> {/*вывод количества всех пользователей*/}
+        <div className="d-flex justify-content-center opacity-50 mt-2 "> Total: {totalUsersCount}</div>
+        <div className={classes.line}/>
+    </div>
 
-            users={useMemo(()=>users,[users])}
-            followingInProgress={useMemo(()=>followingInProgress,[followingInProgress])}
+    const paginationMemo = useMemo(()=><PaginationContainer/>,[]) // мемоизация чтобы не рисовалась при срабатывании колбеков соседей
 
-            onPageChanged={onPageChanged }
-            unfollowAPI={unfollowAPI}
-            followAPI={followAPI}
-            SetTermFunction={SetTermFunction}
-            onChangeTermFunction={onChangeTermFunction}
-            onChangeRangeLocal={onChangeRangeLocal}
-            setOnlyFriends={setOnlyFriends}
+    const inputButtonMemo = useMemo(()=><InputButtonContainer/>,[])// мемоизация чтобы не рисовалась при срабатывании колбеков соседей
+    return <div>
 
-        />
-    </>
+        {isFetching && <Preloader/>} {/*лоадер при загрузке*/}
+
+        <div className={patch === "users" ? "" : classes.usersHeaderDialogsPage}> {/*на странице Users - одна колонка*/}
+
+            <h2 className={commonClasses.pageHeader}>Чаты</h2> {/*заголовок */}
+
+            {patch === "users" && paginationMemo } {/*Вывод пагинации только на странице users*/}
+
+            {inputButtonMemo} {/*ввод поиска по пользователям с кнопкой отправить*/}
+
+            {patch === "users" && totalUsersCountRender} {/*вывод количества всех пользователей только на странице users*/}
+
+        </div>
+
+        <UserItemsContainer/>{/*отрисовка самих карточек пользователей*/}
+
+    </div>
 }
 
 export default UsersContainerFC
 
+
+
+/*    useEffect( () => { // при смене страницы получить пользователей - дубликат с пагинацией
+      //  dispatch( getUsersThunkCreator( currentPage ) );
+    }, [currentPage, getUsersThunkCreator, dispatch] )*/

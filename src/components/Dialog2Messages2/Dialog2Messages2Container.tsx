@@ -28,12 +28,12 @@ const Dialog2Messages2Container: React.FC<OwnPropsType> = ({userId}) => {
     const PageWidth: number = useSelector( (state: GlobalStateType) => state.app.PageWidth )// ширина страницы
     const MobileWidth: number = useSelector( (state: GlobalStateType) => state.app.MobileWidth )// ширина страницы, считающаяся мобильной версткой
 
-    const {setMarkers, setD2Item, getDialog2AllAC, setd2Userid} = Dialog2Actions // получить экшены
+    const {setMarkers, setD2Item, setd2Userid} = Dialog2Actions // получить экшены
 
     const dispatch = useDispatch()
 
-    const Msg2SendMessage = useCallback((messageBody: string) => {
-        dispatch( postDialog2MessageThCr( userId, messageBody, "2022-04-30T19:10:31.843", Markers ) )// отправить сообщение указав ID пользователя
+    const Msg2SendMessage = (messageBody: string) => {
+        dispatch( postDialog2MessageThCr( messageBody, "2022-04-30T19:10:31.843") )// отправить сообщение указав ID пользователя
         if (Markers.dialogId !== userId) { //Если мы еще не начали диалог с пользователем, и отправили сообщение
             dispatch( putDialog2StartThCr( userId ) ) // инициировать диалог
             dispatch( setMarkers( { // маркер пометить, что диалог начался
@@ -41,42 +41,33 @@ const Dialog2Messages2Container: React.FC<OwnPropsType> = ({userId}) => {
                 dialogId: userId
             } ) )
         }
-    },[])
+    }
 
     const secondBlock = document.querySelector( '.second-block' ) // ссылка на прокрутку вниз
 
-    const MSG2ScrollBottom = useCallback( () => {
+    const MSG2ScrollBottom = () => {
         secondBlock && secondBlock.scrollIntoView( true )
-    }, [secondBlock] )
+    }
     //Сама метка className="second-block" находится в дочерней Messages2Render
 
-    useEffect(()=>{
+    useEffect(()=>{ // работа с уже имеющимся диалоглистом слева
        dispatch(setd2Userid(userId)) // задание userId из URL в стейт
+        //ставим маркер - получить сообщения
         console.log("setd2Userid(userId)")
-    },[userId])
 
-    useEffect( () => {
-            // через интервал времени при выборе диалога с новыми сообщениями локально пометить сообщение
-            // как прочитаное. При следующем получении данных с сервера, все синхронизируется
-            if (D2Item && D2Item.newMessagesCount > 0) {  //если маркер непрочтенных сообщений больше нуля
-                setTimeout( () => { // делаем таймер паузу пока сообщение не исчезнет
-                    const Dialog2AllLocal2: getDialog2AllType = [];
-                    Dialog2All.forEach( dd => {
-                        if (dd.id === userId) { // если это диалог в котором есть новые сообщения
-                            dd.hasNewMessages = false; // зануляем значения
-                            dd.newMessagesCount = 0;
-                        }
-                        Dialog2AllLocal2.push( dd ) //на каждой итерации добавляем элемент в новый массив копию
-                    } )
-                    console.log( "таймер закончился" )
-                    dispatch( getDialog2AllAC( Dialog2AllLocal2 ) )
-                }, 1000 )
-            }
-        },
-        [D2Item, Dialog2All, getDialog2AllAC, userId] )
+        console.log( "получить сообщения при смене userId", userId )
+        dispatch( getDialog2MessagesNewerThenThCr( userId, "2022-04-30T19:10:31.843" ) )
 
-    // getDialog2MessageIdViewedThCr("84ac68ee-73d0-43c4-82bb-0fd0273d4808") // проверить прочитано ли сообщение по его ID
-    // getDailog2UnreadMessagesThCr() // - вернуть количество непрочтенных сообщений
+        const D2ItemLocal: newMessagesItem = Dialog2All.filter( d2 => d2.id === userId )[0]
+        if (D2ItemLocal) { //если userId уже присутствует в списке диалогов
+            dispatch( setD2Item( D2ItemLocal ) ) // отфильтрровать и получить d2Item
+        } else {
+            getDialog2AllThCr(userId)
+        }
+
+    },[userId, dispatch, setd2Userid])
+
+
     useEffect( () => {
         if (userId !== 0 && !Markers.straightFirstUploaded) {
             console.log( "начать диалог по непустому userId " )
@@ -85,22 +76,8 @@ const Dialog2Messages2Container: React.FC<OwnPropsType> = ({userId}) => {
                 ...Markers, straightFirstUploaded: true // задать маркер прямой загрузки в true
             } ) )
         }
-    }, [userId, Markers, putDialog2StartThCr, setMarkers] )
+    }, [userId, Markers, putDialog2StartThCr, setMarkers, dispatch, putDialog2StartThCr] )
 
-    useEffect( () => { // получаем новые сообщения
-        if (userId !== 0 && (MessagesNewerThen.length === 0 || //если userId не равен нулю, и список сообщений пустой или
-            (MessagesNewerThen.length > 0 && //  список сообщений может быть не пустым
-                (MessagesNewerThen[0].senderId !== userId && MessagesNewerThen[0].recipientId !== userId) // и эти сообщения мы еще не загружали
-            )
-        )) {
-
-            console.log( "получить сообщения при смене userId", userId )
-            dispatch( getDialog2MessagesNewerThenThCr( userId, "2022-04-30T19:10:31.843" ) )
-
-            const D2ItemLocal: newMessagesItem = Dialog2All.filter( d2 => d2.id === userId )[0]
-            dispatch( setD2Item( D2ItemLocal ) ) // отфильтрровать d2Item
-        }
-    }, [userId, Dialog2All, getDialog2MessagesNewerThenThCr, setD2Item] )
 
     useEffect( () => {
         if (patch === "dialog2" && !Markers.Dialog2FirstUploaded && myId) {
@@ -110,7 +87,7 @@ const Dialog2Messages2Container: React.FC<OwnPropsType> = ({userId}) => {
                 ...Markers, Dialog2FirstUploaded: true
             } ) )
         }
-    }, [userId, patch, Markers, getDialog2AllThCr, setMarkers, myId] )
+    }, [patch, Markers, setMarkers, myId, dispatch] )
 
     useEffect( () => {
         if (Markers.needToScrollBottom) {
@@ -119,7 +96,7 @@ const Dialog2Messages2Container: React.FC<OwnPropsType> = ({userId}) => {
                 ...Markers, needToScrollBottom: false // ставим маркер - прокручивать вниз не нужно
             } ) )
         }
-    }, [Markers, MSG2ScrollBottom, setMarkers] )
+    }, [Markers, MSG2ScrollBottom, setMarkers, dispatch] )
 
     return <div>
         <Dialog2Messages2COM
@@ -138,3 +115,34 @@ export default compose<React.ComponentType>(
     NavigateToLoginHoc2
 )
 ( Dialog2Messages2Container );
+
+
+
+
+
+
+// getDialog2MessageIdViewedThCr("84ac68ee-73d0-43c4-82bb-0fd0273d4808") // проверить прочитано ли сообщение по его ID
+// getDailog2UnreadMessagesThCr() // - вернуть количество непрочтенных сообщений
+
+
+/*
+    useEffect( () => { // под вопросом, иногда появлялось повторно
+            // через интервал времени при выборе диалога с новыми сообщениями локально пометить сообщение
+            // как прочитаное. При следующем получении данных с сервера, все синхронизируется
+            if (D2Item && D2Item.newMessagesCount > 0) {  //если маркер непрочтенных сообщений больше нуля
+                setTimeout( () => { // делаем таймер паузу пока сообщение не исчезнет
+                    const Dialog2AllLocal2: getDialog2AllType = [];
+                    Dialog2All.forEach( dd => {
+                        if (dd.id === userId) { // если это диалог в котором есть новые сообщения
+                            dd.hasNewMessages = false; // зануляем значения
+                            dd.newMessagesCount = 0;
+                        }
+                        Dialog2AllLocal2.push( dd ) //на каждой итерации добавляем элемент в новый массив копию
+                    } )
+                    console.log( "таймер закончился" )
+                    dispatch( getDialog2AllAC( Dialog2AllLocal2 ) )
+                }, 1000 )
+            }
+        },
+        [D2Item, Dialog2All, getDialog2AllAC, userId, dispatch] )
+*/

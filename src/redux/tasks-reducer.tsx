@@ -7,13 +7,29 @@ import bootstrapImg from "../assets/images/bootstrap.jpg";
 import krestikiNoliki from "../assets/images/krestiki-noliki.jpg";
 import news from "../assets/images/News.jpg";
 import React from "react";
-import {tasksDataType} from "../types/commonTypes";
+import {ComThunkTp, HitsItemType, tasksDataType} from "../types/commonTypes";
+import {InferActionsTypes} from "./store-redux";
+import {apiTasks} from "../components/api/api";
 
-type initialStateType = {
-    tasksData: Array<tasksDataType>
+const SET_NEWS_DATA = "myApp/app-reducer/SET_NEWS_DATA"; //константа задания данных News
+
+export const TasksActions = {
+    setNewsDataAC: (newsData: newsDataType) => { // экшн креатор задания данных News
+        return {type: SET_NEWS_DATA, newsData} as const
+    }
 }
 
+type newsDataType = typeof initialState.newsData
+
+type initialStateType = typeof initialState
+
+type TasksActionTypes = InferActionsTypes<typeof TasksActions>
+
 let initialState = { //стейт по умолчанию темы
+    newsData: {
+        query: "white rabbit",
+        serverData: [] as Array<HitsItemType>
+    },
     tasksData: [
         {
             TaskHeader: <>Поиск по GitHub репозиториям</>,
@@ -250,11 +266,24 @@ let initialState = { //стейт по умолчанию темы
 }
 
 
-let tasksReducer = (state: initialStateType = initialState, action: any): initialStateType => {//редьюсер микрозаданий
+let tasksReducer = (state: initialStateType = initialState, action: TasksActionTypes): initialStateType => {//редьюсер микрозаданий
+    let stateCopy: initialStateType; // объявлениечасти части стейта до изменения редьюсером
     switch (action.type) {
+        case SET_NEWS_DATA: // запись данных News
+            stateCopy = {
+                ...state, // копия всего стейта
+                newsData: action.newsData,
+            }
+            return stateCopy; // возврат копии стейта после изменения
         default:
             return state; // по умолчанию стейт возврашается неизмененным
     }
+}
+export const getNewsThunkCreator = (query: string): ComThunkTp<TasksActionTypes> => {//санкреатор на получение данных новостей
+    return async (dispatch, getState) => { // санка
+        const response:Array<HitsItemType>  = await apiTasks.getNews( query );
+        dispatch( TasksActions.setNewsDataAC({...getState().tasks.newsData, serverData: response, query: query}) ) // получить данные с сервера по новостям
+    };
 }
 
 export default tasksReducer;

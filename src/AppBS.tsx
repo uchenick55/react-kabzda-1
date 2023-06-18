@@ -5,7 +5,7 @@ import {HashRouter} from "react-router-dom";
 import HeaderContainer from "./components/Header/HeaderContainer";
 import {useDispatch, useSelector} from "react-redux";
 import type {} from 'redux-thunk/extend-redux';
-import {AppActions, initialisedAppThunkCreator} from "./redux/app-reducer";
+import {initialisedAppThunkCreator} from "./redux/app-reducer";
 import Preloader from "./components/common/Preloader/Preloader";
 import ContentContainer from "./components/Content/ContentContainer";
 import ErrorBoundary from "./components/common/ErrorBoundary/ErrorBoundary";
@@ -13,7 +13,7 @@ import Container from "react-bootstrap/Container";
 import FooterBS from "./components/Footer/FooterBS";
 import {AppDispatch, GlobalStateType} from "./redux/store-redux";
 
-const AppBS: React.FC = memo(({}) => {
+const AppBS: React.FC = memo(() => {
 
     const theme:"light" | "dark" = useSelector((state:GlobalStateType) =>state.theme.themeBLL )
     const initialisedApp:boolean = useSelector((state:GlobalStateType) =>state.app.initialisedApp )
@@ -22,7 +22,7 @@ const AppBS: React.FC = memo(({}) => {
 
         useEffect( () => {
             dispatch( initialisedAppThunkCreator()) // запускаем инициализацию приложения
-    }, [] )
+    }, [] )//dispatch
 
     if (!initialisedApp) { // если приложение еще не инициализировано
         return <Preloader/> // показать статус загрузки

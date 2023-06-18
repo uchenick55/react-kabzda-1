@@ -1,12 +1,12 @@
-import classes from "./Users.module.css";
+import classes from "../Users.module.css";
 import {NavLink} from "react-router-dom";
 import Image from "react-bootstrap/Image";
-import userPhoto from "../../assets/images/no-image3.png";
+import userPhoto from "../../../assets/images/no-image3.png";
 import React, {memo} from "react";
-import {usersType} from "../api/apiTypes";
-import './scss/style.scss'
-import FollowPic from "../../assets/images/swg/star-.svg";
-import UnfollowPic from "../../assets/images/swg/star+.svg";
+import {usersType} from "../../api/apiTypes";
+import '../scss/style.scss'
+import FollowPic from "../../../assets/images/swg/star-.svg";
+import UnfollowPic from "../../../assets/images/swg/star+.svg";
 
 type UserItemsType = {
     users: Array<usersType>, // Реселектор users- список пользователей в пачке от сервера

@@ -1,82 +1,32 @@
 //Реализация async и await на классовых кмпонентах
-import axios from "axios"; // библиотека асинхронных запросов
 import React, {useEffect, useState} from "react";
 import commonClasses from "../common/CommonClasses/common.module.css";
 import Button from "react-bootstrap/Button";
 import ListGroup from 'react-bootstrap/ListGroup'
 import InputGroup from 'react-bootstrap/InputGroup'
 import Form from 'react-bootstrap/Form'
+import {getNewsThunkCreator} from "../../redux/tasks-reducer";
+import {useDispatch, useSelector} from "react-redux";
+import {HitsItemType} from "../../types/commonTypes";
+import {GlobalStateType} from "../../redux/store-redux";
 
-type HitsItemType = {
-    "created_at": string,
-    "title": string,
-    "url": string,
-    "author": string,
-    "points": number,
-    "story_text": null | string,
-    "comment_text": string,
-    "num_comments": number,
-    "story_id": null | number,
-    "story_title": null | string,
-    "story_url": null | string,
-    "parent_id": null | number,
-    "created_at_i": number,
-    "relevancy_score": number,
-    "_tags": Array<string>,
-    "objectID": any,
-    "_highlightResult": {
-        "title": {
-            "value": JSX.Element,
-            "matchLevel": string,
-            "fullyHighlighted": boolean,
-            "matchedWords": Array<string>
-        },
-        "url": {
-            "value": string,
-            "matchLevel": string,
-            "matchedWords": []
-        },
-        "author": {
-            "value": string,
-            "matchLevel": string,
-            "matchedWords": []
-        }
-    }
-}
+const RenderInputBtn:React.FC = () => {
+    console.log("RenderInputBtn")
+    const dispatch = useDispatch()
 
-const News: React.FC = ({}) => {
-    const [data, setData] = useState( {hits: [] as Array<HitsItemType>} )// пока пустой массив, сюда придут данные с сервера
-    const [query, setQuery] = useState<string>( "react" )// поисковый запрос
-    const [onChangeQuery, setOnChangeQuery] = useState<string>( "react" )// временное значение поиска, обновляется через onChange
+    const query: string = useSelector((state:GlobalStateType) => state.tasks.newsData.query)// получить query
 
-    const inputOnChange = (event: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
-        //
-        setOnChangeQuery( event.currentTarget.value )
-        // задаем временное значение стейта по onChange input
-    };
+    const [onChangeQuery, setOnChangeQuery] = useState<string>( query)// временное значение поиска, обновляется через onChange
 
     const buttonOnClick = () => {
-        setQuery( onChangeQuery ) // реакция на кнопку
-        //задание в поле поиска query значение из временного onChangeQuery
+        dispatch( getNewsThunkCreator(onChangeQuery))
     };
 
-    const callURL = (query: string) => {
-        // вынесли в отдельнюю функцию получение URL запроса
-        return `https://hn.algolia.com/api/v1/search?query=${query}`;
-    };
+    useEffect(()=>{ // при начальной загрузке получить данные по тестовому запросу
+        dispatch( getNewsThunkCreator(query))
+    },[])
 
-    const AsyncF = async (query: string) => {
-        // асинхронный запрос
-        const result = await axios( callURL( query ) );
-        setData( result.data )// задание с массив hits данных с сервера
-    }
-
-    useEffect( () => {
-        AsyncF( query )// вызов асинхронного запроса по начальному значению поиска query и при его изменениях
-    }, [query] )
-
-    const hn = <div>
-        <h2 className={commonClasses.pageHeader}>Search by HackerNews</h2>
+    return <div>
 
         <form>
             {/* объединяем input и button*/}
@@ -86,28 +36,32 @@ const News: React.FC = ({}) => {
                     value={onChangeQuery} // привязали value к значению из стейта
                     onChange={(event: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
                         // при изменении
-                        inputOnChange( event ); // задаем временное значение стейта по onChange input
+                        setOnChangeQuery( event.currentTarget.value  ); // задаем временное значение стейта по onChange input
                     }}
                 />
 
                 <Button variant="outline-secondary" // кнопка
                         type='submit'
-                        onClick={(e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
-                            // по клику
+                        onClick={(e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {// по клику
                             e.preventDefault(); // отменяем действие по умолчанию (отправка формы)
-                            buttonOnClick();
                             //задание в поле поиска query значение из временного onChangeQuery
+                            buttonOnClick();
                         }}
                 >
                     Search
                 </Button>
             </InputGroup>
         </form>
+    </div>
+}
 
-        {data.hits &&
+const RenderSearchList:React.FC = () => {
+    console.log("RenderSearchList")
+    const data: Array<HitsItemType> = useSelector((state:GlobalStateType) => state.tasks.newsData.serverData)
+    return <div>
+        {data &&
         <div>
-            {data.hits.map( (
-                //мапим
+            {data.map( ( //мапим
                 d: HitsItemType
             ) => {
                 return <div key={d.objectID}>  {/* key привязываем к map id*/}
@@ -119,18 +73,20 @@ const News: React.FC = ({}) => {
                                     {d.story_title}
                                 </a>
                             </div>
-
                         </ListGroup.Item>
                     </ListGroup>
                     {/* список ссылок с URL*/}
                 </div>
             } )}
-        </div>
-        }
-
+        </div>}
     </div>
+}
+const News: React.FC = () => {
+    console.log( "News" )
     return <div>
-        {hn}{/*отрисовка результатов поиска*/}
+        <h2 className={commonClasses.pageHeader}>Search by HackerNews</h2>
+        <RenderInputBtn/>{/*отрисовка кнопки и поля поиска*/}
+        <RenderSearchList/>{/* отрисовка результатов поиска*/}
     </div>
 }
 

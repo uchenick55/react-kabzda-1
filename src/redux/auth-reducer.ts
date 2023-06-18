@@ -149,7 +149,7 @@ export const deleteLoginThunkCreator = (): ComThunkTp<AuthActionTypes> => {//с�
 
                 dispatch( ProfileActions.profileInitialState() )// зануление профиля при логауте
 
-                dispatch( UsersActions.usersInitialState() )// зануление UsersBS при логауте
+                dispatch( UsersActions.usersInitialState() )// зануление Users при логауте
 
                 dispatch( Dialog2Actions.setDialog2InitialState() )// зануление Dialog2 при логауте
 
