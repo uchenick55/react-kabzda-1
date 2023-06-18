@@ -1,8 +1,8 @@
 import PaginationByCourse from "./PaginationByCourseBS";
-import React, {useState} from "react";
+import React, {useEffect, useState} from "react";
 import {useDispatch, useSelector} from "react-redux";
 import {usersSelectorsSimple} from "../../users/users-selectors";
-import {getUsersThunkCreator, UsersActions} from "../../../redux/users-reducer";
+import {UsersActions} from "../../../redux/users-reducer";
 import {GlobalStateType} from "../../../redux/store-redux";
 
 const PaginationContainer:React.FC = () => {
@@ -14,8 +14,8 @@ const PaginationContainer:React.FC = () => {
     const totalUsersCount: number = useSelector( usersSelectorsSimple.getTotalUsersCount )// селектор totalUsersCount - общее число пользователей с сервера
     const pageSize: number = useSelector( usersSelectorsSimple.getPageSize )// селектор pageSize - количество пользователей на странице
     const currentPage: number = useSelector( usersSelectorsSimple.getCurrentPage )// селектор currentPage - текущая страница пачки пользователей с сервера
-    const term: string = useSelector( (state: GlobalStateType) => state.usersPage.term )// поисковый запрос среди users
     const onlyFriends: boolean = useSelector( usersSelectorsSimple.getOnlyFriends )// селектор получить только моих рузей
+    const term: string = useSelector( (state: GlobalStateType) => state.usersPage.term )// поисковый запрос среди users
 
     const [currentRangeLocal, setCurrentRangeLocal] = useState<number>( 1 ) // диапазон страниц пагинации
 
@@ -25,8 +25,15 @@ const PaginationContainer:React.FC = () => {
 
     const onPageChanged =  (page: number) => {
         dispatch( setCurrentPage( page ) );
-        dispatch( getUsersThunkCreator( page ) );
     }
+
+    useEffect(()=>{
+        // эффект который при изменении term или onlyFriends сбрасывает range в 1 и page в 1
+        onPageChanged(1)
+        setCurrentRangeLocal(1)
+    },[onlyFriends, term])
+
+
     return <div>
         <PaginationByCourse
             totalUsersCount={totalUsersCount}

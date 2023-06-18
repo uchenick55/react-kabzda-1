@@ -108,9 +108,12 @@ const usersReducer = (state: initialStateType = initialState, action: UsersActio
 }
 
 export const getUsersThunkCreator //санкреатор получить пользователей с данными
-    = (currentPage: number = 1, userId?: number): ComThunkTp<UsersActionTypes> => {
+    = (currentPage?: number, userId?: number): ComThunkTp<UsersActionTypes> => {
 
     return (dispatch, getState) => { // нонейм санка получить пользователей
+        if (!currentPage) {
+            currentPage = getState().usersPage.currentPage
+        }
         dispatch( AppActions.toggleIsFetching( true ) ) //показать крутилку загрузки с сервера
 
         const {pageSize, term, onlyFriends} = getState().usersPage

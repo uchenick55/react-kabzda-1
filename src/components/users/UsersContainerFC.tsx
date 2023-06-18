@@ -15,32 +15,32 @@ const UsersContainerFC: React.FC = () => {
 
     const {setDialog2InitialState} = Dialog2Actions
 
+    const currentPage: number = useSelector( usersSelectorsSimple.getCurrentPage )// селектор currentPage - текущая страница пачки пользователей с сервера
     const totalUsersCount: number = useSelector( usersSelectorsSimple.getTotalUsersCount )// селектор totalUsersCount - общее число пользователей с сервера
     const isFetching: boolean = useSelector( usersSelectorsSimple.getIsFetching )// селектор isFetching - показать крутилку при загрузке страницы
     const patch: string = useSelector( (state: GlobalStateType) => state.app.patch )// страница из URL
+    const onlyFriends: boolean = useSelector( usersSelectorsSimple.getOnlyFriends )// селектор получить только моих рузей
+    const term: string = useSelector( (state: GlobalStateType) => state.usersPage.term )// поисковый запрос среди users
 
     const dispatch = useDispatch()
 
-    const {setCurrentPage} = UsersActions // деструктуризация методов ActionCreator
-
-    useEffect( () => { // при первой загрузке получить пользователей
-        dispatch( setCurrentPage( 1 ) )// задание в стейт текущей страницы
-        // setCurrentRangeLocal( 1 ) // перевод диапазона пагинации2 на 1 (сброс)
-        dispatch( getUsersThunkCreator() );// получение списка пользователей (переключение на 1 страницу)
-    }, [getUsersThunkCreator, setCurrentPage, dispatch] )
+    useEffect( () => { // при смене страницы получить пользователей - дубликат с пагинацией
+        dispatch( getUsersThunkCreator() );
+    }, [getUsersThunkCreator, dispatch, onlyFriends, term, currentPage] )
 
     useEffect( () => {
         dispatch( setDialog2InitialState() ) // при переключении со страницы диалогов, занулить стейт диалогов
     }, [setDialog2InitialState, dispatch] )
+
 
     const totalUsersCountRender = <div> {/*вывод количества всех пользователей*/}
         <div className="d-flex justify-content-center opacity-50 mt-2 "> Total: {totalUsersCount}</div>
         <div className={classes.line}/>
     </div>
 
-    const paginationMemo = useMemo(()=><PaginationContainer/>,[]) // мемоизация чтобы не рисовалась при срабатывании колбеков соседей
+    const paginationMemo = useMemo( () => <PaginationContainer/>, [] ) // мемоизация чтобы не рисовалась при срабатывании колбеков соседей
 
-    const inputButtonMemo = useMemo(()=><InputButtonContainer/>,[])// мемоизация чтобы не рисовалась при срабатывании колбеков соседей
+    const inputButtonMemo = useMemo( () => <InputButtonContainer/>, [] )// мемоизация чтобы не рисовалась при срабатывании колбеков соседей
     return <div>
 
         {isFetching && <Preloader/>} {/*лоадер при загрузке*/}
@@ -49,7 +49,7 @@ const UsersContainerFC: React.FC = () => {
 
             <h2 className={commonClasses.pageHeader}>Чаты</h2> {/*заголовок */}
 
-            {patch === "users" && paginationMemo } {/*Вывод пагинации только на странице users*/}
+            {patch === "users" && paginationMemo} {/*Вывод пагинации только на странице users*/}
 
             {inputButtonMemo} {/*ввод поиска по пользователям с кнопкой отправить*/}
 
@@ -66,6 +66,4 @@ export default UsersContainerFC
 
 
 
-/*    useEffect( () => { // при смене страницы получить пользователей - дубликат с пагинацией
-      //  dispatch( getUsersThunkCreator( currentPage ) );
-    }, [currentPage, getUsersThunkCreator, dispatch] )*/
+

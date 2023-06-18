@@ -1,4 +1,4 @@
-import React, {memo} from "react";
+import React from "react";
 import Stack from "react-bootstrap/Stack";
 import Form from 'react-bootstrap/Form';
 import Button from "react-bootstrap/Button";
@@ -13,23 +13,23 @@ type InputButtonUsersRenderType = {
     onlyFriends: boolean, // селектор получить только моих рузей
     setOnChangeTerm:(term: string) =>void,
     SetTermFunction:()=>void,
-    setOnlyFriends:(onlyFriends: boolean)=>void,
+    setOnlyFriends:(onlyFriends: any)=>void,
 }
 const InputButtonUsersRender:React.FC<InputButtonUsersRenderType> =
     ({onChangeTerm, setOnlyFriends, onlyFriends, SetTermFunction, setOnChangeTerm}) => {
     console.log("InputButtonUsersRender")
     const dispatch = useDispatch()
-    const InputGroupMemo = memo(InputGroup)
     return <div>
         <Form>
             <Stack direction="horizontal" gap={3} className="mx-1">
-                <InputGroupMemo>
+                <InputGroup>
                     <InputGroup.Text><Image fluid={true} src={favImage} className={classes.favImage}/></InputGroup.Text>
                     <InputGroup.Checkbox
                         checked={onlyFriends}
-                        onChange={(event:MouseEvent)=>{
+                        onChange={(event:React.ChangeEvent<HTMLInputElement>)=>{
                             // @ts-ignore
-                            event && event.target && dispatch( setOnlyFriends(event.target.checked))}}
+                            dispatch( setOnlyFriends(event.target.checked))
+                        }}
                     />
 
                     <Form.Control
@@ -41,7 +41,7 @@ const InputButtonUsersRender:React.FC<InputButtonUsersRenderType> =
                         placeholder={"find users..."} // пояснение поля ввода
                         autoFocus
                     /> {/*сразу фокусировка на поле ввода */}
-                </InputGroupMemo>
+                </InputGroup>
 
                 <div className="vr"/> {/*разделитель поля поиска и кнопки поиска*/}
                 <Button
