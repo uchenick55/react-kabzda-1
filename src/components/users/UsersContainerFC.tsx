@@ -1,7 +1,7 @@
 import {GlobalStateType} from "../../redux/store-redux";
 import {usersSelectorsSimple} from "./users-selectors";
 import {useDispatch, useSelector} from "react-redux";
-import {getUsersThunkCreator, UsersActions} from "../../redux/users-reducer";
+import {getUsersThunkCreator} from "../../redux/users-reducer";
 import React, {useEffect, useMemo} from "react";
 import Preloader from "../common/Preloader/Preloader";
 import classes from "./Users.module.css";
@@ -26,7 +26,7 @@ const UsersContainerFC: React.FC = () => {
 
     useEffect( () => { // при смене страницы получить пользователей - дубликат с пагинацией
         dispatch( getUsersThunkCreator() );
-    }, [getUsersThunkCreator, dispatch, onlyFriends, term, currentPage] )
+    }, [dispatch, onlyFriends, term, currentPage] )
 
     useEffect( () => {
         dispatch( setDialog2InitialState() ) // при переключении со страницы диалогов, занулить стейт диалогов

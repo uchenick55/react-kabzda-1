@@ -9,7 +9,7 @@ import {
 } from "../../redux/profile-reducer";
 import withRouter2 from "../hoc/withRouter2";
 import NavigateToLoginHoc2 from "../hoc/NavigateToLoginHoc2";
-import React, {useCallback, useEffect, useMemo} from "react";
+import React, {useEffect} from "react";
 import Profile from "./Profile";
 import Preloader from "../common/Preloader/Preloader";
 
@@ -58,13 +58,13 @@ const ProfileContainerFC: React.FC<OwnPropsType> = ({userId}) => {
             myId={myId}// мой ID
             userId={userId}// id пользователя (может совпадать с myId если смотрим свой профиль)
 
-            profile={useMemo( () => profile, [profile] )} // профиль
-            editProfileStatus={useMemo( () => editProfileStatus, [editProfileStatus] )}// список ошибок правки формы профиля с сервера
+            profile={profile} // профиль
+            editProfileStatus={editProfileStatus}// список ошибок правки формы профиля с сервера
 
-            putProfile={useCallback( putProfile, [dispatch, myId] )}// задание профиля на сервер после ввода данных
-            uploadImage={useCallback( uploadImage, [dispatch] )}// загрузка картинки
-            putStatusThunkCreator={useCallback( putStatusThunkCreatorLocal, [dispatch] )}
-            setEditProfileStatus={useCallback( setEditProfileStatusLocal, [dispatch] )}// экшн креатор задания ошибки с сервера в стейт после правки профиля
+            putProfile={putProfile }// задание профиля на сервер после ввода данных
+            uploadImage={uploadImage}// загрузка картинки
+            putStatusThunkCreator={putStatusThunkCreatorLocal}
+            setEditProfileStatus={ setEditProfileStatusLocal }// экшн креатор задания ошибки с сервера в стейт после правки профиля
         />
     </div>
 }

@@ -7,7 +7,7 @@ import bootstrapImg from "../assets/images/bootstrap.jpg";
 import krestikiNoliki from "../assets/images/krestiki-noliki.jpg";
 import news from "../assets/images/News.jpg";
 import React from "react";
-import {ComThunkTp, HitsItemType, tasksDataType} from "../types/commonTypes";
+import {ComThunkTp, HitsItemType} from "../types/commonTypes";
 import {InferActionsTypes} from "./store-redux";
 import {apiTasks} from "../components/api/api";
 

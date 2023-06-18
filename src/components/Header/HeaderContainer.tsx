@@ -1,4 +1,4 @@
-import React, {useCallback, useMemo} from 'react';
+import React, {useMemo} from 'react';
 import Header from "./HeaderBS";
 import {connect} from "react-redux";
 import {deleteLoginThunkCreator} from "../../redux/auth-reducer";

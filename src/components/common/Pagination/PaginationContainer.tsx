@@ -31,7 +31,7 @@ const PaginationContainer:React.FC = () => {
         // эффект который при изменении term или onlyFriends сбрасывает range в 1 и page в 1
         onPageChanged(1)
         setCurrentRangeLocal(1)
-    },[onlyFriends, term])
+    },[onlyFriends, term])//
 
 
     return <div>

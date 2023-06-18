@@ -66,7 +66,7 @@ const HeaderBS: React.FC<HeaderBSType> = memo( ({isAuth, myProfile, deleteLogin,
     const dayNightRender = useMemo( () => <ImageMemo fluid={true} src={dayNightLight} className={classes.myHeaderWH1}
                                                  onClick={setTheme1} // по клику вызвать themeTogglerLocal
                                                  alt="Switch Theme" title="Switch Theme" // альтернативный текст
-    />, [themeBLL, setTheme1] )
+    />, [setTheme1] )
 
     /* иконка активатор модального окна с контекстной подсказкой для данной страницы*/
     const infoRender = useMemo( () => <Image fluid={true} src={swgInfoPic} className={classes.myHeaderWH1}

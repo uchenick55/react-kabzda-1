@@ -22,7 +22,7 @@ const AppBS: React.FC = memo(() => {
 
         useEffect( () => {
             dispatch( initialisedAppThunkCreator()) // запускаем инициализацию приложения
-    }, [] )//dispatch
+    }, [dispatch] )//dispatch
 
     if (!initialisedApp) { // если приложение еще не инициализировано
         return <Preloader/> // показать статус загрузки

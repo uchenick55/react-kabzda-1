@@ -45,10 +45,10 @@ const Dialog2Messages2Container: React.FC<OwnPropsType> = ({userId}) => {
 
     const secondBlock = document.querySelector( '.second-block' ) // ссылка на прокрутку вниз
 
-    const MSG2ScrollBottom = () => {
+    const MSG2ScrollBottom = useCallback (() => {
         secondBlock && secondBlock.scrollIntoView( true )
-    }
-    //Сама метка className="second-block" находится в дочерней Messages2Render
+    },[secondBlock])//Сама метка className="second-block" находится в дочерней Messages2Render
+
 
     useEffect(()=>{ // работа с уже имеющимся диалоглистом слева
        dispatch(setd2Userid(userId)) // задание userId из URL в стейт
@@ -65,7 +65,7 @@ const Dialog2Messages2Container: React.FC<OwnPropsType> = ({userId}) => {
             getDialog2AllThCr(userId)
         }
 
-    },[userId, dispatch, setd2Userid])
+    },[userId, dispatch, setd2Userid, Dialog2All, setD2Item])
 
 
     useEffect( () => {
@@ -76,7 +76,7 @@ const Dialog2Messages2Container: React.FC<OwnPropsType> = ({userId}) => {
                 ...Markers, straightFirstUploaded: true // задать маркер прямой загрузки в true
             } ) )
         }
-    }, [userId, Markers, putDialog2StartThCr, setMarkers, dispatch, putDialog2StartThCr] )
+    }, [userId, Markers, setMarkers, dispatch] )
 
 
     useEffect( () => {
@@ -96,7 +96,7 @@ const Dialog2Messages2Container: React.FC<OwnPropsType> = ({userId}) => {
                 ...Markers, needToScrollBottom: false // ставим маркер - прокручивать вниз не нужно
             } ) )
         }
-    }, [Markers, MSG2ScrollBottom, setMarkers, dispatch] )
+    }, [MSG2ScrollBottom, Markers, setMarkers, dispatch] )
 
     return <div>
         <Dialog2Messages2COM
