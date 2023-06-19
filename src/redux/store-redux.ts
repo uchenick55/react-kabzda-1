@@ -9,7 +9,7 @@ import feedBackReducer from "./feedback-reducer"
 import tasksReducer from "./tasks-reducer";
 import dialod2Reducer from "./dialog2-reducer"
 
-let reducers = combineReducers({ // объединяем стейт редьюсеров в один объект store
+const reducers = combineReducers({ // объединяем стейт редьюсеров в один объект store
     profilePage: profileReducer, // стейт профиля
     usersPage: usersReducer, // стейт страницы пользователей
     auth: authReducer, // стейт текущего пользователя

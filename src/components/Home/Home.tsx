@@ -7,7 +7,7 @@ import IndexInfo from "../Info/IndexInfo";
 type HomeTypes = {
 
 }
-let Home: React.FC<HomeTypes> = () => {
+const Home: React.FC<HomeTypes> = () => {
     const home = <div>
         <Container>
             <h2 className={commonClasses.pageHeader}>Home</h2>

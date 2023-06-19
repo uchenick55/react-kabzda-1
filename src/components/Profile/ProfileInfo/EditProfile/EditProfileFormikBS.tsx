@@ -8,7 +8,7 @@ import Button from "react-bootstrap/Button";
 import {ProfileType} from "../../../../types/commonTypes";
 import {getProfileType} from "../../../api/apiTypes";
 
-let myValidationSchema = Yup.object({ // валидация форм на required, длину и заполнение полей
+const myValidationSchema = Yup.object({ // валидация форм на required, длину и заполнение полей
 })
 
 type EditProfileFormikType = {

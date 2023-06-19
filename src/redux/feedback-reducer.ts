@@ -12,13 +12,13 @@ export const FeedBackActions = {
 }
 
 type initialStateType = { feedBackStatus: string }
-let initialState: initialStateType = { //стейт по умолчанию темы
+const initialState: initialStateType = { //стейт по умолчанию темы
     feedBackStatus: "" // статус отправки сообщения (feedBack) - если не нулевой отображается вместо формы сообщения
 }
 
 type FeedBackActionTypes = InferActionsTypes<typeof FeedBackActions>
 
-let feedBackReducer = (state: initialStateType = initialState, action: FeedBackActionTypes): initialStateType => {//редьюсер отправки сообщения
+const feedBackReducer = (state: initialStateType = initialState, action: FeedBackActionTypes): initialStateType => {//редьюсер отправки сообщения
     let stateCopy: initialStateType; // объявлениечасти части стейта до изменения редьюсером
     switch (action.type) {
         case SET_FEED_BACK_STATUS: // экшн задания feedBackStatus

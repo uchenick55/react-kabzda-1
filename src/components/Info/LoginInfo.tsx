@@ -2,7 +2,7 @@ import LoginInfoShort from "./LoginInfoShort";
 import React from "react";
 
 type LoginInfoType = {}
-let LoginInfo:React.FC<LoginInfoType> = () => {
+const LoginInfo:React.FC<LoginInfoType> = () => {
     return (<div>
         <p>Страницы Profile и Dialogs доступны только после авторизации.</p>
         <p>Поля email и password обязательны, rememberMe нет.</p>

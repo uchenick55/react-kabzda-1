@@ -18,7 +18,7 @@ type UserItemsType = {
     isAuth: boolean, // селектор isAuth - флаг авторизации
 
 }
-const UserItems: React.FC<UserItemsType> = memo( ({users, unfollowAPI, followAPI, followingInProgress, isAuth, patch, PageWidth}) => {
+const UserItems: React.FC<UserItemsType> = ( ({users, unfollowAPI, followAPI, followingInProgress, isAuth, patch, PageWidth}) => {
     // отрисовка всех карточек с пользователями
     console.log("UserItems")
     let gridColsClass: string = ""

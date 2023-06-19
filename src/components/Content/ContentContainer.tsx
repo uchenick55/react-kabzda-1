@@ -19,7 +19,7 @@ const Rest = React.lazy( () => import("../Rest/Krestiki-Noliki/KrestikiNoliki") 
 const StackInfo = React.lazy( () => import("../Info/StackInfoBS") )
 const FeedBackContainer = React.lazy( () => import("../FeedBack/FeedBackContainer") )
 
-let ContentContainer: React.FC = memo( () => { // вынес роутинг контента в отдельную компоненту
+const ContentContainer: React.FC = memo( () => { // вынес роутинг контента в отдельную компоненту
 
     const {setPatch, setPageWidth} = AppActions
     const Patch: string = useSelector((state:GlobalStateType) => state.app.patch)

@@ -32,7 +32,7 @@ const HeaderContainer: React.FC<mapStateToPropsType & mapDispatchToPropsType> = 
     </ErrorBoundary>
 }
 
-let mapStateToProps = (state: GlobalStateType) => {
+const mapStateToProps = (state: GlobalStateType) => {
     return {
         myId: state.auth.myId as number, // мой ID по умолчанию
         isAuth: state.auth.isAuth as boolean, // Флаг авторизации

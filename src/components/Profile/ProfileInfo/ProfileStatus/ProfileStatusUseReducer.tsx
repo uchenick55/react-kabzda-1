@@ -10,7 +10,7 @@ type ProfileStatusUseReducerType = {
     status:string, // статус из BLL
     putStatusThunkCreator: (statusTmpInput:string)=>void, // санкреатор для обновления сатуса
 }
-let ProfileStatusUseReducer:React.FC<ProfileStatusUseReducerType> = memo( ({status, userId, myId, putStatusThunkCreator}) => {
+const ProfileStatusUseReducer:React.FC<ProfileStatusUseReducerType> = memo( ({status, userId, myId, putStatusThunkCreator}) => {
     const initialState = {
         modifyStatus2: false,// локальная переменная-флаг модификации статуса
         statusTmpInput2: "" // локальный статус до отправки на сервер (поле input)

@@ -7,12 +7,12 @@ import Button from "react-bootstrap/Button";
 import Row from "react-bootstrap/Row";
 import {apiFeedBackDataType} from "../../../types/commonTypes";
 
-let myInitialValues = { // начальные зачения форм
+const myInitialValues = { // начальные зачения форм
     name: "",
     email: "",
     message: "",
 }
-let myValidationSchema = Yup.object({ // валидация форм на required, длину и заполнение полей
+const myValidationSchema = Yup.object({ // валидация форм на required, длину и заполнение полей
     email: Yup.string()
         .email('Invalid email address'),
     message: Yup.string()

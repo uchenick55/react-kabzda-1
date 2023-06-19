@@ -3,13 +3,13 @@ import {connect} from "react-redux";
 import {Navigate} from "react-router-dom";
 
 
-let mapStateToProps = (state) => {
+const mapStateToProps = (state) => {
     return {
         isAuth: state.auth.isAuth, // текущий флаг авторизации
     }
 }
 
-let NavigateToLoginHoc2 = (Component) => {
+const NavigateToLoginHoc2 = (Component) => {
     const NavigateToLoginHocWithAuth2 = (props) => {
         if (!props.isAuth) {
             return <Navigate to='../login'/>;

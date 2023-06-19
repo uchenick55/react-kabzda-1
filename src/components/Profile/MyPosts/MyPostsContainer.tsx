@@ -21,7 +21,7 @@ const MyPostsContainer: React.FC<mapStateToPropsType & mapDispatchToPropsType & 
         return <MyPostsBS userId={userId} posts={posts} addPost={addPost}/>
     }
 
-let mapStateToProps = (state: GlobalStateType) => {
+const mapStateToProps = (state: GlobalStateType) => {
     return {
         posts: state.profilePage.posts as Array<postsType>, // мои посты (пока заглушка)
     }

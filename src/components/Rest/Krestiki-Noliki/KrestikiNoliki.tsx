@@ -48,7 +48,7 @@ const Board: React.FC<BoardPropsType> = ({squares, xIsNext, handleSquare, histor
         );
     }
 
-    let status; // существует переменная status
+    let status; // определеили переменную
     const Winner = calculateWinner( squares ); // проверка, появился ли победитель
     if (history.length < 10) {
         status = xIsNext ? "Сейчас ходит: X " : "Сейчас ходит: O ";

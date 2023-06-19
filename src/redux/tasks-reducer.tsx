@@ -25,7 +25,7 @@ type initialStateType = typeof initialState
 
 type TasksActionTypes = InferActionsTypes<typeof TasksActions>
 
-let initialState = { //стейт по умолчанию темы
+const initialState = { //стейт по умолчанию темы
     newsData: {
         query: "white rabbit",
         serverData: [] as Array<HitsItemType>
@@ -266,7 +266,7 @@ let initialState = { //стейт по умолчанию темы
 }
 
 
-let tasksReducer = (state: initialStateType = initialState, action: TasksActionTypes): initialStateType => {//редьюсер микрозаданий
+const tasksReducer = (state: initialStateType = initialState, action: TasksActionTypes): initialStateType => {//редьюсер микрозаданий
     let stateCopy: initialStateType; // объявлениечасти части стейта до изменения редьюсером
     switch (action.type) {
         case SET_NEWS_DATA: // запись данных News

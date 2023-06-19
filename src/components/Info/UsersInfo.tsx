@@ -2,7 +2,7 @@ import {connect} from "react-redux";
 import React from "react";
 import {GlobalStateType} from "../../redux/store-redux";
 
-let UsersInfo:React.FC<mapStateToPropsType> = ({myId, myLogin}) => {
+const UsersInfo:React.FC<mapStateToPropsType> = ({myId, myLogin}) => {
     return (<div>
         <p>Пользователей можно искать по имени;</p>
         <p>Вы можете добавить пользователей в избранное, нажав звездочку. Аналогично их можно удалять;</p>
@@ -23,7 +23,7 @@ let UsersInfo:React.FC<mapStateToPropsType> = ({myId, myLogin}) => {
 }
 
 
-let mapStateToProps = (state:GlobalStateType) => {
+const mapStateToProps = (state:GlobalStateType) => {
     return {
         myId: state.auth.myId as number,
         myLogin: state.auth.myLogin as string,

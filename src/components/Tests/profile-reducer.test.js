@@ -2,7 +2,7 @@ import profileReducer, {addPostActionCreator, deletePostActionCreator} from "../
 
 const ADD_POST = "myApp/profile-reducer/ADD-POST";// константа отправки новых постов
 
-let initialState = {
+const initialState = {
   posts: [// заглушка постов на странице профиля
     {id: 1, message: "state 2 Hi, how are you?", like: "12"},
     {id: 2, message: "state 2 it's, my first post", like: "15"},

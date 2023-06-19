@@ -34,7 +34,7 @@ type AppActionTypes = InferActionsTypes<typeof AppActions>
 
 type initialStateType = typeof initialState
 
-let initialState = { //стейт по умолчанию для инициализации приложения
+const initialState = { //стейт по умолчанию для инициализации приложения
     initialisedApp: false, // флаг приложение инициализировано?
     patch: "", // название страницы из URL
     PageWidth: document.documentElement.scrollWidth, // ширина страницы по умолчанию
@@ -43,7 +43,7 @@ let initialState = { //стейт по умолчанию для инициал�
 
 }
 
-let appReducer = (state: initialStateType = initialState, action: AppActionTypes): initialStateType => {//редьюсер инициализации приложения
+const appReducer = (state: initialStateType = initialState, action: AppActionTypes): initialStateType => {//редьюсер инициализации приложения
     let stateCopy: initialStateType; // объявлениечасти части стейта до изменения редьюсером
     switch (action.type) {
         case SET_INITIALISED_APP: // экшн инициализации приложения

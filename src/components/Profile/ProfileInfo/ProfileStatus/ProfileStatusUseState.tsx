@@ -8,7 +8,7 @@ type ProfileStatusUseStateType = {
 }
 
 
-let ProfileStatusUseState:React.FC<ProfileStatusUseStateType> = ({userId, myId, status, putStatusThunkCreator }) => {
+const ProfileStatusUseState:React.FC<ProfileStatusUseStateType> = ({userId, myId, status, putStatusThunkCreator }) => {
     const [modifyStatus, setModifyStatus] = useState<boolean>(false) // локальная переменная-флаг модификации статуса
     const [statusTmpInput, setStatusTmpInput] = useState<string>("") // локальный статус до отправки на сервер (поле input)
 

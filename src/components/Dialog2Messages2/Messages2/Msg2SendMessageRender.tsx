@@ -7,10 +7,10 @@ import sendSwg from "../../../assets/images/swg/send-svg2.svg"
 import classes from "./Msg2SendMessageRender.module.css"
 import {ImageMemo, MyTextInputMemo} from "../../common/BootstrapMemo/BootstrapMemo";
 
-let myInitialValues = { // начальные зачения форм
+const myInitialValues = { // начальные зачения форм
     newMessage: "",
 }
-let myValidationSchema = Yup.object( { // валидация форм на required, длину и заполнение полей
+const myValidationSchema = Yup.object( { // валидация форм на required, длину и заполнение полей
 } )
 
 type DialogFormikType = {

@@ -7,10 +7,10 @@ import {MyTextInput} from "../../../../common/formikCommon/MyFieldsBS"
 import Button from "react-bootstrap/Button";
 import Stack from "react-bootstrap/Stack";
 
-let myInitialValues = { // начальные зачения форм
+const myInitialValues = { // начальные зачения форм
     newPost: "",
 }
-let myValidationSchema = Yup.object({ // валидация форм на required, длину и заполнение полей
+const myValidationSchema = Yup.object({ // валидация форм на required, длину и заполнение полей
 })
 
 type MyPostsFormikType = {

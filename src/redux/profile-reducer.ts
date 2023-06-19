@@ -42,7 +42,7 @@ export const ProfileActions = {
 type ProfileActionTypes = InferActionsTypes<typeof ProfileActions> | InferActionsTypes<typeof AuthActions>
     | InferActionsTypes<typeof AppActions>
 
-let initialState = {
+const initialState = {
     posts: [// заглушка постов на странице профиля
         {id: 1, message: "state 2 Hi, how are you?", like: 12},
         {id: 2, message: "state 2 it's, my first post", like: 15},

@@ -13,12 +13,12 @@ import Container from "react-bootstrap/Container";
 import Row from "react-bootstrap/Row";
 import commonClasses from "../common/CommonClasses/common.module.css"
 
-let myInitialValues = { // начальные зачения форм
+const myInitialValues = { // начальные зачения форм
     email: "",
     password: "",
     captcha: "",
 }
-let myValidationSchema = Yup.object({ // валидация форм на required, длину и заполнение полей
+const myValidationSchema = Yup.object({ // валидация форм на required, длину и заполнение полей
     email: Yup.string()
         .email('Invalid email address')
         .required('Required'),

@@ -4,7 +4,7 @@ import dialogs from "../../assets/images/messages.jpg"
 import Image from "react-bootstrap/Image";
 
 type DialogsInfoType ={}
-let DialogsInfo:React.FC<DialogsInfoType> = () => {
+const DialogsInfo:React.FC<DialogsInfoType> = () => {
     return (<div>
         <p>На этой странице ведется диалог с выбранным собеседником;</p>
         <p>Написаные сообщения можно удалять;</p>
