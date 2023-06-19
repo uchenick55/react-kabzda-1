@@ -1,5 +1,5 @@
 import {InferActionsTypes} from "./store-redux";
-import {ComThunkTp} from "../types/commonTypes";
+import {ComThunkTp} from "../components/common/types/commonTypes";
 import {apiDialog2} from "../components/api/api";
 import {ApiErrorMsgType, getDialog2AllType, newMessagesItem, sendMessageType} from "../components/api/apiTypes";
 import {ResultCodeEnum} from "../components/api/enum";
@@ -140,13 +140,11 @@ export const getDialog2AllThCr = (userId?: number, page: number = 1, count: numb
             userId = getState().dialog2.D2Item.id
             console.log("!userId getDialog2AllThCr")
         }
-        const {response, err} = await apiDialog2.getDialog2All( userId, page, count )
+        const response = await apiDialog2.getDialog2All( userId, page, count )
         if (response) { // если есть данные
             dispatch( Dialog2Actions.getDialog2AllAC( response ) ) /* получить диалоглист*/
             console.log("getDialog2AllThCr => setD2Item")
             dispatch( Dialog2Actions.setD2Item( response[0] ) ) /*отфильтровать d2Item */
-        } else {
-            console.log(( err) )// в консоль ошибку
         }
     }
 }

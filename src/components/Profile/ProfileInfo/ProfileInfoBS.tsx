@@ -11,7 +11,7 @@ import Container from "react-bootstrap/Container";
 import Image from 'react-bootstrap/Image'
 import commonClasses from "../../common/CommonClasses/common.module.css";
 import {getProfileType} from "../../api/apiTypes";
-import {NulableType, ProfileType} from "../../../types/commonTypes";
+import {NulableType, ProfileType} from "../../common/types/commonTypes";
 import ShowProfile from "./ShowProfile";
 import Form from 'react-bootstrap/Form';
 import classes from "../Profile.module.css"

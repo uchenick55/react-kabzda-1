@@ -2,7 +2,7 @@ import MyPostsBS from "./MyPostsBS";
 import {profileActions} from "../../../redux/profile-reducer";
 import {connect} from "react-redux";
 import React from "react";
-import {postsType} from "../../../types/commonTypes";
+import {postsType} from "../../common/types/commonTypes";
 import {GlobalStateType} from "../../../redux/store-redux";
 
 const {addPostActionCreator} = profileActions

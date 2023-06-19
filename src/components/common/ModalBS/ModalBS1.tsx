@@ -1,7 +1,7 @@
 import React, {memo} from 'react';
 import Button from 'react-bootstrap/Button';
 import Modal from 'react-bootstrap/Modal';
-import {modalBodyType, modalHeaderType} from "../../../types/commonTypes";
+import {modalBodyType, modalHeaderType} from "../types/commonTypes";
 
 type ModalBS1Type = {
     show: boolean,// флаг показывать ли модальное окно

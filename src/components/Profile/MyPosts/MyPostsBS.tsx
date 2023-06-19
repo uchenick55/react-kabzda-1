@@ -3,7 +3,7 @@ import classes from './MyPosts.module.css' // css обработка
 import Post from "./Post/Post"; // подкомпонента отрисовки постов через map
 import MyPostsFormik from "./Post/MyPostsFormik/MyPostsFormikBS";
 import Container from "react-bootstrap/Container";
-import {postsType} from "../../../types/commonTypes"; // reduxForm для ввода новых постов
+import {postsType} from "../../common/types/commonTypes"; // reduxForm для ввода новых постов
 
 type MyPostsBSType = {
     userId: number,

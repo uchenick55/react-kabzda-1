@@ -7,7 +7,7 @@ import InputGroup from 'react-bootstrap/InputGroup'
 import Form from 'react-bootstrap/Form'
 import {getNewsThunkCreator} from "../../redux/tasks-reducer";
 import {useDispatch, useSelector} from "react-redux";
-import {HitsItemType} from "../../types/commonTypes";
+import {HitsItemType} from "../common/types/commonTypes";
 import {GlobalStateType} from "../../redux/store-redux";
 
 const RenderInputBtn:React.FC = () => {

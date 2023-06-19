@@ -1,5 +1,5 @@
 import {postFeedBack22} from "../components/api/api";
-import {apiFeedBackDataType} from "../types/commonTypes";
+import {apiFeedBackDataType} from "../components/common/types/commonTypes";
 import {Dispatch} from "redux";
 import {GlobalStateType, InferActionsTypes} from "./store-redux";
 

@@ -1,6 +1,6 @@
 import {apiProfile} from "../components/api/api";
 import {AuthActions} from "./auth-reducer";
-import {ComThunkTp, NulableType, postsType, ProfileType} from "../types/commonTypes";
+import {ComThunkTp, NulableType, postsType, ProfileType} from "../components/common/types/commonTypes";
 import {InferActionsTypes} from "./store-redux";
 import {getProfileType} from "../components/api/apiTypes";
 import {ResultCodeEnum} from "../components/api/enum";

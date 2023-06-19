@@ -11,7 +11,7 @@ import ModalBS1 from "../common/ModalBS/ModalBS1";
 import InfoContainer from "../Info/InfoContainer";
 import {useLocation} from "react-router";
 import dayNightLight from "../../assets/images/swg/day-night.svg";
-import {modalBodyType, modalHeaderType, NulableType} from "../../types/commonTypes";
+import {modalBodyType, modalHeaderType, NulableType} from "../common/types/commonTypes";
 import {getProfileType} from "../api/apiTypes";
 import NavbarDarkExample from "./DropdownNavbarBS";
 import userPhoto from "../../assets/images/no-image3.png";

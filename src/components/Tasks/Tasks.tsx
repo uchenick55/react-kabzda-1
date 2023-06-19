@@ -4,7 +4,7 @@ import commonClasses from "../common/CommonClasses/common.module.css";
 import Image from "react-bootstrap/Image";
 import Container from "react-bootstrap/Container";
 import {useSelector} from "react-redux";
-import {tasksDataType} from "../../types/commonTypes";
+import {tasksDataType} from "../common/types/commonTypes";
 import {GlobalStateType} from "../../redux/store-redux";
 import Accordion from "react-bootstrap/Accordion";
 

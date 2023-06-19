@@ -6,7 +6,7 @@ import {getProfileThunkCreator} from "../../redux/profile-reducer";
 import ErrorBoundary from "../common/ErrorBoundary/ErrorBoundary";
 import {compose} from "redux";
 import {setThemeThunkCreator} from "../../redux/theme-reducer";
-import {NulableType} from "../../types/commonTypes";
+import {NulableType} from "../common/types/commonTypes";
 import {getProfileType} from "../api/apiTypes";
 import {GlobalStateType} from "../../redux/store-redux";
 

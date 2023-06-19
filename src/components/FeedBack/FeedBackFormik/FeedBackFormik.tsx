@@ -5,7 +5,7 @@ import * as Yup from 'yup' // валидация форм с помошью ст
 import {MyTextInput} from "../../common/formikCommon/MyFieldsBS"
 import Button from "react-bootstrap/Button";
 import Row from "react-bootstrap/Row";
-import {apiFeedBackDataType} from "../../../types/commonTypes";
+import {apiFeedBackDataType} from "../../common/types/commonTypes";
 
 const myInitialValues = { // начальные зачения форм
     name: "",

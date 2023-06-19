@@ -4,7 +4,7 @@ import commonClasses from "../common/CommonClasses/common.module.css";
 import Container from "react-bootstrap/Container";
 import ModalBS1 from "../common/ModalBS/ModalBS1";
 import FeedBackInfoShort from "../Info/FeedBackInfoShort";
-import {apiFeedBackDataType} from "../../types/commonTypes";
+import {apiFeedBackDataType} from "../common/types/commonTypes";
 
 type FeedBackType = {
     feedBackStatus: string

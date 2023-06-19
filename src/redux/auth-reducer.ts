@@ -4,7 +4,7 @@ import {UsersActions} from "./users-reducer";
 import {InferActionsTypes} from "./store-redux";
 import {getProfileType} from "../components/api/apiTypes";
 import {ResultCodeEnum, ResultCodeEnumCaptcha} from "../components/api/enum";
-import {ComThunkTp, NulableType} from "../types/commonTypes";
+import {ComThunkTp, NulableType} from "../components/common/types/commonTypes";
 import {Dialog2Actions} from "./dialog2-reducer";
 import {AppActions} from "./app-reducer";
 
@@ -103,8 +103,8 @@ const authReducer = (state: initialStateAuthType = initialState, action: AuthAct
 
 export const getAuthMeThunkCreator = (): ComThunkTp<AuthActionTypes> => {//санкреатор я авторизован?. Данных для запроса нет
     return async (dispatch, getState) => {
-        const {response, err} = await apiProfile.getAuthMe() // я авторизован?
-        if (response?.resultCode === ResultCodeEnum.Success) { //если верно ввели логин/пароль
+        const response = await apiProfile.getAuthMe() // я авторизован?
+        if (response.resultCode === ResultCodeEnum.Success) { //если верно ввели логин/пароль
             const {id, email, login} = response.data // мой ID, емейл, логин
             dispatch( AuthActions.setAuthData(
                 id, email, login, // записать в стейт мои ID, емейл, логин
@@ -116,21 +116,7 @@ export const getAuthMeThunkCreator = (): ComThunkTp<AuthActionTypes> => {//са�
             if (response.resultCode !== ResultCodeEnum.Success) { //пользователь не авторизован
                 dispatch( AuthActions.authInitialState() ) // запустить зануление стейта
             }
-        } else {
-            dispatch(AppActions.setAppErrorAC(err))
-            console.log( (err) )// в консоль ошибку
         }
-
-
-        // if (response1.resultCode === ResultCodeEnum.Success) { //если неверно ввели логин/пароль 5 раз
-        //     dispatch( AuthActions.setAuthData(
-        //         response1.data.id, // записать с стейт мой ID
-        //         response1.data.email, // записать с стейт мой емейл
-        //         response1.data.login, // записать с стейт мой логин
-        //         true // отметить что а авторизован
-        //     ) )//задание в стейт текущего пользователя
-
-
     };
 }
 

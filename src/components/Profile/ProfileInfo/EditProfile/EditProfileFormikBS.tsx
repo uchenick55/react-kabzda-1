@@ -5,7 +5,7 @@ import classes from './EditProfile.module.css'
 //import DisplayFormikState from "../../../common/formikCommon/DisplayFormikState"
 import {MyCheckbox, MyTextInput} from "../../../common/formikCommon/MyFieldsBS"
 import Button from "react-bootstrap/Button";
-import {ProfileType} from "../../../../types/commonTypes";
+import {ProfileType} from "../../../common/types/commonTypes";
 import {getProfileType} from "../../../api/apiTypes";
 
 const myValidationSchema = Yup.object({ // валидация форм на required, длину и заполнение полей

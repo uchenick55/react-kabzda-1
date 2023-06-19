@@ -1,6 +1,6 @@
 import {Action} from "redux";
 import {ThunkAction} from "redux-thunk";
-import {GlobalStateType} from "../redux/store-redux";
+import {GlobalStateType} from "../../../redux/store-redux";
 
 
 export type postsType = {
@@ -119,4 +119,38 @@ export type HitsItemType = {
     }
 }
 
-export type errType = any
+export type errType = {
+    "message": string,
+    "name": string,
+    "config": {
+        "transitional": {
+            "silentJSONParsing": boolean,
+            "forcedJSONParsing": boolean,
+            "clarifyTimeoutError": boolean
+        },
+        "transformRequest": [
+            null
+        ],
+        "transformResponse": [
+            null
+        ],
+        "timeout": number,
+        "xsrfCookieName": string,
+        "xsrfHeaderName": string,
+        "maxContentLength": number,
+        "maxBodyLength": number,
+        "env": {
+            "FormData": null
+        },
+        "headers": {
+            "Accept": string,
+            "API-KEY": string
+        },
+        "baseURL": string,
+        "withCredentials": boolean,
+        "method": string,
+        "url": string
+    },
+    "code": string,
+    "status": null
+}

@@ -1,5 +1,5 @@
 import axios from "axios";
-import {apiFeedBackDataType, ProfileType} from "../../types/commonTypes";
+import {apiFeedBackDataType, ProfileType} from "../common/types/commonTypes";
 import {
     commRespType,
     getCaptchaType, getDialog2AllType,
@@ -7,6 +7,10 @@ import {
     getUsersType, sendMessageType
 } from "./apiTypes";
 import {ResultCodeEnum, ResultCodeEnumCaptcha} from "./enum";
+import {AppActions} from "../../redux/app-reducer";
+import store from "../../redux/store-redux";
+
+
 
 const instance = axios.create( {
     baseURL: 'https://social-network.samuraijs.com/api/1.0/',
@@ -14,6 +18,18 @@ const instance = axios.create( {
     headers: {
         "API-KEY": "6b13711a-1b5c-4624-ab7a-2cd0c376f794"
     }
+} );
+
+instance.interceptors.response.use(
+    function (response) {
+    // Любой код состояния, находящийся в диапазоне 2xx, вызывает срабатывание этой функции
+    return response;// данные успешного ответа для дальнейшего перехвата методами
+},
+    function (err) {
+    // Любые коды состояния, выходящие за пределы диапазона 2xx, вызывают срабатывание этой функции
+    console.log( "axios.interceptors.response.use", err )
+    store.dispatch(AppActions.setAppErrorAC(err)) // запись данных ошибки в стейт
+   // return Promise.reject( err ); //дальше ошибку не передаем в обработчики
 } );
 
 
@@ -42,10 +58,8 @@ type resultCodeLogin = ResultCodeEnum | ResultCodeEnumCaptcha
 
 export const apiProfile = { // объект с методами api для профайла и авторизации
     getAuthMe: async () => {// запрос "я авторизован?"
-        try {
             const response = await instance.get<commRespType<DataType1>>( `auth/me` )
-            return ({response: response.data}) //возврат данных из поля data
-        } catch(err) { return ({err})}// failed to fetch
+            return response.data //возврат данных из поля data
     },
     getProfile: async (userId: number) => {// получить данные профиля выбранного пользователя по userId
         const response = await instance.get<getProfileType>( `profile/` + userId )
@@ -122,10 +136,8 @@ export const apiDialog2 = {
         //putDialog2Start  | dialogs/{userId} - начать диалог, собеседник поднимается вверх??
     },
     getDialog2All: async (userId: number, page: number, count: number) => { // получить список сообщений по id пользователя
-        try {
             const response = await instance.get<getDialog2AllType>( `dialogs?${userId}&${page}&${count}` )
-            return ({response:response.data}) //- получить список сообщений по id пользователя
-        } catch(err) { return ({err})}// failed to fetch
+            return response.data //- получить список сообщений по id пользователя
 
         //getDialog2All | dialogs/{userId}/messages
         // userId - (number) - user id of your friend

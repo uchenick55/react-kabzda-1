@@ -3,7 +3,7 @@ import {InferActionsTypes} from "./store-redux";
 import {Dispatch} from "redux";
 import {usersType} from "../components/api/apiTypes";
 import {ResultCodeEnum} from "../components/api/enum";
-import {ComThunkTp} from "../types/commonTypes";
+import {ComThunkTp} from "../components/common/types/commonTypes";
 import {AppActions} from "./app-reducer";
 
 const SET_TERM = "myApp/users-reducer/SET_TERM";

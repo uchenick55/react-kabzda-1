@@ -3,7 +3,7 @@ import classes from './Profile.module.css'
 import ProfileInfo from "./ProfileInfo/ProfileInfoBS";
 import MyPostsContainer from "./MyPosts/MyPostsContainer";
 import {getProfileType} from "../api/apiTypes";
-import {NulableType, ProfileType} from "../../types/commonTypes";
+import {NulableType, ProfileType} from "../common/types/commonTypes";
 
 type ProfileType2 = {
     profile: NulableType<getProfileType>,

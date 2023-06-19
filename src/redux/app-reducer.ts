@@ -1,7 +1,7 @@
 import {getAuthMeThunkCreator} from "./auth-reducer";
 import {getThemeThunkCreator} from "./theme-reducer";
 import { InferActionsTypes} from "./store-redux";
-import {ComThunkTp, errType} from "../types/commonTypes";
+import {ComThunkTp, errType} from "../components/common/types/commonTypes";
 
 const SET_INITIALISED_APP = "myApp/app-reducer/SET_INITIALISED_APP"; //константа инициализации приложения
 const APP_INITIAL_STATE = "myApp/app-reducer/APP_INITIAL_STATE"; //константа зануления при логауте
@@ -44,7 +44,7 @@ const initialState = { //стейт по умолчанию для инициа�
     PageWidth: document.documentElement.scrollWidth, // ширина страницы по умолчанию
     MobileWidth: 620,
     isFetching: false, // статус загрузки (крутилка)
-    err: "" as errType
+    err: {} as errType
 }
 
 const appReducer = (state: initialStateType = initialState, action: AppActionTypes): initialStateType => {//редьюсер инициализации приложения
