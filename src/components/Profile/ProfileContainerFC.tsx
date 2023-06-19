@@ -5,7 +5,7 @@ import {compose} from "redux";
 import {useDispatch, useSelector} from "react-redux";
 import {
     getProfileThunkCreator,
-    ProfileActions, putMyProfileThunkCreator, putStatusThunkCreator, setprofilePhotoThunkCreator
+    profileActions, putMyProfileThunkCreator, putStatusThunkCreator, setprofilePhotoThunkCreator
 } from "../../redux/profile-reducer";
 import withRouter2 from "../hoc/withRouter2";
 import NavigateToLoginHoc2 from "../hoc/NavigateToLoginHoc2";
@@ -28,7 +28,7 @@ const ProfileContainerFC: React.FC<OwnPropsType> = ({userId}) => {
 
     const dispatch = useDispatch()
 
-    const {setEditProfileStatus} = ProfileActions
+    const {setEditProfileStatus} = profileActions
 
     const setEditProfileStatusLocal = (editProfileStatus: Array<string>) => {
         dispatch( setEditProfileStatus(editProfileStatus) )

@@ -13,7 +13,7 @@ const SET_USER_PROFILE = "myApp/profile-reducer/SET_USER_PROFILE"; // конст
 const SET_STATUS = "myApp/profile-reducer/SET_STATUS" // константа задания моего статуса
 const PROFILE_INITIAL_STATE = "myApp/profile-reducer/PROFILE_INITIAL_STATE" // константа зануления при логауте
 
-export const ProfileActions = {
+export const profileActions = {
     setEditProfileStatus: (editProfileStatus: Array<string>) => { // экшн креатор задания ошибки с сервера в стейт после правки профиля
         return {type: SET_EDIT_PROFILE_ERROR, editProfileStatus} as const
     },
@@ -39,7 +39,7 @@ export const ProfileActions = {
     },
 }
 
-type ProfileActionTypes = InferActionsTypes<typeof ProfileActions> | InferActionsTypes<typeof AuthActions>
+type ProfileActionTypes = InferActionsTypes<typeof profileActions> | InferActionsTypes<typeof AuthActions>
     | InferActionsTypes<typeof AppActions>
 
 const initialState = {
@@ -110,7 +110,7 @@ export const getProfileThunkCreator = (userId: number): ComThunkTp<ProfileAction
         const IdLocal = !userId? getState().auth.myId : userId // если userId не задан в URL (переход на страницу моего профиля не подставляет ID в браузере)
         const response = await apiProfile.getProfile( IdLocal) // получение полных данных о моем профиле
 
-        dispatch( ProfileActions.setUserProfile( response ) ) // задание полных данных в профиль
+        dispatch( profileActions.setUserProfile( response ) ) // задание полных данных в профиль
         !getState().profilePage.status && dispatch( getStatusThunkCreator( IdLocal ) ) // запрос моего статуса, если его нет
         dispatch( AppActions.toggleIsFetching( false ) ) //убрать крутилку загрузки с сервера
     }
@@ -119,7 +119,7 @@ export const getProfileThunkCreator = (userId: number): ComThunkTp<ProfileAction
 export const getStatusThunkCreator = (userId: number): ComThunkTp<ProfileActionTypes> => {  // санкреатор запроса статуса выбранного пользователя
     return async (dispatch, getState) => { // нонейм санка запроса статуса выбранного пользователя
         const response = await apiProfile.getStatus( userId ) // api запрос получение статуса по userId
-        dispatch( ProfileActions.setStatus( response ) ) // задание статуса в локальный стейт с последующей переотрисовкой
+        dispatch( profileActions.setStatus( response ) ) // задание статуса в локальный стейт с последующей переотрисовкой
     }
 }
 export const putStatusThunkCreator = (statusTmpInput: string): ComThunkTp<ProfileActionTypes> => { // санкреатор обновления моего статуса
@@ -147,13 +147,13 @@ export const putMyProfileThunkCreator = (MyProfile: ProfileType): ComThunkTp<Pro
             const response2 = await apiProfile.getProfile( getState().auth.myId )//получение моих дополнительных данных после записи на сервер
             dispatch( AuthActions.setMyProfile( response2 ) )//задание в стейт моих доп данных
             dispatch( getProfileThunkCreator( getState().auth.myId ) )
-            dispatch( ProfileActions.setEditProfileStatus( ["Edited successfully!"] ) ) // отправить данные ошибки в стейт
+            dispatch( profileActions.setEditProfileStatus( ["Edited successfully!"] ) ) // отправить данные ошибки в стейт
         } else { // если пришла ошибка с сервера ввода формы правки профиля
             const message =  // определение локальной переменной message - ответ от сервера
                 response.messages && response.messages.length !== 0  // если response.messages емсть и их длина не равна 0
                     ? response.messages //  вывести ответ от сервера
                     : ["no responce from server"] // иначе вывести сообщение заглушку
-            dispatch( ProfileActions.setEditProfileStatus( message ) ) // отправить данные ошибки в стейт
+            dispatch( profileActions.setEditProfileStatus( message ) ) // отправить данные ошибки в стейт
         }
     }
 }

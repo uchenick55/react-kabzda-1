@@ -42,8 +42,10 @@ type resultCodeLogin = ResultCodeEnum | ResultCodeEnumCaptcha
 
 export const apiProfile = { // объект с методами api для профайла и авторизации
     getAuthMe: async () => {// запрос "я авторизован?"
-        const response = await instance.get<commRespType<DataType1>>( `auth/me` )
-        return (response.data) //возврат данных из поля data
+        try {
+            const response = await instance.get<commRespType<DataType1>>( `auth/me` )
+            return ({response: response.data}) //возврат данных из поля data
+        } catch(err) { return ({err})}// failed to fetch
     },
     getProfile: async (userId: number) => {// получить данные профиля выбранного пользователя по userId
         const response = await instance.get<getProfileType>( `profile/` + userId )
@@ -95,8 +97,6 @@ export const apiProfile = { // объект с методами api для пр�
 }
 
 
-
-
 type postFeedBack2Type = (data: apiFeedBackDataType) => any
 
 export const postFeedBack22: postFeedBack2Type = async (data) => {// отправить письмо
@@ -122,8 +122,11 @@ export const apiDialog2 = {
         //putDialog2Start  | dialogs/{userId} - начать диалог, собеседник поднимается вверх??
     },
     getDialog2All: async (userId: number, page: number, count: number) => { // получить список сообщений по id пользователя
-        const response = await instance.get<getDialog2AllType>( `dialogs?${userId}&${page}&${count}` )
-        return (response.data) //- получить список сообщений по id пользователя
+        try {
+            const response = await instance.get<getDialog2AllType>( `dialogs?${userId}&${page}&${count}` )
+            return ({response:response.data}) //- получить список сообщений по id пользователя
+        } catch(err) { return ({err})}// failed to fetch
+
         //getDialog2All | dialogs/{userId}/messages
         // userId - (number) - user id of your friend
         // page (number,default 1) number of requested portion

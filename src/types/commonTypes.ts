@@ -118,3 +118,5 @@ export type HitsItemType = {
         }
     }
 }
+
+export type errType = any

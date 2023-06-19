@@ -130,17 +130,24 @@ export const putDialog2StartThCr = (currentDialogId: number): ThType => {
         }
     }
 }
+
+/*    const {response, error}:{response:jSPHResponseType<Array<postType>>, error: errorType}  =
+        yield call( apiJsonPlaceholder.getPosts ) // данные всех постов с сервера*/
+
 export const getDialog2AllThCr = (userId?: number, page: number = 1, count: number = 10): ThType => {
     return async (dispatch, getState) => {//- получить список сообщений по id пользователя
         if (!userId) {
             userId = getState().dialog2.D2Item.id
             console.log("!userId getDialog2AllThCr")
         }
-        const response = await apiDialog2.getDialog2All( userId, page, count )
-        dispatch( Dialog2Actions.getDialog2AllAC( response ) ) /* получить диалоглист*/
-        console.log("getDialog2AllThCr => setD2Item")
-        dispatch( Dialog2Actions.setD2Item( response[0] ) ) /*отфильтровать d2Item */
-
+        const {response, err} = await apiDialog2.getDialog2All( userId, page, count )
+        if (response) { // если есть данные
+            dispatch( Dialog2Actions.getDialog2AllAC( response ) ) /* получить диалоглист*/
+            console.log("getDialog2AllThCr => setD2Item")
+            dispatch( Dialog2Actions.setD2Item( response[0] ) ) /*отфильтровать d2Item */
+        } else {
+            console.log(( err) )// в консоль ошибку
+        }
     }
 }
 export const postDialog2MessageThCr = ( body: string, date: string): ThType => {

@@ -1,13 +1,14 @@
 import {getAuthMeThunkCreator} from "./auth-reducer";
 import {getThemeThunkCreator} from "./theme-reducer";
 import { InferActionsTypes} from "./store-redux";
-import {ComThunkTp} from "../types/commonTypes";
+import {ComThunkTp, errType} from "../types/commonTypes";
 
 const SET_INITIALISED_APP = "myApp/app-reducer/SET_INITIALISED_APP"; //константа инициализации приложения
 const APP_INITIAL_STATE = "myApp/app-reducer/APP_INITIAL_STATE"; //константа зануления при логауте
 const SET_PATCH = "myApp/app-reducer/SET_PATCH"; //константа задания пути в URL
 const SET_PAGE_WIDTH = "myApp/app-reducer/SET_PAGE_WIDTH"; //константа задания ширины окна
 const TOGGLE_IS_FETCHING = "myApp/users-reducer/TOGGLE_IS_FETCHING";
+const SET_APP_ERROR = "myApp/users-reducer/SET_APP_ERROR";// задать ошибки с сервера
 
 export const AppActions = {
     setInitialisedApp: () => { // экшн креатор  инициализации приложения
@@ -28,6 +29,9 @@ export const AppActions = {
     toggleIsFetching: (isFetching: boolean) => {
         return {type: TOGGLE_IS_FETCHING, isFetching} as const
     },
+    setAppErrorAC: (err: errType) => {
+        return {type: SET_APP_ERROR, err} as const
+    },
 }
 
 type AppActionTypes = InferActionsTypes<typeof AppActions>
@@ -40,7 +44,7 @@ const initialState = { //стейт по умолчанию для инициа�
     PageWidth: document.documentElement.scrollWidth, // ширина страницы по умолчанию
     MobileWidth: 620,
     isFetching: false, // статус загрузки (крутилка)
-
+    err: "" as errType
 }
 
 const appReducer = (state: initialStateType = initialState, action: AppActionTypes): initialStateType => {//редьюсер инициализации приложения
@@ -71,6 +75,12 @@ const appReducer = (state: initialStateType = initialState, action: AppActionTyp
             stateCopy = {
                 ...state, // копия всего стейта
                 PageWidth: action.PageWidth, // смена флага инициализации приложения на true
+            }
+            return stateCopy; // возврат копии стейта после изменения
+        case SET_APP_ERROR: // экшн записи ошибки с сервера
+            stateCopy = {
+                ...state, // копия всего стейта
+                err: action.err,
             }
             return stateCopy; // возврат копии стейта после изменения
         default:

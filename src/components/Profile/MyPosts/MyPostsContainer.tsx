@@ -1,11 +1,11 @@
 import MyPostsBS from "./MyPostsBS";
-import {ProfileActions} from "../../../redux/profile-reducer";
+import {profileActions} from "../../../redux/profile-reducer";
 import {connect} from "react-redux";
 import React from "react";
 import {postsType} from "../../../types/commonTypes";
 import {GlobalStateType} from "../../../redux/store-redux";
 
-const {addPostActionCreator} = ProfileActions
+const {addPostActionCreator} = profileActions
 
 type ownPropsType = {
     userId: number,
