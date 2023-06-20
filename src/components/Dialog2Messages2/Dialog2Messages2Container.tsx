@@ -2,7 +2,7 @@ import React, {useCallback, useEffect, useMemo} from "react";
 import {useDispatch, useSelector} from "react-redux";
 import {GlobalStateType} from "../../redux/store-redux";
 import {
-    Dialog2Actions, MarkersType,
+    dialog2Actions, MarkersType,
     getDialog2AllThCr, getDialog2MessagesNewerThenThCr,
     postDialog2MessageThCr,
     putDialog2StartThCr
@@ -28,7 +28,7 @@ const Dialog2Messages2Container: React.FC<OwnPropsType> = ({userId}) => {
     const PageWidth: number = useSelector( (state: GlobalStateType) => state.app.PageWidth )// ширина страницы
     const MobileWidth: number = useSelector( (state: GlobalStateType) => state.app.MobileWidth )// ширина страницы, считающаяся мобильной версткой
 
-    const {setMarkers, setD2Item, setd2Userid} = Dialog2Actions // получить экшены
+    const {setMarkers, setD2Item, setd2Userid} = dialog2Actions // получить экшены
 
     const dispatch = useDispatch()
 

@@ -5,7 +5,7 @@ import {GlobalStateType, InferActionsTypes} from "./store-redux";
 
 const SET_FEED_BACK_STATUS = "myApp/feedback-reducer/SET_FEED_BACK_STATUS"; // константа для задания статуса feedback
 
-export const FeedBackActions = {
+export const feedBackActions = {
     setFeedBackStatus: (feedBackStatus: string) => { // экшн креатор задания feedBackStatus
         return {type: SET_FEED_BACK_STATUS, feedBackStatus} as const
     }
@@ -16,7 +16,7 @@ const initialState: initialStateType = { //стейт по умолчанию т
     feedBackStatus: "" // статус отправки сообщения (feedBack) - если не нулевой отображается вместо формы сообщения
 }
 
-type FeedBackActionTypes = InferActionsTypes<typeof FeedBackActions>
+type FeedBackActionTypes = InferActionsTypes<typeof feedBackActions>
 
 const feedBackReducer = (state: initialStateType = initialState, action: FeedBackActionTypes): initialStateType => {//редьюсер отправки сообщения
     let stateCopy: initialStateType; // объявлениечасти части стейта до изменения редьюсером
@@ -35,8 +35,8 @@ const feedBackReducer = (state: initialStateType = initialState, action: FeedBac
 export const postFeedBackThunkCreator2 = (data: apiFeedBackDataType) => {// санкреатор отправки фидбека
     return async (dispatch: Dispatch<FeedBackActionTypes>, getState: () => GlobalStateType) => { // санка отправки фидбека
         await postFeedBack22( data ) //
-            .then( () => dispatch( FeedBackActions.setFeedBackStatus( "Скоро мы получим ваше письмо" ) ) )// статсус задать в BLL "Скоро мы получим ваше письмо"
-            .catch( (err: object) => dispatch( FeedBackActions.setFeedBackStatus( (err.toString()) ) ) );// в статус записать ошибку с сервера и задать в BLL
+            .then( () => dispatch( feedBackActions.setFeedBackStatus( "Скоро мы получим ваше письмо" ) ) )// статсус задать в BLL "Скоро мы получим ваше письмо"
+            .catch( (err: object) => dispatch( feedBackActions.setFeedBackStatus( (err.toString()) ) ) );// в статус записать ошибку с сервера и задать в BLL
     };
 }
 

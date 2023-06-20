@@ -36,3 +36,8 @@
 .cursorPointer {
     cursor: pointer;
 }
+.toCenter {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}

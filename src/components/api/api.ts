@@ -7,7 +7,7 @@ import {
     getUsersType, sendMessageType
 } from "./apiTypes";
 import {ResultCodeEnum, ResultCodeEnumCaptcha} from "./enum";
-import {AppActions} from "../../redux/app-reducer";
+import {appActions} from "../../redux/app-reducer";
 import store from "../../redux/store-redux";
 
 
@@ -28,7 +28,7 @@ instance.interceptors.response.use(
     function (err) {
     // Любые коды состояния, выходящие за пределы диапазона 2xx, вызывают срабатывание этой функции
     console.log( "axios.interceptors.response.use", err )
-    store.dispatch(AppActions.setAppErrorAC(err)) // запись данных ошибки в стейт
+    store.dispatch(appActions.setAppErrorAC(err)) // запись данных ошибки в стейт
    // return Promise.reject( err ); //дальше ошибку не передаем в обработчики
 } );
 

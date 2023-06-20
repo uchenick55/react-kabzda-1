@@ -1,12 +1,12 @@
 import {apiProfile} from "../components/api/api";
 import {profileActions} from "./profile-reducer";
-import {UsersActions} from "./users-reducer";
+import {usersActions} from "./users-reducer";
 import {InferActionsTypes} from "./store-redux";
 import {getProfileType} from "../components/api/apiTypes";
 import {ResultCodeEnum, ResultCodeEnumCaptcha} from "../components/api/enum";
 import {ComThunkTp, NulableType} from "../components/common/types/commonTypes";
-import {Dialog2Actions} from "./dialog2-reducer";
-import {AppActions} from "./app-reducer";
+import {dialog2Actions} from "./dialog2-reducer";
+import {appActions} from "./app-reducer";
 
 const SET_MY_DATA = "myApp/auth-reducer/SET_MY_DATA"; // константа для задания базовых данных моего профиля (ID, Email, login, isAuth)
 const AUTH_INITIAL_STATE = "myApp/auth-reducer/AUTH_INITIAL_STATE"; //константа зануления при логауте
@@ -22,7 +22,7 @@ type setAuthDataActionType = {
     isAuth: boolean
 }
 
-export const AuthActions = {
+export const authActions = {
     setMyProfile: (myProfile: getProfileType) => { // экшн креатор задания расширенных данных моего профиля
         return {type: SET_MY_PROFILE, myProfile} as const
     },
@@ -45,11 +45,11 @@ export const AuthActions = {
 }
 
 export type AuthActionTypes =
-    InferActionsTypes<typeof AuthActions> |
+    InferActionsTypes<typeof authActions> |
     InferActionsTypes<typeof profileActions> |
-    InferActionsTypes<typeof UsersActions> |
-    InferActionsTypes<typeof Dialog2Actions> |
-    InferActionsTypes<typeof AppActions>
+    InferActionsTypes<typeof usersActions> |
+    InferActionsTypes<typeof dialog2Actions> |
+    InferActionsTypes<typeof appActions>
 
 const initialState = { // стейт по умолчанию для моего профиля
     myId: 0 as number, // мой ID по умолчанию
@@ -106,15 +106,15 @@ export const getAuthMeThunkCreator = (): ComThunkTp<AuthActionTypes> => {//са�
         const response = await apiProfile.getAuthMe() // я авторизован?
         if (response.resultCode === ResultCodeEnum.Success) { //если верно ввели логин/пароль
             const {id, email, login} = response.data // мой ID, емейл, логин
-            dispatch( AuthActions.setAuthData(
+            dispatch( authActions.setAuthData(
                 id, email, login, // записать в стейт мои ID, емейл, логин
                 true // отметить что а авторизован
             ) )
-            const response2 = await apiProfile.getProfile( response?.data.id )//получение моих дополнительных данных после авторизации
+            const response2 = await apiProfile.getProfile( response.data.id )//получение моих дополнительных данных после авторизации
 
-            dispatch( AuthActions.setMyProfile( response2 ) )//задание в стейт моих доп данных
+            dispatch( authActions.setMyProfile( response2 ) )//задание в стейт моих доп данных
             if (response.resultCode !== ResultCodeEnum.Success) { //пользователь не авторизован
-                dispatch( AuthActions.authInitialState() ) // запустить зануление стейта
+                dispatch( authActions.authInitialState() ) // запустить зануление стейта
             }
         }
     };
@@ -134,7 +134,7 @@ export const postLoginThunkCreator = (email: string, password: string, rememberm
             if (response.resultCode === ResultCodeEnumCaptcha.CaptchaIsReqiured) { // если ошибка в многократном неправильном вводе логина и пароля
                 dispatch( getCaptchaThunkCreator() )
             }
-            dispatch( AuthActions.setLoginError( message ) ) // ошибка авторизации для формика
+            dispatch( authActions.setLoginError( message ) ) // ошибка авторизации для формика
         }
     };
 }
@@ -145,13 +145,13 @@ export const deleteLoginThunkCreator = (): ComThunkTp<AuthActionTypes> => {//с�
         if (response.resultCode === ResultCodeEnum.Success) { // если сессия успешно закрыта
             setTimeout( () => {
 
-                dispatch( AuthActions.authInitialState() )// зануление авторизации при логауте
+                dispatch( authActions.authInitialState() )// зануление авторизации при логауте
 
                 dispatch( profileActions.profileInitialState() )// зануление профиля при логауте
 
-                dispatch( UsersActions.usersInitialState() )// зануление Users при логауте
+                dispatch( usersActions.usersInitialState() )// зануление Users при логауте
 
-                dispatch( Dialog2Actions.setDialog2InitialState() )// зануление Dialog2 при логауте
+                dispatch( dialog2Actions.setDialog2InitialState() )// зануление Dialog2 при логауте
 
             }, 300 )
         } else {
@@ -163,7 +163,7 @@ export const deleteLoginThunkCreator = (): ComThunkTp<AuthActionTypes> => {//с�
 export const getCaptchaThunkCreator = (): ComThunkTp<AuthActionTypes> => {//санкреатор на получение каптчи
     return async (dispatch, getState) => { // санка на получение каптчи
         const response2 = await apiProfile.getCaptcha() // запрос каптчи
-        dispatch( AuthActions.setCaptchaURL( response2.url ) ) // получить данные с сервера авторизованного пользователя
+        dispatch( authActions.setCaptchaURL( response2.url ) ) // получить данные с сервера авторизованного пользователя
     };
 }
 

@@ -8,7 +8,7 @@ import {useLocation} from "react-router";
 import {useDispatch, useSelector} from "react-redux";
 import type {} from 'redux-thunk/extend-redux';
 import {AppDispatch, GlobalStateType} from "../../redux/store-redux";
-import {AppActions} from "../../redux/app-reducer";
+import {appActions} from "../../redux/app-reducer";
 
 const UsersContainer = React.lazy( () => import("../users/UsersContainerFC") )
 const ProfileContainer = React.lazy( () => import("../Profile/ProfileContainerFC") )
@@ -21,7 +21,7 @@ const FeedBackContainer = React.lazy( () => import("../FeedBack/FeedBackContaine
 
 const ContentContainer: React.FC = memo( () => { // вынес роутинг контента в отдельную компоненту
 
-    const {setPatch, setPageWidth} = AppActions
+    const {setPatch, setPageWidth} = appActions
     const Patch: string = useSelector((state:GlobalStateType) => state.app.patch)
 
     const dispatch = useDispatch<AppDispatch>();

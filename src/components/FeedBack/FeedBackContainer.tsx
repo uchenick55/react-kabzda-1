@@ -1,11 +1,11 @@
 import React from 'react';
 import {connect} from "react-redux";
-import {postFeedBackThunkCreator2,FeedBackActions} from "../../redux/feedback-reducer";
+import {postFeedBackThunkCreator2,feedBackActions} from "../../redux/feedback-reducer";
 import FeedBack from "./FeedBackBS";
 import {GlobalStateType} from "../../redux/store-redux";
 import {apiFeedBackDataType} from "../common/types/commonTypes";
 
-const {setFeedBackStatus} = FeedBackActions
+const {setFeedBackStatus} = feedBackActions
 
 const FeedBackContainer:React.FC<mapStateToPropsType & mapDispatchToPropsType> = (
     {postFeedBackThunkCreator2, feedBackStatus, setFeedBackStatus}) => {

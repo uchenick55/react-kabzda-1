@@ -29,4 +29,8 @@ margin: 1rem;
     left: 15rem;
 }
 
+.profilePhotoIMG {
+    border-radius: 30px;
+    transition: 0.2s ease-in-out;
 
+}

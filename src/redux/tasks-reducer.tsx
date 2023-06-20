@@ -13,7 +13,7 @@ import {apiTasks} from "../components/api/api";
 
 const SET_NEWS_DATA = "myApp/app-reducer/SET_NEWS_DATA"; //константа задания данных News
 
-export const TasksActions = {
+export const tasksActions = {
     setNewsDataAC: (newsData: newsDataType) => { // экшн креатор задания данных News
         return {type: SET_NEWS_DATA, newsData} as const
     }
@@ -23,7 +23,7 @@ type newsDataType = typeof initialState.newsData
 
 type initialStateType = typeof initialState
 
-type TasksActionTypes = InferActionsTypes<typeof TasksActions>
+type TasksActionTypes = InferActionsTypes<typeof tasksActions>
 
 const initialState = { //стейт по умолчанию темы
     newsData: {
@@ -123,7 +123,7 @@ const initialState = { //стейт по умолчанию темы
             repositoryHref: "https://github.com/uchenick55/github-repository-search"
         },
          {
-             TaskHeader: <>Игра сапер (React + Typescript)</>,
+             TaskHeader: <>Игра сапер</>,
              imgSrc: Saper,
              taskLink: "https://uchenick55.github.io/saper-ts/",
              altTitle: "Игра сапер",
@@ -154,7 +154,7 @@ const initialState = { //стейт по умолчанию темы
              repositoryHref: "https://github.com/uchenick55/saper-ts"
          },
          {
-             TaskHeader: <>Калькулятор обмена криптовалют <br/> (на Typescript)</>,
+             TaskHeader: <>Калькулятор обмена криптовалют</>,
              imgSrc: CryptoCalculator,
              taskLink: "https://uchenick55.github.io/bestchange/",
              altTitle: "крипто-калькулятор",
@@ -178,7 +178,7 @@ const initialState = { //стейт по умолчанию темы
                      </ul>
                  </>
              ],
-             usedTech: "React + redux + TS + RestAPI",
+             usedTech: "React + redux + TS",
              repositoryHref: "https://github.com/uchenick55/bestchange"
          },
          {
@@ -208,7 +208,7 @@ const initialState = { //стейт по умолчанию темы
              altTitle: "Комбинации чисел",
              description: [
                  <>
-                     <p>Написать функцию sostavChisla(massivChisel: number[], chislo: number),<br/>
+                     <p>Написать функцию sostavChisla(massivChisel: number[], chislo: number),
                          которая бы находила все возможные комбинации чисел из massivChisel,
                          сумма которых равна chislo. При этом:</p>
                      <ul>
@@ -222,18 +222,18 @@ const initialState = { //стейт по умолчанию темы
              repositoryHref: "https://github.com/uchenick55/lhtask1.git"
          },
          {
-             TaskHeader: "Пример bootstrap сайта на чистом HTML+CSS",
+             TaskHeader: "bootstrap на HTML",
              imgSrc: bootstrapImg,
              taskLink: "https://uchenick55.github.io/bootstraphtmlcss/",
-             altTitle: "Пример bootstrap сайта на чистом HTML+CSS",
+             altTitle: "Пример bootstrap сайта на чистом HTML",
              description: [
                  <>
-                     <p>Одностраничник на HTML+CSS + адаптивный масштаб, popup, аккордеон, слайдер, и прочее оформление
+                     <p>Одностраничник на HTML: адаптивный масштаб, popup, аккордеон, слайдер, и прочее оформление
                          из
                          bootstrap</p>
                  </>
              ],
-             usedTech: "HTML+CSS",
+             usedTech: "HTML, bootstrap",
              repositoryHref: "https://github.com/uchenick55/bootstraphtmlcss"
          },
          {
@@ -282,7 +282,7 @@ const tasksReducer = (state: initialStateType = initialState, action: TasksActio
 export const getNewsThunkCreator = (query: string): ComThunkTp<TasksActionTypes> => {//санкреатор на получение данных новостей
     return async (dispatch, getState) => { // санка
         const response:Array<HitsItemType>  = await apiTasks.getNews( query );
-        dispatch( TasksActions.setNewsDataAC({...getState().tasks.newsData, serverData: response, query: query}) ) // получить данные с сервера по новостям
+        dispatch( tasksActions.setNewsDataAC({...getState().tasks.newsData, serverData: response, query: query}) ) // получить данные с сервера по новостям
     };
 }
 

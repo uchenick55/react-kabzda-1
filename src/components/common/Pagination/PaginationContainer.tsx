@@ -2,14 +2,14 @@ import PaginationByCourse from "./PaginationByCourseBS";
 import React, {useEffect, useState} from "react";
 import {useDispatch, useSelector} from "react-redux";
 import {usersSelectorsSimple} from "../../users/users-selectors";
-import {UsersActions} from "../../../redux/users-reducer";
+import {usersActions} from "../../../redux/users-reducer";
 import {GlobalStateType} from "../../../redux/store-redux";
 
 const PaginationContainer:React.FC = () => {
 
     const dispatch = useDispatch()
 
-    const {setCurrentPage} = UsersActions // деструктуризация методов ActionCreator
+    const {setCurrentPage} = usersActions // деструктуризация методов ActionCreator
 
     const totalUsersCount: number = useSelector( usersSelectorsSimple.getTotalUsersCount )// селектор totalUsersCount - общее число пользователей с сервера
     const pageSize: number = useSelector( usersSelectorsSimple.getPageSize )// селектор pageSize - количество пользователей на странице

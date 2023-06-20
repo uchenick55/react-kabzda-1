@@ -7,6 +7,7 @@ import {useSelector} from "react-redux";
 import {tasksDataType} from "../common/types/commonTypes";
 import {GlobalStateType} from "../../redux/store-redux";
 import Accordion from "react-bootstrap/Accordion";
+import {Row} from "react-bootstrap";
 
 type TasksCommon2Type = {
     TaskHeader: JSX.Element | string, // заголовок задачи
@@ -20,7 +21,8 @@ type TasksCommon2Type = {
 const TasksCommon2: React.FC<TasksCommon2Type> = (
     {TaskHeader, imgSrc, altTitle, description, repositoryHref, taskLink, usedTech}) => {
     return <div>
-        <h4 className={'mt-5'}>{TaskHeader}</h4>
+
+        <div className={commonClasses.toCenter}><h5 className={classes.taskHeader} >{TaskHeader}</h5></div>
         <div><a href={taskLink}>
             <Image fluid={true} className={classes.imgTasks} src={imgSrc}
                    alt={altTitle} title={altTitle}
@@ -38,8 +40,8 @@ const TasksCommon2: React.FC<TasksCommon2Type> = (
                 </Accordion.Item>
             </Accordion>
         </div>
-        <div className="mx-3">
-            <h5>Использованные технологии:</h5>
+        <div>
+            <h6 className='mt-3'>Использованные технологии:</h6>
             <div>{usedTech}</div>
             <div><a href={taskLink}>Ссылка на работу</a></div>
             <div><a href={repositoryHref}>Репозиторий</a></div>
@@ -49,22 +51,24 @@ const TasksCommon2: React.FC<TasksCommon2Type> = (
 
 const Tasks: React.FC = () => {
     // получаем данные из стейта вместо mapStateToProps
-    const tasksData1: Array<tasksDataType> = useSelector((state: GlobalStateType) => state.tasks.tasksData)
+    const tasksData1: Array<tasksDataType> = useSelector( (state: GlobalStateType) => state.tasks.tasksData )
 
-    const tasksRender = <div>
-        <Container className={classes.TasksContainer}>
-            <h3 className={commonClasses.pageHeader}>Tasks</h3>
-            <p>Здесь собраны небольшие работы, не касающиеся социальной сети</p>
+    const tasksRender = <Container > {/* className={classes.TasksContainer}*/}
+        <h3 className={commonClasses.pageHeader}>Tasks</h3>
+        <h5 className='d-flex justify-content-center'>Здесь собраны небольшие работы, не касающиеся социальной сети</h5>
+            <Row lg={3} md={2} >
 
-            {tasksData1.map( (t, index) => { // проходим каждый элемент в исходном массиве
-                return <TasksCommon2
-                    key={index} TaskHeader={t.TaskHeader} imgSrc={t.imgSrc} altTitle={t.altTitle}
-                    description={t.description} repositoryHref={t.repositoryHref} taskLink={t.taskLink}
-                    usedTech={t.usedTech}
-                />
-            } )}
-        </Container>
-    </div>
+                {tasksData1.map( (t, index) => { // проходим каждый элемент в исходном массиве
+                    return <TasksCommon2
+                        key={index} TaskHeader={t.TaskHeader} imgSrc={t.imgSrc} altTitle={t.altTitle}
+                        description={t.description} repositoryHref={t.repositoryHref} taskLink={t.taskLink}
+                        usedTech={t.usedTech}
+                    />
+                } )}
+            </Row>
+
+    </Container>
+
     return <div>
         {tasksRender} {/*отрисовка FriendList*/}
     </div>

@@ -10,7 +10,7 @@ const SET_PAGE_WIDTH = "myApp/app-reducer/SET_PAGE_WIDTH"; //константа 
 const TOGGLE_IS_FETCHING = "myApp/users-reducer/TOGGLE_IS_FETCHING";
 const SET_APP_ERROR = "myApp/users-reducer/SET_APP_ERROR";// задать ошибки с сервера
 
-export const AppActions = {
+export const appActions = {
     setInitialisedApp: () => { // экшн креатор  инициализации приложения
         return {type: SET_INITIALISED_APP} as const
     },
@@ -34,7 +34,7 @@ export const AppActions = {
     },
 }
 
-type AppActionTypes = InferActionsTypes<typeof AppActions>
+type AppActionTypes = InferActionsTypes<typeof appActions>
 
 type initialStateType = typeof initialState
 
@@ -94,7 +94,7 @@ export const initialisedAppThunkCreator = (): ComThunkTp<AppActionTypes> => {// 
         const promise2 = dispatch( getThemeThunkCreator() ) // получение темы
         Promise.all( [promise1, promise2] ) // если все промисы зарезолвились
             .then( () => {
-                dispatch( AppActions.setInitialisedApp() ) // смена флага инициализации на true
+                dispatch( appActions.setInitialisedApp() ) // смена флага инициализации на true
             } )
     };
 }

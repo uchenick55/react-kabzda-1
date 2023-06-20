@@ -2,14 +2,14 @@ import React, {useState} from "react";
 import InputButtonUsersRender from "./InputButtonRender";
 import {useDispatch, useSelector} from "react-redux";
 import {usersSelectorsSimple} from "../users-selectors";
-import {UsersActions} from "../../../redux/users-reducer";
+import {usersActions} from "../../../redux/users-reducer";
 import {GlobalStateType} from "../../../redux/store-redux";
 
 const InputButtonContainer: React.FC = () => {
 
     const dispatch = useDispatch()
 
-    const {setOnlyFriends, setTerm} = UsersActions // деструктуризация методов ActionCreator
+    const {setOnlyFriends, setTerm} = usersActions // деструктуризация методов ActionCreator
 
     const onlyFriends: boolean = useSelector( usersSelectorsSimple.getOnlyFriends )// селектор получить только моих друзей
 

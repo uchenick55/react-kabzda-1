@@ -1,5 +1,4 @@
 import React, {memo, useEffect, useState} from 'react';
-import ButtonOverImage from '../../common/CommonClasses/ButtonOverImage.module.css'
 import Preloader from "../../common/Preloader/Preloader";
 import ProfileStatusUseReducer from "./ProfileStatus/ProfileStatusUseReducer"; //ProfileStatusClass | ProfileStatusUseState
 import userPhoto1 from "../../../assets/images/no-image3.png";
@@ -78,7 +77,7 @@ const ProfileInfo: React.FC<ProfileInfoType2> = memo( ({
     const showUserPhoto = <div className={classes.toCenter}>
         <Image fluid={true}
                alt={"userPhoto"}
-               className={`${ButtonOverImage.profilePhotoIMG} `}
+               className={`${classes.profilePhotoIMG} `}
             // если это мой профиль (userId === 0) и мышкой навели на картинку, добавить ImgHover класс (альтернатива псевдокласса :hover)
                src={profile.photos.large ? profile.photos.large : userPhoto1}/>
     </div>
@@ -88,7 +87,7 @@ const ProfileInfo: React.FC<ProfileInfoType2> = memo( ({
             <h2 className={commonClasses.pageHeader}>Profile</h2> {/*Заголовок*/}
 
             <Row>
-                <Col xs={12} md={5} className={ButtonOverImage.container}>
+                <Col xs={12} md={5} >
                     {showUserPhoto} {/*показать фото пользователя*/}
                     {editMyPhoto} {/* сменить фото, если это мой профиль*/}
 

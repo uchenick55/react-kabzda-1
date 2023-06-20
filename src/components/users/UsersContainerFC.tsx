@@ -9,11 +9,11 @@ import commonClasses from "../common/CommonClasses/common.module.css";
 import PaginationContainer from "../common/Pagination/PaginationContainer";
 import InputButtonContainer from "./InputButton/InputButtonCont";
 import UserItemsContainer from "./UserItems/UserItemsContainer";
-import {Dialog2Actions} from "../../redux/dialog2-reducer";
+import {dialog2Actions} from "../../redux/dialog2-reducer";
 
 const UsersContainerFC: React.FC = () => {
 
-    const {setDialog2InitialState} = Dialog2Actions
+    const {setDialog2InitialState} = dialog2Actions
 
     const currentPage: number = useSelector( usersSelectorsSimple.getCurrentPage )// селектор currentPage - текущая страница пачки пользователей с сервера
     const totalUsersCount: number = useSelector( usersSelectorsSimple.getTotalUsersCount )// селектор totalUsersCount - общее число пользователей с сервера

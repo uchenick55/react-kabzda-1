@@ -12,7 +12,7 @@ const SET_API_ERROR_MSG = "myApp/dialog2-reducer/SET_API_ERROR_MSG";
 const SET_MARKERS = "myApp/dialog2-reducer/SET_MARKERS";
 const SET_D2_USERID = "myApp/dialog2-reducer/SET_D2_USERID";
 
-export const Dialog2Actions = {
+export const dialog2Actions = {
 
     getDialog2AllAC: (Dialog2All: getDialog2AllType) => {
         return {type: DIALOG2_ACTIONS, Dialog2All} as const
@@ -38,7 +38,7 @@ export const Dialog2Actions = {
 
 }
 
-type Dialog2ActionsTypes = InferActionsTypes<typeof Dialog2Actions>
+type Dialog2ActionsTypes = InferActionsTypes<typeof dialog2Actions>
 export type MarkersType = {
     straightFirstUploaded: boolean, // является ли эта загрузка прямой по ссылке, (или F5)
     dialogId: number, // маркер id диалога
@@ -126,7 +126,7 @@ export const putDialog2StartThCr = (currentDialogId: number): ThType => {
             dispatch( getDialog2AllThCr( currentDialogId ) )
         }
         if (response.resultCode === ResultCodeEnum.Error) {
-            dispatch( Dialog2Actions.setApiErrorMsg( response.messages ) )
+            dispatch( dialog2Actions.setApiErrorMsg( response.messages ) )
         }
     }
 }
@@ -142,9 +142,9 @@ export const getDialog2AllThCr = (userId?: number, page: number = 1, count: numb
         }
         const response = await apiDialog2.getDialog2All( userId, page, count )
         if (response) { // если есть данные
-            dispatch( Dialog2Actions.getDialog2AllAC( response ) ) /* получить диалоглист*/
+            dispatch( dialog2Actions.getDialog2AllAC( response ) ) /* получить диалоглист*/
             console.log("getDialog2AllThCr => setD2Item")
-            dispatch( Dialog2Actions.setD2Item( response[0] ) ) /*отфильтровать d2Item */
+            dispatch( dialog2Actions.setD2Item( response[0] ) ) /*отфильтровать d2Item */
         }
     }
 }
@@ -157,7 +157,7 @@ export const postDialog2MessageThCr = ( body: string, date: string): ThType => {
             dispatch( getDialog2MessagesNewerThenThCr( getState().dialog2.D2UserId, date ) ) // получить все сообщения от указанного ID пользователя новее чем указанная дата
         }
         if (response.resultCode === ResultCodeEnum.Error) {
-            dispatch( Dialog2Actions.setApiErrorMsg( response.messages ) )
+            dispatch( dialog2Actions.setApiErrorMsg( response.messages ) )
         }
     }
 }
@@ -195,14 +195,14 @@ export const postDialog2MessageIdToSpamThCr = (messageId: string): ThType => {
         if (response.resultCode === ResultCodeEnum.Success) {
             console.log( "Сообщение помечено как спам:", messageId )
 
-            dispatch( Dialog2Actions.setMessagesNewerThen(
+            dispatch( dialog2Actions.setMessagesNewerThen(
                 setDeleteSpamToMessagesNewerThen( getState().dialog2.MessagesNewerThen, messageId, "spam" ),
                 false
             ) ) // помечаем сообщение в локальном стейте как спам
 
         }
         if (response.resultCode === ResultCodeEnum.Error) {
-            dispatch( Dialog2Actions.setApiErrorMsg( response.messages ) )
+            dispatch( dialog2Actions.setApiErrorMsg( response.messages ) )
         }
     }
 }
@@ -214,13 +214,13 @@ export const deleteDialog2MessageIdThCr =
             if (response.resultCode === ResultCodeEnum.Success) {
                 console.log( "Сообщение удалено на сервере" )
 
-                dispatch( Dialog2Actions.setMessagesNewerThen(
+                dispatch( dialog2Actions.setMessagesNewerThen(
                     setDeleteSpamToMessagesNewerThen( getState().dialog2.MessagesNewerThen, messageId, "delete" ),
                     false
                 ) ) // помечаем сообщение в локальном стейте как удаленное
             }
             if (response.resultCode === ResultCodeEnum.Error) {
-                dispatch( Dialog2Actions.setApiErrorMsg( response.messages ) )
+                dispatch( dialog2Actions.setApiErrorMsg( response.messages ) )
             }
         }
     }
@@ -231,7 +231,7 @@ export const putDialog2MessageIdRestoreThCr = (messageId: string): ThType => {
         if (response.resultCode === ResultCodeEnum.Success) {
             console.log( "Сообщение восстановлено из спама" )
 
-            dispatch( Dialog2Actions.setMessagesNewerThen(
+            dispatch( dialog2Actions.setMessagesNewerThen(
                 setDeleteSpamToMessagesNewerThen( getState().dialog2.MessagesNewerThen, messageId, "restore" ),
                 false
             ) ) // помечаем сообщение в локальном стейте как удаленное
@@ -239,7 +239,7 @@ export const putDialog2MessageIdRestoreThCr = (messageId: string): ThType => {
 
         }
         if (response.resultCode === ResultCodeEnum.Error) {
-            dispatch( Dialog2Actions.setApiErrorMsg( response.messages ) )
+            dispatch( dialog2Actions.setApiErrorMsg( response.messages ) )
         }
     }
 }
@@ -247,7 +247,7 @@ export const getDialog2MessagesNewerThenThCr = (userId: number, date: string): T
     // console.log( "getDialog2MessagesNewerThenThCr" )
     return async (dispatch, getState) => {// - вернуть сообщения новее определенной даты
         const response = await apiDialog2.getDialog2MessagesNewerThen( userId, date )
-        dispatch( Dialog2Actions.setMessagesNewerThen( response, true ) )
+        dispatch( dialog2Actions.setMessagesNewerThen( response, true ) )
     }
 }
 export const getDailog2UnreadMessagesThCr = (): ThType => {

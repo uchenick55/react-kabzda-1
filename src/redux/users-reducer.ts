@@ -4,7 +4,7 @@ import {Dispatch} from "redux";
 import {usersType} from "../components/api/apiTypes";
 import {ResultCodeEnum} from "../components/api/enum";
 import {ComThunkTp} from "../components/common/types/commonTypes";
-import {AppActions} from "./app-reducer";
+import {appActions} from "./app-reducer";
 
 const SET_TERM = "myApp/users-reducer/SET_TERM";
 const SET_USERS = "myApp/users-reducer/SET_USERS";
@@ -15,7 +15,7 @@ const TOGGLE_IS_FOLLOWING_PROGRESS = "myApp/users-reducer/TOGGLE_IS_FOLLOWING_PR
 const SET_ONLY_FRIENDS = "myApp/users-reducer/SET_ONLY_FRIENDS";// экшн отображения только моих друзей, или общий список
 const USERS_INITIAL_STATE = "myApp/users-reducer/USERS_INITIAL_STATE";
 
-export const UsersActions = {
+export const usersActions = {
     setTerm: (term: string) => {
         return {type: SET_TERM, term} as const
     },
@@ -39,7 +39,7 @@ export const UsersActions = {
     },
 }
 
-type UsersActionTypes = InferActionsTypes<typeof UsersActions> | InferActionsTypes<typeof AppActions>
+type UsersActionTypes = InferActionsTypes<typeof usersActions> | InferActionsTypes<typeof appActions>
 
 const initialState = {
     users: [] as Array<usersType>, // массив пользователей по умолчанию (пока пустой)
@@ -114,18 +114,18 @@ export const getUsersThunkCreator //санкреатор получить пол
         if (!currentPage) {
             currentPage = getState().usersPage.currentPage
         }
-        dispatch( AppActions.toggleIsFetching( true ) ) //показать крутилку загрузки с сервера
+        dispatch( appActions.toggleIsFetching( true ) ) //показать крутилку загрузки с сервера
 
         const {pageSize, term, onlyFriends} = getState().usersPage
 
         apiUsers.getUsers( currentPage, pageSize, term, onlyFriends ) //получить пользователей по текущей странице и размере страницы
             .then( (data) => {
-                dispatch( AppActions.toggleIsFetching( false ) )  //убрать крутилку загрузки с сервера
-                dispatch( UsersActions.setUsers( data.items ) )//записать в стейт закгруженный стек пользователей
-                dispatch( UsersActions.setUsersTotalCount( data.totalCount ) )//записать в стейт общее количество пользователей
+                dispatch( appActions.toggleIsFetching( false ) )  //убрать крутилку загрузки с сервера
+                dispatch( usersActions.setUsers( data.items ) )//записать в стейт закгруженный стек пользователей
+                dispatch( usersActions.setUsersTotalCount( data.totalCount ) )//записать в стейт общее количество пользователей
 
                 if (userId) { // если добавление/удаление пользователя в избранное
-                    dispatch( UsersActions.toggleIsFollowingProgerss( false, userId ) )//убрать ID кнопки пользователя из массива followingInProgress, кнопка раздизаблена
+                    dispatch( usersActions.toggleIsFollowingProgerss( false, userId ) )//убрать ID кнопки пользователя из массива followingInProgress, кнопка раздизаблена
                 }
             } )
     }
@@ -144,7 +144,7 @@ const _followUnfollowFlow = ( // общий метод для санкреате
     currentPage: number,
     apiMethod: any,// (userId:number)=>,
 ) => {
-    dispatch( UsersActions.toggleIsFollowingProgerss( true, userId ) )//внести ID кнопки пользователя в массив followingInProgress от повторного нажатия
+    dispatch( usersActions.toggleIsFollowingProgerss( true, userId ) )//внести ID кнопки пользователя в массив followingInProgress от повторного нажатия
     apiMethod( userId )// подписаться на пользователя // diff apiMethod = postFollow
         .then( (response: responseType) => {
             if (response.resultCode === ResultCodeEnum.Success) {

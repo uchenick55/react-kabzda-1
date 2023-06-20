@@ -14,8 +14,14 @@
 }
 
 .TasksContainer {
-    max-width: 35rem;
-
+    max-width: 30rem;
 }
 
+.taskHeader {
+    font-style: italic;
+    border-radius: 0.5rem;
+    height: 2rem;
+    color: #999999;
+    margin-top: 1rem;
 
+}

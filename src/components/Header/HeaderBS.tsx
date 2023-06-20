@@ -28,7 +28,7 @@ type HeaderBSType = {
 
 }
 const HeaderBS: React.FC<HeaderBSType> = memo( ({isAuth, myProfile, deleteLogin, setTheme1, themeBLL}) => {
-    console.log( "HeaderBS" )
+  //  console.log( "HeaderBS" )
     const navigate = useNavigate(); // хук для навигации по страницам (кнопка назад)
 
 

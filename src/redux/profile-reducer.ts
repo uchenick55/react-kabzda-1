@@ -1,10 +1,10 @@
 import {apiProfile} from "../components/api/api";
-import {AuthActions} from "./auth-reducer";
+import {authActions} from "./auth-reducer";
 import {ComThunkTp, NulableType, postsType, ProfileType} from "../components/common/types/commonTypes";
 import {InferActionsTypes} from "./store-redux";
 import {getProfileType} from "../components/api/apiTypes";
 import {ResultCodeEnum} from "../components/api/enum";
-import {AppActions} from "./app-reducer";
+import {appActions} from "./app-reducer";
 
 const SET_EDIT_PROFILE_ERROR = "myApp/auth-reducer/SET_EDIT_PROFILE_ERROR"; //константа задания ошибки правеки профиля
 const DELETE_POST = "myApp/profile-reducer/DELETE_POST";// константа удаления новых постов
@@ -39,8 +39,8 @@ export const profileActions = {
     },
 }
 
-type ProfileActionTypes = InferActionsTypes<typeof profileActions> | InferActionsTypes<typeof AuthActions>
-    | InferActionsTypes<typeof AppActions>
+type ProfileActionTypes = InferActionsTypes<typeof profileActions> | InferActionsTypes<typeof authActions>
+    | InferActionsTypes<typeof appActions>
 
 const initialState = {
     posts: [// заглушка постов на странице профиля
@@ -105,14 +105,14 @@ export const profileReducer = (state: initialStateType = initialState, action: P
 
 export const getProfileThunkCreator = (userId: number): ComThunkTp<ProfileActionTypes> => { // санкреатор на получение профиля выбранного пользователя
     return async (dispatch, getState) => { // нонейм санка на получение профиля выбранного пользователя
-        dispatch( AppActions.toggleIsFetching( true ) ) //показать крутилку загрузки с сервера
+        dispatch( appActions.toggleIsFetching( true ) ) //показать крутилку загрузки с сервера
 
-        const IdLocal = !userId? getState().auth.myId : userId // если userId не задан в URL (переход на страницу моего профиля не подставляет ID в браузере)
-        const response = await apiProfile.getProfile( IdLocal) // получение полных данных о моем профиле
+        const idLocal = !userId? getState().auth.myId : userId // если userId не задан в URL (переход на страницу моего профиля не подставляет ID в браузере)
+        const response = await apiProfile.getProfile( idLocal) // получение полных данных о моем профиле
 
         dispatch( profileActions.setUserProfile( response ) ) // задание полных данных в профиль
-        !getState().profilePage.status && dispatch( getStatusThunkCreator( IdLocal ) ) // запрос моего статуса, если его нет
-        dispatch( AppActions.toggleIsFetching( false ) ) //убрать крутилку загрузки с сервера
+        !getState().profilePage.status && dispatch( getStatusThunkCreator( idLocal ) ) // запрос моего статуса, если его нет
+        dispatch( appActions.toggleIsFetching( false ) ) //убрать крутилку загрузки с сервера
     }
 }
 
@@ -132,7 +132,7 @@ export const putStatusThunkCreator = (statusTmpInput: string): ComThunkTp<Profil
 }
 export const setprofilePhotoThunkCreator = (profilePhoto: File): ComThunkTp<ProfileActionTypes> => { // санкреатор установки фотографии моего профиля
     return async (dispatch, getState) => { // нонеййм санка установки фотографии моего профиля
-        dispatch( AppActions.toggleIsFetching( true ) ) //показать крутилку загрузки с сервера
+        dispatch( appActions.toggleIsFetching( true ) ) //показать крутилку загрузки с сервера
         const response = await apiProfile.putPhoto( profilePhoto ) // отправка нового фото на сервер
         if (response.resultCode === ResultCodeEnum.Success) { // если успешное обновление статуса с сервера
             dispatch (getProfileThunkCreator(getState().auth.myId)) // получить данные о профиле с новым фото
@@ -145,7 +145,7 @@ export const putMyProfileThunkCreator = (MyProfile: ProfileType): ComThunkTp<Pro
         const response = await apiProfile.putMyProfileData( MyProfile ) // отправка нового статуса на сервер
         if (response.resultCode === ResultCodeEnum.Success) { // если успешное обновление профиля на сервере
             const response2 = await apiProfile.getProfile( getState().auth.myId )//получение моих дополнительных данных после записи на сервер
-            dispatch( AuthActions.setMyProfile( response2 ) )//задание в стейт моих доп данных
+            dispatch( authActions.setMyProfile( response2 ) )//задание в стейт моих доп данных
             dispatch( getProfileThunkCreator( getState().auth.myId ) )
             dispatch( profileActions.setEditProfileStatus( ["Edited successfully!"] ) ) // отправить данные ошибки в стейт
         } else { // если пришла ошибка с сервера ввода формы правки профиля
