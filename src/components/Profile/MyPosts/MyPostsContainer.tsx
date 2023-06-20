@@ -2,20 +2,20 @@ import MyPostsBS from "./MyPostsBS";
 import {profileActions} from "../../../redux/profile-reducer";
 import {connect} from "react-redux";
 import React from "react";
-import {postsType} from "../../common/types/commonTypes";
+import {PostsType} from "../../common/types/commonTypes";
 import {GlobalStateType} from "../../../redux/store-redux";
 
 const {addPostActionCreator} = profileActions
 
-type ownPropsType = {
+type OwnPropsType = {
     userId: number,
 }
 
-const MyPostsContainer: React.FC<mapStateToPropsType & mapDispatchToPropsType & ownPropsType> =
+const MyPostsContainer: React.FC<MapStateToPropsType & MapDispatchToPropsType & OwnPropsType> =
     ({posts, addPostActionCreator, userId}) => {
 
-        type addPostType = (newPostData: string) => void
-        const addPost: addPostType = (newPostData: string) => {
+        type AddPostType = (newPostData: string) => void
+        const addPost: AddPostType = (newPostData: string) => {
             addPostActionCreator( newPostData )
         }
         return <MyPostsBS userId={userId} posts={posts} addPost={addPost}/>
@@ -23,18 +23,18 @@ const MyPostsContainer: React.FC<mapStateToPropsType & mapDispatchToPropsType & 
 
 const mapStateToProps = (state: GlobalStateType) => {
     return {
-        posts: state.profilePage.posts as Array<postsType>, // мои посты (пока заглушка)
+        posts: state.profilePage.posts as Array<PostsType>, // мои посты (пока заглушка)
     }
 }
-type mapDispatchToPropsType = {
+type MapDispatchToPropsType = {
     addPostActionCreator: (newPostData: string) => void
 }
 
-type mapStateToPropsType = ReturnType<typeof mapStateToProps>
+type MapStateToPropsType = ReturnType<typeof mapStateToProps>
 
-export default connect<mapStateToPropsType, // тип mapStateToProps
-    mapDispatchToPropsType, // тип mapDispatchToProps
-    ownPropsType, // тип входящих пропсов от родителя
+export default connect<MapStateToPropsType, // тип mapStateToProps
+    MapDispatchToPropsType, // тип mapDispatchToProps
+    OwnPropsType, // тип входящих пропсов от родителя
     GlobalStateType // глобальный стейт из стора
     >( mapStateToProps, {addPostActionCreator} )( MyPostsContainer );
 

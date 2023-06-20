@@ -8,7 +8,7 @@ import {
     putDialog2StartThCr
 } from "../../redux/dialog2-reducer";
 import Dialog2Messages2COM from "./Dialog2Messages2COM";
-import {getDialog2AllType, newMessagesItem, sendMessageType} from "../api/apiTypes";
+import {GetDialog2AllType, D2ItemType, SendMessageType} from "../api/apiTypes";
 import {compose} from "redux";
 import withRouter2 from "../hoc/withRouter2";
 import NavigateToLoginHoc2 from "../hoc/NavigateToLoginHoc2";
@@ -19,10 +19,10 @@ type OwnPropsType = {
 
 const Dialog2Messages2Container: React.FC<OwnPropsType> = ({userId}) => {
 
-    const MessagesNewerThen: Array<sendMessageType> = useSelector( (state: GlobalStateType) => state.dialog2.MessagesNewerThen )// сообщения выбранного диалога, новее заданной даты
+    const MessagesNewerThen: Array<SendMessageType> = useSelector( (state: GlobalStateType) => state.dialog2.MessagesNewerThen )// сообщения выбранного диалога, новее заданной даты
     const Markers: MarkersType = useSelector( (state: GlobalStateType) => state.dialog2.Markers )//вспомогательные маркеры
-    const D2Item: newMessagesItem = useSelector( (state: GlobalStateType) => state.dialog2.D2Item )// отфильтрованый  из Dialog2All выбранный пользователь по userId
-    const Dialog2All: getDialog2AllType = useSelector( (state: GlobalStateType) => state.dialog2.Dialog2All )// список всех диалогов для левой колонки
+    const D2Item: D2ItemType = useSelector( (state: GlobalStateType) => state.dialog2.D2Item )// отфильтрованый  из Dialog2All выбранный пользователь по userId
+    const Dialog2All: GetDialog2AllType = useSelector( (state: GlobalStateType) => state.dialog2.Dialog2All )// список всех диалогов для левой колонки
     const patch: string = useSelector( (state: GlobalStateType) => state.app.patch )// имя страницы из URL
     const myId: number = useSelector( (state: GlobalStateType) => state.auth.myId )// номер моего id
     const PageWidth: number = useSelector( (state: GlobalStateType) => state.app.PageWidth )// ширина страницы
@@ -58,7 +58,7 @@ const Dialog2Messages2Container: React.FC<OwnPropsType> = ({userId}) => {
         console.log( "получить сообщения при смене userId", userId )
         dispatch( getDialog2MessagesNewerThenThCr( userId, "2022-04-30T19:10:31.843" ) )
 
-        const D2ItemLocal: newMessagesItem = Dialog2All.filter( d2 => d2.id === userId )[0]
+        const D2ItemLocal: D2ItemType = Dialog2All.filter( d2 => d2.id === userId )[0]
         if (D2ItemLocal) { //если userId уже присутствует в списке диалогов
             dispatch( setD2Item( D2ItemLocal ) ) // отфильтрровать и получить d2Item
         } else {
@@ -131,7 +131,7 @@ export default compose<React.ComponentType>(
             // как прочитаное. При следующем получении данных с сервера, все синхронизируется
             if (D2Item && D2Item.newMessagesCount > 0) {  //если маркер непрочтенных сообщений больше нуля
                 setTimeout( () => { // делаем таймер паузу пока сообщение не исчезнет
-                    const Dialog2AllLocal2: getDialog2AllType = [];
+                    const Dialog2AllLocal2: GetDialog2AllType = [];
                     Dialog2All.forEach( dd => {
                         if (dd.id === userId) { // если это диалог в котором есть новые сообщения
                             dd.hasNewMessages = false; // зануляем значения

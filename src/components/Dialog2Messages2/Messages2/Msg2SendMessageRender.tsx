@@ -17,12 +17,12 @@ type DialogFormikType = {
     Msg2SendMessage: (messageBody: string) => void,
 
 }
-type valuesType = {
+type ValuesType = {
     newMessage: string
 }
 const Msg2SendMessageRender: React.FC<DialogFormikType> = memo (({Msg2SendMessage}) => { // основная компонента с входным колбэком, чтобы забрать данные с форм
     console.log( "ввод новых сообщений" )
-    const myOnSubmit = (values: valuesType, {resetForm}: any) => { // действия по сабмиту
+    const myOnSubmit = (values: ValuesType, {resetForm}: any) => { // действия по сабмиту
         Msg2SendMessage( values.newMessage ) // колбек, который принмает результат ввода формы
         resetForm()// сбросить значение формы после ввода
     }

@@ -7,10 +7,10 @@ import ErrorBoundary from "../common/ErrorBoundary/ErrorBoundary";
 import {compose} from "redux";
 import {setThemeThunkCreator} from "../../redux/theme-reducer";
 import {NulableType} from "../common/types/commonTypes";
-import {getProfileType} from "../api/apiTypes";
+import {GetProfileType} from "../api/apiTypes";
 import {GlobalStateType} from "../../redux/store-redux";
 
-const HeaderContainer: React.FC<mapStateToPropsType & mapDispatchToPropsType> = (
+const HeaderContainer: React.FC<MapStateToPropsType & MapDispatchToPropsType> = (
     {themeBLL, isAuth, myId, deleteLoginThunkCreator, getProfileThunkCreator, myProfile, setThemeThunkCreator}) => {
 
     const setTheme1 = () => {
@@ -36,19 +36,19 @@ const mapStateToProps = (state: GlobalStateType) => {
     return {
         myId: state.auth.myId as number, // мой ID по умолчанию
         isAuth: state.auth.isAuth as boolean, // Флаг авторизации
-        myProfile: state.auth.myProfile as NulableType<getProfileType>, // мой расширенный профиль по умолчанию
+        myProfile: state.auth.myProfile as NulableType<GetProfileType>, // мой расширенный профиль по умолчанию
         themeBLL: state.theme.themeBLL as "light" | "dark", // тема в bll по умолчанию,
     }
 }
-type mapStateToPropsType = ReturnType<typeof mapStateToProps>
+type MapStateToPropsType = ReturnType<typeof mapStateToProps>
 
-type mapDispatchToPropsType = {
+type MapDispatchToPropsType = {
     getProfileThunkCreator: (userId: number) => void,
     deleteLoginThunkCreator: () => void,
     setThemeThunkCreator: (themeBLL: "light" | "dark") => void
 }
 export default compose<React.ComponentType>(
-    connect<mapStateToPropsType, mapDispatchToPropsType, unknown, GlobalStateType>
+    connect<MapStateToPropsType, MapDispatchToPropsType, unknown, GlobalStateType>
         // @ts-ignore
         ( mapStateToProps,
         {

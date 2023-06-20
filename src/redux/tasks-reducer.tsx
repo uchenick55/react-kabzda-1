@@ -15,14 +15,14 @@ import {apiTasks} from "../components/api/api";
 const SET_NEWS_DATA = "myApp/app-reducer/SET_NEWS_DATA"; //константа задания данных News
 
 export const tasksActions = {
-    setNewsDataAC: (newsData: newsDataType) => { // экшн креатор задания данных News
+    setNewsDataAC: (newsData: NewsDataType) => { // экшн креатор задания данных News
         return {type: SET_NEWS_DATA, newsData} as const
     }
 }
 
-type newsDataType = typeof initialState.newsData
+type NewsDataType = typeof initialState.newsData
 
-type initialStateType = typeof initialState
+type InitialStateType = typeof initialState
 
 type TasksActionTypes = InferActionsTypes<typeof tasksActions>
 
@@ -324,8 +324,8 @@ const initialState = { //стейт по умолчанию темы
 }
 
 
-const tasksReducer = (state: initialStateType = initialState, action: TasksActionTypes): initialStateType => {//редьюсер микрозаданий
-    let stateCopy: initialStateType; // объявлениечасти части стейта до изменения редьюсером
+const tasksReducer = (state: InitialStateType = initialState, action: TasksActionTypes): InitialStateType => {//редьюсер микрозаданий
+    let stateCopy: InitialStateType; // объявлениечасти части стейта до изменения редьюсером
     switch (action.type) {
         case SET_NEWS_DATA: // запись данных News
             stateCopy = {

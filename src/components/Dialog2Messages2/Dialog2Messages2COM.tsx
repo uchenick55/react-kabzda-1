@@ -2,7 +2,7 @@ import React, {memo} from "react";
 import classesCommon from "./dialog2Messages2COM.module.scss";
 import Dialog2Render from "./Dialog2/Dialog2Render";
 import Messages2Render from "./Messages2/Messages2Render";
-import {getDialog2AllType, newMessagesItem, sendMessageType} from "../api/apiTypes";
+import {GetDialog2AllType, D2ItemType, SendMessageType} from "../api/apiTypes";
 
 
 type Dialog2RenderType = {
@@ -10,9 +10,9 @@ type Dialog2RenderType = {
     PageWidth: number, // ширина страницы
     MobileWidth: number, // ширина страницы, считающаяся мобильной версткой
     userId: number, // id пользователя из URL
-    Dialog2All: getDialog2AllType, // список всех диалогов для левой колонки
-    MessagesNewerThen: Array<sendMessageType> // сообщения выбранного диалога, новее заданной даты
-    D2Item: newMessagesItem, // отфильтрованый  из Dialog2All выбранный пользователь по userId
+    Dialog2All: GetDialog2AllType, // список всех диалогов для левой колонки
+    MessagesNewerThen: Array<SendMessageType> // сообщения выбранного диалога, новее заданной даты
+    D2Item: D2ItemType, // отфильтрованый  из Dialog2All выбранный пользователь по userId
     myId: number // номер моего id
     Msg2SendMessage: (messageBody:string) => void // отправить сообщение указанному пользователю
  }

@@ -23,13 +23,13 @@ const Square: React.FC<SquareType> = ({value, handleSquare, i}) => {
         </button>
     );
 };
-type squaresType = Array<"X" | "O" | null> // пропсами передаем вглубь текущий массив клеток
+type SquaresType = Array<"X" | "O" | null> // пропсами передаем вглубь текущий массив клеток
 
 const xIsNextInitialState = true // начальное значение кто ходит
 const historyInitialState = [{squaresNew: Array( 9 ).fill( null )}] // начальное значение массива History
 
 type BoardPropsType = {
-    squares: squaresType // пропсами передаем вглубь текущий массив клеток
+    squares: SquaresType // пропсами передаем вглубь текущий массив клеток
     xIsNext: boolean// статус кто ходит
     handleSquare: (i: number) => void // обработчик кликов
     history: typeof historyInitialState
@@ -85,7 +85,7 @@ const Board: React.FC<BoardPropsType> = ({squares, xIsNext, handleSquare, histor
     );
 }
 
-function calculateWinner(squares: squaresType) {
+function calculateWinner(squares: SquaresType) {
     // функция определения победителя (squares - весь текущий массив клеток)
     const lines = [
         [0, 1, 2], // задание комбинаций a, b, c при которых определяется победитель

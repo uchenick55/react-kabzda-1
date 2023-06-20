@@ -5,7 +5,7 @@ import * as Yup from 'yup' // валидация форм с помошью ст
 import {MyTextInput} from "../../common/formikCommon/MyFieldsBS"
 import Button from "react-bootstrap/Button";
 import Row from "react-bootstrap/Row";
-import {apiFeedBackDataType} from "../../common/types/commonTypes";
+import {ApiFeedBackDataType} from "../../common/types/commonTypes";
 
 const myInitialValues = { // начальные зачения форм
     name: "",
@@ -20,10 +20,10 @@ const myValidationSchema = Yup.object({ // валидация форм на requ
 })
 
 type FeedBackFormikType = {
-    sendFeedBack: (data:apiFeedBackDataType) => void,
+    sendFeedBack: (data:ApiFeedBackDataType) => void,
 }
 const FeedBackFormik:React.FC<FeedBackFormikType> = ({sendFeedBack}) => { // основная компонента с входным колбэком, чтобы забрать данные с форм
-    const myOnSubmit = (values:apiFeedBackDataType, {resetForm}:any) => { // действия по сабмиту
+    const myOnSubmit = (values:ApiFeedBackDataType, {resetForm}:any) => { // действия по сабмиту
         sendFeedBack(values) // колбек, который принмает результат ввода формы
         resetForm()// сбросить значение формы после ввода
     }

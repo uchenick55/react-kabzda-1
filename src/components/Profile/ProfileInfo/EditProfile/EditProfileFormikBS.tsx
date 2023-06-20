@@ -6,7 +6,7 @@ import classes from './EditProfile.module.css'
 import {MyCheckbox, MyTextInput} from "../../../common/formikCommon/MyFieldsBS"
 import Button from "react-bootstrap/Button";
 import {ProfileType} from "../../../common/types/commonTypes";
-import {getProfileType} from "../../../api/apiTypes";
+import {GetProfileType} from "../../../api/apiTypes";
 
 const myValidationSchema = Yup.object({ // валидация форм на required, длину и заполнение полей
 })
@@ -14,7 +14,7 @@ const myValidationSchema = Yup.object({ // валидация форм на requ
 type EditProfileFormikType = {
     putProfile: (putProfile2: ProfileType) =>void,
     setEditMode: (editMode: boolean)=> void
-    profile: getProfileType,
+    profile: GetProfileType,
     editProfileStatus:Array<string>,
     setEditProfileStatus: (editProfileStatus: Array<string>)=> void
 

@@ -4,11 +4,11 @@ import commonClasses from "../common/CommonClasses/common.module.css";
 import Container from "react-bootstrap/Container";
 import ModalBS1 from "../common/ModalBS/ModalBS1";
 import FeedBackInfoShort from "../Info/FeedBackInfoShort";
-import {apiFeedBackDataType} from "../common/types/commonTypes";
+import {ApiFeedBackDataType} from "../common/types/commonTypes";
 
 type FeedBackType = {
     feedBackStatus: string
-    sendFeedBack: (data:apiFeedBackDataType) => void,
+    sendFeedBack: (data:ApiFeedBackDataType) => void,
     setFeedBackStatus:(feedBackStatus:string)=>void
 
 }

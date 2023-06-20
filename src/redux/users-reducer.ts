@@ -1,7 +1,7 @@
 import {apiUsers} from "../components/api/api";
 import {InferActionsTypes} from "./store-redux";
 import {Dispatch} from "redux";
-import {usersType} from "../components/api/apiTypes";
+import {UsersType} from "../components/api/apiTypes";
 import {ResultCodeEnum} from "../components/api/enum";
 import {ComThunkTp} from "../components/common/types/commonTypes";
 import {appActions} from "./app-reducer";
@@ -19,7 +19,7 @@ export const usersActions = {
     setTerm: (term: string) => {
         return {type: SET_TERM, term} as const
     },
-    setUsers: (users: Array<usersType>) => {
+    setUsers: (users: Array<UsersType>) => {
         return {type: SET_USERS, users} as const
     },
     setCurrentPage: (currentPage: number) => {
@@ -42,7 +42,7 @@ export const usersActions = {
 type UsersActionTypes = InferActionsTypes<typeof usersActions> | InferActionsTypes<typeof appActions>
 
 const initialState = {
-    users: [] as Array<usersType>, // массив пользователей по умолчанию (пока пустой)
+    users: [] as Array<UsersType>, // массив пользователей по умолчанию (пока пустой)
     pageSize: 100, // размер пачки пользователей при загрузке с сервера
     totalUsersCount: 0, // общее количество пользователей по умолчанию
     currentPage: 1, // текущая страница загрузки пользователей по умолчанию
@@ -52,11 +52,11 @@ const initialState = {
     onlyFriends: false
     , // получить список только моих друзей
 }
-type initialStateType = typeof initialState
+type InitialStateType = typeof initialState
 
-const usersReducer = (state: initialStateType = initialState, action: UsersActionTypes): initialStateType => {
+const usersReducer = (state: InitialStateType = initialState, action: UsersActionTypes): InitialStateType => {
     // типы принимаемые и возвращаемые редьюсером
-    let stateCopy: initialStateType; // объявление части стейта до изменения редьюсером
+    let stateCopy: InitialStateType; // объявление части стейта до изменения редьюсером
     switch (action.type) {
         case TOGGLE_IS_FOLLOWING_PROGRESS: // disable кнопки от многократного нажатия (follow/unfollow)
             stateCopy = {

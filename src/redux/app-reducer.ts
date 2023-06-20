@@ -1,7 +1,7 @@
 import {getAuthMeThunkCreator} from "./auth-reducer";
 import {getThemeThunkCreator} from "./theme-reducer";
 import { InferActionsTypes} from "./store-redux";
-import {ComThunkTp, errType} from "../components/common/types/commonTypes";
+import {ComThunkTp, ErrorType} from "../components/common/types/commonTypes";
 
 const SET_INITIALISED_APP = "myApp/app-reducer/SET_INITIALISED_APP"; //константа инициализации приложения
 const APP_INITIAL_STATE = "myApp/app-reducer/APP_INITIAL_STATE"; //константа зануления при логауте
@@ -29,14 +29,14 @@ export const appActions = {
     toggleIsFetching: (isFetching: boolean) => {
         return {type: TOGGLE_IS_FETCHING, isFetching} as const
     },
-    setAppErrorAC: (err: errType) => {
+    setAppErrorAC: (err: ErrorType) => {
         return {type: SET_APP_ERROR, err} as const
     },
 }
 
 type AppActionTypes = InferActionsTypes<typeof appActions>
 
-type initialStateType = typeof initialState
+type InitialStateType = typeof initialState
 
 const initialState = { //стейт по умолчанию для инициализации приложения
     initialisedApp: false, // флаг приложение инициализировано?
@@ -44,11 +44,11 @@ const initialState = { //стейт по умолчанию для инициа�
     PageWidth: document.documentElement.scrollWidth, // ширина страницы по умолчанию
     MobileWidth: 620,
     isFetching: false, // статус загрузки (крутилка)
-    err: {} as errType
+    err: {} as ErrorType
 }
 
-const appReducer = (state: initialStateType = initialState, action: AppActionTypes): initialStateType => {//редьюсер инициализации приложения
-    let stateCopy: initialStateType; // объявлениечасти части стейта до изменения редьюсером
+const appReducer = (state: InitialStateType = initialState, action: AppActionTypes): InitialStateType => {//редьюсер инициализации приложения
+    let stateCopy: InitialStateType; // объявлениечасти части стейта до изменения редьюсером
     switch (action.type) {
         case SET_INITIALISED_APP: // экшн инициализации приложения
             stateCopy = {

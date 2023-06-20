@@ -3,13 +3,13 @@ import {NavLink} from "react-router-dom";
 import Image from "react-bootstrap/Image";
 import userPhoto from "../../../assets/images/no-image3.png";
 import React, {memo} from "react";
-import {usersType} from "../../api/apiTypes";
+import {UsersType} from "../../api/apiTypes";
 import '../scss/style.scss'
 import FollowPic from "../../../assets/images/swg/star-.svg";
 import UnfollowPic from "../../../assets/images/swg/star+.svg";
 
 type UserItemsType = {
-    users: Array<usersType>, // Реселектор users- список пользователей в пачке от сервера
+    users: Array<UsersType>, // Реселектор users- список пользователей в пачке от сервера
     patch: string, // страница из адресной строки
     PageWidth: number, // ширина страницы
     unfollowAPI: (id: number) => void,
@@ -56,7 +56,7 @@ const UserItems: React.FC<UserItemsType> = ( ({users, unfollowAPI, followAPI, fo
     const ImageLocal = memo( Image )
     return <div className={gridColsClass}> {/*разбивка данных пользователей на карточки*/}
         {
-            users.map( (u: usersType) => { // пробегаем по пользовтелям
+            users.map( (u: UsersType) => { // пробегаем по пользовтелям
 
                 const starCanBePressed = followingInProgress.some( id => id === u.id )
 

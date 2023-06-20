@@ -1,11 +1,11 @@
-import {getProfileType} from "../../api/apiTypes";
+import {GetProfileType} from "../../api/apiTypes";
 import React, {memo} from "react";
 import commonClasses from "../../common/CommonClasses/common.module.css";
 import Button from "react-bootstrap/Button";
 import Contact from "./Contact";
 
 type ShowProfileType = {
-    profile: getProfileType,
+    profile: GetProfileType,
     setEditMode: (editMode: boolean )=> void,
     userId: number,
     myId: number

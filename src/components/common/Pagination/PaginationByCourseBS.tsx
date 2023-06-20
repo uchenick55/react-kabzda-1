@@ -41,8 +41,8 @@ const PaginationByCourse: React.FC<PaginationByCourseType> = (({
         (p) => p >= PortionSizeLeft && p <= PortionSizeRight // оставляем только в заданном диапазоне
     );
 
-    type setPortionValueType = "prevPortion" | "nextPortion"
-    const setPortion = (setPortionValue: setPortionValueType) => { // задать текущую порцию пагинации
+    type SetPortionValueType = "prevPortion" | "nextPortion"
+    const setPortion = (setPortionValue: SetPortionValueType) => { // задать текущую порцию пагинации
         if (setPortionValue === "prevPortion" && currentRangeLocal > 1) // если мы жмем prevPortion
         {
             onChangeRangeLocal( -1 ) // уменьшаем диапазон на 1

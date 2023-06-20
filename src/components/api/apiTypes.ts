@@ -1,6 +1,6 @@
 import {ResultCodeEnum, ResultCodeEnumCaptcha} from "./enum";
 
-export type getProfileType = {
+export type GetProfileType = {
     aboutMe: string,
     userId: number
     lookingForAJob: boolean,
@@ -24,7 +24,7 @@ export type getProfileType = {
 }
 
 
-export type usersType = {
+export type UsersType = {
     followed: boolean
     id: number
     name: string
@@ -36,24 +36,24 @@ export type usersType = {
     uniqueUrlName: string | null
 }
 
-export type getUsersType = {
+export type GetUsersType = {
     error: object,
-    items: Array<usersType>,
+    items: Array<UsersType>,
     totalCount: number
 }
-export type getCaptchaType = {
+export type GetCaptchaType = {
     url: string
 }
 
 //Общий возвращаемый тип на ряд запросов - дженерик
-export type commRespType<D={}, RC = ResultCodeEnum > = {
+export type CommRespType<D={}, RC = ResultCodeEnum > = {
     resultCode: RC // 0 успешный ответ, 1 ошибка, 10 - каптча. Все определяется Enum
     messages: ApiErrorMsgType,
     data: D // возможны разные варианты ответа объекта data
     fieldsErrors: Array<string>,
 
 }
-export type newMessagesItem = {
+export type D2ItemType = {
     id: number, //27045
     userName: string, //"evgeniysazonov"
     hasNewMessages: boolean,
@@ -66,9 +66,9 @@ export type newMessagesItem = {
     }
 }
 
-export type getDialog2AllType = Array<newMessagesItem>
+export type GetDialog2AllType = Array<D2ItemType>
 
-export type sendMessageType = {
+export type SendMessageType = {
     id: string// "cde7821a-6981-4f49-8b12-faf681cb1621",
     body: string// "555",
     translatedBody: null,

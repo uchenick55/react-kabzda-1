@@ -15,19 +15,19 @@ const ProfileStatusUseReducer:React.FC<ProfileStatusUseReducerType> = memo( ({st
         modifyStatus2: false,// локальная переменная-флаг модификации статуса
         statusTmpInput2: "" // локальный статус до отправки на сервер (поле input)
     }
-    type initialStateType = typeof initialState
+    type InitialStateType = typeof initialState
 
     const SET_MODIFY_STATUS_TRUE = "SET_MODIFY_STATUS_TRUE"; // константа (modify true)
     const SET_MODIFY_STATUS_FALSE = "SET_MODIFY_STATUS_FALSE";// константа (modify false)
     const SET_STATUS_TMP_INPUT = "SET_STATUS_TMP_INPUT";// константа (временный статус input)
 
-    type setModifyStatusTrue = {type:typeof SET_MODIFY_STATUS_TRUE}
-    type setModifyStatusFalse = {type:typeof SET_MODIFY_STATUS_FALSE}
-    type setStatusTmpInput = {type:typeof SET_STATUS_TMP_INPUT, text: string}
+    type SetModifyStatusTrue = {type:typeof SET_MODIFY_STATUS_TRUE}
+    type SetModifyStatusFalse = {type:typeof SET_MODIFY_STATUS_FALSE}
+    type SetStatusTmpInput = {type:typeof SET_STATUS_TMP_INPUT, text: string}
 
-    type ActionTypes = setModifyStatusTrue | setModifyStatusFalse | setStatusTmpInput
+    type ActionTypes = SetModifyStatusTrue | SetModifyStatusFalse | SetStatusTmpInput
 
-    const localReducer = (localState:initialStateType, action:ActionTypes):initialStateType => {
+    const localReducer = (localState:InitialStateType, action:ActionTypes):InitialStateType => {
         let stateCopy; // копия стейта для дебага
         switch (action.type) {
             case SET_MODIFY_STATUS_TRUE: // если мы открываем поле input (модификацию стьатуса)
@@ -56,7 +56,7 @@ const ProfileStatusUseReducer:React.FC<ProfileStatusUseReducerType> = memo( ({st
 
     const [localState, dispatch] = useReducer(localReducer, initialState)// меняем отдельные useState на useReducer
 
-    type checkIfICanModifyStatusType = () => void
+    type CheckIfICanModifyStatusType = () => void
     const checkIfICanModifyStatus = () => {// проверка, что я могу менять статус (открыт мой профиль со статусом)
         if (userId === myId) { // если ID открытого пользователя равен моему
             dispatch({type: SET_MODIFY_STATUS_TRUE})// смена текстового отображения статуса на поле input
@@ -79,7 +79,7 @@ const ProfileStatusUseReducer:React.FC<ProfileStatusUseReducerType> = memo( ({st
 
     type CommonInputGroupType = {
         isDisabled: boolean,
-        onClickMethod: checkIfICanModifyStatusType,
+        onClickMethod: CheckIfICanModifyStatusType,
         value:string
     }
     const CommonInputGroup:React.FC<CommonInputGroupType>  = ({isDisabled, onClickMethod, value}) => {

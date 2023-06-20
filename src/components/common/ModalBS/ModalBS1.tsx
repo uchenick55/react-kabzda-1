@@ -1,13 +1,13 @@
 import React, {memo} from 'react';
 import Button from 'react-bootstrap/Button';
 import Modal from 'react-bootstrap/Modal';
-import {modalBodyType, modalHeaderType} from "../types/commonTypes";
+import {ModalBodyType, ModalHeaderType} from "../types/commonTypes";
 
 type ModalBS1Type = {
     show: boolean,// флаг показывать ли модальное окно
     buttonName: string // текст, отображаемый на кнопке
-    modalHeader: modalHeaderType,// JSX элемент заголовка модального окна
-    modalBody: modalBodyType, // JSX элемент тела модального окна
+    modalHeader: ModalHeaderType,// JSX элемент заголовка модального окна
+    modalBody: ModalBodyType, // JSX элемент тела модального окна
     setShow: (show: boolean)=>void, // изменение флага show (будет ли показано модальное окно)
     buttonOnClick: () => void, // событие при клике на кнопку модального окна
 }

@@ -1,6 +1,6 @@
 import UserItems from "./UserItems";
 import React from "react";
-import {usersType} from "../../api/apiTypes";
+import {UsersType} from "../../api/apiTypes";
 import {useDispatch, useSelector} from "react-redux";
 import {getUsersReselect, usersSelectorsSimple} from "../users-selectors";
 import {followThunkCreator, unfollowThunkCreator} from "../../../redux/users-reducer";
@@ -10,7 +10,7 @@ const UserItemsContainer: React.FC = () => {
 
     const dispatch = useDispatch()
 
-    const users: Array<usersType> = useSelector( getUsersReselect )// Реселектор users- список пользователей в пачке от сервера
+    const users: Array<UsersType> = useSelector( getUsersReselect )// Реселектор users- список пользователей в пачке от сервера
     const followingInProgress: Array<number> = useSelector( usersSelectorsSimple.getFollowingInProgress )// селектор followingInProgress - массив на кого мы подписались, кнопка неактивна
     const currentPage: number = useSelector( usersSelectorsSimple.getCurrentPage )// селектор currentPage - текущая страница пачки пользователей с сервера
     const isAuth: boolean = useSelector( usersSelectorsSimple.getIsAuth )// селектор isAuth - флаг авторизации

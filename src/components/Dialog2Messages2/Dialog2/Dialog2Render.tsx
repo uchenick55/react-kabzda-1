@@ -1,6 +1,6 @@
 import React, {useState} from "react";
 import classes from "./dialog2Render.module.css"
-import {getDialog2AllType} from "../../api/apiTypes";
+import {GetDialog2AllType} from "../../api/apiTypes";
 import Dialog2Item from "./Dialog2Item";
 import Dialog2SearchRender from "./Dialog2SearchRender";
 
@@ -8,13 +8,13 @@ type Dialog2RenderType = {
     patch: string,// имя страницы из URL
     PageWidth: number, // ширина страницы
     MobileWidth: number, // ширина страницы, считающаяся мобильной версткой
-    Dialog2All: getDialog2AllType, // список всех диалогов для левой колонки
+    Dialog2All: GetDialog2AllType, // список всех диалогов для левой колонки
 }
 const Dialog2Render: React.FC<Dialog2RenderType> = (
     {PageWidth, MobileWidth, patch, Dialog2All}
 ) => {
     const [SearchValue, setSearchValue] = useState<string>( "" ) // локальный стейт поискового запроса в диалогах
-    const Dialog2AllFiltered: getDialog2AllType = Dialog2All && Dialog2All.filter( d2 => { //если список диалогов есть,
+    const Dialog2AllFiltered: GetDialog2AllType = Dialog2All && Dialog2All.filter( d2 => { //если список диалогов есть,
         return d2.userName.toLowerCase().includes( SearchValue.toLowerCase() ) // фильтруем по поисковому запросу
     } )
     return <div>

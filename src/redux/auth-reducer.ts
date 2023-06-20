@@ -2,7 +2,7 @@ import {apiProfile} from "../components/api/api";
 import {profileActions} from "./profile-reducer";
 import {usersActions} from "./users-reducer";
 import {InferActionsTypes} from "./store-redux";
-import {getProfileType} from "../components/api/apiTypes";
+import {GetProfileType} from "../components/api/apiTypes";
 import {ResultCodeEnum, ResultCodeEnumCaptcha} from "../components/api/enum";
 import {ComThunkTp, NulableType} from "../components/common/types/commonTypes";
 import {dialog2Actions} from "./dialog2-reducer";
@@ -14,7 +14,7 @@ const SET_CAPTCHA_URL = "myApp/auth-reducer/SET_CAPTCHA_URL"; //констант
 const SET_LOGIN_ERROR = "myApp/auth-reducer/SET_LOGIN_ERROR"; //константа задания ошибки авторизации
 const SET_MY_PROFILE = "myApp/auth-reducer/SET_MY_PROFILE"; // константа задания расширенных данных моего профиля
 
-type setAuthDataActionType = {
+type SetAuthDataActionType = {
     type: typeof SET_MY_DATA,
     id: number,
     email: string,
@@ -23,11 +23,11 @@ type setAuthDataActionType = {
 }
 
 export const authActions = {
-    setMyProfile: (myProfile: getProfileType) => { // экшн креатор задания расширенных данных моего профиля
+    setMyProfile: (myProfile: GetProfileType) => { // экшн креатор задания расширенных данных моего профиля
         return {type: SET_MY_PROFILE, myProfile} as const
     },
 
-    setAuthData: (id: number, email: string, login: string, isAuth: boolean): setAuthDataActionType => {
+    setAuthData: (id: number, email: string, login: string, isAuth: boolean): SetAuthDataActionType => {
         return {type: SET_MY_DATA, id, email, login, isAuth} as const
     },
 
@@ -56,13 +56,13 @@ const initialState = { // стейт по умолчанию для моего �
     myEmail: "" as string,// мой Email по умолчанию
     myLogin: "" as string,// мой логин по умолчанию
     isAuth: false, // Флаг авторизации
-    myProfile: null as NulableType<getProfileType>, // мой расширенный профиль по умолчанию
+    myProfile: null as NulableType<GetProfileType>, // мой расширенный профиль по умолчанию
     captchaURL: "" as string, // URL каптчи после 5 неправильных вводов
     loginError: "" as string, // ошибка авторизации с сервера
 }
-type initialStateAuthType = typeof initialState
-const authReducer = (state: initialStateAuthType = initialState, action: AuthActionTypes): initialStateAuthType => { // редьюсер авторизации и моего профиля
-    let stateCopy: initialStateAuthType; // объявлениечасти части стейта до изменения редьюсером
+type InitialStateAuthType = typeof initialState
+const authReducer = (state: InitialStateAuthType = initialState, action: AuthActionTypes): InitialStateAuthType => { // редьюсер авторизации и моего профиля
+    let stateCopy: InitialStateAuthType; // объявлениечасти части стейта до изменения редьюсером
     switch (action.type) {
         case SET_MY_DATA: // экшн задания моих id, email, login
             stateCopy = {

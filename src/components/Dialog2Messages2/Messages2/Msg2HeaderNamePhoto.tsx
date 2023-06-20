@@ -1,5 +1,5 @@
 import React, {memo} from "react";
-import {newMessagesItem} from "../../api/apiTypes";
+import {D2ItemType} from "../../api/apiTypes";
 import classes from "./messages2Render.module.scss"
 import userPhoto from "../../../assets/images/no-image3.png";
 import {NavLink} from "react-router-dom";
@@ -7,7 +7,7 @@ import GetDate from "../../common/GetDate";
 
 type Msg2HeaderNamePhotoType = {
     userId: number, // id пользователя из URL
-    D2Item: newMessagesItem // отфильтрованый  из Dialog2All выбранный пользователь по userId
+    D2Item: D2ItemType // отфильтрованый  из Dialog2All выбранный пользователь по userId
 
 }
 const Msg2HeaderNamePhoto: React.FC<Msg2HeaderNamePhotoType> = memo ( ({userId, D2Item}) => {

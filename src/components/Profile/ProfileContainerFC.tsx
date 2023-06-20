@@ -1,4 +1,4 @@
-import {getProfileType} from "../api/apiTypes";
+import {GetProfileType} from "../api/apiTypes";
 import {NulableType, ProfileType} from "../common/types/commonTypes";
 import {GlobalStateType} from "../../redux/store-redux";
 import {compose} from "redux";
@@ -19,7 +19,7 @@ type OwnPropsType = {
 
 const ProfileContainerFC: React.FC<OwnPropsType> = ({userId}) => {
 
-    const profile: NulableType<getProfileType> = useSelector( (state: GlobalStateType) => state.profilePage.profile )
+    const profile: NulableType<GetProfileType> = useSelector( (state: GlobalStateType) => state.profilePage.profile )
     const editProfileStatus: Array<string> = useSelector( (state: GlobalStateType) => state.profilePage.editProfileStatus )
     const isFetching: boolean = useSelector( (state: GlobalStateType) => state.app.isFetching )
 

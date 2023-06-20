@@ -11,8 +11,8 @@ import ModalBS1 from "../common/ModalBS/ModalBS1";
 import InfoContainer from "../Info/InfoContainer";
 import {useLocation} from "react-router";
 import dayNightLight from "../../assets/images/swg/day-night.svg";
-import {modalBodyType, modalHeaderType, NulableType} from "../common/types/commonTypes";
-import {getProfileType} from "../api/apiTypes";
+import {ModalBodyType, ModalHeaderType, NulableType} from "../common/types/commonTypes";
+import {GetProfileType} from "../api/apiTypes";
 import NavbarDarkExample from "./DropdownNavbarBS";
 import userPhoto from "../../assets/images/no-image3.png";
 import logoutImg from "../../assets/images/swg/logout2.svg";
@@ -22,7 +22,7 @@ import {ImageMemo} from "../common/BootstrapMemo/BootstrapMemo";
 type HeaderBSType = {
     isAuth: boolean, // Флаг авторизации
     themeBLL: "light" | "dark"
-    myProfile: NulableType<getProfileType>, // мой расширенный профиль по умолчанию
+    myProfile: NulableType<GetProfileType>, // мой расширенный профиль по умолчанию
     deleteLogin: () => void,
     setTheme1: () => void,
 
@@ -36,8 +36,8 @@ const HeaderBS: React.FC<HeaderBSType> = memo( ({isAuth, myProfile, deleteLogin,
 
     const location = useLocation()
 
-    let modalHeader1: modalHeaderType = "";
-    let modalBody: modalBodyType = "";
+    let modalHeader1: ModalHeaderType = "";
+    let modalBody: ModalBodyType = "";
     const buttonOnClick = () => {
     } // доп действия кроме закрытия окна
 

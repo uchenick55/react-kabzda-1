@@ -1,7 +1,7 @@
 import {InferActionsTypes} from "./store-redux";
 import {ComThunkTp} from "../components/common/types/commonTypes";
 import {apiDialog2} from "../components/api/api";
-import {ApiErrorMsgType, getDialog2AllType, newMessagesItem, sendMessageType} from "../components/api/apiTypes";
+import {ApiErrorMsgType, GetDialog2AllType, D2ItemType, SendMessageType} from "../components/api/apiTypes";
 import {ResultCodeEnum} from "../components/api/enum";
 
 const DIALOG2_ACTIONS = "myApp/dialog2-reducer/DIALOG2_ACTIONS";
@@ -14,16 +14,16 @@ const SET_D2_USERID = "myApp/dialog2-reducer/SET_D2_USERID";
 
 export const dialog2Actions = {
 
-    getDialog2AllAC: (Dialog2All: getDialog2AllType) => {
+    getDialog2AllAC: (Dialog2All: GetDialog2AllType) => {
         return {type: DIALOG2_ACTIONS, Dialog2All} as const
     },
-    setMessagesNewerThen: (MessagesNewerThen: Array<sendMessageType>, needToScrollBottom:boolean) => {
+    setMessagesNewerThen: (MessagesNewerThen: Array<SendMessageType>, needToScrollBottom:boolean) => {
         return {type: SET_MESSAGES_NEWER_THEN, MessagesNewerThen, needToScrollBottom} as const
     },
     setDialog2InitialState: () => {
         return {type: SET_DIALOG2_INITIALSTATE} as const
     },
-    setD2Item: (D2Item: newMessagesItem) => {
+    setD2Item: (D2Item: D2ItemType) => {
         return {type: SET_D2_ITEM, D2Item} as const
     },
     setApiErrorMsg: (ApiErrorMsg: Array<string>) => {
@@ -46,10 +46,10 @@ export type MarkersType = {
     needToScrollBottom: boolean // нужно ли прокрутить список сообщений
 }
 const initialState = {
-    Dialog2All: [] as getDialog2AllType,
-    MessagesNewerThen: [] as Array<sendMessageType>,
+    Dialog2All: [] as GetDialog2AllType,
+    MessagesNewerThen: [] as Array<SendMessageType>,
     D2UserId: 0,
-    D2Item: {} as newMessagesItem,
+    D2Item: {} as D2ItemType,
     ApiErrorMsg: [] as ApiErrorMsgType,
     Markers: {
         straightFirstUploaded: false,
@@ -59,13 +59,13 @@ const initialState = {
     } as MarkersType
 }
 
-type initialStateDialog2Type = typeof initialState
+type InitialStateDialog2Type = typeof initialState
 
-const Dialog2Reducer = (state: initialStateDialog2Type = initialState, action: Dialog2ActionsTypes): initialStateDialog2Type => {
-    let stateCopy: initialStateDialog2Type // объявлениечасти части стейта до изменения редьюсером
+const Dialog2Reducer = (state: InitialStateDialog2Type = initialState, action: Dialog2ActionsTypes): InitialStateDialog2Type => {
+    let stateCopy: InitialStateDialog2Type // объявлениечасти части стейта до изменения редьюсером
     switch (action.type) {
         case DIALOG2_ACTIONS: // список всех диалогов
-            const Dialog2AllLocal:getDialog2AllType = []
+            const Dialog2AllLocal:GetDialog2AllType = []
             const listUniqueDialog2Id: Array<number> = []
             action.Dialog2All.forEach(d2=>{
                 if (!listUniqueDialog2Id.includes(d2.id)) {
@@ -131,9 +131,6 @@ export const putDialog2StartThCr = (currentDialogId: number): ThType => {
     }
 }
 
-/*    const {response, error}:{response:jSPHResponseType<Array<postType>>, error: errorType}  =
-        yield call( apiJsonPlaceholder.getPosts ) // данные всех постов с сервера*/
-
 export const getDialog2AllThCr = (userId?: number, page: number = 1, count: number = 10): ThType => {
     return async (dispatch, getState) => {//- получить список сообщений по id пользователя
         if (!userId) {
@@ -168,8 +165,8 @@ export const getDialog2MessageIdViewedThCr = (messageId: string): ThType => {
     }
 }
 const setDeleteSpamToMessagesNewerThen =
-    (MessagesNewerThen: Array<sendMessageType>, messageId: string, SPAM_DELETE: "spam" | "delete"| "restore") => {
-        const MessagesNewerThenLocal: Array<sendMessageType> = JSON.parse( JSON.stringify( MessagesNewerThen ) ) // полная копия сообщений
+    (MessagesNewerThen: Array<SendMessageType>, messageId: string, SPAM_DELETE: "spam" | "delete"| "restore") => {
+        const MessagesNewerThenLocal: Array<SendMessageType> = JSON.parse( JSON.stringify( MessagesNewerThen ) ) // полная копия сообщений
         MessagesNewerThenLocal.forEach( m2 => {
             if (m2.id === messageId) { // если совпадает id удаленного сообщения с перебираемым id сообщения
                 if (SPAM_DELETE === "delete") {

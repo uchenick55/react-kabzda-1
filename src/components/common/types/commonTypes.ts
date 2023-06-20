@@ -3,7 +3,7 @@ import {ThunkAction} from "redux-thunk";
 import {GlobalStateType} from "../../../redux/store-redux";
 
 
-export type postsType = {
+export type PostsType = {
     id: number
     message: string
     like: number
@@ -27,7 +27,7 @@ export type ProfileType = {
 }
 
 
-export type apiFeedBackDataType = {
+export type ApiFeedBackDataType = {
     email: string
     message: string
     name: string
@@ -36,7 +36,7 @@ export type apiFeedBackDataType = {
 export type NulableType<n> = null | n // тип нулевой
 
 
-export type tasksDataType = {
+export type TasksDataType = {
     TaskHeader: JSX.Element | string, // заголовок задачи
     imgSrc: string, // источник картинки
     taskLink: string, // ссылка на задачу
@@ -56,23 +56,8 @@ export type DateType = {
     Year: number
 }
 
-export type messages2Type = {
-    id: number
-    Date: DateType
-    userId: number
-    message: string
-}
-
-
-export type dialogs2Type = {
-    dialogId: number
-    userId: number
-    userName: string
-    userPhoto: string
-}
-
-export type modalHeaderType = JSX.Element | string
-export type modalBodyType = JSX.Element | string
+export type ModalHeaderType = JSX.Element | string
+export type ModalBodyType = JSX.Element | string
 
 
 export type ComThunkTp<A extends Action> = ThunkAction<
@@ -119,7 +104,7 @@ export type HitsItemType = {
     }
 }
 
-export type errType = {
+export type ErrorType = {
     "message": string,
     "name": string,
     "config": {

@@ -33,8 +33,8 @@ const store = createStore(reducers, composeEnhancers(
   applyMiddleware(thunkMiddleWare)
 ));
 
-type reducersType = typeof reducers
-export type GlobalStateType = ReturnType<reducersType> // глобальный тип стейта
+type ReducersType = typeof reducers
+export type GlobalStateType = ReturnType<ReducersType> // глобальный тип стейта
 
 //https://habr.com/ru/companies/alfa/articles/452620/ + https://www.youtube.com/watch?v=2yJXFMqEbJs&list=PLcvhF2Wqh7DM3z1XqMw0kPuxpbyMo3HvN&index=9&t=870s
 //Конструкция, позволяющая автоматически получать общий тип, основываясь на объекте из ActionCreator для каждого редьюсера

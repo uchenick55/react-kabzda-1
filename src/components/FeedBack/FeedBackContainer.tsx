@@ -3,14 +3,14 @@ import {connect} from "react-redux";
 import {postFeedBackThunkCreator2,feedBackActions} from "../../redux/feedback-reducer";
 import FeedBack from "./FeedBackBS";
 import {GlobalStateType} from "../../redux/store-redux";
-import {apiFeedBackDataType} from "../common/types/commonTypes";
+import {ApiFeedBackDataType} from "../common/types/commonTypes";
 
 const {setFeedBackStatus} = feedBackActions
 
-const FeedBackContainer:React.FC<mapStateToPropsType & mapDispatchToPropsType> = (
+const FeedBackContainer:React.FC<MapStateToPropsType & MapDispatchToPropsType> = (
     {postFeedBackThunkCreator2, feedBackStatus, setFeedBackStatus}) => {
 
-    const sendFeedBack = (data:apiFeedBackDataType) => {
+    const sendFeedBack = (data:ApiFeedBackDataType) => {
         postFeedBackThunkCreator2(data)// отправка фидбека из api
     }
 
@@ -28,18 +28,18 @@ const mapStateToProps = (state:GlobalStateType) => {
         feedBackStatus: state.feedback.feedBackStatus // статус отправки сообщения на сервер
     }
 }
-type mapStateToPropsType = ReturnType<typeof mapStateToProps>
+type MapStateToPropsType = ReturnType<typeof mapStateToProps>
 
-type mapDispatchToPropsType = {
+type MapDispatchToPropsType = {
 
 
-    postFeedBackThunkCreator2: (data:apiFeedBackDataType) =>void
+    postFeedBackThunkCreator2: (data:ApiFeedBackDataType) =>void
     setFeedBackStatus:(feedBackStatus:string)=>void
 }
 
 export default connect<
-    mapStateToPropsType,
-    mapDispatchToPropsType,
+    MapStateToPropsType,
+    MapDispatchToPropsType,
     unknown,
     GlobalStateType
     >(mapStateToProps,

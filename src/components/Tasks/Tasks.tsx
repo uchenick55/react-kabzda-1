@@ -4,7 +4,7 @@ import commonClasses from "../common/CommonClasses/common.module.css";
 import Image from "react-bootstrap/Image";
 import Container from "react-bootstrap/Container";
 import {useSelector} from "react-redux";
-import {tasksDataType} from "../common/types/commonTypes";
+import {TasksDataType} from "../common/types/commonTypes";
 import {GlobalStateType} from "../../redux/store-redux";
 import Accordion from "react-bootstrap/Accordion";
 import {Row} from "react-bootstrap";
@@ -51,7 +51,7 @@ const TasksCommon2: React.FC<TasksCommon2Type> = (
 
 const Tasks: React.FC = () => {
     // получаем данные из стейта вместо mapStateToProps
-    const tasksData1: Array<tasksDataType> = useSelector( (state: GlobalStateType) => state.tasks.tasksData )
+    const tasksData1: Array<TasksDataType> = useSelector( (state: GlobalStateType) => state.tasks.tasksData )
 
     const tasksRender = <Container > {/* className={classes.TasksContainer}*/}
         <h3 className={commonClasses.pageHeader}>Tasks</h3>

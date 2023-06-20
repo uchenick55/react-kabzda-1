@@ -1,8 +1,8 @@
 import {apiProfile} from "../components/api/api";
 import {authActions} from "./auth-reducer";
-import {ComThunkTp, NulableType, postsType, ProfileType} from "../components/common/types/commonTypes";
+import {ComThunkTp, NulableType, PostsType, ProfileType} from "../components/common/types/commonTypes";
 import {InferActionsTypes} from "./store-redux";
-import {getProfileType} from "../components/api/apiTypes";
+import {GetProfileType} from "../components/api/apiTypes";
 import {ResultCodeEnum} from "../components/api/enum";
 import {appActions} from "./app-reducer";
 
@@ -26,7 +26,7 @@ export const profileActions = {
         return {type: ADD_POST, newPostData} as const
     },
 
-    setUserProfile: (profile: getProfileType) => { // экшнкреатор задания в локальный стейт профиля просматриваемого пользователя
+    setUserProfile: (profile: GetProfileType) => { // экшнкреатор задания в локальный стейт профиля просматриваемого пользователя
         return {type: SET_USER_PROFILE, profile} as const
     },
 
@@ -46,16 +46,16 @@ const initialState = {
     posts: [// заглушка постов на странице профиля
         {id: 1, message: "state 2 Hi, how are you?", like: 12},
         {id: 2, message: "state 2 it's, my first post", like: 15},
-    ] as Array<postsType>,
-    profile: null as NulableType<getProfileType>, // нулевой профиль просматриваемого пользователя по умолчанию
+    ] as Array<PostsType>,
+    profile: null as NulableType<GetProfileType>, // нулевой профиль просматриваемого пользователя по умолчанию
     status: "", // нулевой статус просматриваемого пользователя по умолчанию
     editProfileStatus: [] as Array<string>, // список ошибок правки формы профиля с сервера
 }
 
-type initialStateType = typeof initialState
+type InitialStateType = typeof initialState
 
-export const profileReducer = (state: initialStateType = initialState, action: ProfileActionTypes): initialStateType => { // редьюсер профиля
-    let stateCopy: initialStateType; // объявлениечасти части стейта до изменения редьюсером
+export const profileReducer = (state: InitialStateType = initialState, action: ProfileActionTypes): InitialStateType => { // редьюсер профиля
+    let stateCopy: InitialStateType; // объявлениечасти части стейта до изменения редьюсером
     switch (action.type) {
         case SET_USER_PROFILE: // задание в локальный стейт профиля просматриваемого пользователя
             stateCopy = {
@@ -64,7 +64,7 @@ export const profileReducer = (state: initialStateType = initialState, action: P
             }
             return stateCopy;
         case ADD_POST: {// добавление поста
-            const newPost: postsType = { // задание локального объекта с постом
+            const newPost: PostsType = { // задание локального объекта с постом
                 id: 5, // id сообщения в постах (заглушка)
                 message: action.newPostData, // сообщение введенное в форме диалогов
                 like: 2 // лайки сообщений (заглушка)

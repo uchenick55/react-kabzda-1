@@ -12,14 +12,14 @@ import ErrorBoundary from "./components/common/ErrorBoundary/ErrorBoundary";
 import Container from "react-bootstrap/Container";
 import FooterBS from "./components/Footer/FooterBS";
 import {AppDispatch, GlobalStateType} from "./redux/store-redux";
-import {errType} from "./components/common/types/commonTypes";
+import {ErrorType} from "./components/common/types/commonTypes";
 import ErrorsRender from "./components/common/ErrorsRender/ErrorsRender";
 
 const AppBS: React.FC = memo(() => {
 
     const theme:"light" | "dark" = useSelector((state:GlobalStateType) =>state.theme.themeBLL )
     const initialisedApp:boolean = useSelector((state:GlobalStateType) =>state.app.initialisedApp )
-    const error: errType = useSelector( (state: GlobalStateType) => state.app.err )
+    const error: ErrorType = useSelector( (state: GlobalStateType) => state.app.err )
 
     const dispatch = useDispatch<AppDispatch>();
 

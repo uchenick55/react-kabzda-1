@@ -1,10 +1,10 @@
 import axios from "axios";
-import {apiFeedBackDataType, ProfileType} from "../common/types/commonTypes";
+import {ApiFeedBackDataType, ProfileType} from "../common/types/commonTypes";
 import {
-    commRespType,
-    getCaptchaType, getDialog2AllType,
-    getProfileType,
-    getUsersType, sendMessageType
+    CommRespType,
+    GetCaptchaType, GetDialog2AllType,
+    GetProfileType,
+    GetUsersType, SendMessageType
 } from "./apiTypes";
 import {ResultCodeEnum, ResultCodeEnumCaptcha} from "./enum";
 import {appActions} from "../../redux/app-reducer";
@@ -34,15 +34,15 @@ instance.interceptors.response.use(
 export const apiUsers = { // объект с методами api для USERS и follow/unfollow
     getUsers: async (currentPage: number, pageSize: number, term: string, friend: boolean = false) => {// получить стек пользователей
         const friendLocal = friend ? friend : null
-        const response = await instance.get<getUsersType>( `users?count=${pageSize}&page=${currentPage}&term=${term}&friend=${friendLocal}` )
+        const response = await instance.get<GetUsersType>( `users?count=${pageSize}&page=${currentPage}&term=${term}&friend=${friendLocal}` )
         return (response.data) //возврат данных из поля data
     },
     postFollow: async (userId: number) => {// подписаться на выбранного пользователя
-        const response = await instance.post<commRespType>( `follow/${userId}` )
+        const response = await instance.post<CommRespType>( `follow/${userId}` )
         return (response.data) //возврат данных из поля data
     },
     deleteFollow: async (userId: number) => {// отписаться от выбранного пользователя
-        const response = await instance.delete<commRespType>( `follow/${userId}` )
+        const response = await instance.delete<CommRespType>( `follow/${userId}` )
         return (response.data) //возврат данных из поля data
     }
 }
@@ -52,15 +52,15 @@ type DataType1 = {
     email: string,
     login: string
 }
-type resultCodeLogin = ResultCodeEnum | ResultCodeEnumCaptcha
+type ResultCodeLoginType = ResultCodeEnum | ResultCodeEnumCaptcha
 
 export const apiProfile = { // объект с методами api для профайла и авторизации
     getAuthMe: async () => {// запрос "я авторизован?"
-            const response = await instance.get<commRespType<DataType1>>( `auth/me` )
+            const response = await instance.get<CommRespType<DataType1>>( `auth/me` )
             return response.data //возврат данных из поля data
     },
     getProfile: async (userId: number) => {// получить данные профиля выбранного пользователя по userId
-        const response = await instance.get<getProfileType>( `profile/` + userId )
+        const response = await instance.get<GetProfileType>( `profile/` + userId )
         return (response.data) //возврат данных из поля data
     },
     getStatus: async (userId: number) => { // получить статус выбранного пользователя по userId
@@ -68,11 +68,11 @@ export const apiProfile = { // объект с методами api для пр�
         return (response.data) //возврат данных из поля data
     },
     putStatus: async (statusTmpInput: string) => { // отправка моего статуса
-        const response = await instance.put<commRespType>( `/profile/status/`, {status: statusTmpInput} )
+        const response = await instance.put<CommRespType>( `/profile/status/`, {status: statusTmpInput} )
         return (response.data) //возврат данных из поля data
     },
     postLogin: async (email: string, password: string, rememberme?: boolean, captcha?: string) => { //авторизация на сервере по  данным из login формы
-        const response = await instance.post<commRespType<{ userId: string }, resultCodeLogin>>( `/auth/login`, {
+        const response = await instance.post<CommRespType<{ userId: string }, ResultCodeLoginType>>( `/auth/login`, {
             email: email,
             password: password,
             rememberme: rememberme,
@@ -81,7 +81,7 @@ export const apiProfile = { // объект с методами api для пр�
         return (response.data) //возврат данных из поля data
     },
     deleteLogin: async () => { // логаут текущего пользователя
-        const response = await instance.delete<commRespType>( `/auth/login` )
+        const response = await instance.delete<CommRespType>( `/auth/login` )
         return (response.data) //возврат данных из поля data
     },
     putPhoto: async (profilePhoto: File) => { // отправка фото пользователя
@@ -93,25 +93,25 @@ export const apiProfile = { // объект с методами api для пр�
                 'content-type': 'multipart/form-data' // задаем тип отправляемых данных
             }
         }
-        const response = await instance.put<commRespType>( `/profile/photo`, data, config ) // отправка фото на сервер
+        const response = await instance.put<CommRespType>( `/profile/photo`, data, config ) // отправка фото на сервер
         return (response.data) //возврат данных из поля data
     },
 
     putMyProfileData: async (MyProfile: ProfileType) => { // отправка новых данных профиля пользователя на сервер
-        const response = await instance.put<commRespType>( `/profile`, MyProfile ) //
+        const response = await instance.put<CommRespType>( `/profile`, MyProfile ) //
         return (response.data) //ответ от сервера
     },
 
     getCaptcha: async () => { // запрс картинки captcha при многократном неправильном вводе
-        const response = await instance.get<getCaptchaType>( `/security/get-captcha-url` ) //
+        const response = await instance.get<GetCaptchaType>( `/security/get-captcha-url` ) //
         return (response.data) //ответ от сервера
     },
 }
 
 
-type postFeedBack2Type = (data: apiFeedBackDataType) => any
+type PostFeedBack2Type = (data: ApiFeedBackDataType) => any
 
-export const postFeedBack22: postFeedBack2Type = async (data) => {// отправить письмо
+export const postFeedBack22: PostFeedBack2Type = async (data) => {// отправить письмо
 
     const FORM_ENDPOINT = "https://public.herotofu.com/v1/e595a3c0-83b2-11ed-b38f-a1ed22f366b1";// конечная точка
     const response = await fetch( FORM_ENDPOINT, {
@@ -129,12 +129,12 @@ export const postFeedBack22: postFeedBack2Type = async (data) => {// отпра�
 export const apiDialog2 = {
 
     putDialog2Start: async (userId: number) => {
-        const response = await instance.put<commRespType>( `dialogs/${userId}` )
+        const response = await instance.put<CommRespType>( `dialogs/${userId}` )
         return (response.data)  // начало диалога с пользователем по его ID
         //putDialog2Start  | dialogs/{userId} - начать диалог, собеседник поднимается вверх??
     },
     getDialog2All: async (userId: number, page: number, count: number) => { // получить список сообщений по id пользователя
-            const response = await instance.get<getDialog2AllType>( `dialogs?${userId}&${page}&${count}` )
+            const response = await instance.get<GetDialog2AllType>( `dialogs?${userId}&${page}&${count}` )
             return response.data //- получить список сообщений по id пользователя
 
         //getDialog2All | dialogs/{userId}/messages
@@ -143,7 +143,7 @@ export const apiDialog2 = {
         // count (number, default 10) size of requestedPortion
     },
     postDialog2Message: async (userId: number, body: string) => {
-        const response = await instance.post<commRespType<sendMessageType>>( `dialogs/${userId}/messages`, {body: body} )
+        const response = await instance.post<CommRespType<SendMessageType>>( `dialogs/${userId}/messages`, {body: body} )
         return (response.data) // - отправить сообщение пользователю
         //postDialog2Message | dialogs / {userId}/messages
         //- отправить новое сообщение диалога
@@ -160,28 +160,28 @@ export const apiDialog2 = {
         //    messageId- (number) - user message ID
     },
     postDialog2MessageIdToSpam: async (messageId: string) => {
-        const response = await instance.post<commRespType>( `dialogs/messages/${messageId}/spam` )
+        const response = await instance.post<CommRespType>( `dialogs/messages/${messageId}/spam` )
         return (response.data) // - пометить сообщение как спам
         // postDialog2MessageIdToSpam | dialogs/messages/{messageId}/spam
         //URI Parameters:
          //   messageId- (number) - message ID to spam
     },
     deleteDialog2MessageId: async (messageId: string) => {
-        const response = await instance.delete<commRespType>( `dialogs/messages/${messageId}` )
+        const response = await instance.delete<CommRespType>( `dialogs/messages/${messageId}` )
         return (response.data) //- удалить сообщение (только у себя) по ID сообщения
         // deleteDialog2MessageId | dialogs/messages/{messageId}
         //URI Parameters:
         // messageId- (number) - message ID to delete
     },
     putDialog2MessageIdRestore: async (messageId: string) => {
-        const response = await instance.put<commRespType>( `dialogs/messages/${messageId}/restore` )
+        const response = await instance.put<CommRespType>( `dialogs/messages/${messageId}/restore` )
         return (response.data) // - восстановить сообщение из спама и удаленных
         // putDialog2MessageIdRestore | dialogs/messages/{messageId}/restore
         //URI Parameters:
         // messageId- (number) - message ID to restore
     },
     getDialog2MessagesNewerThen: async (userId: number, date:string) => {
-        const response = await instance.get<Array<sendMessageType>>( `dialogs/${userId}/messages/new?newerThen=${date}` )
+        const response = await instance.get<Array<SendMessageType>>( `dialogs/${userId}/messages/new?newerThen=${date}` )
         return (response.data) // - вернуть сообщения новее определенной даты
         // getDialog2MessagesNewerThen | dialogs/{userId}/messages/new?newerThen={date}
         //URI Parameters:

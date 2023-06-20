@@ -2,11 +2,11 @@ import React, {memo} from 'react';
 import classes from './Profile.module.css'
 import ProfileInfo from "./ProfileInfo/ProfileInfoBS";
 import MyPostsContainer from "./MyPosts/MyPostsContainer";
-import {getProfileType} from "../api/apiTypes";
+import {GetProfileType} from "../api/apiTypes";
 import {NulableType, ProfileType} from "../common/types/commonTypes";
 
 type ProfileType2 = {
-    profile: NulableType<getProfileType>,
+    profile: NulableType<GetProfileType>,
     status: string,
     myId: number,
     userId: number,

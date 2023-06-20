@@ -1,6 +1,6 @@
 import React, {memo} from "react";
 import classes from "./messages2Render.module.scss"
-import {newMessagesItem, sendMessageType} from "../../api/apiTypes";
+import {D2ItemType, SendMessageType} from "../../api/apiTypes";
 import Messages2Item from "./Messages2Item";
 import Msg2SendMessageRender from "./Msg2SendMessageRender";
 import Msg2HeaderNamePhoto from "./Msg2HeaderNamePhoto";
@@ -12,8 +12,8 @@ type Dialog2RenderType = {
     userId: number, // id пользователя из URL
     myId: number // номер моего id
 
-    MessagesNewerThen: Array<sendMessageType> // сообщения выбранного диалога, новее заданной даты
-    D2Item: newMessagesItem // отфильтрованый  из Dialog2All выбранный пользователь по userId
+    MessagesNewerThen: Array<SendMessageType> // сообщения выбранного диалога, новее заданной даты
+    D2Item: D2ItemType // отфильтрованый  из Dialog2All выбранный пользователь по userId
 
     Msg2SendMessage: (messageBody: string) => void // отправить сообщение указанному пользователю
 
