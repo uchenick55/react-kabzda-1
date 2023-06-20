@@ -2,7 +2,7 @@ import React from "react";
 import "bootstrap/dist/css/bootstrap.min.css"
 import Container from "react-bootstrap/Container";
 import commonClasses from "../common/CommonClasses/common.module.css";
-import IndexInfo from "../Info/IndexInfo";
+import IndexInfo from "./IndexInfo";
 
 type HomeTypes = {
 
