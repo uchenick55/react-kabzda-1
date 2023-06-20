@@ -1,5 +1,5 @@
 import React from "react";
-import {Formik, Form} from "formik"; //формик с компонентами и пользовательским хуком
+import {Formik, Form, FormikHelpers} from "formik"; //формик с компонентами и пользовательским хуком
 import * as Yup from 'yup' // валидация форм с помошью сторонней библиотеки Yup
 import classes from "./Login.module.css"
 import {MyTextInput, MyCheckbox} from "../common/formikCommon/MyFieldsBS"
@@ -39,7 +39,7 @@ type ValuesType = {
     captcha?: string
 }
 const LoginFormik:React.FC<LoginFormikType> = ({postLogin, captchaURL, updateCaptcha, loginError}) => { // основная компонента с входным колбэком, чтобы забрать данные с форм
-    const myOnSubmit = (values:ValuesType, {resetForm}:any) => { // действия по сабмиту
+    const myOnSubmit = (values:ValuesType, {resetForm}:FormikHelpers<ValuesType>) => { // действия по сабмиту
         postLogin(values) // колбек, который принмает результат ввода формы
         resetForm()// сбросить значение формы после ввода
     }

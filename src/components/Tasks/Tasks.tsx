@@ -41,7 +41,7 @@ const TasksCommon2: React.FC<TasksCommon2Type> = (
             </Accordion>
         </div>
         <div>
-            <h6 className='mt-3'>Использованные технологии:</h6>
+            <h6 className='mt-3'>Stack:</h6>
             <div>{usedTech}</div>
             <div><a href={taskLink}>Ссылка на работу</a></div>
             <div><a href={repositoryHref}>Репозиторий</a></div>

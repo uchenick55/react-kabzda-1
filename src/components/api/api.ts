@@ -10,8 +10,6 @@ import {ResultCodeEnum, ResultCodeEnumCaptcha} from "./enum";
 import {appActions} from "../../redux/app-reducer";
 import store from "../../redux/store-redux";
 
-
-
 const instance = axios.create( {
     baseURL: 'https://social-network.samuraijs.com/api/1.0/',
     withCredentials: true,

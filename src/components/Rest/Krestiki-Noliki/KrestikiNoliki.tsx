@@ -25,14 +25,14 @@ const Square: React.FC<SquareType> = ({value, handleSquare, i}) => {
 };
 type squaresType = Array<"X" | "O" | null> // пропсами передаем вглубь текущий массив клеток
 
-const XisNextnitialState = true // начальное значение кто ходит
-const HistoryInitialState = [{squaresNew: Array( 9 ).fill( null )}] // начальное значение массива History
+const xIsNextInitialState = true // начальное значение кто ходит
+const historyInitialState = [{squaresNew: Array( 9 ).fill( null )}] // начальное значение массива History
 
 type BoardPropsType = {
     squares: squaresType // пропсами передаем вглубь текущий массив клеток
     xIsNext: boolean// статус кто ходит
     handleSquare: (i: number) => void // обработчик кликов
-    history: typeof HistoryInitialState
+    history: typeof historyInitialState
 }
 
 const Board: React.FC<BoardPropsType> = ({squares, xIsNext, handleSquare, history}) => {
@@ -49,15 +49,15 @@ const Board: React.FC<BoardPropsType> = ({squares, xIsNext, handleSquare, histor
     }
 
     let status; // определеили переменную
-    const Winner = calculateWinner( squares ); // проверка, появился ли победитель
+    const winner = calculateWinner( squares ); // проверка, появился ли победитель
     if (history.length < 10) {
         status = xIsNext ? "Сейчас ходит: X " : "Сейчас ходит: O ";
         // задать статусу кто ходит следующим X или O
     }
-    if (Winner) {// определен победитель
-        status = "Победитель: " + Winner; // вывести победителя
+    if (winner) {// определен победитель
+        status = "Победитель: " + winner; // вывести победителя
     }
-    if (history.length >= 10 && !Winner) {
+    if (history.length >= 10 && !winner) {
         status = "Ничья"; // заполнены все клетки и нет победителя
     }
     return (
@@ -111,18 +111,18 @@ function calculateWinner(squares: squaresType) {
 
 const KrestikiNoliki: React.FC = () => {
 
-    const [history, setHistory] = useState<typeof HistoryInitialState>( HistoryInitialState )// массив объектов - истории ходов
+    const [history, setHistory] = useState<typeof historyInitialState>( historyInitialState )// массив объектов - истории ходов
 
-    const [xIsNext, setXisNext] = useState<boolean>( XisNextnitialState ) // что вводим X или O (true/false)
+    const [xIsNext, setXisNext] = useState<boolean>( xIsNextInitialState ) // что вводим X или O (true/false)
 
     const handleSquare = (i: number) => {
         // обработчик кликов
         const currentStep = history.length - 1; // текущий ход в массиве ходов (-1 поскольку счет идет с 0)
         const squaresNew = history[currentStep].squaresNew.slice(); // делаем копию текущего массива
 
-        const Winner = calculateWinner( squaresNew ); // попытка определения победитея
+        const winner = calculateWinner( squaresNew ); // попытка определения победитея
 
-        if (squaresNew[i] || Winner) {
+        if (squaresNew[i] || winner) {
             //если текущая кнопка ранее была заполнена, или победитель уже определен
             return; // ничего не делаем
         }
@@ -137,8 +137,8 @@ const KrestikiNoliki: React.FC = () => {
     };
 
     const newGame = () => { // нажатие кнопки "новая игра"
-        setXisNext( XisNextnitialState ) // начальное значение кто ходит
-        setHistory( HistoryInitialState )// начальное значение массива истории
+        setXisNext( xIsNextInitialState ) // начальное значение кто ходит
+        setHistory( historyInitialState )// начальное значение массива истории
     }
 
     const currentStep = history.length - 1; // текущий ход в массиве ходов (-1 поскольку счет идет с 0)
