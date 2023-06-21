@@ -6,12 +6,12 @@ import Dialog2SearchRender from "./Dialog2SearchRender";
 
 type Dialog2RenderType = {
     patch: string,// имя страницы из URL
-    PageWidth: number, // ширина страницы
-    MobileWidth: number, // ширина страницы, считающаяся мобильной версткой
+    pageWidth: number, // ширина страницы
+    mobileWidth: number, // ширина страницы, считающаяся мобильной версткой
     Dialog2All: GetDialog2AllType, // список всех диалогов для левой колонки
 }
 const Dialog2Render: React.FC<Dialog2RenderType> = (
-    {PageWidth, MobileWidth, patch, Dialog2All}
+    {pageWidth, mobileWidth, patch, Dialog2All}
 ) => {
     const [SearchValue, setSearchValue] = useState<string>( "" ) // локальный стейт поискового запроса в диалогах
     const Dialog2AllFiltered: GetDialog2AllType = Dialog2All && Dialog2All.filter( d2 => { //если список диалогов есть,
@@ -20,18 +20,18 @@ const Dialog2Render: React.FC<Dialog2RenderType> = (
     return <div>
         { // Компонента Dialog2Render отрисовывается на странице dialog всегда.
             // На странице messages только при десктопной версии
-            ((patch === "messages" && PageWidth > MobileWidth) || (patch === "dialog2"))
+            ((patch === "messages" && pageWidth > mobileWidth) || (patch === "dialog2"))
             && <div>
                 <div  //Fixed слева вверху.
                     // Поле остается на странице dialog2 всегда.
                     // На странице messages только при десктопной версии
-                    className={`${classes.Fixed} ${classes.dialog2HeaderCommon} ${PageWidth < MobileWidth ? classes.MobileDialogWidth : classes.DesktopDialogWidth}`}
+                    className={`${classes.Fixed} ${classes.dialog2HeaderCommon} ${pageWidth < mobileWidth ? classes.MobileDialogWidth : classes.DesktopDialogWidth}`}
                     /*поиск по именам списка диалогов, с задержкой после ввода, без кнопки отправить*/
 
                 ><Dialog2SearchRender SearchValue={SearchValue} setSearchValue={setSearchValue}/>
                 </div>
                 <div // Fixed слева внизу + прокрутка. Поле остается на странице dialog2 всегда
-                    className={`${classes.Fixed} ${classes.dialog2ListCommon} ${PageWidth < MobileWidth ? classes.MobileDialogWidth : classes.DesktopDialogWidth}`}
+                    className={`${classes.Fixed} ${classes.dialog2ListCommon} ${pageWidth < mobileWidth ? classes.MobileDialogWidth : classes.DesktopDialogWidth}`}
                 >
                     {Dialog2AllFiltered.map( d2 => {
                         const {id, userName, hasNewMessages, lastDialogActivityDate, newMessagesCount, photos} = d2

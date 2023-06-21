@@ -11,43 +11,43 @@ import UnfollowPic from "../../../assets/images/swg/star+.svg";
 type UserItemsType = {
     users: Array<UsersType>, // Реселектор users- список пользователей в пачке от сервера
     patch: string, // страница из адресной строки
-    PageWidth: number, // ширина страницы
+    pageWidth: number, // ширина страницы
     unfollowAPI: (id: number) => void,
     followAPI: (id: number) => void,
     followingInProgress: Array<number>, // селектор followingInProgress - массив на кого мы подписались, кнопка неактивна
     isAuth: boolean, // селектор isAuth - флаг авторизации
 
 }
-const UserItems: React.FC<UserItemsType> = ( ({users, unfollowAPI, followAPI, followingInProgress, isAuth, patch, PageWidth}) => {
+const UserItems: React.FC<UserItemsType> = ( ({users, unfollowAPI, followAPI, followingInProgress, isAuth, patch, pageWidth}) => {
     // отрисовка всех карточек с пользователями
     console.log("UserItems")
     let gridColsClass: string = ""
 
-    const getGridColsClass = (PageWidth:number) => {
+    const getGridColsClass = (pageWidth:number) => {
         let gridColsClass: string = ""
 
-        if (PageWidth < 460) {
+        if (pageWidth < 460) {
             gridColsClass = "grid1col"
         }
-        if (PageWidth >= 460 && PageWidth < 800) {
+        if (pageWidth >= 460 && pageWidth < 800) {
             gridColsClass = "grid2col"
         }
-        if (PageWidth >= 800 && PageWidth < 1200) {
+        if (pageWidth >= 800 && pageWidth < 1200) {
             gridColsClass = "grid3col"
         }
-        if (PageWidth >= 1200 && PageWidth < 1600) {
+        if (pageWidth >= 1200 && pageWidth < 1600) {
             gridColsClass = "grid4col"
         }
-        if (PageWidth >= 1600 && PageWidth < 2000) {
+        if (pageWidth >= 1600 && pageWidth < 2000) {
             gridColsClass = "grid5col"
         }
-        if (PageWidth >= 2000) {
+        if (pageWidth >= 2000) {
             gridColsClass = "grid6col"
         }
         return gridColsClass
     }
     if (patch === "users") {
-        gridColsClass = getGridColsClass(PageWidth)
+        gridColsClass = getGridColsClass(pageWidth)
     }
     if (patch === "dialogs") {
         // eslint-disable-next-line

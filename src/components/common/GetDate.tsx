@@ -7,9 +7,9 @@ export type DataReturn2Type = {
     "Seconds": string,
     isToday: boolean
 };
-type GetDateType = (customDate:string) => DataReturn2Type
+export type GetDateType = (customDate:string) => DataReturn2Type
 
-const GetDate:GetDateType= (customDate) => {
+const GetDate:GetDateType = (customDate) => {
     const Data = new Date( !customDate? 0: new Date(customDate).getTime() + 3*3600*1000)
 
     const isToday: boolean = !!customDate && // этот день сегодня?

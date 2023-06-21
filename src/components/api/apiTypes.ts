@@ -85,3 +85,5 @@ export type SendMessageType = {
 }
 
 export type ApiErrorMsgType = Array<string>
+
+

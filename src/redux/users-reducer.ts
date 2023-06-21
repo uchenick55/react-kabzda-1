@@ -1,7 +1,7 @@
 import {apiUsers} from "../components/api/api";
 import {InferActionsTypes} from "./store-redux";
 import {Dispatch} from "redux";
-import {UsersType} from "../components/api/apiTypes";
+import {CommRespType, UsersType} from "../components/api/apiTypes";
 import {ResultCodeEnum} from "../components/api/enum";
 import {ComThunkTp} from "../components/common/types/commonTypes";
 import {appActions} from "./app-reducer";
@@ -131,13 +131,6 @@ export const getUsersThunkCreator //санкреатор получить пол
     }
 }
 
-type responseType = {
-    data: object,
-    fieldsErrors: Array<string>,
-    messages: Array<string>,
-    resultCode: number
-}
-
 const _followUnfollowFlow = ( // общий метод для санкреатеров followThunkCreator/unfollowThunkCreator
     dispatch: Dispatch<UsersActionTypes>,
     userId: number,
@@ -146,7 +139,7 @@ const _followUnfollowFlow = ( // общий метод для санкреате
 ) => {
     dispatch( usersActions.toggleIsFollowingProgerss( true, userId ) )//внести ID кнопки пользователя в массив followingInProgress от повторного нажатия
     apiMethod( userId )// подписаться на пользователя // diff apiMethod = postFollow
-        .then( (response: responseType) => {
+        .then( (response: CommRespType) => {
             if (response.resultCode === ResultCodeEnum.Success) {
                 dispatch( getUsersThunkCreator( currentPage, userId ) )
                 // получить список пользователей после добавления/удаления из избранного

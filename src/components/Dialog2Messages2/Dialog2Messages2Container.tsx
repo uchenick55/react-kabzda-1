@@ -25,8 +25,8 @@ const Dialog2Messages2Container: React.FC<OwnPropsType> = ({userId}) => {
     const Dialog2All: GetDialog2AllType = useSelector( (state: GlobalStateType) => state.dialog2.Dialog2All )// список всех диалогов для левой колонки
     const patch: string = useSelector( (state: GlobalStateType) => state.app.patch )// имя страницы из URL
     const myId: number = useSelector( (state: GlobalStateType) => state.auth.myId )// номер моего id
-    const PageWidth: number = useSelector( (state: GlobalStateType) => state.app.PageWidth )// ширина страницы
-    const MobileWidth: number = useSelector( (state: GlobalStateType) => state.app.MobileWidth )// ширина страницы, считающаяся мобильной версткой
+    const pageWidth: number = useSelector( (state: GlobalStateType) => state.app.pageWidth )// ширина страницы
+    const mobileWidth: number = useSelector( (state: GlobalStateType) => state.app.mobileWidth )// ширина страницы, считающаяся мобильной версткой
 
     const {setMarkers, setD2Item, setd2Userid} = dialog2Actions // получить экшены
 
@@ -104,7 +104,7 @@ const Dialog2Messages2Container: React.FC<OwnPropsType> = ({userId}) => {
             MessagesNewerThen={useMemo(()=>MessagesNewerThen,[MessagesNewerThen])}
             D2Item={useMemo(()=>D2Item,[D2Item])}
 
-            patch={patch} PageWidth={PageWidth} MobileWidth={MobileWidth}
+            patch={patch} pageWidth={pageWidth} mobileWidth={mobileWidth}
             Msg2SendMessage={Msg2SendMessage} userId={userId}
             myId={myId}
         />

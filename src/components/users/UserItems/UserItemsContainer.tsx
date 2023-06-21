@@ -15,7 +15,7 @@ const UserItemsContainer: React.FC = () => {
     const currentPage: number = useSelector( usersSelectorsSimple.getCurrentPage )// селектор currentPage - текущая страница пачки пользователей с сервера
     const isAuth: boolean = useSelector( usersSelectorsSimple.getIsAuth )// селектор isAuth - флаг авторизации
     const patch: string = useSelector( (state: GlobalStateType) => state.app.patch )// страница из URL
-    const PageWidth: number = useSelector( (state: GlobalStateType) => state.app.PageWidth ) // ширина страницы
+    const pageWidth: number = useSelector( (state: GlobalStateType) => state.app.pageWidth ) // ширина страницы
 
     const unfollowAPI = (id: number) => {
         dispatch( unfollowThunkCreator( id, currentPage ) )
@@ -32,7 +32,7 @@ const UserItemsContainer: React.FC = () => {
                        followingInProgress={followingInProgress}
                        isAuth={isAuth}
                        patch={patch}
-                       PageWidth={PageWidth}/>
+                       pageWidth={pageWidth}/>
             {/*отрисовка Users*/}
     </div>
 }

@@ -1,14 +1,17 @@
 import axios from "axios";
-import {ApiFeedBackDataType, ProfileType} from "../common/types/commonTypes";
+import {ApiFeedBackDataType, ErrorType, ProfileType} from "../common/types/commonTypes";
 import {
     CommRespType,
-    GetCaptchaType, GetDialog2AllType,
+    GetCaptchaType,
+    GetDialog2AllType,
     GetProfileType,
-    GetUsersType, SendMessageType
+    GetUsersType,
+    SendMessageType
 } from "./apiTypes";
 import {ResultCodeEnum, ResultCodeEnumCaptcha} from "./enum";
 import {appActions} from "../../redux/app-reducer";
 import store from "../../redux/store-redux";
+import {getUnixTime} from "../common/functions/commonFunctions";
 
 const instance = axios.create( {
     baseURL: 'https://social-network.samuraijs.com/api/1.0/',
@@ -20,15 +23,29 @@ const instance = axios.create( {
 
 instance.interceptors.response.use(
     function (response) {
-    // Любой код состояния, находящийся в диапазоне 2xx, вызывает срабатывание этой функции
-    return response;// данные успешного ответа для дальнейшего перехвата методами
-},
-    function (err) {
-    // Любые коды состояния, выходящие за пределы диапазона 2xx, вызывают срабатывание этой функции
-    console.log( "axios.interceptors.response.use", err )
-    store.dispatch(appActions.setAppErrorAC(err)) // запись данных ошибки в стейт
-   // return Promise.reject( err ); //дальше ошибку не передаем в обработчики
-} );
+        // Любой код состояния, находящийся в диапазоне 2xx, вызывает срабатывание этой функции
+        if (
+            response?.data.resultCode === ResultCodeEnum.Error ||
+            response?.data.resultCode === ResultCodeEnumCaptcha.CaptchaIsReqiured
+        )  { // resultcode ошибка 1 или 10 (все остальные ошибки))
+            store.dispatch( appActions.setError200( // запись данных ошибки в стейт
+                [
+                    ...store.getState().app.error200, // берем все ошибки, что уже есть в массиве ошибок
+                    {
+                        error: response?.data.messages[0], // добавляем сообщение ошибки
+                        timeUnix: getUnixTime() // добавляем время (можно использовать как id)
+                    }
+                ]
+            ) )
+        }
+        return response;// данные успешного ответа для дальнейшего перехвата методами
+    },
+    function (errorGlobal) {
+        // Любые коды состояния, выходящие за пределы диапазона 2xx, вызывают срабатывание этой функции
+        console.log( "axios.interceptors.response.use", errorGlobal )
+        store.dispatch( appActions.setAppErrorAC( errorGlobal ) ) // запись данных ошибки в стейт
+        // return Promise.reject( err ); //дальше ошибку не передаем в обработчики
+    } );
 
 
 export const apiUsers = { // объект с методами api для USERS и follow/unfollow
@@ -56,8 +73,8 @@ type ResultCodeLoginType = ResultCodeEnum | ResultCodeEnumCaptcha
 
 export const apiProfile = { // объект с методами api для профайла и авторизации
     getAuthMe: async () => {// запрос "я авторизован?"
-            const response = await instance.get<CommRespType<DataType1>>( `auth/me` )
-            return response.data //возврат данных из поля data
+        const response = await instance.get<CommRespType<DataType1>>( `auth/me` )
+        return response.data //возврат данных из поля data
     },
     getProfile: async (userId: number) => {// получить данные профиля выбранного пользователя по userId
         const response = await instance.get<GetProfileType>( `profile/` + userId )
@@ -134,8 +151,8 @@ export const apiDialog2 = {
         //putDialog2Start  | dialogs/{userId} - начать диалог, собеседник поднимается вверх??
     },
     getDialog2All: async (userId: number, page: number, count: number) => { // получить список сообщений по id пользователя
-            const response = await instance.get<GetDialog2AllType>( `dialogs?${userId}&${page}&${count}` )
-            return response.data //- получить список сообщений по id пользователя
+        const response = await instance.get<GetDialog2AllType>( `dialogs?${userId}&${page}&${count}` )
+        return response.data //- получить список сообщений по id пользователя
 
         //getDialog2All | dialogs/{userId}/messages
         // userId - (number) - user id of your friend
@@ -164,7 +181,7 @@ export const apiDialog2 = {
         return (response.data) // - пометить сообщение как спам
         // postDialog2MessageIdToSpam | dialogs/messages/{messageId}/spam
         //URI Parameters:
-         //   messageId- (number) - message ID to spam
+        //   messageId- (number) - message ID to spam
     },
     deleteDialog2MessageId: async (messageId: string) => {
         const response = await instance.delete<CommRespType>( `dialogs/messages/${messageId}` )
@@ -180,7 +197,7 @@ export const apiDialog2 = {
         //URI Parameters:
         // messageId- (number) - message ID to restore
     },
-    getDialog2MessagesNewerThen: async (userId: number, date:string) => {
+    getDialog2MessagesNewerThen: async (userId: number, date: string) => {
         const response = await instance.get<Array<SendMessageType>>( `dialogs/${userId}/messages/new?newerThen=${date}` )
         return (response.data) // - вернуть сообщения новее определенной даты
         // getDialog2MessagesNewerThen | dialogs/{userId}/messages/new?newerThen={date}

@@ -1,14 +1,17 @@
 import {getAuthMeThunkCreator} from "./auth-reducer";
 import {getThemeThunkCreator} from "./theme-reducer";
 import { InferActionsTypes} from "./store-redux";
-import {ComThunkTp, ErrorType} from "../components/common/types/commonTypes";
+import {ComThunkTp, Error200Type, ErrorType} from "../components/common/types/commonTypes";
+import {ApiErrorMsgType, CommRespType} from "../components/api/apiTypes";
 
 const SET_INITIALISED_APP = "myApp/app-reducer/SET_INITIALISED_APP"; //константа инициализации приложения
 const APP_INITIAL_STATE = "myApp/app-reducer/APP_INITIAL_STATE"; //константа зануления при логауте
 const SET_PATCH = "myApp/app-reducer/SET_PATCH"; //константа задания пути в URL
 const SET_PAGE_WIDTH = "myApp/app-reducer/SET_PAGE_WIDTH"; //константа задания ширины окна
 const TOGGLE_IS_FETCHING = "myApp/users-reducer/TOGGLE_IS_FETCHING";
-const SET_APP_ERROR = "myApp/users-reducer/SET_APP_ERROR";// задать ошибки с сервера
+const SET_ERROR_GLOBAL = "myApp/users-reducer/SET_ERROR_GLOBAL";// задать глобальные ошибки с сервера (все кроме 200 ответа)
+const SET_ERROR_200 = "myApp/users-reducer/SET_ERROR_200";// задать ошибки с сервера (в ответе 200)
+const SET_ERROR_200_ARCHIVE = "myApp/users-reducer/SET_ERROR_200_ARCHIVE";// задать архив ошибок с сервера (в ответе 200)
 
 export const appActions = {
     setInitialisedApp: () => { // экшн креатор  инициализации приложения
@@ -23,15 +26,22 @@ export const appActions = {
         return {type: SET_PATCH, patch} as const
     },
 
-    setPageWidth: (PageWidth: number) => { // экшн записи ширины экрана
-        return {type: SET_PAGE_WIDTH, PageWidth} as const
+    setPageWidth: (pageWidth: number) => { // экшн записи ширины экрана
+        return {type: SET_PAGE_WIDTH, pageWidth} as const
     },
     toggleIsFetching: (isFetching: boolean) => {
         return {type: TOGGLE_IS_FETCHING, isFetching} as const
     },
-    setAppErrorAC: (err: ErrorType) => {
-        return {type: SET_APP_ERROR, err} as const
+    setAppErrorAC: (errorGlobal: ErrorType) => { // глобальные ошибки (все кроме 200 ответа)
+        return {type: SET_ERROR_GLOBAL, errorGlobal} as const
     },
+    setError200: (error200: Array<Error200Type>) => { // ошибки с сервера (внутри ответа 200)
+        return {type: SET_ERROR_200, error200} as const
+    },
+    setErrorArchive: (errorArchive: Array<Error200Type>) => { // архив ошибок после рендера (внутри ответа 200)
+        return {type: SET_ERROR_200_ARCHIVE, errorArchive} as const
+    }
+
 }
 
 type AppActionTypes = InferActionsTypes<typeof appActions>
@@ -41,10 +51,12 @@ type InitialStateType = typeof initialState
 const initialState = { //стейт по умолчанию для инициализации приложения
     initialisedApp: false, // флаг приложение инициализировано?
     patch: "", // название страницы из URL
-    PageWidth: document.documentElement.scrollWidth, // ширина страницы по умолчанию
-    MobileWidth: 620,
+    pageWidth: document.documentElement.scrollWidth, // ширина страницы по умолчанию
+    mobileWidth: 620,
     isFetching: false, // статус загрузки (крутилка)
-    err: {} as ErrorType
+    errorGlobal: {} as ErrorType,// глобальные ошибки (все кроме 200 ответа)
+    error200: [] as Array<Error200Type>, // ошибки с сервера для рендера (внутри ответа 200)
+    error200Archive: [] as Array<Error200Type> // архивирование ошибок 200
 }
 
 const appReducer = (state: InitialStateType = initialState, action: AppActionTypes): InitialStateType => {//редьюсер инициализации приложения
@@ -74,13 +86,25 @@ const appReducer = (state: InitialStateType = initialState, action: AppActionTyp
         case SET_PAGE_WIDTH: // экшн записи ширины экрана
             stateCopy = {
                 ...state, // копия всего стейта
-                PageWidth: action.PageWidth, // смена флага инициализации приложения на true
+                pageWidth: action.pageWidth, // смена флага инициализации приложения на true
             }
             return stateCopy; // возврат копии стейта после изменения
-        case SET_APP_ERROR: // экшн записи ошибки с сервера
+        case SET_ERROR_GLOBAL: // экшн записи глобальной ошибки с сервера (все кроме 200 ответа)
             stateCopy = {
                 ...state, // копия всего стейта
-                err: action.err,
+                errorGlobal: action.errorGlobal,
+            }
+            return stateCopy; // возврат копии стейта после изменения
+        case SET_ERROR_200: // экшн записи ошибки с сервера (внутри 200 ответа)
+            stateCopy = {
+                ...state, // копия всего стейта
+                error200: action.error200,
+            }
+            return stateCopy; // возврат копии стейта после изменения
+        case SET_ERROR_200_ARCHIVE: // экшн записи ошибок с сервера (внутри 200 ответа) в архив
+            stateCopy = {
+                ...state, // копия всего стейта
+                error200Archive: action.errorArchive,
             }
             return stateCopy; // возврат копии стейта после изменения
         default:

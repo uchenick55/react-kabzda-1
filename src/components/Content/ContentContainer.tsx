@@ -9,6 +9,7 @@ import {useDispatch, useSelector} from "react-redux";
 import type {} from 'redux-thunk/extend-redux';
 import {AppDispatch, GlobalStateType} from "../../redux/store-redux";
 import {appActions} from "../../redux/app-reducer";
+import ErrorToastContainer from "../common/ErrorToast/ErrorToastContainer";
 
 const UsersContainer = React.lazy( () => import("../users/UsersContainerFC") )
 const ProfileContainer = React.lazy( () => import("../Profile/ProfileContainerFC") )
@@ -47,11 +48,11 @@ const ContentContainer: React.FC = memo( () => { // вынес роутинг к
     }, [location, setPatch, dispatch, Patch] )
 
     const setPageWidthLocal  = () => { //записываем ширину окна в стор
-        const PageWidth1 = document.documentElement.scrollWidth// изменяем ширину окна сразу
+        const pageWidth1 = document.documentElement.scrollWidth// изменяем ширину окна сразу
         setTimeout( () => { // делаем задержку
-            const PageWidth2 = document.documentElement.scrollWidth // и повторно измеряем ширину окна
-            if (PageWidth1 === PageWidth2) { // если дина не меняется больше чем время задержки,
-               dispatch(setPageWidth( PageWidth1 )) //пушим длину в стор (защита от частого обновления стора)
+            const pageWidth2 = document.documentElement.scrollWidth // и повторно измеряем ширину окна
+            if (pageWidth1 === pageWidth2) { // если дина не меняется больше чем время задержки,
+               dispatch(setPageWidth( pageWidth1 )) //пушим длину в стор (защита от частого обновления стора)
             }
         }, 300 ) // время задержки между измерениями ширины окна
     }
@@ -59,6 +60,7 @@ const ContentContainer: React.FC = memo( () => { // вынес роутинг к
     window.onresize = setPageWidthLocal;
 
     return (<div>
+        <ErrorToastContainer/> {/*вывод ошибок внутри 200 ответа*/}
 
         <ErrorBoundary> {/*Локальный обработчик ошибок ContentContainer*/}
             <Suspense fallback={

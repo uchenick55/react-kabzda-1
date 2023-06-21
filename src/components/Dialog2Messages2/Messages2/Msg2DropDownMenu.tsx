@@ -20,7 +20,7 @@ type Msg2DropDownMenuType = {
 }
 const Msg2DropDownMenu: React.FC<Msg2DropDownMenuType> = memo( (
     { id, isMyMessage, deletedBySender, isSpam}) => {
-    console.log("Msg2DropDownMenu")
+   // console.log("Msg2DropDownMenu")
 
     const dispatch = useDispatch()
 

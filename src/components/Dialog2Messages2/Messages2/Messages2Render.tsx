@@ -7,8 +7,8 @@ import Msg2HeaderNamePhoto from "./Msg2HeaderNamePhoto";
 
 type Dialog2RenderType = {
     patch: string,// имя страницы из URL
-    PageWidth: number, // ширина страницы
-    MobileWidth: number, // ширина страницы, считающаяся мобильной версткой
+    pageWidth: number, // ширина страницы
+    mobileWidth: number, // ширина страницы, считающаяся мобильной версткой
     userId: number, // id пользователя из URL
     myId: number // номер моего id
 
@@ -20,12 +20,12 @@ type Dialog2RenderType = {
 }
 const Messages2Render: React.FC<Dialog2RenderType> = memo( (
     {
-        PageWidth, MobileWidth, patch, MessagesNewerThen, Msg2SendMessage, userId,
+        pageWidth, mobileWidth, patch, MessagesNewerThen, Msg2SendMessage, userId,
         D2Item, myId
     }) => {
 
     return <div>
-        {patch === "dialog2" && PageWidth > MobileWidth && <div
+        {patch === "dialog2" && pageWidth > mobileWidth && <div
             //- предложение выбрать диалог.Fixed все остальное поле справа.
             // эта часть отображается только на странице dialog и только в десктопной версии
             className={`${classes.Fixed} ${classes.messages2ChooseDialog}`}
@@ -38,7 +38,7 @@ const Messages2Render: React.FC<Dialog2RenderType> = memo( (
             <div
                 //fixed справа вверху - имя собеседника и ссылка картинка на его профиль
                 // отображается всегда на странице messages
-                className={`${classes.Fixed} ${classes.messages2NameAndProfileLink} ${PageWidth < MobileWidth ?
+                className={`${classes.Fixed} ${classes.messages2NameAndProfileLink} ${pageWidth < mobileWidth ?
                     classes.MobileMessagesLeft : classes.DesktopMessagesLeft}`}
             >
                 <Msg2HeaderNamePhoto userId={userId} D2Item={D2Item}/>
@@ -46,7 +46,7 @@ const Messages2Render: React.FC<Dialog2RenderType> = memo( (
             </div>
             <div //fixed справа вверху - имя собеседника и ссылка картинка на его профиль
                 // отображается всегда на странице messages
-                className={`${classes.Fixed} ${classes.messages2RenderMessages} ${PageWidth < MobileWidth ?
+                className={`${classes.Fixed} ${classes.messages2RenderMessages} ${pageWidth < mobileWidth ?
                     classes.MobileMessagesLeft : classes.DesktopMessagesLeft}`}
             >
                 {MessagesNewerThen.map( (m2, Ind, Arr) => { // отрисовка всех сообщений
@@ -66,7 +66,7 @@ const Messages2Render: React.FC<Dialog2RenderType> = memo( (
             </div>
             <div//fixed справа вверху - имя собеседника и ссылка картинка на его профиль
                 // отображается всегда на странице messages
-                className={`${classes.Fixed} ${classes.messages2PrintMessage} ${PageWidth < MobileWidth ?
+                className={`${classes.Fixed} ${classes.messages2PrintMessage} ${pageWidth < mobileWidth ?
                     classes.MobileMessagesLeft : classes.DesktopMessagesLeft}`}
             >
                 <Msg2SendMessageRender Msg2SendMessage={Msg2SendMessage}/>

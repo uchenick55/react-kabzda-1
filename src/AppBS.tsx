@@ -19,7 +19,7 @@ const AppBS: React.FC = memo(() => {
 
     const theme:"light" | "dark" = useSelector((state:GlobalStateType) =>state.theme.themeBLL )
     const initialisedApp:boolean = useSelector((state:GlobalStateType) =>state.app.initialisedApp )
-    const error: ErrorType = useSelector( (state: GlobalStateType) => state.app.err )
+    const errorGlobal: ErrorType = useSelector( (state: GlobalStateType) => state.app.errorGlobal )
 
     const dispatch = useDispatch<AppDispatch>();
 
@@ -27,12 +27,12 @@ const AppBS: React.FC = memo(() => {
             dispatch( initialisedAppThunkCreator()) // запускаем инициализацию приложения
     }, [dispatch] )//dispatch
 
-    if (!initialisedApp && !error) { // если не инициализировано приложение и ошибки отсутствуют, показать прелоадер
+    if (!initialisedApp && !errorGlobal) { // если не инициализировано приложение и ошибки отсутствуют, показать прелоадер
         return <Preloader/> // показать статус загрузки
     }
     return <div>
-        {error.message  // вывод ошибок запроса или контента
-            ? <ErrorsRender error={error} /> //вывод ошибок при наличии
+        {errorGlobal.message  // вывод ошибок запроса или контента
+            ? <ErrorsRender error={errorGlobal} /> //вывод глобальных ошибок (все кроме 200 ответа)
             : <HashRouter> {/*BrowserRouter для продакшн, HashRouter для gh-pages*/}
                 <div className={`${"themeCommon"} ${theme === "light" ? "light" : "dark"}`}>
                     {/*класс в зависимости от темы*/}

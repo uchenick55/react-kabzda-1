@@ -1,0 +1,29 @@
+.Button {
+    position: fixed;
+    left: 5rem;
+    top: 10rem;
+    z-index: 100;
+}
+
+.ErrorToastRemove {
+    z-index: 150;
+    position: fixed;
+    top: 5.2rem;
+    right: 1rem;
+    transition: 2s ease-in;
+    transform: translateY(-15rem);
+
+}
+.ErrorToast {
+    z-index: 150;
+    position: fixed;
+    top: 5.2rem;
+    right: 1rem;
+    transition: 2s ease-in;
+}
+
+.ErrorToastItem {
+    margin: 0.5rem;
+}
+
+

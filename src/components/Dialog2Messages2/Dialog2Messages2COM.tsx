@@ -7,8 +7,8 @@ import {GetDialog2AllType, D2ItemType, SendMessageType} from "../api/apiTypes";
 
 type Dialog2RenderType = {
     patch: string,// имя страницы из URL
-    PageWidth: number, // ширина страницы
-    MobileWidth: number, // ширина страницы, считающаяся мобильной версткой
+    pageWidth: number, // ширина страницы
+    mobileWidth: number, // ширина страницы, считающаяся мобильной версткой
     userId: number, // id пользователя из URL
     Dialog2All: GetDialog2AllType, // список всех диалогов для левой колонки
     MessagesNewerThen: Array<SendMessageType> // сообщения выбранного диалога, новее заданной даты
@@ -18,14 +18,14 @@ type Dialog2RenderType = {
  }
 
 const Dialog2Messages2COM: React.FC<Dialog2RenderType> = memo( (
-    {patch, PageWidth, MobileWidth, Dialog2All, MessagesNewerThen, Msg2SendMessage, userId,
+    {patch, pageWidth, mobileWidth, Dialog2All, MessagesNewerThen, Msg2SendMessage, userId,
         D2Item, myId}
     ) => {
     return <div className={classesCommon.dialog2Messages2Common}>
         {/*Отрисовка поля диалогов*/}
-        <Dialog2Render PageWidth={PageWidth} MobileWidth={MobileWidth} patch={patch} Dialog2All={Dialog2All}/>
+        <Dialog2Render pageWidth={pageWidth} mobileWidth={mobileWidth} patch={patch} Dialog2All={Dialog2All}/>
 
-        <Messages2Render PageWidth={PageWidth} MobileWidth={MobileWidth} patch={patch}
+        <Messages2Render pageWidth={pageWidth} mobileWidth={mobileWidth} patch={patch}
                          MessagesNewerThen={MessagesNewerThen} Msg2SendMessage={Msg2SendMessage}
                          userId={userId} D2Item={D2Item} myId={myId}
         />
