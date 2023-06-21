@@ -38,10 +38,9 @@ export const appActions = {
     setError200: (error200: Array<Error200Type>) => { // ошибки с сервера (внутри ответа 200)
         return {type: SET_ERROR_200, error200} as const
     },
-    setErrorArchive: (errorArchive: Array<Error200Type>) => { // архив ошибок после рендера (внутри ответа 200)
-        return {type: SET_ERROR_200_ARCHIVE, errorArchive} as const
+    setErrorArchive: (error200Item: Error200Type) => { // архив ошибок после рендера (внутри ответа 200)
+        return {type: SET_ERROR_200_ARCHIVE, error200Item} as const
     }
-
 }
 
 type AppActionTypes = InferActionsTypes<typeof appActions>
@@ -104,7 +103,10 @@ const appReducer = (state: InitialStateType = initialState, action: AppActionTyp
         case SET_ERROR_200_ARCHIVE: // экшн записи ошибок с сервера (внутри 200 ответа) в архив
             stateCopy = {
                 ...state, // копия всего стейта
-                error200Archive: action.errorArchive,
+                // удалить из массива ошибок выбранный объект ошибки
+                error200: state.error200.filter((item: Error200Type)=> item.timeUnix!==action.error200Item.timeUnix ), //
+                // добавить эту ошибку в массив архива для ошибок
+                error200Archive: [...state.error200Archive, action.error200Item],
             }
             return stateCopy; // возврат копии стейта после изменения
         default:
