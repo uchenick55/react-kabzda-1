@@ -7,6 +7,8 @@ import {Error200Type} from "../types/commonTypes";
 
 const ErrorToastContainer: React.FC = () => {
     const error200 = useSelector(((state:GlobalStateType) => state.app.error200)) // массив ошибок 200
+    const theme = useSelector(((state:GlobalStateType) => state.theme.themeBLL)) // тема для ошибок
+
     const {setErrorArchive} = appActions // извлекаем колбэк архивации ошибки
     const dispatch = useDispatch()
 
@@ -14,7 +16,7 @@ const ErrorToastContainer: React.FC = () => {
         dispatch(setErrorArchive(error200Item))
     }
     return <div>
-        <ErrorToast error200={error200} closeToast={closeToast}/>
+        <ErrorToast error200={error200} closeToast={closeToast} theme={theme}/>
     </div>
 }
 export default ErrorToastContainer

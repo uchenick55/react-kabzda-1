@@ -7,8 +7,9 @@ import ErrorToastItem from "./ErrorToastItem";
 type ErrorToastType = {
     error200: Array<Error200Type>,
     closeToast: (error200Item: Error200Type ) => void
+    theme: string
 }
-const ErrorToast: React.FC<ErrorToastType> = ({error200, closeToast}) => {
+const ErrorToast: React.FC<ErrorToastType> = ({error200, closeToast, theme}) => {
 
     return <div className={classes.ErrorToast}>
         {error200.map((error200Item:Error200Type)=>{ // пробегаем по всем элементам массива ошибок
@@ -16,6 +17,7 @@ const ErrorToast: React.FC<ErrorToastType> = ({error200, closeToast}) => {
                 key={error200Item.timeUnix}
                 closeToast={closeToast}
                 error200Item={error200Item}
+                theme={theme}
             />
         })}
     </div>
