@@ -27,6 +27,4 @@
 .NavDropdown {
     color: white;
 }
-.NavDropdown:active {
-    transform: scale(1.05) translate(+0px, 0px);
-}
+

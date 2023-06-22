@@ -6,6 +6,7 @@ import {appActions} from "../../../redux/app-reducer";
 import {Error200Type} from "../types/commonTypes";
 
 const ErrorToastContainer: React.FC = () => {
+    console.log("ErrorToastContainer")
     const error200 = useSelector(((state:GlobalStateType) => state.app.error200)) // массив ошибок 200
     const theme = useSelector(((state:GlobalStateType) => state.theme.themeBLL)) // тема для ошибок
 

@@ -14,23 +14,23 @@ const SET_D2_USERID = "myApp/dialog2-reducer/SET_D2_USERID";
 
 export const dialog2Actions = {
 
-    getDialog2AllAC: (Dialog2All: GetDialog2AllType) => {
-        return {type: DIALOG2_ACTIONS, Dialog2All} as const
+    getDialog2AllAC: (dialog2All: GetDialog2AllType) => {
+        return {type: DIALOG2_ACTIONS, dialog2All} as const
     },
-    setMessagesNewerThen: (MessagesNewerThen: Array<SendMessageType>, needToScrollBottom:boolean) => {
-        return {type: SET_MESSAGES_NEWER_THEN, MessagesNewerThen, needToScrollBottom} as const
+    setMessagesNewerThen: (messagesNewerThen: Array<SendMessageType>, needToScrollBottom:boolean) => {
+        return {type: SET_MESSAGES_NEWER_THEN, messagesNewerThen, needToScrollBottom} as const
     },
     setDialog2InitialState: () => {
         return {type: SET_DIALOG2_INITIALSTATE} as const
     },
-    setD2Item: (D2Item: D2ItemType) => {
-        return {type: SET_D2_ITEM, D2Item} as const
+    setD2Item: (d2Item: D2ItemType) => {
+        return {type: SET_D2_ITEM, d2Item} as const
     },
-    setApiErrorMsg: (ApiErrorMsg: Array<string>) => {
-        return {type: SET_API_ERROR_MSG, ApiErrorMsg} as const
+    setApiErrorMsg: (apiErrorMsg: Array<string>) => {
+        return {type: SET_API_ERROR_MSG, apiErrorMsg} as const
     },
-    setMarkers: (Markers: MarkersType) => {
-        return {type: SET_MARKERS, Markers} as const
+    setMarkers: (markers: MarkersType) => {
+        return {type: SET_MARKERS, markers} as const
     },
     setd2Userid: (userId: number) => {
         return {type: SET_D2_USERID, userId} as const
@@ -42,19 +42,19 @@ type Dialog2ActionsTypes = InferActionsTypes<typeof dialog2Actions>
 export type MarkersType = {
     straightFirstUploaded: boolean, // является ли эта загрузка прямой по ссылке, (или F5)
     dialogId: number, // маркер id диалога
-    Dialog2FirstUploaded: boolean, // маркер первой загрузки
+    dialog2FirstUploaded: boolean, // маркер первой загрузки
     needToScrollBottom: boolean // нужно ли прокрутить список сообщений
 }
 const initialState = {
-    Dialog2All: [] as GetDialog2AllType,
-    MessagesNewerThen: [] as Array<SendMessageType>,
-    D2UserId: 0,
-    D2Item: {} as D2ItemType,
-    ApiErrorMsg: [] as ApiErrorMsgType,
-    Markers: {
+    dialog2All: [] as GetDialog2AllType,
+    messagesNewerThen: [] as Array<SendMessageType>,
+    d2UserId: 0,
+    d2Item: {} as D2ItemType,
+    apiErrorMsg: [] as ApiErrorMsgType,
+    markers: {
         straightFirstUploaded: false,
         dialogId: 0,
-        Dialog2FirstUploaded: false,
+        dialog2FirstUploaded: false,
         needToScrollBottom: false
     } as MarkersType
 }
@@ -65,50 +65,50 @@ const Dialog2Reducer = (state: InitialStateDialog2Type = initialState, action: D
     let stateCopy: InitialStateDialog2Type // объявлениечасти части стейта до изменения редьюсером
     switch (action.type) {
         case DIALOG2_ACTIONS: // список всех диалогов
-            const Dialog2AllLocal:GetDialog2AllType = []
+            const dialog2AllLocal:GetDialog2AllType = []
             const listUniqueDialog2Id: Array<number> = []
-            action.Dialog2All.forEach(d2=>{
+            action.dialog2All.forEach(d2=>{
                 if (!listUniqueDialog2Id.includes(d2.id)) {
                     listUniqueDialog2Id.push(d2.id)
-                    Dialog2AllLocal.push(d2)
+                    dialog2AllLocal.push(d2)
                 }
             })
             stateCopy = {
                 ...state,
-                Dialog2All: Dialog2AllLocal
+                dialog2All: dialog2AllLocal
             }
             return stateCopy
         case SET_MESSAGES_NEWER_THEN: // сообщения по выбранному диалогу новее определенной даты
             stateCopy = {
                 ...state,
-                MessagesNewerThen: action.MessagesNewerThen,
-                Markers: {...state.Markers,  needToScrollBottom: action.needToScrollBottom}
+                messagesNewerThen: action.messagesNewerThen,
+                markers: {...state.markers,  needToScrollBottom: action.needToScrollBottom}
             }
             return stateCopy
         case SET_DIALOG2_INITIALSTATE: // занулить стейт при логауте
             return initialState
-        case SET_D2_ITEM: // отфильтровать DialogItem из Dialog2All
+        case SET_D2_ITEM: // отфильтровать DialogItem из dialog2All
             stateCopy = {
                 ...state,
-                D2Item: action.D2Item
+                d2Item: action.d2Item
             }
             return stateCopy
         case SET_API_ERROR_MSG: // записать ошибку с сервера в стейт
             stateCopy = {
                 ...state,
-                ApiErrorMsg: action.ApiErrorMsg
+                apiErrorMsg: action.apiErrorMsg
             }
             return stateCopy
         case SET_MARKERS: // записать вспомогательные маркеры
             stateCopy = {
                 ...state,
-                Markers: action.Markers
+                markers: action.markers
             }
             return stateCopy
         case SET_D2_USERID: // записать d2UserId из URL в стейт
             stateCopy = {
                 ...state,
-                D2UserId: action.userId
+                d2UserId: action.userId
             }
             return stateCopy
         default:
@@ -134,7 +134,7 @@ export const putDialog2StartThCr = (currentDialogId: number): ThType => {
 export const getDialog2AllThCr = (userId?: number, page: number = 1, count: number = 10): ThType => {
     return async (dispatch, getState) => {//- получить список сообщений по id пользователя
         if (!userId) {
-            userId = getState().dialog2.D2Item.id
+            userId = getState().dialog2.d2Item.id
             console.log("!userId getDialog2AllThCr")
         }
         const response = await apiDialog2.getDialog2All( userId, page, count )
@@ -148,10 +148,10 @@ export const getDialog2AllThCr = (userId?: number, page: number = 1, count: numb
 export const postDialog2MessageThCr = ( body: string, date: string): ThType => {
     console.log( "postDialog2MessageThCr" )
     return async (dispatch, getState) => {// - отправить сообщение пользователю
-        const response = await apiDialog2.postDialog2Message( getState().dialog2.D2UserId, body )
+        const response = await apiDialog2.postDialog2Message( getState().dialog2.d2UserId, body )
         if (response.resultCode === ResultCodeEnum.Success) {
             console.log( "Отправили сообщение, запускаем получение новых сообщений" )
-            dispatch( getDialog2MessagesNewerThenThCr( getState().dialog2.D2UserId, date ) ) // получить все сообщения от указанного ID пользователя новее чем указанная дата
+            dispatch( getDialog2MessagesNewerThenThCr( getState().dialog2.d2UserId, date ) ) // получить все сообщения от указанного ID пользователя новее чем указанная дата
         }
         if (response.resultCode === ResultCodeEnum.Error) {
             dispatch( dialog2Actions.setApiErrorMsg( response.messages ) )
@@ -165,9 +165,9 @@ export const getDialog2MessageIdViewedThCr = (messageId: string): ThType => {
     }
 }
 const setDeleteSpamToMessagesNewerThen =
-    (MessagesNewerThen: Array<SendMessageType>, messageId: string, SPAM_DELETE: "spam" | "delete"| "restore") => {
-        const MessagesNewerThenLocal: Array<SendMessageType> = JSON.parse( JSON.stringify( MessagesNewerThen ) ) // полная копия сообщений
-        MessagesNewerThenLocal.forEach( m2 => {
+    (messagesNewerThen: Array<SendMessageType>, messageId: string, SPAM_DELETE: "spam" | "delete"| "restore") => {
+        const messagesNewerThenLocal: Array<SendMessageType> = JSON.parse( JSON.stringify( messagesNewerThen ) ) // полная копия сообщений
+        messagesNewerThenLocal.forEach( m2 => {
             if (m2.id === messageId) { // если совпадает id удаленного сообщения с перебираемым id сообщения
                 if (SPAM_DELETE === "delete") {
                     m2.deletedBySender = true
@@ -182,7 +182,7 @@ const setDeleteSpamToMessagesNewerThen =
             }
         } )
         console.log( "Локально помечаем сообщение как", SPAM_DELETE )
-        return MessagesNewerThenLocal
+        return messagesNewerThenLocal
     }
 
 export const postDialog2MessageIdToSpamThCr = (messageId: string): ThType => {
@@ -193,7 +193,7 @@ export const postDialog2MessageIdToSpamThCr = (messageId: string): ThType => {
             console.log( "Сообщение помечено как спам:", messageId )
 
             dispatch( dialog2Actions.setMessagesNewerThen(
-                setDeleteSpamToMessagesNewerThen( getState().dialog2.MessagesNewerThen, messageId, "spam" ),
+                setDeleteSpamToMessagesNewerThen( getState().dialog2.messagesNewerThen, messageId, "spam" ),
                 false
             ) ) // помечаем сообщение в локальном стейте как спам
 
@@ -212,7 +212,7 @@ export const deleteDialog2MessageIdThCr =
                 console.log( "Сообщение удалено на сервере" )
 
                 dispatch( dialog2Actions.setMessagesNewerThen(
-                    setDeleteSpamToMessagesNewerThen( getState().dialog2.MessagesNewerThen, messageId, "delete" ),
+                    setDeleteSpamToMessagesNewerThen( getState().dialog2.messagesNewerThen, messageId, "delete" ),
                     false
                 ) ) // помечаем сообщение в локальном стейте как удаленное
             }
@@ -229,7 +229,7 @@ export const putDialog2MessageIdRestoreThCr = (messageId: string): ThType => {
             console.log( "Сообщение восстановлено из спама" )
 
             dispatch( dialog2Actions.setMessagesNewerThen(
-                setDeleteSpamToMessagesNewerThen( getState().dialog2.MessagesNewerThen, messageId, "restore" ),
+                setDeleteSpamToMessagesNewerThen( getState().dialog2.messagesNewerThen, messageId, "restore" ),
                 false
             ) ) // помечаем сообщение в локальном стейте как удаленное
 
@@ -241,7 +241,6 @@ export const putDialog2MessageIdRestoreThCr = (messageId: string): ThType => {
     }
 }
 export const getDialog2MessagesNewerThenThCr = (userId: number, date: string): ThType => {
-    // console.log( "getDialog2MessagesNewerThenThCr" )
     return async (dispatch, getState) => {// - вернуть сообщения новее определенной даты
         const response = await apiDialog2.getDialog2MessagesNewerThen( userId, date )
         dispatch( dialog2Actions.setMessagesNewerThen( response, true ) )

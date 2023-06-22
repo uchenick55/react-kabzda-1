@@ -10,24 +10,24 @@ type Dialog2RenderType = {
     pageWidth: number, // ширина страницы
     mobileWidth: number, // ширина страницы, считающаяся мобильной версткой
     userId: number, // id пользователя из URL
-    Dialog2All: GetDialog2AllType, // список всех диалогов для левой колонки
-    MessagesNewerThen: Array<SendMessageType> // сообщения выбранного диалога, новее заданной даты
-    D2Item: D2ItemType, // отфильтрованый  из Dialog2All выбранный пользователь по userId
+    dialog2All: GetDialog2AllType, // список всех диалогов для левой колонки
+    messagesNewerThen: Array<SendMessageType> // сообщения выбранного диалога, новее заданной даты
+    d2Item: D2ItemType, // отфильтрованый  из dialog2All выбранный пользователь по userId
     myId: number // номер моего id
     Msg2SendMessage: (messageBody:string) => void // отправить сообщение указанному пользователю
  }
 
 const Dialog2Messages2COM: React.FC<Dialog2RenderType> = memo( (
-    {patch, pageWidth, mobileWidth, Dialog2All, MessagesNewerThen, Msg2SendMessage, userId,
-        D2Item, myId}
+    {patch, pageWidth, mobileWidth, dialog2All, messagesNewerThen, Msg2SendMessage, userId,
+        d2Item, myId}
     ) => {
     return <div className={classesCommon.dialog2Messages2Common}>
         {/*Отрисовка поля диалогов*/}
-        <Dialog2Render pageWidth={pageWidth} mobileWidth={mobileWidth} patch={patch} Dialog2All={Dialog2All}/>
+        <Dialog2Render pageWidth={pageWidth} mobileWidth={mobileWidth} patch={patch} dialog2All={dialog2All}/>
 
         <Messages2Render pageWidth={pageWidth} mobileWidth={mobileWidth} patch={patch}
-                         MessagesNewerThen={MessagesNewerThen} Msg2SendMessage={Msg2SendMessage}
-                         userId={userId} D2Item={D2Item} myId={myId}
+                         messagesNewerThen={messagesNewerThen} Msg2SendMessage={Msg2SendMessage}
+                         userId={userId} d2Item={d2Item} myId={myId}
         />
     </div>
 })

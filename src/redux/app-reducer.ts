@@ -2,7 +2,6 @@ import {getAuthMeThunkCreator} from "./auth-reducer";
 import {getThemeThunkCreator} from "./theme-reducer";
 import { InferActionsTypes} from "./store-redux";
 import {ComThunkTp, Error200Type, ErrorType} from "../components/common/types/commonTypes";
-import {ApiErrorMsgType, CommRespType} from "../components/api/apiTypes";
 
 const SET_INITIALISED_APP = "myApp/app-reducer/SET_INITIALISED_APP"; //константа инициализации приложения
 const APP_INITIAL_STATE = "myApp/app-reducer/APP_INITIAL_STATE"; //константа зануления при логауте

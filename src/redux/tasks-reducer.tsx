@@ -33,7 +33,7 @@ const initialState = { //стейт по умолчанию темы
     },
     tasksData: [
         {
-            TaskHeader: <>Список постов</>,
+            taskHeader: <>Список постов</>,
             imgSrc: postList,
             taskLink: "https://uchenick55.github.io/saga3-ms/",
             altTitle: "Список постов",
@@ -90,7 +90,7 @@ const initialState = { //стейт по умолчанию темы
             repositoryHref: "https://github.com/uchenick55/saga3-ms"
         },
 {
-            TaskHeader: <>Поиск по GitHub репозиториям</>,
+            taskHeader: <>Поиск по GitHub репозиториям</>,
             imgSrc: Ghlist,
             taskLink: "https://uchenick55.github.io/github-repository-search/",
             altTitle: "Игра сапер",
@@ -181,7 +181,7 @@ const initialState = { //стейт по умолчанию темы
             repositoryHref: "https://github.com/uchenick55/github-repository-search"
         },
         {
-            TaskHeader: <>Игра сапер</>,
+            taskHeader: <>Игра сапер</>,
             imgSrc: Saper,
             taskLink: "https://uchenick55.github.io/saper-ts/",
             altTitle: "Игра сапер",
@@ -212,7 +212,7 @@ const initialState = { //стейт по умолчанию темы
             repositoryHref: "https://github.com/uchenick55/saper-ts"
         },
         {
-            TaskHeader: <>Калькулятор обмена криптовалют</>,
+            taskHeader: <>Калькулятор обмена криптовалют</>,
             imgSrc: CryptoCalculator,
             taskLink: "https://uchenick55.github.io/bestchange/",
             altTitle: "крипто-калькулятор",
@@ -240,7 +240,7 @@ const initialState = { //стейт по умолчанию темы
             repositoryHref: "https://github.com/uchenick55/bestchange"
         },
         {
-            TaskHeader: "Поиск, сортировка и фильтрация",
+            taskHeader: "Поиск, сортировка и фильтрация",
             imgSrc: FilterSort,
             taskLink: "https://uchenick55.github.io/supplydirector-web-page-test/#/app/profile",
             altTitle: "Поиск, сортировка и фильтрация",
@@ -260,7 +260,7 @@ const initialState = { //стейт по умолчанию темы
             repositoryHref: "https://github.com/uchenick55/supplydirector-web-page-test.git"
         },
         {
-            TaskHeader: "Комбинации чисел",
+            taskHeader: "Комбинации чисел",
             imgSrc: combinationChisel,
             taskLink: "https://uchenick55.github.io/lhtask1/",
             altTitle: "Комбинации чисел",
@@ -280,7 +280,7 @@ const initialState = { //стейт по умолчанию темы
             repositoryHref: "https://github.com/uchenick55/lhtask1.git"
         },
         {
-            TaskHeader: "bootstrap на HTML",
+            taskHeader: "bootstrap на HTML",
             imgSrc: bootstrapImg,
             taskLink: "https://uchenick55.github.io/bootstraphtmlcss/",
             altTitle: "Пример bootstrap сайта на чистом HTML",
@@ -295,7 +295,7 @@ const initialState = { //стейт по умолчанию темы
             repositoryHref: "https://github.com/uchenick55/bootstraphtmlcss"
         },
         {
-            TaskHeader: "Игра крестики-нолики",
+            taskHeader: "Игра крестики-нолики",
             imgSrc: krestikiNoliki,
             taskLink: "https://uchenick55.github.io/react-kabzda-1/#/rest",
             altTitle: "Игра крестики-нолики",
@@ -308,7 +308,7 @@ const initialState = { //стейт по умолчанию темы
             repositoryHref: "https://github.com/uchenick55/react-kabzda-1/tree/main2/src/components/Rest/Krestiki-Noliki"
         },
         {
-            TaskHeader: "Страница поиска новостей",
+            taskHeader: "Страница поиска новостей",
             imgSrc: news,
             taskLink: "https://uchenick55.github.io/react-kabzda-1/#/news",
             altTitle: "Страница поиска новостей",

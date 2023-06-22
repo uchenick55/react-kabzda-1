@@ -38,7 +38,7 @@ export type NulableType<n> = null | n // тип нулевой
 
 
 export type TasksDataType = {
-    TaskHeader: JSX.Element | string, // заголовок задачи
+    taskHeader: JSX.Element | string, // заголовок задачи
     imgSrc: string, // источник картинки
     taskLink: string, // ссылка на задачу
     altTitle: string, // альтернатива картинке

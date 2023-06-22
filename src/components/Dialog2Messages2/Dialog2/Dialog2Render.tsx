@@ -8,13 +8,13 @@ type Dialog2RenderType = {
     patch: string,// имя страницы из URL
     pageWidth: number, // ширина страницы
     mobileWidth: number, // ширина страницы, считающаяся мобильной версткой
-    Dialog2All: GetDialog2AllType, // список всех диалогов для левой колонки
+    dialog2All: GetDialog2AllType, // список всех диалогов для левой колонки
 }
 const Dialog2Render: React.FC<Dialog2RenderType> = (
-    {pageWidth, mobileWidth, patch, Dialog2All}
+    {pageWidth, mobileWidth, patch, dialog2All}
 ) => {
     const [SearchValue, setSearchValue] = useState<string>( "" ) // локальный стейт поискового запроса в диалогах
-    const Dialog2AllFiltered: GetDialog2AllType = Dialog2All && Dialog2All.filter( d2 => { //если список диалогов есть,
+    const dialog2AllFiltered: GetDialog2AllType = dialog2All && dialog2All.filter( d2 => { //если список диалогов есть,
         return d2.userName.toLowerCase().includes( SearchValue.toLowerCase() ) // фильтруем по поисковому запросу
     } )
     return <div>
@@ -33,7 +33,7 @@ const Dialog2Render: React.FC<Dialog2RenderType> = (
                 <div // Fixed слева внизу + прокрутка. Поле остается на странице dialog2 всегда
                     className={`${classes.Fixed} ${classes.dialog2ListCommon} ${pageWidth < mobileWidth ? classes.MobileDialogWidth : classes.DesktopDialogWidth}`}
                 >
-                    {Dialog2AllFiltered.map( d2 => {
+                    {dialog2AllFiltered.map( d2 => {
                         const {id, userName, hasNewMessages, lastDialogActivityDate, newMessagesCount, photos} = d2
                         const photosSmall = photos.small
                         return <Dialog2Item

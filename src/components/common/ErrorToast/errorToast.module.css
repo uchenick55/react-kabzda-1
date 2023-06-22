@@ -14,11 +14,9 @@
 }
 
 .ErrorToastItem {
-    margin: 0.5rem;
 }
 
 .ErrorToastItemRemove {
-    margin: 0.5rem;
     transition: 2s ease-in;
     transform: scale3d(0.9, 0.9, 0.9);
     opacity: 0;

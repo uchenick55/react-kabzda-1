@@ -10,7 +10,7 @@ import Accordion from "react-bootstrap/Accordion";
 import {Row} from "react-bootstrap";
 
 type TasksCommon2Type = {
-    TaskHeader: JSX.Element | string, // заголовок задачи
+    taskHeader: JSX.Element | string, // заголовок задачи
     imgSrc: string, // источник картинки
     taskLink: string, // ссылка на задачу
     altTitle: string, // альтернатива картинке
@@ -19,10 +19,10 @@ type TasksCommon2Type = {
     usedTech: string // список использованных технологий
 }
 const TasksCommon2: React.FC<TasksCommon2Type> = (
-    {TaskHeader, imgSrc, altTitle, description, repositoryHref, taskLink, usedTech}) => {
+    {taskHeader, imgSrc, altTitle, description, repositoryHref, taskLink, usedTech}) => {
     return <div>
 
-        <div className={commonClasses.toCenter}><h5 className={classes.taskHeader} >{TaskHeader}</h5></div>
+        <div className={commonClasses.toCenter}><h5 className={classes.taskHeader} >{taskHeader}</h5></div>
         <div><a href={taskLink}>
             <Image fluid={true} className={classes.imgTasks} src={imgSrc}
                    alt={altTitle} title={altTitle}
@@ -60,7 +60,7 @@ const Tasks: React.FC = () => {
 
                 {tasksData1.map( (t, index) => { // проходим каждый элемент в исходном массиве
                     return <TasksCommon2
-                        key={index} TaskHeader={t.TaskHeader} imgSrc={t.imgSrc} altTitle={t.altTitle}
+                        key={index} taskHeader={t.taskHeader} imgSrc={t.imgSrc} altTitle={t.altTitle}
                         description={t.description} repositoryHref={t.repositoryHref} taskLink={t.taskLink}
                         usedTech={t.usedTech}
                     />

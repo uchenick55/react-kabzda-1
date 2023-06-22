@@ -7,21 +7,21 @@ import GetDate from "../../common/GetDate";
 
 type Msg2HeaderNamePhotoType = {
     userId: number, // id пользователя из URL
-    D2Item: D2ItemType // отфильтрованый  из Dialog2All выбранный пользователь по userId
+    d2Item: D2ItemType // отфильтрованый  из dialog2All выбранный пользователь по userId
 
 }
-const Msg2HeaderNamePhoto: React.FC<Msg2HeaderNamePhotoType> = memo ( ({userId, D2Item}) => {
+const Msg2HeaderNamePhoto: React.FC<Msg2HeaderNamePhotoType> = memo ( ({userId, d2Item}) => {
     console.log("Header сообщений")
-    const photoSrc = D2Item && D2Item.photos && D2Item.photos.small ? D2Item.photos.small : userPhoto // фото с сервера или заглушка
-    const DateLocal = GetDate(D2Item && D2Item.lastUserActivityDate) // получаем дату последнего сообщения
+    const photoSrc = d2Item && d2Item.photos && d2Item.photos.small ? d2Item.photos.small : userPhoto // фото с сервера или заглушка
+    const DateLocal = GetDate(d2Item && d2Item.lastUserActivityDate) // получаем дату последнего сообщения
     return <div>
-        {D2Item && <div>
-            <div className={classes.Msg2HeaderName}>{D2Item && D2Item.userName}</div>
+        {d2Item && <div>
+            <div className={classes.Msg2HeaderName}>{d2Item && d2Item.userName}</div>
             <NavLink to={'/profile/' + userId}>
                 <img className={classes.Msg2HeaderPhoto} src={photoSrc} alt="photoSrc"/>
             </NavLink>
             <div className={classes.Msg2HeaderActivityDate}>Был(а): {" "}
-                {D2Item &&  DateLocal.isToday
+                {d2Item &&  DateLocal.isToday
                     ? <span> сегодня в {DateLocal.Hour }:{DateLocal.Minutes}</span>
                     : <span> {DateLocal.Day }.{DateLocal.Month}.{DateLocal.Year}</span>
                 }

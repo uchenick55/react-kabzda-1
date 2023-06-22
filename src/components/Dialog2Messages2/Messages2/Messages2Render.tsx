@@ -12,16 +12,16 @@ type Dialog2RenderType = {
     userId: number, // id пользователя из URL
     myId: number // номер моего id
 
-    MessagesNewerThen: Array<SendMessageType> // сообщения выбранного диалога, новее заданной даты
-    D2Item: D2ItemType // отфильтрованый  из Dialog2All выбранный пользователь по userId
+    messagesNewerThen: Array<SendMessageType> // сообщения выбранного диалога, новее заданной даты
+    d2Item: D2ItemType // отфильтрованый  из dialog2All выбранный пользователь по userId
 
     Msg2SendMessage: (messageBody: string) => void // отправить сообщение указанному пользователю
 
 }
 const Messages2Render: React.FC<Dialog2RenderType> = memo( (
     {
-        pageWidth, mobileWidth, patch, MessagesNewerThen, Msg2SendMessage, userId,
-        D2Item, myId
+        pageWidth, mobileWidth, patch, messagesNewerThen, Msg2SendMessage, userId,
+        d2Item, myId
     }) => {
 
     return <div>
@@ -41,7 +41,7 @@ const Messages2Render: React.FC<Dialog2RenderType> = memo( (
                 className={`${classes.Fixed} ${classes.messages2NameAndProfileLink} ${pageWidth < mobileWidth ?
                     classes.MobileMessagesLeft : classes.DesktopMessagesLeft}`}
             >
-                <Msg2HeaderNamePhoto userId={userId} D2Item={D2Item}/>
+                <Msg2HeaderNamePhoto userId={userId} d2Item={d2Item}/>
 
             </div>
             <div //fixed справа вверху - имя собеседника и ссылка картинка на его профиль
@@ -49,7 +49,7 @@ const Messages2Render: React.FC<Dialog2RenderType> = memo( (
                 className={`${classes.Fixed} ${classes.messages2RenderMessages} ${pageWidth < mobileWidth ?
                     classes.MobileMessagesLeft : classes.DesktopMessagesLeft}`}
             >
-                {MessagesNewerThen.map( (m2, Ind, Arr) => { // отрисовка всех сообщений
+                {messagesNewerThen.map( (m2, Ind, Arr) => { // отрисовка всех сообщений
                     const {
                         id, body, addedAt, senderId, deletedBySender, isSpam
                     } = m2

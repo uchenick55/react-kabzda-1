@@ -1,4 +1,4 @@
-import React, {memo, Suspense, useEffect} from "react";
+import React, {memo, Suspense, useEffect, useMemo} from "react";
 import {Route, Routes} from "react-router-dom";
 import ErrorBoundary from "../common/ErrorBoundary/ErrorBoundary";
 import Tasks from "../Tasks/Tasks";
@@ -21,7 +21,7 @@ const StackInfo = React.lazy( () => import("../Info/StackInfoBS") )
 const FeedBackContainer = React.lazy( () => import("../FeedBack/FeedBackContainer") )
 
 const ContentContainer: React.FC = memo( () => { // вынес роутинг контента в отдельную компоненту
-
+    console.log("ContentContainer")
     const {setPatch, setPageWidth} = appActions
     const Patch: string = useSelector((state:GlobalStateType) => state.app.patch)
 
@@ -60,8 +60,7 @@ const ContentContainer: React.FC = memo( () => { // вынес роутинг к
     window.onresize = setPageWidthLocal;
 
     return (<div>
-        <ErrorToastContainer/> {/*вывод ошибок внутри 200 ответа*/}
-
+        {useMemo(()=><ErrorToastContainer/>,[]) }{/* вывод ошибок внутри 200 ответа*/}
         <ErrorBoundary> {/*Локальный обработчик ошибок ContentContainer*/}
             <Suspense fallback={
                 <div>Загрузка...</div>}> {/*Оборачивает компоненты, по которым идет Lazy import и выдает fallback на время загрузки*/}
