@@ -28,15 +28,20 @@ instance.interceptors.response.use(
             response?.data.resultCode === ResultCodeEnum.Error ||
             response?.data.resultCode === ResultCodeEnumCaptcha.CaptchaIsReqiured
         )  { // resultcode ошибка 1 или 10 (все остальные ошибки))
-            store.dispatch( appActions.setError200( // запись данных ошибки в стейт
-                [
-                    ...store.getState().app.error200, // берем все ошибки, что уже есть в массиве ошибок
-                    {
-                        error: response?.data.messages[0], // добавляем сообщение ошибки
-                        timeUnix: getUnixTime() // добавляем время (можно использовать как id)
-                    }
-                ]
-            ) )
+            for (let i = 0; i< response?.data.messages.length; i++) {
+                setTimeout(()=>{
+                    store.dispatch( appActions.setError200( // запись данных ошибки в стейт
+                        [
+                            ...store.getState().app.error200, // берем все ошибки, что уже есть в массиве ошибок
+                            {
+                                error: response?.data.messages[i], // добавляем сообщение ошибки
+                                timeUnix: getUnixTime() // добавляем время (можно использовать как id)
+                            }
+                        ]
+                    ) )
+                },30) // задержка для уникального времеени - ключей рендера
+            }
+
         }
         return response;// данные успешного ответа для дальнейшего перехвата методами
     },
