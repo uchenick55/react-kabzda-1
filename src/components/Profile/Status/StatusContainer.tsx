@@ -1,8 +1,8 @@
 import React from "react";
-import ProfileStatusUseReducer from "../ProfileStatus/ProfileStatusUseReducer";
+import ProfileStatusUseReducer from "./ProfileStatus/ProfileStatusUseReducer";
 import {useDispatch, useSelector} from "react-redux";
-import {GlobalStateType} from "../../../../redux/store-redux";
-import {putStatusThunkCreator} from "../../../../redux/profile-reducer";
+import {GlobalStateType} from "../../../redux/store-redux";
+import {putStatusThunkCreator} from "../../../redux/profile-reducer";
 
 const StatusContainer:React.FC = () => {
 

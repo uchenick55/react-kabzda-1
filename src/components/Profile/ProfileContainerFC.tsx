@@ -24,18 +24,17 @@ const ProfileContainerFC: React.FC<OwnPropsType> = ({userId}) => {
     const isFetching: boolean = useSelector( (state: GlobalStateType) => state.app.isFetching )
 
     const myId: number = useSelector( (state: GlobalStateType) => state.auth.myId )
-    const status: string = useSelector( (state: GlobalStateType) => state.profilePage.status )
 
     const dispatch = useDispatch()
-
+    const uploadImage = (profilePhoto: File) => {
+        dispatch( setprofilePhotoThunkCreator( profilePhoto ) )
+    }
     const {setEditProfileStatus} = profileActions
 
     const setEditProfileStatusLocal = (editProfileStatus: Array<string>) => {
         dispatch( setEditProfileStatus(editProfileStatus) )
     }
-    const uploadImage = (profilePhoto: File) => {
-        dispatch( setprofilePhotoThunkCreator( profilePhoto ) )
-    }
+
 
     const putStatusThunkCreatorLocal = (status: string) => {
         dispatch( putStatusThunkCreator( status ) )

@@ -4,8 +4,8 @@ import ProfileInfo from "./ProfileInfo/ProfileInfoBS";
 import MyPostsContainer from "./MyPosts/MyPostsContainer";
 import {GetProfileType} from "../api/apiTypes";
 import {NulableType, ProfileType} from "../common/types/commonTypes";
-import PhotoContainer from "./ProfileInfo/Photo/PhotoContainer";
-import StatusContainer from "./ProfileInfo/Status/StatusContainer";
+import PhotoContainer from "./Photo/PhotoContainer";
+import StatusContainer from "./Status/StatusContainer";
 
 type ProfileType2 = {
     profile: NulableType<GetProfileType>,

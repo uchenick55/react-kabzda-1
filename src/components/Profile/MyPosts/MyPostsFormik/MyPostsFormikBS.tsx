@@ -3,7 +3,7 @@ import {Formik, Form, FormikHelpers} from "formik"; //формик с компо
 import * as Yup from 'yup' // валидация форм с помошью сторонней библиотеки Yup
 import classes from "./MyPosts.module.css"
 //import DisplayFormikState from "../../../../common/formikCommon/DisplayFormikState"
-import {MyTextInput} from "../../../../common/formikCommon/MyFieldsBS"
+import {MyTextInput} from "../../../common/formikCommon/MyFieldsBS"
 import Button from "react-bootstrap/Button";
 import Stack from "react-bootstrap/Stack";
 
@@ -37,7 +37,7 @@ const MyPostsFormik:React.FC<MyPostsFormikType> = ({addPost}) => { // основ
                 {({
                       handleReset,// обнуление полей
                   }) => ( // обертка для вывода значений ввода в любом месте формы паралельно (или в итоге)
-                    <Form className={classes.MyPosts}>
+                    <Form>
                         <div>
                             <MyTextInput // сообщение в MyPostsBS
                                 label="Пост"
