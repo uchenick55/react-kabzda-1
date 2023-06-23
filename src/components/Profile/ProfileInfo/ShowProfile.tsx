@@ -17,7 +17,7 @@ const ShowProfile: React.FC<ShowProfileType> =memo( ({profile, setEditMode, user
 
 
     return (<div
-            className={`${commonClasses.textMaxWidthCommon} ${commonClasses.textMaxWidth18rem}`}>
+            className={`${commonClasses.textMaxWidthCommon} `}> {/*${commonClasses.textMaxWidth18rem}*/}
 
             <h3 title={profile?.fullName}>{profile?.fullName}</h3>
             <div ><b>Обо мне</b>: <span title={profile?.aboutMe}> {profile?.aboutMe}</span></div>

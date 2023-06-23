@@ -34,12 +34,13 @@ const ProfileStatusUseState: React.FC<ProfileStatusUseStateType> = ({userId, myI
         }
     }
 
-    return <InputGroup className="my-3" onDoubleClick={checkIfICanModifyStatus}>
+    return <InputGroup className="my-3" onClick={checkIfICanModifyStatus}>
         <InputGroup.Text id="basic-addon1">Статус:</InputGroup.Text> {/* текст слева от поля*/}
         <Form.Control
             value={!modifyStatus ? status : statusTmpInput} // жестко зафиксировали значение поля ввода на временное значение статуса в локальном стейте
-            title={!modifyStatus ? "Двойной клик для - правки" : "Двойной клик/смена фокуса/enter - для сохранения"}
+            title={!modifyStatus ? "Клик для - правки" : "Клик/смена фокуса/enter - для сохранения"}
             onChange={onChangeStatus} // задание временного локального статуса
+            autoFocus={true}
             onBlur={setMyStatus}// задание стейта при потере фокуса input
             placeholder={!modifyStatus ? "нет статуса" : "задайте статус"}// текст при пустом поле ввода
             onKeyPress={checkEnterPressed} // проверка нажатия Enter

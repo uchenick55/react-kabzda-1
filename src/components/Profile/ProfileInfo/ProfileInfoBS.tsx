@@ -1,15 +1,11 @@
 import React, {memo, useEffect, useState} from 'react';
-import Preloader from "../../common/Preloader/Preloader";
 import EditProfileFormikBS from "./EditProfile/EditProfileFormikBS";
 import "bootstrap/dist/css/bootstrap.min.css"
-import Row from "react-bootstrap/Row";
-import Col from "react-bootstrap/Col";
-import Container from "react-bootstrap/Container";
 import commonClasses from "../../common/CommonClasses/common.module.css";
 import {GetProfileType} from "../../api/apiTypes";
 import {NulableType, ProfileType} from "../../common/types/commonTypes";
 import ShowProfile from "./ShowProfile";
-import classes from "../Profile.module.css"
+import classes from "./ProfileInfo.module.css"
 
 type ProfileInfoType2 = {
     profile: NulableType<GetProfileType>,
@@ -49,27 +45,24 @@ const ProfileInfo: React.FC<ProfileInfoType2> = memo( ({
     />
 
     return <div>
-        <Container fluid="sm">
             <h2 className={commonClasses.pageHeader}>Profile</h2> {/*Заголовок*/}
 
-            <Row>
-                <Col xs={12} md={7}>
-                    {!editMode && <div className={classes.posRelative}>
-                        {showProfile} {/*показать профиль*/}
-                        {editedSuccessfully // если успешно обновлен профиль на сервере
-                        && <div className={classes.editProfileStatus}>
-                            {editProfileStatus[0]} {/* вывести сообщение успешного обновления*/}
-                        </div>
-                        }
-                    </div>}
+            <div>
+                {!editMode && <div>
+                    {showProfile} {/*показать профиль*/}
+                    {editedSuccessfully // если успешно обновлен профиль на сервере
+                    && <div className={classes.editProfileStatus}>
+                        {editProfileStatus[0]} {/* вывести сообщение успешного обновления*/}
+                    </div>
+                    }
+                </div>}
 
-                    {editMode && editProfile} {/*редактировать профиль*/}
+                {editMode && editProfile} {/*редактировать профиль*/}
 
-                    {/* Если сообщение sucessully, то закрываем режим редактирования, выводим успех редактирования и по сеттаймауту зануляем стейт с ошибками
+                {/* Если сообщение sucessully, то закрываем режим редактирования, выводим успех редактирования и по сеттаймауту зануляем стейт с ошибками
                         Если не саксесфулли, то выводим ошибки и не закрываем редактирование*/}
-                </Col>
-            </Row>
-        </Container>
+
+            </div>
     </div>
 } )
 export default ProfileInfo;

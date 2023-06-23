@@ -14,6 +14,7 @@ import PhotoContainer from "./Photo/PhotoContainer";
 import ProfileInfoContainer from "./ProfileInfo/ProfileInfoContainer";
 import StatusContainer from "./Status/StatusContainer";
 import MyPostsContainer from "./MyPosts/MyPostsContainer";
+import {Col, Row} from "react-bootstrap";
 
 type OwnPropsType = {
     userId: number // id пользователя из withRouter
@@ -26,7 +27,7 @@ const ProfileContainerFC: React.FC<OwnPropsType> = ({userId}) => {
     const dispatch = useDispatch()
 
     useEffect( () => {
-        dispatch( getProfileThunkCreator( userId ));// обновить профиль в зависомости от ID
+        dispatch( getProfileThunkCreator( userId ) );// обновить профиль в зависомости от ID
     }, [userId, dispatch] )
 
     const isMyPrifile: boolean = userId === 0 //это мой аккаунт в профиле? (пустой userId в URL на моем аккаунте)
@@ -34,9 +35,15 @@ const ProfileContainerFC: React.FC<OwnPropsType> = ({userId}) => {
     return <div>
         {isFetching && <Preloader/>} {/*прелоадер при загрузке*/}
 
-        <PhotoContainer/> {/*Отрисовка фото выбранного профиля с возможностью редактирования на моей странице*/}
+        <Row>
+            <Col lg={6} md={6} sm={12}>
+                <PhotoContainer/> {/*Отрисовка фото выбранного профиля с возможностью редактирования на моей странице*/}
+            </Col>
+            <Col lg={6} md={6} sm={12}>
+                <ProfileInfoContainer/> {/*Отрисовка данных выбранного профиля и возможность редактировать свой профиль*/}
+            </Col>
+        </Row>
 
-        <ProfileInfoContainer/> {/*Отрисовка данных выбранного профиля и возможность редактировать свой профиль*/}
 
         <StatusContainer/> {/* отобразить статус*/}
 

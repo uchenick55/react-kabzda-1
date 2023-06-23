@@ -85,7 +85,7 @@ const EditProfileFormik:React.FC<EditProfileFormikType> = (
                     ),
 
                 React.createElement('div', {className: classes.EditProfileContactsFields},
-                    profile?.contacts &&    Object.keys(profile?.contacts).map((c) => { // вывод списка контактов, мапим
+                    profile?.contacts && Object.keys(profile?.contacts).map((c) => { // вывод списка контактов, мапим
                             return React.createElement('div', {key: c},
                                 React.createElement(
                                     MyTextInput,
