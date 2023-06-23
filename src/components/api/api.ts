@@ -1,5 +1,5 @@
 import axios from "axios";
-import {ApiFeedBackDataType, ErrorType, ProfileType} from "../common/types/commonTypes";
+import {ApiFeedBackDataType, ProfileType} from "../common/types/commonTypes";
 import {
     CommRespType,
     GetCaptchaType,
@@ -30,9 +30,9 @@ instance.interceptors.response.use(
         )  { // resultcode ошибка 1 или 10 (все остальные ошибки))
             for (let i = 0; i< response?.data.messages.length; i++) {
                 setTimeout(()=>{
-                    store.dispatch( appActions.setError200( // запись данных ошибки в стейт
+                    store.dispatch( appActions.setNotify( // запись данных ошибки в стейт
                         [
-                            ...store.getState().app.error200, // берем все ошибки, что уже есть в массиве ошибок
+                            ...store.getState().app.notify, // берем все ошибки, что уже есть в массиве ошибок
                             {
                                 error: response?.data.messages[i], // добавляем сообщение ошибки
                                 timeUnix: getUnixTime() // добавляем время (можно использовать как id)

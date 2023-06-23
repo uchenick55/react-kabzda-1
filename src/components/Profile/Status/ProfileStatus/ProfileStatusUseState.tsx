@@ -29,7 +29,7 @@ const ProfileStatusUseState: React.FC<ProfileStatusUseStateType> = ({userId, myI
     }
 
     const checkEnterPressed = (event: React.KeyboardEvent) => { // проверка нажатия Enter
-        if (event.charCode == 13) {
+        if (event.charCode === 13) {
             setMyStatus()//задание статуса при нажатии Enter
         }
     }

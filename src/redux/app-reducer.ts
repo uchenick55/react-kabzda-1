@@ -1,7 +1,7 @@
 import {getAuthMeThunkCreator} from "./auth-reducer";
 import {getThemeThunkCreator} from "./theme-reducer";
 import { InferActionsTypes} from "./store-redux";
-import {ComThunkTp, Error200Type, ErrorType} from "../components/common/types/commonTypes";
+import {ComThunkTp, NotifyType, ErrorType} from "../components/common/types/commonTypes";
 
 const SET_INITIALISED_APP = "myApp/app-reducer/SET_INITIALISED_APP"; //константа инициализации приложения
 const APP_INITIAL_STATE = "myApp/app-reducer/APP_INITIAL_STATE"; //константа зануления при логауте
@@ -34,11 +34,11 @@ export const appActions = {
     setAppErrorAC: (errorGlobal: ErrorType) => { // глобальные ошибки (все кроме 200 ответа)
         return {type: SET_ERROR_GLOBAL, errorGlobal} as const
     },
-    setError200: (error200: Array<Error200Type>) => { // ошибки с сервера (внутри ответа 200)
-        return {type: SET_ERROR_200, error200} as const
+    setNotify: (notify: Array<NotifyType>) => { // ошибки с сервера (внутри ответа 200)
+        return {type: SET_ERROR_200, notify} as const
     },
-    setErrorArchive: (error200Item: Error200Type) => { // архив ошибок после рендера (внутри ответа 200)
-        return {type: SET_ERROR_200_ARCHIVE, error200Item} as const
+    setNotifyArchive: (notifyItem: NotifyType) => { // архив ошибок после рендера (внутри ответа 200)
+        return {type: SET_ERROR_200_ARCHIVE, notifyItem} as const
     }
 }
 
@@ -53,8 +53,8 @@ const initialState = { //стейт по умолчанию для инициа�
     mobileWidth: 620,
     isFetching: false, // статус загрузки (крутилка)
     errorGlobal: {} as ErrorType,// глобальные ошибки (все кроме 200 ответа)
-    error200: [] as Array<Error200Type>, // ошибки с сервера для рендера (внутри ответа 200)
-    error200Archive: [] as Array<Error200Type> // архивирование ошибок 200
+    notify: [] as Array<NotifyType>, // ошибки с сервера для рендера (внутри ответа 200)
+    notifyArchive: [] as Array<NotifyType> // архивирование ошибок 200
 }
 
 const appReducer = (state: InitialStateType = initialState, action: AppActionTypes): InitialStateType => {//редьюсер инициализации приложения
@@ -96,16 +96,16 @@ const appReducer = (state: InitialStateType = initialState, action: AppActionTyp
         case SET_ERROR_200: // экшн записи ошибки с сервера (внутри 200 ответа)
             stateCopy = {
                 ...state, // копия всего стейта
-                error200: action.error200,
+                notify: action.notify,
             }
             return stateCopy; // возврат копии стейта после изменения
         case SET_ERROR_200_ARCHIVE: // экшн записи ошибок с сервера (внутри 200 ответа) в архив
             stateCopy = {
                 ...state, // копия всего стейта
                 // удалить из массива ошибок выбранный объект ошибки
-                error200: state.error200.filter((item: Error200Type)=> item.timeUnix!==action.error200Item.timeUnix ), //
+                notify: state.notify.filter((item: NotifyType)=> item.timeUnix!==action.notifyItem.timeUnix ), //
                 // добавить эту ошибку в массив архива для ошибок
-                error200Archive: [...state.error200Archive, action.error200Item],
+                notifyArchive: [...state.notifyArchive, action.notifyItem],
             }
             return stateCopy; // возврат копии стейта после изменения
         default:

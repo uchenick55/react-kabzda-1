@@ -1,7 +1,6 @@
 import React from 'react'; // импорт реакта
 import classes from './MyPosts.module.css' // css обработка
 import PostItem from "./PostItem"; // подкомпонента отрисовки постов через map
-import MyPostsFormik from "./MyPosts/MyPostsFormikBS";
 import Container from "react-bootstrap/Container";
 import {PostsType} from "../../common/types/commonTypes";
 import MyPostsInput from "./MyPosts/MyPostsInput"; // reduxForm для ввода новых постов

@@ -1,8 +1,6 @@
 import {Action} from "redux";
 import {ThunkAction} from "redux-thunk";
 import {GlobalStateType} from "../../../redux/store-redux";
-import {getUnixTime} from "../functions/commonFunctions";
-
 
 export type PostsType = {
     id: number
@@ -141,7 +139,7 @@ export type ErrorType = {
     "status": null
 }
 
-export type Error200Type = {
+export type NotifyType = {
     error: string,
     timeUnix: number
 }

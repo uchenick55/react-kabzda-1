@@ -1,5 +1,3 @@
-import {GetProfileType} from "../api/apiTypes";
-import {NulableType} from "../common/types/commonTypes";
 import {GlobalStateType} from "../../redux/store-redux";
 import {compose} from "redux";
 import {useDispatch, useSelector} from "react-redux";
