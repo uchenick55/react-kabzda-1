@@ -3,6 +3,7 @@ import ProfileStatusUseReducer from "./ProfileStatus/ProfileStatusUseReducer";
 import {useDispatch, useSelector} from "react-redux";
 import {GlobalStateType} from "../../../redux/store-redux";
 import {putStatusThunkCreator} from "../../../redux/profile-reducer";
+import ProfileStatusUseState from "./ProfileStatus/ProfileStatusUseState";
 
 const StatusContainer:React.FC = () => {
 
@@ -15,7 +16,7 @@ const StatusContainer:React.FC = () => {
     }
 
     return <div>
-        <ProfileStatusUseReducer // можно еще использовать ProfileStatusUseState и ProfileStatusClass
+        <ProfileStatusUseState // можно еще использовать ProfileStatusUseState и ProfileStatusClass
             myId={myId} // мой id для модификации статуса
             userId={userId} // id отображаемого пользователя
             status={status} // статус из BLL

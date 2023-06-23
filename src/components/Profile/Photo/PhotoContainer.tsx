@@ -23,10 +23,10 @@ const PhotoContainer: React.FC = () => {
             ? profile.photos.large
             : userPhoto1
 
-    const isMyId: boolean = userId === myId
+    const isMyProfile: boolean = userId === myId
     return <PhotoRender
         photo={photo}
-        isMyId={isMyId}
+        isMyProfile={isMyProfile}
         onChangeLocal={onChangeLocal}
     />
 }

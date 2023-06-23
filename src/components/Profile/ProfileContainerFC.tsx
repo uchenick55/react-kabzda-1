@@ -1,68 +1,46 @@
 import {GetProfileType} from "../api/apiTypes";
-import {NulableType, ProfileType} from "../common/types/commonTypes";
+import {NulableType} from "../common/types/commonTypes";
 import {GlobalStateType} from "../../redux/store-redux";
 import {compose} from "redux";
 import {useDispatch, useSelector} from "react-redux";
 import {
     getProfileThunkCreator,
-    profileActions, putMyProfileThunkCreator, putStatusThunkCreator, setprofilePhotoThunkCreator
 } from "../../redux/profile-reducer";
 import withRouter2 from "../hoc/withRouter2";
 import NavigateToLoginHoc2 from "../hoc/NavigateToLoginHoc2";
 import React, {useEffect} from "react";
-import Profile from "./Profile";
 import Preloader from "../common/Preloader/Preloader";
+import PhotoContainer from "./Photo/PhotoContainer";
+import ProfileInfoContainer from "./ProfileInfo/ProfileInfoContainer";
+import StatusContainer from "./Status/StatusContainer";
+import MyPostsContainer from "./MyPosts/MyPostsContainer";
 
 type OwnPropsType = {
-    userId: number // id пользователя
+    userId: number // id пользователя из withRouter
 }
 
 const ProfileContainerFC: React.FC<OwnPropsType> = ({userId}) => {
 
-    const profile: NulableType<GetProfileType> = useSelector( (state: GlobalStateType) => state.profilePage.profile )
-    const editProfileStatus: Array<string> = useSelector( (state: GlobalStateType) => state.profilePage.editProfileStatus )
     const isFetching: boolean = useSelector( (state: GlobalStateType) => state.app.isFetching )
 
-    const myId: number = useSelector( (state: GlobalStateType) => state.auth.myId )
-
     const dispatch = useDispatch()
-    const uploadImage = (profilePhoto: File) => {
-        dispatch( setprofilePhotoThunkCreator( profilePhoto ) )
-    }
-    const {setEditProfileStatus} = profileActions
-
-    const setEditProfileStatusLocal = (editProfileStatus: Array<string>) => {
-        dispatch( setEditProfileStatus(editProfileStatus) )
-    }
-
-
-    const putStatusThunkCreatorLocal = (status: string) => {
-        dispatch( putStatusThunkCreator( status ) )
-    }
-
-    const putProfile = (putProfile2: ProfileType) => { // обновить данные профиля просле правки
-        // добавить в данные после изменения формы мой ID для чтения результата обновления с сервера
-        const MyProfile = Object.assign( {}, {userId: myId}, putProfile2 );
-        dispatch( putMyProfileThunkCreator( MyProfile ) )// обновить данные профиля просле правки
-    }
 
     useEffect( () => {
-        dispatch( getProfileThunkCreator( userId ) );// обновить профиль в зависомости от ID
+        dispatch( getProfileThunkCreator( userId ));// обновить профиль в зависомости от ID
     }, [userId, dispatch] )
 
+    const isMyPrifile: boolean = userId === 0 //это мой аккаунт в профиле? (пустой userId в URL на моем аккаунте)
+
     return <div>
-        {isFetching && <Preloader/>}
-        <Profile
-            myId={myId}// мой ID
-            userId={userId}// id пользователя (может совпадать с myId если смотрим свой профиль)
+        {isFetching && <Preloader/>} {/*прелоадер при загрузке*/}
 
-            profile={profile} // профиль
-            editProfileStatus={editProfileStatus}// список ошибок правки формы профиля с сервера
+        <PhotoContainer/> {/*Отрисовка фото выбранного профиля с возможностью редактирования на моей странице*/}
 
-            putProfile={putProfile }// задание профиля на сервер после ввода данных
-            uploadImage={uploadImage}// загрузка картинки
-            setEditProfileStatus={ setEditProfileStatusLocal }// экшн креатор задания ошибки с сервера в стейт после правки профиля
-        />
+        <ProfileInfoContainer/> {/*Отрисовка данных выбранного профиля и возможность редактировать свой профиль*/}
+
+        <StatusContainer/> {/* отобразить статус*/}
+
+        {isMyPrifile && <MyPostsContainer/>} {/* для моего аккаункт отобразить мои посты*/}
     </div>
 }
 

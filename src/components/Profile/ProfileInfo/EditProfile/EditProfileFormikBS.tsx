@@ -5,7 +5,7 @@ import classes from './EditProfile.module.css'
 //import DisplayFormikState from "../../../common/formikCommon/DisplayFormikState"
 import {MyCheckbox, MyTextInput} from "../../../common/formikCommon/MyFieldsBS"
 import Button from "react-bootstrap/Button";
-import {ProfileType} from "../../../common/types/commonTypes";
+import {NulableType, ProfileType} from "../../../common/types/commonTypes";
 import {GetProfileType} from "../../../api/apiTypes";
 
 const myValidationSchema = Yup.object({ // валидация форм на required, длину и заполнение полей
@@ -14,7 +14,7 @@ const myValidationSchema = Yup.object({ // валидация форм на requ
 type EditProfileFormikType = {
     putProfile: (putProfile2: ProfileType) =>void,
     setEditMode: (editMode: boolean)=> void
-    profile: GetProfileType,
+    profile: NulableType<GetProfileType>,
     editProfileStatus:Array<string>,
     setEditProfileStatus: (editProfileStatus: Array<string>)=> void
 
@@ -24,11 +24,11 @@ const EditProfileFormik:React.FC<EditProfileFormikType> = (
     ) => { // основная компонента с входным колбэком, чтобы забрать данные с форм
 
     const myInitialValues = { // начальные зачения форм
-        FullName: profile.fullName,
-        AboutMe: profile.aboutMe,
-        LookingForAJob: profile.lookingForAJob,
-        LookingForAJobDescription: profile.lookingForAJobDescription,
-        contacts: profile.contacts, // остальные данные с контактов профиля
+        FullName: profile?.fullName,
+        AboutMe: profile?.aboutMe,
+        LookingForAJob: profile?.lookingForAJob,
+        LookingForAJobDescription: profile?.lookingForAJobDescription,
+        contacts: profile?.contacts, // остальные данные с контактов профиля
     }
 
     const myOnSubmit = (values:ProfileType, {resetForm}:FormikHelpers<{}>) => { // действия по сабмиту
@@ -85,7 +85,7 @@ const EditProfileFormik:React.FC<EditProfileFormikType> = (
                     ),
 
                 React.createElement('div', {className: classes.EditProfileContactsFields},
-                    Object.keys(profile.contacts).map((c) => { // вывод списка контактов, мапим
+                    profile?.contacts &&    Object.keys(profile?.contacts).map((c) => { // вывод списка контактов, мапим
                             return React.createElement('div', {key: c},
                                 React.createElement(
                                     MyTextInput,

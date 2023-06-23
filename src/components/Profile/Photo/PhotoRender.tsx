@@ -5,10 +5,10 @@ import Form from "react-bootstrap/Form";
 
 type PhotoRenderType = {
     photo: string,
-    isMyId: boolean
+    isMyProfile: boolean
     onChangeLocal: (e: ChangeEvent<HTMLInputElement>) => void
 }
-const PhotoRender: React.FC<PhotoRenderType> = ({photo, isMyId, onChangeLocal}) => {
+const PhotoRender: React.FC<PhotoRenderType> = ({photo, isMyProfile, onChangeLocal}) => {
     return <div>
         <div className={classes.toCenter}>
             <Image fluid={true}
@@ -17,7 +17,7 @@ const PhotoRender: React.FC<PhotoRenderType> = ({photo, isMyId, onChangeLocal}) 
                    src={photo}/>
         </div>
 
-        {isMyId && // если мы перешли на свой профиль
+        {isMyProfile && // если мы перешли на свой профиль
         <div className={classes.toCenter}>
             <Form.Control type="file" onChange={onChangeLocal} className={classes.FileUploadInt}/>
         </div>}

@@ -14,15 +14,14 @@ import classes from "../Profile.module.css"
 type ProfileInfoType2 = {
     profile: NulableType<GetProfileType>,
     myId: number,
-    userId: number,
+    userId: number | undefined,
     putProfile: (putProfile2: ProfileType) => void,
-    uploadImage: (profilePhoto: File) => void,
     editProfileStatus: Array<string>,
     setEditProfileStatus: (editProfileStatus: Array<string>) => void
 }
 
 const ProfileInfo: React.FC<ProfileInfoType2> = memo( ({
-                                                           profile, myId, uploadImage,
+                                                           profile, myId,
                                                            userId, putProfile, editProfileStatus, setEditProfileStatus
                                                        }) => {
     console.log( "ProfileInfo" )
@@ -41,10 +40,6 @@ const ProfileInfo: React.FC<ProfileInfoType2> = memo( ({
         }
     }, [editProfileStatus, editedSuccessfully, setEditProfileStatus] ) // переключение режима редактирования зависит от ответа с сервера
 
-
-    if (!profile) { // если профиль еще не загружен
-        return <Preloader/> // отобразить предзагрузку
-    }
 
     const showProfile = <ShowProfile profile={profile} setEditMode={setEditMode} userId={userId} myId={myId}/>
 
@@ -70,8 +65,7 @@ const ProfileInfo: React.FC<ProfileInfoType2> = memo( ({
 
                     {editMode && editProfile} {/*редактировать профиль*/}
 
-                    {/* Если длина больше нуля, то выводим сообщение.
-                        Если сообщение sucessully, то закрываем режим редактирования, выводим успех редактирования и по сеттаймауту зануляем стейт с ошибками
+                    {/* Если сообщение sucessully, то закрываем режим редактирования, выводим успех редактирования и по сеттаймауту зануляем стейт с ошибками
                         Если не саксесфулли, то выводим ошибки и не закрываем редактирование*/}
                 </Col>
             </Row>

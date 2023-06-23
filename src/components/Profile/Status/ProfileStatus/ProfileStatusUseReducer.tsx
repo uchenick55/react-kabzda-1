@@ -30,14 +30,14 @@ const ProfileStatusUseReducer:React.FC<ProfileStatusUseReducerType> = memo( ({st
     const localReducer = (localState:InitialStateType, action:ActionTypes):InitialStateType => {
         let stateCopy; // копия стейта для дебага
         switch (action.type) {
-            case SET_MODIFY_STATUS_TRUE: // если мы открываем поле input (модификацию стьатуса)
+            case SET_MODIFY_STATUS_TRUE: // если мы открываем поле input (модификацию статуса)
                 stateCopy = {
                     ...localState,
                     modifyStatus2: true, // флаг модификации в true
                     statusTmpInput2: status// локальный статус для input берем из стейта
                 };
                 return stateCopy; // проверяем что все вернулось как нужно
-            case SET_MODIFY_STATUS_FALSE: // если мы закрываем модификацию стьатуса
+            case SET_MODIFY_STATUS_FALSE: // если мы закрываем модификацию статуса
                 stateCopy = {
                     ...localState,
                     modifyStatus2: false // флаг модификации в false

@@ -3,12 +3,13 @@ import React, {memo} from "react";
 import commonClasses from "../../common/CommonClasses/common.module.css";
 import Button from "react-bootstrap/Button";
 import Contact from "./Contact";
+import {NulableType} from "../../common/types/commonTypes";
 
 type ShowProfileType = {
-    profile: GetProfileType,
+    profile:  NulableType<GetProfileType>,
     setEditMode: (editMode: boolean )=> void,
-    userId: number,
-    myId: number
+    userId: number | undefined,
+    myId: number | undefined
 }
 
 const ShowProfile: React.FC<ShowProfileType> =memo( ({profile, setEditMode, userId, myId}) => {
@@ -18,11 +19,11 @@ const ShowProfile: React.FC<ShowProfileType> =memo( ({profile, setEditMode, user
     return (<div
             className={`${commonClasses.textMaxWidthCommon} ${commonClasses.textMaxWidth18rem}`}>
 
-            <h3 title={profile.fullName}>{profile.fullName}</h3>
-            <div ><b>Обо мне</b>: <span title={profile.aboutMe}> {profile.aboutMe}</span></div>
-            <div><b>В поиске работы?</b> <span title={profile.lookingForAJob ? "Да" : "Нет"}>{profile.lookingForAJob ? "Да" : "Нет"}</span></div>
-            <div ><b>Описание:</b> <span title={profile.lookingForAJobDescription}>{profile.lookingForAJobDescription}</span></div>
-            <div><b>userId:</b> <span title={profile.userId.toString()}>{profile.userId}</span> </div>
+            <h3 title={profile?.fullName}>{profile?.fullName}</h3>
+            <div ><b>Обо мне</b>: <span title={profile?.aboutMe}> {profile?.aboutMe}</span></div>
+            <div><b>В поиске работы?</b> <span title={profile?.lookingForAJob ? "Да" : "Нет"}>{profile?.lookingForAJob ? "Да" : "Нет"}</span></div>
+            <div ><b>Описание:</b> <span title={profile?.lookingForAJobDescription}>{profile?.lookingForAJobDescription}</span></div>
+            <div><b>userId:</b> <span title={profile?.userId.toString()}>{profile?.userId}</span> </div>
 
             <ul>
                 {profile && Object.keys(profile.contacts).map((key1, ind) => { // ключи contacts
@@ -34,7 +35,7 @@ const ShowProfile: React.FC<ShowProfileType> =memo( ({profile, setEditMode, user
                 })}
             </ul>
 
-            {(userId === 0) && <Button onClick={() => {
+            {(userId === myId) && <Button onClick={() => {
                 setEditMode(true)
             }}>Редактировать профиль </Button>}
 
