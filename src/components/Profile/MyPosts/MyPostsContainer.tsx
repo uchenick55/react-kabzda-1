@@ -8,6 +8,7 @@ import {GlobalStateType} from "../../../redux/store-redux";
 const {addPostActionCreator} = profileActions
 
 const MyPostsContainer: React.FC = () => {
+
     console.log( "MyPostsContainer" )
 
     const dispatch = useDispatch()

@@ -11,7 +11,7 @@ import {
 import {ResultCodeEnum, ResultCodeEnumCaptcha} from "./enum";
 import {appActions} from "../../redux/app-reducer";
 import store from "../../redux/store-redux";
-import {getUnixTime} from "../common/functions/commonFunctions";
+import {saveDataToNotify} from "../common/functions/commonFunctions";
 
 const instance = axios.create( {
     baseURL: 'https://social-network.samuraijs.com/api/1.0/',
@@ -27,21 +27,10 @@ instance.interceptors.response.use(
         if (
             response?.data.resultCode === ResultCodeEnum.Error ||
             response?.data.resultCode === ResultCodeEnumCaptcha.CaptchaIsReqiured
-        )  { // resultcode ошибка 1 или 10 (все остальные ошибки))
-            for (let i = 0; i< response?.data.messages.length; i++) {
-                setTimeout(()=>{
-                    store.dispatch( appActions.setNotify( // запись данных ошибки в стейт
-                        [
-                            ...store.getState().app.notify, // берем все ошибки, что уже есть в массиве ошибок
-                            {
-                                error: response?.data.messages[i], // добавляем сообщение ошибки
-                                timeUnix: getUnixTime() // добавляем время (можно использовать как id)
-                            }
-                        ]
-                    ) )
-                },30) // задержка для уникального времеени - ключей рендера
+        ) { // resultcode ошибка 1 или 10 (все возможные ошибки))
+            for (let i = 0; i < response?.data.messages.length; i++) {
+                saveDataToNotify( response?.data?.messages[i] ) // записать ошибку в массив уведомлений с временем возникновения
             }
-
         }
         return response;// данные успешного ответа для дальнейшего перехвата методами
     },

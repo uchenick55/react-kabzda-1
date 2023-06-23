@@ -8,11 +8,10 @@ import {NulableType} from "../../common/types/commonTypes";
 type ShowProfileType = {
     profile:  NulableType<GetProfileType>,
     setEditMode: (editMode: boolean )=> void,
-    userId: number | undefined,
-    myId: number | undefined
+    isMyProfile: boolean
 }
 
-const ShowProfile: React.FC<ShowProfileType> =memo( ({profile, setEditMode, userId, myId}) => {
+const ShowProfile: React.FC<ShowProfileType> =memo( ({profile, setEditMode, isMyProfile}) => {
     // вынес отдельно отображение профиля
 
 
@@ -35,7 +34,7 @@ const ShowProfile: React.FC<ShowProfileType> =memo( ({profile, setEditMode, user
                 })}
             </ul>
 
-            {(userId === myId) && <Button onClick={() => {
+            {isMyProfile && <Button onClick={() => {
                 setEditMode(true)
             }}>Редактировать профиль </Button>}
 

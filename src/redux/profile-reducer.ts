@@ -5,6 +5,7 @@ import {InferActionsTypes} from "./store-redux";
 import {GetProfileType} from "../components/api/apiTypes";
 import {ResultCodeEnum} from "../components/api/enum";
 import {appActions} from "./app-reducer";
+import {saveDataToNotify} from "../components/common/functions/commonFunctions";
 
 const SET_EDIT_PROFILE_ERROR = "myApp/auth-reducer/SET_EDIT_PROFILE_ERROR"; //константа задания ошибки правеки профиля
 const DELETE_POST = "myApp/profile-reducer/DELETE_POST";// константа удаления новых постов
@@ -147,7 +148,8 @@ export const putMyProfileThunkCreator = (MyProfile: ProfileType): ComThunkTp<Pro
             const response2 = await apiProfile.getProfile( getState().auth.myId )//получение моих дополнительных данных после записи на сервер
             dispatch( authActions.setMyProfile( response2 ) )//задание в стейт моих доп данных
             dispatch( getProfileThunkCreator( getState().auth.myId ) )
-            dispatch( profileActions.setEditProfileStatus( ["Edited successfully!"] ) ) // отправить данные ошибки в стейт
+            saveDataToNotify("Edited successfully!") // вывести уведомление - редактировано успешно
+
         } else { // если пришла ошибка с сервера ввода формы правки профиля
             const message =  // определение локальной переменной message - ответ от сервера
                 response.messages && response.messages.length !== 0  // если response.messages емсть и их длина не равна 0

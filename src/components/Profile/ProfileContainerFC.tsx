@@ -6,7 +6,7 @@ import {
 } from "../../redux/profile-reducer";
 import withRouter2 from "../hoc/withRouter2";
 import NavigateToLoginHoc2 from "../hoc/NavigateToLoginHoc2";
-import React, {useEffect} from "react";
+import React, {useEffect, useMemo} from "react";
 import Preloader from "../common/Preloader/Preloader";
 import PhotoContainer from "./Photo/PhotoContainer";
 import ProfileInfoContainer from "./ProfileInfo/ProfileInfoContainer";
@@ -30,22 +30,23 @@ const ProfileContainerFC: React.FC<OwnPropsType> = ({userId}) => {
 
     const isMyPrifile: boolean = userId === 0 //это мой аккаунт в профиле? (пустой userId в URL на моем аккаунте)
 
+    const myPostsRender = useMemo(()=><MyPostsContainer/>,[])
+
     return <div>
         {isFetching && <Preloader/>} {/*прелоадер при загрузке*/}
 
         <Row>
             <Col lg={6} md={6} sm={12}>
-                <PhotoContainer/> {/*Отрисовка фото выбранного профиля с возможностью редактирования на моей странице*/}
+                {useMemo(()=><PhotoContainer/>,[])} {/*Отрисовка фото выбранного профиля с возможностью редактирования на моей странице*/}
             </Col>
             <Col lg={6} md={6} sm={12}>
-                <ProfileInfoContainer/> {/*Отрисовка данных выбранного профиля и возможность редактировать свой профиль*/}
+                {useMemo(()=><ProfileInfoContainer/>,[])} {/*Отрисовка данных выбранного профиля и возможность редактировать свой профиль*/}
             </Col>
         </Row>
 
+        {useMemo(()=><StatusContainer/>,[])}{/* отобразить статус*/}
 
-        <StatusContainer/> {/* отобразить статус*/}
-
-        {isMyPrifile && <MyPostsContainer/>} {/* для моего аккаункт отобразить мои посты*/}
+        {isMyPrifile && myPostsRender} {/* для моего аккаункт отобразить мои посты*/}
     </div>
 }
 

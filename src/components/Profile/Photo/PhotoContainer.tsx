@@ -9,7 +9,7 @@ import userPhoto1 from "../../../assets/images/no-image3.png";
 
 
 const PhotoContainer: React.FC = () => {
-
+    console.log("PhotoContainer")
     const dispatch = useDispatch()
     const profile: NulableType<GetProfileType> = useSelector( (state: GlobalStateType) => state.profilePage.profile )
     const userId: number | undefined = useSelector( (state: GlobalStateType) => state.profilePage.profile?.userId ) // id пользователя

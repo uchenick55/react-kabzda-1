@@ -5,39 +5,35 @@ import commonClasses from "../../common/CommonClasses/common.module.css";
 import {GetProfileType} from "../../api/apiTypes";
 import {NulableType, ProfileType} from "../../common/types/commonTypes";
 import ShowProfile from "./ShowProfile";
-import classes from "./ProfileInfo.module.css"
 
 type ProfileInfoType2 = {
     profile: NulableType<GetProfileType>,
-    myId: number,
-    userId: number | undefined,
+    isMyProfile: boolean
     putProfile: (putProfile2: ProfileType) => void,
     editProfileStatus: Array<string>,
+    isProfileEditedSuccesssfully: boolean
     setEditProfileStatus: (editProfileStatus: Array<string>) => void
 }
 
-const ProfileInfo: React.FC<ProfileInfoType2> = memo( ({
-                                                           profile, myId,
-                                                           userId, putProfile, editProfileStatus, setEditProfileStatus
-                                                       }) => {
+const ProfileInfo: React.FC<ProfileInfoType2> = memo( (
+    {profile, isMyProfile, putProfile, editProfileStatus, setEditProfileStatus, isProfileEditedSuccesssfully}) => {
+
     console.log( "ProfileInfo" )
+
     const [editMode, setEditMode] = useState<boolean>( false ) // флаг режима редактирования профиля
 
-    const editedSuccessfully: boolean = editProfileStatus.length > 0 // если сообщение об ошибке/обновлении существует
-        && editProfileStatus[0] === "Edited successfully!" // и успешный статус обновления с сервера
-
     useEffect( () => {
-        if (editedSuccessfully) { // если успешно обновлен профиль на сервере
+        if (isProfileEditedSuccesssfully) { // если успешно обновлен профиль на сервере
             setEditMode( false ) // закрыть режим редактирования профиля
             // желательно здесь сделать прокрутку до верха профиля
             setTimeout( () => {
                 setEditProfileStatus( [] ) // убирание сообщения ответа от сервера по таймеру
             }, 2000 )
         }
-    }, [editProfileStatus, editedSuccessfully, setEditProfileStatus] ) // переключение режима редактирования зависит от ответа с сервера
+    }, [editProfileStatus, isProfileEditedSuccesssfully, setEditProfileStatus] ) // переключение режима редактирования зависит от ответа с сервера
 
 
-    const showProfile = <ShowProfile profile={profile} setEditMode={setEditMode} userId={userId} myId={myId}/>
+    const showProfile = <ShowProfile profile={profile} setEditMode={setEditMode} isMyProfile={isMyProfile}/>
 
     const editProfile = <EditProfileFormikBS
         putProfile={putProfile} setEditMode={setEditMode} profile={profile}
@@ -45,24 +41,11 @@ const ProfileInfo: React.FC<ProfileInfoType2> = memo( ({
     />
 
     return <div>
-            <h2 className={commonClasses.pageHeader}>Profile</h2> {/*Заголовок*/}
+        <h2 className={commonClasses.pageHeader}>Profile</h2> {/*Заголовок*/}
 
-            <div>
-                {!editMode && <div>
-                    {showProfile} {/*показать профиль*/}
-                    {editedSuccessfully // если успешно обновлен профиль на сервере
-                    && <div className={classes.editProfileStatus}>
-                        {editProfileStatus[0]} {/* вывести сообщение успешного обновления*/}
-                    </div>
-                    }
-                </div>}
+        {!editMode && showProfile} {/*показать профиль*/}
 
-                {editMode && editProfile} {/*редактировать профиль*/}
-
-                {/* Если сообщение sucessully, то закрываем режим редактирования, выводим успех редактирования и по сеттаймауту зануляем стейт с ошибками
-                        Если не саксесфулли, то выводим ошибки и не закрываем редактирование*/}
-
-            </div>
+        {editMode && editProfile} {/*редактировать профиль*/}
     </div>
 } )
 export default ProfileInfo;
