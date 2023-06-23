@@ -17,18 +17,16 @@ import classes from "../Profile.module.css"
 
 type ProfileInfoType2 = {
     profile: NulableType<GetProfileType>,
-    status: string,
     myId: number,
     userId: number,
     putProfile: (putProfile2: ProfileType) => void,
-    putStatusThunkCreator: (statusTmpInput: string) => void,
     uploadImage: (profilePhoto: File) => void,
     editProfileStatus: Array<string>,
     setEditProfileStatus: (editProfileStatus: Array<string>) => void
 }
 
 const ProfileInfo: React.FC<ProfileInfoType2> = memo( ({
-                                                           profile, myId, status, putStatusThunkCreator, uploadImage,
+                                                           profile, myId, uploadImage,
                                                            userId, putProfile, editProfileStatus, setEditProfileStatus
                                                        }) => {
     console.log( "ProfileInfo" )
@@ -51,13 +49,6 @@ const ProfileInfo: React.FC<ProfileInfoType2> = memo( ({
     if (!profile) { // если профиль еще не загружен
         return <Preloader/> // отобразить предзагрузку
     }
-
-    const profileStatus = <ProfileStatusUseReducer // можно еще использовать ProfileStatusUseState и ProfileStatusClass
-        myId={myId} // мой id для модификации статуса
-        userId={profile.userId} // id отображаемого пользователя
-        status={status} // статус из BLL
-        putStatusThunkCreator={putStatusThunkCreator} // санкреатор для обновления сатуса
-    />
 
     const showProfile =  <ShowProfile profile={profile} setEditMode={setEditMode} userId={userId} myId={myId}/>
 
@@ -107,7 +98,6 @@ const ProfileInfo: React.FC<ProfileInfoType2> = memo( ({
                     {/* Если длина больше нуля, то выводим сообщение.
                         Если сообщение sucessully, то закрываем режим редактирования, выводим успех редактирования и по сеттаймауту зануляем стейт с ошибками
                         Если не саксесфулли, то выводим ошибки и не закрываем редактирование*/}
-                    {profileStatus} {/*отображение моего статуса*/}
                 </Col>
             </Row>
         </Container>

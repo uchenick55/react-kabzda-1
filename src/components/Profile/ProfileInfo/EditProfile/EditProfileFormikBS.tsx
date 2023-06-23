@@ -1,5 +1,5 @@
 import React from "react";
-import {Formik, Form} from "formik"; //формик с компонентами и пользовательским хуком
+import {Formik, Form, FormikHelpers} from "formik"; //формик с компонентами и пользовательским хуком
 import * as Yup from 'yup' // валидация форм с помошью сторонней библиотеки Yup
 import classes from './EditProfile.module.css'
 //import DisplayFormikState from "../../../common/formikCommon/DisplayFormikState"
@@ -31,7 +31,7 @@ const EditProfileFormik:React.FC<EditProfileFormikType> = (
         contacts: profile.contacts, // остальные данные с контактов профиля
     }
 
-    const myOnSubmit = (values:ProfileType, {resetForm}:any) => { // действия по сабмиту
+    const myOnSubmit = (values:ProfileType, {resetForm}:FormikHelpers<{}>) => { // действия по сабмиту
         putProfile(values) // колбек, который принимает результат ввода формы
         resetForm()// сбросить значение формы после ввода
 

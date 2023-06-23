@@ -6,7 +6,7 @@ import Form from 'react-bootstrap/Form';
 
 type ProfileStatusUseReducerType = {
     myId:number, // мой id для модификации статуса
-    userId: number, // id отображаемого пользователя
+    userId: number | undefined, // id отображаемого пользователя
     status:string, // статус из BLL
     putStatusThunkCreator: (statusTmpInput:string)=>void, // санкреатор для обновления сатуса
 }

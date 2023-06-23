@@ -1,5 +1,5 @@
 import React from "react";
-import {Formik, Form} from "formik"; //формик с компонентами и пользовательским хуком
+import {Formik, Form, FormikHelpers} from "formik"; //формик с компонентами и пользовательским хуком
 import * as Yup from 'yup' // валидация форм с помошью сторонней библиотеки Yup
 //import DisplayFormikState from "../../common/formikCommon/DisplayFormikState"
 import {MyTextInput} from "../../common/formikCommon/MyFieldsBS"
@@ -23,7 +23,10 @@ type FeedBackFormikType = {
     sendFeedBack: (data:ApiFeedBackDataType) => void,
 }
 const FeedBackFormik:React.FC<FeedBackFormikType> = ({sendFeedBack}) => { // основная компонента с входным колбэком, чтобы забрать данные с форм
-    const myOnSubmit = (values:ApiFeedBackDataType, {resetForm}:any) => { // действия по сабмиту
+    const myOnSubmit = (
+        values:ApiFeedBackDataType,
+        {resetForm}:FormikHelpers<{ name: string; email: string; message: string; }>
+    ) => { // действия по сабмиту
         sendFeedBack(values) // колбек, который принмает результат ввода формы
         resetForm()// сбросить значение формы после ввода
     }

@@ -1,42 +1,27 @@
 import MyPostsBS from "./MyPostsBS";
 import {profileActions} from "../../../redux/profile-reducer";
-import {connect} from "react-redux";
 import React from "react";
+import {useDispatch, useSelector} from "react-redux";
 import {PostsType} from "../../common/types/commonTypes";
 import {GlobalStateType} from "../../../redux/store-redux";
 
 const {addPostActionCreator} = profileActions
 
-type OwnPropsType = {
-    userId: number,
-}
+const MyPostsContainer: React.FC = () => {
+    console.log( "MyPostsContainer" )
 
-const MyPostsContainer: React.FC<MapStateToPropsType & MapDispatchToPropsType & OwnPropsType> =
-    ({posts, addPostActionCreator, userId}) => {
+    const dispatch = useDispatch()
 
-        type AddPostType = (newPostData: string) => void
-        const addPost: AddPostType = (newPostData: string) => {
-            addPostActionCreator( newPostData )
-        }
-        return <MyPostsBS userId={userId} posts={posts} addPost={addPost}/>
+    const posts: Array<PostsType> = useSelector( (state: GlobalStateType) => state.profilePage.posts )
+
+    type AddPostType = (newPostData: string) => void
+    const addPost: AddPostType = (newPostData: string) => {
+        dispatch( addPostActionCreator( newPostData ) ) // добавить пост с новыми данными
     }
-
-const mapStateToProps = (state: GlobalStateType) => {
-    return {
-        posts: state.profilePage.posts as Array<PostsType>, // мои посты (пока заглушка)
-    }
-}
-type MapDispatchToPropsType = {
-    addPostActionCreator: (newPostData: string) => void
+    return <MyPostsBS posts={posts} addPost={addPost}/>
 }
 
-type MapStateToPropsType = ReturnType<typeof mapStateToProps>
-
-export default connect<MapStateToPropsType, // тип mapStateToProps
-    MapDispatchToPropsType, // тип mapDispatchToProps
-    OwnPropsType, // тип входящих пропсов от родителя
-    GlobalStateType // глобальный стейт из стора
-    >( mapStateToProps, {addPostActionCreator} )( MyPostsContainer );
+export default MyPostsContainer
 
 
 

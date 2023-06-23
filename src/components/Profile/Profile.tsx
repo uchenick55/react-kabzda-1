@@ -4,30 +4,28 @@ import ProfileInfo from "./ProfileInfo/ProfileInfoBS";
 import MyPostsContainer from "./MyPosts/MyPostsContainer";
 import {GetProfileType} from "../api/apiTypes";
 import {NulableType, ProfileType} from "../common/types/commonTypes";
+import PhotoContainer from "./ProfileInfo/Photo/PhotoContainer";
+import StatusContainer from "./ProfileInfo/Status/StatusContainer";
 
 type ProfileType2 = {
     profile: NulableType<GetProfileType>,
-    status: string,
     myId: number,
     userId: number,
     putProfile: (putProfile2: ProfileType) =>void,
-    putStatusThunkCreator: (statusTmpInput:string)=>void,
     uploadImage: (profilePhoto: File)=>void,
     editProfileStatus:Array<string>,
     setEditProfileStatus: (editProfileStatus: Array<string>)=> void
 }
 
 const Profile: React.FC<ProfileType2> = memo ( ({
-                     profile, status, myId, putStatusThunkCreator, uploadImage,
+                     profile, myId, uploadImage,
                      userId, putProfile, editProfileStatus, setEditProfileStatus
                  }) => {
 
     const ProfileRender = <div className={classes.ProfileRender}>
         <ProfileInfo // Отображение данных выбранного пользователя
             profile={profile} // профиль выбранного пользователя
-            status={status} // статус из BLL
             myId={myId} // мой id для модификации статуса
-            putStatusThunkCreator={putStatusThunkCreator} // санкреатор для обновления сатуса
             uploadImage={uploadImage} // колбек загрузки фото профиля на сервер
             userId={userId} // id выбранного пользователя, берется из URL
             putProfile={putProfile}
@@ -36,12 +34,16 @@ const Profile: React.FC<ProfileType2> = memo ( ({
         />
 
     </div>
-    return <div>
-        {ProfileRender} {/*Отрисовка данных профиля с картинкой, и статусом*/}
 
-        <MyPostsContainer // контейнер отображения постов (пока заглушка из стейта BLL)
-            userId={userId} // id выбранного пользователя, берется из URL
-        />
+    return <div>
+        <PhotoContainer/> {/*Отрисовка фото выбранного профиля с картинкой*/}
+
+        {ProfileRender} {/*Отрисовка данных выбранного профиля и возможность редактировать свой профиль*/}
+
+        <StatusContainer/>
+
+        {userId===0 && <MyPostsContainer/>}  {/*контейнер отображения постов (пока заглушка из стейта BLL)*/}
+
     </div>
 })
 export default Profile;

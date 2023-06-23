@@ -1,5 +1,5 @@
 import React, {memo} from "react";
-import {Formik, Form} from "formik"; //формик с компонентами и пользовательским хуком
+import {Formik, Form, FormikHelpers} from "formik"; //формик с компонентами и пользовательским хуком
 import * as Yup from 'yup' // валидация форм с помошью сторонней библиотеки Yup
 //import DisplayFormikState from "../../../common/formikCommon/DisplayFormikState"
 import Button from "react-bootstrap/Button";
@@ -22,7 +22,7 @@ type ValuesType = {
 }
 const Msg2SendMessageRender: React.FC<DialogFormikType> = memo (({Msg2SendMessage}) => { // основная компонента с входным колбэком, чтобы забрать данные с форм
     console.log( "ввод новых сообщений" )
-    const myOnSubmit = (values: ValuesType, {resetForm}: any) => { // действия по сабмиту
+    const myOnSubmit = (values: ValuesType, {resetForm}: FormikHelpers<{ newMessage: string; }>) => { // действия по сабмиту
         Msg2SendMessage( values.newMessage ) // колбек, который принмает результат ввода формы
         resetForm()// сбросить значение формы после ввода
     }

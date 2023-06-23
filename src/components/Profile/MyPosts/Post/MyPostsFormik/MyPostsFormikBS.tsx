@@ -1,5 +1,5 @@
 import React from "react";
-import {Formik, Form} from "formik"; //формик с компонентами и пользовательским хуком
+import {Formik, Form, FormikHelpers} from "formik"; //формик с компонентами и пользовательским хуком
 import * as Yup from 'yup' // валидация форм с помошью сторонней библиотеки Yup
 import classes from "./MyPosts.module.css"
 //import DisplayFormikState from "../../../../common/formikCommon/DisplayFormikState"
@@ -21,7 +21,7 @@ type ValuesType = {
     newPost: string
 }
 const MyPostsFormik:React.FC<MyPostsFormikType> = ({addPost}) => { // основная компонента с входным колбэком, чтобы забрать данные с форм
-    const myOnSubmit = (values:ValuesType, {resetForm}:any) => { // действия по сабмиту
+    const myOnSubmit = (values:ValuesType, {resetForm}:FormikHelpers<{ newPost: string; }>) => { // действия по сабмиту
         addPost(values.newPost) // колбек, который принмает результат ввода формы
         resetForm()// сбросить значение формы после ввода
     }

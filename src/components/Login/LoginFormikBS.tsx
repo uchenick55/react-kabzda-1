@@ -1,7 +1,6 @@
 import React from "react";
 import {Formik, Form, FormikHelpers} from "formik"; //формик с компонентами и пользовательским хуком
 import * as Yup from 'yup' // валидация форм с помошью сторонней библиотеки Yup
-import classes from "./Login.module.css"
 import {MyTextInput, MyCheckbox} from "../common/formikCommon/MyFieldsBS"
 import Button from "react-bootstrap/Button";
 import ButtonGroup from "react-bootstrap/ButtonGroup";
@@ -101,9 +100,6 @@ const LoginFormik:React.FC<LoginFormikType> = ({postLogin, captchaURL, updateCap
                             Submit
                         </Button>
                     </ButtonGroup>
-
-                    {/*кнопка сброса к значениям по умолчанию*/}
-                    <div className={classes.errorText}>{loginError && loginError}</div>
 
                     {/* <DisplayFormikState/> {/*отображение всего стейта формика*/}
                 </Col>

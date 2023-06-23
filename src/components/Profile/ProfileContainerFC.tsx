@@ -54,7 +54,6 @@ const ProfileContainerFC: React.FC<OwnPropsType> = ({userId}) => {
     return <div>
         {isFetching && <Preloader/>}
         <Profile
-            status={status} //статус
             myId={myId}// мой ID
             userId={userId}// id пользователя (может совпадать с myId если смотрим свой профиль)
 
@@ -63,7 +62,6 @@ const ProfileContainerFC: React.FC<OwnPropsType> = ({userId}) => {
 
             putProfile={putProfile }// задание профиля на сервер после ввода данных
             uploadImage={uploadImage}// загрузка картинки
-            putStatusThunkCreator={putStatusThunkCreatorLocal}
             setEditProfileStatus={ setEditProfileStatusLocal }// экшн креатор задания ошибки с сервера в стейт после правки профиля
         />
     </div>

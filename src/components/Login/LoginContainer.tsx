@@ -18,7 +18,7 @@ const LoginContainer: React.FC = () => {
     }
     const captchaURL: string = useSelector((state: GlobalStateType) => state.auth.captchaURL )
     const isAuth:boolean = useSelector((state: GlobalStateType) => state.auth.isAuth )
-    const loginError:string = useSelector((state: GlobalStateType) => state.auth.loginError )
+    const loginError:string = useSelector((state: GlobalStateType) => state.app.error200[0]?.error )
 
     const updateCaptcha = () => {
 

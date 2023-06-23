@@ -10,7 +10,6 @@ export const themeActions = {
     }
 }
 
-
 type ThemeActionTypes = InferActionsTypes<typeof themeActions>
 
 const initialState = { //стейт по умолчанию темы

@@ -8,7 +8,6 @@ const DIALOG2_ACTIONS = "myApp/dialog2-reducer/DIALOG2_ACTIONS";
 const SET_MESSAGES_NEWER_THEN = "myApp/dialog2-reducer/SET_MESSAGES_NEWER_THEN";
 const SET_DIALOG2_INITIALSTATE = "myApp/dialog2-reducer/SET_DIALOG2_INITIALSTATE";
 const SET_D2_ITEM = "myApp/dialog2-reducer/SET_D2_ITEM";
-const SET_API_ERROR_MSG = "myApp/dialog2-reducer/SET_API_ERROR_MSG";
 const SET_MARKERS = "myApp/dialog2-reducer/SET_MARKERS";
 const SET_D2_USERID = "myApp/dialog2-reducer/SET_D2_USERID";
 
@@ -25,9 +24,6 @@ export const dialog2Actions = {
     },
     setD2Item: (d2Item: D2ItemType) => {
         return {type: SET_D2_ITEM, d2Item} as const
-    },
-    setApiErrorMsg: (apiErrorMsg: Array<string>) => {
-        return {type: SET_API_ERROR_MSG, apiErrorMsg} as const
     },
     setMarkers: (markers: MarkersType) => {
         return {type: SET_MARKERS, markers} as const
@@ -93,12 +89,6 @@ const Dialog2Reducer = (state: InitialStateDialog2Type = initialState, action: D
                 d2Item: action.d2Item
             }
             return stateCopy
-        case SET_API_ERROR_MSG: // записать ошибку с сервера в стейт
-            stateCopy = {
-                ...state,
-                apiErrorMsg: action.apiErrorMsg
-            }
-            return stateCopy
         case SET_MARKERS: // записать вспомогательные маркеры
             stateCopy = {
                 ...state,
@@ -125,9 +115,6 @@ export const putDialog2StartThCr = (currentDialogId: number): ThType => {
             console.log( "Диалог с пользователем по его ID начат. Запускаем получение диалоглиста" )
             dispatch( getDialog2AllThCr( currentDialogId ) )
         }
-        if (response.resultCode === ResultCodeEnum.Error) {
-            dispatch( dialog2Actions.setApiErrorMsg( response.messages ) )
-        }
     }
 }
 
@@ -152,9 +139,6 @@ export const postDialog2MessageThCr = ( body: string, date: string): ThType => {
         if (response.resultCode === ResultCodeEnum.Success) {
             console.log( "Отправили сообщение, запускаем получение новых сообщений" )
             dispatch( getDialog2MessagesNewerThenThCr( getState().dialog2.d2UserId, date ) ) // получить все сообщения от указанного ID пользователя новее чем указанная дата
-        }
-        if (response.resultCode === ResultCodeEnum.Error) {
-            dispatch( dialog2Actions.setApiErrorMsg( response.messages ) )
         }
     }
 }
@@ -198,9 +182,6 @@ export const postDialog2MessageIdToSpamThCr = (messageId: string): ThType => {
             ) ) // помечаем сообщение в локальном стейте как спам
 
         }
-        if (response.resultCode === ResultCodeEnum.Error) {
-            dispatch( dialog2Actions.setApiErrorMsg( response.messages ) )
-        }
     }
 }
 export const deleteDialog2MessageIdThCr =
@@ -216,9 +197,6 @@ export const deleteDialog2MessageIdThCr =
                     false
                 ) ) // помечаем сообщение в локальном стейте как удаленное
             }
-            if (response.resultCode === ResultCodeEnum.Error) {
-                dispatch( dialog2Actions.setApiErrorMsg( response.messages ) )
-            }
         }
     }
 export const putDialog2MessageIdRestoreThCr = (messageId: string): ThType => {
@@ -232,11 +210,6 @@ export const putDialog2MessageIdRestoreThCr = (messageId: string): ThType => {
                 setDeleteSpamToMessagesNewerThen( getState().dialog2.messagesNewerThen, messageId, "restore" ),
                 false
             ) ) // помечаем сообщение в локальном стейте как удаленное
-
-
-        }
-        if (response.resultCode === ResultCodeEnum.Error) {
-            dispatch( dialog2Actions.setApiErrorMsg( response.messages ) )
         }
     }
 }
