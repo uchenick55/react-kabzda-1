@@ -9,7 +9,7 @@ import {useDispatch, useSelector} from "react-redux";
 import type {} from 'redux-thunk/extend-redux';
 import {AppDispatch, GlobalStateType} from "../../redux/store-redux";
 import {appActions} from "../../redux/app-reducer";
-import ErrorToastContainer from "../common/ErrorToast/NotifyToastContainer";
+import ErrorToastContainer from "../common/NotifyToast/NotifyToastContainer";
 
 const UsersContainer = React.lazy( () => import("../users/UsersContainerFC") )
 const ProfileContainer = React.lazy( () => import("../Profile/ProfileContainerFC") )

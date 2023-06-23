@@ -35,10 +35,10 @@ const NotifyToastItem:React.FC<NotifyToastItemType> = ({notifyItem, closeToast, 
                bg={theme}
                className='my-2'
         >
-            <Toast.Header className="text-bg-warning ">
-                <strong className="me-auto">Warning</strong>
+            <Toast.Header className={`text-bg-${notifyItem.style.toLowerCase()}`}>
+                <strong className="me-auto">{notifyItem.style}</strong>
             </Toast.Header>
-            <Toast.Body>{notifyItem.error}</Toast.Body>
+            <Toast.Body>{notifyItem.message}</Toast.Body>
         </Toast>
     </div>
 }

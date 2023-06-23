@@ -148,7 +148,8 @@ export const putMyProfileThunkCreator = (MyProfile: ProfileType): ComThunkTp<Pro
             const response2 = await apiProfile.getProfile( getState().auth.myId )//получение моих дополнительных данных после записи на сервер
             dispatch( authActions.setMyProfile( response2 ) )//задание в стейт моих доп данных
             dispatch( getProfileThunkCreator( getState().auth.myId ) )
-            saveDataToNotify("Edited successfully!") // вывести уведомление - редактировано успешно
+            saveDataToNotify("Edited successfully!", "Success") // вывести уведомление - редактировано успешно
+            dispatch(profileActions.setEditProfileStatus([])) // занулить список ошибок профиля
 
         } else { // если пришла ошибка с сервера ввода формы правки профиля
             const message =  // определение локальной переменной message - ответ от сервера

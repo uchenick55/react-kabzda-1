@@ -28,7 +28,7 @@ const ProfileInfoContainer = () => {
 
     let isProfileEditedSuccesssfully: boolean = false
     notify.forEach( (item: NotifyType) => {
-            if (item.error === "Edited successfully!") {
+            if (item.message === "Edited successfully!") {
                 isProfileEditedSuccesssfully = true
             }
         }

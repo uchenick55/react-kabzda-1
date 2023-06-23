@@ -140,6 +140,7 @@ export type ErrorType = {
 }
 
 export type NotifyType = {
-    error: string,
-    timeUnix: number
+    message: string, // сообщение уведомления
+    timeUnix: number, // время сообщений в unix формате (для ключей)
+    style: string // внешний вид сообщения (warning/success и т.д)
 }
