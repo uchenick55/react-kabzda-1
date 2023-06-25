@@ -10,3 +10,8 @@
     transform: scale3d(0.9, 0.9, 0.9);
     opacity: 0;
 }
+
+.liginLink {
+    text-decoration: none;
+    color: var(--color1)
+}

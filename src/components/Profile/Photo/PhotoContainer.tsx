@@ -16,7 +16,7 @@ const PhotoContainer: React.FC = () => {
     const myId: number | undefined = useSelector( (state: GlobalStateType) => state.auth.myId ) // мой id
 
     const onChangeLocal = (e: ChangeEvent<HTMLInputElement>) => {
-        e.target.files &&
+        e.target && e.target.files && e.target.files.length > 0 &&
         dispatch( setprofilePhotoThunkCreator( e.target.files[0] ) )// загрузка файла картинки на сервер
     }
     const photo = profile?.photos?.large

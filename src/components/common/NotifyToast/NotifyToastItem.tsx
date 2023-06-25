@@ -38,7 +38,14 @@ const NotifyToastItem:React.FC<NotifyToastItemType> = ({notifyItem, closeToast, 
             <Toast.Header className={`text-bg-${notifyItem.style.toLowerCase()}`}>
                 <strong className="me-auto">{notifyItem.style}</strong>
             </Toast.Header>
-            <Toast.Body>{notifyItem.message}</Toast.Body>
+            <Toast.Body>{
+                notifyItem.message === "You are not authorized"
+                    ? <a href='#/login'
+                         className={classes.liginLink}
+                         onClick={()=>closeToast(notifyItem)}
+                    >{notifyItem.message}</a>
+                    : notifyItem.message
+            }</Toast.Body>
         </Toast>
     </div>
 }
