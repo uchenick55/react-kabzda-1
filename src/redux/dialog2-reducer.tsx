@@ -113,18 +113,14 @@ export const putDialog2StartThCr = (currentDialogId: number): ThType => {
         const response = await apiDialog2.putDialog2Start( currentDialogId )
         if (response.resultCode === ResultCodeEnum.Success) {
             console.log( "Диалог с пользователем по его ID начат. Запускаем получение диалоглиста" )
-            dispatch( getDialog2AllThCr( currentDialogId ) )
+            dispatch( getDialog2AllThCr() )
         }
     }
 }
 
-export const getDialog2AllThCr = (userId?: number, page: number = 1, count: number = 10): ThType => {
-    return async (dispatch, getState) => {//- получить список сообщений по id пользователя
-        if (!userId) {
-            userId = getState().dialog2.d2Item.id
-            console.log("!userId getDialog2AllThCr")
-        }
-        const response = await apiDialog2.getDialog2All( userId, page, count )
+export const getDialog2AllThCr = (): ThType => {
+    return async (dispatch, getState) => {//- получить список всех диалогов
+        const response = await apiDialog2.getDialog2All()
         if (response) { // если есть данные
             dispatch( dialog2Actions.getDialog2AllAC( response ) ) /* получить диалоглист*/
             console.log("getDialog2AllThCr => setD2Item")

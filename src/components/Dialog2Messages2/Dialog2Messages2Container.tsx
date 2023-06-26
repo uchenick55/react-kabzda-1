@@ -31,6 +31,22 @@ const Dialog2Messages2Container: React.FC<OwnPropsType> = ({userId}) => {
     const {setMarkers, setD2Item, setd2Userid} = dialog2Actions // получить экшены
 
     const dispatch = useDispatch()
+    const wsChannel = new WebSocket("wss://social-network.samuraijs.com/handlers/ChatHandler.ashx")
+
+    type NewMessageType = {
+        "userId": number,//27695
+        "userName": string, //"catDonut"
+        "message": string, //"hi"
+        "photo": string //"https://social-network.samuraijs.com/activecontent/images/users/27695/user-small.jpg?v=1"
+
+    }
+    useEffect(()=>{
+        wsChannel.addEventListener('message', (e:MessageEvent)=>{
+            const newMessages: Array<NewMessageType> = JSON.parse(e.data)
+            console.log(newMessages)
+        })
+    },[])
+
 
     const Msg2SendMessage = (messageBody: string) => {
         dispatch( postDialog2MessageThCr( messageBody, "2022-04-30T19:10:31.843") )// отправить сообщение указав ID пользователя
@@ -56,13 +72,13 @@ const Dialog2Messages2Container: React.FC<OwnPropsType> = ({userId}) => {
         console.log("setd2Userid(userId)")
 
         console.log( "получить сообщения при смене userId", userId )
-        dispatch( getDialog2MessagesNewerThenThCr( userId, "2022-04-30T19:10:31.843" ) )
+        dispatch( getDialog2MessagesNewerThenThCr( userId, "2019-04-30T19:10:31.843" ) )
 
         const d2ItemLocal: D2ItemType = dialog2All.filter( d2 => d2.id === userId )[0]
         if (d2ItemLocal) { //если userId уже присутствует в списке диалогов
             dispatch( setD2Item( d2ItemLocal ) ) // отфильтрровать и получить d2Item
         } else {
-            getDialog2AllThCr(userId)
+            getDialog2AllThCr()
         }
 
     },[userId, dispatch, setd2Userid, dialog2All, setD2Item])
@@ -82,7 +98,7 @@ const Dialog2Messages2Container: React.FC<OwnPropsType> = ({userId}) => {
     useEffect( () => {
         if (patch === "dialog2" && !markers.dialog2FirstUploaded && myId) {
             console.log( "Единичное получение списка диалогов на странице dialog2" )
-            dispatch( getDialog2AllThCr( myId, 1, 10 ) )
+            dispatch( getDialog2AllThCr() )
             dispatch( setMarkers( {
                 ...markers, dialog2FirstUploaded: true
             } ) )

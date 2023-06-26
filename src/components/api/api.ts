@@ -144,8 +144,8 @@ export const apiDialog2 = {
         return (response.data)  // начало диалога с пользователем по его ID
         //putDialog2Start  | dialogs/{userId} - начать диалог, собеседник поднимается вверх??
     },
-    getDialog2All: async (userId: number, page: number, count: number) => { // получить список сообщений по id пользователя
-        const response = await instance.get<GetDialog2AllType>( `dialogs?${userId}&${page}&${count}` )
+    getDialog2All: async () => { // получить список всех диалогов
+        const response = await instance.get<GetDialog2AllType>( `dialogs` )
         return response.data //- получить список сообщений по id пользователя
 
         //getDialog2All | dialogs/{userId}/messages
