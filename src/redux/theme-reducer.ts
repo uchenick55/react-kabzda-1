@@ -1,6 +1,7 @@
 import {apiCommon} from "../components/api/apiLocalStorage";
 import {Dispatch} from "redux";
 import {GlobalStateType, InferActionsTypes} from "./store-redux";
+import {appActions} from "./app-reducer";
 
 const SET_THEME = "myApp/dark-light-reducer/SET_THEME"; //константа задания темы
 
@@ -10,7 +11,9 @@ export const themeActions = {
     }
 }
 
-type ThemeActionTypes = InferActionsTypes<typeof themeActions>
+type ThemeActionTypes =
+    InferActionsTypes<typeof themeActions> |
+    InferActionsTypes<typeof appActions>
 
 const initialState = { //стейт по умолчанию темы
     themeBLL: "light" as "light" | "dark", // тема в bll по умолчанию
@@ -42,11 +45,16 @@ export const setThemeThunkCreator = (theme1: "light" | "dark") => {//санкр�
 }
 export const getThemeThunkCreator = () => {//санкреатор получения темы из LocalStorage
     const getThemeThunk = async (dispatch: Dispatch<ThemeActionTypes>, getState: () => GlobalStateType) => { // санка получения темы из LocalStorage
-        const response1 = await apiCommon.getTheme1()  //получить значение темы из localStorage
-        if (response1!==getState().theme.themeBLL) {
-            dispatch( themeActions.setTheme( response1 ) )  //записать считаное из localStorage значение темы в store
-        }
 
+        dispatch(appActions.toggleIsFetchingArray("getThemeThunkCreator", "add")) // добавить процесс в прелоадер
+
+        const response1 = await apiCommon.getTheme1()  //получить значение темы из localStorage
+        if (response1) {
+            response1!==getState().theme.themeBLL && // если тема не совпадает с темой по умолчанию
+            dispatch( themeActions.setTheme( response1 ) )  //записать считаное из localStorage значение темы в store
+
+            dispatch(appActions.toggleIsFetchingArray("getThemeThunkCreator", "delete")) // убрать процесс из прелоадера
+        }
     }
     return getThemeThunk
 }

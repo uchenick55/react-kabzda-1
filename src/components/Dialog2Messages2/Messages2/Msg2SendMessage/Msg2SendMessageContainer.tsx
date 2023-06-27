@@ -11,7 +11,6 @@ const Msg2SendMessageContainer: React.FC = () => {
     console.log( "поле ввода новых сообщений - контейнер" )
 
     const dispatch = useDispatch()
-    const userId: number = useSelector((state:GlobalStateType) => state.dialog2.d2Item.id )
     const pageWidth: number = useSelector( (state: GlobalStateType) => state.app.pageWidth )// ширина страницы
     const mobileWidth: number = useSelector( (state: GlobalStateType) => state.app.mobileWidth )// ширина страницы, считающаяся мобильной версткой
 

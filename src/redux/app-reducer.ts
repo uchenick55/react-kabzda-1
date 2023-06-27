@@ -4,27 +4,21 @@ import { InferActionsTypes} from "./store-redux";
 import {ComThunkTp, NotifyType, ErrorType} from "../components/common/types/commonTypes";
 
 const SET_INITIALISED_APP = "myApp/app-reducer/SET_INITIALISED_APP"; //константа инициализации приложения
-const APP_INITIAL_STATE = "myApp/app-reducer/APP_INITIAL_STATE"; //константа зануления при логауте
 const SET_PATCH = "myApp/app-reducer/SET_PATCH"; //константа задания пути в URL
 const SET_PAGE_WIDTH = "myApp/app-reducer/SET_PAGE_WIDTH"; //константа задания ширины окна
 const TOGGLE_IS_FETCHING = "myApp/users-reducer/TOGGLE_IS_FETCHING";
 const SET_ERROR_GLOBAL = "myApp/users-reducer/SET_ERROR_GLOBAL";// задать глобальные ошибки с сервера (все кроме 200 ответа)
-const SET_ERROR_200 = "myApp/users-reducer/SET_ERROR_200";// задать ошибки с сервера (в ответе 200)
-const SET_ERROR_200_ARCHIVE = "myApp/users-reducer/SET_ERROR_200_ARCHIVE";// задать архив ошибок с сервера (в ответе 200)
+const SET_NOTIFY = "myApp/users-reducer/SET_NOTIFY";// задать ошибки с сервера (в ответе 200)
+const SET_NOTIFY_ARCHIVE = "myApp/users-reducer/SET_NOTIFY_ARCHIVE";// задать архив ошибок с сервера (в ответе 200)
+const TOGGLE_IS_FETCHING_ARRAY = "myApp/users-reducer/TOGGLE_IS_FETCHING_ARRAY";
 
 export const appActions = {
     setInitialisedApp: () => { // экшн креатор  инициализации приложения
         return {type: SET_INITIALISED_APP} as const
     },
-
-    appInitialState: () => { // экшн зануления при логауте
-        return {type: APP_INITIAL_STATE} as const
-    },
-
     setPatch: (patch: string) => { // экшн зануления при логауте
         return {type: SET_PATCH, patch} as const
     },
-
     setPageWidth: (pageWidth: number) => { // экшн записи ширины экрана
         return {type: SET_PAGE_WIDTH, pageWidth} as const
     },
@@ -35,11 +29,14 @@ export const appActions = {
         return {type: SET_ERROR_GLOBAL, errorGlobal} as const
     },
     setNotify: (notify: Array<NotifyType>) => { // ошибки с сервера (внутри ответа 200)
-        return {type: SET_ERROR_200, notify} as const
+        return {type: SET_NOTIFY, notify} as const
     },
     setNotifyArchive: (notifyItem: NotifyType) => { // архив ошибок после рендера (внутри ответа 200)
-        return {type: SET_ERROR_200_ARCHIVE, notifyItem} as const
-    }
+        return {type: SET_NOTIFY_ARCHIVE, notifyItem} as const
+    },
+    toggleIsFetchingArray: (process: string, method: "add" | "delete") => { // экшн зануления при логауте
+        return {type: TOGGLE_IS_FETCHING_ARRAY, process, method} as const
+    },
 }
 
 type AppActionTypes = InferActionsTypes<typeof appActions>
@@ -54,7 +51,8 @@ const initialState = { //стейт по умолчанию для инициа�
     isFetching: false, // статус загрузки (крутилка)
     errorGlobal: {} as ErrorType,// глобальные ошибки (все кроме 200 ответа)
     notify: [] as Array<NotifyType>, // ошибки с сервера для рендера (внутри ответа 200)
-    notifyArchive: [] as Array<NotifyType> // архивирование ошибок 200
+    notifyArchive: [] as Array<NotifyType>, // архивирование ошибок 200
+    isFetchingArray: [] as Array<string> // массив всех процессов для индикации загрузки
 }
 
 const appReducer = (state: InitialStateType = initialState, action: AppActionTypes): InitialStateType => {//редьюсер инициализации приложения
@@ -65,9 +63,6 @@ const appReducer = (state: InitialStateType = initialState, action: AppActionTyp
                 ...state, // копия всего стейта
                 initialisedApp: true, // смена флага инициализации приложения на true
             }
-            return stateCopy; // возврат копии стейта после изменения
-        case APP_INITIAL_STATE: // экшн зануления при логауте
-            stateCopy = initialState
             return stateCopy; // возврат копии стейта после изменения
         case SET_PATCH: // экшн инициализации приложения
             stateCopy = {
@@ -93,19 +88,27 @@ const appReducer = (state: InitialStateType = initialState, action: AppActionTyp
                 errorGlobal: action.errorGlobal,
             }
             return stateCopy; // возврат копии стейта после изменения
-        case SET_ERROR_200: // экшн записи ошибки с сервера (внутри 200 ответа)
+        case SET_NOTIFY: // экшн записи ошибки с сервера (внутри 200 ответа)
             stateCopy = {
                 ...state, // копия всего стейта
                 notify: action.notify,
             }
             return stateCopy; // возврат копии стейта после изменения
-        case SET_ERROR_200_ARCHIVE: // экшн записи ошибок с сервера (внутри 200 ответа) в архив
+        case SET_NOTIFY_ARCHIVE: // экшн записи ошибок с сервера (внутри 200 ответа) в архив
             stateCopy = {
                 ...state, // копия всего стейта
                 // удалить из массива ошибок выбранный объект ошибки
                 notify: state.notify.filter((item: NotifyType)=> item.timeUnix!==action.notifyItem.timeUnix ), //
                 // добавить эту ошибку в массив архива для ошибок
                 notifyArchive: [...state.notifyArchive, action.notifyItem],
+            }
+            return stateCopy; // возврат копии стейта после изменения
+        case TOGGLE_IS_FETCHING_ARRAY: // запись в массив всех процессов для прелоадера
+            stateCopy = {
+                ...state, // копия всего стейта
+                isFetchingArray: action.method === "add" // если методдобавить
+                    ? [...state.isFetchingArray, action.process ] // добавляем процесс в массив прелоадера
+                    : state.isFetchingArray.filter((item:string)=> item !== action.process) // иначе удаляем процесс из прелоадера
             }
             return stateCopy; // возврат копии стейта после изменения
         default:

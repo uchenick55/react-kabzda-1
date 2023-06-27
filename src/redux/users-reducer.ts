@@ -114,15 +114,19 @@ export const getUsersThunkCreator //санкреатор получить пол
         if (!currentPage) {
             currentPage = getState().usersPage.currentPage
         }
-        dispatch( appActions.toggleIsFetching( true ) ) //показать крутилку загрузки с сервера
+
+
+
+
+       // !getState().app.isFetching && dispatch( appActions.toggleIsFetching( true ) ) //показать крутилку загрузки с сервера
 
         const {pageSize, term, onlyFriends} = getState().usersPage
 
         apiUsers.getUsers( currentPage, pageSize, term, onlyFriends ) //получить пользователей по текущей странице и размере страницы
             .then( (data) => {
-                dispatch( appActions.toggleIsFetching( false ) )  //убрать крутилку загрузки с сервера
                 dispatch( usersActions.setUsers( data.items ) )//записать в стейт закгруженный стек пользователей
                 dispatch( usersActions.setUsersTotalCount( data.totalCount ) )//записать в стейт общее количество пользователей
+             //   dispatch( appActions.toggleIsFetching( false ) )  //убрать крутилку загрузки с сервера
 
                 if (userId) { // если добавление/удаление пользователя в избранное
                     dispatch( usersActions.toggleIsFollowingProgerss( false, userId ) )//убрать ID кнопки пользователя из массива followingInProgress, кнопка раздизаблена

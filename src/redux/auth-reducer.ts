@@ -16,10 +16,10 @@ const SET_MY_PROFILE = "myApp/auth-reducer/SET_MY_PROFILE"; // констант�
 
 type SetAuthDataActionType = {
     type: typeof SET_MY_DATA,
-    id: number,
-    email: string,
-    login: string,
-    isAuth: boolean
+    id: number, // мой id
+    email: string, // моя почта
+    login: string, // мой логин
+    isAuth: boolean // я авторизован?
 }
 
 export const authActions = {
@@ -103,6 +103,9 @@ const authReducer = (state: InitialStateAuthType = initialState, action: AuthAct
 
 export const getAuthMeThunkCreator = (): ComThunkTp<AuthActionTypes> => {//санкреатор я авторизован?. Данных для запроса нет
     return async (dispatch, getState) => {
+
+        dispatch(appActions.toggleIsFetchingArray("getAuthMeThunkCreator", "add")) // добавить процесс в прелоадер
+
         const response = await apiProfile.getAuthMe() // я авторизован?
         if (response.resultCode === ResultCodeEnum.Success) { //если верно ввели логин/пароль
             const {id, email, login} = response.data // мой ID, емейл, логин
@@ -116,6 +119,9 @@ export const getAuthMeThunkCreator = (): ComThunkTp<AuthActionTypes> => {//са�
             if (response.resultCode !== ResultCodeEnum.Success) { //пользователь не авторизован
                 dispatch( authActions.authInitialState() ) // запустить зануление стейта
             }
+
+            dispatch(appActions.toggleIsFetchingArray("getAuthMeThunkCreator", "delete")) // убрать процесс из прелоадера
+
         }
     };
 }
@@ -124,12 +130,14 @@ export const postLoginThunkCreator = (email: string, password: string, rememberm
     //санкреатор на логин
     return async (dispatch, getState) => { // объявление санки на логин
 
-        dispatch( appActions.toggleIsFetching( true ) ) //показать крутилку загрузки с сервера
+        dispatch(appActions.toggleIsFetchingArray("postLoginThunkCreator", "add")) // добавить процесс в прелоадер
 
         const response = await apiProfile.postLogin( email, password, rememberme, captcha ) // отправка данных на авторизацию из формы логина
         if (response.resultCode === ResultCodeEnum.Success) { // если успешная авторизация на сервере
             dispatch( getAuthMeThunkCreator() ) // получить данные с сервера авторизованного пользователя
-            dispatch( appActions.toggleIsFetching( false ) ) //убрать крутилку загрузки с сервера
+           // dispatch( appActions.toggleIsFetching( false ) ) //убрать крутилку загрузки с сервера
+
+            dispatch(appActions.toggleIsFetchingArray("postLoginThunkCreator", "delete")) // убрать процесс из прелоадера
 
         } else { // если логин или пароль не подошли
             const message =  // определение локальной переменной message - ответ от сервера
@@ -140,7 +148,8 @@ export const postLoginThunkCreator = (email: string, password: string, rememberm
                 dispatch( getCaptchaThunkCreator() )
             }
             dispatch( authActions.setLoginError( message ) ) // ошибка авторизации для формика
-            dispatch( appActions.toggleIsFetching( false ) ) //убрать крутилку загрузки с сервера
+
+            dispatch(appActions.toggleIsFetchingArray("postLoginThunkCreator", "delete")) // убрать процесс из прелоадера
 
         }
     };
@@ -148,6 +157,9 @@ export const postLoginThunkCreator = (email: string, password: string, rememberm
 
 export const deleteLoginThunkCreator = (): ComThunkTp<AuthActionTypes> => {//санкреатор на логАут
     return async (dispatch, getState) => { // объявление санки на логаут
+
+        dispatch(appActions.toggleIsFetchingArray("deleteLoginThunkCreator", "add")) // добавить процесс в прелоадер
+
         const response = await apiProfile.deleteLogin() // отправка запроса на логаут
         if (response.resultCode === ResultCodeEnum.Success) { // если сессия успешно закрыта
             setTimeout( () => {
@@ -160,17 +172,27 @@ export const deleteLoginThunkCreator = (): ComThunkTp<AuthActionTypes> => {//с�
 
                 dispatch( dialog2Actions.setDialog2InitialState() )// зануление Dialog2 при логауте
 
+                dispatch(appActions.toggleIsFetchingArray("deleteLoginThunkCreator", "delete")) // убрать процесс из прелоадера
+
             }, 300 )
+
         } else {
-            console.log( response.messages ) // вывести в консоль сообщение ошибки логаута
+            dispatch( authActions.setLoginError( response.messages[0] ) ) // ошибка авторизации для формика
         }
     };
 }
 
 export const getCaptchaThunkCreator = (): ComThunkTp<AuthActionTypes> => {//санкреатор на получение каптчи
     return async (dispatch, getState) => { // санка на получение каптчи
+
+        dispatch(appActions.toggleIsFetchingArray("getCaptchaThunkCreator", "add")) // добавить процесс в прелоадер
+
         const response2 = await apiProfile.getCaptcha() // запрос каптчи
-        dispatch( authActions.setCaptchaURL( response2.url ) ) // получить данные с сервера авторизованного пользователя
+        if (response2.url) {
+            dispatch( authActions.setCaptchaURL( response2.url ) ) // получить адрес картинки каптчи с сервера
+
+            dispatch(appActions.toggleIsFetchingArray("getCaptchaThunkCreator", "delete")) // убрать процесс из прелоадера
+        }
     };
 }
 

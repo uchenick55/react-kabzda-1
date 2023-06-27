@@ -24,13 +24,16 @@ const PaginationContainer:React.FC = () => {
     }
 
     const onPageChanged =  (page: number) => {
+        console.log("Pagination Container переводим страницу")
         dispatch( setCurrentPage( page ) );
     }
 
     useEffect(()=>{
         // эффект который при изменении term или onlyFriends сбрасывает range в 1 и page в 1
-        onPageChanged(1)
-        setCurrentRangeLocal(1)
+       if (currentPage!==1) {
+           onPageChanged(1)
+           setCurrentRangeLocal(1)
+       }
     },[onlyFriends, term])// onPageChanged нельзя в зависимости - при каждой смене страницы идет сброс на 1 страницу и range
 
 

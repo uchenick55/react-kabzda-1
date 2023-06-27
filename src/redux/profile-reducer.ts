@@ -106,14 +106,14 @@ export const profileReducer = (state: InitialStateType = initialState, action: P
 
 export const getProfileThunkCreator = (userId: number): ComThunkTp<ProfileActionTypes> => { // санкреатор на получение профиля выбранного пользователя
     return async (dispatch, getState) => { // нонейм санка на получение профиля выбранного пользователя
-        dispatch( appActions.toggleIsFetching( true ) ) //показать крутилку загрузки с сервера
+       // dispatch( appActions.toggleIsFetching( true ) ) //показать крутилку загрузки с сервера
 
         const idLocal = !userId? getState().auth.myId : userId // если userId не задан в URL (переход на страницу моего профиля не подставляет ID в браузере)
         const response = await apiProfile.getProfile( idLocal) // получение полных данных о моем профиле
 
         dispatch( profileActions.setUserProfile( response ) ) // задание полных данных в профиль
         !getState().profilePage.status && dispatch( getStatusThunkCreator( idLocal ) ) // запрос моего статуса, если его нет
-        dispatch( appActions.toggleIsFetching( false ) ) //убрать крутилку загрузки с сервера
+       // dispatch( appActions.toggleIsFetching( false ) ) //убрать крутилку загрузки с сервера
     }
 }
 
@@ -133,9 +133,11 @@ export const putStatusThunkCreator = (statusTmpInput: string): ComThunkTp<Profil
 }
 export const setprofilePhotoThunkCreator = (profilePhoto: File): ComThunkTp<ProfileActionTypes> => { // санкреатор установки фотографии моего профиля
     return async (dispatch, getState) => { // нонеййм санка установки фотографии моего профиля
-        dispatch( appActions.toggleIsFetching( true ) ) //показать крутилку загрузки с сервера
+      // dispatch( appActions.toggleIsFetching( true ) ) //показать крутилку загрузки с сервера
         const response = await apiProfile.putPhoto( profilePhoto ) // отправка нового фото на сервер
         if (response.resultCode === ResultCodeEnum.Success) { // если успешное обновление статуса с сервера
+
+         //   dispatch( appActions.toggleIsFetching( false ) ) //убрать крутилку загрузки с сервера
             dispatch (getProfileThunkCreator(getState().auth.myId)) // получить данные о профиле с новым фото
         }
     }
@@ -143,6 +145,9 @@ export const setprofilePhotoThunkCreator = (profilePhoto: File): ComThunkTp<Prof
 
 export const putMyProfileThunkCreator = (MyProfile: ProfileType): ComThunkTp<ProfileActionTypes> => { // санкреатор установки моего профиля myProfile
     return async (dispatch, getState) => { // нонеййм санка установки моего профиля myProfile
+
+       // dispatch( appActions.toggleIsFetching( true ) ) //показать крутилку загрузки с сервера
+
         const response = await apiProfile.putMyProfileData( MyProfile ) // отправка нового статуса на сервер
         if (response.resultCode === ResultCodeEnum.Success) { // если успешное обновление профиля на сервере
             const response2 = await apiProfile.getProfile( getState().auth.myId )//получение моих дополнительных данных после записи на сервер
@@ -150,6 +155,8 @@ export const putMyProfileThunkCreator = (MyProfile: ProfileType): ComThunkTp<Pro
             dispatch( getProfileThunkCreator( getState().auth.myId ) )
             saveDataToNotify("Edited successfully!", "Success") // вывести уведомление - редактировано успешно
             dispatch(profileActions.setEditProfileStatus([])) // занулить список ошибок профиля
+
+          //  dispatch( appActions.toggleIsFetching( false ) ) //убрать крутилку загрузки с сервера
 
         } else { // если пришла ошибка с сервера ввода формы правки профиля
             const message =  // определение локальной переменной message - ответ от сервера

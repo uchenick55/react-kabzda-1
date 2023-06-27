@@ -10,9 +10,10 @@ import PaginationContainer from "../common/Pagination/PaginationContainer";
 import InputButtonContainer from "./InputButton/InputButtonCont";
 import UserItemsContainer from "./UserItems/UserItemsContainer";
 import {dialog2Actions} from "../../redux/dialog2-reducer";
+import {D2ItemType} from "../api/apiTypes";
 
 const UsersContainerFC: React.FC = () => {
-
+    console.log("===>>> UsersContainerFC ")
     const {setDialog2InitialState} = dialog2Actions
 
     const currentPage: number = useSelector( usersSelectorsSimple.getCurrentPage )// селектор currentPage - текущая страница пачки пользователей с сервера
@@ -21,6 +22,8 @@ const UsersContainerFC: React.FC = () => {
     const patch: string = useSelector( (state: GlobalStateType) => state.app.patch )// страница из URL
     const onlyFriends: boolean = useSelector( usersSelectorsSimple.getOnlyFriends )// селектор получить только моих рузей
     const term: string = useSelector( (state: GlobalStateType) => state.usersPage.term )// поисковый запрос среди users
+    const d2Item: D2ItemType = useSelector( (state: GlobalStateType) => state.dialog2.d2Item )// отфильтрованый  из dialog2All выбранный пользователь по userId
+
 
     const dispatch = useDispatch()
 
@@ -29,8 +32,10 @@ const UsersContainerFC: React.FC = () => {
     }, [dispatch, onlyFriends, term, currentPage] )
 
     useEffect( () => {
-        dispatch( setDialog2InitialState() ) // при переключении со страницы диалогов, занулить стейт диалогов
-    }, [setDialog2InitialState, dispatch] )
+        if (d2Item.id) { // если стейт d2Item не пустой, занулить его перед новым выбором собеседника
+            dispatch( setDialog2InitialState() )
+        }
+    }, [setDialog2InitialState, dispatch, d2Item] )
 
 
     const totalUsersCountRender = <div> {/*вывод количества всех пользователей*/}
