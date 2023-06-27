@@ -50,12 +50,8 @@ const Dialog2Messages2Container: React.FC<OwnPropsType> = ({userId}) => {
 
     const Msg2SendMessage = (messageBody: string) => {
         dispatch( postDialog2MessageThCr( messageBody, "2022-04-30T19:10:31.843") )// отправить сообщение указав ID пользователя
-        if (markers.dialogId !== userId) { //Если мы еще не начали диалог с пользователем, и отправили сообщение
+        if (d2Item.id !== userId) { //Если мы еще не начали диалог с пользователем, и отправили сообщение
             dispatch( putDialog2StartThCr( userId ) ) // инициировать диалог
-            dispatch( setMarkers( { // маркер пометить, что диалог начался
-                ...markers,
-                dialogId: userId
-            } ) )
         }
     }
 
@@ -81,7 +77,7 @@ const Dialog2Messages2Container: React.FC<OwnPropsType> = ({userId}) => {
             getDialog2AllThCr()
         }
 
-    },[userId, dispatch, setd2Userid, dialog2All, setD2Item])
+    },[userId])
 
 
     useEffect( () => {
@@ -131,3 +127,12 @@ export default compose<React.ComponentType>(
     NavigateToLoginHoc2
 )
 ( Dialog2Messages2Container );
+
+
+
+
+
+// dispatch( setMarkers( { // маркер пометить, что диалог начался
+//     ...markers,
+//     dialogId: userId
+// } ) )

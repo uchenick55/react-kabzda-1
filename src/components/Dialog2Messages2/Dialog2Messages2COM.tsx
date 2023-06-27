@@ -1,4 +1,4 @@
-import React, {memo} from "react";
+import React from "react";
 import classesCommon from "./Messages2/msg2.module.css";
 import Dialog2Render from "./Dialog2/Dialog2Render";
 import Messages2Render from "./Messages2/Messages2Render";
