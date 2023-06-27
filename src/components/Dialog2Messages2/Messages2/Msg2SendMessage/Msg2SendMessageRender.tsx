@@ -1,11 +1,11 @@
-import React, {memo} from "react";
+import React from "react";
 import {Formik, Form, FormikHelpers} from "formik"; //формик с компонентами и пользовательским хуком
 import * as Yup from 'yup' // валидация форм с помошью сторонней библиотеки Yup
-//import DisplayFormikState from "../../../common/formikCommon/DisplayFormikState"
 import Button from "react-bootstrap/Button";
-import sendSwg from "../../../assets/images/swg/send-svg2.svg"
-import classes from "./Msg2SendMessageRender.module.css"
-import {ImageMemo, MyTextInputMemo} from "../../common/BootstrapMemo/BootstrapMemo";
+import sendSwg from "../../../../assets/images/swg/send-svg2.svg"
+import classes from "../msg2.module.css"
+import {ImageMemo, MyTextInputMemo} from "../../../common/BootstrapMemo/BootstrapMemo";
+//import DisplayFormikState from "../../../common/formikCommon/DisplayFormikState"
 
 const myInitialValues = { // начальные зачения форм
     newMessage: "",
@@ -14,20 +14,21 @@ const myValidationSchema = Yup.object( { // валидация форм на req
 } )
 
 type DialogFormikType = {
+    isMobile: boolean // флаг, это мобильное разрешение?
     Msg2SendMessage: (messageBody: string) => void,
-
 }
 type ValuesType = {
     newMessage: string
 }
-const Msg2SendMessageRender: React.FC<DialogFormikType> = memo (({Msg2SendMessage}) => { // основная компонента с входным колбэком, чтобы забрать данные с форм
-    console.log( "ввод новых сообщений" )
+const Msg2SendMessageRender: React.FC<DialogFormikType> = (({Msg2SendMessage, isMobile}) => { // основная компонента с входным колбэком, чтобы забрать данные с форм
+    console.log( "поле ввода новых сообщений" )
     const myOnSubmit = (values: ValuesType, {resetForm}: FormikHelpers<{ newMessage: string; }>) => { // действия по сабмиту
         Msg2SendMessage( values.newMessage ) // колбек, который принмает результат ввода формы
         resetForm()// сбросить значение формы после ввода
     }
 
-    return <div>
+    return <div className={`${classes.Fixed} ${classes.messages2PrintMessage} ${isMobile ?
+        classes.MobileMessagesLeft : classes.DesktopMessagesLeft}`}>
         <Formik
             initialValues={myInitialValues}
             validationSchema={myValidationSchema}

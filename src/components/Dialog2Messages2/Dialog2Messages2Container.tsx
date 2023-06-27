@@ -23,8 +23,8 @@ const Dialog2Messages2Container: React.FC<OwnPropsType> = ({userId}) => {
     const markers: MarkersType = useSelector( (state: GlobalStateType) => state.dialog2.markers )//вспомогательные маркеры
     const d2Item: D2ItemType = useSelector( (state: GlobalStateType) => state.dialog2.d2Item )// отфильтрованый  из dialog2All выбранный пользователь по userId
     const dialog2All: GetDialog2AllType = useSelector( (state: GlobalStateType) => state.dialog2.dialog2All )// список всех диалогов для левой колонки
-    const patch: string = useSelector( (state: GlobalStateType) => state.app.patch )// имя страницы из URL
     const myId: number = useSelector( (state: GlobalStateType) => state.auth.myId )// номер моего id
+    const patch: string = useSelector( (state: GlobalStateType) => state.app.patch )// имя страницы из URL
     const pageWidth: number = useSelector( (state: GlobalStateType) => state.app.pageWidth )// ширина страницы
     const mobileWidth: number = useSelector( (state: GlobalStateType) => state.app.mobileWidth )// ширина страницы, считающаяся мобильной версткой
 

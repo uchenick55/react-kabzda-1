@@ -1,6 +1,46 @@
-.Fixed { /* фиксация полей - общая часть */
+.legendStyle {
+    font-size: 1.5rem;
+    font-weight: bold;
+}
+
+.fieldSetStyle {
+    padding: 10px;
+}
+
+.sendSwg {
+    max-width: 1rem;
+    display: flex;
+    align-items: center;
+}
+.messages2RenderMessages {/* поле отрисовки самих сообщений*/
+    background: var(--color3);
+    border-bottom: 1px solid var(--color1);
+    border-top: 1px solid var(--color1);
+    top: 7.5rem;
+    bottom: 3.5rem;
+    right: 0;
+    overflow: auto;
+}
+.MobileMessagesLeft { /* отступ слева для сообщений на мобильных устройствах*/
+    left: 0;
+}
+
+.DesktopMessagesLeft { /* отступ слева для сообщений на десктопе*/
+    left: var(--dialog2ListWidth);
+}
+
+.dialog2Messages2Common {
+    --dialog2ListWidth: 20rem;
+}
+.Fixed {
     position: fixed;
 }
+
+
+/*
+------------------
+*/
+
 
 .messages2NameAndProfileLink {/* поле отображения фото собеседника и ссылки на его профиль */
     background: var(--color5);
@@ -22,15 +62,7 @@
     align-items: center;
     transition: 0.5s ease-in-out;
 }
-.messages2RenderMessages {/* поле отрисовки самих сообщений*/
-    background: var(--color3);
-    border-bottom: 1px solid var(--color1);
-    border-top: 1px solid var(--color1);
-    top: 7.5rem;
-    bottom: 3.5rem;
-    right: 0;
-    overflow: auto;
-}
+
 
 .messages2PrintMessage { /*поле печати новых сообщений */
     background: var(--color5);
@@ -39,13 +71,6 @@
     right: 0;
 }
 
-.MobileMessagesLeft { /* отступ слева для сообщений на мобильных устройствах*/
-    left: 0;
-}
-
-.DesktopMessagesLeft { /* отступ слева для сообщений на десктопе*/
-    left: var(--dialog2ListWidth);
-}
 
 .Msg2HeaderName { /* имя в шапке сообщений*/
     position: absolute;

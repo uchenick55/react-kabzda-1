@@ -1,9 +1,9 @@
 import React, {memo, useState} from "react";
-import classes from "./messages2Render.module.scss"
+import classes from "../msg2.module.css"
 import Msg2DropDownMenu from "./Msg2DropDownMenu";
-import dustBin from "../../../assets/images/swg/dust-bin2.svg"
-import Spam from "../../../assets/images/swg/spam1.svg"
-import GetDate from "../../common/GetDate";
+import dustBin from "../../../../assets/images/swg/dust-bin2.svg"
+import Spam from "../../../../assets/images/swg/spam1.svg"
+import GetDate from "../../../common/GetDate";
 
 type Messages2ItemType = {
     id: string// "cde7821a-6981-4f49-8b12-faf681cb1621",

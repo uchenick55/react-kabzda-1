@@ -1,14 +1,14 @@
 import Dropdown from 'react-bootstrap/Dropdown';
-import classes from "./messages2Render.module.scss"
+import classes from "../msg2.module.css"
 import React, {memo} from "react";
-import dustBin from "../../../assets/images/swg/dust-bin2.svg"
-import Spam from "../../../assets/images/swg/spam1.svg"
-import Restore from "../../../assets/images/swg/restore1.svg"
+import dustBin from "../../../../assets/images/swg/dust-bin2.svg"
+import Spam from "../../../../assets/images/swg/spam1.svg"
+import Restore from "../../../../assets/images/swg/restore1.svg"
 import {
     deleteDialog2MessageIdThCr,
     postDialog2MessageIdToSpamThCr,
     putDialog2MessageIdRestoreThCr
-} from "../../../redux/dialog2-reducer";
+} from "../../../../redux/dialog2-reducer";
 import {useDispatch} from "react-redux";
 
 type Msg2DropDownMenuType = {
