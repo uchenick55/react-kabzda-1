@@ -20,6 +20,7 @@ const Msg2SendMessageContainer: React.FC = () => {
     }
 
     useEffect(()=>{
+        console.log("инициировать диалог при смене userId")
         dispatch( putDialog2StartThCr( userId ) ) // инициировать диалог при смене userId
     },[userId])
 
@@ -28,14 +29,3 @@ const Msg2SendMessageContainer: React.FC = () => {
     return <Msg2SendMessageRender Msg2SendMessage={Msg2SendMessage} isMobile={isMobile}/>
 }
 export default Msg2SendMessageContainer
-
-
-
-/*        if (markers.dialogId !== userId) { //Если мы еще не начали диалог с пользователем, и отправили сообщение
-
-            dispatch( putDialog2StartThCr( userId ) ) // инициировать диалог
-            dispatch( setMarkers( { // маркер пометить, что диалог начался
-                ...markers,
-                dialogId: userId
-            } ) )
-        }*/

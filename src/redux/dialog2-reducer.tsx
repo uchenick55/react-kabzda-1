@@ -9,7 +9,6 @@ const SET_MESSAGES_NEWER_THEN = "myApp/dialog2-reducer/SET_MESSAGES_NEWER_THEN";
 const SET_DIALOG2_INITIALSTATE = "myApp/dialog2-reducer/SET_DIALOG2_INITIALSTATE";
 const SET_D2_ITEM = "myApp/dialog2-reducer/SET_D2_ITEM";
 const SET_MARKERS = "myApp/dialog2-reducer/SET_MARKERS";
-const SET_D2_USERID = "myApp/dialog2-reducer/SET_D2_USERID";
 
 export const dialog2Actions = {
 
@@ -28,9 +27,6 @@ export const dialog2Actions = {
     setMarkers: (markers: MarkersType) => {
         return {type: SET_MARKERS, markers} as const
     },
-    setd2Userid: (userId: number) => {
-        return {type: SET_D2_USERID, userId} as const
-    }
 
 }
 
@@ -44,7 +40,6 @@ export type MarkersType = {
 const initialState = {
     dialog2All: [] as GetDialog2AllType,
     messagesNewerThen: [] as Array<SendMessageType>,
-    d2UserId: 0,
     d2Item: {} as D2ItemType,
     apiErrorMsg: [] as ApiErrorMsgType,
     markers: {
@@ -95,12 +90,6 @@ const Dialog2Reducer = (state: InitialStateDialog2Type = initialState, action: D
                 markers: action.markers
             }
             return stateCopy
-        case SET_D2_USERID: // записать d2UserId из URL в стейт
-            stateCopy = {
-                ...state,
-                d2UserId: action.userId
-            }
-            return stateCopy
         default:
             return state
     }
@@ -112,8 +101,8 @@ export const putDialog2StartThCr = (currentDialogId: number): ThType => {
     return async (dispatch, getState) => {// начало диалога с пользователем по его ID
         const response = await apiDialog2.putDialog2Start( currentDialogId )
         if (response.resultCode === ResultCodeEnum.Success) {
-            console.log( "Диалог с пользователем по его ID начат. Запускаем получение диалоглиста" )
-            dispatch( getDialog2AllThCr() )
+            console.log( "Диалог с пользователем по его ID начат" )
+          //  dispatch( getDialog2AllThCr() )
         }
     }
 }
@@ -131,10 +120,10 @@ export const getDialog2AllThCr = (): ThType => {
 export const postDialog2MessageThCr = ( body: string, date: string): ThType => {
     console.log( "postDialog2MessageThCr" )
     return async (dispatch, getState) => {// - отправить сообщение пользователю
-        const response = await apiDialog2.postDialog2Message( getState().dialog2.d2UserId, body )
+        const response = await apiDialog2.postDialog2Message( getState().dialog2.d2Item.id, body )
         if (response.resultCode === ResultCodeEnum.Success) {
             console.log( "Отправили сообщение, запускаем получение новых сообщений" )
-            dispatch( getDialog2MessagesNewerThenThCr( getState().dialog2.d2UserId, date ) ) // получить все сообщения от указанного ID пользователя новее чем указанная дата
+            dispatch( getDialog2MessagesNewerThenThCr( getState().dialog2.d2Item.id, date ) ) // получить все сообщения от указанного ID пользователя новее чем указанная дата
         }
     }
 }

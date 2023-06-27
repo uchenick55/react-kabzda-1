@@ -17,7 +17,7 @@ const NotifyToastContainer: React.FC = () => {
         dispatch(setNotifyArchive(notifyItem))
     }
     return <div>
-        <NotifyToast notify={notify} closeToast={closeToast} theme={theme}/>
+        {notify.length>0 && <NotifyToast notify={notify} closeToast={closeToast} theme={theme}/>}
     </div>
 }
 export default NotifyToastContainer

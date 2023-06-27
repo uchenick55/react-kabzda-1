@@ -28,10 +28,10 @@ const Dialog2Messages2Container: React.FC<OwnPropsType> = ({userId}) => {
     const pageWidth: number = useSelector( (state: GlobalStateType) => state.app.pageWidth )// ширина страницы
     const mobileWidth: number = useSelector( (state: GlobalStateType) => state.app.mobileWidth )// ширина страницы, считающаяся мобильной версткой
 
-    const {setMarkers, setD2Item, setd2Userid} = dialog2Actions // получить экшены
+    const {setMarkers, setD2Item} = dialog2Actions // получить экшены
 
     const dispatch = useDispatch()
-    const wsChannel = new WebSocket("wss://social-network.samuraijs.com/handlers/ChatHandler.ashx")
+    //const wsChannel = new WebSocket("wss://social-network.samuraijs.com/handlers/ChatHandler.ashx")
 
     type NewMessageType = {
         "userId": number,//27695
@@ -40,18 +40,19 @@ const Dialog2Messages2Container: React.FC<OwnPropsType> = ({userId}) => {
         "photo": string //"https://social-network.samuraijs.com/activecontent/images/users/27695/user-small.jpg?v=1"
 
     }
-    useEffect(()=>{
+/*    useEffect(()=>{
         wsChannel.addEventListener('message', (e:MessageEvent)=>{
             const newMessages: Array<NewMessageType> = JSON.parse(e.data)
             console.log(newMessages)
         })
-    },[])
+    },[])*/
 
 
     const Msg2SendMessage = (messageBody: string) => {
         dispatch( postDialog2MessageThCr( messageBody, "2022-04-30T19:10:31.843") )// отправить сообщение указав ID пользователя
         if (d2Item.id !== userId) { //Если мы еще не начали диалог с пользователем, и отправили сообщение
-            dispatch( putDialog2StartThCr( userId ) ) // инициировать диалог
+            console.log("Если мы еще не начали диалог с пользователем, и отправили сообщение - начать диалог")
+            dispatch( putDialog2StartThCr( userId ) )
         }
     }
 
@@ -63,10 +64,6 @@ const Dialog2Messages2Container: React.FC<OwnPropsType> = ({userId}) => {
 
 
     useEffect(()=>{ // работа с уже имеющимся диалоглистом слева
-       dispatch(setd2Userid(userId)) // задание userId из URL в стейт
-        //ставим маркер - получить сообщения
-        console.log("setd2Userid(userId)")
-
         console.log( "получить сообщения при смене userId", userId )
         dispatch( getDialog2MessagesNewerThenThCr( userId, "2019-04-30T19:10:31.843" ) )
 
@@ -74,11 +71,21 @@ const Dialog2Messages2Container: React.FC<OwnPropsType> = ({userId}) => {
         if (d2ItemLocal) { //если userId уже присутствует в списке диалогов
             dispatch( setD2Item( d2ItemLocal ) ) // отфильтрровать и получить d2Item
         } else {
+            console.log( "Получение списка диалогов при смене userId" )
             getDialog2AllThCr()
         }
 
     },[userId])
 
+    useEffect( () => {
+        if (patch === "dialog2" && !markers.dialog2FirstUploaded && myId) {
+            console.log( "Единичное получение списка диалогов на странице dialog2" )
+            dispatch( getDialog2AllThCr() )
+            dispatch( setMarkers( {
+                ...markers, dialog2FirstUploaded: true
+            } ) )
+        }
+    }, [markers] )
 
     useEffect( () => {
         if (userId !== 0 && !markers.straightFirstUploaded) {
@@ -90,16 +97,6 @@ const Dialog2Messages2Container: React.FC<OwnPropsType> = ({userId}) => {
         }
     }, [userId, markers, setMarkers, dispatch] )
 
-
-    useEffect( () => {
-        if (patch === "dialog2" && !markers.dialog2FirstUploaded && myId) {
-            console.log( "Единичное получение списка диалогов на странице dialog2" )
-            dispatch( getDialog2AllThCr() )
-            dispatch( setMarkers( {
-                ...markers, dialog2FirstUploaded: true
-            } ) )
-        }
-    }, [patch, markers, setMarkers, myId, dispatch] )
 
     useEffect( () => {
         if (markers.needToScrollBottom) {

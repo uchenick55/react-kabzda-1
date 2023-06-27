@@ -9,7 +9,7 @@ type NotifyToastType = {
     theme: string
 }
 const NotifyToast: React.FC<NotifyToastType> = ({notify, closeToast, theme}) => {
-
+    console.log("NotifyToast")
     return <div className={classes.NotifyToast}>
         {notify.map((notifyItem:NotifyType)=>{ // пробегаем по всем элементам массива ошибок
             return <NotifyToastItem // компонента отрисовки одной ошибки

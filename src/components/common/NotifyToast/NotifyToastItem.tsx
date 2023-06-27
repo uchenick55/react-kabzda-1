@@ -9,6 +9,7 @@ type NotifyToastItemType = {
     theme: string
 }
 const NotifyToastItem:React.FC<NotifyToastItemType> = ({notifyItem, closeToast, theme}) => {
+    console.log("NotifyToastItem")
     const [fadeError, setFadeError] = useState<boolean>(false)
     useEffect(()=>{ // разово при загрузке запускаем обратный отсчет
         const intervalId = setTimeout(()=>{ //
