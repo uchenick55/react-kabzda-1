@@ -43,7 +43,7 @@ export const setThemeThunkCreator = (theme1: "light" | "dark") => {//санкр�
 export const getThemeThunkCreator = () => {//санкреатор получения темы из LocalStorage
     const getThemeThunk = async (dispatch: Dispatch<ThemeActionTypes>, getState: () => GlobalStateType) => { // санка получения темы из LocalStorage
         const response1 = await apiCommon.getTheme1()  //получить значение темы из localStorage
-        if (response1) {
+        if (response1!==getState().theme.themeBLL) {
             dispatch( themeActions.setTheme( response1 ) )  //записать считаное из localStorage значение темы в store
         }
 

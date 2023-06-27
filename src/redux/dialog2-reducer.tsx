@@ -3,6 +3,7 @@ import {ComThunkTp} from "../components/common/types/commonTypes";
 import {apiDialog2} from "../components/api/api";
 import {ApiErrorMsgType, GetDialog2AllType, D2ItemType, SendMessageType} from "../components/api/apiTypes";
 import {ResultCodeEnum} from "../components/api/enum";
+import {appActions} from "./app-reducer";
 
 const DIALOG2_ACTIONS = "myApp/dialog2-reducer/DIALOG2_ACTIONS";
 const SET_MESSAGES_NEWER_THEN = "myApp/dialog2-reducer/SET_MESSAGES_NEWER_THEN";
@@ -30,7 +31,10 @@ export const dialog2Actions = {
 
 }
 
-type Dialog2ActionsTypes = InferActionsTypes<typeof dialog2Actions>
+type Dialog2ActionsTypes =
+    InferActionsTypes<typeof dialog2Actions> |
+    InferActionsTypes<typeof appActions>
+
 export type MarkersType = {
     straightFirstUploaded: boolean, // является ли эта загрузка прямой по ссылке, (или F5)
     dialogId: number, // маркер id диалога
@@ -109,11 +113,15 @@ export const putDialog2StartThCr = (currentDialogId: number): ThType => {
 
 export const getDialog2AllThCr = (): ThType => {
     return async (dispatch, getState) => {//- получить список всех диалогов
+        dispatch( appActions.toggleIsFetching( true ) ) //показать крутилку загрузки с сервера
+
         const response = await apiDialog2.getDialog2All()
         if (response) { // если есть данные
             dispatch( dialog2Actions.getDialog2AllAC( response ) ) /* получить диалоглист*/
-            console.log("getDialog2AllThCr => setD2Item")
-            dispatch( dialog2Actions.setD2Item( response[0] ) ) /*отфильтровать d2Item */
+            dispatch( appActions.toggleIsFetching( false ) ) //показать крутилку загрузки с сервера
+
+            // console.log("getDialog2AllThCr => setD2Item")
+            // dispatch( dialog2Actions.setD2Item( response[0] ) ) /*отфильтровать d2Item */
         }
     }
 }
@@ -200,8 +208,16 @@ export const putDialog2MessageIdRestoreThCr = (messageId: string): ThType => {
 }
 export const getDialog2MessagesNewerThenThCr = (userId: number, date: string): ThType => {
     return async (dispatch, getState) => {// - вернуть сообщения новее определенной даты
+
+        dispatch( appActions.toggleIsFetching( true ) ) //показать крутилку загрузки с сервера
         const response = await apiDialog2.getDialog2MessagesNewerThen( userId, date )
-        dispatch( dialog2Actions.setMessagesNewerThen( response, true ) )
+        if (response) {
+            dispatch( dialog2Actions.setMessagesNewerThen( response, true ) )
+            dispatch( appActions.toggleIsFetching( false ) ) //убрать крутилку загрузки с сервера
+
+//куртилку выкл
+        }
+
     }
 }
 export const getDailog2UnreadMessagesThCr = (): ThType => {

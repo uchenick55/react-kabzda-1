@@ -5,6 +5,7 @@ import type {} from 'redux-thunk/extend-redux';
 import {getCaptchaThunkCreator, postLoginThunkCreator} from "../../redux/auth-reducer";
 import {Navigate} from "react-router-dom";
 import {GlobalStateType} from "../../redux/store-redux";
+import Preloader from "../common/Preloader/Preloader";
 
 const LoginContainer: React.FC = () => {
 
@@ -19,6 +20,7 @@ const LoginContainer: React.FC = () => {
     const captchaURL: string = useSelector((state: GlobalStateType) => state.auth.captchaURL )
     const isAuth:boolean = useSelector((state: GlobalStateType) => state.auth.isAuth )
     const loginError:string = useSelector((state: GlobalStateType) => state.app.notify[0]?.message )
+    const isFetching: boolean = useSelector( (state: GlobalStateType) => state.app.isFetching )// прелоадер при загрузке данных
 
     const updateCaptcha = () => {
 
@@ -31,6 +33,9 @@ const LoginContainer: React.FC = () => {
 
     return (
         <div>
+
+            {isFetching && <Preloader/>} {/*прелоадер при загрузке*/}
+
             <Login postLogin={postLogin}
                    captchaURL={captchaURL}
                    updateCaptcha={updateCaptcha}

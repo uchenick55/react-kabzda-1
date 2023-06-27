@@ -31,6 +31,7 @@ instance.interceptors.response.use(
             for (let i = 0; i < response?.data.messages.length; i++) {
                 saveDataToNotify( response?.data?.messages[i] ) // записать ошибку в массив уведомлений с временем возникновения
             }
+            store.dispatch( appActions.toggleIsFetching( false ) ) //убрать крутилку загрузки с сервера
         }
         return response;// данные успешного ответа для дальнейшего перехвата методами
     },
@@ -38,6 +39,7 @@ instance.interceptors.response.use(
         // Любые коды состояния, выходящие за пределы диапазона 2xx, вызывают срабатывание этой функции
         console.log( "axios.interceptors.response.use", errorGlobal )
         store.dispatch( appActions.setAppErrorAC( errorGlobal ) ) // запись данных ошибки в стейт
+        store.dispatch( appActions.toggleIsFetching( false ) ) //убрать крутилку загрузки с сервера
         // return Promise.reject( err ); //дальше ошибку не передаем в обработчики
     } );
 

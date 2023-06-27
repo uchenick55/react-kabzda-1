@@ -1,7 +1,7 @@
 import {apiProfile} from "../components/api/api";
 import {profileActions} from "./profile-reducer";
 import {usersActions} from "./users-reducer";
-import {InferActionsTypes} from "./store-redux";
+import store, {InferActionsTypes} from "./store-redux";
 import {GetProfileType} from "../components/api/apiTypes";
 import {ResultCodeEnum, ResultCodeEnumCaptcha} from "../components/api/enum";
 import {ComThunkTp, NulableType} from "../components/common/types/commonTypes";
@@ -123,9 +123,14 @@ export const getAuthMeThunkCreator = (): ComThunkTp<AuthActionTypes> => {//са�
 export const postLoginThunkCreator = (email: string, password: string, rememberme?: boolean, captcha?: string): ComThunkTp<AuthActionTypes> => {
     //санкреатор на логин
     return async (dispatch, getState) => { // объявление санки на логин
+
+        dispatch( appActions.toggleIsFetching( true ) ) //показать крутилку загрузки с сервера
+
         const response = await apiProfile.postLogin( email, password, rememberme, captcha ) // отправка данных на авторизацию из формы логина
         if (response.resultCode === ResultCodeEnum.Success) { // если успешная авторизация на сервере
             dispatch( getAuthMeThunkCreator() ) // получить данные с сервера авторизованного пользователя
+            dispatch( appActions.toggleIsFetching( false ) ) //убрать крутилку загрузки с сервера
+
         } else { // если логин или пароль не подошли
             const message =  // определение локальной переменной message - ответ от сервера
                 !response.messages[0] // если ответа от сервера нет
@@ -135,6 +140,8 @@ export const postLoginThunkCreator = (email: string, password: string, rememberm
                 dispatch( getCaptchaThunkCreator() )
             }
             dispatch( authActions.setLoginError( message ) ) // ошибка авторизации для формика
+            dispatch( appActions.toggleIsFetching( false ) ) //убрать крутилку загрузки с сервера
+
         }
     };
 }

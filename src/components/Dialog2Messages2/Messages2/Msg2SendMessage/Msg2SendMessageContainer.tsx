@@ -19,13 +19,9 @@ const Msg2SendMessageContainer: React.FC = () => {
         dispatch( postDialog2MessageThCr( messageBody, "2022-04-30T19:10:31.843") )// отправить сообщение указав ID пользователя
     }
 
-    useEffect(()=>{
-        console.log("инициировать диалог при смене userId")
-        dispatch( putDialog2StartThCr( userId ) ) // инициировать диалог при смене userId
-    },[userId])
-
     const isMobile = pageWidth < mobileWidth // это мобильная верстка?
 
     return <Msg2SendMessageRender Msg2SendMessage={Msg2SendMessage} isMobile={isMobile}/>
 }
 export default Msg2SendMessageContainer
+

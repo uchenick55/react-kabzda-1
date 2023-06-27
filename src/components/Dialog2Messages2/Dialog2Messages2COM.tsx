@@ -9,12 +9,7 @@ type Dialog2RenderType = {
     patch: string,// имя страницы из URL
     pageWidth: number, // ширина страницы
     mobileWidth: number, // ширина страницы, считающаяся мобильной версткой
-    userId: number, // id пользователя из URL
     dialog2All: GetDialog2AllType, // список всех диалогов для левой колонки
-    messagesNewerThen: Array<SendMessageType> // сообщения выбранного диалога, новее заданной даты
-    d2Item: D2ItemType, // отфильтрованый  из dialog2All выбранный пользователь по userId
-    myId: number // номер моего id
-    Msg2SendMessage: (messageBody: string) => void // отправить сообщение указанному пользователю
 }
 
 const Dialog2Messages2COM: React.FC<Dialog2RenderType> = (

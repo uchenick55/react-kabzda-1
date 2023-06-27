@@ -24,6 +24,7 @@ const ContentContainer: React.FC = memo( () => { // вынес роутинг к
     console.log("ContentContainer")
     const {setPatch, setPageWidth} = appActions
     const Patch: string = useSelector((state:GlobalStateType) => state.app.patch)
+    const isAuth: boolean = useSelector((state:GlobalStateType) => state.app.initialisedApp)
 
     const dispatch = useDispatch<AppDispatch>();
 
@@ -40,12 +41,12 @@ const ContentContainer: React.FC = memo( () => { // вынес роутинг к
         }
 
         const UpdatedPatch: string = Aaa.join( "" ) // итоговый путь
-        if (Patch!== UpdatedPatch) {
+        if (isAuth && Patch!== UpdatedPatch) {
             dispatch( setPatch( UpdatedPatch ))
             // обновить данные пути patch в app-reducer
         }
 
-    }, [location, setPatch, dispatch, Patch] )
+    }, [location, setPatch, dispatch, Patch, isAuth] )
 
     const setPageWidthLocal  = () => { //записываем ширину окна в стор
         const pageWidth1 = document.documentElement.scrollWidth// изменяем ширину окна сразу
