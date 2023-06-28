@@ -20,8 +20,6 @@ type OwnPropsType = {
 
 const ProfileContainerFC: React.FC<OwnPropsType> = ({userId}) => {
 
-    const isFetching: boolean = useSelector( (state: GlobalStateType) => state.app.isFetching )
-
     const dispatch = useDispatch()
 
     useEffect( () => {
@@ -33,8 +31,6 @@ const ProfileContainerFC: React.FC<OwnPropsType> = ({userId}) => {
     const myPostsRender = useMemo(()=><MyPostsContainer/>,[])
 
     return <div>
-        {isFetching && <Preloader/>} {/*прелоадер при загрузке*/}
-
         <Row>
             <Col lg={6} md={6} sm={12}>
                 {useMemo(()=><PhotoContainer/>,[])} {/*Отрисовка фото выбранного профиля с возможностью редактирования на моей странице*/}

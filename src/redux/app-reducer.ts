@@ -118,6 +118,7 @@ const appReducer = (state: InitialStateType = initialState, action: AppActionTyp
 
 export const initialisedAppThunkCreator = (): ComThunkTp<AppActionTypes> => {// санкреатор инициализации приложения
     return (dispatch, getState) => { // санки  инициализации приложения
+
         const promise1 = dispatch( getAuthMeThunkCreator() ) // проверка статуса авторизации
         const promise2 = dispatch( getThemeThunkCreator() ) // получение темы
         Promise.all( [promise1, promise2] ) // если все промисы зарезолвились

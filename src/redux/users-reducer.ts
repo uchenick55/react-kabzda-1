@@ -111,14 +111,12 @@ export const getUsersThunkCreator //санкреатор получить пол
     = (currentPage?: number, userId?: number): ComThunkTp<UsersActionTypes> => {
 
     return (dispatch, getState) => { // нонейм санка получить пользователей
+
+        dispatch(appActions.toggleIsFetchingArray("getUsersThunkCreator", "add")) // добавить процесс в прелоадер
+
         if (!currentPage) {
             currentPage = getState().usersPage.currentPage
         }
-
-
-
-
-       // !getState().app.isFetching && dispatch( appActions.toggleIsFetching( true ) ) //показать крутилку загрузки с сервера
 
         const {pageSize, term, onlyFriends} = getState().usersPage
 
@@ -126,11 +124,13 @@ export const getUsersThunkCreator //санкреатор получить пол
             .then( (data) => {
                 dispatch( usersActions.setUsers( data.items ) )//записать в стейт закгруженный стек пользователей
                 dispatch( usersActions.setUsersTotalCount( data.totalCount ) )//записать в стейт общее количество пользователей
-             //   dispatch( appActions.toggleIsFetching( false ) )  //убрать крутилку загрузки с сервера
+
 
                 if (userId) { // если добавление/удаление пользователя в избранное
                     dispatch( usersActions.toggleIsFollowingProgerss( false, userId ) )//убрать ID кнопки пользователя из массива followingInProgress, кнопка раздизаблена
                 }
+                dispatch(appActions.toggleIsFetchingArray("getUsersThunkCreator", "delete")) // убрать процесс из прелоадера
+
             } )
     }
 }
@@ -141,12 +141,19 @@ const _followUnfollowFlow = ( // общий метод для санкреате
     currentPage: number,
     apiMethod: any,// (userId:number)=>,
 ) => {
+
+
+    dispatch(appActions.toggleIsFetchingArray("_followUnfollowFlow", "add")) // добавить процесс в прелоадер
+
     dispatch( usersActions.toggleIsFollowingProgerss( true, userId ) )//внести ID кнопки пользователя в массив followingInProgress от повторного нажатия
     apiMethod( userId )// подписаться на пользователя // diff apiMethod = postFollow
         .then( (response: CommRespType) => {
             if (response.resultCode === ResultCodeEnum.Success) {
                 dispatch( getUsersThunkCreator( currentPage, userId ) )
                 // получить список пользователей после добавления/удаления из избранного
+
+                dispatch(appActions.toggleIsFetchingArray("_followUnfollowFlow", "delete")) // убрать процесс из прелоадера
+
             }
         } )
 }

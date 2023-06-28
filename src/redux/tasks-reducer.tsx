@@ -11,6 +11,7 @@ import React from "react";
 import {ComThunkTp, HitsItemType} from "../components/common/types/commonTypes";
 import {InferActionsTypes} from "./store-redux";
 import {apiTasks} from "../components/api/api";
+import {appActions} from "./app-reducer";
 
 const SET_NEWS_DATA = "myApp/app-reducer/SET_NEWS_DATA"; //константа задания данных News
 
@@ -24,7 +25,9 @@ type NewsDataType = typeof initialState.newsData
 
 type InitialStateType = typeof initialState
 
-type TasksActionTypes = InferActionsTypes<typeof tasksActions>
+type TasksActionTypes =
+    InferActionsTypes<typeof tasksActions> |
+    InferActionsTypes<typeof appActions>
 
 const initialState = { //стейт по умолчанию темы
     newsData: {
@@ -339,8 +342,14 @@ const tasksReducer = (state: InitialStateType = initialState, action: TasksActio
 }
 export const getNewsThunkCreator = (query: string): ComThunkTp<TasksActionTypes> => {//санкреатор на получение данных новостей
     return async (dispatch, getState) => { // санка
+        dispatch(appActions.toggleIsFetchingArray("getNewsThunkCreator", "add")) // добавить процесс в прелоадер
+
         const response: Array<HitsItemType> = await apiTasks.getNews( query );
-        dispatch( tasksActions.setNewsDataAC( {...getState().tasks.newsData, serverData: response, query: query} ) ) // получить данные с сервера по новостям
+        if (response) {
+            dispatch( tasksActions.setNewsDataAC( {...getState().tasks.newsData, serverData: response, query: query} ) ) // получить данные с сервера по новостям
+
+            dispatch(appActions.toggleIsFetchingArray("getNewsThunkCreator", "delete")) // убрать процесс из прелоадера
+        }
     };
 }
 

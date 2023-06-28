@@ -10,6 +10,7 @@ import type {} from 'redux-thunk/extend-redux';
 import {AppDispatch, GlobalStateType} from "../../redux/store-redux";
 import {appActions} from "../../redux/app-reducer";
 import ErrorToastContainer from "../common/NotifyToast/NotifyToastContainer";
+import Preloader from "../common/Preloader/Preloader";
 
 const UsersContainer = React.lazy( () => import("../users/UsersContainerFC") )
 const ProfileContainer = React.lazy( () => import("../Profile/ProfileContainerFC") )
@@ -22,9 +23,11 @@ const FeedBackContainer = React.lazy( () => import("../FeedBack/FeedBackContaine
 
 const ContentContainer: React.FC = memo( () => { // вынес роутинг контента в отдельную компоненту
     console.log("ContentContainer")
+
     const {setPatch, setPageWidth} = appActions
     const Patch: string = useSelector((state:GlobalStateType) => state.app.patch)
     const isAuth: boolean = useSelector((state:GlobalStateType) => state.app.initialisedApp)
+    const isFetchingArray: Array<string> = useSelector((state:GlobalStateType) => state.app.isFetchingArray)
 
     const dispatch = useDispatch<AppDispatch>();
 
@@ -61,6 +64,9 @@ const ContentContainer: React.FC = memo( () => { // вынес роутинг к
     window.onresize = setPageWidthLocal;
 
     return (<div>
+
+        {isFetchingArray.length>0 && <Preloader/>} {/*общий прелоадер при загрузке*/}
+
         {useMemo(()=><ErrorToastContainer/>,[]) }{/* вывод ошибок внутри 200 ответа*/}
         <ErrorBoundary> {/*Локальный обработчик ошибок ContentContainer*/}
             <Suspense fallback={

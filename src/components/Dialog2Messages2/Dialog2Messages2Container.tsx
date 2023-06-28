@@ -20,14 +20,13 @@ type OwnPropsType = {
 
 const Dialog2Messages2Container: React.FC<OwnPropsType> = ({userId}) => {
 
-    const messagesNewerThen: Array<SendMessageType> = useSelector( (state: GlobalStateType) => state.dialog2.messagesNewerThen )// сообщения выбранного диалога, новее заданной даты
     const markers: MarkersType = useSelector( (state: GlobalStateType) => state.dialog2.markers )//вспомогательные маркеры
     const d2Item: D2ItemType = useSelector( (state: GlobalStateType) => state.dialog2.d2Item )// отфильтрованый  из dialog2All выбранный пользователь по userId
     const dialog2All: GetDialog2AllType = useSelector( (state: GlobalStateType) => state.dialog2.dialog2All )// список всех диалогов для левой колонки
     const patch: string = useSelector( (state: GlobalStateType) => state.app.patch )// имя страницы из URL
     const pageWidth: number = useSelector( (state: GlobalStateType) => state.app.pageWidth )// ширина страницы
     const mobileWidth: number = useSelector( (state: GlobalStateType) => state.app.mobileWidth )// ширина страницы, считающаяся мобильной версткой
-    const isFetching: boolean = useSelector( (state: GlobalStateType) => state.app.isFetching )// прелоадер при загрузке данных
+    const isFetchingArray: Array<string> = useSelector((state:GlobalStateType) => state.app.isFetchingArray)
 
     const {setMarkers, setD2Item} = dialog2Actions // получить экшены
 
@@ -47,15 +46,6 @@ const Dialog2Messages2Container: React.FC<OwnPropsType> = ({userId}) => {
             console.log(newMessages)
         })
     },[])*/
-
-
-    const Msg2SendMessage = (messageBody: string) => {
-        dispatch( postDialog2MessageThCr( messageBody, "2022-04-30T19:10:31.843") )// отправить сообщение указав ID пользователя
-        if (d2Item.id !== userId) { //Если мы еще не начали диалог с пользователем, и отправили сообщение
-            console.log("Если мы еще не начали диалог с пользователем, и отправили сообщение - начать диалог")
-            dispatch( putDialog2StartThCr( userId ) )
-        }
-    }
 
     const secondBlock = document.querySelector( '.second-block' ) // ссылка на прокрутку вниз
 
@@ -80,11 +70,11 @@ const Dialog2Messages2Container: React.FC<OwnPropsType> = ({userId}) => {
     },[userId])
 
     useEffect( () => {
-        if (dialog2All.length===0 && !isFetching) {
+        if (dialog2All.length===0 && isFetchingArray.length===0) { // если диалоги не получены, и нет запущенных асинхронных запросов
             console.log( "получение списка диалогов" )
             dispatch( getDialog2AllThCr() )
         }
-    }, [dialog2All, isFetching] )
+    }, [dialog2All, isFetchingArray] )
 
     useEffect( () => {
         if (userId !== 0 ) { //&& !markers.straightFirstUploaded
@@ -108,8 +98,6 @@ const Dialog2Messages2Container: React.FC<OwnPropsType> = ({userId}) => {
 
     return <div>
 
-        {isFetching && <Preloader/>} {/*прелоадер при загрузке*/}
-
         <Dialog2Messages2COM
             patch={patch}
             pageWidth={pageWidth}
@@ -123,12 +111,3 @@ export default compose<React.ComponentType>(
     NavigateToLoginHoc2
 )
 ( Dialog2Messages2Container );
-
-
-
-
-
-// dispatch( setMarkers( { // маркер пометить, что диалог начался
-//     ...markers,
-//     dialogId: userId
-// } ) )

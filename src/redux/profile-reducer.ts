@@ -106,38 +106,56 @@ export const profileReducer = (state: InitialStateType = initialState, action: P
 
 export const getProfileThunkCreator = (userId: number): ComThunkTp<ProfileActionTypes> => { // санкреатор на получение профиля выбранного пользователя
     return async (dispatch, getState) => { // нонейм санка на получение профиля выбранного пользователя
-       // dispatch( appActions.toggleIsFetching( true ) ) //показать крутилку загрузки с сервера
+
+        dispatch(appActions.toggleIsFetchingArray("getProfileThunkCreator", "add")) // добавить процесс в прелоадер
 
         const idLocal = !userId? getState().auth.myId : userId // если userId не задан в URL (переход на страницу моего профиля не подставляет ID в браузере)
-        const response = await apiProfile.getProfile( idLocal) // получение полных данных о моем профиле
+        const response = await apiProfile.getProfile( idLocal) // получение полных данных о профиле
 
-        dispatch( profileActions.setUserProfile( response ) ) // задание полных данных в профиль
-        !getState().profilePage.status && dispatch( getStatusThunkCreator( idLocal ) ) // запрос моего статуса, если его нет
-       // dispatch( appActions.toggleIsFetching( false ) ) //убрать крутилку загрузки с сервера
+        if (response) {
+            dispatch( profileActions.setUserProfile( response ) ) // задание полных данных в профиль
+            !getState().profilePage.status && dispatch( getStatusThunkCreator( idLocal ) ) // запрос статуса, если его нет
+
+            dispatch(appActions.toggleIsFetchingArray("getProfileThunkCreator", "delete")) // убрать процесс из прелоадера
+        }
     }
 }
 
 export const getStatusThunkCreator = (userId: number): ComThunkTp<ProfileActionTypes> => {  // санкреатор запроса статуса выбранного пользователя
     return async (dispatch, getState) => { // нонейм санка запроса статуса выбранного пользователя
+
+        dispatch(appActions.toggleIsFetchingArray("getStatusThunkCreator", "add")) // добавить процесс в прелоадер
+
         const response = await apiProfile.getStatus( userId ) // api запрос получение статуса по userId
+
         dispatch( profileActions.setStatus( response ) ) // задание статуса в локальный стейт с последующей переотрисовкой
+
+        dispatch(appActions.toggleIsFetchingArray("getStatusThunkCreator", "delete")) // убрать процесс из прелоадера
     }
 }
 export const putStatusThunkCreator = (statusTmpInput: string): ComThunkTp<ProfileActionTypes> => { // санкреатор обновления моего статуса
     return async (dispatch, getState) => { // нонеййм санка обновления моего статуса
+
+        dispatch(appActions.toggleIsFetchingArray("putStatusThunkCreator", "add")) // добавить процесс в прелоадер
+
         const response = await apiProfile.putStatus( statusTmpInput ) // отправка нового статуса на сервер
         if (response.resultCode === ResultCodeEnum.Success) { // если успешное обновление статуса с сервера
             dispatch( getStatusThunkCreator( getState().auth.myId ) )// получение нового статуса с сервера после обновления
+
+            dispatch(appActions.toggleIsFetchingArray("putStatusThunkCreator", "delete")) // убрать процесс из прелоадера
         }
     }
 }
 export const setprofilePhotoThunkCreator = (profilePhoto: File): ComThunkTp<ProfileActionTypes> => { // санкреатор установки фотографии моего профиля
     return async (dispatch, getState) => { // нонеййм санка установки фотографии моего профиля
-      // dispatch( appActions.toggleIsFetching( true ) ) //показать крутилку загрузки с сервера
+
+        dispatch(appActions.toggleIsFetchingArray("setprofilePhotoThunkCreator", "add")) // добавить процесс в прелоадер
+
         const response = await apiProfile.putPhoto( profilePhoto ) // отправка нового фото на сервер
         if (response.resultCode === ResultCodeEnum.Success) { // если успешное обновление статуса с сервера
 
-         //   dispatch( appActions.toggleIsFetching( false ) ) //убрать крутилку загрузки с сервера
+            dispatch(appActions.toggleIsFetchingArray("setprofilePhotoThunkCreator", "delete")) // убрать процесс из прелоадера
+
             dispatch (getProfileThunkCreator(getState().auth.myId)) // получить данные о профиле с новым фото
         }
     }
@@ -146,7 +164,7 @@ export const setprofilePhotoThunkCreator = (profilePhoto: File): ComThunkTp<Prof
 export const putMyProfileThunkCreator = (MyProfile: ProfileType): ComThunkTp<ProfileActionTypes> => { // санкреатор установки моего профиля myProfile
     return async (dispatch, getState) => { // нонеййм санка установки моего профиля myProfile
 
-       // dispatch( appActions.toggleIsFetching( true ) ) //показать крутилку загрузки с сервера
+        dispatch(appActions.toggleIsFetchingArray("putMyProfileThunkCreator", "add")) // добавить процесс в прелоадер
 
         const response = await apiProfile.putMyProfileData( MyProfile ) // отправка нового статуса на сервер
         if (response.resultCode === ResultCodeEnum.Success) { // если успешное обновление профиля на сервере
@@ -156,7 +174,7 @@ export const putMyProfileThunkCreator = (MyProfile: ProfileType): ComThunkTp<Pro
             saveDataToNotify("Edited successfully!", "Success") // вывести уведомление - редактировано успешно
             dispatch(profileActions.setEditProfileStatus([])) // занулить список ошибок профиля
 
-          //  dispatch( appActions.toggleIsFetching( false ) ) //убрать крутилку загрузки с сервера
+            dispatch(appActions.toggleIsFetchingArray("putMyProfileThunkCreator", "delete")) // убрать процесс из прелоадера
 
         } else { // если пришла ошибка с сервера ввода формы правки профиля
             const message =  // определение локальной переменной message - ответ от сервера
@@ -164,6 +182,7 @@ export const putMyProfileThunkCreator = (MyProfile: ProfileType): ComThunkTp<Pro
                     ? response.messages //  вывести ответ от сервера
                     : ["no responce from server"] // иначе вывести сообщение заглушку
             dispatch( profileActions.setEditProfileStatus( message ) ) // отправить данные ошибки в стейт
+            dispatch(appActions.toggleIsFetchingArray("putMyProfileThunkCreator", "delete")) // убрать процесс из прелоадера
         }
     }
 }

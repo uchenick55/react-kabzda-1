@@ -18,7 +18,6 @@ const UsersContainerFC: React.FC = () => {
 
     const currentPage: number = useSelector( usersSelectorsSimple.getCurrentPage )// селектор currentPage - текущая страница пачки пользователей с сервера
     const totalUsersCount: number = useSelector( usersSelectorsSimple.getTotalUsersCount )// селектор totalUsersCount - общее число пользователей с сервера
-    const isFetching: boolean = useSelector( usersSelectorsSimple.getIsFetching )// селектор isFetching - показать крутилку при загрузке страницы
     const patch: string = useSelector( (state: GlobalStateType) => state.app.patch )// страница из URL
     const onlyFriends: boolean = useSelector( usersSelectorsSimple.getOnlyFriends )// селектор получить только моих рузей
     const term: string = useSelector( (state: GlobalStateType) => state.usersPage.term )// поисковый запрос среди users
@@ -47,8 +46,6 @@ const UsersContainerFC: React.FC = () => {
 
     const inputButtonMemo = useMemo( () => <InputButtonContainer/>, [] )// мемоизация чтобы не рисовалась при срабатывании колбеков соседей
     return <div>
-
-        {isFetching && <Preloader/>} {/*лоадер при загрузке*/}
 
         <div className={patch === "users" ? "" : classes.usersHeaderDialogsPage}> {/*на странице Users - одна колонка*/}
 

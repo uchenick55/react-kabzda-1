@@ -20,7 +20,6 @@ const LoginContainer: React.FC = () => {
     const captchaURL: string = useSelector((state: GlobalStateType) => state.auth.captchaURL )
     const isAuth:boolean = useSelector((state: GlobalStateType) => state.auth.isAuth )
     const loginError:string = useSelector((state: GlobalStateType) => state.app.notify[0]?.message )
-    const isFetching: boolean = useSelector( (state: GlobalStateType) => state.app.isFetching )// прелоадер при загрузке данных
 
     const updateCaptcha = () => {
 
@@ -31,17 +30,10 @@ const LoginContainer: React.FC = () => {
         return <Navigate to='../dialog2'/>; // редирект на страницу Profile
     }
 
-    return (
-        <div>
-
-            {isFetching && <Preloader/>} {/*прелоадер при загрузке*/}
-
-            <Login postLogin={postLogin}
+    return <Login postLogin={postLogin}
                    captchaURL={captchaURL}
                    updateCaptcha={updateCaptcha}
                    loginError={loginError}
-            /> {/*Возврат целевой компоненты*/}
-        </div>
-    )
+            />
 }
 export default LoginContainer

@@ -36,9 +36,13 @@ const themeReducer = (state: initialStateType = initialState, action: ThemeActio
 
 export const setThemeThunkCreator = (theme1: "light" | "dark") => {//санкреатор задания темы в LocalStorage
     return async (dispatch: Dispatch<ThemeActionTypes>, getState: () => GlobalStateType) => { // санка задания темы в LocalStorage
+        dispatch(appActions.toggleIsFetchingArray("setThemeThunkCreator", "add")) // добавить процесс в прелоадер
+
         const response1 = await apiCommon.putTheme1( theme1 )  //записать значение темы в localStorage
         if (response1) {
             dispatch( themeActions.setTheme( response1 ) )  //записать считаное из localStorage значение темы в store
+
+            dispatch(appActions.toggleIsFetchingArray("setThemeThunkCreator", "delete")) // убрать процесс из прелоадера
         }
 
     }
