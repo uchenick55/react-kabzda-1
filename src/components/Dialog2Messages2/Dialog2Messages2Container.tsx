@@ -31,21 +31,21 @@ const Dialog2Messages2Container: React.FC<OwnPropsType> = ({userId}) => {
     const {setMarkers, setD2Item} = dialog2Actions // получить экшены
 
     const dispatch = useDispatch()
-    //const wsChannel = new WebSocket("wss://social-network.samuraijs.com/handlers/ChatHandler.ashx")
+    /*    const wsChannel = new WebSocket("wss://social-network.samuraijs.com/handlers/ChatHandler.ashx")
 
-/*    type NewMessageType = {
-        "userId": number,//27695
-        "userName": string, //"catDonut"
-        "message": string, //"hi"
-        "photo": string //"https://social-network.samuraijs.com/activecontent/images/users/27695/user-small.jpg?v=1"
+        type NewMessageType = {
+            "userId": number,//27695
+            "userName": string, //"catDonut"
+            "message": string, //"hi"
+            "photo": string //"https://social-network.samuraijs.com/activecontent/images/users/27695/user-small.jpg?v=1"
 
-    }*/
-/*    useEffect(()=>{
-        wsChannel.addEventListener('message', (e:MessageEvent)=>{
-            const newMessages: Array<NewMessageType> = JSON.parse(e.data)
-            console.log(newMessages)
-        })
-    },[])*/
+
+        useEffect(()=>{
+            wsChannel.addEventListener('message', (e:MessageEvent)=>{
+                const newMessages: Array<NewMessageType> = JSON.parse(e.data)
+                console.log(newMessages)
+            })
+        },[])}*/
 
     const secondBlock = document.querySelector( '.second-block' ) // ссылка на прокрутку вниз
 
@@ -70,6 +70,7 @@ const Dialog2Messages2Container: React.FC<OwnPropsType> = ({userId}) => {
     },[userId])
 
     useEffect( () => {
+        // эту часть выносим внутрь putDialog2StartThCr после then
         if (dialog2All.length===0 && isFetchingArray.length===0) { // если диалоги не получены, и нет запущенных асинхронных запросов
             console.log( "получение списка диалогов" )
             dispatch( getDialog2AllThCr() )
@@ -77,7 +78,7 @@ const Dialog2Messages2Container: React.FC<OwnPropsType> = ({userId}) => {
     }, [dialog2All, isFetchingArray] )
 
     useEffect( () => {
-        if (userId !== 0 ) { //&& !markers.straightFirstUploaded
+        if (userId !== 0 ) {
             console.log( "начать диалог по непустому userId " )
             dispatch( putDialog2StartThCr( userId ) )
 /*            dispatch( setMarkers( {

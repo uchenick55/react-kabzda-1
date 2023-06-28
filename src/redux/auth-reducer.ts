@@ -116,12 +116,13 @@ export const getAuthMeThunkCreator = (): ComThunkTp<AuthActionTypes> => {//са�
             const response2 = await apiProfile.getProfile( response.data.id )//получение моих дополнительных данных после авторизации
 
             dispatch( authActions.setMyProfile( response2 ) )//задание в стейт моих доп данных
-            if (response.resultCode !== ResultCodeEnum.Success) { //пользователь не авторизован
-                dispatch( authActions.authInitialState() ) // запустить зануление стейта
-            }
 
             dispatch(appActions.toggleIsFetchingArray("getAuthMeThunkCreator", "delete")) // убрать процесс из прелоадера
 
+        } else { //пользователь не авторизован
+            dispatch( authActions.authInitialState() ) // запустить зануление стейта
+
+            dispatch(appActions.toggleIsFetchingArray("getAuthMeThunkCreator", "delete")) // убрать процесс из прелоадера
         }
     };
 }

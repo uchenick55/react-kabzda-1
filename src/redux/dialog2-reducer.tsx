@@ -5,7 +5,7 @@ import {ApiErrorMsgType, GetDialog2AllType, D2ItemType, SendMessageType} from ".
 import {ResultCodeEnum} from "../components/api/enum";
 import {appActions} from "./app-reducer";
 
-const DIALOG2_ACTIONS = "myApp/dialog2-reducer/DIALOG2_ACTIONS";
+const SET_DIALOG_LIST = "myApp/dialog2-reducer/SET_DIALOG_LIST";
 const SET_MESSAGES_NEWER_THEN = "myApp/dialog2-reducer/SET_MESSAGES_NEWER_THEN";
 const SET_DIALOG2_INITIALSTATE = "myApp/dialog2-reducer/SET_DIALOG2_INITIALSTATE";
 const SET_D2_ITEM = "myApp/dialog2-reducer/SET_D2_ITEM";
@@ -14,9 +14,9 @@ const SET_MARKERS = "myApp/dialog2-reducer/SET_MARKERS";
 export const dialog2Actions = {
 
     getDialog2AllAC: (dialog2All: GetDialog2AllType) => {
-        return {type: DIALOG2_ACTIONS, dialog2All} as const
+        return {type: SET_DIALOG_LIST, dialog2All} as const
     },
-    setMessagesNewerThen: (messagesNewerThen: Array<SendMessageType>, needToScrollBottom:boolean) => {
+    setMessagesNewerThen: (messagesNewerThen: Array<SendMessageType>, needToScrollBottom: boolean) => {
         return {type: SET_MESSAGES_NEWER_THEN, messagesNewerThen, needToScrollBottom} as const
     },
     setDialog2InitialState: () => {
@@ -59,15 +59,15 @@ type InitialStateDialog2Type = typeof initialState
 const Dialog2Reducer = (state: InitialStateDialog2Type = initialState, action: Dialog2ActionsTypes): InitialStateDialog2Type => {
     let stateCopy: InitialStateDialog2Type // объявлениечасти части стейта до изменения редьюсером
     switch (action.type) {
-        case DIALOG2_ACTIONS: // список всех диалогов
-            const dialog2AllLocal:GetDialog2AllType = []
+        case SET_DIALOG_LIST: // список всех диалогов
+            const dialog2AllLocal: GetDialog2AllType = []
             const listUniqueDialog2Id: Array<number> = []
-            action.dialog2All.forEach(d2=>{
-                if (!listUniqueDialog2Id.includes(d2.id)) {
-                    listUniqueDialog2Id.push(d2.id)
-                    dialog2AllLocal.push(d2)
+            action.dialog2All.forEach( d2 => {
+                if (!listUniqueDialog2Id.includes( d2.id )) {
+                    listUniqueDialog2Id.push( d2.id )
+                    dialog2AllLocal.push( d2 )
                 }
-            })
+            } )
             stateCopy = {
                 ...state,
                 dialog2All: dialog2AllLocal
@@ -77,7 +77,7 @@ const Dialog2Reducer = (state: InitialStateDialog2Type = initialState, action: D
             stateCopy = {
                 ...state,
                 messagesNewerThen: action.messagesNewerThen,
-                markers: {...state.markers,  needToScrollBottom: action.needToScrollBottom}
+                markers: {...state.markers, needToScrollBottom: action.needToScrollBottom}
             }
             return stateCopy
         case SET_DIALOG2_INITIALSTATE: // занулить стейт при логауте
@@ -104,13 +104,16 @@ type ThType = ComThunkTp<Dialog2ActionsTypes> // тип, выведенный и
 export const putDialog2StartThCr = (currentDialogId: number): ThType => {
     return async (dispatch, getState) => {// начало диалога с пользователем по его ID
 
-        dispatch(appActions.toggleIsFetchingArray("putDialog2StartThCr", "add")) // добавить процесс в прелоадер
+        dispatch( appActions.toggleIsFetchingArray( "putDialog2StartThCr", "add" ) ) // добавить процесс в прелоадер
 
         const response = await apiDialog2.putDialog2Start( currentDialogId )
         if (response.resultCode === ResultCodeEnum.Success) {
-            console.log( "Диалог с пользователем по его ID начат" )
+            dispatch( appActions.toggleIsFetchingArray( "putDialog2StartThCr", "delete" ) ) // убрать процесс из прелоадера
 
-            dispatch(appActions.toggleIsFetchingArray("putDialog2StartThCr", "delete")) // убрать процесс из прелоадера
+            console.log( "Диалог с пользователем по его ID начат, запускаем получение списка диалогов" )
+
+            dispatch( getDialog2AllThCr() )
+
         }
     }
 }
@@ -118,50 +121,51 @@ export const putDialog2StartThCr = (currentDialogId: number): ThType => {
 export const getDialog2AllThCr = (): ThType => {
     return async (dispatch, getState) => {//- получить список всех диалогов
 
-        dispatch(appActions.toggleIsFetchingArray("getDialog2AllThCr", "add")) // добавить процесс в прелоадер
+        dispatch( appActions.toggleIsFetchingArray( "getDialog2AllThCr", "add" ) ) // добавить процесс в прелоадер
 
         const response = await apiDialog2.getDialog2All()
         if (response) { // если есть данные
             dispatch( dialog2Actions.getDialog2AllAC( response ) ) /* получить диалоглист*/
 
-            dispatch(appActions.toggleIsFetchingArray("getDialog2AllThCr", "delete")) // убрать процесс из прелоадера
+            dispatch( appActions.toggleIsFetchingArray( "getDialog2AllThCr", "delete" ) ) // убрать процесс из прелоадера
 
+            // по идее здесь только отфильтровать d2Item и все
             // console.log("getDialog2AllThCr => setD2Item")
-            // dispatch( dialog2Actions.setD2Item( response[0] ) ) /*отфильтровать d2Item */
+             dispatch( dialog2Actions.setD2Item( response[0] ) ) /*отфильтровать d2Item */
         }
     }
 }
-export const postDialog2MessageThCr = ( body: string, date: string): ThType => {
+export const postDialog2MessageThCr = (body: string, date: string): ThType => {
     return async (dispatch, getState) => {// - отправить сообщение пользователю
         console.log( "postDialog2MessageThCr" )
 
-        dispatch(appActions.toggleIsFetchingArray("postDialog2MessageThCr", "add")) // добавить процесс в прелоадер
+        dispatch( appActions.toggleIsFetchingArray( "postDialog2MessageThCr", "add" ) ) // добавить процесс в прелоадер
 
         const response = await apiDialog2.postDialog2Message( getState().dialog2.d2Item.id, body )
         if (response.resultCode === ResultCodeEnum.Success) {
             console.log( "Отправили сообщение, запускаем получение новых сообщений" )
             dispatch( getDialog2MessagesNewerThenThCr( getState().dialog2.d2Item.id, date ) ) // получить все сообщения от указанного ID пользователя новее чем указанная дата
 
-            dispatch(appActions.toggleIsFetchingArray("postDialog2MessageThCr", "delete")) // убрать процесс из прелоадера
+            dispatch( appActions.toggleIsFetchingArray( "postDialog2MessageThCr", "delete" ) ) // убрать процесс из прелоадера
         }
     }
 }
 export const getDialog2MessageIdViewedThCr = (messageId: string): ThType => {
     return async (dispatch, getState) => {//- проверить, было ли прочитано сообщение по Id сообщения
 
-        dispatch(appActions.toggleIsFetchingArray("getDialog2MessageIdViewedThCr", "add")) // добавить процесс в прелоадер
+        dispatch( appActions.toggleIsFetchingArray( "getDialog2MessageIdViewedThCr", "add" ) ) // добавить процесс в прелоадер
 
         const response = await apiDialog2.getDialog2MessageIdViewed( messageId )
 
         if (response) {
             console.log( "проверить, было ли прочитано сообщение по Id сообщения", response.data )
 
-            dispatch(appActions.toggleIsFetchingArray("getDialog2MessageIdViewedThCr", "delete")) // убрать процесс из прелоадера
+            dispatch( appActions.toggleIsFetchingArray( "getDialog2MessageIdViewedThCr", "delete" ) ) // убрать процесс из прелоадера
         }
     }
 }
 const setDeleteSpamToMessagesNewerThen =
-    (messagesNewerThen: Array<SendMessageType>, messageId: string, SPAM_DELETE: "spam" | "delete"| "restore") => {
+    (messagesNewerThen: Array<SendMessageType>, messageId: string, SPAM_DELETE: "spam" | "delete" | "restore") => {
         const messagesNewerThenLocal: Array<SendMessageType> = JSON.parse( JSON.stringify( messagesNewerThen ) ) // полная копия сообщений
         messagesNewerThenLocal.forEach( m2 => {
             if (m2.id === messageId) { // если совпадает id удаленного сообщения с перебираемым id сообщения
@@ -185,7 +189,7 @@ export const postDialog2MessageIdToSpamThCr = (messageId: string): ThType => {
     return async (dispatch, getState) => {// - пометить сообщение как спам
         console.log( "postDialog2MessageIdToSpamThCr" )
 
-        dispatch(appActions.toggleIsFetchingArray("postDialog2MessageIdToSpamThCr", "add")) // добавить процесс в прелоадер
+        dispatch( appActions.toggleIsFetchingArray( "postDialog2MessageIdToSpamThCr", "add" ) ) // добавить процесс в прелоадер
 
         const response = await apiDialog2.postDialog2MessageIdToSpam( messageId )
         if (response.resultCode === ResultCodeEnum.Success) {
@@ -196,34 +200,34 @@ export const postDialog2MessageIdToSpamThCr = (messageId: string): ThType => {
                 false
             ) ) // помечаем сообщение в локальном стейте как спам
 
-            dispatch(appActions.toggleIsFetchingArray("postDialog2MessageIdToSpamThCr", "delete")) // убрать процесс из прелоадера
+            dispatch( appActions.toggleIsFetchingArray( "postDialog2MessageIdToSpamThCr", "delete" ) ) // убрать процесс из прелоадера
         }
     }
 }
 export const deleteDialog2MessageIdThCr = (messageId: string): ThType => {
-        return async (dispatch, getState) => {//- удалить сообщение (только у себя) по ID сообщения
-            console.log( "deleteDialog2MessageIdThCr" )
+    return async (dispatch, getState) => {//- удалить сообщение (только у себя) по ID сообщения
+        console.log( "deleteDialog2MessageIdThCr" )
 
-            dispatch(appActions.toggleIsFetchingArray("deleteDialog2MessageIdThCr", "add")) // добавить процесс в прелоадер
+        dispatch( appActions.toggleIsFetchingArray( "deleteDialog2MessageIdThCr", "add" ) ) // добавить процесс в прелоадер
 
-            const response = await apiDialog2.deleteDialog2MessageId( messageId )
-            if (response.resultCode === ResultCodeEnum.Success) {
-                console.log( "Сообщение удалено на сервере" )
+        const response = await apiDialog2.deleteDialog2MessageId( messageId )
+        if (response.resultCode === ResultCodeEnum.Success) {
+            console.log( "Сообщение удалено на сервере" )
 
-                dispatch( dialog2Actions.setMessagesNewerThen(
-                    setDeleteSpamToMessagesNewerThen( getState().dialog2.messagesNewerThen, messageId, "delete" ),
-                    false
-                ) ) // помечаем сообщение в локальном стейте как удаленное
+            dispatch( dialog2Actions.setMessagesNewerThen(
+                setDeleteSpamToMessagesNewerThen( getState().dialog2.messagesNewerThen, messageId, "delete" ),
+                false
+            ) ) // помечаем сообщение в локальном стейте как удаленное
 
-                dispatch(appActions.toggleIsFetchingArray("deleteDialog2MessageIdThCr", "delete")) // убрать процесс из прелоадера
-            }
+            dispatch( appActions.toggleIsFetchingArray( "deleteDialog2MessageIdThCr", "delete" ) ) // убрать процесс из прелоадера
         }
     }
+}
 export const putDialog2MessageIdRestoreThCr = (messageId: string): ThType => {
     return async (dispatch, getState) => {//  - восстановить сообщение из спама и удаленных
         console.log( "putDialog2MessageIdRestoreThCr" )
 
-        dispatch(appActions.toggleIsFetchingArray("putDialog2MessageIdRestoreThCr", "add")) // добавить процесс в прелоадер
+        dispatch( appActions.toggleIsFetchingArray( "putDialog2MessageIdRestoreThCr", "add" ) ) // добавить процесс в прелоадер
 
         const response = await apiDialog2.putDialog2MessageIdRestore( messageId )
         if (response.resultCode === ResultCodeEnum.Success) {
@@ -234,20 +238,20 @@ export const putDialog2MessageIdRestoreThCr = (messageId: string): ThType => {
                 false
             ) ) // помечаем сообщение в локальном стейте как удаленное
 
-            dispatch(appActions.toggleIsFetchingArray("putDialog2MessageIdRestoreThCr", "delete")) // убрать процесс из прелоадера
+            dispatch( appActions.toggleIsFetchingArray( "putDialog2MessageIdRestoreThCr", "delete" ) ) // убрать процесс из прелоадера
         }
     }
 }
 export const getDialog2MessagesNewerThenThCr = (userId: number, date: string): ThType => {
     return async (dispatch, getState) => {// - вернуть сообщения новее определенной даты
 
-        dispatch(appActions.toggleIsFetchingArray("getDialog2MessagesNewerThenThCr", "add")) // добавить процесс в прелоадер
+        dispatch( appActions.toggleIsFetchingArray( "getDialog2MessagesNewerThenThCr", "add" ) ) // добавить процесс в прелоадер
 
         const response = await apiDialog2.getDialog2MessagesNewerThen( userId, date )
         if (response) {
             dispatch( dialog2Actions.setMessagesNewerThen( response, true ) )
 
-            dispatch(appActions.toggleIsFetchingArray("getDialog2MessagesNewerThenThCr", "delete")) // убрать процесс из прелоадера
+            dispatch( appActions.toggleIsFetchingArray( "getDialog2MessagesNewerThenThCr", "delete" ) ) // убрать процесс из прелоадера
         }
     }
 }
@@ -255,13 +259,13 @@ export const getDailog2UnreadMessagesThCr = (): ThType => {
     return async (dispatch, getState) => {// - вернуть количество непрочтенных сообщений
         console.log( "getDailog2UnreadMessagesThCr" )
 
-        dispatch(appActions.toggleIsFetchingArray("getDailog2UnreadMessagesThCr", "add")) // добавить процесс в прелоадер
+        dispatch( appActions.toggleIsFetchingArray( "getDailog2UnreadMessagesThCr", "add" ) ) // добавить процесс в прелоадер
 
         const response = await apiDialog2.getDailog2UnreadMessages()
         if (response) {
             console.log( response ) //
 
-            dispatch(appActions.toggleIsFetchingArray("getDailog2UnreadMessagesThCr", "delete")) // убрать процесс из прелоадера
+            dispatch( appActions.toggleIsFetchingArray( "getDailog2UnreadMessagesThCr", "delete" ) ) // убрать процесс из прелоадера
         }
     }
 }
