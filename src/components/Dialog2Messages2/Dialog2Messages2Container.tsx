@@ -4,15 +4,13 @@ import {GlobalStateType} from "../../redux/store-redux";
 import {
     dialog2Actions, MarkersType,
     getDialog2AllThCr, getDialog2MessagesNewerThenThCr,
-    postDialog2MessageThCr,
     putDialog2StartThCr
 } from "../../redux/dialog2-reducer";
 import Dialog2Messages2COM from "./Dialog2Messages2COM";
-import {GetDialog2AllType, D2ItemType, SendMessageType} from "../api/apiTypes";
+import {GetDialog2AllType, D2ItemType} from "../api/apiTypes";
 import {compose} from "redux";
 import withRouter2 from "../hoc/withRouter2";
 import NavigateToLoginHoc2 from "../hoc/NavigateToLoginHoc2";
-import Preloader from "../common/Preloader/Preloader";
 
 type OwnPropsType = {
     userId: number, // id пользователя из URL (withRouter2)
@@ -26,7 +24,7 @@ const Dialog2Messages2Container: React.FC<OwnPropsType> = ({userId}) => {
     const patch: string = useSelector( (state: GlobalStateType) => state.app.patch )// имя страницы из URL
     const pageWidth: number = useSelector( (state: GlobalStateType) => state.app.pageWidth )// ширина страницы
     const mobileWidth: number = useSelector( (state: GlobalStateType) => state.app.mobileWidth )// ширина страницы, считающаяся мобильной версткой
-    const isFetchingArray: Array<string> = useSelector((state:GlobalStateType) => state.app.isFetchingArray)
+    const listUniqueDialog2Id: Array<number> = useSelector((state:GlobalStateType) => state.dialog2.listUniqueDialog2Id)  // список уникальных id пользователей, с которыми начат диалог
 
     const {setMarkers, setD2Item} = dialog2Actions // получить экшены
 
@@ -53,40 +51,28 @@ const Dialog2Messages2Container: React.FC<OwnPropsType> = ({userId}) => {
         secondBlock && secondBlock.scrollIntoView( true )
     },[secondBlock])//Сама метка className="second-block" находится в дочерней Messages2Render
 
+    useEffect(()=>{
+        patch==="dialog2" && dispatch( getDialog2AllThCr() ) // при начальной загрузке страницы диалогов получили список диалогов
+    },[patch])
 
-    useEffect(()=>{ // работа с уже имеющимся диалоглистом слева
-        if (userId) {
-            console.log( "получить сообщения при смене userId", userId )
-            dispatch( getDialog2MessagesNewerThenThCr( userId, "2019-04-30T19:10:31.843" ) )
-            const d2ItemLocal: D2ItemType = dialog2All.filter( d2 => d2.id === userId )[0]
-            if (d2ItemLocal) { //если userId уже присутствует в списке диалогов
-                dispatch( setD2Item( d2ItemLocal ) ) // отфильтрровать и получить d2Item
-            } else {
-                console.log( "Получение списка диалогов при смене userId" )
-                getDialog2AllThCr()
+    useEffect(()=>{
+        if (userId!==0) { // при ненулевом userId
+            if (!listUniqueDialog2Id.includes(userId)) { // если userId нет в списке диалогов (прямой переход по url, например из users)
+                 console.log( "начать диалог по непустому userId " )
+                 dispatch( putDialog2StartThCr( userId ) )
+            } else { // если с таким userId ранее уже был начат диалог (клик по списку диалогов)
+                dispatch( dialog2Actions.setD2Item(/*отфильтровать d2Item */
+                    dialog2All.filter((dialogItem:D2ItemType)=>dialogItem.id === userId)[0] ) )
             }
         }
+    }, [userId])
 
-    },[userId])
-
-    useEffect( () => {
-        // эту часть выносим внутрь putDialog2StartThCr после then
-        if (dialog2All.length===0 && isFetchingArray.length===0) { // если диалоги не получены, и нет запущенных асинхронных запросов
-            console.log( "получение списка диалогов" )
-            dispatch( getDialog2AllThCr() )
+    useEffect(()=>{
+        if (d2Item?.id === userId) {
+            console.log("при смене d2Item загружаем список сообщений (пока все, после - загрузка порциями)")
+            dispatch( getDialog2MessagesNewerThenThCr( userId, "2019-04-30T19:10:31.843" ) )
         }
-    }, [dialog2All, isFetchingArray] )
-
-    useEffect( () => {
-        if (userId !== 0 ) {
-            console.log( "начать диалог по непустому userId " )
-            dispatch( putDialog2StartThCr( userId ) )
-/*            dispatch( setMarkers( {
-                ...markers, straightFirstUploaded: true // задать маркер прямой загрузки в true
-            } ) )*/
-        }
-    }, [userId] ) // markers, setMarkers, dispatch
-
+    }, [d2Item, userId])
 
     useEffect( () => {
         if (markers.needToScrollBottom) {

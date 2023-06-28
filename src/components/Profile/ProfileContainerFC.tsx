@@ -7,7 +7,6 @@ import {
 import withRouter2 from "../hoc/withRouter2";
 import NavigateToLoginHoc2 from "../hoc/NavigateToLoginHoc2";
 import React, {useEffect, useMemo} from "react";
-import Preloader from "../common/Preloader/Preloader";
 import PhotoContainer from "./Photo/PhotoContainer";
 import ProfileInfoContainer from "./ProfileInfo/ProfileInfoContainer";
 import StatusContainer from "./Status/StatusContainer";

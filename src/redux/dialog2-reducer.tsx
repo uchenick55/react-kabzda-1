@@ -51,7 +51,8 @@ const initialState = {
         dialogId: 0,
         dialog2FirstUploaded: false,
         needToScrollBottom: false
-    } as MarkersType
+    } as MarkersType,
+    listUniqueDialog2Id: [] as Array<number> // список уникальных id пользователей, с которыми начат диалог
 }
 
 type InitialStateDialog2Type = typeof initialState
@@ -70,7 +71,8 @@ const Dialog2Reducer = (state: InitialStateDialog2Type = initialState, action: D
             } )
             stateCopy = {
                 ...state,
-                dialog2All: dialog2AllLocal
+                dialog2All: dialog2AllLocal,
+                listUniqueDialog2Id: listUniqueDialog2Id
             }
             return stateCopy
         case SET_MESSAGES_NEWER_THEN: // сообщения по выбранному диалогу новее определенной даты

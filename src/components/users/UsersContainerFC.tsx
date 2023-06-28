@@ -3,7 +3,6 @@ import {usersSelectorsSimple} from "./users-selectors";
 import {useDispatch, useSelector} from "react-redux";
 import {getUsersThunkCreator} from "../../redux/users-reducer";
 import React, {useEffect, useMemo} from "react";
-import Preloader from "../common/Preloader/Preloader";
 import classes from "./Users.module.css";
 import commonClasses from "../common/CommonClasses/common.module.css";
 import PaginationContainer from "../common/Pagination/PaginationContainer";

@@ -5,7 +5,6 @@ import type {} from 'redux-thunk/extend-redux';
 import {getCaptchaThunkCreator, postLoginThunkCreator} from "../../redux/auth-reducer";
 import {Navigate} from "react-router-dom";
 import {GlobalStateType} from "../../redux/store-redux";
-import Preloader from "../common/Preloader/Preloader";
 
 const LoginContainer: React.FC = () => {
 
