@@ -26,7 +26,7 @@ const Dialog2Messages2Container: React.FC<OwnPropsType> = ({userId}) => {
     const mobileWidth: number = useSelector( (state: GlobalStateType) => state.app.mobileWidth )// ширина страницы, считающаяся мобильной версткой
     const listUniqueDialog2Id: Array<number> = useSelector((state:GlobalStateType) => state.dialog2.listUniqueDialog2Id)  // список уникальных id пользователей, с которыми начат диалог
 
-    const {setMarkers, setD2Item} = dialog2Actions // получить экшены
+    const {setMarkers} = dialog2Actions // получить экшены
 
     const dispatch = useDispatch()
     /*    const wsChannel = new WebSocket("wss://social-network.samuraijs.com/handlers/ChatHandler.ashx")
@@ -53,7 +53,7 @@ const Dialog2Messages2Container: React.FC<OwnPropsType> = ({userId}) => {
 
     useEffect(()=>{
         patch==="dialog2" && dispatch( getDialog2AllThCr() ) // при начальной загрузке страницы диалогов получили список диалогов
-    },[patch])
+    },[patch, dispatch])
 
     useEffect(()=>{
         if (userId!==0) { // при ненулевом userId
@@ -65,14 +65,14 @@ const Dialog2Messages2Container: React.FC<OwnPropsType> = ({userId}) => {
                     dialog2All.filter((dialogItem:D2ItemType)=>dialogItem.id === userId)[0] ) )
             }
         }
-    }, [userId])
+    }, [userId]) // убрал зависимости dispatch, dialog2All, listUniqueDialog2Id, так как лишние вхождения
 
     useEffect(()=>{
         if (d2Item?.id === userId) {
             console.log("при смене d2Item загружаем список сообщений (пока все, после - загрузка порциями)")
             dispatch( getDialog2MessagesNewerThenThCr( userId, "2019-04-30T19:10:31.843" ) )
         }
-    }, [d2Item, userId])
+    }, [d2Item, userId, dispatch])
 
     useEffect( () => {
         if (markers.needToScrollBottom) {

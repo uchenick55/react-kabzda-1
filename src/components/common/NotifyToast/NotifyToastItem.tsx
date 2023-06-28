@@ -18,7 +18,7 @@ const NotifyToastItem:React.FC<NotifyToastItemType> = ({notifyItem, closeToast, 
         return ()=>{
             clearInterval(intervalId)
         }
-    },[])// не ставлю зависимостей, поскольку развово при запуске
+    },[])// не ставлю зависимостей closeToast' and 'notifyItem', поскольку разово при запуске
     useEffect(()=>{
         const intervalId = setTimeout(()=>{
             setFadeError(true)

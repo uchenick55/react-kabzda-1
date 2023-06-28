@@ -1,7 +1,7 @@
 import {apiProfile} from "../components/api/api";
 import {profileActions} from "./profile-reducer";
 import {usersActions} from "./users-reducer";
-import store, {InferActionsTypes} from "./store-redux";
+import {InferActionsTypes} from "./store-redux";
 import {GetProfileType} from "../components/api/apiTypes";
 import {ResultCodeEnum, ResultCodeEnumCaptcha} from "../components/api/enum";
 import {ComThunkTp, NulableType} from "../components/common/types/commonTypes";

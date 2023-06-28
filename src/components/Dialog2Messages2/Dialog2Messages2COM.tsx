@@ -2,7 +2,7 @@ import React from "react";
 import classesCommon from "./Messages2/msg2.module.css";
 import Dialog2Render from "./Dialog2/Dialog2Render";
 import Messages2Render from "./Messages2/Messages2Render";
-import {GetDialog2AllType, D2ItemType, SendMessageType} from "../api/apiTypes";
+import {GetDialog2AllType} from "../api/apiTypes";
 
 
 type Dialog2RenderType = {

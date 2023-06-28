@@ -1,6 +1,5 @@
-import {GlobalStateType} from "../../redux/store-redux";
 import {compose} from "redux";
-import {useDispatch, useSelector} from "react-redux";
+import {useDispatch} from "react-redux";
 import {
     getProfileThunkCreator,
 } from "../../redux/profile-reducer";

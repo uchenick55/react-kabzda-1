@@ -1,9 +1,6 @@
 import Msg2SendMessageRender from "./Msg2SendMessageRender";
-import React, {useEffect} from "react";
-import {
-    postDialog2MessageThCr,
-    putDialog2StartThCr
-} from "../../../../redux/dialog2-reducer";
+import React from "react";
+import { postDialog2MessageThCr} from "../../../../redux/dialog2-reducer";
 import {useDispatch, useSelector} from "react-redux";
 import {GlobalStateType} from "../../../../redux/store-redux";
 

@@ -131,9 +131,9 @@ export const getDialog2AllThCr = (): ThType => {
 
             dispatch( appActions.toggleIsFetchingArray( "getDialog2AllThCr", "delete" ) ) // убрать процесс из прелоадера
 
-            // по идее здесь только отфильтровать d2Item и все
-            // console.log("getDialog2AllThCr => setD2Item")
-             dispatch( dialog2Actions.setD2Item( response[0] ) ) /*отфильтровать d2Item */
+
+            getState().app.patch !== "dialog2" && // d2Item лишний для страницы dialogs
+                dispatch( dialog2Actions.setD2Item( response[0] ) ) /*отфильтровать d2Item */
         }
     }
 }
