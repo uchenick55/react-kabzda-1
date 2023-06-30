@@ -18,13 +18,13 @@ const StackInfoBS:React.FC<StackInfoBSType> = () => {
                 (NavLink/Navigate/ Routes/Route), Lifting State Up, top-down (unidirectional) flow, props.children, fragment, JSX, React.createElement </p>
             <p><b>BLL (Redux):</b> store, state, reducer, callback, dispatch, action (type), action creator, case/switch,
                 redux-ducks. </p>
-            <p><b>DAL (API):</b> ajax, axios (instance.interceptors.response.use - common error), REST API/GraphQL, async/await, .then/.catch., thunk (thunkCreator, thunkMiddleWare, ), saga (sagaMiddleware, watcher, worker (yield), effects)  </p>
+            <p><b>DAL (API):</b> ajax, axios (instance.interceptors.response.use - common error), REST API/GraphQL, async/await, .then/.catch., thunk (thunkCreator, thunkMiddleWare, getState ), saga (sagaMiddleware, watcher, worker (yield), effects)  </p>
             <p><b>JS:</b>pagination, try/catch/finally, setTimeout/setInterval, Object.keys/values/ hasOwnProperty,  Math.ceil/floor, new Date(), JSON.stringify, deep/shallow copy, structuredClone, closure, map, filter, some, find, sort, reduce, forEach, slice, splice, split, join, includes, Array.from, reverse etc. </p>
-            <p><b>Typescript:</b> primitives, ReturnType, typeof, commonType/import, selector, Array/Object, reducer, thunkType, connect(MSTP, MDTP, globalStateType), function, event, FC, useState, generic  </p>
+            <p><b>Typescript:</b> primitives, Array/Object/function, ReturnType, typeof, commonType/import, selector,  reducer, thunkType, connect(MSTP, MDTP, globalStateType), event, FC/CC, useState, generic, InferActionsTypes  </p>
             <p><b>Git:</b> checkout (-b), commit –a -m, merge, push, branch (–m), gitk –all&, reset –hard, pull.       </p>
             <p><b>Libs:</b> react-router-dom, react-redux, redux-form, formik + yup, reselect, styled-components.        </p>
-            <p><b>Node: npm/npx</b> </p>
-            <p><b>IDE:</b> Webstorm/ codesandbox.io. </p>
+            <p><b>Node: </b>npm/npx </p>
+            <p><b>IDE:</b> Webstorm/ codesandbox </p>
             <p><b>Test:</b> Jest/ PlayWright.</p>
             <p><b>Extra:</b> base html, fieldset/legend, cookie, github pages.</p>
             <p><b>Style:</b> basic css (+ grid), module.css, SCSS, bootstrap(+react). </p>
