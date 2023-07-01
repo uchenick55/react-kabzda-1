@@ -11,7 +11,6 @@ import {AppDispatch, GlobalStateType} from "../../redux/store-redux";
 import {appActions} from "../../redux/app-reducer";
 import ErrorToastContainer from "../common/NotifyToast/NotifyToastContainer";
 import Preloader from "../common/Preloader/Preloader";
-import ChatPage from "../ChatPage/ChatPage";
 
 const UsersContainer = React.lazy( () => import("../users/UsersContainerFC") )
 const ProfileContainer = React.lazy( () => import("../Profile/ProfileContainerFC") )
@@ -21,6 +20,7 @@ const News = React.lazy( () => import("../News/News") )
 const Rest = React.lazy( () => import("../Rest/Krestiki-Noliki/KrestikiNoliki") )
 const StackInfo = React.lazy( () => import("../Info/StackInfoBS") )
 const FeedBackContainer = React.lazy( () => import("../FeedBack/FeedBackContainer") )
+const ChatPageContainer = React.lazy( () => import("../ChatPage/ChatPageContainer") )
 
 const ContentContainer: React.FC = memo( () => { // вынес роутинг контента в отдельную компоненту
     console.log("ContentContainer")
@@ -85,7 +85,7 @@ const ContentContainer: React.FC = memo( () => { // вынес роутинг к
                         <Route path='/rest/*' element={<Rest/>}/> {/*Страница отдыха*/}
                         <Route path='/feedback/*' element={<FeedBackContainer/>}/> {/*Общие Комментарии*/}
                         <Route path='/tasks/*' element={<Tasks/>}/> {/*Общие Комментарии*/}
-                        <Route path='/chat/*' element={<ChatPage/>}/> {/*страница чата*/}
+                        <Route path='/chat/*' element={<ChatPageContainer/>}/> {/*страница чата*/}
                     </Routes>
                 </div>
             </Suspense>
