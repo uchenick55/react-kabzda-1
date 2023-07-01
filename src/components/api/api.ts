@@ -10,7 +10,7 @@ import {
 } from "./apiTypes";
 import {ResultCodeEnum, ResultCodeEnumCaptcha} from "./enum";
 import {appActions} from "../../redux/app-reducer";
-import store from "../../redux/store-redux";
+import store, {getDispatch} from "../../redux/store-redux";
 import {saveDataToNotify} from "../common/functions/commonFunctions";
 
 const instance = axios.create( {
@@ -31,16 +31,13 @@ instance.interceptors.response.use(
             for (let i = 0; i < response?.data.messages.length; i++) {
                 saveDataToNotify( response?.data?.messages[i] ) // записать ошибку в массив уведомлений с временем возникновения
             }
-          //  store.dispatch( appActions.toggleIsFetching( false ) ) //убрать крутилку загрузки с сервера
         }
         return response;// данные успешного ответа для дальнейшего перехвата методами
     },
     function (errorGlobal) {
         // Любые коды состояния, выходящие за пределы диапазона 2xx, вызывают срабатывание этой функции
         console.log( "axios.interceptors.response.use", errorGlobal )
-        store.dispatch( appActions.setAppErrorAC( errorGlobal ) ) // запись данных ошибки в стейт
-     //   store.dispatch( appActions.toggleIsFetching( false ) ) //убрать крутилку загрузки с сервера
-        // return Promise.reject( err ); //дальше ошибку не передаем в обработчики
+        getDispatch()( appActions.setAppErrorAC( errorGlobal ) ) // запись данных ошибки в стейт
     } );
 
 

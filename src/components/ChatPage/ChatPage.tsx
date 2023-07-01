@@ -32,7 +32,7 @@ const Messages: React.FC<{ wsChannel: WebSocketType }> = ({wsChannel}) => {
 
 const Message: React.FC<{ message: ChatMessageType }> = ({message}) => {//отрисовка списка сообщений
     return <div>
-        <img src={message.photo} style={{width: "30px"}}/> {/*аватарка собеседника*/}
+        <img src={message.photo} style={{width: "30px"}} alt='аватарка собеседника'/> {/*аватарка собеседника*/}
         <b>{message.userName}</b> {/* его имя*/}
         <br/>
         {message.message} {/*само сообщение*/}

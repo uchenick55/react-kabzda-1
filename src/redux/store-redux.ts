@@ -56,3 +56,8 @@ export type AppDispatch = typeof store.dispatch;
 
 export default store
 
+export const getState = () => store.getState() // получаем и экспортируем стейт
+
+export const getDispatch = () => store.dispatch // получаем и экспортируем dispatch
+
+

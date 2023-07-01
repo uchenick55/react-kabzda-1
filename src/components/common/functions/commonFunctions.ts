@@ -1,4 +1,4 @@
-import store from "../../../redux/store-redux";
+import {getDispatch, getState} from "../../../redux/store-redux";
 import {appActions} from "../../../redux/app-reducer";
 
 const getUnixTime = () => {
@@ -7,9 +7,9 @@ const getUnixTime = () => {
 
 export const saveDataToNotify = (messageItem:string, style: string = "Warning" ) => {
     setTimeout(()=>{
-        store.dispatch( appActions.setNotify( // запись данных ошибки в стейт
+        getDispatch()( appActions.setNotify( // запись данных ошибки в стейт
             [
-                ...store.getState().app.notify, // берем все ошибки, что уже есть в массиве ошибок
+                ...getState().app.notify, // берем все ошибки, что уже есть в массиве ошибок
                 {
                     message: messageItem, // добавляем сообщение ошибки
                     timeUnix: getUnixTime(), // добавляем время (можно использовать как id)

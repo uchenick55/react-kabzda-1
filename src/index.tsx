@@ -4,14 +4,11 @@ import ReactDOM from 'react-dom/client';
 import AppBS from "./AppBS";
 import {Provider} from "react-redux";
 
-// @ts-ignore
-const root = ReactDOM.createRoot(document.getElementById('root'));
+const root = ReactDOM.createRoot(document.getElementById("root")!);
 root.render(
-  /*  <React.StrictMode>*/
-        <Provider store={store}>
-            <AppBS />
-        </Provider>
-  /*  </React.StrictMode>*/
+    <Provider store={store}>
+        <AppBS/>
+    </Provider>
 );
 
 // If you want to start measuring performance in your app, pass a function
