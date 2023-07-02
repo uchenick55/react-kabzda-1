@@ -9,9 +9,7 @@ import {
     SendMessageType
 } from "./apiTypes";
 import {ResultCodeEnum, ResultCodeEnumCaptcha} from "./enum";
-import {appActions} from "../../redux/app-reducer";
-import store, {getDispatch} from "../../redux/store-redux";
-import {saveDataToNotify} from "../common/functions/commonFunctions";
+import {saveDataToNotify, saveErrorGlobal} from "../common/functions/commonFunctions";
 
 const instance = axios.create( {
     baseURL: 'https://social-network.samuraijs.com/api/1.0/',
@@ -37,7 +35,9 @@ instance.interceptors.response.use(
     function (errorGlobal) {
         // Любые коды состояния, выходящие за пределы диапазона 2xx, вызывают срабатывание этой функции
         console.log( "axios.interceptors.response.use", errorGlobal )
-        getDispatch()( appActions.setAppErrorAC( errorGlobal ) ) // запись данных ошибки в стейт
+
+        saveErrorGlobal (errorGlobal)// запись данных ошибки в стейт
+
     } );
 
 

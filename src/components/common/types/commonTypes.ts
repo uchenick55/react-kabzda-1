@@ -22,9 +22,7 @@ export type ProfileType = {
         website: string,
         youtube: string
     }
-    //  userId: number
 }
-
 
 export type ApiFeedBackDataType = {
     email: string

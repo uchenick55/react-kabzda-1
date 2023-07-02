@@ -1,29 +1,31 @@
 import React, {useEffect, useState} from "react";
+import userPhoto from "../../assets/images/no-image3.png";
+import {ChatMessageType} from "../api/chat-api";
+import {useDispatch, useSelector} from "react-redux";
+import {sendMessageThCr, startMessagesListening, stopMessagesListening} from "../../redux/chat-reducer";
+import {GlobalStateType} from "../../redux/store-redux";
 
-type ChatMessageType = { // тип сообщений чата
-    message: string,
-    photo: string,
-    userId: number,
-    userName: string
-}
+
 
 type WebSocketType = WebSocket | null // тип объекта вебсокет
 
-const Messages: React.FC<{ wsChannel: WebSocketType }> = ({wsChannel}) => {
-    const [messages, setMessages] = useState<Array<ChatMessageType>>( [] ) // массив сообщений чата с сервера
+const Messages: React.FC = () => {
+   // const [messages, setMessages] = useState<Array<ChatMessageType>>( [] ) // массив сообщений чата с сервера
 
-    useEffect( () => {
-        const messageHandler = (e: MessageEvent) => { // обработчик новых сообщений
-            const newMessages = JSON.parse( e.data ) // получить массив новых сообщений
-            setMessages( (prevState => [...prevState, ...newMessages]) ) // добавить новые сообщения к ранее загруженным
-        }
-        wsChannel?.removeEventListener( 'message', messageHandler ) // перед добавлением нового слушателя, удалить старый
+    const messages:Array<ChatMessageType> = useSelector((state:GlobalStateType) => state.chat.messages )
 
-        wsChannel?.addEventListener( 'message', messageHandler ) // добавить слушатель события новых сообщений
-        return () => {
-            wsChannel?.removeEventListener( 'message', messageHandler )// при закрытии useEffect удалить открытые ранее слушатели
-        }
-    }, [wsChannel] )
+    // useEffect( () => {
+    //     const messageHandler = (e: MessageEvent) => { // обработчик новых сообщений
+    //         const newMessages = JSON.parse( e.data ) // получить массив новых сообщений
+    //         setMessages( (prevState => [...prevState, ...newMessages]) ) // добавить новые сообщения к ранее загруженным
+    //     }
+    //     wsChannel?.removeEventListener( 'message', messageHandler ) // перед добавлением нового слушателя, удалить старый
+    //
+    //     wsChannel?.addEventListener( 'message', messageHandler ) // добавить слушатель события новых сообщений
+    //     return () => {
+    //         wsChannel?.removeEventListener( 'message', messageHandler )// при закрытии useEffect удалить открытые ранее слушатели
+    //     }
+    // }, [wsChannel] )
 
     return <div style={{height: "400px", overflowY: "auto"}}> {/*отрисовка списка сообщений*/}
         {messages.map( (m, index) => <Message key={index} message={m}/> )}
@@ -32,7 +34,7 @@ const Messages: React.FC<{ wsChannel: WebSocketType }> = ({wsChannel}) => {
 
 const Message: React.FC<{ message: ChatMessageType }> = ({message}) => {//отрисовка списка сообщений
     return <div>
-        <img src={message.photo} style={{width: "30px"}} alt='аватарка собеседника'/> {/*аватарка собеседника*/}
+        <img src={message.photo || userPhoto} style={{width: "30px"}} alt='аватар'/> {/*аватарка собеседника*/}
         <b>{message.userName}</b> {/* его имя*/}
         <br/>
         {message.message} {/*само сообщение*/}
@@ -41,14 +43,18 @@ const Message: React.FC<{ message: ChatMessageType }> = ({message}) => {//отр
 }
 
 
-const AddMessages: React.FC<{ wsChannel: WebSocketType }> = ({wsChannel}) => {
+const AddMessages: React.FC = () => {
     const [message, setMessage] = useState<string>( "" )
     const [readyStatus, setReadyStatus] = useState<'pending' | "ready">( "pending" )
 
-    useEffect( () => {
+    const dispatch = useDispatch()
+
+/*    useEffect( () => {
         const openHandler = () => { // обработчик при открытии канала websocket
-            setReadyStatus( "ready" ) // добавить флаг доступности кнопки и поля ввода
-            console.log( 'open' )
+            setTimeout(()=>{
+                setReadyStatus( "ready" ) // добавить флаг доступности кнопки и поля ввода
+                console.log( 'open' )
+            },2000)
         }
 
         if (!wsChannel) {// если нет канала websocket
@@ -63,13 +69,15 @@ const AddMessages: React.FC<{ wsChannel: WebSocketType }> = ({wsChannel}) => {
             wsChannel?.removeEventListener('open', openHandler)// при закрытии useEffect удалить открытые ранее слушатели
             setReadyStatus("pending")
         }
-    }, [wsChannel] )
+    }, [wsChannel] )*/
 
     const sendMessage = () => { // ввод новых сообщений
-        message && wsChannel?.send( message ) // если поле ввода не пустое, отправить новое сообщение
+      //  message && wsChannel?.send( message ) // если поле ввода не пустое, отправить новое сообщение
+        dispatch(sendMessageThCr(message))
         setMessage( "" ) // занулить поле воода
     }
-    const isDisabled = readyStatus !== 'ready' // флаг доступности кнопки и поля ввода
+    const isDisabled = false
+        //readyStatus !== 'ready' // флаг доступности кнопки и поля ввода
     return <div >
         <input
             disabled={isDisabled} // доступность поля ввода
@@ -85,8 +93,9 @@ const AddMessages: React.FC<{ wsChannel: WebSocketType }> = ({wsChannel}) => {
 
 
 const Chat: React.FC = () => { // основная страница чата
-    const [wsChannel, setWsChannel] = useState<WebSocketType>( null ) // хранилище канала websocket
+ //   const [wsChannel, setWsChannel] = useState<WebSocketType>( null ) // хранилище канала websocket
 
+/*
     useEffect( () => {
         let ws: WebSocket // временная переменная канала websocket
 
@@ -98,6 +107,7 @@ const Chat: React.FC = () => { // основная страница чата
 
         const createChannel = () => { // обработчик создания нового канала websocket
             ws?.removeEventListener('close', closeHandler)// перед добавлением нового слушателя, удалить старый
+            ws?.close() // закрыть канал перед открытием нового
 
             ws = new WebSocket( 'wss://social-network.samuraijs.com/handlers/ChatHandler.ashx' ) // создать новый канал
             ws.addEventListener( 'close', closeHandler )// добавить слушатель события закрытия канала websocket
@@ -110,10 +120,22 @@ const Chat: React.FC = () => { // основная страница чата
             ws.close() // закрыть канал при завершении useEffect
         }
     }, [] )
+*/
+
+   // мы хотим запустить startMessagesListening
+    const dispatch = useDispatch()
+
+    useEffect(()=>{
+        dispatch(startMessagesListening())
+        return ()=>{
+            dispatch(stopMessagesListening())
+        }
+    },[])
+
 
     return <div>
-        <Messages wsChannel={wsChannel}/> {/*отрисовка сообщений чата из websocket*/}
-        <AddMessages wsChannel={wsChannel}/> {/*добавить сообщения в чат websocket*/}
+        <Messages /> {/*отрисовка сообщений чата из websocket*/}
+        <AddMessages /> {/*добавить сообщения в чат websocket*/}
     </div>
 }
 export default Chat
