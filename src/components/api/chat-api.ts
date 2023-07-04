@@ -13,7 +13,7 @@ let subscribers = [] as Array<SubscriberType> // массив подписок
 let ws: WebSocket | null = null // временная переменная канала websocket
 
 const closeHandler = () => { // обработчик закрытия канала websocket
-    console.log( "CLOSE WS" )
+    console.log("The network connection has been lost.");
     setTimeout(()=>createChannel(),3000) // пересоздаем новый канал при закрытии старого
 }
 
@@ -31,9 +31,10 @@ const openHandler = () => { // обработчик при открытии ка
 
 const closeChannelCommon = () => {// закрыть канал, всех слушателей
     ws?.removeEventListener( 'open', openHandler )// добавить слушатель события открытого канала websocket
-    ws?.removeEventListener( 'close', closeHandler )// убрать слушатель события закрытия канала websocket
     ws?.removeEventListener( 'message', messageHandler ) // убрать слушатель события новых сообщений
+    ws?.removeEventListener( 'close', closeHandler )// убрать слушатель события закрытия канала websocket
     ws?.close() // закрыть сам канал
+    window.removeEventListener("offline", closeHandler);// убрать слушатель события обрыва сети
 }
 
 const createChannel = () => { // обработчик создания нового канала websocket
@@ -41,8 +42,9 @@ const createChannel = () => { // обработчик создания ново�
 
     ws = new WebSocket( 'wss://social-network.samuraijs.com/handlers/ChatHandler.ashx' ) // создать новый канал
     ws?.addEventListener( 'open', openHandler )// добавить слушатель события открытого канала websocket
-    ws?.addEventListener( 'close', closeHandler )// добавить слушатель события закрытия канала websocket
     ws?.addEventListener( 'message', messageHandler ) // добавить слушатель события новых сообщений
+    ws?.addEventListener( 'close', closeHandler )// добавить слушатель события закрытия канала websocket
+    window.addEventListener("offline", closeHandler);// добавить слушатель события обрыва сети
 }
 
 export const chatAPI = {

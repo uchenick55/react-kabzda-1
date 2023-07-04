@@ -3,12 +3,12 @@ import {InferActionsTypes} from "./store-redux";
 import {ComThunkTp} from "../components/common/types/commonTypes";
 import {Dispatch} from "redux";
 
-const SET_MESAGEG = "myApp/dialog2-reducer/SET_MESAGEG";
+const SET_MESAGE = "myApp/dialog2-reducer/SET_MESAGE";
 
 export const chatActions = {
 
     setMessagesAC: (messages: Array<ChatMessageType>) => {
-        return {type: SET_MESAGEG, messages} as const
+        return {type: SET_MESAGE, messages} as const
     },
 }
 
@@ -21,10 +21,10 @@ const initialState = {
 
 type InitialStateChatType = typeof initialState
 
-const ChatReducer = (state: InitialStateChatType = initialState, action: ChatActionsTypes): InitialStateChatType => {
+const chatReducer = (state: InitialStateChatType = initialState, action: ChatActionsTypes): InitialStateChatType => {
     let stateCopy: InitialStateChatType // объявлениечасти части стейта до изменения редьюсером
     switch (action.type) {
-        case SET_MESAGEG: // список всех диалогов
+        case SET_MESAGE: // список всех диалогов
             stateCopy = {
                 ...state,
                 messages: [...state.messages, ...action.messages], // добавить новые сообщения к ранее загруженным
@@ -73,7 +73,7 @@ export const sendMessageThCr = (message: string): ThType => {// отправит
     }
 }
 
-export default ChatReducer
+export default chatReducer
 
 
 

@@ -8,7 +8,7 @@ import themeReducer from "./theme-reducer";
 import feedBackReducer from "./feedback-reducer"
 import tasksReducer from "./tasks-reducer";
 import dialod2Reducer from "./dialog2-reducer"
-import ChatReducer from "./chat-reducer";
+import chatReducer from "./chat-reducer";
 
 const reducers = combineReducers({ // объединяем стейт редьюсеров в один объект store
     profilePage: profileReducer, // стейт профиля
@@ -19,7 +19,7 @@ const reducers = combineReducers({ // объединяем стейт редью
     feedback: feedBackReducer, // стейт фидбека
     tasks: tasksReducer,// стейт тасков
     dialog2: dialod2Reducer, // стейт диалог2
-    chat: ChatReducer
+    chat: chatReducer
 });
 
 declare global {
