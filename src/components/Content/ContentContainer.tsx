@@ -20,6 +20,7 @@ const News = React.lazy( () => import("../News/News") )
 const Rest = React.lazy( () => import("../Rest/Krestiki-Noliki/KrestikiNoliki") )
 const StackInfo = React.lazy( () => import("../Info/StackInfoBS") )
 const FeedBackContainer = React.lazy( () => import("../FeedBack/FeedBackContainer") )
+const ChatContainer = React.lazy( () => import("../Chat/ChatContainer") )
 
 const ContentContainer: React.FC = memo( () => { // вынес роутинг контента в отдельную компоненту
     console.log("ContentContainer")
@@ -82,8 +83,9 @@ const ContentContainer: React.FC = memo( () => { // вынес роутинг к
                         <Route path='/login/*' element={<LoginContainer/>}/> {/*Логин*/}
                         <Route path='/news/*' element={<News/>}/> {/*Поиск по новостям hn algonia*/}
                         <Route path='/rest/*' element={<Rest/>}/> {/*Страница отдыха*/}
-                        <Route path='/feedback/*' element={<FeedBackContainer/>}/> {/*Общие Комментарии*/}
-                        <Route path='/tasks/*' element={<Tasks/>}/> {/*Общие Комментарии*/}
+                        <Route path='/feedback/*' element={<FeedBackContainer/>}/> {/**/}
+                        <Route path='/tasks/*' element={<Tasks/>}/> {/**/}
+                        <Route path='/chat/*' element={<ChatContainer/>}/> {/**/}
                     </Routes>
                 </div>
             </Suspense>
