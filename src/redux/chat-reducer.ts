@@ -2,8 +2,6 @@ import {chatAPI, ChatMessageType} from "../components/api/chat-api";
 import {InferActionsTypes} from "./store-redux";
 import {ComThunkTp} from "../components/common/types/commonTypes";
 import {Dispatch} from "redux";
-//
-
 
 const SET_MESAGEG = "myApp/dialog2-reducer/SET_MESAGEG";
 
@@ -29,7 +27,7 @@ const ChatReducer = (state: InitialStateChatType = initialState, action: ChatAct
         case SET_MESAGEG: // список всех диалогов
             stateCopy = {
                 ...state,
-                messages: [...state.messages, ...action.messages],
+                messages: [...state.messages, ...action.messages], // добавить новые сообщения к ранее загруженным
             }
             return stateCopy
         default:
@@ -38,35 +36,40 @@ const ChatReducer = (state: InitialStateChatType = initialState, action: ChatAct
 }
 
 type ThType = ComThunkTp<ChatActionsTypes> // тип, выведенный из общего типа санок сс учетом локального типа AC
-// const newMessageHandlerCreator = (dispatch:Dispatch) => ((messages: Array<ChatMessageType>) => {
-//     dispatch( chatActions.setMessagesAC( messages ) )
+// const newMessageHandlerCreator = (dispatch:Dispatch) => //креатор, который поставляет dispatch.
+//      ((messages: Array<ChatMessageType>) => { //
+//          dispatch( chatActions.setMessagesAC( messages ) )// добавляем массив новых сообщений с стейт серез AC
 // })
 
-let _newMessageHandler: ((messages: Array<ChatMessageType>) => void) | null = null
-const newMessageHandlerCreator = (dispatch: Dispatch) => {
-    if (_newMessageHandler === null) {
-        _newMessageHandler = (messages: Array<ChatMessageType>) => {
-            dispatch( chatActions.setMessagesAC( messages ) )
+let _newMessageHandler: // приватная переменная
+    ((messages: Array<ChatMessageType>) => void) // она равна либо функции, принимающей массив сообщений для дальнейшей записи в стейт
+    | null = null // либо null (по умолчанию)
+
+const newMessageHandlerCreator = (dispatch: Dispatch) => { //креатор, который поставляет dispatch
+    if (_newMessageHandler === null) { // если приватная переменная _newMessageHandler равна null
+        _newMessageHandler = (messages: Array<ChatMessageType>) => { // то ей присваиваем функцию, принимающую массив сообщений
+            dispatch( chatActions.setMessagesAC( messages ) )// эта функция будет добавлять массив новых сообщений с стейт
         }
     }
+    // в противном случае возвращаем ранее созданную (записаную) переменную _newMessageHandler
     return _newMessageHandler
 }
 
-export const startMessagesListening = (): ThType => {
-    return async (dispatch, getState) => {// начать слушать получение сообщений
-        chatAPI.startChannel()
-        chatAPI.subscribe( newMessageHandlerCreator( dispatch ) )
+export const startMessagesListening = (): ThType => {// начать слушать получение сообщений
+    return async (dispatch, getState) => {
+        chatAPI.startChannel() // открыть канал со всеми слушателями событий
+        chatAPI.subscribe( newMessageHandlerCreator( dispatch ) ) // передать в массив подписок колбек-телефончик для обновления сообщений в стейте
     }
 }
-export const stopMessagesListening = (): ThType => {
-    return async (dispatch, getState) => {// закончить слушать получение сообщений
-        chatAPI.unsubscribe( newMessageHandlerCreator( dispatch ) )
-        chatAPI.closeChannel()
+export const stopMessagesListening = (): ThType => {// закончить слушать получение сообщений
+    return async (dispatch, getState) => {
+        chatAPI.unsubscribe( newMessageHandlerCreator( dispatch ) ) // убрать из массива подписок колбек-телефончик обновления сообщений в стейте
+        chatAPI.closeChannel() // удалить канал, очистить массив подписчиков и слушателей событий
     }
 }
-export const sendMessageThCr = (message: string): ThType => {
-    return async (dispatch, getState) => {// начать слушать получение сообщений
-        chatAPI.sendMessage(message)
+export const sendMessageThCr = (message: string): ThType => {// отправить сообщение
+    return async (dispatch, getState) => {
+        chatAPI.sendMessage( message ) // отправить сообщение
     }
 }
 

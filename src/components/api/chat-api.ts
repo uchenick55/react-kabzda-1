@@ -1,4 +1,6 @@
-type SubscriberType = (messages: Array<ChatMessageType>) => void
+type SubscriberType = // определение типа подписки
+    (messages: Array<ChatMessageType>) // это функция, которая принимает массив сообщений от с сервера по WS
+        => void // и ничего не возвращает
 
 export type ChatMessageType = { // тип сообщений чата
     message: string,
@@ -7,30 +9,27 @@ export type ChatMessageType = { // тип сообщений чата
     userName: string
 }
 
-let subscribers = [] as Array<SubscriberType> // массив подписчиков
+let subscribers = [] as Array<SubscriberType> // массив подписок
 let ws: WebSocket | null = null // временная переменная канала websocket
 
 const closeHandler = () => { // обработчик закрытия канала websocket
     console.log( "CLOSE WS" )
-   // setWsChannel(null) // зануляем канал, если прило событие close
     setTimeout(()=>createChannel(),3000) // пересоздаем новый канал при закрытии старого
 }
 
 const messageHandler = (e: MessageEvent) => { // обработчик новых сообщений
     const newMessages = JSON.parse( e.data ) // получить массив новых сообщений
-    subscribers.forEach((s:SubscriberType)=>{
-        s(newMessages)
+    subscribers.forEach((s:SubscriberType)=>{ // пробежать по массиву подписок
+        s(newMessages) // каждой подписке отправить массив новых сообщений
     })
 }
 const openHandler = () => { // обработчик при открытии канала websocket
     setTimeout(()=>{
-        // setReadyStatus( "ready" ) // добавить флаг доступности кнопки и поля ввода
-        console.log( 'open' )
+        console.log( 'open' ) // вывести в консоль открытие канала с задержкой
     },2000)
 }
 
-const closeChannelCommon = () => {// закрыть канал, всех слушателей и подписки
-    subscribers = [] // занулить список подписчиков при закрытии канала
+const closeChannelCommon = () => {// закрыть канал, всех слушателей
     ws?.removeEventListener( 'open', openHandler )// добавить слушатель события открытого канала websocket
     ws?.removeEventListener( 'close', closeHandler )// убрать слушатель события закрытия канала websocket
     ws?.removeEventListener( 'message', messageHandler ) // убрать слушатель события новых сообщений
@@ -38,7 +37,7 @@ const closeChannelCommon = () => {// закрыть канал, всех слу�
 }
 
 const createChannel = () => { // обработчик создания нового канала websocket
-    closeChannelCommon() // закрыть канал, всех слушателей и подписчиков перед созданием нового канала
+    ws && closeChannelCommon() // закрыть канал, всех слушателей перед созданием нового канала
 
     ws = new WebSocket( 'wss://social-network.samuraijs.com/handlers/ChatHandler.ashx' ) // создать новый канал
     ws?.addEventListener( 'open', openHandler )// добавить слушатель события открытого канала websocket
@@ -48,21 +47,22 @@ const createChannel = () => { // обработчик создания ново�
 
 export const chatAPI = {
     startChannel: () => {
-        createChannel()
+        createChannel() // создать канал
     },
     closeChannel: () => {
-        closeChannelCommon()
+        subscribers = [] // занулить список подписок при закрытии канала
+        closeChannelCommon()// закрыть канал, всех слушателей
     },
     subscribe: (callback: SubscriberType) => { // метод подписки на новые сообщений
-        subscribers.push( callback )// добавить ноые сообщения к уже подгруженным ранее
+        subscribers.push( callback )// добавить новую подписку
         return () => {
-            subscribers.filter((s:SubscriberType)=> s !== callback) // альтернатива отписки
+            subscribers.filter((s:SubscriberType)=> s !== callback) // удалить подписку (альтернативный вариант метода unsubscribe)
         }
     },
     unsubscribe: (callback: SubscriberType) => { // метод отписки от новых сообщений
-        subscribers.filter((s:SubscriberType)=> s !== callback) // оставляем всех подписчиков, кроме принятого в аргументах
+        subscribers.filter((s:SubscriberType)=> s !== callback) // оставляем все подписки, кроме принятой в аргументах
     },
     sendMessage: (message: string) => {
-        ws?.send(message)
+        ws?.send(message) // отправитьновое сообщение
     }
 }
