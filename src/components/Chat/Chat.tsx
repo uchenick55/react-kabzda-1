@@ -5,6 +5,7 @@ import {ChannelStatusType, ChatMessagesType} from "../api/chat-api";
 import {sendMessageThCr, startMessagesListening, stopMessagesListening} from "../../redux/chat-reducer";
 
 const Messages: React.FC = () => { // отрисовка всех сообщений
+    console.log(">>>>>>>>>>>>>>Messages")
     const messages: Array<ChatMessagesType> = useSelector( (state: GlobalStateType) => state.chat.messages ) // получить сообщения из стейта
 
     function useChatScroll<T>(dep: T): React.MutableRefObject<HTMLDivElement | null> {
@@ -42,6 +43,8 @@ const Message: React.FC<{ message: ChatMessagesType }> = ({message}) => { // о�
 }
 
 const AddMessages: React.FC = () => {
+    console.log(">>>>>>>>>>>>>>AddMessages")
+
     const channelStatus: ChannelStatusType = useSelector( (state: GlobalStateType) => state.chat.channelStatus ) // получить статус открытия канала
 
     const [message, setMessage] = useState<string>( "" ) // константа временного хранилища значения поля ввода
@@ -69,6 +72,8 @@ const AddMessages: React.FC = () => {
 }
 
 const Chat: React.FC = () => {
+    console.log(">>>>>>Chat")
+
     const dispatch = useDispatch()
     useEffect( () => {
         dispatch( startMessagesListening() )// открытие канала WS, создание подписок и слушателей событий

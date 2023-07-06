@@ -1,9 +1,9 @@
-import React from "react";
+import React, {useMemo} from "react";
 import Chat from "./Chat";
 
 const ChatContainer:React.FC = () => {
     return <div>
-        <Chat/>
+        {useMemo(()=><Chat/>,[])}
     </div>
 }
 export default ChatContainer

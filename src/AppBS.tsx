@@ -1,6 +1,5 @@
-import React, {memo, useEffect} from "react";
+import React, {memo, useEffect, useMemo} from "react";
 import './theme.scss';
-import commonClasses from "./components/common/CommonClasses/common.module.css";
 import {HashRouter} from "react-router-dom";
 import HeaderContainer from "./components/Header/HeaderContainer";
 import {useDispatch, useSelector} from "react-redux";
@@ -14,12 +13,15 @@ import FooterBS from "./components/Footer/FooterBS";
 import {AppDispatch, GlobalStateType} from "./redux/store-redux";
 import {ErrorType} from "./components/common/types/commonTypes";
 import ErrorsRender from "./components/common/ErrorsRender/ErrorsRender";
+import Service from "./components/common/Service/Service";
 
 const AppBS: React.FC = memo(() => {
-
+    console.log("AppBS")
     const theme:"light" | "dark" = useSelector((state:GlobalStateType) =>state.theme.themeBLL )
     const initialisedApp:boolean = useSelector((state:GlobalStateType) =>state.app.initialisedApp )
     const errorGlobal: ErrorType = useSelector( (state: GlobalStateType) => state.app.errorGlobal )
+
+    const serviceMemo = useMemo(()=><Service/>,[])
 
     const dispatch = useDispatch<AppDispatch>();
 
@@ -37,10 +39,10 @@ const AppBS: React.FC = memo(() => {
                 <div className={`${"themeCommon"} ${theme === "light" ? "light" : "dark"}`}>
                     {/*класс в зависимости от темы*/}
                     <ErrorBoundary> {/*Общий обработчик ошибок во всем приложении*/}
-                        <Container className={commonClasses.minwidth}>
+                        <Container>
+                            {initialisedApp && serviceMemo}{/*прелоадер, измерение ширины страницы и получение пути с URL*/}
                             <HeaderContainer/> {/*плавающий заголовок*/}
-                            <ContentContainer/>
-                            {/*страницы контента в зависмости от URL*/}
+                            <ContentContainer/>{/*страницы контента в зависмости от URL*/}
                             <FooterBS/>
                         </Container>
                     </ErrorBoundary>

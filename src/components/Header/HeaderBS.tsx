@@ -21,20 +21,19 @@ import {ImageMemo} from "../common/BootstrapMemo/BootstrapMemo";
 
 type HeaderBSType = {
     isAuth: boolean, // Флаг авторизации
-    themeBLL: "light" | "dark"
     myProfile: NulableType<GetProfileType>, // мой расширенный профиль по умолчанию
     deleteLogin: () => void,
     setTheme1: () => void,
+    path: string
 
 }
-const HeaderBS: React.FC<HeaderBSType> = memo( ({isAuth, myProfile, deleteLogin, setTheme1, themeBLL}) => {
+const HeaderBS: React.FC<HeaderBSType> = memo( ({isAuth, myProfile, deleteLogin, setTheme1, path}) => {
   //  console.log( "HeaderBS" )
     const navigate = useNavigate(); // хук для навигации по страницам (кнопка назад)
 
 
     const [show, setShow] = useState<boolean>( false ); // хук задания флага показать ли модальное Info
 
-    const location = useLocation()
 
     let modalHeader1: ModalHeaderType = "";
     let modalBody: ModalBodyType = "";
@@ -42,18 +41,10 @@ const HeaderBS: React.FC<HeaderBSType> = memo( ({isAuth, myProfile, deleteLogin,
     } // доп действия кроме закрытия окна
 
     if (show) {
-        modalHeader1 = location.pathname // путь из URL вида /profile
-            .toUpperCase() // в верхний регистр /PROFILE
-            .split( "" ) // разделить все на массив ['/', 'P', 'R', 'O', 'F', 'I', 'L', 'E']
-            .filter( i => i !== "/" ) // удалить все символы "/" ['P', 'R', 'O', 'F', 'I', 'L', 'E']
-            .join( "" ) //Склеить в слово PROFILE
-
+        modalHeader1 = path.toUpperCase() || "HOME"
         modalBody = <div><InfoContainer/></div>
         // отображение фоконтейнера, контекстнозависимого от URL
 
-        if (location.pathname === "/") {
-            modalHeader1 = "HOME"
-        }
     }
 
     // Перейти назад по истории

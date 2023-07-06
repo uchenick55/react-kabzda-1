@@ -17,8 +17,6 @@ let subscribers = {
 
 type subscribersCallbackType = SubscriberType<ChatMessagesType[]> | SubscriberType<ChannelStatusType>
 
-    console.log( "subscribers", subscribers )
-
 let ws: WebSocket | null = null // канал websocket
 
 const openHandler = () => { // обработчик при открытии канала websocket
@@ -80,12 +78,10 @@ const chatApi = {// api методы chat
 
         if (subscribeEvent === "messages-received") {
             subscribers["messages-received"].push( callback )
-            console.log( "subscribe, messages-received", subscribers )
 
         }
         if (subscribeEvent === "status-changed") {
             subscribers["status-changed"].push( callback )
-            console.log( "subscribe, status-changed:", subscribers )
         }
     },
     unsubscribe: (subscribeEvent: subscribeEventType, callback: any) => { // метод отписки от выбранного подписчика (отправка сообщений)

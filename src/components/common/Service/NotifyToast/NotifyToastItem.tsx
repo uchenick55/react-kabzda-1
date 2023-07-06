@@ -1,6 +1,6 @@
 import React, {useEffect, useState} from "react";
 import Toast from "react-bootstrap/Toast";
-import {NotifyType} from "../types/commonTypes";
+import {NotifyType} from "../../types/commonTypes";
 import classes from "./notifyToast.module.css";
 
 type NotifyToastItemType = {
