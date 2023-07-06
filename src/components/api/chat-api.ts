@@ -50,6 +50,7 @@ const createChannel = () => { // создать новый канал WS
     window.addEventListener('offline', closeHandler) // добавить слушатель потери интернет соединения
 }
 
+type subscribeEventType = 'status-changed' | "messages-received"
 const chatApi = {// api методы chat
     startChannel: () => {// метод создания нового канала WS
         createChannel()
@@ -58,7 +59,7 @@ const chatApi = {// api методы chat
         subscribers = [] // занулить массив подписчиков, вроде не нужно, мы и так отписки делаем
         closeChannelCommon() // функция закрытия канала
     },
-    subscribe: (callback: SubscriberType) => {// метод подписки на выбранного подписчика (отправка сообщений)
+    subscribe: (subscribeEvent:subscribeEventType, callback: SubscriberType) => {// метод подписки на выбранного подписчика (отправка сообщений)
         subscribers.push(callback)
         return () => { // альтернатива методу unsubscribe
             subscribers.filter((s:SubscriberType)=> s!==callback)

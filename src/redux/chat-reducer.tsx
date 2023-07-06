@@ -52,7 +52,8 @@ const newMessagesHandleCreator = (dispatch: Dispatch) => { // креатор, п
 export const startMessagesListening = (): ThType => { // санкреатор открытие канала WS, создание подписок и слушателей событий
     return async (dispatch, getState) => {//
         chatApi.startChannel() // создать канал и слушатели событий
-        chatApi.subscribe(newMessagesHandleCreator(dispatch)) // передать колбек подписки в dal для обновления сообщений в стейте
+        chatApi.subscribe("messages-received", newMessagesHandleCreator(dispatch)) // передать колбек подписки в dal для обновления сообщений в стейте
+      //  chatApi.subscribe('status-changed',newMessagesHandleCreator(dispatch)) // передать колбек подписки в dal для обновления сообщений в стейте
     }
 }
 export const stopMessagesListening = (): ThType => { // санкреатор закрытие канала WS, удаление подписок и слушателей событий
