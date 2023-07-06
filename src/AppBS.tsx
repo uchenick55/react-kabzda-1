@@ -15,7 +15,7 @@ import {ErrorType} from "./components/common/types/commonTypes";
 import ErrorsRender from "./components/common/ErrorsRender/ErrorsRender";
 import Service from "./components/common/Service/Service";
 
-const AppBS: React.FC = memo(() => {
+const AppBS: React.FC = (() => {
     console.log("AppBS")
     const theme:"light" | "dark" = useSelector((state:GlobalStateType) =>state.theme.themeBLL )
     const initialisedApp:boolean = useSelector((state:GlobalStateType) =>state.app.initialisedApp )

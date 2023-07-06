@@ -9,7 +9,6 @@ import Image from "react-bootstrap/Image";
 import {useNavigate} from 'react-router-dom';
 import ModalBS1 from "../common/ModalBS/ModalBS1";
 import InfoContainer from "../Info/InfoContainer";
-import {useLocation} from "react-router";
 import dayNightLight from "../../assets/images/swg/day-night.svg";
 import {ModalBodyType, ModalHeaderType, NulableType} from "../common/types/commonTypes";
 import {GetProfileType} from "../api/apiTypes";
@@ -31,9 +30,7 @@ const HeaderBS: React.FC<HeaderBSType> = memo( ({isAuth, myProfile, deleteLogin,
   //  console.log( "HeaderBS" )
     const navigate = useNavigate(); // хук для навигации по страницам (кнопка назад)
 
-
     const [show, setShow] = useState<boolean>( false ); // хук задания флага показать ли модальное Info
-
 
     let modalHeader1: ModalHeaderType = "";
     let modalBody: ModalBodyType = "";
@@ -44,7 +41,6 @@ const HeaderBS: React.FC<HeaderBSType> = memo( ({isAuth, myProfile, deleteLogin,
         modalHeader1 = path.toUpperCase() || "HOME"
         modalBody = <div><InfoContainer/></div>
         // отображение фоконтейнера, контекстнозависимого от URL
-
     }
 
     // Перейти назад по истории

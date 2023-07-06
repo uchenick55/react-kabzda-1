@@ -1,8 +1,7 @@
-import React, {memo, Suspense, useMemo} from "react";
+import React, {memo, Suspense} from "react";
 import {Route, Routes} from "react-router-dom";
 import ErrorBoundary from "../common/ErrorBoundary/ErrorBoundary";
 import classes from "./ContentContainer.module.css"
-import NotifyToastContainer from "../common/Service/NotifyToast/NotifyToastContainer";
 
 const UsersContainer = React.lazy( () => import("../users/UsersContainerFC") )
 const ProfileContainer = React.lazy( () => import("../Profile/ProfileContainerFC") )

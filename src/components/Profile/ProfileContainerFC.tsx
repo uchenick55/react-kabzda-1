@@ -1,5 +1,5 @@
 import {compose} from "redux";
-import {useDispatch} from "react-redux";
+import {useDispatch, useSelector} from "react-redux";
 import {
     getProfileThunkCreator,
 } from "../../redux/profile-reducer";
@@ -11,6 +11,9 @@ import ProfileInfoContainer from "./ProfileInfo/ProfileInfoContainer";
 import StatusContainer from "./Status/StatusContainer";
 import MyPostsContainer from "./MyPosts/MyPostsContainer";
 import {Col, Row} from "react-bootstrap";
+import {GlobalStateType} from "../../redux/store-redux";
+import {NulableType} from "../common/types/commonTypes";
+import {GetProfileType} from "../api/apiTypes";
 
 type OwnPropsType = {
     userId: number // id пользователя из withRouter
@@ -20,27 +23,42 @@ const ProfileContainerFC: React.FC<OwnPropsType> = ({userId}) => {
 
     const dispatch = useDispatch()
 
+    const profile: NulableType<GetProfileType> = useSelector( (state: GlobalStateType) => state.profilePage.profile )
+
     useEffect( () => {
+        if (userId !== profile?.userId)
         dispatch( getProfileThunkCreator( userId ) );// обновить профиль в зависомости от ID
     }, [userId, dispatch] )
 
     const isMyPrifile: boolean = userId === 0 //это мой аккаунт в профиле? (пустой userId в URL на моем аккаунте)
 
-    const myPostsRender = useMemo(()=><MyPostsContainer/>,[])
+    const myPostsRender = useMemo( () => <MyPostsContainer/>, [] )
+
+    const photoContainer = useMemo( () => <PhotoContainer/>, [] )
+
+    const profileInfoContainer = useMemo( () => <ProfileInfoContainer/>, [] )
+
+    const statusContainer = useMemo( () => <StatusContainer/>, [] )
 
     return <div>
-        <Row>
-            <Col lg={6} md={6} sm={12}>
-                {useMemo(()=><PhotoContainer/>,[])} {/*Отрисовка фото выбранного профиля с возможностью редактирования на моей странице*/}
-            </Col>
-            <Col lg={6} md={6} sm={12}>
-                {useMemo(()=><ProfileInfoContainer/>,[])} {/*Отрисовка данных выбранного профиля и возможность редактировать свой профиль*/}
-            </Col>
-        </Row>
+        { (userId === profile?.userId // отрисовать профиль если профиль пользователя загружен
+        || userId === 0) // или это мой профиль
 
-        {useMemo(()=><StatusContainer/>,[])}{/* отобразить статус*/}
+        && <div>
+            <Row>
+                <Col lg={6} md={6} sm={12}>
+                    {photoContainer} {/*Отрисовка фото выбранного профиля с возможностью редактирования на моей странице*/}
+                </Col>
+                <Col lg={6} md={6} sm={12}>
+                    {profileInfoContainer} {/*Отрисовка данных выбранного профиля и возможность редактировать свой профиль*/}
+                </Col>
+            </Row>
 
-        {isMyPrifile && myPostsRender} {/* для моего аккаункт отобразить мои посты*/}
+            {statusContainer}{/* отобразить статус*/}
+
+            {isMyPrifile && myPostsRender} {/* для моего аккаункт отобразить мои посты*/}
+        </div>}
+
     </div>
 }
 

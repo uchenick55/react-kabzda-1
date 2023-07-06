@@ -10,7 +10,6 @@ const GetPageWidth: React.FC = () => {
 
     const dispatch = useDispatch<AppDispatch>();
 
-
     const setPageWidthLocal  = () => { //записываем ширину окна в стор
         const pageWidth1 = document.documentElement.scrollWidth// изменяем ширину окна сразу
         setTimeout( () => { // делаем задержку
