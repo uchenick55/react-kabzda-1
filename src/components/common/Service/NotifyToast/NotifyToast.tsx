@@ -1,6 +1,6 @@
 import React from "react";
 import classes from "./notifyToast.module.css";
-import {NotifyType} from "../types/commonTypes";
+import {NotifyType} from "../../types/commonTypes";
 import NotifyToastItem from "./NotifyToastItem";
 
 type NotifyToastType = {

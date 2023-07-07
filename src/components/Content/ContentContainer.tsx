@@ -1,16 +1,7 @@
-import React, {memo, Suspense, useEffect, useMemo} from "react";
+import React, {memo, Suspense} from "react";
 import {Route, Routes} from "react-router-dom";
 import ErrorBoundary from "../common/ErrorBoundary/ErrorBoundary";
-import Tasks from "../Tasks/Tasks";
-import Home from "../Home/Home";
 import classes from "./ContentContainer.module.css"
-import {useLocation} from "react-router";
-import {useDispatch, useSelector} from "react-redux";
-import type {} from 'redux-thunk/extend-redux';
-import {AppDispatch, GlobalStateType} from "../../redux/store-redux";
-import {appActions} from "../../redux/app-reducer";
-import ErrorToastContainer from "../common/NotifyToast/NotifyToastContainer";
-import Preloader from "../common/Preloader/Preloader";
 
 const UsersContainer = React.lazy( () => import("../users/UsersContainerFC") )
 const ProfileContainer = React.lazy( () => import("../Profile/ProfileContainerFC") )
@@ -20,55 +11,15 @@ const News = React.lazy( () => import("../News/News") )
 const Rest = React.lazy( () => import("../Rest/Krestiki-Noliki/KrestikiNoliki") )
 const StackInfo = React.lazy( () => import("../Info/StackInfoBS") )
 const FeedBackContainer = React.lazy( () => import("../FeedBack/FeedBackContainer") )
-const ChatPageContainer = React.lazy( () => import("../ChatPage/ChatPageContainer") )
+
+const ChatContainer = React.lazy( () => import("../Chat/ChatContainer") )
+const Home = React.lazy( () => import("../Home/Home") )
+const Tasks = React.lazy( () => import("../Tasks/Tasks") )
 
 const ContentContainer: React.FC = memo( () => { // вынес роутинг контента в отдельную компоненту
     console.log("ContentContainer")
 
-    const {setPatch, setPageWidth} = appActions
-    const Patch: string = useSelector((state:GlobalStateType) => state.app.patch)
-    const isAuth: boolean = useSelector((state:GlobalStateType) => state.app.initialisedApp)
-    const isFetchingArray: Array<string> = useSelector((state:GlobalStateType) => state.app.isFetchingArray)
-
-    const dispatch = useDispatch<AppDispatch>();
-
-    const location = useLocation()
-    useEffect( () => { // определение и запись в стор пути из адресной строки бораузера
-        const patch2 = location.pathname // путь из URL вида /profile
-            .split( "" ) // разделить все на массив ['/', 'd', 'i', 'a', 'l', 'o', 'g', 's', '/', '2', '8', '8', '3', '1',]
-        const Aaa: Array<String> = [] // задать пустой массив
-        for (let i: number = 1; i < patch2.length; i++) { // начиная со второго элемента, первый элемент всегда '/'
-            if (patch2[i] === '/') {
-                break // прервать цикл, если встречаем /
-            }
-            Aaa.push( patch2[i] ) // добавляем элементы в массив
-        }
-
-        const UpdatedPatch: string = Aaa.join( "" ) // итоговый путь
-        if (isAuth && Patch!== UpdatedPatch) {
-            dispatch( setPatch( UpdatedPatch ))
-            // обновить данные пути patch в app-reducer
-        }
-
-    }, [location, setPatch, dispatch, Patch, isAuth] )
-
-    const setPageWidthLocal  = () => { //записываем ширину окна в стор
-        const pageWidth1 = document.documentElement.scrollWidth// изменяем ширину окна сразу
-        setTimeout( () => { // делаем задержку
-            const pageWidth2 = document.documentElement.scrollWidth // и повторно измеряем ширину окна
-            if (pageWidth1 === pageWidth2) { // если дина не меняется больше чем время задержки,
-               dispatch(setPageWidth( pageWidth1 )) //пушим длину в стор (защита от частого обновления стора)
-            }
-        }, 300 ) // время задержки между измерениями ширины окна
-    }
-
-    window.onresize = setPageWidthLocal;
-
     return (<div>
-
-        {isFetchingArray.length>0 && <Preloader/>} {/*общий прелоадер при загрузке*/}
-
-        {useMemo(()=><ErrorToastContainer/>,[]) }{/* вывод ошибок внутри 200 ответа*/}
         <ErrorBoundary> {/*Локальный обработчик ошибок ContentContainer*/}
             <Suspense fallback={
                 <div>Загрузка...</div>}> {/*Оборачивает компоненты, по которым идет Lazy import и выдает fallback на время загрузки*/}
@@ -83,9 +34,9 @@ const ContentContainer: React.FC = memo( () => { // вынес роутинг к
                         <Route path='/login/*' element={<LoginContainer/>}/> {/*Логин*/}
                         <Route path='/news/*' element={<News/>}/> {/*Поиск по новостям hn algonia*/}
                         <Route path='/rest/*' element={<Rest/>}/> {/*Страница отдыха*/}
-                        <Route path='/feedback/*' element={<FeedBackContainer/>}/> {/*Общие Комментарии*/}
-                        <Route path='/tasks/*' element={<Tasks/>}/> {/*Общие Комментарии*/}
-                        <Route path='/chat/*' element={<ChatPageContainer/>}/> {/*страница чата*/}
+                        <Route path='/feedback/*' element={<FeedBackContainer/>}/> {/**/}
+                        <Route path='/tasks/*' element={<Tasks/>}/> {/**/}
+                        <Route path='/chat/*' element={<ChatContainer/>}/> {/*страница чата*/}
                     </Routes>
                 </div>
             </Suspense>

@@ -1,70 +1,104 @@
-type SubscriberType = // определение типа подписки
-    (messages: Array<ChatMessageType>) // это функция, которая принимает массив сообщений от с сервера по WS
-        => void // и ничего не возвращает
 
-export type ChatMessageType = { // тип сообщений чата
+export type SubscriberType<T> = (data: T) => void
+// тип подписки - функция, принимающая данные и модицицирующая стейт через диспатч экшена
+
+export type ChatMessagesType = { // тип сообщения через канал WS
+
     message: string,
     photo: string,
     userId: number,
     userName: string
 }
 
-let subscribers = [] as Array<SubscriberType> // массив подписок
-let ws: WebSocket | null = null // временная переменная канала websocket
+export type ChannelStatusType = "pending" | "ready"
 
-const closeHandler = () => { // обработчик закрытия канала websocket
-    console.log("The network connection has been lost.");
-    setTimeout(()=>createChannel(),3000) // пересоздаем новый канал при закрытии старого
+let subscribers = {
+    "messages-received": [] as Array<SubscriberType<Array<ChatMessagesType>>>, // массив подписок, изначально пустой
+    "status-changed": [] as Array<SubscriberType<ChannelStatusType>>// массив подписок, изначально пустой
 }
 
-const messageHandler = (e: MessageEvent) => { // обработчик новых сообщений
-    const newMessages = JSON.parse( e.data ) // получить массив новых сообщений
-    subscribers.forEach((s:SubscriberType)=>{ // пробежать по массиву подписок
-        s(newMessages) // каждой подписке отправить массив новых сообщений
-    })
-}
+type subscribersCallbackType = SubscriberType<ChatMessagesType[]> | SubscriberType<ChannelStatusType>
+
+let ws: WebSocket | null = null // канал websocket
+
 const openHandler = () => { // обработчик при открытии канала websocket
-    setTimeout(()=>{
-        console.log( 'open' ) // вывести в консоль открытие канала с задержкой
-    },2000)
+    subscribers["status-changed"].forEach( (s: SubscriberType<ChannelStatusType>) => { // для каждого подписчика в массиве
+        s( "ready" ) // вызвать функцию подписки и отправить параметрами массив новых сообщений
+    } )
 }
 
-const closeChannelCommon = () => {// закрыть канал, всех слушателей
-    ws?.removeEventListener( 'open', openHandler )// добавить слушатель события открытого канала websocket
-    ws?.removeEventListener( 'message', messageHandler ) // убрать слушатель события новых сообщений
-    ws?.removeEventListener( 'close', closeHandler )// убрать слушатель события закрытия канала websocket
+const messageHandler = (e: MessageEvent) => { // обработка события message
+    const newMessages = JSON.parse( e.data ) // получить массив сообщений из пришедших данных по ws
+    subscribers["messages-received"].forEach( (s: SubscriberType<Array<ChatMessagesType>>) => { // для каждого подписчика в массиве
+        s( newMessages ) // вызвать функцию подписки и отправить параметрами массив новых сообщений
+    } )
+}
+
+const closeHandler = () => { // обработчик по событию close
+    console.log( "The network connection has been lost." );
+
+    subscribers["status-changed"].length > 0 &&
+        subscribers["status-changed"].forEach( (s: SubscriberType<ChannelStatusType>) => { // для каждого подписчика в массиве
+            s( "pending" ) // вызвать функцию подписки и отправить параметрами массив новых сообщений
+        } )
+
+    setTimeout( () => {
+        createChannel() // открыть новый канал по истечению задержки после закрытия старого
+    }, 3000 )
+}
+
+
+const closeChannelCommon = () => {// функция закрытия канала
+    ws?.removeEventListener( 'open', openHandler )// удалить слушатель закрытия канала
+    ws?.removeEventListener( 'message', messageHandler )// удалить слушатель новых сообщений
+    ws?.removeEventListener( 'close', closeHandler ) // удалить слушатель закрытия канала
     ws?.close() // закрыть сам канал
-    window.removeEventListener("offline", closeHandler);// убрать слушатель события обрыва сети
+    window.removeEventListener( 'offline', closeHandler ) // удалить слушатель потери интернет соединения
+    console.log( "WS CLOSE" );
+
 }
 
-const createChannel = () => { // обработчик создания нового канала websocket
-    ws && closeChannelCommon() // закрыть канал, всех слушателей перед созданием нового канала
-
-    ws = new WebSocket( 'wss://social-network.samuraijs.com/handlers/ChatHandler.ashx' ) // создать новый канал
-    ws?.addEventListener( 'open', openHandler )// добавить слушатель события открытого канала websocket
-    ws?.addEventListener( 'message', messageHandler ) // добавить слушатель события новых сообщений
-    ws?.addEventListener( 'close', closeHandler )// добавить слушатель события закрытия канала websocket
-    window.addEventListener("offline", closeHandler);// добавить слушатель события обрыва сети
+const createChannel = () => { // создать новый канал WS
+    ws && closeChannelCommon() // перед открытием нового канала, если старый канал WS не нулевой, закрыть слушатели и сам канал
+    ws = new WebSocket( "wss://social-network.samuraijs.com/handlers/ChatHandler.ashx" ) // открыть канал WS
+    ws?.addEventListener( 'open', openHandler ) // добавить слушатель открытия канала
+    ws?.addEventListener( 'message', messageHandler )// добавить слушатель новых сообщений
+    ws?.addEventListener( 'close', closeHandler )// добавить слушатель закрытия канала
+    window.addEventListener( 'offline', closeHandler ) // добавить слушатель потери интернет соединения
 }
 
-export const chatAPI = {
-    startChannel: () => {
-        createChannel() // создать канал
+type subscribeEventType = 'status-changed' | "messages-received"
+const chatApi = {// api методы chat
+    startChannel: () => {// метод создания нового канала WS
+        createChannel()
     },
-    closeChannel: () => {
-        subscribers = [] // занулить список подписок при закрытии канала
-        closeChannelCommon()// закрыть канал, всех слушателей
+    closeChannel: () => { // метод закрытия канала, удаления слушателей и зануления массива подписок
+        //subscribers["messages-received"] = [] // занулить массив подписчиков, вроде не нужно, мы и так отписки делаем
+        closeChannelCommon() // функция закрытия канала
     },
-    subscribe: (callback: SubscriberType) => { // метод подписки на новые сообщений
-        subscribers.push( callback )// добавить новую подписку
-        return () => {
-            subscribers.filter((s:SubscriberType)=> s !== callback) // удалить подписку (альтернативный вариант метода unsubscribe)
+    subscribe: (subscribeEvent: subscribeEventType, callback: any) => {// метод подписки на выбранного подписчика (отправка сообщений)
+
+        if (subscribeEvent === "messages-received") {
+            subscribers["messages-received"].push( callback )
+
+        }
+        if (subscribeEvent === "status-changed") {
+            subscribers["status-changed"].push( callback )
         }
     },
-    unsubscribe: (callback: SubscriberType) => { // метод отписки от новых сообщений
-        subscribers.filter((s:SubscriberType)=> s !== callback) // оставляем все подписки, кроме принятой в аргументах
+    unsubscribe: (subscribeEvent: subscribeEventType, callback: any) => { // метод отписки от выбранного подписчика (отправка сообщений)
+        if (subscribeEvent === "messages-received") {
+            subscribers["messages-received"].filter( (s: SubscriberType<Array<ChatMessagesType>>) => s !== callback )
+            console.log( "subscribe, status-changed:", subscribers )
+        }
+        if (subscribeEvent === "status-changed") {
+            subscribers["status-changed"].filter( (s: SubscriberType<ChannelStatusType>) => s !== callback )
+            console.log( "unsubscribe, status-changed:", subscribers )
+        }
     },
-    sendMessage: (message: string) => {
-        ws?.send(message) // отправитьновое сообщение
+    sendMessage: (newMessage: string) => { // метод отправить сообщение через канал WS
+        ws?.send( newMessage )
     }
 }
+
+export default chatApi

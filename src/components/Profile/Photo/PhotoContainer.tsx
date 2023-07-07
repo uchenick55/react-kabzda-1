@@ -7,12 +7,10 @@ import {GlobalStateType} from "../../../redux/store-redux";
 import PhotoRender from "./PhotoRender";
 import userPhoto1 from "../../../assets/images/no-image3.png";
 
-
 const PhotoContainer: React.FC = () => {
     console.log("PhotoContainer")
     const dispatch = useDispatch()
     const profile: NulableType<GetProfileType> = useSelector( (state: GlobalStateType) => state.profilePage.profile )
-    const userId: number | undefined = useSelector( (state: GlobalStateType) => state.profilePage.profile?.userId ) // id пользователя
     const myId: number | undefined = useSelector( (state: GlobalStateType) => state.auth.myId ) // мой id
 
     const onChangeLocal = (e: ChangeEvent<HTMLInputElement>) => {
@@ -23,11 +21,13 @@ const PhotoContainer: React.FC = () => {
             ? profile.photos.large
             : userPhoto1
 
-    const isMyProfile: boolean = userId === myId
-    return <PhotoRender
-        photo={photo}
-        isMyProfile={isMyProfile}
-        onChangeLocal={onChangeLocal}
-    />
+    const isMyProfile: boolean = profile?.userId === myId
+    return <div>
+        {profile?.userId && <PhotoRender
+            photo={photo}
+            isMyProfile={isMyProfile}
+            onChangeLocal={onChangeLocal}
+        />}
+    </div>
 }
 export default PhotoContainer

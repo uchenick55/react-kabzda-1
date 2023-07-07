@@ -1,9 +1,9 @@
 import React from "react";
 import NotifyToast from "./NotifyToast";
 import {useDispatch, useSelector} from "react-redux";
-import {GlobalStateType} from "../../../redux/store-redux";
-import {appActions} from "../../../redux/app-reducer";
-import {NotifyType} from "../types/commonTypes";
+import {GlobalStateType} from "../../../../redux/store-redux";
+import {appActions} from "../../../../redux/app-reducer";
+import {NotifyType} from "../../types/commonTypes";
 
 const NotifyToastContainer: React.FC = () => {
     console.log("NotifyToastContainer")

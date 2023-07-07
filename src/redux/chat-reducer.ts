@@ -1,22 +1,28 @@
-import {chatAPI, ChatMessageType} from "../components/api/chat-api";
 import {InferActionsTypes} from "./store-redux";
 import {ComThunkTp} from "../components/common/types/commonTypes";
+import chatApi, {ChannelStatusType, ChatMessagesType, SubscriberType} from "../components/api/chat-api";
 import {Dispatch} from "redux";
 
-const SET_MESAGE = "myApp/dialog2-reducer/SET_MESAGE";
+const SET_MESSAGE = "myApp/dialog2-reducer/SET_MESSAGE";
+const SET_CHANNEL_STATUS = "myApp/dialog2-reducer/SET_CHANNEL_STATUS";
 
 export const chatActions = {
 
-    setMessagesAC: (messages: Array<ChatMessageType>) => {
-        return {type: SET_MESAGE, messages} as const
+    setMessageAC: (newMessages: Array<ChatMessagesType>) => { // экшн креатор обновления сообщений в стейте
+        return {type: SET_MESSAGE, newMessages} as const
+    },
+    setChannelStatus: (channelStatus: ChannelStatusType) => { // экшн креатор обновления сообщений в стейте
+        return {type: SET_CHANNEL_STATUS, channelStatus} as const
     },
 }
 
 type ChatActionsTypes =
     InferActionsTypes<typeof chatActions>
 
+
 const initialState = {
-    messages: [] as Array<ChatMessageType>,
+    messages: [] as Array<ChatMessagesType>,
+    channelStatus: "pending" as ChannelStatusType
 }
 
 type InitialStateChatType = typeof initialState
@@ -24,10 +30,16 @@ type InitialStateChatType = typeof initialState
 const chatReducer = (state: InitialStateChatType = initialState, action: ChatActionsTypes): InitialStateChatType => {
     let stateCopy: InitialStateChatType // объявлениечасти части стейта до изменения редьюсером
     switch (action.type) {
-        case SET_MESAGE: // список всех диалогов
+        case SET_MESSAGE:
             stateCopy = {
                 ...state,
-                messages: [...state.messages, ...action.messages], // добавить новые сообщения к ранее загруженным
+                messages: [...state.messages, ...action.newMessages], // обновление сообщений в стейте (добавить к ранее загруженным)
+            }
+            return stateCopy
+        case SET_CHANNEL_STATUS:
+            stateCopy = {
+                ...state,
+                channelStatus: action.channelStatus, // обновление статуса канала WS
             }
             return stateCopy
         default:
@@ -36,51 +48,49 @@ const chatReducer = (state: InitialStateChatType = initialState, action: ChatAct
 }
 
 type ThType = ComThunkTp<ChatActionsTypes> // тип, выведенный из общего типа санок сс учетом локального типа AC
-// const newMessageHandlerCreator = (dispatch:Dispatch) => //креатор, который поставляет dispatch.
-//      ((messages: Array<ChatMessageType>) => { //
-//          dispatch( chatActions.setMessagesAC( messages ) )// добавляем массив новых сообщений с стейт серез AC
-// })
 
-let _newMessageHandler: // приватная переменная
-    ((messages: Array<ChatMessageType>) => void) // она равна либо функции, принимающей массив сообщений для дальнейшей записи в стейт
-    | null = null // либо null (по умолчанию)
+let _newMessagesHandler: SubscriberType<Array<ChatMessagesType>> | null = null
+// приватная переменная, по умолчанию null, но может принимать начение колбека для обновления сообщений в стейте
 
-const newMessageHandlerCreator = (dispatch: Dispatch) => { //креатор, который поставляет dispatch
-    if (_newMessageHandler === null) { // если приватная переменная _newMessageHandler равна null
-        _newMessageHandler = (messages: Array<ChatMessageType>) => { // то ей присваиваем функцию, принимающую массив сообщений
-            dispatch( chatActions.setMessagesAC( messages ) )// эта функция будет добавлять массив новых сообщений с стейт
+const newMessagesHandleCreator = (dispatch: Dispatch) => { // креатор, принимает dispatch и возвращает колбек обновления сообщений
+    if (_newMessagesHandler === null) { // если приватная переменная пустая
+        _newMessagesHandler = (newMessages: Array<ChatMessagesType>)=> { // присвоить ей функцию, принимающую массив новых сообщений из канала WS
+            dispatch(chatActions.setMessageAC(newMessages)) // эта функция может обновлять сообщения в стейте
         }
     }
-    // в противном случае возвращаем ранее созданную (записаную) переменную _newMessageHandler
-    return _newMessageHandler
+    return  _newMessagesHandler // вернуть переменную - колбек обновления сообщений в стейте
+}
+let _statusChangedHandler: SubscriberType<ChannelStatusType> | null = null
+// приватная переменная, по умолчанию null, но может принимать начение колбека для обновления статуса готовности канала ws
+
+const statusChangedHandlerCreator = (dispatch: Dispatch) => {
+    if (_statusChangedHandler === null ) {
+        _statusChangedHandler = (channelStatus: ChannelStatusType) => {
+            dispatch(chatActions.setChannelStatus(channelStatus))
+        }
+    }
+    return  _statusChangedHandler // вернуть переменную - колбек обновления статуса канала в стейте
 }
 
-export const startMessagesListening = (): ThType => {// начать слушать получение сообщений
-    return async (dispatch, getState) => {
-        chatAPI.startChannel() // открыть канал со всеми слушателями событий
-        chatAPI.subscribe( newMessageHandlerCreator( dispatch ) ) // передать в массив подписок колбек-телефончик для обновления сообщений в стейте
+export const startMessagesListening = (): ThType => { // санкреатор открытие канала WS, создание подписок и слушателей событий
+    return async (dispatch, getState) => {//
+        chatApi.startChannel() // создать канал и слушатели событий
+        chatApi.subscribe("messages-received", newMessagesHandleCreator(dispatch)) // передать колбек подписки в dal для обновления сообщений в стейте
+        chatApi.subscribe("status-changed",statusChangedHandlerCreator(dispatch)) // передать колбек подписки в dal для обновления статуса канала в стейте
     }
 }
-export const stopMessagesListening = (): ThType => {// закончить слушать получение сообщений
-    return async (dispatch, getState) => {
-        chatAPI.unsubscribe( newMessageHandlerCreator( dispatch ) ) // убрать из массива подписок колбек-телефончик обновления сообщений в стейте
-        chatAPI.closeChannel() // удалить канал, очистить массив подписчиков и слушателей событий
+export const stopMessagesListening = (): ThType => { // санкреатор закрытие канала WS, удаление подписок и слушателей событий
+    return async (dispatch, getState) => {//
+        chatApi.unsubscribe("messages-received", newMessagesHandleCreator(dispatch)) // убрать колбек подписки из dal обновления сообщений в стейте
+        chatApi.unsubscribe("status-changed",statusChangedHandlerCreator(dispatch)) // убрать колбек подписки из dal обновления статуса канала в стейте
+        chatApi.closeChannel() // удалить канал и слушателей событий
     }
 }
-export const sendMessageThCr = (message: string): ThType => {// отправить сообщение
+export const sendMessageThCr = (newMessage: string): ThType => { // санкреатор отправки сообщения
     return async (dispatch, getState) => {
-        chatAPI.sendMessage( message ) // отправить сообщение
+        chatApi.sendMessage(newMessage) // отправить сообщение
     }
 }
 
 export default chatReducer
-
-
-
-
-
-
-
-
-
 

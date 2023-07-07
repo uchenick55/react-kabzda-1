@@ -24,3 +24,4 @@ export const saveDataToNotify = (messageItem:string, style: string = "Warning" )
 export const saveErrorGlobal = (errorGlobal: ErrorType) => {
     getDispatch()( appActions.setAppErrorAC( errorGlobal ) ) // запись данных ошибки в стейт
 }
+
