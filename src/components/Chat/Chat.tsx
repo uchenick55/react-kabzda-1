@@ -3,6 +3,7 @@ import {useDispatch, useSelector} from "react-redux";
 import {GlobalStateType} from "../../redux/store-redux";
 import {ChannelStatusType, ChatMessagesType} from "../api/chat-api";
 import {sendMessageThCr, startMessagesListening, stopMessagesListening} from "../../redux/chat-reducer";
+import AddMessagesFormik from "./AddMessages/AddMessagesFormikBS";
 
 const Messages: React.FC = () => { // отрисовка всех сообщений
     console.log(">>>>>>>>>>>>>>Messages")
@@ -50,24 +51,25 @@ const AddMessages: React.FC = () => {
     const [message, setMessage] = useState<string>( "" ) // константа временного хранилища значения поля ввода
     const dispatch = useDispatch()
 
-    const sendMessage = () => { // колбек отправеки сообщений
+    const sendMessage = (message:string) => { // колбек отправеки сообщений
         message && dispatch( sendMessageThCr( message ) ) // отправить сообщение
         message && setMessage( "" ) // занулить поле ввода
     }
 
     const checkEnterPressed = (e: React.KeyboardEvent) => { // проверка нажатия Enter
         if (e.charCode === 13) {
-            sendMessage()
+            sendMessage(message)
         }
     }
 
     const isDisabled = channelStatus !== "ready"
     return <div>
+        <AddMessagesFormik sendMessage={sendMessage} isDisabled={isDisabled}/>
         <input disabled={isDisabled} value={message} onChange={(e) => setMessage( e.target.value )}
                style={{width: "50rem"}}
                onKeyPress={(e) => checkEnterPressed( e )} // проверка нажатия Enter
         /> {/*поле ввода*/}
-        <button onClick={sendMessage} disabled={isDisabled}>Send </button> {/*отправка сообщений */}
+        <button onClick={()=>sendMessage(message)} disabled={isDisabled}>Send </button> {/*отправка сообщений */}
     </div>
 }
 

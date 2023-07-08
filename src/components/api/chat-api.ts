@@ -7,8 +7,10 @@ export type ChatMessagesType = { // тип сообщения через кан�
     message: string,
     photo: string,
     userId: number,
-    userName: string
+    userName: string,
 }
+
+export type ChatMessagesTypeWithId = ChatMessagesType & {id: string} // тип сообщений WS с уникальным id
 
 export type ChannelStatusType = "pending" | "ready"
 

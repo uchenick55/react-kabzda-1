@@ -22,7 +22,6 @@ const MyPostsInput:React.FC<MyPostsInputType> = ({addPost}) => {
                 onChange={(e)=>setInputOnchange(e.target.value)}
                 placeholder={"введите сообщение..."}
                 onKeyPress={checkEnterPressed} // проверка нажатия Enter
-
             />
             <Button
                 disabled={!inputOnChange}
@@ -38,7 +37,6 @@ const MyPostsInput:React.FC<MyPostsInputType> = ({addPost}) => {
                 variant="warning"
                 type='button'
                 onClick={()=>setInputOnchange("")}
-
             >Reset
             </Button>
         </InputGroup>

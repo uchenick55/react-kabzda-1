@@ -2,7 +2,7 @@ import {getDispatch, getState} from "../../../redux/store-redux";
 import {appActions} from "../../../redux/app-reducer";
 import {ErrorType} from "../types/commonTypes";
 
-const getUnixTime = () => {
+export const getUnixTime = () => {
     return new Date().getTime() // создать и вернуть текущее время в миллисекундах по Unix
 }
 

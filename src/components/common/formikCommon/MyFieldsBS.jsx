@@ -16,7 +16,7 @@ export const CommonInputTextArea = ({label, children, ...props}) => {
         </>
     )
 }
-export const MyTextInput = ({label, autoFocus, type, leftLabelLength, ...props}) => {  // вынесенная общая часть для тесктового поля
+export const MyTextInput = ({label, autoFocus = false, type, leftLabelLength = "", isDisabled = false, ...props}) => {  // вынесенная общая часть для тесктового поля
     const [field, meta] = useField(props) // данные onBlur и meta для обработки ошибок
 
     return (
@@ -26,11 +26,14 @@ export const MyTextInput = ({label, autoFocus, type, leftLabelLength, ...props})
                 {leftLabelLength && // если параметр leftLabelLength не пустой, то рисуем лейбл сдева от input с label
                 <InputGroup.Text id={label} className={classes.labelWidth} style={{width: leftLabelLength}}
                 >{label}:</InputGroup.Text>}
-                <Form.Control  as={type==="textarea"?type:"input"} type={type==="password"?type:undefined}
-                               className={meta.touched && meta.error ? classes.errorInputTextArea : classes.inputTextArea}
-                    {...field}
-                    {...props}
-                    autoFocus={autoFocus}
+                <Form.Control
+                    disabled={isDisabled} // поле неактивно?
+                    as={type==="textarea"?type:"input"}  // выбор input или textArea
+                    type={type==="password"?type:undefined} // это поле типа password (скрытое)?
+                    className={meta.touched && meta.error ? classes.errorInputTextArea : classes.inputTextArea} // стилизация
+                    {...field} // данные onBlur и meta для обработки ошибок
+                    {...props} // остальные пропсы передаем дальше
+                    autoFocus={autoFocus} // автофокус
                 />
             </InputGroup>
             <div className={classes.errorText}>{meta.touched && meta.error}</div>

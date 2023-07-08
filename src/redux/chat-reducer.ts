@@ -1,7 +1,13 @@
 import {InferActionsTypes} from "./store-redux";
 import {ComThunkTp} from "../components/common/types/commonTypes";
-import chatApi, {ChannelStatusType, ChatMessagesType, SubscriberType} from "../components/api/chat-api";
+import chatApi, {
+    ChannelStatusType,
+    ChatMessagesType,
+    ChatMessagesTypeWithId,
+    SubscriberType
+} from "../components/api/chat-api";
 import {Dispatch} from "redux";
+import uniqid from 'uniqid';
 
 const SET_MESSAGE = "myApp/dialog2-reducer/SET_MESSAGE";
 const SET_CHANNEL_STATUS = "myApp/dialog2-reducer/SET_CHANNEL_STATUS";
@@ -21,7 +27,7 @@ type ChatActionsTypes =
 
 
 const initialState = {
-    messages: [] as Array<ChatMessagesType>,
+    messages: [] as Array<ChatMessagesTypeWithId>,
     channelStatus: "pending" as ChannelStatusType
 }
 
@@ -31,9 +37,15 @@ const chatReducer = (state: InitialStateChatType = initialState, action: ChatAct
     let stateCopy: InitialStateChatType // объявлениечасти части стейта до изменения редьюсером
     switch (action.type) {
         case SET_MESSAGE:
+
+            const newMessagesWithId:Array<ChatMessagesTypeWithId> = action.newMessages.map(m=>{ // пробегаем массив новых сообщений
+                return Object.assign(m, { id: uniqid()}) // добавляем уникальный id каждому сообщению
+            })
+
             stateCopy = {
                 ...state,
-                messages: [...state.messages, ...action.newMessages], // обновление сообщений в стейте (добавить к ранее загруженным)
+                messages: [...state.messages, ...newMessagesWithId] // добавляем новые сообщения к имеющимся
+                    .filter((m, ind, arr)=> ind>= arr.length - 90), // только последние 90 сообщений
             }
             return stateCopy
         case SET_CHANNEL_STATUS:
