@@ -58,8 +58,7 @@ const closeChannelCommon = () => {// функция закрытия канал�
         ws?.close() // закрыть канал
     }
     window.removeEventListener( 'offline', closeHandler ) // удалить слушатель потери интернет соединения
-    console.log( "WS CLOSE" );
-
+   // console.log( "WS CLOSE" );
 }
 
 const createChannel = () => { // создать новый канал WS
