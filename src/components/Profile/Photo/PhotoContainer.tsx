@@ -8,7 +8,7 @@ import PhotoRender from "./PhotoRender";
 import userPhoto1 from "../../../assets/images/no-image3.png";
 
 const PhotoContainer: React.FC = () => {
-    console.log("PhotoContainer")
+  //  console.log("PhotoContainer")
     const dispatch = useDispatch()
     const profile: NulableType<GetProfileType> = useSelector( (state: GlobalStateType) => state.profilePage.profile )
     const myId: number | undefined = useSelector( (state: GlobalStateType) => state.auth.myId ) // мой id

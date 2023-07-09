@@ -2,7 +2,7 @@ import React from "react";
 
 const LoginInfoShort:React.FC = () => {
     return <div>
-        Страницы Profile и Dialogs доступны только после авторизации.
+        Страницы Profile, Dialogs и Chat доступны только после авторизации.
         <p>Данные для тестового входа:</p>
         <p>Аккаунт 1: Email: evgeniysazonov1983@gmail.com <br/>
             Password: 12qwaszx</p>

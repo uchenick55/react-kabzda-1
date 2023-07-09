@@ -20,7 +20,7 @@ const PaginationByCourse: React.FC<PaginationByCourseType> = (({
                                                                    currentRangeLocal,
                                                                    onChangeRangeLocal
                                                                }) => {
-    console.log( "PaginationByCourse" )
+ //   console.log( "PaginationByCourse" )
     const PortionSize: number = 6 // количество отображаемых страниц из всего массива
     // currentRange - текущий диапазон. Он в PortionSize меньше PagesCount
     //setCurrentRange - изменение currentRange по клику на кнопку

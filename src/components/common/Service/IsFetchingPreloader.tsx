@@ -4,7 +4,7 @@ import {useSelector} from "react-redux";
 import {GlobalStateType} from "../../../redux/store-redux";
 
 const IsFetchingPreloader: React.FC = () => {
-    console.log("IsFetchingPreloader")
+  // console.log("IsFetchingPreloader")
     const isFetchingArray: Array<string> = useSelector((state:GlobalStateType) => state.app.isFetchingArray)
 
     return <>

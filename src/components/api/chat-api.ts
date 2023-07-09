@@ -54,7 +54,9 @@ const closeChannelCommon = () => {// функция закрытия канал�
     ws?.removeEventListener( 'open', openHandler )// удалить слушатель закрытия канала
     ws?.removeEventListener( 'message', messageHandler )// удалить слушатель новых сообщений
     ws?.removeEventListener( 'close', closeHandler ) // удалить слушатель закрытия канала
-    ws?.close() // закрыть сам канал
+    if (ws?.readyState === 1) { // если канал открыт
+        ws?.close() // закрыть канал
+    }
     window.removeEventListener( 'offline', closeHandler ) // удалить слушатель потери интернет соединения
     console.log( "WS CLOSE" );
 
@@ -91,11 +93,11 @@ const chatApi = {// api методы chat
     unsubscribe: (subscribeEvent: subscribeEventType, callback: any) => { // метод отписки от выбранного подписчика (отправка сообщений)
         if (subscribeEvent === "messages-received") {
             subscribers["messages-received"].filter( (s: SubscriberType<Array<ChatMessagesType>>) => s !== callback )
-            console.log( "subscribe, status-changed:", subscribers )
+           // console.log( "subscribe, status-changed:", subscribers )
         }
         if (subscribeEvent === "status-changed") {
             subscribers["status-changed"].filter( (s: SubscriberType<ChannelStatusType>) => s !== callback )
-            console.log( "unsubscribe, status-changed:", subscribers )
+           // console.log( "unsubscribe, status-changed:", subscribers )
         }
     },
     sendMessage: (newMessage: string) => { // метод отправить сообщение через канал WS

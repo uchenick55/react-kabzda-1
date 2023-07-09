@@ -7,7 +7,7 @@ import {GlobalStateType} from "../../../redux/store-redux";
 import {profileActions, putMyProfileThunkCreator} from "../../../redux/profile-reducer";
 
 const ProfileInfoContainer = () => {
-    console.log( "ProfileInfoContainer" )
+   // console.log( "ProfileInfoContainer" )
 
     const {setEditProfileStatus} = profileActions
     const dispatch = useDispatch()

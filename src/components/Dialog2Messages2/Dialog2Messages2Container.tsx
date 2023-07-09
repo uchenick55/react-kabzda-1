@@ -29,21 +29,6 @@ const Dialog2Messages2Container: React.FC<OwnPropsType> = ({userId}) => {
     const {setMarkers} = dialog2Actions // получить экшены
 
     const dispatch = useDispatch()
-    /*    const wsChannel = new WebSocket("wss://social-network.samuraijs.com/handlers/ChatHandler.ashx")
-
-        type NewMessageType = {
-            "userId": number,//27695
-            "userName": string, //"catDonut"
-            "message": string, //"hi"
-            "photo": string //"https://social-network.samuraijs.com/activecontent/images/users/27695/user-small.jpg?v=1"
-
-
-        useEffect(()=>{
-            wsChannel.addEventListener('message', (e:MessageEvent)=>{
-                const newMessages: Array<NewMessageType> = JSON.parse(e.data)
-                console.log(newMessages)
-            })
-        },[])}*/
 
     const secondBlock = document.querySelector( '.second-block' ) // ссылка на прокрутку вниз
 

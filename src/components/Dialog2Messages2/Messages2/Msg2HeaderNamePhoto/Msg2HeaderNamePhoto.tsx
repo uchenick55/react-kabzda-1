@@ -10,7 +10,7 @@ type Msg2HeaderNamePhotoType = {
     isMobile: boolean // это мобильная верстка?
 }
 const Msg2HeaderNamePhoto: React.FC<Msg2HeaderNamePhotoType> =  ( ({d2Item, isMobile}) => {
-    console.log("шапка сообщений")
+    console.log("Msg2HeaderNamePhoto")
 
     const photoSrc = d2Item && d2Item.photos && d2Item.photos.small ? d2Item.photos.small : userPhoto // фото с сервера или заглушка
     const DateLocal = GetDate(d2Item && d2Item.lastUserActivityDate) // получаем дату последнего сообщения

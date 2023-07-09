@@ -5,7 +5,7 @@ import IsFetchingPreloader from "./IsFetchingPreloader";
 import NotifyToastContainer from "./NotifyToast/NotifyToastContainer";
 
 const Service: React.FC = ( () => {
-    console.log( "Service" )
+   // console.log( "Service" )
 
     return <div>
         <GetPageWidth/>{/* получить ширину страницы */}

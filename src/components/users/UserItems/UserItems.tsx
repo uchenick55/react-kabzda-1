@@ -20,7 +20,7 @@ type UserItemsType = {
 }
 const UserItems: React.FC<UserItemsType> = ( ({users, unfollowAPI, followAPI, followingInProgress, isAuth, patch, pageWidth}) => {
     // отрисовка всех карточек с пользователями
-    console.log("UserItems")
+   // console.log("UserItems")
     let gridColsClass: string = ""
 
     const getGridColsClass = (pageWidth:number) => {

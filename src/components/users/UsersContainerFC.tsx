@@ -12,7 +12,7 @@ import {dialog2Actions} from "../../redux/dialog2-reducer";
 import {D2ItemType} from "../api/apiTypes";
 
 const UsersContainerFC: React.FC = () => {
-    console.log("===>>> UsersContainerFC ")
+    //console.log("===>>> UsersContainerFC ")
     const {setDialog2InitialState} = dialog2Actions
 
     const currentPage: number = useSelector( usersSelectorsSimple.getCurrentPage )// селектор currentPage - текущая страница пачки пользователей с сервера

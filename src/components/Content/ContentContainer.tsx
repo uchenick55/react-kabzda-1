@@ -17,7 +17,7 @@ const Home = React.lazy( () => import("../Home/Home") )
 const Tasks = React.lazy( () => import("../Tasks/Tasks") )
 
 const ContentContainer: React.FC = memo( () => { // вынес роутинг контента в отдельную компоненту
-    console.log("ContentContainer")
+   // console.log("ContentContainer")
 
     return (<div>
         <ErrorBoundary> {/*Локальный обработчик ошибок ContentContainer*/}

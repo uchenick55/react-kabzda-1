@@ -5,7 +5,7 @@ import {putStatusThunkCreator} from "../../../redux/profile-reducer";
 import ProfileStatusUseState from "./ProfileStatus/ProfileStatusUseState";
 
 const StatusContainer:React.FC = () => {
-    console.log("StatusContainer")
+   // console.log("StatusContainer")
     const dispatch = useDispatch()
     const myId: number = useSelector( (state: GlobalStateType) => state.auth.myId ) // мой id
     const userId: number | undefined = useSelector( (state: GlobalStateType) => state.profilePage.profile?.userId ) // id пользователя

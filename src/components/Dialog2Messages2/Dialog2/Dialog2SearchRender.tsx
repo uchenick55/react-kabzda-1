@@ -7,7 +7,7 @@ type Dialog2SearchRenderType = {
     setSearchValue: (SearchValue:string)=>void // функция обновления локального стейта поиска в списке диалогов
 }
 const Dialog2SearchRender: React.FC<Dialog2SearchRenderType> = memo( ({SearchValue, setSearchValue})=>{
-    console.log("отрисовка поля поиска среди dialogs2")
+  //  console.log("Dialog2SearchRender")
     return <div>
         <input
             placeholder={"Поиск"}

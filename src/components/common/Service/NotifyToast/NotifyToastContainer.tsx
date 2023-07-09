@@ -6,7 +6,7 @@ import {appActions} from "../../../../redux/app-reducer";
 import {NotifyType} from "../../types/commonTypes";
 
 const NotifyToastContainer: React.FC = () => {
-    console.log("NotifyToastContainer")
+   // console.log("NotifyToastContainer")
     const notify = useSelector(((state:GlobalStateType) => state.app.notify)) // массив ошибок 200
     const theme = useSelector(((state:GlobalStateType) => state.theme.themeBLL)) // тема для ошибок
 

@@ -17,7 +17,7 @@ type InputButtonUsersRenderType = {
 }
 const InputButtonUsersRender:React.FC<InputButtonUsersRenderType> =
     ({onChangeTerm, setOnlyFriends, onlyFriends, SetTermFunction, setOnChangeTerm}) => {
-    console.log("InputButtonUsersRender")
+   // console.log("InputButtonUsersRender")
     const dispatch = useDispatch()
     return <div>
         <Form>

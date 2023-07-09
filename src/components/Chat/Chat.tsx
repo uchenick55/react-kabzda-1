@@ -1,29 +1,34 @@
-import React, {useEffect, useState} from "react";
+import React, {useEffect, useRef, useState} from "react";
 import {useDispatch, useSelector} from "react-redux";
 import {GlobalStateType} from "../../redux/store-redux";
 import {ChannelStatusType, ChatMessagesType} from "../api/chat-api";
-import {sendMessageThCr, startMessagesListening, stopMessagesListening} from "../../redux/chat-reducer";
+import {chatActions, sendMessageThCr, startMessagesListening, stopMessagesListening} from "../../redux/chat-reducer";
 import AddMessagesFormik from "./AddMessages/AddMessagesFormikBS";
 
 const Messages: React.FC = () => { // отрисовка всех сообщений
-    console.log(">>>>>>>>>>>>>>Messages")
+   // console.log(">>>>>>>>>>>>>>Messages")
     const messages: Array<ChatMessagesType> = useSelector( (state: GlobalStateType) => state.chat.messages ) // получить сообщения из стейта
 
-    function useChatScroll<T>(dep: T): React.MutableRefObject<HTMLDivElement | null> {
-        const ref = React.useRef<HTMLDivElement>( null );
-        React.useEffect( () => {
-            if (ref.current) {
-                ref.current.scrollTop = ref.current.scrollHeight;
-            }
-        }, [dep] );
-
-        return ref;
+    const autoScroll = () => {
+        const {
+            scrollHeight, // высота всего контента с учетом прокрутки
+            offsetHeight,// высота видимого содержимого без прокрутки
+            scrollTop } = // высота, насколько прокручен контент
+            container.current as HTMLDivElement
+        if (scrollHeight <= scrollTop + offsetHeight + 100) {
+            container.current?.scrollTo(0, scrollHeight)
+        }
     }
+    const container = useRef<HTMLDivElement>(null)
 
-    const ref = useChatScroll( messages )
+    useEffect(() => {
+        autoScroll()
+    }, [messages])
 
-    return <div ref={ref}
-                style={{height: "30rem", overflowY: "auto"}}
+    return <div
+        ref={container}
+       // ref={ref}
+                style={{height: "20rem", overflowY: "auto"}}
     >
 
         {messages.map( (message: ChatMessagesType, index: number) => { // пробегаем по списку сообщений из стейта
@@ -36,15 +41,14 @@ const Message: React.FC<{ message: ChatMessagesType }> = ({message}) => { // о�
     return <div>
         <div>
             <img src={message.photo} alt="avatar" style={{height: "30px"}}/>
-            {message.userName}
-            <div>{message.message}</div>
+            <b>{message.userName}</b>{" "}{message.message}
             <hr/>
         </div>
     </div>
 }
 
 const AddMessages: React.FC = () => {
-    console.log(">>>>>>>>>>>>>>AddMessages")
+  //  console.log(">>>>>>>>>>>>>>AddMessages")
 
     const channelStatus: ChannelStatusType = useSelector( (state: GlobalStateType) => state.chat.channelStatus ) // получить статус открытия канала
 
@@ -65,22 +69,25 @@ const AddMessages: React.FC = () => {
     const isDisabled = channelStatus !== "ready"
     return <div>
         <AddMessagesFormik sendMessage={sendMessage} isDisabled={isDisabled}/>
+{/*
         <input disabled={isDisabled} value={message} onChange={(e) => setMessage( e.target.value )}
                style={{width: "50rem"}}
                onKeyPress={(e) => checkEnterPressed( e )} // проверка нажатия Enter
-        /> {/*поле ввода*/}
-        <button onClick={()=>sendMessage(message)} disabled={isDisabled}>Send </button> {/*отправка сообщений */}
+        />
+        <button onClick={()=>sendMessage(message)} disabled={isDisabled}>Send </button> отправка сообщений
+*/}
     </div>
 }
 
 const Chat: React.FC = () => {
-    console.log(">>>>>>Chat")
+  //  console.log(">>>>>>Chat")
 
     const dispatch = useDispatch()
     useEffect( () => {
         dispatch( startMessagesListening() )// открытие канала WS, создание подписок и слушателей событий
         return () => {
             dispatch( stopMessagesListening() ) // закрытие канала WS, удаление подписок и слушателей событий
+            dispatch(chatActions.setChatInitialState()) // зануление стейта чата при размонтировании компоненты
         }
     }, [] )
     return <div>

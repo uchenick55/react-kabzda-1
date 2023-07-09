@@ -18,7 +18,7 @@ type ProfileInfoType2 = {
 const ProfileInfo: React.FC<ProfileInfoType2> = memo( (
     {profile, isMyProfile, putProfile, editProfileStatus, setEditProfileStatus, isProfileEditedSuccesssfully}) => {
 
-    console.log( "ProfileInfo" )
+    //console.log( "ProfileInfo" )
 
     const [editMode, setEditMode] = useState<boolean>( false ) // флаг режима редактирования профиля
 

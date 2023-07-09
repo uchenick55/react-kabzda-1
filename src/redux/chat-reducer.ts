@@ -11,6 +11,7 @@ import uniqid from 'uniqid';
 
 const SET_MESSAGE = "myApp/dialog2-reducer/SET_MESSAGE";
 const SET_CHANNEL_STATUS = "myApp/dialog2-reducer/SET_CHANNEL_STATUS";
+const SET_CHAT_INITIAL_STATE = "myApp/dialog2-reducer/SET_CHAT_INITIAL_STATE";
 
 export const chatActions = {
 
@@ -19,6 +20,9 @@ export const chatActions = {
     },
     setChannelStatus: (channelStatus: ChannelStatusType) => { // экшн креатор обновления сообщений в стейте
         return {type: SET_CHANNEL_STATUS, channelStatus} as const
+    },
+    setChatInitialState: () => { // экшн креатор зануления стейта чата
+        return {type: SET_CHAT_INITIAL_STATE} as const
     },
 }
 
@@ -41,19 +45,23 @@ const chatReducer = (state: InitialStateChatType = initialState, action: ChatAct
             const newMessagesWithId:Array<ChatMessagesTypeWithId> = action.newMessages.map(m=>{ // пробегаем массив новых сообщений
                 return Object.assign(m, { id: uniqid()}) // добавляем уникальный id каждому сообщению
             })
-
-            stateCopy = {
-                ...state,
-                messages: [...state.messages, ...newMessagesWithId] // добавляем новые сообщения к имеющимся
-                    .filter((m, ind, arr)=> ind>= arr.length - 90), // только последние 90 сообщений
+            if (state.messages[state.messages.length-1]!==action.newMessages[action.newMessages.length-1]) { // дублирование сообщения?
+                stateCopy = {
+                    ...state,
+                    messages: [...state.messages, ...newMessagesWithId] // добавляем новые сообщения к имеющимся
+                        .filter((m, ind, arr)=> ind>= arr.length - 90), // только последние 90 сообщений
+                }
+                return stateCopy
             }
-            return stateCopy
+            return state
         case SET_CHANNEL_STATUS:
             stateCopy = {
                 ...state,
                 channelStatus: action.channelStatus, // обновление статуса канала WS
             }
             return stateCopy
+        case SET_CHAT_INITIAL_STATE:
+            return initialState
         default:
             return state
     }

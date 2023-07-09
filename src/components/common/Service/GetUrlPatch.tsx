@@ -5,7 +5,7 @@ import {useLocation} from "react-router";
 import {appActions} from "../../../redux/app-reducer";
 
 const GetUrlPatch: React.FC = (() => {
-    console.log( "GetUrlPatch" )
+   // console.log( "GetUrlPatch" )
 
     const {setPatch} = appActions
 
@@ -28,7 +28,7 @@ const GetUrlPatch: React.FC = (() => {
                 tempPath.push( patchArray[i] ) // добавляем элементы в массив
             }
             const UpdatedPatch: string = tempPath.join( "" ) // итоговый путь
-            console.log("dispatch UpdatedPatch:", UpdatedPatch)
+           // console.log("dispatch UpdatedPatch:", UpdatedPatch)
             dispatch( setPatch( UpdatedPatch ) )// обновить данные пути patch в app-reducer
 
         }

@@ -4,7 +4,7 @@ import {useDispatch} from "react-redux";
 import {AppDispatch} from "../../../redux/store-redux";
 
 const GetPageWidth: React.FC = () => {
-    console.log("GetPageWidth")
+   // console.log("GetPageWidth")
 
     const {setPageWidth} = appActions
 

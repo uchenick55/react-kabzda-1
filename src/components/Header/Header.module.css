@@ -28,3 +28,7 @@
     color: white;
 }
 
+.keyImg {
+    width: 1rem;
+    transform: scale(1.2) translate(0.5rem);
+}

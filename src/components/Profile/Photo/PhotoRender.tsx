@@ -10,7 +10,7 @@ type PhotoRenderType = {
     onChangeLocal: (e: ChangeEvent<HTMLInputElement>) => void
 }
 const PhotoRender: React.FC<PhotoRenderType> = ({photo, isMyProfile, onChangeLocal}) => {
-    console.log('PhotoRender')
+    //console.log('PhotoRender')
     return <div>
         <div className={classesCommon.toCenter}>
             <Image fluid={true}

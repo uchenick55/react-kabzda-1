@@ -14,7 +14,7 @@ type Dialog2ItemType = {
 }
 const Dialog2Item: React.FC<Dialog2ItemType> = memo ( (
     {userName, hasNewMessages, photosSmall, lastDialogActivityDate, newMessagesCount, id}) => {
-    console.log("Dialog2Item")
+   // console.log("Dialog2Item")
     const DateLocal = GetDate(lastDialogActivityDate) // получаем дату последнего сообщения
     return <div className={classes.Dialog2ItemCardExt}>
         <NavLink to={'/messages/' + id}>
