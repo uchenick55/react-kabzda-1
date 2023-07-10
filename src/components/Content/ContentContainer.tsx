@@ -24,6 +24,7 @@ const ContentContainer: React.FC = memo( () => { // вынес роутинг к
             <Suspense fallback={
                 <div>Загрузка...</div>}> {/*Оборачивает компоненты, по которым идет Lazy import и выдает fallback на время загрузки*/}
                 <div className={classes.contentContainer}>
+                    <ChatContainer/>
                     <Routes> {/*в зависимости от URL подгрузка разного контента*/}
                         <Route path='' element={<Home/>}/> {/*Общие Комментарии*/}
                         <Route path='/mystack/*' element={<StackInfo/>}/> {/*Общие Комментарии*/}

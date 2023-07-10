@@ -1,0 +1,61 @@
+.chatBookmarkExtCommon {
+    z-index: 100;
+    position: fixed;
+    bottom: 8rem;
+    background-color: #61dafb;;
+    transition: ease-in-out 0.3s;
+}
+.chatBookmarkExt {
+    right: 0rem;
+}
+
+.hideChatBookmarkExt {
+    right: -5rem;
+}
+
+.chatBookmarkExt:hover {
+    transform: scale(1.03);
+}
+.chatBookmark {
+    position: absolute;
+    top: 0rem;
+    right: 0rem;
+    width: 9rem;
+    height: 3rem;
+    background-color: var(--color3);;
+    border: 1px solid var(--color1);
+    cursor: pointer;
+    border-radius: 0.5rem;
+    transform: rotate(-90deg) translateY(3.4rem);
+    font-weight: bold;
+    font-family: Arial;
+}
+
+.imgDialog {
+    position: absolute;
+    top: -2.7rem;
+    right: 0.2rem;
+    width: 2rem;
+}
+
+.bookmarkText {
+    position: absolute;
+    right: 2.5rem;
+    bottom: 0.7rem;
+}
+.ChatCommon {
+    z-index: 100;
+    position: fixed;
+    bottom: 10rem;
+    background-color: var(--color2);;
+    transition: ease-in-out 0.3s;
+    top: 5rem;
+}
+
+.MakeChatVisible {
+    right: 0rem;
+}
+
+.MakeChatInvisible {
+    right: -20rem;
+}

@@ -12,6 +12,7 @@ import uniqid from 'uniqid';
 const SET_MESSAGE = "myApp/dialog2-reducer/SET_MESSAGE";
 const SET_CHANNEL_STATUS = "myApp/dialog2-reducer/SET_CHANNEL_STATUS";
 const SET_CHAT_INITIAL_STATE = "myApp/dialog2-reducer/SET_CHAT_INITIAL_STATE";
+const SWITCH_SHOW_CHAT = "myApp/dialog2-reducer/SWITCH_SHOW_CHAT";
 
 export const chatActions = {
 
@@ -24,6 +25,9 @@ export const chatActions = {
     setChatInitialState: () => { // экшн креатор зануления стейта чата
         return {type: SET_CHAT_INITIAL_STATE} as const
     },
+    switchRenderChat: () => { // экшн креатор задания отрисовки чата
+        return {type: SWITCH_SHOW_CHAT} as const
+    },
 }
 
 type ChatActionsTypes =
@@ -32,7 +36,8 @@ type ChatActionsTypes =
 
 const initialState = {
     messages: [] as Array<ChatMessagesTypeWithId>,
-    channelStatus: "pending" as ChannelStatusType
+    channelStatus: "pending" as ChannelStatusType,
+    renderChat: false as boolean
 }
 
 type InitialStateChatType = typeof initialState
@@ -62,6 +67,12 @@ const chatReducer = (state: InitialStateChatType = initialState, action: ChatAct
             return stateCopy
         case SET_CHAT_INITIAL_STATE:
             return initialState
+        case SWITCH_SHOW_CHAT:
+            stateCopy = {
+                ...state,
+                renderChat: !state.renderChat, // делаем инверсию отрисовки чата
+            }
+            return stateCopy
         default:
             return state
     }
