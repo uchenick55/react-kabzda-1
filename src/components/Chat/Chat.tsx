@@ -5,6 +5,9 @@ import {ChannelStatusType, ChatMessagesType} from "../api/chat-api";
 import {chatActions, sendMessageThCr, startMessagesListening, stopMessagesListening} from "../../redux/chat-reducer";
 import AddMessagesFormik from "./AddMessages/AddMessagesFormikBS";
 import Toast from 'react-bootstrap/Toast';
+import classes from "./chat.module.css";
+import {NavLink} from "react-router-dom";
+import Image from "react-bootstrap/Image";
 
 const Messages: React.FC = memo( () => { // отрисовка всех сообщений
     //console.log( "Messages" )
@@ -23,13 +26,13 @@ const Messages: React.FC = memo( () => { // отрисовка всех сооб
             container.current as HTMLDivElement
         if (scrollHeight <= scrollTop + offsetHeight + 300) {
             setShouldScroll( true )
-           // console.log( 'setShouldScroll=>True' )
+            // console.log( 'setShouldScroll=>True' )
         }
 
         if (!firstScrolled && messages.length > 0) {
             setShouldScroll( true )
             setFirstScrolled( true )
-           // console.log( "setShouldScroll( true ) + setFirstScrolled( true )" )
+            // console.log( "setShouldScroll( true ) + setFirstScrolled( true )" )
         }
 
     }, [messages] )
@@ -60,12 +63,22 @@ const Messages: React.FC = memo( () => { // отрисовка всех сооб
 
 const Message: React.FC<{ message: ChatMessagesType }> = memo( ({message}) => { // отрисовка одного сообщения (фото, тела и имени пользователя)
     //console.log( "Message" )
-    return <div>
-        <div>
-            <img src={message.photo} alt="avatar" style={{height: "30px"}}/>
-            <b>{message.userName}</b>{" "}{message.message}
-            <hr/>
+    return <div className={classes.MessageItem}>
+        {/*<img src={message.photo} className={classes.interlocutorAvatar} alt="avatar"/>*/}
+        {/*<span className={classes.interlocutorName}> {message.userName} </span>*/}
+        {/*<span className={classes.interlocutorMessage}>{message.message}</span>*/}
+
+
+        <NavLink to={'/profile/' + message.userId}>
+            <Image fluid={true} src={message.photo} className="float-start my-2 mx-2 shadow rounded" style={{width: "3rem"}}
+                   alt={"avatar"} title={`Профиль ${message.userId}`}
+            />
+        </NavLink>
+        <h5><b>{message.userName}</b></h5>
+        <div className="flex-grow-1 ms-3">
+            <div> {message.message} </div>
         </div>
+        <hr/>
     </div>
 } )
 
@@ -108,5 +121,5 @@ const Chat: React.FC = memo( () => {
 
         </Toast.Body>
     </Toast>
-})
+} )
 export default Chat

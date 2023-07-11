@@ -58,3 +58,25 @@
 .MakeChatInvisible {
     right: -30rem;
 }
+
+.MessageItem {
+    position: relative;
+}
+
+.interlocutorAvatar {
+    position: relative;
+    height: 3rem;
+    border-radius: 0.5rem;
+}
+.interlocutorName {
+    position: relative;
+    top: -1rem;
+    left: 1rem;
+    font-weight: bold;
+    font-size: 0.8rem;
+}
+
+.interlocutorMessage {
+    position: relative;
+
+}
