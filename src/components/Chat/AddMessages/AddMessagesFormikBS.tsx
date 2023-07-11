@@ -5,6 +5,7 @@ import * as Yup from 'yup' // валидация форм с помошью ст
 import {MyTextInput} from "../../common/formikCommon/MyFieldsBS"
 import Button from "react-bootstrap/Button";
 import Stack from "react-bootstrap/Stack";
+import {ChannelStatusType} from "../../api/chat-api";
 
 const myInitialValues = { // начальные зачения форм
     newMessage: "",
@@ -14,13 +15,12 @@ const myValidationSchema = Yup.object({ // валидация форм на requ
 
 type MyPostsFormikType = {
     sendMessage: (newMessage:string) => void,
-    isDisabled: boolean
-
+    channelStatus: ChannelStatusType
 }
 type ValuesType = {
     newMessage: string
 }
-const AddMessagesFormik:React.FC<MyPostsFormikType> = ({sendMessage, isDisabled}) => { // основная компонента с входным колбэком, чтобы забрать данные с форм
+const AddMessagesFormik:React.FC<MyPostsFormikType> = ({sendMessage, channelStatus}) => { // основная компонента с входным колбэком, чтобы забрать данные с форм
     const myOnSubmit = (values:ValuesType, {resetForm}:FormikHelpers<{ newMessage: string; }>) => { // действия по сабмиту
         sendMessage(values.newMessage) // колбек, который принмает результат ввода формы
         resetForm()// сбросить значение формы после ввода
@@ -34,7 +34,7 @@ const AddMessagesFormik:React.FC<MyPostsFormikType> = ({sendMessage, isDisabled}
                 onSubmit={myOnSubmit}
             >
 
-                {() => (
+                {({values}) => (
                     <Form>
                         <div>
                             <MyTextInput // сообщение в MyPostsBS
@@ -44,13 +44,19 @@ const AddMessagesFormik:React.FC<MyPostsFormikType> = ({sendMessage, isDisabled}
                                 type='text'
                                 placeholder='Введите ваше сообщение'
                                 leftLabelLength={""}
-                                isDisabled = {false}
+                                isDisabled = {channelStatus!=="ready"}  // деактивировать поле ввода, если статус нанала не ready
                             />
 
 
                             {/*кнопка сброса к значениям по умолчанию*/}
                             <Stack direction="vertical" gap={1} className={'mt-2'}>
-                                <Button type="submit"> {/*кнопка отправить форму*/}
+                                <Button //кнопка отправить форму
+                                    disabled={ // деактивировать кнопку отправки
+                                        channelStatus!=="ready" || // если статус канала не равен ready
+                                        values.newMessage.length===0 // или поле ввода пустое
+                                    }
+                                    type="submit"
+                                >
                                     Submit
                                 </Button>
                             </Stack>

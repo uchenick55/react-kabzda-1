@@ -37,7 +37,6 @@ const ContentContainer: React.FC = memo( () => { // вынес роутинг к
                         <Route path='/rest/*' element={<Rest/>}/> {/*Страница отдыха*/}
                         <Route path='/feedback/*' element={<FeedBackContainer/>}/> {/**/}
                         <Route path='/tasks/*' element={<Tasks/>}/> {/**/}
-                        <Route path='/chat/*' element={<ChatContainer/>}/> {/*страница чата*/}
                     </Routes>
                 </div>
             </Suspense>

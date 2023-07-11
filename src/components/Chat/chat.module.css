@@ -46,16 +46,15 @@
 .ChatCommon {
     z-index: 100;
     position: fixed;
-    bottom: 10rem;
-    background-color: var(--color2);;
     transition: ease-in-out 0.3s;
-    top: 5rem;
+    bottom: 2rem;
+
 }
 
 .MakeChatVisible {
-    right: 0rem;
+    right: 0.5rem;
 }
 
 .MakeChatInvisible {
-    right: -20rem;
+    right: -30rem;
 }

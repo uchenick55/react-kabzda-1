@@ -14,7 +14,6 @@ const DropdownNavbarBS:React.FC = memo( () => {
                 <NavDropdown.Item href="#/users">Users</NavDropdown.Item>
                 <NavDropdown.Item href="#/profile">Profile {keyImg} </NavDropdown.Item>
                 <NavDropdown.Item href="#/dialog2">Dialogs {keyImg} </NavDropdown.Item>
-                <NavDropdown.Item href="#/chat">Chat {keyImg} </NavDropdown.Item>
                 <NavDropdown.Item href="#/feedback">FeedBack</NavDropdown.Item>
                 <NavDropdown.Item href="#/tasks">Tasks</NavDropdown.Item>
             </NavDropdown>

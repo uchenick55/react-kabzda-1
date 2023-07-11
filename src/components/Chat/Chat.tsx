@@ -1,13 +1,13 @@
-import React, {useEffect, useRef, useState} from "react";
+import React, {memo, useEffect, useRef, useState} from "react";
 import {useDispatch, useSelector} from "react-redux";
 import {GlobalStateType} from "../../redux/store-redux";
 import {ChannelStatusType, ChatMessagesType} from "../api/chat-api";
 import {chatActions, sendMessageThCr, startMessagesListening, stopMessagesListening} from "../../redux/chat-reducer";
 import AddMessagesFormik from "./AddMessages/AddMessagesFormikBS";
-import classes from "./chat.module.css";
-import CloseButton from 'react-bootstrap/CloseButton';
+import Toast from 'react-bootstrap/Toast';
 
-const Messages: React.FC = () => { // отрисовка всех сообщений
+const Messages: React.FC = memo( () => { // отрисовка всех сообщений
+    //console.log( "Messages" )
     const [shouldScroll, setShouldScroll] = useState<boolean>( false ) // маркер следует ли прокрутить контент вниз
     const [firstScrolled, setFirstScrolled] = useState<boolean>( false ) // маркер разовой прокрутки вниз в начале
     const messages: Array<ChatMessagesType> = useSelector( (state: GlobalStateType) => state.chat.messages ) // получить сообщения из стейта
@@ -23,11 +23,13 @@ const Messages: React.FC = () => { // отрисовка всех сообщен
             container.current as HTMLDivElement
         if (scrollHeight <= scrollTop + offsetHeight + 300) {
             setShouldScroll( true )
+           // console.log( 'setShouldScroll=>True' )
         }
 
         if (!firstScrolled && messages.length > 0) {
             setShouldScroll( true )
             setFirstScrolled( true )
+           // console.log( "setShouldScroll( true ) + setFirstScrolled( true )" )
         }
 
     }, [messages] )
@@ -38,10 +40,8 @@ const Messages: React.FC = () => { // отрисовка всех сообщен
         } =
             container.current as HTMLDivElement
 
-        //container.current?.scrollTo( 0, scrollHeight )
         container.current?.scrollTo( {top: scrollHeight, behavior: 'smooth'} )
         setShouldScroll( false ) //
-        //console.log('прокрутили, меняем маркет - прокручивать больше не нужно')
     }
 
     useEffect( () => { // прокручиваем список сообщений
@@ -50,15 +50,16 @@ const Messages: React.FC = () => { // отрисовка всех сообщен
 
     return <div
         ref={container}
-        style={{height: "20rem", overflowY: "auto"}}
+        style={{height: "15rem", overflowY: "auto"}}
     >
         {messages.map( (message: ChatMessagesType, index: number) => { // пробегаем по списку сообщений из стейта
             return <Message key={index} message={message}/> // отрисовываем сообщения поэлементно
         } )}
     </div>
-}
+} )
 
-const Message: React.FC<{ message: ChatMessagesType }> = ({message}) => { // отрисовка одного сообщения (фото, тела и имени пользователя)
+const Message: React.FC<{ message: ChatMessagesType }> = memo( ({message}) => { // отрисовка одного сообщения (фото, тела и имени пользователя)
+    //console.log( "Message" )
     return <div>
         <div>
             <img src={message.photo} alt="avatar" style={{height: "30px"}}/>
@@ -66,9 +67,10 @@ const Message: React.FC<{ message: ChatMessagesType }> = ({message}) => { // о�
             <hr/>
         </div>
     </div>
-}
+} )
 
 const AddMessages: React.FC = () => {
+    //console.log( "AddMessages" )
     const channelStatus: ChannelStatusType = useSelector( (state: GlobalStateType) => state.chat.channelStatus ) // получить статус открытия канала
 
     const dispatch = useDispatch()
@@ -77,32 +79,15 @@ const AddMessages: React.FC = () => {
         message && dispatch( sendMessageThCr( message ) ) // отправить сообщение
     }
 
-    const isDisabled = channelStatus !== "ready"
-    return <AddMessagesFormik sendMessage={sendMessage} isDisabled={isDisabled}/>
-}
-type ChatType = {
-    showChatBookmark: boolean // флаг отображения закладки чата на странице
-    setShowChatBookmark: (showChatBookmark: boolean) => void // функция смены флага отображения закладки чата на странице
+    return <AddMessagesFormik sendMessage={sendMessage} channelStatus={channelStatus}/>
 }
 
-const Chat: React.FC<ChatType> = ({showChatBookmark, setShowChatBookmark}) => {
-    console.log( "Chat" )
+const Chat: React.FC = memo( () => {
+    //console.log( "Chat" )
     const {switchRenderChat, setChatInitialState} = chatActions // экшн смены флага отрисовки чата
 
-    const renderChat = useSelector( (state: GlobalStateType) => state.chat.renderChat ) // флаг отрисовки чата
-
-    const [isChatVisible, setIsChatVisible] = useState<boolean>( false ) // флаг и колбек видимости чата на странице (либо за ее пределами)
-
+    const theme = useSelector( (state: GlobalStateType) => state.theme.themeBLL ) // флаг темы
     const dispatch = useDispatch()
-
-    const makeChatInvisible = () => {
-        console.log( "makeChatInvisible" )
-        setIsChatVisible( false )
-        setTimeout( () => {
-            console.log( "renderChat => false" )
-            dispatch( switchRenderChat() )
-        }, 1000 )
-    }
 
     useEffect( () => {
         dispatch( startMessagesListening() )// открытие канала WS, создание подписок и слушателей событий
@@ -112,28 +97,16 @@ const Chat: React.FC<ChatType> = ({showChatBookmark, setShowChatBookmark}) => {
         }
     }, [] )
 
-    useEffect( () => {
-        console.log( "Chat rendered, invisible" )
+    return <Toast bg={theme} onClose={() => dispatch( switchRenderChat() )}>
+        <Toast.Header>
+            <strong className="me-auto">Общий чат</strong>
+        </Toast.Header>
+        <Toast.Body>
 
-        const id = setTimeout( () => {
-            if (!renderChat) {
-                setIsChatVisible( true )
-                console.log( "Chat rendered, visible" )
-            }
-            return () => {
-                clearTimeout( id )
-            }
-        }, 2000 )
-
-    }, [renderChat] )
-    return <div>
-        {renderChat && <div
-            className={`${classes.ChatCommon} ${isChatVisible ? classes.MakeChatVisible : classes.MakeChatInvisible}`}
-        >
-            <CloseButton onClick={makeChatInvisible}/>
             <Messages/> {/*отрисовка сообщений*/}
             <AddMessages/> {/*ввод сообщений и кнопка отправки*/}
-        </div>}
-    </div>
-}
+
+        </Toast.Body>
+    </Toast>
+})
 export default Chat
